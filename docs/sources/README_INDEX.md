@@ -14,6 +14,7 @@ Disusun: 2026-09-12. Semua file diunduh langsung dari sumber; teks PDF diekstrak
 | `06_Simulasi_Tools_OpenSource/` | dokumentasi SUMO (traffic lights, NEMA, TraCI), paper RL-SUMO | R03 bagian B |
 | `docs/sources/_teks_ekstraksi/` | hasil `pdftotext -layout` seluruh PDF | untuk grep/verifikasi |
 | `07_Konteks_Kota_Target/` | 38 arsip teks berita/halaman web kota target (Bandung, Medan, Palembang, Surabaya, Bodetabek, dll.) + 1 jurnal UNESA + `_urls.tsv` | `docs/kb/09` |
+| `08_Data_Kota_Pilot_Bandung/` | data kota pilot Bandung: daftar 24 lokasi/46 kamera ATCS dari portal resmi (CSV/JSON + koordinat), 21 arsip teks (ATCS, rencana AI-ATCS 2026, titik macet, TMB/MJT/BEMO) + `_urls.tsv` | **R07** bagian C |
 | `docs/kb/00–11` | **basis pengetahuan ringkas untuk resume sesi**: START_HERE, glosarium, lembar rumus, peta regulasi (C-01…C-43), katalog kebutuhan (KB-REQ), kartu algoritma (K-01…K-14), model data & antarmuka, KPI & monev, pelajaran & risiko, konteks kota, keputusan & pertanyaan terbuka, kartu sumber | `00_START_HERE.md` |
 
 ## 01 — Regulasi Indonesia
@@ -40,6 +41,16 @@ Disusun: 2026-09-12. Semua file diunduh langsung dari sumber; teks PDF diekstrak
 | Perpol_2_2025_Penindakan_Pelanggaran_Berbasis_Bukti_Rekaman_Elektronik.pdf | peraturan.bpk.go.id (Download) | OK — dibaca; kamera non-ETLE = "perangkat elektronik lainnya" wajib verifikasi Polri; alur tilang Ps.8–14; KB-03 §A.11b, C-42 |
 | KepKa_LAN_1_2023_Pedoman_Pelatihan_Struktural_Kepemimpinan.pdf (130) | pusdikmin.com | OK |
 | raw_*.html | halaman detail BPK/JDIH | bukti sumber |
+| **Perda_Bandung_12_2024_Penyelenggaraan_Perhubungan.pdf** (98) | peraturan.bpk.go.id/Download/376166 | OK — teks utuh; **mencabut Perda 16/2012**; Bab IX Sistem Manajemen Transportasi Cerdas (Ps.103–106), Bab XI TIK Transportasi (Ps.111–114), Bab XIII MRLL (Ps.121–138) — R07 A.1 |
+| Perda_Bandung_16_2012_Penyelenggaraan_Perhubungan_DICABUT.pdf (108) | peraturan.bpk.go.id/Download/160487 | OK — **tidak berlaku** (dicabut Perda 12/2024); arsip historis |
+| **Perda_Jabar_5_2024_Penyelenggaraan_Perhubungan.pdf** (121) | peraturan.bpk.go.id/Download/366872 | OK — mencabut Perda Jabar 3/2011 & 4/2017; Ps.14–20 MRLL jalan provinsi (Ps.20 persetujuan provinsi bila kota inisiasi MRLL di jalan provinsi), Ps.166 sistem informasi perhubungan — R07 A.2 |
+| **Perwal_Bandung_101_2022_SOTK_Dinas_Perhubungan.pdf** (37) | peraturan.bpk.go.id/Download/267338 | OK — Ps.10 Seksi Lalu Lintas Jalan: MRLL, APILL, **CCTV terintegrasi**, pengukuran kinerja berbasis TI — R07 A.3 |
+| Perwal_Bandung_49_2021_UPTD_Dinas_Perhubungan.pdf (18) | peraturan.bpk.go.id/Download/189017 | OK — hanya 3 UPTD (Perparkiran, Terminal, Angkutan); **tidak ada UPT ATCS** — R07 A.4 |
+| Perwal_Bandung_20_2023_Penyelenggaraan_SPBE.pdf (60) | jdih.bandung.go.id/media/10974 (= BPK Download/325456) | OK unduh, tetapi **hasil scan tanpa teks** (OCR tidak tersedia); isi dari abstrak BPK — R07 A.5 |
+| Pergub_DKI_25_2017_Jalan_Berbayar_Elektronik_ERP.pdf (13) | peraturan.bpk.go.id/Download/51225 | OK — **dicabut** Pergub 20/2022; kriteria ruas ERP Ps.6, 9 ruas Ps.7, perangkat Ps.14–16, monev Ps.23 — R07 A.6 |
+| Pergub_DKI_20_2022_Pencabutan_Pergub_25_2017_ERP.pdf (2) | peraturan.bpk.go.id/Download/214153 | OK — pencabutan ERP 2017 ("ketidaksesuaian dengan kebutuhan hukum") |
+| *(Permenhub PM 67/2021)* | jdih.kemenhub.go.id | **TIDAK DIUNDUH** — judulnya "Organisasi dan Tata Kerja Kementerian Perhubungan", tidak relevan LLAJ |
+| *(Kep. Dirjen Hubdat SK.326/KP.108/DRJD/2018 — Pengaturan Lalu Lintas di Persimpangan Berdiri Sendiri dengan APILL)* | jdih.dephub.go.id | **TIDAK DITEMUKAN** (WAF/JDIH tidak mengembalikan hasil); isinya dikutip dari tesis PTDI-STTD (lihat R07 A.8 & D) — substitusi: Kep. Dirjen 273/1996 + PKJI 2023 |
 
 ## 02 — Panduan Praktis & Standar
 | File | Sumber | Catatan |
@@ -64,6 +75,13 @@ Disusun: 2026-09-12. Semua file diunduh langsung dari sumber; teks PDF diekstrak
 | FHWA_HOP-24-019_Emergency_Vehicle_Preemption.pdf | ops.fhwa.dot.gov | R06 |
 | CED_HCM_6th_Edition_Overview.pdf (43) | cedengineering.com | R06 (rumus control delay tidak ada di overview) |
 | LAN_Modul_Proyek_Perubahan_PKN_II.pdf (62) | pusdikmin.com | R05 F |
+| **Purdue_JTRP_2014_Performance_Measures_Traffic_Signal_Systems_Outcome_Oriented.pdf** (132; Day, Bullock dkk., TPF-5(258)/JTRP) | docs.lib.purdue.edu/jtrpaffdocs/3 (viewcontent, 43 MB) | OK — POG Eq.6.5, Platoon Ratio Eq.6.6 + Tabel 6.1 (hal. 71–73), PCD §6.5; **tidak memuat Link Pivot** — R07 B |
+| Purdue_JTRP_2008_Real_Time_Arterial_Traffic_Signal_Performance_Measures.pdf (244; Day, Smaglik, Bullock, Sturdevant) | docs.lib.purdue.edu/jtrp (article 1787) | OK — Eq.4.17–4.18 platoon ratio/POG, Tabel 4.10 arrival type (hal. 110–112) — R07 B |
+| Purdue_civeng_2011_Alternative_Arterial_Offset_Objective_Functions.pdf (34; Day, Brennan, Hainen, Remias, Bullock, TRB 11-0036) | docs.lib.purdue.edu/civeng/10 | OK — Eq.1–6: antrian, tundaan, stops, PI, **N_g = Σ G_i·N_i** (AOG) untuk Link Pivot — R07 B |
+| Purdue_ATSPMW_2016_Extending_Link_Pivot_DDI.pdf (poster 2 hal.; Day, Lavrenz, Stevens, Miller, Bullock, TRB 16-0111) | docs.lib.purdue.edu/atspmw/2016/Posters/12 | OK — diagram alir **Link Pivot** (δ, d_base, akumulasi a_j) + rumus O_new = (O_old+Δ) mod C — R07 B. Paper penuh (civeng/25) **403** |
+| Purdue_civeng_2016_Detector_Free_Offset_Optimization_CV_Proof_of_Concept.pdf (22; Day & Bullock) | docs.lib.purdue.edu/civeng/26 | OK — offset dari data kendaraan terhubung (T4–T5) |
+| ATSPM_UDOT_GitHub_tree_v4_api.json; ATSPM_OpenSourceTransportation_GitHub_tree_v5_api.json (+ _Atspm_dir) | api.github.com | OK — struktur modul repo ATSPM UDOT v4.3 (deprecated) & v5 — R07 B.4 |
+| *(Day & Bullock 2011 TRR 2259-04 "Computational Efficiency…" — paper asli Link Pivot)* | doi.org/10.3141/2259-04 | **paywall SAGE**; PURR 10.4231/R7GQ6VPT hanya animasi 84 MB — diganti poster 2016 + TRB 11-0036 |
 
 ## 03 — Jurnal & paper akademis (semua dirangkum di R04 kecuali dicatat)
 arXiv: 2211.14426 (critical review RL/MPC), 2206.11996 (RL to reality), 2510.05374 (digital twin intersections), 2202.03290 (D-MP), 2210.10453 (cyclic MP + perimeter control), 2406.19269 (OCC-MP), 2511.00309 (Transit-MP), 2507.22511 (green wave survey), 2411.19359 (TSP-MARL), 1901.00960, 2302.03669, 2007.03433, 2406.02126 (CityLight), 2409.13388, 2412.16225, 2603.15283, 2604.27753, 2109.03210 (EVP mixed-criticality), 2212.02315 (CV arterial), 1909.00395 (sumolights — R03), 2308.14295 (RL-SUMO — R03), 2308.01952 (taxonomy ATSC — R00 I), 1904.08117 (Wei survey — belum dirangkum), Qadri 2020 ETRR (belum dirangkum).
@@ -78,6 +96,19 @@ SUMO docs: Traffic Lights, NEMA Phases, TraCI4Traffic Lights (html + md); arXiv 
 ## 07 — Konteks kota target (arsip teks, riset pra-perencanaan)
 38 arsip teks (`Teks_*.md`) + 1 jurnal UNESA + `_urls.tsv` (URL, tanggal, status unduhan) tentang urgensi kemacetan, status ATCS, anggaran, vendor & pengadaan di Bandung, Bandung Barat, Medan, Palembang, Surabaya, Bekasi, Tangerang, Depok, Bogor, Badung, Batam, Bukittinggi, dll. Gagal: data.bandung.go.id/atcs (500), jdih.lkpp Perpres 46/2025 (timeout), pasjabar (404). Rangkuman: `docs/kb/09_Konteks_Jakarta_dan_Kota_Target.md`, `08_Pelajaran_Lapangan_dan_Risiko.md`; pasar & pengadaan: `docs/planning/03`.
 
+## 08 — Data kota pilot Bandung (riset R07, 2026-09-12)
+| File | Sumber | Catatan |
+|---|---|---|
+| ATCS_Bandung_lokasi_kamera_portal_2026-09-12.csv / .json | atcs-dishub.bandung.go.id (POST /ajax/lokasi, /ajax/cctv-list) | **24 lokasi simpang + koordinat, 46 kamera** (SP = kamera simpang, VID = kamera per pendekat); 8 di Soekarno-Hatta, 7 koridor Pasteur–Cikapayang–Dago, 5 PHH Mustofa, dll. |
+| Teks_atcs_portal.md, Teks_serbabandung_atcs.md, Teks_gsi_cctv_atcs.md | portal ATCS, SerbaBandung 2023, GSI 2026 | komponen sistem ATCS (server, wall map, local controller, CCTV, vehicle detector), ruang kendali Balai Kota Jl. Wastukencana 2 |
+| Teks_tribun_66_simpang.md, Teks_detik_150_titik.md | Tribun Jabar 23-07-2026, detikJabar 12-07-2025 | Kadishub: **150 APILL, 66 simpang ber-CCTV terhubung ATCS, 4 trase**; data APILL 2022: 150 titik; Stopan Kircon merah ±410 dtk |
+| Teks_kompas_atcs_ai_2026.md, Teks_radar_ai_*.md, Teks_jabarekspres_ai_2026.md, Teks_prfm_ai.md | Kompas/Radar Bandung/Jabar Ekspres/PRFM Apr–Mei 2026 | Wali Kota Farhan: ATCS "masih semi-manual", akan di-upgrade AI; prioritas titik perbatasan kota; uji coba di Pasteur sejak akhir 2025 |
+| Teks_sonora_16_titik.md, Teks_strategi_titik_macet.md, Teks_detik_nataru_16.md, Teks_pr_18_jalur.md, Teks_ayobandung_farhan.md, Teks_jabarnews_macet.md | Des-2024, Des-2025, 2025, 2022 | daftar titik rawan macet (16/18/45 titik), TomTom 2024 Bandung #1 Indonesia |
+| Teks_wiki_tmb.md, Teks_uptangkutan_tmb.md, Teks_lskk_bemo.md, Teks_wiki_mjt.md | Wikipedia, BLUD UPTD Angkutan, LSKK, Wikipedia EN | TMB 5 koridor + 2 feeder (rute jalan rinci), pelacakan real-time BEMO (tanpa GTFS-RT publik), Metro Jabar Trans 6 koridor + 2 feeder (BTS Kemenhub) |
+| raw_*.html, raw_atcs_portal_cctv-maps.js | — | bukti sumber |
+| `_urls.tsv` | — | url, judul, tanggal akses, status, file |
+Gagal: data.bandung.go.id/atcs (400/500), katalog.data.go.id (timeout), opendata.bandung.go.id (SPA/Tableau — tabel tidak terambil), arimbi.bandung.go.id (SPA kosong), pasjabar (404), LPSE (tidak ada paket/vendor ATCS terindeks). Rangkuman: `_ringkasan/R07` bagian C.
+
 ## Sumber yang TIDAK bisa diunduh dan workaround
 | Sumber | Masalah | Workaround/substitusi |
 |---|---|---|
@@ -91,3 +122,8 @@ SUMO docs: Traffic Lights, NEMA Phases, TraCI4Traffic Lights (html + md); arXiv 
 | data.jakarta.go.id / katalog.data.go.id (dataset lokasi ATCS) | koneksi timeout | dicoba ulang; sementara peta simpang dari majalah hal. 16 |
 | tile.loc.gov "Tinjauan ATCS" | PDF rusak | JMIA/Unhas |
 | cvmatrik Perdirjen Juknis APILL | 404 | SK.7234/2013 memuat spesifikasi yang sama |
+| Kep. Dirjen Hubdat SK.326/KP.108/DRJD/2018 (persimpangan berdiri sendiri ber-APILL, 2018) | JDIH Kemenhub tidak mengembalikan hasil (WAF "Request Rejected"/pencarian kosong); tidak ada salinan publik terindeks | kutipan isi (kriteria pemasangan, definisi siklus) dari tesis PTDI-STTD; substansi sama dengan Kep. Dirjen 273/1996 yang sudah ada + PKJI 2023 (R07 D) |
+| Perwal Bandung 20/2023 SPBE (JDIH & BPK) | PDF hasil scan, tanpa lapisan teks; tesseract/ocrmypdf tidak ada | abstrak BPK (tata kelola, manajemen, audit TIK, penyelenggara, monev SPBE) + Perpres 95/2018 sebagai induk (R07 A.5) |
+| Day & Bullock 2011 TRR 2259-04 (Link Pivot asli); Purdue civeng/25 paper DDI penuh | paywall SAGE; e-Pubs 403 | poster ATSPMW 2016 (diagram alir + rumus) + TRB 11-0036 (rumus AOG/delay) + JTRP 2008/2014 (POG, platoon ratio) |
+| udottraffic.utah.gov ATSPM_Reporting_Details.pdf; MDPI FutureTransp 2022 pdf | 403 | README GitHub + FHWA-HOP-20-002 yang sudah ada |
+| Permenhub PM 67/2021 | — | **tidak relevan** (Organisasi & Tata Kerja Kemenhub) — dilewati |

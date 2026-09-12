@@ -1,0 +1,1388 @@
+Purdue University
+
+Purdue e-Pubs
+
+Lyles School of Civil Engineering Faculty  Lyles School of Civil Engineering
+Publications
+
+2011
+
+Reliability, Flexibility, and Environmental Impact of Alternative
+Arterial Offset Optimization Objective Functions
+
+Christopher M. Day
+Purdue University, cmday@iastate.edu
+
+Thomas M. Brennan Jr
+Purdue University
+
+Alexander M. Hainen
+Purdue University, ahainen@eng.ua.edu
+
+Stephen M. Remias
+Purdue University, sremias@wayne.edu
+
+Hiromal Premachandra
+Purdue University
+
+See next page for additional authors
+
+Follow this and additional works at: https://docs.lib.purdue.edu/civeng
+    Part of the Civil Engineering Commons
+
+Recommended Citation
+Day, Christopher M.; Brennan, Thomas M. Jr; Hainen, Alexander M.; Remias, Stephen M.; Premachandra,
+Hiromal; Sturdevant, James R.; Richards, Greg; Wasson, Jason S.; and Bullock, Darcy M., "Reliability,
+Flexibility, and Environmental Impact of Alternative Arterial Offset Optimization Objective Functions"
+(2011). Lyles School of Civil Engineering Faculty Publications. Paper 10.
+https://docs.lib.purdue.edu/civeng/10
+
+This document has been made available through Purdue e-Pubs, a service of the Purdue University Libraries.
+Please contact epubs@purdue.edu for additional information.
+Author
+Christopher M. Day, Thomas M. Brennan Jr, Alexander M. Hainen, Stephen M. Remias, Hiromal
+Premachandra, James R. Sturdevant, Greg Richards, Jason S. Wasson, and Darcy M. Bullock
+
+This article is available at Purdue e-Pubs: https://docs.lib.purdue.edu/civeng/10
+                                                                                                            Paper No. 11-0036
+
+Reliability, Flexibility, and Environmental
+Impact of Alternative Arterial Offset
+Optimization Objective Functions
+
+by
+
+Christopher M. Day
+Purdue University
+Thomas M. Brennan, Jr.
+Purdue University
+Alexander M. Hainen
+Purdue University
+Stephen M. Remias
+Purdue University
+Hiromal Premachandra
+Purdue University
+James R. Sturdevant
+Indiana Department of Transportation
+Greg Richards
+Indiana Department of Transportation
+Jason S. Wasson
+Indiana Department of Transportation
+Corresponding author:
+Darcy M. Bullock
+Purdue University
+550 Stadium Mall Dr
+West Lafayette, IN 47906
+Phone (765) 496-2226
+Fax (765) 496-7996
+darcy@purdue.edu
+
+March 15, 2011
+
+TRB Paper No. 11-0036
+
+Word Count: 4935 words + 10 x 250 words/Figure-Table = 4935 + 2500 = 7435
+
+3/15/2011  Page 1 of 32  10:39:54 AM
+                                                                                                            Paper No. 11-0036
+
+ABSTRACT
+
+A wide variety of alternative optimization objective functions have been reported in the literature
+such as minimizing stops, minimizing delay, and maximizing arrivals on green. There is
+extensive literature evaluating these alternative objective functions using models. This paper
+reports on the field deployment of these alternative optimization functions, developed using high
+resolution controller data, to adjust offsets on an arterial system of eight coordinated signals.
+The deployment consisted of a one-week base data collection, and four one-week deployments of
+offset plans developed using four alternative optimization objective functions. Anonymous
+probe vehicle travel times were measured during the study period to evaluate the impact of these
+alternative optimization functions on corridor travel time. All of the objective functions were
+successful in significantly reducing median corridor travel time. Median travel time decreased by
+more than one minute in both directions on the 5-mile corridor. Travel time reliability, as
+quantified by the difference between 75th and 25th percentile travel times, was improved for the
+busiest portion of the day. A lower bound on the estimated annual user cost savings was
+estimated at $472,817 with an associated reduction in CO2 emissions of 197 tons per year.
+
+3/15/2011  Page 2 of 32  10:39:54 AM
+                         Paper No. 11-0036
+
+INTRODUCTION
+
+With over 350,000 traffic signals in operation in the US, signal timing has a considerable impact
+on the performance of the roads and streets that they control, directly influencing their ability to
+provide mobility to users, and their environmental impact (1). It is important for agencies to
+assess and improve signal timing plans, but often difficult to allocate necessary resources. It is
+therefore highly desirable to measure the effects of signal timing to communicate the necessity of
+the activity and to support and promote investment in signal operations.
+
+Signal offsets are typically designed by software packages that optimize offsets according to one
+of several mathematical objectives. One strategy is to maximize bandwidth (2,3,4,5,6,7,8).
+Another major strategy is minimize disutility, such as delay (9,10,11). TRANSYT is a well
+known disutility-minimizing optimization procedure based on a macroscopic traffic model
+(11,12). Similar concepts have also been used in adaptive systems such as SCOOT (13, 14) and
+OPAC (15,16,17,18). A related objective that has been used in adaptive systems is to maximize
+arrivals on green (19,20,21). This is a simple calculation requiring fewer assumptions than delay
+models, making it ideal for real-time calculation. Although proposed for adaptive systems, green
+arrival maximization could also be used in offline offset optimization. This paper investigates
+whether green arrival maximization and disutility minimization yield comparable results in the
+field.
+
+In a previous study, Jovanis and May (22) compared alternative objectives within TRANSYT-6C
+that effectively considered optimizing for vehicles against optimizing for the number of
+passengers. They concluded that minimizing passenger delay and minimizing fuel consumption
+were the most effective objective functions. The alternative objectives were evaluated within the
+macroscopic TRANSYT-6C model. A subsequent study by Leonard and Rodegerdts (23) tested
+10 alternative objectives obtained from TRANSYT-7F and PASSER II-90 by modeling in
+TRANSYT-7F. Among other findings, it was observed that the system-wide average speeds did
+not vary by objective. Explicitly optimizing for minimum delay yielded the lowest delay, but
+
+3/15/2011  Page 3 of 32  10:39:54 AM
+                                                                                                            Paper No. 11-0036
+
+there was relatively little variation in delay among the 10 objectives, for most of the different
+scenarios tested in the study.
+
+Recently, it was demonstrated that green arrival maximization could be used to improve offsets
+in an off-line procedure (24), and that the optimization procedure results can be similar to delay
+minimization (25,26). This paper follows up to those studies, expanding the comparison to four
+objectives, including two that minimize disutility, and two that maximize green arrivals. The
+post-implementation outcomes are presented in terms of arterial travel times measured on an
+eight-intersection arterial.
+
+METHODOLOGY
+
+Objective Functions
+The chief tool used to optimize offsets in this study is the cyclic flow profile. A profile is
+designated for each coordinated signal approach for a given analysis period, and represents
+arrival conditions for an average cycle over an analysis period. Figure 1(a) shows an example
+flow profile, with a superimposed probability of green under actuated-coordinated operations.
+In this example, each bin represents two seconds. This profile view is equivalent to those
+provided by TRANSYT (with the exception of the probabilistic green) and ACS-Lite. In this
+study, both the probability of green and the arrival profile were determined from observed signal
+event data. For example, the probability of green for any bin is equal to the percentage of
+observed cycles for which an effective green state was active at that time in the cycle. Similarly,
+the number of vehicles arriving for any bin is simply the sum over all observed cycles of the
+number of vehicles detected at that time in the cycle.
+
+3/15/2011  Page 4 of 32  10:39:54 AM
+                                                 Paper No. 11-0036
+
+Figure 1(b) shows the estimated number of queued vehicles based on the observed arrivals and
+the departures implied by the probability of green. Starting from the end of the green band,
+vehicles that arrive during red are assumed to join the queue, which grows until the beginning of
+green. After the beginning of green (and accounting for start-up lost time), vehicle departures
+reduce the queue size until it disperses. The number of queued vehicles for a given bin is equal to
+
+qi  max0,  qi1  Ni  ci ,                         Equation 1
+
+where qi is the queue length of the ith bin, Ni is the number of vehicle arrivals associated with the
+bin, and ci is the capacity or maximum number of departures in the bin, obtained from the
+probability of green Gi, number of cycles Q, and saturation flow rate s from
+
+ci  sQGi .                                       Equation 2
+
+The total delay incurred by the vehicles is equal to the summation of the queue size, which gives
+the area between the arrival and departure profiles:
+
+d  w qi .                                        Equation 3
+
+              i
+
+Here, w is the bin width in seconds. The number of stops can be found by making a few
+additional assumptions based on the queue profile and probability of green. We assume that
+vehicles that arrive during a particular time in cycle will stop if a queue exists, or if the signal is
+red. Specifically, the number of stops per bin is calculated by:
+
+Si      N  i  ,    Gi    if qi  0                Equation 4
+        N  i             if qi  0
+              1
+
+3/15/2011                          Page 5 of 32  10:39:54 AM
+                                                                                                            Paper No. 11-0036
+
+Here, (1 ­ Gi) represents the probability of the signal being red. A composite performance index
+combining both delay and stops can be specified as follows.
+
+PI  d  k Si ,                           Equation 5
+
+                       i
+
+Here, k is a weighting factor that converts stops into an equivalent number of seconds of delay.
+This is similar to the PI used by early versions of TRANSYT (11). For this study, a value of k =
+20 was used, which put the value of the total stops on the same order of magnitude as the total
+delay.
+
+The flow profile in Figure 1(a) can also be used to calculate the number of arrivals on green (Ng):
+
+ N g  Gi Ni .                           Equation 6
+
+             i
+
+This is the portion of the vehicle profile captured by the green band. The calculation is
+equivalent to taking the vector dot product of Gi and Ni.
+
+The number of arrivals on green is a simple calculation, but it does not intrinsically consider
+vehicle queuing. It seems likely that offsets designed to maximize Ng may give insufficient time
+to clear standing queues before coordinated platoons arrive. To mitigate this limitation, we
+propose an alternative objective, in which a portion of time at the beginning of the green band is
+considered to be part of red during optimization. Ideally, this would ensure that a certain
+portion of green is provided to clear queues before the heaviest portion of the platoon arrives.
+The objective is illustrated by Figure 1(c). Here, the first ten seconds (five bins) of the green
+band are considered to be red by the optimization process (i.e., they are excluded from
+Equation 6). The 10-second value was selected because it is not excessive compared to a typical
+arterial split (approximately 40-50 seconds), yet provides enough time to clear about 5 vehicles
+per lane after the start of effective green. It is proposed in this paper as a proof of concept
+because it was appropriate for the traffic scenario on the test arterial.
+
+3/15/2011                 Page 6 of 32  10:39:54 AM
+                                                                                                            Paper No. 11-0036
+
+To summarize, this paper examines the outcomes of the four objectives defined above:
+     Objective I. Minimize delay (Equation 3).
+     Objective II. Minimize delay and stops (Equation 5).
+     Objective III. Maximize arrivals on green. (Equation 6)
+     Objective IV. Maximize arrivals on green with queue clearance time (Figure 1(c)).
+
+Example for One Coordinated Approach
+To optimize offsets, we must identify a model for predicting performance under different offsets.
+In this study, we use observed data to establish a baseline, and model performance under various
+offset adjustments by appropriately shifting the arrival profiles. For example, to model a 10
+second adjustment of the offset of an upstream intersection, we would move the arrival
+distribution forward by 10 seconds. A local offset adjustment of 10 seconds is modeled by
+moving the green distribution forward by 10 seconds, or equivalently by moving the arrival data
+in the opposite direction. It is assumed that the vehicle arrival distributions are not changed by
+the offset adjustment. This model is equivalent to that used by Abbas et al. (19), ACS-Lite (20),
+and in a prior study with similar field data (21, 24). The idea descends from the technique used
+by Hillier and Rothery (9) to populate delay-offset curves by superimposing an expected green
+profile over a measured arrival profile at all possible offset values.
+
+Figure 2 shows an example of a sweep through a 104-second cycle length for possible values of
+local offset for a coordinated approach. Seven views of the sweep at 15-second spacing are
+displayed. In this example, the arrival distribution is moved relative to the probability of green;
+the results remain the same regardless of how the adjustment is implemented. The movement of
+arrivals and the change in the resulting estimated queues are shown by the second and third
+columns in the figure, with the superimposed green line showing the probability of green.
+
+3/15/2011  Page 7 of 32  10:39:54 AM
+                                                                                                            Paper No. 11-0036
+
+The probability of green distribution takes on a distinctive shape related to early return to the
+coordinated phase resulting from side street phase omits and early termination (Figure 2, Callout
+A), and the occasional extension of the coordinated green (B) associated with the use of a
+controller feature allowing the coordinated phase to be extended by up to 10% of the cycle (27),
+or to terminate and yield the time to other phases during low utilization. The shape of the
+vehicle arrival distribution related to upstream signal operations. A large platoon due to the
+coordinated phase is the prominent feature (C), while the presence of a secondary platoon
+(D) resulting from upstream left and right turns can also be observed. Queue sizes are shown
+in the third column. As expected, we see queues accumulating with vehicle arrivals in red, and
+they disperse after the beginning of green (E).
+
+The optimum offset value varies according to the objective function selected. Figure 3 shows
+graphs of the four objective functions under evaluation through the range of possible adjustments
+to the offset, with Objectives I, II, III, and IV shown respectively by Figure 3(a), Figure 3(b),
+Figure 3(c), and Figure 3(d). The curves were obtained from the data shown in Figure 2. The
+value of the objective functions for a given offset corresponds to a superposition of the vehicle
+arrival and probability of green profiles. All four optimal offsets fell within a 14 second range.
+The optimal region is largely coincident between the four objectives; the remainder of this paper
+investigates whether the cumulative effects of optimizing several intersections together leads to
+any substantial difference in arterial performance for different objectives.
+
+3/15/2011  Page 8 of 32  10:39:54 AM
+                         Paper No. 11-0036
+
+To understand the reason for differences between the outcomes in the example case, the optimal
+flow profiles are displayed in Figure 4.
+
+     In Figure 3(a), a region from approximately +40 to +60 is clearly the optimal offset
+         region, but the minimum delay occurs at +56. The flow profile in Figure 4(a) shows that
+         this has placed the platoon slightly before the start of green. Vehicles that arrive shortly
+         after the end of green accumulate much more delay than those arriving a few seconds
+         prior to the start of green, because they have to wait through the entire red interval.
+         Consequently, minimizing for delay alone tends to schedule platoons to arrive early
+         rather than be cut off.
+
+     Minimizing delay and stops and maximizing Ng both resulted in the same optimal offset
+         adjustment of +44. In Figure 4(b), it is clear that this is the region where the largest
+         portion of the vehicle arrivals are coincident with the green indication. It would seem that
+         adding stops to delay counters the tendency of delay minimization to make vehicles
+         arrive slightly prior to the start of green.
+
+     In Objective IV, the alternative max Ng, the first ten seconds of green are excluded from
+         the optimization process. This results in a more narrow optimal region, as shown in
+         Figure 3(c). The actual and optimal green bands are shown in Figure 4(c) respectively by
+         the green line and the shaded region. This objective is intended to create a period of green
+         time with few arrivals prior to the primary platoon, in order to clear standing queues.
+
+Optimizing network offsets is a complex task because of interactions between offsets on a
+system. A variant of the Combination Method algorithm (10) was used to search for optimal
+offsets. This algorithm was selected because it systematically provided consistent, optimal
+offsets in less time than other algorithms. The procedure is summarized as follows. Starting from
+one end of the arterial, the offset at each successive intersection is adjusted until the optimal
+value of the performance measure is obtained for the two links controlled by the offset. When
+moving to the next intersection, the previously optimized link flows are held constant by
+adjusting all preceding offsets by the same value as the current offset adjustment. The procedure
+
+3/15/2011  Page 9 of 32  10:39:54 AM
+                                                                                                            Paper No. 11-0036
+
+continues until the entire arterial has been optimized. For further detail, we refer the reader to
+more extensive documentation available elsewhere (25, 26, 28).
+
+STUDY CORRIDOR
+
+The test arterial used in this study is SR 37 in Noblesville, Indiana (25,26,27). A map of the
+system is provided in Figure 5. This 5.2-mi (8.3 km) corridor consists of eight coordinated
+intersections that operate a common cycle length. Vehicle detectors are located on all arterial
+through lanes at a distance of 405 ft back from the stop bar. Vehicle detection times were
+adjusted by 5 seconds to account for travel time from the advance detector to the stop bar. At
+each intersection, a log-capable signal controller was deployed to collect signal event data at a
+resolution of 0.1 seconds (29). Additionally, anonymous probe vehicle travel time measurements
+were obtained from Bluetooth (BT) device MAC address matching (24,30,31,32) using cases
+deployed at the entry points and at one midpoint location in the system. From this arrangement, it
+was possible to obtain travel time measurements for the entire arterial (Case A to Case C), and
+for two smaller systems, System 1 (Case A to Case B) and System 2 (Case B to Case C).
+
+For this paper, we focus on outcomes for the Saturday time-of-day (TOD) plan, which runs from
+0600-2200. The Saturday timing plan was selected because it was the focus of prior offset study
+in 2009 (24) for System 1, and because the offsets in System 2 were known to be suboptimal.
+On Saturdays, SR 37 carries approximately 30,000 vehicles per day in both directions. Demand
+is moderate and roughly steady between 9:00 and 18:00. For this reason, one timing plan is used
+for the entire day.
+
+To optimize this 16-hour TOD plan, sixteen one-hour flow profiles per approach were
+constructed. The objective functions calculated independently for the sixteen one-hour flow
+profiles were then summed to obtain the value for the approach for the entire time of day. In a
+previous study, optimization outcomes from a smaller sub-portion of the day were found to be
+very similar to those for the entire sixteen-hour period (26). Baseline data from Saturday, May
+29, 2010 was used for optimization. The resulting offsets for the four alternative optimization
+objectives were subsequently deployed in the field throughout June and July 2010.
+
+3/15/2011  Page 10 of 32  10:39:54 AM
+                          Paper No. 11-0036
+
+RESULTS
+
+Arterial Signal Progression
+
+Flow profiles for the baseline offsets and optimal offsets from Objective III (maximize arrivals
+on green) are shown in Figure 6 to illustrate signal operations before and after implementation of
+optimal offsets procedure. There is not enough space to show the observed post-implementation
+flow profiles for the other three objectives, but they were similar to the outcomes of Objective
+III, with differences along the same lines as those presented for one approach in Figure 4.
+
+Most of the improvement in the system was achieved in System 2 (Ints. 5,6,7,8). This is not
+unexpected, because the offsets in System 1 (Ints. 1,2,3,4) had been optimized about one year
+prior to this study (24). The baseline observed flow profiles confirmed our anecdotal knowledge
+of sub-optimal offsets in System 2. Specifically, the northbound movement at Int. 5 and the
+southbound movement at Int. 6 both have platoons arriving almost completely outside of the
+green bands. This was corrected by the optimization procedure. More modest changes were
+suggested for other intersections, leading to smaller shifts in platoon arrivals. The effects of these
+adjustments on arterial performance are described in the next section.
+
+Changes in Arterial Travel Time and Travel Time Reliability
+To analyze the travel time results, three-hour intervals beginning at 0600, 0900, 1200, 1500, and
+1800 were used to group samples. Three hours was a long enough time period to obtain a large
+number of samples, but short enough to observe any potential differences in travel time
+characteristics between different times of day.
+
+Figure 7 shows cumulative frequency diagrams (CFDs) of the 1500-1800 interval for Saturdays
+during the baseline and while operating under four offset optimization objectives. The four lines
+in each plot are listed by objective number. The CFDs illustrate the movement of the central
+tendency of the travel time as the change in the median. If reliability is characterized as
+consistency in travel times, then greater consistency is associated with less variation in the
+
+3/15/2011  Page 11 of 32  10:39:54 AM
+                                                                                                            Paper No. 11-0036
+
+measured travel times. In the CFD, this appears as a steeper line with a smaller interquartile
+range (IQR), the distance between the 25th percentile and the 75th percentile. Detailed numbers
+are shown in Table 1 for several time periods, including 1500-1800.
+
+ CFDs of travel times along the entire arterial are shown for Southbound vehicles in
+    Figure 7(a) and Northbound vehicles in Figure 7(b). For this path, all four objectives
+    clearly improved travel times compared to the baseline, with median travel times
+    decreasing by approximately a minute. Obj. II did not perform as well as the others (there
+    was a slight increase in southbound travel time in System 1, as discussed below), but still
+    yielded a net improvement for the arterial, while the traces for the other three objectives
+    are almost identical. For southbound traffic, the reliability seems to have improved (i.e.,
+    the slope of the optimized traces are steeper than the baseline).
+
+ CFDs for travel times through System 1 are shown in Figure 7(c) Figure 7(d) respectively
+    for southbound and northbound vehicles. There is not much improvement in travel times
+    compared to the baseline (in fact, Obj. II saw an increase in travel time for southbound
+    vehicles). As mentioned before, offsets in this part of the arterial were already near
+    optimal. However, the reliability for northbound vehicles has improved somewhat; the
+    shape of the baseline curve in Figure 7(d) shows a plateau in the curve, a greater IQR.
+    The other traces still exhibit a plateau, but it contains a much smaller portion of the
+    observed vehicles.
+
+ CFDs for travel times through System 2 are shown in Figure 7(e) Figure 7(f) respectively
+    for southbound and northbound vehicles. This portion of the system had not been retimed
+    in several years, and was known to have suboptimal offsets at two intersections.
+    Consequently, a substantial improvement in travel times was achieved by all four
+    objectives.
+
+It is clear that optimizing offsets reduces overall arterial travel time. We hypothesize that
+optimizing offsets should have a beneficial impact on the reliability of travel time. In Table 1, for
+the 1500-1800 time period we see that IQR decreased (comparing the baseline to optimized
+offsets under four objectives), for most of the objectives in both directions. Similar
+improvements are not observed in other time periods, especially the 0600-0900 and 1800-2100
+
+3/15/2011  Page 12 of 32  10:39:54 AM
+                                                                                                            Paper No. 11-0036
+
+shoulder periods when traffic volumes are decreased. With a few exceptions, IQR decreased for
+the 0900-1200 and 1200-1500 time periods, where traffic volumes are relatively higher. The
+results suggest that offset optimization can positively impact travel time reliability, but the
+results do not show that any particular optimization objective has a better outcome than the
+others.
+
+Note that the CFDs for System 2 [Figure 7(e), Figure 7(f)] exhibit more consistent travel times
+than System 1 [Figure 7(c), Figure 7(d)]. That is, the slope of the CFDs are steeper for System 2
+and the IQR is smaller than that of System 1. This is attributable to differences in the
+characteristics of the two systems. Both systems have similar access control and traffic mix; one
+potential reason for the difference could be the road geometry. System 2 is a straight road and
+the distances between intersections are either 2650 or 5320 ft (nearly perfect regular spacing).
+System 1, on the other hand, has some curvature and less regular spacing.
+
+Flexibility: Sensitivity to Time of Day
+Comparing the performance across time periods characterizes the flexibility of the plan, or its
+ability to tolerate variations in traffic patterns throughout the day and provide similar
+performance for both northbound and southbound vehicles. The Saturday signal timing plan
+covers a 16-hour TOD interval. Often, offsets are designed to treat a certain direction
+preferentially by time of day. In this study, no weighting was given to any particular movement.
+It is desirable to determine whether this scheme caused either movement to suffer during
+particular times of day.
+
+Figure 8 illustrates these fluctuations in box-whisker plots of travel times for the baseline offsets
+and the four optimized offsets. These are shown in five graphs representing five three-hour
+analysis subperiods. In each column, the line represents the range between the minimum and
+maximum values, with a marker showing the median value, while the box displays the 25th and
+75th percentiles (and hence the IQR). Figure 8(a) shows travel times for northbound vehicles
+while Figure 8(b) shows travel times for southbound vehicles. Detailed information
+corresponding to these graphs are also presented in Table 1.
+
+3/15/2011  Page 13 of 32  10:39:54 AM
+                                                                                                            Paper No. 11-0036
+
+During most times of day, the median travel times were reduced by the optimized offsets,
+representing a net improvement in arterial ravel time. For example, from 1500-1800, northbound
+travel times improved from 1.2­1.6 minutes and southbound travel times improved by 0.6­1.1
+minutes, varying by objective. During several time periods, the IQR also decreased, indicating
+that the reliability of travel time improved. This is true of northbound vehicles during most time
+periods for nearly all objectives [Figure 8(a)], agreeing with earlier observations from the CFDs.
+These trends are observed in both northbound and southbound direction for all time periods with
+the exception of 0600-0900. The reason for lack of improvement in the early morning is that
+side street volumes are sufficiently that the arterial movements enjoy extended green times
+(because of fewer minor phase actuations) during both the baseline and all four optimized
+scenarios.
+
+Both Figure 8(a) and Figure 8(b) illustrate increasing an increase in median travel times around
+1200-1500 compared to the other time periods. Northbound and southbound travel times are
+more similar after optimization than the baseline case. For example, from Table 1, during the
+1200-1500 time period, under the baseline offsets the median northbound travel time was 1.4
+min greater than the southbound travel time (11.2 versus 9.8 min). With optimal offsets, the
+difference between median northbound and southbound travel times decreased, with the
+magnitude of the decrease varying by objective. For example, under Obj. II, northbound travel
+times were only 0.1 min longer than southbound travel times, while Obj. III was less flexible,
+with a 1.0-min difference between the two. Similar changes can be observed in the other time
+periods.
+
+Table 1 provides several statistical measures in addition to the median travel time and the IQR.
+An alternative measure of central tendency are the mean and standard deviations. We have
+highlighted the median and IQR because they are directly related to the CFDs and box-whisker
+plots and are less sensitive to outliers. However, similar trends are observable in the mean and
+standard deviation. Table 1 also displays the results of a t-test between the baseline offsets and
+the four optimized offsets. With the exceptions of the 0600-0900 time period, and for Objective
+II during 1500-1800, the t-test revealed statistically significant changes in travel time, with P-
+values showing confidence above the 95% level in all cases, and above 99% for most.
+
+3/15/2011  Page 14 of 32  10:39:54 AM
+                                                                                Paper No. 11-0036
+
+User Benefit Estimation
+The following equations were applied to establish a method for comparing the optimized arterial
+travel time (TT) to a base travel time:
+
+TT  TTBase(section)  TT , Objective(section)                        Equation 7
+
+where TTBase(section) was the arterial travel time measured in minutes for a specified section
+(Figure 5, System 1 or System 2) and direction (northbound, southbound) running baseline
+offsets and TTObjective(section) was is the travel time for each section, after optimal offsets were
+implemented. The cost estimation methodology presented here is based on the 2009
+Transportation Urban Mobility Report (33). Costs for trucks are given by
+
+USERt  TT *Vol *%T * PPVt *      $102.12 1hr                     ,
+                                                  *                 Equation 8
+                                              hr     60 min
+
+where USERt is the user cost for a commercial vehicle, Vol is the volume (number of vehicles)
+measured for the study period, %T is the percentage of commercial trucks (2% for Saturday), and
+PPV t is the number of passengers per vehicle (1 for commercial trucks). The $102.12 amount
+represents the time value of money for commercial vehicles and is taken from the 2009
+Transportation Urban Mobility Report (33). This value does not reflect excess fuel consumption.
+When TT is positive, the outcomes of the equation reflect a user savings. Costs for passenger
+cars are given by
+
+USERc      TT  *Vol  *%C * PPVc  *  $15.47        *   1 hr       ,  Equation 9
+                                      hr             60 min
+
+where USERc is the user cost for a passenger vehicle, %C is the assumed percentage of passenger
+vehicles (98% for Saturday), PPVc is assumed to be 1.2, and a lower time value of money at
+$15.47 per hour (33) is applied.
+
+3/15/2011                                         Page 15 of 32                 10:39:54 AM
+                                                                                                            Paper No. 11-0036
+
+In addition to user costs, potential savings in fuel consumption and associated changes in CO2
+emissions can be derived from the following equations.
+
+FUEL  TT *Vol * 0.87 gal * 1hr ,                          Equation 10
+                            hr 60min
+
+In Equation 10, FUEL is the change in the amount of fuel consumed (gallons), which is a savings
+when TT is positive. Using conversion factors from Argonne National Laboratory, a passenger
+car that idles at 1,000 rpm with air conditioning on 50% of the time can be expected to consume
+0.87 gallons of gasoline per hour, or 0.0145 gallons per minute (34, 35). This number was used
+to conservatively estimate the change in fuel consumption for all vehicle types associated with
+changes in travel time. For decreases in travel time (positive TT), the amount of CO2 emissions
+that are prevented are calculated from the following two equations:
+
+CO2  FUEL *   19.4 lbs 1 ton
+                           *            ,                 Equation 11
+                      gal     2000 lbs                    Equation 12
+
+CC    CO2  *  $22  ,
+              ton
+
+Here, CC represents the CO2 cost. According to the EPA, the amount of CO2 emitted when a
+gallon of gasoline burns is approximately 19.4 lbs/gallon (36). The monetary equivalent of the
+CO2 is assumed to be approximately $22/ton of CO2 produced (37).
+
+The results shown in Table 2 illustrate the benefit for system users based on above analysis. The
+savings is calculated from changes in arterial travel time measured with anonymous probe
+vehicles, and volumes measured using vehicle counts logged in the signal event data. By
+optimizing Saturday offsets, user cost reductions ranging from $471,817 (Objective III) to
+$600,073 (Objective IV) could be realized, depending on which offsets are permanently
+implemented. The associated reduction in CO2 emissions was found to range from 197 to 250
+tons of CO2 per year.
+
+3/15/2011                                  Page 16 of 32               10:39:54 AM
+                                                                                                            Paper No. 11-0036
+
+CONCLUSIONS
+
+This paper developed and independently validated the benefits of offset optimization for several
+objectives using directly measured vehicle travel times to quantify delay, user cost savings, and
+environmental impact. Four optimization objectives were identified: minimize delay; minimize
+a performance index based on delay and stops; maximize arrivals on green; and maximize
+arrivals on green, with 10 seconds of queue clearance time at the beginning of green. The results
+for all four objectives were quite similar. For an individual coordinated approach, the optimal
+offsets were found to coincide within a 14 second range inside of a 114 second cycle length
+(Figure 3). When scaled to an eight-intersection corridor, the overall outcomes in terms of the
+travel time and travel time reliability were also rather similar (Table 1). The outcomes of the
+delay-based optimization objectives were generally close to the outcomes of green arrival
+maximization, as shown in Table 2 and in several performance measure graphics (Figure 7,
+Figure 8). These results demonstrate that green arrival maximization can be used to effectively
+optimize offsets with a similar level of benefit as derived from delay minimization.
+
+This paper demonstrated the use of anonymous probe vehicle travel time data in describing
+changes in travel time as well as the reliability of travel time, and additionally showed how that
+data can be translated into user cost savings and environmental benefits. In this case study, a
+lower bound on the estimated benefits was calculated at approximately $470,000. Measured
+travel time results are a compelling tool to communicate the value of investments in traffic signal
+systems to the public and to elected decision makers. This information is essential to obtain and
+communicate, particularly for improvements in operations such as signal retiming that have
+relatively low visibility compared to construction, but can nevertheless have substantial
+environmental and economic impacts.
+
+3/15/2011  Page 17 of 32  10:39:54 AM
+                                                                                                            Paper No. 11-0036
+
+ACKNOWLEDGMENTS
+
+This work was supported by the National Cooperative Highway Research Program under project
+NCHRP 3-79A, and by the Joint Transportation Research Program administered by Purdue
+University and the Indiana Department of Transportation. The contents of this paper reflect the
+views of the authors, who are responsible for the facts and the accuracy of the data presented
+herein, and do not necessarily reflect the official views or policies of the sponsoring
+organizations. These contents do not constitute a standard, specification, or regulation.
+
+3/15/2011  Page 18 of 32  10:39:54 AM
+                          Paper No. 11-0036
+
+REFERENCES
+
+1. Peters, J., R. McCourt, and R. Hurtado. Reducing Carbon Emissions and Congestion by Coordinating
+    Traffic Signals. ITE Journal, Vol. 79, No. 4, pp. 25-29, April 2009.
+
+2. Morgan, J.T. and J.D.C. Little. Synchronizing Traffic Signals for Maximal Bandwidth. Operations
+    Research, Vol. 12, pp. 896-912, 1964.
+
+3. Little, J.D.C., M.D. Kelson, and N.H. Gartner. MAXBAND: A Program for Setting Signals on
+    Arteries and Triangular Networks. Transportation Research Record No. 795, TRB, National
+    Research Council, Washington, DC, pp. 40-46, 1981.
+
+4. Messer, C.J., R.H. Whitson, C.L. Dudek, and E.J. Romano. A Variable Sequence Multiphase
+    Progression Optimization Program. Highway Research Record No. 445, pp. 24-33, 1973.
+
+5. Messer, C.J., H.E. Haenel, and E.A. Koeppe. A Report on the User`s Manual for Progression Analysis
+    and Signal System Evaluation Routine--Passer II. Texas Transportation Institute Report No. TTI-
+    218-72-165-14, Texas Transportation Institute, Texas A&M University, College Station, TX, 1974.
+
+6. Gartner, N.H., S.F. Assmann, F. Lasaga, and D.L. Hou. MULTIBAND ­ A Variable-Bandwidth
+    Arterial Progression Scheme. Transportation Research Record No. 1287, pp. 212-222, 1990.
+
+7. Tsay, H.-S. and L.-T. Lin. A New Algorithm for Solving the Maximum Progression Bandwidth. In
+    Transportation Research Record No. 1194, pp. 15-30, 1988.
+
+8. Yin, Y., M. Li, and A. Skabardonis. Offline Offset Refiner for Coordinated Actuated Signal Control
+    Systems. ASCE Journal of Transportation Engineering, Vol. 133, No. 7, pp. 423-432, 2007.
+
+9. Hillier, J.A. and R. Rothery. The Synchronization of Traffic Signals for Minimum Delay.
+    Transportation Science, Vol. 1, pp. 81-94, 1967.
+
+10. Hillier, J.A. Appendix to Glasgow`s Experiment in Area Traffic Control. Traffic Engineering and
+    Control, Vol. 7, No. 9, 1966.
+
+11. Robertson, D.I.  TRANSYT` Method for Area Traffic Control. Traffic Engineering and Control,
+    Vol. 11, pp. 276-281, 1969.
+
+12. Robertson, D.I. Transyt: a Traffic Network Study Tool. Report No. LR 253, Road Research
+    Laboratory, Crowthorne, Berkshire, England, 1969.
+
+13. Hunt, P.B., D.I. Robertson, R.D. Bretherton, and R.I. Winton. SCOOT- A Traffic Responsive Method
+    of Coordinating Signals. Report No. LR 1014, Transport and Road Research Laboratory, Crowthorne,
+    Berkshire, England, 1981.
+
+14. Robertson, D.I. and R.D. Bretherton. Optimizing Networks of Traffic Signals in Real Time--The
+    SCOOT Method. IEEE Transactions on Vehicular Technology, Vol. 40, No. 1, pp. 11-15, 1991.
+
+15. Gartner, N.H. OPAC: A Demand-Responsive Strategy for Traffic Signal Control. In Transportation
+    Research Record No. 906, Transportation Research Board of the National Academies, Washington,
+    DC, pp. 75-81, 1983.
+
+16. Gartner, N.H., P.J. Tarnoff, and C.M. Andrews. Evaluation of Optimized Policies for Adaptive
+    Control Strategy. In Transportation Research Record No. 1344, Transportation Research Board of
+    the National Academies, Washington, DC, pp. 105-114, 1991.
+
+3/15/2011  Page 19 of 32  10:39:54 AM
+                                                                                                            Paper No. 11-0036
+
+17. Gartner, N.H. Demand-Responsive Decentralized Urban Traffic Control. Part I: Single-Intersection
+    Policies. Report No. ULRF-05-2998-1, University of Lowell Research Foundation, Lowell,
+    Massachusetts, February 1982.
+
+18. Gartner, N.H., M.H. Kaltenbach, and M.M. Miyamoto. Demand-Responsive Decentralized Urban
+    Traffic Control. Part II: Network Extensions. Report No. ULRF-05-2998-2, University of Lowell
+    Research Foundation, Lowell, Massachusetts, July 1983.
+
+19. Abbas, M., D. Bullock, and L. Head. Real-Time Offset Transitioning Algorithm for Coordinating
+    Traffic Signals. In Transportation Research Record No. 1748, Transportation Research Board of the
+    National Academies, Washington, DC, pp. 26-39, 2002.
+
+20. Luyanda, F., D. Gettman, L. Head, S. Shelby, D. Bullock, and P. Mirchandani. ACS-Lite
+    Algorithmic Architecture: Applying Adaptive Control System Technology to Closed-Loop Systems.
+    In Transportation Research Record No. 1856, Transportation Research Board of the National
+    Academies, Washington, DC, pp. 175-184, 2003.
+
+21. Gettman, D., S.G. Shelby, L. Head, D. Bullock, and N. Soyke. Data-Driven Algorithms for Real-
+    Time Adaptive Tuning of Offsets in Coordinated Traffic Signal Systems. In Transportation
+    Research Record No. 2035, Transportation Research Board of the National Academies, Washington,
+    DC, pp. 1-9, 2007.
+
+22. Jovanis, P.P. and A.D. May. Alternative Objectives in Arterial-Traffic Management. Transportation
+    Research Record No. 682, Transportation Research Board of the National Academies, Washington,
+    DC, pp. 1-8, 1978.
+
+23. Leonard, J.D. and L.A. Rodegerdts. Comparison of Alternative Signal Timing Policies. Journal of
+    Transportation Engineering, Vol. 124, pp. 510-520, 1998.
+
+24. Day, C.M., R. Haseman, H. Premachandra, T.M. Brennan, J.S. Wasson, J.R. Sturdevant, and D.M.
+    Bullock. Visualization and Assessment of Arterial Progression Quality Using High Resolution
+    Signal Event Data and Measured Travel Time. Transportation Research Board Annual Meeting,
+    Paper No. 10-0039, Transportation Research Board of the National Academies, Washington, DC,
+    2010.
+
+25. Day, C.M. Performance-Based Management of Arterial Traffic Signal Systems. PhD Thesis, Purdue
+    University, May 2010.
+
+26. Day, C.M., and Bullock, D.M. Arterial Performance Measures, Volume 1: Performance-Based
+    Management of Arterial Traffic Signal Systems. NCHRP 3-79A Report, National Cooperative
+    Highway Research Program, Transportation Research Board, Washington, DC, under review, to
+    appear 2010.
+
+27. Day, C.M., E.J. Smaglik, D.M. Bullock, and J.R. Sturdevant, (2008). Quantitative Evaluation of
+    Actuated Coordinated Versus Nonactuated Coordinated Phases, Transportation Research Record
+    No. 2080, TRB, National Research Council, Washington, D.C., pp. 8-21.
+
+28. Day, C.M. and D.M. Bullock. Evaluation of Alternative Algorithms for Traffic Signal Offset
+    Optimization Using High Resolution Event Data. Submitted to Transportation Research Record,
+    July 31, 2010.
+
+29. Smaglik, E.J., Sharma, A., Bullock, D.M., Sturdevant, J.R., and Duncan, G. Event-Based Data
+    Collection for Generating Actuated Controller Performance Measures. Transportation Research
+    Record No. 2035, Transportation Research Board of the National Academies, Washington, DC, pp.
+    97­106, 2007.
+
+3/15/2011  Page 20 of 32  10:39:54 AM
+                                                                                                            Paper No. 11-0036
+
+30. Wasson, J.S., J.R. Sturdevant, D.M. Bullock, Real-Time Travel Time Estimates Using MAC
+    Address Matching, Institute of Transportation Engineers Journal, ITE, Vol. 78, No. 6, pp. 20-23,
+    June 2008.
+
+31. Tarnoff, P.J., J.S. Wasson, S.E. Young, N. Ganig, D.M. Bullock, and J.R. Sturdevant. The
+    Continuing Evolution of Travel Time Data Information Collection and Processing, Transportation
+    Research Board Annual Meeting, Paper No. 09-2030, Transportation Research Board of the National
+    Academies, Washington, DC, 2009.
+
+32. Brennan, T.M., J.M. Ernst, C.M. Day, D.M Bullock, J.V. Krogmeier, and M. Martchouk. Influence
+    Of Vertical Sensor Placement On Data Collection Efficiency From Bluetooth MAC Address
+    Collection Devices, Paper No. TEENG-418, submitted to Journal of Transportation Engineering,
+    ASCE, May 2009.
+
+33. Schrank, D., and T. Lomax, The 2009 Urban Mobility Report. Texas Transportation Institute, July,
+    2009.
+
+34. Analysis of Costs from Idling and Parasitic Devices for Heavy Duty Trucks, Technology and
+    Maintenance Council Recommended Practice Bulletin 1108. Issued March 1995, reprinted 2003 by
+    TMC/ATA.
+
+35. Lutsey, N.P., J.P. Wallace, C.J. Brodrick, H.A. Dwyer, and D. Sperling, Modeling Auxiliary Power
+    Options for Heavy-Duty Trucks: Engine Idling vs. Fuel Cells. Society of Automotive Engineers
+    Report No. 2004-01-1479, October 2004.
+
+36. Emission Facts: Greenhouse Gas Emissions from a Typical Passenger Vehicle EPA420-F-05-004
+    February 2005, http://www.epa.gov/OMS/climate/420f05004.htm, Accessed July 27, 2010.
+
+37. EPA Analysis of the American Clean Energy and Security Act of 2009 , H.R. 2454 in the 111th
+    Congress, http://www.epa.gov/climatechange/economics/pdfs/HR2454_ Analysis.pdf Accessed July
+    27, 2010.
+
+3/15/2011  Page 21 of 32  10:39:54 AM
+                                                                              Paper No. 11-0036
+
+List of Tables
+
+1                Arterial travel time (Case A to Case C) Statistics,                           23
+
+                 Saturdays, 3-hour analysis periods, with alternative offsets in use.
+
+2                Summary of cost savings for alternative optimization objectives by            24
+
+                 Section.
+
+List of Figures
+
+1                Explanation of objective functions using flow profiles.                       25
+
+2                Modeling of alternative adjustments to a local offset on an example           26
+
+                 coordinated approach (C = 104 s).
+
+3                Relationship between the four objective functions and offset adjustment 27
+
+                 on the example coordinated approach (C = 104 s).
+
+4                Flow profiles for optimal offsets for the example coordinated approach 28
+
+                 under the four alternative objective functions (C = 104 s).
+
+5                Map of the SR 37 Corridor.                                                    29
+
+6                Flow profiles showing flow profiles for baseline and optimized                30
+
+                 (Objective III) offsets for the Saturday TOD plan.
+
+7                Cumulative frequency diagrams of anonymous probe vehicle travel               31
+
+                 times for alternative objective functions, Saturday, 1500-1800.
+
+8                Travel time box-whisker plots for alternative optimization objectives by 32
+
+                 3-hour time period, Saturdays, arterial (case A to case C).
+
+3/15/2011                  Page 22 of 32                                          10:39:54 AM
+                                                                      Paper No. 11-0036
+
+                     Table 1. Arterial travel time (Case A to Case C) Statistics,
+                 Saturdays, 3-hour analysis periods, with alternative offsets in use.
+
+                     Southbound                           Northbound
+
+Time       MOE Baseline Obj. I Obj. II Obj. III Obj. IV Baseline Obj. I Obj. II Obj. III Obj. IV
+
+           25 %      7.5         7.0  6.9  7.4       7.2  6.5         7.2  6.9         6.9  7.0
+
+           Median    8.4         7.4  7.6  8.1       8.4  6.8         7.7  7.4         7.5  7.1
+
+           75 %      9.1         8.0  8.2  8.5 11.2       7.7         8.1  8.1         8.3  8.0
+
+Saturday   IQR       1.6         1.0  1.3  1.1       4.0  1.2         0.9  1.3         1.5  1.0
+0600-0900  Mean
+           St. Dev.  8.2         7.8  7.9  8.2       9.1  7.3         7.7  7.4         8.1  7.4
+
+                     1.3         1.6  1.7  1.4       2.1  1.6         1.0  0.9         2.0  1.0
+
+           N         10          22   22   19        9    19          26   11          16   10
+
+           t-value               -0.64 -0.51 0.05 1.24                1.01 0.20 1.29 0.05
+
+           P-value               0.527 0.614 0.957 0.232              0.318 0.842 0.208 0.960
+
+           25 %      9.2         8.1  7.6  8.0       7.4  8.5         7.6  7.5         7.0  7.2
+
+           Median    9.9         8.7  8.3  8.4       7.7  9.1         8.4  8.1         7.5  7.5
+
+           75 %      10.8        9.6  9.1  9.2       9.7 10.1         8.9  8.8         8.0  8.2
+
+Saturday   IQR        1.6        1.6  1.5  1.2       2.3  1.6         1.3  1.3         0.9  1.0
+0900-1200  Mean      10.2        8.9  8.6  8.6       8.6  9.5         8.4  8.3         7.5  7.8
+           St. Dev.              1.2  1.5  1.1       1.9  1.7         1.3  1.1         0.5  1.1
+                      1.2
+
+           N         29          40   39   32        33   25          36   39          22   30
+
+           t-value               -4.67 -4.77 -5.42 -3.87              -2.93 -3.67 -5.56 -4.65
+
+           P-value         <0.001 <0.001 <0.001 <0.001                0.005 0.001 <0.001 <0.001
+
+           25 %      9.9         8.3  8.5  9.1       8.1  9.1         8.0  8.1         8.1  8.0
+
+           Median    11.2        9.4  8.9  9.8       9.1  9.8         8.7  8.8         8.8  8.7
+
+           75 %      12.3 10.2        9.8 10.6 10.0 10.5              9.9 10.0         9.4  9.0
+
+Saturday   IQR        2.4        1.9  1.2  1.5       1.9  1.4         1.9  2.0         1.3  1.0
+1200-1500  Mean      11.2        9.4  9.0  9.9       9.3  9.8         9.0  9.0         8.9  8.5
+           St. Dev.              1.3  1.0  1.5       1.7  0.8         1.4  1.2         1.2  1.0
+                      1.6
+
+           N         25          34   34   31        44   30          34   28          42   25
+
+           t-value               -4.86 -6.62 -3.25 -4.47              -2.54 -2.94 -3.41 -5.19
+
+           P-value         <0.001 <0.001 0.002 <0.001                 0.014 0.005 0.001 <0.001
+
+           25 %      8.3         7.4  7.7  7.5       7.4  8.9         8.0  7.7         8.1  7.6
+
+           Median    9.0         8.2  8.4  7.9       8.0  9.8         8.2  8.6         8.3  8.2
+
+           75 %      10.1        8.5  9.4  8.5       8.5 10.9         8.7  9.1         8.8  8.6
+
+Saturday   IQR       1.8         1.1  1.7  1.0       1.1  2.0         0.7  1.4         0.7  1.0
+1500-1800  Mean
+           St. Dev.  9.2         8.2  8.7  8.2       8.2 10.1         8.3  8.5         8.6  8.2
+
+                     1.2         1.0  1.3  1.3       1.1  1.4         0.7  1.0         1.1  0.8
+
+           N         24          46   31   45        37   29          33   26          28   35
+
+           t-value               -3.62 -1.33 -2.92 -3.25              -6.23 -4.73 -4.50 -6.78
+
+           P-value               0.001 0.188 0.005 0.002       <0.001 <0.001 <0.001 <0.001
+
+           25 %      8.7         7.3  7.4  7.6       7.4  8.1         7.2  6.8         7.0  7.0
+
+           Median    9.1         7.6  7.9  8.0       7.9  8.6         7.8  7.5         7.5  7.6
+
+           75 %      9.5         8.3  8.3  8.3       8.1  9.2         8.3  8.1         8.1  7.9
+
+Saturday   IQR       0.9         1.1  0.9  0.8       0.7  1.1         1.1  1.3         1.1  0.9
+1800-2100  Mean
+           St. Dev.  9.1         7.7  8.2  8.1       8.4  9.1         8.0  7.7         7.6  7.6
+
+                     0.6         0.6  1.5  1.2       2.1  1.5         1.3  1.0         0.7  1.3
+
+           N         40          27   33   24        28   18          27   24          38   28
+
+           t-value               -9.06 -3.35 -4.31 -1.87              -2.49 -3.58 -5.11 -3.50
+
+           P-value         <0.001 0.001 <0.001 0.066                  0.017 0.001 <0.001 0.001
+
+3/15/2011                             Page 23 of 32                        10:39:54 AM
+                                                                           Paper No. 11-0036
+
+     Table 2. Summary of cost savings for alternative optimization objectives by Section.
+
+                        Daily                                              Annual
+
+                                          CO2                              CO2
+                        Total Time Emission                                Emission
+
+                        Saved         Reduction CO2              User      Multi- Reduction CO2       User
+                        (veh-min)                                Benefits                             Benefits
+Objective                             (tons)        Savings                plier (tons)      Savings
+
+                                      (a) System 1, Northern Section
+
+I          Min Delay           5032           0.71   $16 $1,697 52                       37      $810 $88,233
+
+II Min Delay and Stops         3813           0.54   $12 $1,286 52                       28      $614 $66,864
+
+III        Max Ng              1760           0.25           $5  $593 52                 13      $283 $30,855
+
+IV         Alt. Max Ng         7883           1.11   $24 $2,658 52                       58 $1,268 $138,229
+
+                                      (b) System 2, Southern Section
+
+I          Min Delay           24386          3.43   $75 $8,223 52                       178 $3,924 $427,614
+
+II Min Delay and Stops         25327          3.56   $78 $8,541 52                       185 $4,075 $444,111
+
+III        Max Ng              25147          3.54   $78 $8,480 52                       184 $4,046 $440,962
+
+IV         Alt. Max Ng         26338          3.70   $81 $8,882 52                       193 $4,238 $461,845
+
+                                      (c) System 1 and System 2, Arterial
+
+I          Min Delay           29418          4.14   $91 $9,920 52                       215 $4,733 $515,847
+
+II Min Delay and Stops         29140          4.10   $90 $9,826 52                       213 $4,689 $510,976
+
+III        Max Ng              26907          3.78   $83 $9,073 52                       197 $4,329 $471,817
+
+IV         Alt. Max Ng         34221          4.81   $106 $11,540 52                     250 $5,506 $600,073
+
+3/15/2011                             Page 24 of 32                                      10:39:54 AM
+                                                                                                                                      Paper No. 11-0036
+
+                                         1.0                                                                                       1.0
+
+                                                                                                     Probability of Green
+
+           Probability of Green per Bin  0.5                                                                                       0.5               Arrivals Per Cycle Per Bin
+
+                                         0.0                                                                                       0.0
+
+                                              0    32                             64                 96                    128
+
+                                                                                  Time in Cycle (s)
+
+           (a) Arrival flow profile and superimposed probability of green.
+
+                                         1.0                                                                                    20
+
+                                                                                                     Probability of Green
+
+           Probability of Green per Bin  0.5                                                                                    10       Number of Queued Vehicles
+                                                                                                                                      Per Cycle Per Bin
+
+                                         0.0                                                                                    0
+                                                0
+                                                   32                             64                 96                    128
+
+                                                                                  Time in Cycle (s)
+
+                                                   (b) Queue length profile.
+
+                                                      Not considered as arrivals                                                                1.0
+                                                      on green for optimization                      Probability of Green
+
+                                         1.0
+
+           Probability of Green per Bin  0.5                                                                                       0.5               Arrivals Per Cycle Per Bin
+
+                                         0.0                                                                                       0
+
+                                              0    32                             64                 96                    128
+
+                                                                                  Time in Cycle (s)
+
+                                         (c) Alternative maximum arrivals on green objective.
+
+           Figure 1. Explanation of objective functions using flow profiles.
+
+3/15/2011                                              Page 25 of 32                                                                                                             10:39:54 AM
+                                                                                           Paper No. 11-0036
+
+Local Offset                           Probability of           Arrivals Per Cycle       Estimated Queue
+(Adjustment)                               Green                       Per Bin             Size Per Cycle
+                                                                                          (No. of Vehicles)
+                                  1.0                     1.0
+                                                                                    20
+
+94         0.5                                            0.5                       10
+
+(+0)
+
+           0                                              0                         0
+
+           1.0                                            1.0                       20
+
+5          0.5                                            0.5                       10
+
+(+15)
+
+           0                                              0                         0
+
+           1.0                                            1.0                       20
+
+20         0.5                                            0.5                       10
+
+(+30)
+
+           0                                              0                         0
+
+           1.0                                            1.0                       20
+
+34                                     A                                 C
+
+           0.5                                         B  0.5    D                  10
+
+(+45)
+
+           0                                              0                         0
+
+           1.0                                            1.0                       20
+
+49         0.5                                            0.5                       10
+
+(+60)
+
+           0                                              0                          0
+                                                                                    20
+           1.0                                            1.0
+                                                                                                              E
+64         0.5                                            0.5
+                                                                                    10
+(+75)
+
+           0                                              0                         0
+
+           1.0                                            1.0                       20
+
+79         0.5                                            0.5                       10
+
+(+90)
+
+           0                           26 52 78 104       0         26 52 78 104    0      26 52 78 104
+               0                                              0                         0
+
+Figure 2. Modeling of alternative adjustments to a local offset on an example coordinated
+                                         approach (C = 104 s).
+
+3/15/2011                                                 Page 26 of 32                    10:39:54 AM
+                                                                                                        Paper No. 11-0036
+
+Delay (veh-h/h)  8                                           Performance Index (veh-h/h)  14
+                 7                                                                        12
+                 6                                                                        10
+                 5
+                 4                                                                        8        +44
+
+                                                        +56                               6
+                 3
+                 2                                                                        4
+                 1                                                                        2
+                 0
+                                                                                          0
+                    0 15 30 45 60 75 90                                                      0 15 30 45 60 75 90
+                                         Offset Adjustment                                                        Offset Adjustment
+
+                   (a) Objective I: Estimated delay.                                      (b) Objective II: Delay and stops.
+
+                 600                                                                      400
+                                                                                          350
+                 500                                         Alt. Number on Green         300                                 +40
+                                                                                          250
+Number on Green  400  +44                                                                 200      15 30 45 60 75 90
+                                                                                          150                 Offset Adjustment
+                 300                                                                      100
+
+                 200                                                                       50
+                                                                                             0
+                 100                                                                            0
+
+                 0
+                    0 15 30 45 60 75 90
+                                        Offset Adjustment
+
+(c) Objective III: Number of arrivals on                     (d) Objective IV: Alternative number of
+                    green.                                                arrivals on green.
+
+Figure 3. Relationship between the four objective functions and offset adjustment on the
+                           example coordinated approach (C = 104 s).
+
+3/15/2011                  Page 27 of 32                                                                10:39:54 AM
+                                                                                                 Paper No. 11-0036
+
+                                         1.0                                                     1.0
+
+           Probability of Green per Bin  0.5                                                     0.5  Arrivals Per Cycle Per Bin
+
+                                         0.0       26                 52  78                     0.0
+                                                0                                           104
+
+                                         1.0           Time in Cycle (s)
+
+                                                   (a) Objective I: Estimated delay (+56).
+
+                                                                                                 1.0
+
+           Probability of Green per Bin  0.5                                                     0.5  Arrivals Per Cycle Per Bin
+
+                                         0.0                                                     0.0
+
+                                              0    26                 52  78                104
+
+                                                       Time in Cycle (s)
+
+(b) Objective II: Delay and stops and Objective III: Number of arrivals on green (+44).
+
+                                         1.0                                                     1.0
+
+                                                   Optimized green band
+
+           Probability of Green per Bin            Actual green band                                  Arrivals Per Cycle Per Bin
+
+                                         0.5                                                     0.5
+
+                                         0.0                                                     0.0
+
+                                              0    26                 52  78                104
+
+                                                       Time in Cycle (s)
+
+           (c) Objective IV: Alternative number of arrivals on green (+40).
+
+Figure 4. Flow profiles for optimal offsets for the example coordinated approach under the
+                          four alternative objective functions (C = 104 s).
+
+3/15/2011                                              Page 28 of 32                                                              10:39:54 AM
+                                                                      Paper No. 11-0036
+
+           System 1      2300 ft                 SR 37
+             2.4 mi     (700 m)                          BT Case A
+
+           (3.8 km)      2500 ft                     Int. 1 (SR 32)
+                        (760 m)                          Int. 2 (Pleasant St .)
+
+                       3660 ft                       Int. 3 (Town and Country Blvd .)
+                     (1110 m)
+                                                 Int. 4 (Greenfield Ave .)
+
+                       8350 ft                   BT Case B
+                     (2530 m)
+
+                      2650 ft                    Int. 5 (146 th St.)
+                     (800 m)                     Int. 6 (141 st St.)
+
+           System 2
+             2.8 mi
+
+           (4.5 km)
+
+                       5320 ft
+                     (1610 m)
+
+                      2650 ft                    Int. 7 (131 st St.)
+                     (800 m)
+                                                 Int. 8 (126 th St.)
+                                    BT Case C
+                                                                       Bluetooth MAC
+                                           I-69                        address sensors
+                                                                       Advance loop
+                                                                       detector locations
+
+                     Figure 5. Map of the SR 37 Corridor.
+
+3/15/2011                       Page 29 of 32                                              10:39:54 AM
+                                                                                                                        Paper No. 11-0036
+
+                        Southbound                                                                                            Northbound
+
+              Baseline               Optimized (Obj. III)                                                           Baseline                Optimized (Obj. III)
+
+1.0                          1.0                                                                       1 .0                        1 .0
+
+                                                           1/SB                        1/NB
+
+0.5                          0.5                                                                       0 .5                        0 .5
+
+0.0                          0.0                                               Int. 1        0 .0                                  0 .0
+                                                                            Int. 2
+1.0                          1.0                                            Int. 3           1 .0                                  1 .0
+                                                                           Int. 4
+                                                           2/SB                        2/NB
+                                                                 Int. 5
+0.5                          0.5                                 Int. 6                      0 .5                                  0 .5
+
+0.0                          0.0                                 Int. 7                      0 .0                                  0 .0
+                                                                 Int. 8
+1.0                          1.0                                                             1 .0                                  1 .0
+
+                                                           3/SB                        3/NB
+
+0.5                          0.5                                                             0 .5                                  0 .5
+
+0.0                          0.0                                                             0 .0                                  0 .0
+
+1.0                          1.0                                                             1 .0                                  1 .0
+
+                                                           4/SB                        4/NB
+
+0.5                          0.5                                                             0 .5                                  0 .5
+
+0.0                          0.0                                                             0 .0                                  0 .0
+
+1.0                          1.0                                                             1 .0                                  1 .0
+
+                                                           5/SB                        5/NB
+
+0.5                          0.5                                                             0 .5                                  0 .5
+
+0.0                          0.0                                                             0 .0                                  0 .0
+
+1.0                          1.0                                                             1 .0                                  1 .0
+
+                                                           6/SB                        6/NB
+
+0.5                          0.5                                                             0 .5                                  0 .5
+
+0.0                          0.0                                                             0 .0                                  0 .0
+
+1.0                          1.0                                                             1 .0                                  1 .0
+
+                                                           7/SB                        7/NB
+
+0.5                          0.5                                                             0 .5                                  0 .5
+
+0.0                          0.0                                                             0 .0                                  0 .0
+
+1.0                          1.0                                                             1 .0                                  1 .0
+
+                                                           8/SB                        8/NB
+
+0.5                          0.5                                                             0 .5                                  0 .5
+
+0.0                          0.0                                                             0 .0                                  0 .0
+       0
+          29  57  86 114          0  29  57  86 114                                                          0  29  57  86 114           0  29  57  86 114
+
+          Time in Cycle (s)          Time in Cycle (s)                                                          Time in Cycle (s)           Time in Cycle (s)
+
+Figure 6. Flow profiles showing flow profiles for baseline and optimized (Objective III) offsets
+                                         for the Saturday TOD plan.
+
+3/15/2011                                                        Page 30 of 32                                                     10:39:54 AM
+                                                                                                                     Paper No. 11-0036
+
+100%                                                                         100%                   I
+                           I                                                  75%               II
+                                                                              50%             III
+75%                                          II                                          IV
+
+50%        IV
+
+                                                                                                                     Ba se
+
+                                             Ba se                           25%
+25%
+
+                                        III
+
+0%                                                                                0%
+
+     6     7      8                  9       10 11 12 13 14                           6  7             8        9    10 11 12 13 14
+
+     (a) Southbound, Case A to Case C.                                                (b) Northbound, Case C to Case A.
+
+100%                                                                         100%
+
+                                                    IV
+
+                                                                                                                III                                   I
+
+75%                                               III                        75%
+
+                                                                                                                IV                     II
+
+                                        I                          Ba se
+
+50%                                                                          50%
+                                                                                                                                               Ba se
+                                                               II
+
+25%                                                                          25%
+
+0%                                                                                0%
+
+     1         2              3                  4      5      6          7           1     2             3          4      5          6                 7
+
+     (c) Southbound, Case A to Case B.                                                (d) Northbound, Case B to Case A.
+
+100%                                                                         100%
+                                 IV                                                                             IV
+
+                         I                                                                                      III
+75%
+                                                                             75%                                                   II
+                                               II                                                            I
+
+50%                                                                          50%
+
+                                             III        Ba se                                                               Ba se
+
+25%                                                                          25%
+
+0%                                                                                0%
+
+     1         2              3                  4      5      6          7           1     2             3          4      5          6                 7
+
+     (e) Southbound, Case B to Case C.                                                (f) Northbound, Case C to Case B.
+
+Figure 7. Cumulative frequency diagrams of anonymous probe vehicle travel times for
+                    alternative objective functions, Saturday, 1500-1800.
+
+3/15/2011                                                          Page 31 of 32                                            10:39:54 AM
+3/15/2011                (b) Southbound.                                                                                              Travel Time (min)                                                                                                Travel Time (min)
+
+                  Figure 8. Travel time box-whisker plots for alternative optimization objectives by 3-hour time              Base                                             0600-0900                                                       Base                                             0600-0900
+               period, Saturdays, arterial (case A to case C).
+                                                                                                                     I. Min Delay                                                                             14                      I. Min Delay                                                                             14
+                                                                                                                    II. Min Delay                                                                  12                                II. Min Delay                                                                  12
+                                                                                                                                                                                        10                                                                                                               10
+                                                                                                                        and Stops                                             8                                                          and Stops                                             8
+                                                                                                                       III. Max Ng                                 6                                                                    III. Max Ng                                 6
+                                                                                                                  IV. Alt. Max Ng                        4                                                                         IV. Alt. Max Ng                        4
+                                                                                                                                              2                                                                                                                2
+                                                                                                                              Base  0                                                                                                          Base  0
+
+                                                                                                                     I. Min Delay                        0900-1200                                                                    I. Min Delay                        0900-1200
+                                                                                                                    II. Min Delay                                                                                                    II. Min Delay
+Page 32 of 32                                                                                                                                            1200-1500                                                (a) Northbound.                                         1200-1500
+                                                                                                                       and Stops                                                                                                        and Stops
+                                                                                                                       III. Max Ng                       1500-1800                                                                      III. Max Ng                       1500-1800
+                                                                                                                  IV. Alt. Max Ng                                                                                                  IV. Alt. Max Ng
+10:39:54 AM                                                                                                                                              1800-2100                                                                                                        1800-2100                                                Paper No. 11-0036
+                                                                                                                              Base                                                                                                             Base
+
+                                                                                                                     I. Min Delay                                                                                                     I. Min Delay
+                                                                                                                    II. Min Delay                                                                                                    II. Min Delay
+
+                                                                                                                        and Stops                                                                                                        and Stops
+                                                                                                                       III. Max Ng                                                                                                      III. Max Ng
+                                                                                                                  IV. Alt. Max Ng                                                                                                  IV. Alt. Max Ng
+
+                                                                                                                              Base                                                                                                             Base
+
+                                                                                                                     I. Min Delay                                                                                                     I. Min Delay
+                                                                                                                    II. Min Delay                                                                                                    II. Min Delay
+
+                                                                                                                       and Stops                                                                                                        and Stops
+                                                                                                                       III. Max Ng                                                                                                      III. Max Ng
+                                                                                                                  IV. Alt. Max Ng                                                                                                  IV. Alt. Max Ng
+
+                                                                                                                              Base                                                                                                             Base
+
+                                                                                                                     I. Min Delay                                                                                                     I. Min Delay
+                                                                                                                    II. Min Delay                                                                                                    II. Min Delay
+
+                                                                                                                        and Stops                                                                                                        and Stops
+                                                                                                                       III. Max Ng                                                                                                      III. Max Ng
+                                                                                                                      IV. Alt. Max                                                                                                     IV. Alt. Max
+
+                                                                                                                                  Ng                                                                                                               Ng
+

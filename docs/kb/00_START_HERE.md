@@ -15,7 +15,7 @@ Terakhir diperbarui: 2026-09-13 (keputusan user U-01…U-08 & Q-01…Q-11 diputu
 | 3 | `docs/sources/_ringkasan/R00_Catatan_Studi_Utama.md` §K | 10 mnt | sintesis 7 pilar |
 | 4 | `docs/planning/01` → `04` (termasuk §7b revisi) → `05` → `06` → `11`–`13` | 40 mnt | visi, tahapan, backlog fitur, arsitektur, pengadaan, kuesioner survei, kebutuhan data |
 | 5 | `docs/kb/01–09, 11` sesuai kebutuhan | per topik | glosarium, rumus, regulasi, kebutuhan, algoritma, data, KPI, risiko, kota, sumber |
-| 6 | `docs/sources/_ringkasan/R01–R06` | hanya bila perlu detail | catatan studi ±62.000 kata dengan rujukan halaman |
+| 6 | `docs/sources/_ringkasan/R01–R07` | hanya bila perlu detail | catatan studi ±62.000 kata dengan rujukan halaman; **R07** = regulasi Bandung/Jabar/ERP DKI, rumus Purdue (POG, platoon ratio, Link Pivot), data & kandidat koridor pilot Bandung |
 | 7 | `docs/sources/_teks_ekstraksi/*.txt` | grep saja | teks asli semua PDF |
 
 ## 3. Peta folder (struktur monorepo sejak 2026-09-13)

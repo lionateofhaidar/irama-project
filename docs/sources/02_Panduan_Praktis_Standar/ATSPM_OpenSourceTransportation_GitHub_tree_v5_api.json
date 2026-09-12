@@ -1,0 +1,130 @@
+[
+  {
+    "name": ".dockerignore",
+    "path": ".dockerignore",
+    "sha": "352f17577d771a034c139c31d60e214f854ac810",
+    "size": 385,
+    "url": "https://api.github.com/repos/opensourcetransportation/atspm/contents/.dockerignore?ref=main",
+    "html_url": "https://github.com/opensourcetransportation/atspm/blob/main/.dockerignore",
+    "git_url": "https://api.github.com/repos/opensourcetransportation/atspm/git/blobs/352f17577d771a034c139c31d60e214f854ac810",
+    "download_url": "https://raw.githubusercontent.com/opensourcetransportation/atspm/main/.dockerignore",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/opensourcetransportation/atspm/contents/.dockerignore?ref=main",
+      "git": "https://api.github.com/repos/opensourcetransportation/atspm/git/blobs/352f17577d771a034c139c31d60e214f854ac810",
+      "html": "https://github.com/opensourcetransportation/atspm/blob/main/.dockerignore"
+    }
+  },
+  {
+    "name": ".github",
+    "path": ".github",
+    "sha": "0b63cf2b66aa3d8f173755cdc16b23a9ca9fbd65",
+    "size": 0,
+    "url": "https://api.github.com/repos/opensourcetransportation/atspm/contents/.github?ref=main",
+    "html_url": "https://github.com/opensourcetransportation/atspm/tree/main/.github",
+    "git_url": "https://api.github.com/repos/opensourcetransportation/atspm/git/trees/0b63cf2b66aa3d8f173755cdc16b23a9ca9fbd65",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/opensourcetransportation/atspm/contents/.github?ref=main",
+      "git": "https://api.github.com/repos/opensourcetransportation/atspm/git/trees/0b63cf2b66aa3d8f173755cdc16b23a9ca9fbd65",
+      "html": "https://github.com/opensourcetransportation/atspm/tree/main/.github"
+    }
+  },
+  {
+    "name": ".gitignore",
+    "path": ".gitignore",
+    "sha": "51ca9ae92921c161b9594ffef8889e35fca76da8",
+    "size": 1523,
+    "url": "https://api.github.com/repos/opensourcetransportation/atspm/contents/.gitignore?ref=main",
+    "html_url": "https://github.com/opensourcetransportation/atspm/blob/main/.gitignore",
+    "git_url": "https://api.github.com/repos/opensourcetransportation/atspm/git/blobs/51ca9ae92921c161b9594ffef8889e35fca76da8",
+    "download_url": "https://raw.githubusercontent.com/opensourcetransportation/atspm/main/.gitignore",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/opensourcetransportation/atspm/contents/.gitignore?ref=main",
+      "git": "https://api.github.com/repos/opensourcetransportation/atspm/git/blobs/51ca9ae92921c161b9594ffef8889e35fca76da8",
+      "html": "https://github.com/opensourcetransportation/atspm/blob/main/.gitignore"
+    }
+  },
+  {
+    "name": ".vscode",
+    "path": ".vscode",
+    "sha": "38a30e454b6c352418499b9210f1fb4dc44c47e0",
+    "size": 0,
+    "url": "https://api.github.com/repos/opensourcetransportation/atspm/contents/.vscode?ref=main",
+    "html_url": "https://github.com/opensourcetransportation/atspm/tree/main/.vscode",
+    "git_url": "https://api.github.com/repos/opensourcetransportation/atspm/git/trees/38a30e454b6c352418499b9210f1fb4dc44c47e0",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/opensourcetransportation/atspm/contents/.vscode?ref=main",
+      "git": "https://api.github.com/repos/opensourcetransportation/atspm/git/trees/38a30e454b6c352418499b9210f1fb4dc44c47e0",
+      "html": "https://github.com/opensourcetransportation/atspm/tree/main/.vscode"
+    }
+  },
+  {
+    "name": "Atspm",
+    "path": "Atspm",
+    "sha": "de8f2d045e9f151143b920a521b89a914352d2d9",
+    "size": 0,
+    "url": "https://api.github.com/repos/opensourcetransportation/atspm/contents/Atspm?ref=main",
+    "html_url": "https://github.com/opensourcetransportation/atspm/tree/main/Atspm",
+    "git_url": "https://api.github.com/repos/opensourcetransportation/atspm/git/trees/de8f2d045e9f151143b920a521b89a914352d2d9",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/opensourcetransportation/atspm/contents/Atspm?ref=main",
+      "git": "https://api.github.com/repos/opensourcetransportation/atspm/git/trees/de8f2d045e9f151143b920a521b89a914352d2d9",
+      "html": "https://github.com/opensourcetransportation/atspm/tree/main/Atspm"
+    }
+  },
+  {
+    "name": "CHANGELOG.md",
+    "path": "CHANGELOG.md",
+    "sha": "1b26cf5f8596bd6eb805c51222a216c9e6b5aa88",
+    "size": 2379,
+    "url": "https://api.github.com/repos/opensourcetransportation/atspm/contents/CHANGELOG.md?ref=main",
+    "html_url": "https://github.com/opensourcetransportation/atspm/blob/main/CHANGELOG.md",
+    "git_url": "https://api.github.com/repos/opensourcetransportation/atspm/git/blobs/1b26cf5f8596bd6eb805c51222a216c9e6b5aa88",
+    "download_url": "https://raw.githubusercontent.com/opensourcetransportation/atspm/main/CHANGELOG.md",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/opensourcetransportation/atspm/contents/CHANGELOG.md?ref=main",
+      "git": "https://api.github.com/repos/opensourcetransportation/atspm/git/blobs/1b26cf5f8596bd6eb805c51222a216c9e6b5aa88",
+      "html": "https://github.com/opensourcetransportation/atspm/blob/main/CHANGELOG.md"
+    }
+  },
+  {
+    "name": "LICENSE",
+    "path": "LICENSE",
+    "sha": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+    "size": 11357,
+    "url": "https://api.github.com/repos/opensourcetransportation/atspm/contents/LICENSE?ref=main",
+    "html_url": "https://github.com/opensourcetransportation/atspm/blob/main/LICENSE",
+    "git_url": "https://api.github.com/repos/opensourcetransportation/atspm/git/blobs/261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+    "download_url": "https://raw.githubusercontent.com/opensourcetransportation/atspm/main/LICENSE",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/opensourcetransportation/atspm/contents/LICENSE?ref=main",
+      "git": "https://api.github.com/repos/opensourcetransportation/atspm/git/blobs/261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+      "html": "https://github.com/opensourcetransportation/atspm/blob/main/LICENSE"
+    }
+  },
+  {
+    "name": "README.md",
+    "path": "README.md",
+    "sha": "8b137891791fe96927ad78e64b0aad7bded08bdc",
+    "size": 1,
+    "url": "https://api.github.com/repos/opensourcetransportation/atspm/contents/README.md?ref=main",
+    "html_url": "https://github.com/opensourcetransportation/atspm/blob/main/README.md",
+    "git_url": "https://api.github.com/repos/opensourcetransportation/atspm/git/blobs/8b137891791fe96927ad78e64b0aad7bded08bdc",
+    "download_url": "https://raw.githubusercontent.com/opensourcetransportation/atspm/main/README.md",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/opensourcetransportation/atspm/contents/README.md?ref=main",
+      "git": "https://api.github.com/repos/opensourcetransportation/atspm/git/blobs/8b137891791fe96927ad78e64b0aad7bded08bdc",
+      "html": "https://github.com/opensourcetransportation/atspm/blob/main/README.md"
+    }
+  }
+]

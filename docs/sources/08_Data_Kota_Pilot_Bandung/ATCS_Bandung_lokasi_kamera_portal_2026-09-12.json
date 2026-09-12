@@ -1,0 +1,520 @@
+{
+ "sumber": "https://atcs-dishub.bandung.go.id/ (endpoint POST /ajax/lokasi dan /ajax/cctv-list)",
+ "tanggal_akses": "2026-09-12",
+ "lokasi": [
+  {
+   "id_lokasi": "1",
+   "nama_lokasi": "Soekarno Hatta - Gedebage",
+   "lat_lokasi": "-6.93703",
+   "lon_lokasi": "107.692679"
+  },
+  {
+   "id_lokasi": "2",
+   "nama_lokasi": "Soekarno Hatta - Ibrahim Adjie",
+   "lat_lokasi": "-6.945427",
+   "lon_lokasi": "107.641883"
+  },
+  {
+   "id_lokasi": "3",
+   "nama_lokasi": "Soekarno Hatta - Buah Batu",
+   "lat_lokasi": "-6.948012",
+   "lon_lokasi": "107.633519"
+  },
+  {
+   "id_lokasi": "4",
+   "nama_lokasi": "Soekarno Hatta - Batununggal",
+   "lat_lokasi": "-6.949489",
+   "lon_lokasi": "107.626006"
+  },
+  {
+   "id_lokasi": "5",
+   "nama_lokasi": "Soekarno Hatta - M Toha",
+   "lat_lokasi": "-6.948338",
+   "lon_lokasi": "107.609389"
+  },
+  {
+   "id_lokasi": "6",
+   "nama_lokasi": "Soekarno Hatta - Inhoftank",
+   "lat_lokasi": "-6.947878",
+   "lon_lokasi": "107.602571"
+  },
+  {
+   "id_lokasi": "7",
+   "nama_lokasi": "Soekarno Hatta - Cibaduyut",
+   "lat_lokasi": "-6.94728",
+   "lon_lokasi": "107.595227"
+  },
+  {
+   "id_lokasi": "9",
+   "nama_lokasi": "Soekarno Hatta - Caringin",
+   "lat_lokasi": "-6.94311",
+   "lon_lokasi": "107.584429"
+  },
+  {
+   "id_lokasi": "15",
+   "nama_lokasi": "Tamblong - Asia Afrika",
+   "lat_lokasi": "-6.921806",
+   "lon_lokasi": "107.611913"
+  },
+  {
+   "id_lokasi": "20",
+   "nama_lokasi": "Pasteur - Suryasumantri",
+   "lat_lokasi": "-6.892164",
+   "lon_lokasi": "107.581369"
+  },
+  {
+   "id_lokasi": "21",
+   "nama_lokasi": "Pasteur - HOS Tjokroaminoto",
+   "lat_lokasi": "-6.900317",
+   "lon_lokasi": "107.597399"
+  },
+  {
+   "id_lokasi": "22",
+   "nama_lokasi": "Cipaganti - Pasteur",
+   "lat_lokasi": "-6.900291",
+   "lon_lokasi": "107.602294"
+  },
+  {
+   "id_lokasi": "23",
+   "nama_lokasi": "Cihampelas - Pasteur",
+   "lat_lokasi": "-6.900245",
+   "lon_lokasi": "107.604242"
+  },
+  {
+   "id_lokasi": "24",
+   "nama_lokasi": "Tamansari - Cikapayang",
+   "lat_lokasi": "-6.898188",
+   "lon_lokasi": "107.609552"
+  },
+  {
+   "id_lokasi": "25",
+   "nama_lokasi": "Djuanda - Cikapayang",
+   "lat_lokasi": "-6.898954",
+   "lon_lokasi": "107.61269"
+  },
+  {
+   "id_lokasi": "26",
+   "nama_lokasi": "Djuanda - Sulanjana",
+   "lat_lokasi": "-6.900167",
+   "lon_lokasi": "107.612536"
+  },
+  {
+   "id_lokasi": "28",
+   "nama_lokasi": "Aceh - Merdeka",
+   "lat_lokasi": "-6.9097885",
+   "lon_lokasi": "107.6106013"
+  },
+  {
+   "id_lokasi": "29",
+   "nama_lokasi": "Surapati - Sentot Alibasa",
+   "lat_lokasi": "-6.899315",
+   "lon_lokasi": "107.619276"
+  },
+  {
+   "id_lokasi": "30",
+   "nama_lokasi": "PHH Mustofa - Pahlawan",
+   "lat_lokasi": "-6.89775",
+   "lon_lokasi": "107.634197"
+  },
+  {
+   "id_lokasi": "37",
+   "nama_lokasi": "PHH Mustofa - Cikutra",
+   "lat_lokasi": "-6.899872",
+   "lon_lokasi": "107.643426"
+  },
+  {
+   "id_lokasi": "38",
+   "nama_lokasi": "PHH Mustofa - Cimuncang",
+   "lat_lokasi": "-6.901719",
+   "lon_lokasi": "107.649846"
+  },
+  {
+   "id_lokasi": "39",
+   "nama_lokasi": "PHH Mustofa - Padasuka",
+   "lat_lokasi": "-6.901942",
+   "lon_lokasi": "107.65357"
+  },
+  {
+   "id_lokasi": "40",
+   "nama_lokasi": "PHH Mustofa - Ahmad Yani",
+   "lat_lokasi": "-6.902065",
+   "lon_lokasi": "107.655038"
+  },
+  {
+   "id_lokasi": "65",
+   "nama_lokasi": "Lembong - Sumatera",
+   "lat_lokasi": "-6.917983",
+   "lon_lokasi": "107.612753"
+  }
+ ],
+ "kamera": [
+  {
+   "id_lokasi": "1",
+   "nama_lokasi": "Soekarno Hatta - Gedebage",
+   "lat": "-6.93703",
+   "lon": "107.692679",
+   "id_kamera": "76",
+   "nama_kamera": "VID GEDEBAGE (Dari Arah Barat)"
+  },
+  {
+   "id_lokasi": "1",
+   "nama_lokasi": "Soekarno Hatta - Gedebage",
+   "lat": "-6.93703",
+   "lon": "107.692679",
+   "id_kamera": "77",
+   "nama_kamera": "VID GEDEBAGE (Dari Arah Selatan)"
+  },
+  {
+   "id_lokasi": "2",
+   "nama_lokasi": "Soekarno Hatta - Ibrahim Adjie",
+   "lat": "-6.945427",
+   "lon": "107.641883",
+   "id_kamera": "2",
+   "nama_kamera": "SP SAMSAT"
+  },
+  {
+   "id_lokasi": "2",
+   "nama_lokasi": "Soekarno Hatta - Ibrahim Adjie",
+   "lat": "-6.945427",
+   "lon": "107.641883",
+   "id_kamera": "80",
+   "nama_kamera": "VID SAMSAT (Dari Arah Barat)"
+  },
+  {
+   "id_lokasi": "2",
+   "nama_lokasi": "Soekarno Hatta - Ibrahim Adjie",
+   "lat": "-6.945427",
+   "lon": "107.641883",
+   "id_kamera": "81",
+   "nama_kamera": "VID SAMSAT (Dari Arah Selatan)"
+  },
+  {
+   "id_lokasi": "2",
+   "nama_lokasi": "Soekarno Hatta - Ibrahim Adjie",
+   "lat": "-6.945427",
+   "lon": "107.641883",
+   "id_kamera": "82",
+   "nama_kamera": "VID SAMSAT (Dari Arah Utara)"
+  },
+  {
+   "id_lokasi": "3",
+   "nama_lokasi": "Soekarno Hatta - Buah Batu",
+   "lat": "-6.948012",
+   "lon": "107.633519",
+   "id_kamera": "3",
+   "nama_kamera": "SP BUAHBATU"
+  },
+  {
+   "id_lokasi": "3",
+   "nama_lokasi": "Soekarno Hatta - Buah Batu",
+   "lat": "-6.948012",
+   "lon": "107.633519",
+   "id_kamera": "83",
+   "nama_kamera": "VID BUAH BATU (Dari Arah Timur)"
+  },
+  {
+   "id_lokasi": "3",
+   "nama_lokasi": "Soekarno Hatta - Buah Batu",
+   "lat": "-6.948012",
+   "lon": "107.633519",
+   "id_kamera": "84",
+   "nama_kamera": "VID BUAH BATU (Dari Arah Selatan)"
+  },
+  {
+   "id_lokasi": "3",
+   "nama_lokasi": "Soekarno Hatta - Buah Batu",
+   "lat": "-6.948012",
+   "lon": "107.633519",
+   "id_kamera": "85",
+   "nama_kamera": "VID BUAH BATU (Dari Arah Barat)"
+  },
+  {
+   "id_lokasi": "3",
+   "nama_lokasi": "Soekarno Hatta - Buah Batu",
+   "lat": "-6.948012",
+   "lon": "107.633519",
+   "id_kamera": "86",
+   "nama_kamera": "VID BUAH BATU (Dari Arah Utara)"
+  },
+  {
+   "id_lokasi": "4",
+   "nama_lokasi": "Soekarno Hatta - Batununggal",
+   "lat": "-6.949489",
+   "lon": "107.626006",
+   "id_kamera": "4",
+   "nama_kamera": "SP BATUNUNGGAL"
+  },
+  {
+   "id_lokasi": "4",
+   "nama_lokasi": "Soekarno Hatta - Batununggal",
+   "lat": "-6.949489",
+   "lon": "107.626006",
+   "id_kamera": "87",
+   "nama_kamera": "VID BATUNUNGGAL (Dari Arah Timur)"
+  },
+  {
+   "id_lokasi": "4",
+   "nama_lokasi": "Soekarno Hatta - Batununggal",
+   "lat": "-6.949489",
+   "lon": "107.626006",
+   "id_kamera": "88",
+   "nama_kamera": "VID BATUNUNGGAL (Dari Arah Barat)"
+  },
+  {
+   "id_lokasi": "5",
+   "nama_lokasi": "Soekarno Hatta - M Toha",
+   "lat": "-6.948338",
+   "lon": "107.609389",
+   "id_kamera": "5",
+   "nama_kamera": "SP MOCH TOHA"
+  },
+  {
+   "id_lokasi": "5",
+   "nama_lokasi": "Soekarno Hatta - M Toha",
+   "lat": "-6.948338",
+   "lon": "107.609389",
+   "id_kamera": "89",
+   "nama_kamera": "VID MOH TOHA (Dari Arah Barat )"
+  },
+  {
+   "id_lokasi": "5",
+   "nama_lokasi": "Soekarno Hatta - M Toha",
+   "lat": "-6.948338",
+   "lon": "107.609389",
+   "id_kamera": "90",
+   "nama_kamera": "VID MOH TOHA (Dari Arah Selatan)"
+  },
+  {
+   "id_lokasi": "5",
+   "nama_lokasi": "Soekarno Hatta - M Toha",
+   "lat": "-6.948338",
+   "lon": "107.609389",
+   "id_kamera": "91",
+   "nama_kamera": "VID MOH TOHA (Dari Arah Utara)"
+  },
+  {
+   "id_lokasi": "5",
+   "nama_lokasi": "Soekarno Hatta - M Toha",
+   "lat": "-6.948338",
+   "lon": "107.609389",
+   "id_kamera": "92",
+   "nama_kamera": "VID MOH TOHA (Dari Arah Timur)"
+  },
+  {
+   "id_lokasi": "6",
+   "nama_lokasi": "Soekarno Hatta - Inhoftank",
+   "lat": "-6.947878",
+   "lon": "107.602571",
+   "id_kamera": "6",
+   "nama_kamera": "SP INHOPTANK"
+  },
+  {
+   "id_lokasi": "7",
+   "nama_lokasi": "Soekarno Hatta - Cibaduyut",
+   "lat": "-6.94728",
+   "lon": "107.595227",
+   "id_kamera": "7",
+   "nama_kamera": "SP CIBADUYUT"
+  },
+  {
+   "id_lokasi": "9",
+   "nama_lokasi": "Soekarno Hatta - Caringin",
+   "lat": "-6.94311",
+   "lon": "107.584429",
+   "id_kamera": "9",
+   "nama_kamera": "SP PASAR CARINGIN"
+  },
+  {
+   "id_lokasi": "15",
+   "nama_lokasi": "Tamblong - Asia Afrika",
+   "lat": "-6.921806",
+   "lon": "107.611913",
+   "id_kamera": "15",
+   "nama_kamera": "SP TAMBLONG"
+  },
+  {
+   "id_lokasi": "20",
+   "nama_lokasi": "Pasteur - Suryasumantri",
+   "lat": "-6.892164",
+   "lon": "107.581369",
+   "id_kamera": "20",
+   "nama_kamera": "SP TOL PASTEUR"
+  },
+  {
+   "id_lokasi": "20",
+   "nama_lokasi": "Pasteur - Suryasumantri",
+   "lat": "-6.892164",
+   "lon": "107.581369",
+   "id_kamera": "100",
+   "nama_kamera": "VID PASTEUR (Dari Arah Timur)"
+  },
+  {
+   "id_lokasi": "20",
+   "nama_lokasi": "Pasteur - Suryasumantri",
+   "lat": "-6.892164",
+   "lon": "107.581369",
+   "id_kamera": "101",
+   "nama_kamera": "VID PASTEUR (Dari Arah Barat)"
+  },
+  {
+   "id_lokasi": "21",
+   "nama_lokasi": "Pasteur - HOS Tjokroaminoto",
+   "lat": "-6.900317",
+   "lon": "107.597399",
+   "id_kamera": "22",
+   "nama_kamera": "SP PASIR KALIKI BARU ( IP CAM )"
+  },
+  {
+   "id_lokasi": "21",
+   "nama_lokasi": "Pasteur - HOS Tjokroaminoto",
+   "lat": "-6.900317",
+   "lon": "107.597399",
+   "id_kamera": "107",
+   "nama_kamera": "VID PASKAL - RSHS (Dari Arah Barat)"
+  },
+  {
+   "id_lokasi": "21",
+   "nama_lokasi": "Pasteur - HOS Tjokroaminoto",
+   "lat": "-6.900317",
+   "lon": "107.597399",
+   "id_kamera": "108",
+   "nama_kamera": "VID PASKAL - RSHS (Dari Arah Utara)"
+  },
+  {
+   "id_lokasi": "21",
+   "nama_lokasi": "Pasteur - HOS Tjokroaminoto",
+   "lat": "-6.900317",
+   "lon": "107.597399",
+   "id_kamera": "109",
+   "nama_kamera": "VID PASKAL - RSHS (Dari Arah Timur)"
+  },
+  {
+   "id_lokasi": "22",
+   "nama_lokasi": "Cipaganti - Pasteur",
+   "lat": "-6.900291",
+   "lon": "107.602294",
+   "id_kamera": "23",
+   "nama_kamera": "SP CIPAGANTI"
+  },
+  {
+   "id_lokasi": "23",
+   "nama_lokasi": "Cihampelas - Pasteur",
+   "lat": "-6.900245",
+   "lon": "107.604242",
+   "id_kamera": "24",
+   "nama_kamera": "SP CIHAMPELAS PTZ"
+  },
+  {
+   "id_lokasi": "23",
+   "nama_lokasi": "Cihampelas - Pasteur",
+   "lat": "-6.900245",
+   "lon": "107.604242",
+   "id_kamera": "25",
+   "nama_kamera": "SP CIHAMPELAS Barat"
+  },
+  {
+   "id_lokasi": "23",
+   "nama_lokasi": "Cihampelas - Pasteur",
+   "lat": "-6.900245",
+   "lon": "107.604242",
+   "id_kamera": "26",
+   "nama_kamera": "SP CIHAMPELAS UTARA"
+  },
+  {
+   "id_lokasi": "23",
+   "nama_lokasi": "Cihampelas - Pasteur",
+   "lat": "-6.900245",
+   "lon": "107.604242",
+   "id_kamera": "27",
+   "nama_kamera": "SP CIHAMPELAS TIMUR"
+  },
+  {
+   "id_lokasi": "24",
+   "nama_lokasi": "Tamansari - Cikapayang",
+   "lat": "-6.898188",
+   "lon": "107.609552",
+   "id_kamera": "28",
+   "nama_kamera": "SP TAMANSARI"
+  },
+  {
+   "id_lokasi": "25",
+   "nama_lokasi": "Djuanda - Cikapayang",
+   "lat": "-6.898954",
+   "lon": "107.61269",
+   "id_kamera": "29",
+   "nama_kamera": "SP CIKAPAYANG PTZ"
+  },
+  {
+   "id_lokasi": "26",
+   "nama_lokasi": "Djuanda - Sulanjana",
+   "lat": "-6.900167",
+   "lon": "107.612536",
+   "id_kamera": "30",
+   "nama_kamera": "SP SULANJANA"
+  },
+  {
+   "id_lokasi": "28",
+   "nama_lokasi": "Aceh - Merdeka",
+   "lat": "-6.9097885",
+   "lon": "107.6106013",
+   "id_kamera": "32",
+   "nama_kamera": "SP MERDEKA ACEH"
+  },
+  {
+   "id_lokasi": "29",
+   "nama_lokasi": "Surapati - Sentot Alibasa",
+   "lat": "-6.899315",
+   "lon": "107.619276",
+   "id_kamera": "33",
+   "nama_kamera": "SP TELKOM"
+  },
+  {
+   "id_lokasi": "30",
+   "nama_lokasi": "PHH Mustofa - Pahlawan",
+   "lat": "-6.89775",
+   "lon": "107.634197",
+   "id_kamera": "34",
+   "nama_kamera": "SP PAHLAWAN"
+  },
+  {
+   "id_lokasi": "37",
+   "nama_lokasi": "PHH Mustofa - Cikutra",
+   "lat": "-6.899872",
+   "lon": "107.643426",
+   "id_kamera": "41",
+   "nama_kamera": "SP CIKUTRA"
+  },
+  {
+   "id_lokasi": "38",
+   "nama_lokasi": "PHH Mustofa - Cimuncang",
+   "lat": "-6.901719",
+   "lon": "107.649846",
+   "id_kamera": "42",
+   "nama_kamera": "SP CIMUNCANG"
+  },
+  {
+   "id_lokasi": "39",
+   "nama_lokasi": "PHH Mustofa - Padasuka",
+   "lat": "-6.901942",
+   "lon": "107.65357",
+   "id_kamera": "43",
+   "nama_kamera": "SP PADASUKA"
+  },
+  {
+   "id_lokasi": "40",
+   "nama_lokasi": "PHH Mustofa - Ahmad Yani",
+   "lat": "-6.902065",
+   "lon": "107.655038",
+   "id_kamera": "44",
+   "nama_kamera": "SP CICAHEUM"
+  },
+  {
+   "id_lokasi": "65",
+   "nama_lokasi": "Lembong - Sumatera",
+   "lat": "-6.917983",
+   "lon": "107.612753",
+   "id_kamera": "59",
+   "nama_kamera": "SP Sumatera - Lembong"
+  }
+ ]
+}

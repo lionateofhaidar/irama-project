@@ -1,0 +1,47 @@
+id_lokasi,nama_lokasi,lat,lon,id_kamera,nama_kamera
+1,Soekarno Hatta - Gedebage,-6.93703,107.692679,76,VID GEDEBAGE (Dari Arah Barat)
+1,Soekarno Hatta - Gedebage,-6.93703,107.692679,77,VID GEDEBAGE (Dari Arah Selatan)
+2,Soekarno Hatta - Ibrahim Adjie,-6.945427,107.641883,2,SP SAMSAT
+2,Soekarno Hatta - Ibrahim Adjie,-6.945427,107.641883,80,VID SAMSAT (Dari Arah Barat)
+2,Soekarno Hatta - Ibrahim Adjie,-6.945427,107.641883,81,VID SAMSAT (Dari Arah Selatan)
+2,Soekarno Hatta - Ibrahim Adjie,-6.945427,107.641883,82,VID SAMSAT (Dari Arah Utara)
+3,Soekarno Hatta - Buah Batu,-6.948012,107.633519,3,SP BUAHBATU
+3,Soekarno Hatta - Buah Batu,-6.948012,107.633519,83,VID BUAH BATU (Dari Arah Timur)
+3,Soekarno Hatta - Buah Batu,-6.948012,107.633519,84,VID BUAH BATU (Dari Arah Selatan)
+3,Soekarno Hatta - Buah Batu,-6.948012,107.633519,85,VID BUAH BATU (Dari Arah Barat)
+3,Soekarno Hatta - Buah Batu,-6.948012,107.633519,86,VID BUAH BATU (Dari Arah Utara)
+4,Soekarno Hatta - Batununggal,-6.949489,107.626006,4,SP BATUNUNGGAL
+4,Soekarno Hatta - Batununggal,-6.949489,107.626006,87,VID BATUNUNGGAL (Dari Arah Timur)
+4,Soekarno Hatta - Batununggal,-6.949489,107.626006,88,VID BATUNUNGGAL (Dari Arah Barat)
+5,Soekarno Hatta - M Toha,-6.948338,107.609389,5,SP MOCH TOHA
+5,Soekarno Hatta - M Toha,-6.948338,107.609389,89,VID MOH TOHA (Dari Arah Barat )
+5,Soekarno Hatta - M Toha,-6.948338,107.609389,90,VID MOH TOHA (Dari Arah Selatan)
+5,Soekarno Hatta - M Toha,-6.948338,107.609389,91,VID MOH TOHA (Dari Arah Utara)
+5,Soekarno Hatta - M Toha,-6.948338,107.609389,92,VID MOH TOHA (Dari Arah Timur)
+6,Soekarno Hatta - Inhoftank,-6.947878,107.602571,6,SP INHOPTANK
+7,Soekarno Hatta - Cibaduyut,-6.94728,107.595227,7,SP CIBADUYUT
+9,Soekarno Hatta - Caringin,-6.94311,107.584429,9,SP PASAR CARINGIN
+15,Tamblong - Asia Afrika,-6.921806,107.611913,15,SP TAMBLONG
+20,Pasteur - Suryasumantri,-6.892164,107.581369,20,SP TOL PASTEUR
+20,Pasteur - Suryasumantri,-6.892164,107.581369,100,VID PASTEUR (Dari Arah Timur)
+20,Pasteur - Suryasumantri,-6.892164,107.581369,101,VID PASTEUR (Dari Arah Barat)
+21,Pasteur - HOS Tjokroaminoto,-6.900317,107.597399,22,SP PASIR KALIKI BARU ( IP CAM )
+21,Pasteur - HOS Tjokroaminoto,-6.900317,107.597399,107,VID PASKAL - RSHS (Dari Arah Barat)
+21,Pasteur - HOS Tjokroaminoto,-6.900317,107.597399,108,VID PASKAL - RSHS (Dari Arah Utara)
+21,Pasteur - HOS Tjokroaminoto,-6.900317,107.597399,109,VID PASKAL - RSHS (Dari Arah Timur)
+22,Cipaganti - Pasteur,-6.900291,107.602294,23,SP CIPAGANTI
+23,Cihampelas - Pasteur,-6.900245,107.604242,24,SP CIHAMPELAS PTZ
+23,Cihampelas - Pasteur,-6.900245,107.604242,25,SP CIHAMPELAS Barat
+23,Cihampelas - Pasteur,-6.900245,107.604242,26,SP CIHAMPELAS UTARA
+23,Cihampelas - Pasteur,-6.900245,107.604242,27,SP CIHAMPELAS TIMUR
+24,Tamansari - Cikapayang,-6.898188,107.609552,28,SP TAMANSARI
+25,Djuanda - Cikapayang,-6.898954,107.61269,29,SP CIKAPAYANG PTZ
+26,Djuanda - Sulanjana,-6.900167,107.612536,30,SP SULANJANA
+28,Aceh - Merdeka,-6.9097885,107.6106013,32,SP MERDEKA ACEH
+29,Surapati - Sentot Alibasa,-6.899315,107.619276,33,SP TELKOM
+30,PHH Mustofa - Pahlawan,-6.89775,107.634197,34,SP PAHLAWAN
+37,PHH Mustofa - Cikutra,-6.899872,107.643426,41,SP CIKUTRA
+38,PHH Mustofa - Cimuncang,-6.901719,107.649846,42,SP CIMUNCANG
+39,PHH Mustofa - Padasuka,-6.901942,107.65357,43,SP PADASUKA
+40,PHH Mustofa - Ahmad Yani,-6.902065,107.655038,44,SP CICAHEUM
+65,Lembong - Sumatera,-6.917983,107.612753,59,SP Sumatera - Lembong
