@@ -1,0 +1,881 @@
+                                         JOURNAL OF TRANSACTIONS ON INTELLIGENT TRANSPORTATION SYSTEMS, VOL. X, NO. X, AUGUST 2019  1
+
+                                         An Open-Source Framework for Adaptive Traffic
+                                                              Signal Control
+
+                                                                                     Wade Genders and Saiedeh Razavi
+
+arXiv:1909.00395v1 [eess.SY] 1 Sep 2019     Abstract--Sub-optimal control policies in transportation sys-                  York and San Francisco, spent between three and four days
+                                         tems negatively impact mobility, the environment and human                        on average delayed in congestion over the year, respectively
+                                         health. Developing optimal transportation control systems at the                  costing 19, 33 and 10 billion USD from fuel and individual
+                                         appropriate scale can be difficult as cities' transportation systems              time waste [4]. It is paramount to ensure transportation systems
+                                         can be large, complex and stochastic. Intersection traffic signal                 are optimal to minimize these costs.
+                                         controllers are an important element of modern transportation
+                                         infrastructure where sub-optimal control policies can incur high                     Automated control systems are used in many aspects of
+                                         costs to many users. Many adaptive traffic signal controllers                     transportation systems. Intelligent transportation systems seek
+                                         have been proposed by the community but research is lacking                       to develop optimal solutions in transportation using intelli-
+                                         regarding their relative performance difference - which adaptive                  gence. Intersection traffic signal controllers are an important
+                                         traffic signal controller is best remains an open question. This                  element of many cities' transportation infrastructure where
+                                         research contributes a framework for developing and evaluating                    sub-optimal solutions can contribute high costs. Traditionally,
+                                         different adaptive traffic signal controller models in simula-                    traffic signal controllers have functioned using primitive logic
+                                         tion - both learning and non-learning - and demonstrates its                      which can be improved. Adaptive traffic signal controllers
+                                         capabilities. The framework is used to first, investigate the                     can improve upon traditional traffic signal controllers by
+                                         performance variance of the modelled adaptive traffic signal                      conditioning their control on current traffic conditions.
+                                         controllers with respect to their hyperparameters and second,
+                                         analyze the performance differences between controllers with                         Traffic microsimulators such as SUMO [5], Paramics, VIS-
+                                         optimal hyperparameters. The proposed framework contains                          SUM and AIMSUM have become popular tools for developing
+                                         implementations of some of the most popular adaptive traffic                      and testing adaptive traffic signal controllers before field de-
+                                         signal controllers from the literature; Webster's, Max-pressure                   ployment. However, researchers interested in studying adaptive
+                                         and Self-Organizing Traffic Lights, along with deep Q-network                     traffic signal controllers are often burdened with developing
+                                         and deep deterministic policy gradient reinforcement learning                     their own adaptive traffic signal control implementations de
+                                         controllers. This framework will aid researchers by accelerating                  novo. This research contributes an adaptive traffic signal
+                                         their work from a common starting point, allowing them to                         control framework, including Webster's, Max-pressure, Self-
+                                         generate results faster with less effort. All framework source code               organizing traffic lights (SOTL), deep Q-network (DQN) and
+                                         is available at https://github.com/docwza/sumolights.                             deep deterministic policy gradient (DDPG) implementations
+                                                                                                                           for the freely available SUMO traffic microsimulator to aid
+                                            Index Terms--traffic signal control, adaptive traffic signal con-              researchers in their work. The framework's capabilities are
+                                         trol, intelligent transportation systems, reinforcement learning,                 demonstrated by studying the effect of optimizing traffic signal
+                                         neural networks.                                                                  controllers hyperparameters and comparing optimized adaptive
+                                                                                                                           traffic signal controllers relative performance.
+                                                                   I. INTRODUCTION
+                                                                                                                                                     II. BACKGROUND
+                                         C ITIES rely on road infrastructure for transporting indi-
+                                               viduals, goods and services. Sub-optimal control poli-                      A. Traffic Signal Control
+                                         cies incur environmental, human mobility and health costs.
+                                         Studies observe vehicles consume a significant amount of fuel                        An intersection is composed of traffic movements or ways
+                                         accelerating, decelerating or idling at intersections [1]. Land                   that a vehicle can traverse the intersection beginning from an
+                                         transportation emissions are estimated to be responsible for                      incoming lane to an outgoing lane. Traffic signal controllers
+                                         one third of all mortality from fine particulate matter pollution                 use phases, combinations of coloured lights that indicate when
+                                         in North America [2]. Globally, over three million deaths are                     specific movements are allowed, to control vehicles at the
+                                         attributed to air pollution per year [3]. In 2017, residents of                   intersection.
+                                         three of the United States' biggest cities, Los Angeles, New
+                                                                                                                              Fundamentally, a traffic signal control policy can be decou-
+                                            W. Genders was a Ph.D. student with the Department of Civil En-                pled into two sequential decisions at any given time; what
+                                         gineering, McMaster University, Hamilton, Ontario, Canada e-mail: gen-            should the next phase be and for how long in duration?
+                                         derwt@mcmaster.ca                                                                 A variety of models have been proposed as policies. The
+                                                                                                                           simplest and most popular traffic signal controller determines
+                                            S. Razavi is an Associate Professor, Chair in Heavy Construction and Direc-    the next phase by displaying the phases in an ordered sequence
+                                         tor of McMaster Institute for Transportation & Logistics at the Department of     known as a cycle, where each phase in the cycle has a fixed,
+                                         Civil Engineering, McMaster University, Hamilton, Ontario, Canada e-mail:         potentially unique, duration - this is known as a fixed-time,
+                                         razavi@mcmaster.ca                                                                cycle-based traffic signal controller. Although simple, fixed-
+                                                                                                                           time, cycle-based traffic signal controllers are ubiquitous in
+                                             20XX IEEE. Personal use of this material is permitted. Permission from
+                                         IEEE must be obtained for all other uses, in any current or future media,
+                                         including reprinting/republishing this material for advertising or promotional
+                                         purposes, creating new collective works, for resale or redistribution to servers
+                                         or lists, or reuse of any copyrighted component of this work in other works.
+
+                                            Manuscript received August X, 2019; revised August X, 2019.
+JOURNAL OF TRANSACTIONS ON INTELLIGENT TRANSPORTATION SYSTEMS, VOL. X, NO. X, AUGUST 2019  2
+
+transportation networks because they are predictable, stable            · Scalable, Optimized: The proposed framework is opti-
+and effective, as traffic demands exhibit reliable patterns over           mized for use with parallel computation techniques lever-
+regular periods (i.e., times of the day, days of the week). How-           aging modern multicore computer architecture. This fea-
+ever, as ubiquitous as the fixed-time controller is, researchers           ture significantly reduces the compute time of learning-
+have long sought to develop improved traffic signal controllers            based adaptive traffic signal controllers and the generation
+which can adapt to changing traffic conditions.                            of results for all controllers. By making the framework
+                                                                           computationally efficient, the search for optimal hyperpa-
+   Actuated traffic signal controllers use sensors and boolean             rameters is tractable with modest hardware (e.g., 8 core
+logic to create dynamic phase durations. Adaptive traffic signal           CPU). The framework was designed to scale to develop
+controllers are capable of acyclic phase sequences and dy-                 adaptive controllers for any SUMO network.
+namic phase durations to adapt to changing intersection traffic
+conditions. Adaptive controllers attempt to achieve higher              All source code used in this manuscript can be retrieved
+performance at the expense of complexity, cost and reliability.      from https://github.com/docwza/sumolights.
+Various techniques have been proposed as the foundation for
+adaptive traffic signal controllers, from analytic mathematical                    III. TRAFFIC SIGNAL CONTROLLERS
+solutions, heuristics and machine learning.
+                                                                        Before describing each traffic signal controller in detail,
+B. Literature Review                                                 elements common to all are detailed. All of the included traffic
+                                                                     signal controllers share the following; a set of intersection
+   Developing an adaptive traffic signal control ultimately          lanes L, decomposed into incoming Linc and outgoing lanes
+requires some type of optimization technique. For decades            Lout and a set of green phases P . The set of incoming lanes
+researchers have proposed adaptive traffic signal controllers        with green movements in phase p  P is denoted as Lp,inc
+based on a variety of techniques such as evolutionary algo-          and their outgoing lanes as Lp,out.
+rithms [6], [7], [8], [9], [10], [11] and heuristics such as pres-
+sure [12], [13], [14], immunity [15], [16] and self-organization     A. Non-Learning Traffic Signal Controllers
+[17], [18], [19]. Additionally, many comprehensive adaptive
+traffic signal control systems have been proposed such as               1) Uniform: A simple cycle-based, uniform phase duration
+OPAC [20], SCATS [21], RHODES [22] and ACS-Lite [23].                traffic signal controller is included for use as a base-line
+                                                                     comparison to the other controllers. The uniform controller's
+   Reinforcement learning has been demonstrated to be an             only hyperparameter is the green duration u, which defines
+effective method for developing adaptive traffic signal con-         the same duration for all green phases; the next phase is
+trollers in simulation [6], [24], [25], [26], [27], [28]. Recently,  determined by a cycle.
+deep reinforcement learning has been used for adaptive traffic
+signal control with varying degrees of success [29], [30], [31],        2) Websters: Webster's method develops a cycle-based,
+[32], [33], [34], [35], [36], [37], [38], [39]. A comprehensive      fixed phase length traffic signal controller using phase flow
+review of reinforcement learning adaptive traffic signal con-        data [53]. The authors propose an adaptive Webster's traffic
+trollers is presented in Table I.                                    signal controller by collecting data for a time interval W in
+                                                                     duration and then using Webster's method to calculate the
+   Readers interested in additional adaptive traffic signal con-     cycle and green phase durations for the next W time interval.
+trol research can consult extensive review articles [40], [41],      This adaptive Webster's essentially uses the most recent W
+[42], [43], [44].                                                    interval to collect data and assumes the traffic demand will
+                                                                     be approximately the same during the next W interval. The
+   Although ample research exists proposing novel adaptive           selection of W is important and exhibits various trade-offs,
+traffic signal controllers, it can be arduous to compare be-         smaller values allow for more frequent adaptations to changing
+tween previously proposed ideas. Developing adaptive traffic         traffic demands at the risk of instability while larger values
+signal controllers can be challenging as many of them require        adapt less frequently but allow for increased stability. Pseudo-
+defining many hyperparameters. The authors seek to address           code for the Webster's traffic signal controller is presented in
+this problem by contributing an adaptive traffic signal control      Algorithm 1.
+framework to address these problems and aid in their research.
+                                                                        In Algorithm 1, F represents the set of phase flows collected
+C. Contribution                                                      over the most recent W interval and R represents the total
+                                                                     cycle lost time. In addition to the time interval hyperparameter
+   The authors' work contributes in the following areas:             W , the adaptive Webster's algorithm also has hyperparameters
+                                                                     defining a minimum cycle duration cmin, maximum cycle
+   · Diverse Adaptive Traffic Signal Controller Implemen-            duration cmax and lane saturation flow rate s.
+      tations: The proposed framework contributes adaptive
+      traffic signal controllers based on a variety of paradigms,       3) Max-pressure: The Max-pressure algorithm develops
+      the broadest being non-learning (e.g., Webster's, SOTL,        an acyclic, dynamic phase length traffic signal controller.
+      Max-pressure) and learning (e.g., DQN and DDPG). The           The Max-pressure algorithm models vehicles in lanes as a
+      diversity of adaptive traffic signal controllers allows re-    substance in a pipe and enacts control in a manner which
+      searchers to experiment at their leisure without investing     attempts to maximize the relief of pressure between incoming
+      time developing their own implementations.
+JOURNAL OF TRANSACTIONS ON INTELLIGENT TRANSPORTATION SYSTEMS, VOL. X, NO. X, AUGUST 2019                                     3
+
+                                                                           TABLE I
+                                             ADAPTIVE TRAFFIC SIGNAL CONTROL RELATED WORK.
+
+                Research Network                 Intersections     Multi-agent     RL            Function Approximation
+                                                       15          Max-plus        Model-based
+                [45]          Grid                   <10           None            Q-learning    N/A
+                                                       20          Max-plus        Q-learning    Linear
+                [27]          Grid, Corridor           59          Game Theory     Q-learning    N/A
+                                                       50          Holonic         Q-learning    Tabular
+                [46]          Springfield, USA         22          Reward Sharing  Q-learning    N/A
+                                                      100          Regional        Q-learning    Bayesian
+                [28]          Toronto, Canada          43          Centralized     DDPG          Linear
+                                                       50          None            Actor-Critic  DNN1
+                [47]          N/A                      96          Reward sharing  Q-learning    RBF2, Tile Coding
+                                                      195          None            DDPG          Linear
+                [48]          Grid                                                               DNN
+
+                [49]          Grid
+
+                [50]          Barcelona, Spain
+
+                [33]          Tehran, Iran
+
+                [51]          Changsha, China
+
+                [52]          Luxembourg City
+
+              1 Deep Neural Network (DNN).
+              2 Radial Basis Function (RBF).
+
+Algorithm 1 Webster's Algorithm                                            4) Self Organizing Traffic Lights: Self-organizing traffic
+                                                                        lights (SOTL) [17], [18], [19] develop a cycle-based, dynamic
+1: procedure WEBSTER(cmin, cmax, s, F, R)                               phase length traffic signal controller based on self-organizing
+                                                                        principles, where a "...self-organizing system would be one
+2: #compute critical lanes f or each phase                              in which elements are designed to dynamically and au-
+                                                                        tonomously solve a problem or perform a function at the
+3:   Y  =  {  max({  Fl  for  l  in  Lp,inc  })  for  p  in  P  }       system level." [18, p. 2].
+                     s
+                                                                           Pseudo-code for the SOTL traffic signal controller is pre-
+4: #compute cycle length                                                sented in Algorithm 3.
+
+5:   C  =  (1.5R)+5
+           1.0- Y
+
+6: if C < cmin then
+
+7:      C = cmin
+
+8: else if C > cmax then
+
+9:      C = cmax
+
+10: end if                                                              Algorithm 3 SOTL Algorithm
+
+11: G = C - R                                                           1: procedure SOTL(tp, gmin, , , µ)
+                                                                        2: #accumulate red phase vehicles time integral
+12: #allocate green time proportional to f low
+
+13:  return C, { G       y    for y in Y     }                          3:          =  + |V | lLinc-Lp,inc l
+                          Y
+
+14: end procedure                                                       4: if tp > gmin then
+
+                                                                        5:         #vehicles approaching in current green phase
+
+                                                                        6:         #<  distance of stop line
+
+and outgoing lanes [13]. For a given green phase p, the                 7:         n = lLp,inc |Vl|
+pressure is defined in (1).
+                                                                        8:         #only consider phase change if no platoon
+
+                                                                        9:         #or too large n > µ
+
+        Pressure(p) =                |Vl| -           |Vl|         (1)  10:        if n > µ or n == 0 then
+
+                         lLp,inc             lLp,out                    11:         if  >  then
+
+   Where Lp,inc represents the set of incoming lanes with               12:                =0
+green movements in phase p and Lp,out represents the set of
+outgoing lanes from all incoming lanes in Lp,inc.                       13:                #next phase in cycle
+
+   Pseudo-code for the Max-pressure traffic signal controller           14:                i=i+1
+
+                                                                        15:                return Pimod|P |
+
+is presented in Algorithm 2.                                            16:         end if
+
+                                                                        17:        end if
+
+Algorithm 2 Max-pressure Algorithm                                      18: end if
+
+1: procedure MAXPRESSURE(gmin, tp, P )                                  19: end procedure
+
+2: if tp < gmin then
+
+3:      tp = tp + 1                                                        The SOTL algorithm functions by changing lights accord-
+                                                                        ing to a vehicle-time integral threshold  constrained by a
+4: else                                                                 minimum green phase duration gmin. Additionally, small (i.e.
+                                                                        n < µ) vehicle platoons are kept together by preventing a
+5:      tp = 0                                                          phase change if sufficiently close (i.e., at a distance < ) to
+                                                                        the stop line.
+6:      #next phase has largest pressure
+
+7:      return argmax({ Pressure(p) for p in P })
+
+8: end if
+
+9: end procedure
+
+   In Algorithm 2, tp represents the time spent in the current          B. Learning Traffic Signal Controllers
+phase. The Max-pressure algorithm requires a minimum green
+time hyperparameter gmin which ensures a newly enacted                     Reinforcement learning uses the framework of Markov
+phase has a minimum duration.                                           Decision Processes to solve goal-oriented, sequential decision-
+                                                                        making problems by repeatedly acting in an environment.
+JOURNAL OF TRANSACTIONS ON INTELLIGENT TRANSPORTATION SYSTEMS, VOL. X, NO. X, AUGUST 2019                                     4
+
+At discrete points in time t, a reinforcement learning agent        is experience diversity, granted by multiple environments and
+                                                                    varied exploration rates.
+observes the environment state st and then uses a policy  to
+determine an action at. After implementing its selected action,
+
+the agent receives feedback from the environment in the form        C. DQN
+
+of a reward rt and observes a new environment state st+1.              The proposed DQN traffic signal controller enacts control by
+                                                                    choosing the next green phase without utilizing a phase cycle.
+The reward quantifies how `well' the agent is achieving its         This acyclic architecture is motivated by the observation that
+                                                                    enacting phases in a repeating sequence may be contributing
+goal (e.g., score in a game, completed tasks). This process         to sub-optimal control policy. After the DQN has selected the
+                                                                    next phase, it is enacted for a fixed duration known as an
+is repeated until a terminal state sterminal is reached, and        action repeat arepeat. After the phase has been enacted for the
+                                   k=T                              action repeat duration, a new phase is selected acyclically.
+then begins anew. The return Gt =  k=0   k rt+k   is  the
+                                                                       1) State: The proposed state observation for the DQN is a
+accumulation of rewards by the agent over some time horizon         combination of the most recent green phase and the density
+                                                                    and queue of incoming lanes at the intersection at time t.
+T , discounted by   [0, 1). The agent seeks to maximize the         Assume each intersection has a set L of incoming lanes and
+                                                                    a set P of green phases. The state space is then defined as
+expected return E[Gt] from each state st. The agent develops        S  (R2|L| × B|P |+1). The density and queue of each lane
+an optimal policy  to maximize the return.                          are normalized to the range [0, 1] by dividing by the lane's
+                                                                    jam density kj. The most recent phase is encoded as a one-
+There are many techniques for an agent to learn the optimal         hot vector B|P |+1, where the plus one encodes the all-red
+                                                                    clearance phase.
+policy, however, most of them rely on estimating value func-
+                                                                       2) Action: The proposed action space for the DQN traffic
+tions. Value functions are useful to estimate future rewards.       signal controller is the next green phase. The DQN selects
+State value functions V (s) = E[Gt|st = s] represent the            one action from a discrete set, in this model one of the many
+expected return starting from state s and following policy .        possible green phases at  P . After a green phase has been
+Action value functions Q(s, a) = E[Gt|st = s, at = a]               selected, it is enacted for a duration equal to the action repeat
+represent the expected return starting from state s, taking ac-     arepeat.
+
+tion a and following policy . In practice, value functions are         3) Reward: The reward used to train the DQN traffic signal
+                                                                    controller is a function of vehicle delay. Delay d is the
+unknown and must be estimated using sampling and function           difference in time between a vehicle's free-flow travel time
+                                                                    and actual travel time. Specifically, the reward is the negative
+approximation techniques. Parametric function approximation,        sum of all vehicles' delay at the intersection, defined in (2):
+
+such as neural networks, use a set of parameters  to estimate
+
+an unknown function f (x|)  f (x). To develop accurate
+
+approximations, the function parameters must be developed
+
+with some optimization technique.
+
+   Experiences are tuples et = (st, at, rt, st+1) that represent
+an interaction between the agent and the environment at time t.
+
+A reinforcement learning agent interacts with its environment
+
+in trajectories or sequences of experiences et, et+1, et+2, ....
+Trajectories begin in an initial state sinit and end in a terminal
+state sterminal. To accurately estimate value functions, expe-
+riences are used to optimize the parameters. If neural network
+
+function approximation is used, the parameters are optimized                                  rt = - dtv
+
+using experiences to perform gradient-based techniques and                                                                    (2)
+
+backpropagation [54], [55]. Additional technical details re-                                  vV
+
+garding the proposed reinforcement learning adaptive traffic        Where V is the set of all vehicles on incoming lanes at
+
+signal controllers can be found in the Appendix.                    the intersection, and dtv is the delay of vehicle v at time t.
+                                                                    Defined in this way, the reward is a punishment, with the
+To train reinforcement learning controllers for all intersec-
+
+tions, a distributed acting, centralized learning architecture is   agent's goal to minimize the amount of punishment it receives.
+
+developed [56], [57], [58]. Using parallel computing, multiple      Each intersection saves the reward with the largest magnitude
+
+actors and learners are created, illustrated in Figure 1. Actors    experienced  to  perform  minimum  reward  normalization     rt
+                                                                                                                              |rmin |
+have their own instance of the traffic simulation and neural
+                                                                    to scale the reward to the range [-1, 0] for stability.
+
+networks for all intersections. Learners are assigned a subset      4) Agent Architecture: The agent approximates the action-
+
+of all intersections, for each they have a neural network and       value Q function with a deep artificial neural network. The
+
+an experience replay buffer D. Actors generate experiences          action-value function Q is two hidden layers of 3(|st|) fully
+
+et for all intersections and send them to the appropriate           connected neurons with exponential linear unit (ELU) acti-
+learner. Learners only receive experiences for their assigned
+                                                                    vation functions and the output layer is |P | neurons with
+
+subset of intersections. The learner stores the experiences         linear activation functions. The Q function's input is the local
+
+in an experience replay buffer, which is uniformly sampled          intersection state st. A visualization of the DQN is presented
+
+for batches to optimize the neural network parameters. After        in Fig. 1.
+
+computing parameter updates, learners send new parameters
+
+to all actors.                                                      D. DDPG Traffic Signal Controller
+
+There are many benefits to this architecture, foremost being           The proposed DDPG traffic signal controller implements
+                                                                    a cycle with dynamic phase durations. This architecture is
+that it makes the problem feasible; because there are hundreds      motivated by the observation that cycle-based policies can
+
+of agents, distributing computation across many actors and
+
+learners is necessary to decrease training time. Another benefit
+JOURNAL OF TRANSACTIONS ON INTELLIGENT TRANSPORTATION SYSTEMS, VOL. X, NO. X, AUGUST 2019  5
+
+Fig. 1. Adaptive traffic signal control DDPG and DQN neural network agents (left) and distributed acting, centralized learning architecture (right) composed
+of actors and learners. Each actor has one SUMO network as an environment and neural networks for all intersections. Each learner is assigned a subset of
+intersections at the beginning of training and is only responsible for computing parameter updates for their assigned intersections, effectively distributing the
+computation load for learning. However, learners distribute parameter updates to all actors.
+
+maintain fairness and ensure a minimum quality of service             5) Agent Architecture: The agent approximates the policy
+between all intersection users. Once the next green phase has       and action-value Q function with deep artificial neural
+been determined using the cycle, the policy  is used to select     networks. The policy function is two hidden layers of 3|st|
+its duration. Explicitly, the reinforcement learning agent is      fully connected neurons, each with batch normalization and
+learning how long in duration to make the next green phase in      ELU activation functions, and the output layer is one neuron
+the cycle to maximize its return. Additionally, the cycle skips    with a hyperbolic tangent activation function. The action-value
+phases when no vehicles are present on incoming lanes.             function Q is two hidden layers of 3(|st|+|at|) fully connected
+                                                                   neurons with batch normalization and ELU activation func-
+   1) Actor State: The proposed state observation for the actor    tions and the output layer is one neuron with a linear activation
+is a combination of the current phase and the density and queue    function. The policy's input is the intersection's local traffic
+of incoming lanes at the intersection at time t. The state space   state st and the action-value function's input is the local state
+is then defined as S  (R2|L|×B|P |+1). The density and queue       concatenated with the local action st + at. The action-value
+of each lane are normalized to the range [0, 1] by dividing by     Q function also uses a L2 weight regularization of  = 0.01.
+the lane's jam density kj. The current phase is encoded as a
+one-hot vector B|P |+1, where the plus one encodes the all-red        By deep reinforcement learning standards the networks used
+clearance phase.                                                   are not that deep, however, their architecture is selected for
+                                                                   simplicity and they can easily be modified within the frame-
+   2) Critic State: The proposed state observation for the critic  work. Simple deep neural networks were also implemented to
+combines the state st and the actor's action at, depicted in       allow for future scalability, as the proposed framework can be
+Figure 1.                                                          deployed to any SUMO network - to reduce the computational
+                                                                   load the default networks are simple.
+   3) Action: The proposed action space for the adaptive
+traffic signal controller is the duration of the next green                                  IV. EXPERIMENTS
+phase in seconds. The action controls the duration of the
+next phase; there is no agency over what the next phase            A. Hyperparameter Optimization
+is, only on how long it will last. The DDPG algorithm
+produces a continuous output, a real number over some range           To demonstrate the capabilities of the proposed framework,
+at  R. Since the DDPG algorithm outputs a real number              experiments are conducted on optimizing adaptive traffic sig-
+and the phase duration is defined in intervals of seconds, the     nal control hyperparameters. The framework is for use with the
+output is rounded to the nearest integer. In practice, phase       SUMO traffic microsimulator [5], which was used to evaluate
+durations are bounded by minimum time gmin and a maximum           the developed adaptive traffic signal controllers. Understanding
+time gmax hyperparameters to ensure a minimum quality of           how sensitive any specific adaptive traffic signal controller's
+service for all users. Therefore the agent selects an action       performance is to changes in hyperparameters is important
+{at  Z|gmin  at  gmax} as the next phase duration.                 to instill confidence that the solution is robust. Determining
+                                                                   optimal hyperparameters is necessary to ensure a balanced
+   4) Reward: The reward used to train the DDPG traffic            comparison between adaptive traffic signal control methods.
+signal controller is the same delay reward used by the DQN
+traffic signal controller defined in (2).
+JOURNAL OF TRANSACTIONS ON INTELLIGENT TRANSPORTATION SYSTEMS, VOL. X, NO. X, AUGUST 2019  6
+
+gneJ0  gneJ6                                                                 the hyperparameter search and travel time data, however, the
+                                                                             reader's attention is directed to comparing the performance
+Fig. 2. Two intersection SUMO network used for hyperparameter ex-            of DQN and DDPG in Fig. 6. The DQN controller performs
+periments. In addition to this two intersection network, a single, isolated  poorly (i.e., high queues and delay) at the beginning and end
+intersection is also included with the framework.                            of the simulation when traffic demand is low. However, at the
+                                                                             demand peak, the DQN controller performs just as well, if
+   Using the hyperparameter optimization script included in                  not a little better, than every method except the Max-pressure
+the framework, a grid search is performed with the imple-                    controller. Simultaneously considering the DDPG controller,
+mented controllers' hyperparameters on a two intersection                    the performance is opposite the DQN controller. The DDPG
+network, shown in Fig. 2 under a simulated three hour dynamic                controller achieves relatively low queues and delay at the
+traffic demand scenario. The results for each traffic signal                 beginning and end of the simulation and then is bested by
+controller are displayed in Fig. 3 and collectively in Fig. 4.               the DQN controller in the middle of the simulation when the
+                                                                             demand peaks. This performance difference can potentially
+   As can be observed in Fig. 3 and Fig. 4 the choice of                     be understood by considering the difference between the
+hyperparameter significantly impacts the performance of the                  DQN and DDPG controllers. The DQN's ability to select
+given traffic signal controller. As a general trend observed                 the next phase acyclically under high traffic demand may
+in Fig. 3, methods with larger numbers of hyperparameters                    allow it to reduce queues and delay more than the cycle
+(e.g., SOTL, DDPG, DQN) exhibit greater performance vari-                    constrained DDPG controller. However, it is curious that
+ance than methods with fewer hyperparameters (e.g., Max-                     under low demands the DQN controller performance suffers
+pressure). Directly comparing methods in Fig. 4 demonstrates                 when it should be relatively simple to develop the optimal
+non-learning adaptive traffic signal control methods (e.g.,                  policy. The DQN controller may be overfitting to the periods
+Max-pressure, Webster's) robustness to hyperparameter values                 in the environment when the magnitude of the rewards are
+and high performance (i.e., lowest travel time). Learning-based              large (i.e., in the middle of the simulation when the demand
+methods exhibit higher variance with changes in hyperparam-                  peaks) and converging to a policy that doesn't generalize
+eters, DQN more so than DDPG. In the following section, the                  well to the environment when the traffic demand is low.
+best hyperparameters for each adaptive traffic signal controller             The author's present these findings to reader's and suggest
+will be used to further investigate and compare performance.                 future research investigate this and other issues to understand
+                                                                             the performance difference between reinforcement learning
+B. Optimized Adaptive Traffic Signal Controllers                             traffic signal controllers. Understanding the advantages and
+                                                                             disadvantages of a variety of controllers can provide insight
+   Using the optimized hyperparameters all traffic signal con-               into developing future improvements.
+trollers are subjected to an additional 32 simulations with
+random seeds to estimate their performance, quantified using                                V. CONCLUSION & FUTURE WORK
+network travel time, individual intersection queue and delay
+measures of effectiveness (MoE). Results are presented in Fig.                  Learning and non-learning adaptive traffic signal controllers
+5 and Fig. 6.                                                                have been developed within an optimized framework for the
+                                                                             traffic microsimulator SUMO for use by the research com-
+   Observing the travel time boxplots in Fig. 5, the SOTL                    munity. The proposed framework's capabilities were demon-
+controller produces the worst results, exhibiting a mean travel              strated by studying adaptive traffic signal control algorithm's
+time almost twice the next closest method and with many                      sensitivity to hyperparameters, which was found to be sensi-
+significant outliers. The Max-pressure algorithm achieves the                tive with hyperparameter rich controllers (i.e., learning) and
+best performance, with the lowest mean and median along                      relatively insensitive with hyperparameter sparse controllers
+with the lowest standard deviation. The DQN, DDPG, Uniform                   (i.e., heuristics). Poor hyperparameters can drastically alter
+and Webster's controllers achieve approximately equal perfor-                the performance of an adaptive traffic signal controller, lead-
+mance, however, the DQN controller has significant outliers,                 ing researchers to erroneous conclusions about an adaptive
+indicating some vehicles experience much longer travel times                 traffic signal controller's performance. This research provides
+than most.                                                                   evidence that dozens or hundreds of hyperparameter config-
+                                                                             urations may have to be tested before selecting the optimal
+   Each intersection's queue and delay MoE with respect to                   one.
+each adaptive traffic signal controller is presented in Fig. 6.
+The results are consistent with previous observations from                      Using the optimized hyperparamters, each adaptive con-
+                                                                             troller's performance was estimated and the Max-pressure
+                                                                             controller was found to achieve the best performance, yielding
+                                                                             the lowest travel times, queues and delay. This manuscript's
+                                                                             research provides evidence that heuristics can offer powerful
+                                                                             solutions even compared to complex deep-learning methods.
+                                                                             This is not to suggest that this is definitively the case in all en-
+                                                                             vironments and circumstances. The authors' hypothesize that
+                                                                             learning-based controllers can be further developed to offer
+JOURNAL OF TRANSACTIONS ON INTELLIGENT TRANSPORTATION SYSTEMS, VOL. X, NO. X, AUGUST 2019                                                       7
+
+                                                   Hyperparameter Performance                                                            Worst
+
+                              Uniform                   1400       SOTL                                   DDPG
+
+                 140                                    1200                                  80
+
+                 120                                    1000                                  60
+
+Standard         100                                    800                                   40
+Deviation
+Travel Time (s) 80
+
+                  60                                    600
+
+                  40                                    400                                   20
+
+                  20                                    200
+
+                  00      50             100       150  00    250 500 750 1000                00   20  40        60         80
+                          Max-pressure                             DQN                                 Webster's
+                  35
+
+                  30                                    1000                                  40
+
+Standard 25                                             800
+
+  Deviation       20                                                                          30
+Travel Time (s)
+                                                        600
+
+                  15                                    400                                   20
+
+                  10                                                                          10
+
+                  5                                     200
+
+                  00      20    Mean 40        60       00    200  400                   600  00   20      40           60           80  Best
+                                                                   Mean                                    Mean
+                              Travel Time (s)                      Travel Time (s)                     Travel Time (s)
+
+Fig. 3. Individual hyperparameter results for each traffic signal controller. Travel time is used as a measure of effectiveness and is estimated for each
+hyperparameter from eight simulations with random seeds in units of seconds (s). The coloured dots gradient from green (best) to red (worst) orders the
+hyperparameters by the sum of the travel time mean and standard deviation. Note differing scales between graph axes making direct visual comparison biased.
+
+                  200                                            Traffic Signal Control
+                                                              Hyperparameter Comparison
+
+                          DDPG
+                          DQN
+                          Max-pressure
+                  175     SOTL
+
+                          Uniform
+                          Webster's
+                  150
+
+                  125
+
+   Standard  (s)  100
+  Deviation
+Travel Time
+
+                      75
+
+                      50
+
+                      25
+
+                      00             25            50         75                    100       125      150                      175      200
+                                                                       Mean
+                                                                   Travel Time           (s)
+
+Fig. 4. Comparison of all traffic signal controller hyperparameter travel time performance. Note both vertical and horizontal axis limits have been clipped at
+200 to improve readability.
+
+improved performance that may yet best the non-learning,                 its current state, the framework can already aid adaptive traffic
+heuristic-based methods detailed in this research. Promising             signal control researchers rapidly experiment on a SUMO
+extensions that have improved reinforcement learning in other            network of their choice. Acknowledging the importance of
+applications and may do the same for adaptive traffic signal             optimizing our transportation systems, the authors hope this
+control include richer function approximators [59], [60], [61]           research helps others solve practical problems.
+and reinforcement learning algorithms [62], [63], [64].
+
+   The authors intend for the framework to grow, with the addi-
+tion of more adaptive traffic signal controllers and features. In
+JOURNAL OF TRANSACTIONS ON INTELLIGENT TRANSPORTATION SYSTEMS, VOL. X, NO. X, AUGUST 2019                                                                                 8
+
+                                     Traffic Signal Controller
+                                           Travel Time)
+
+1750
+
+                                                                                                                                DDPG
+                                                                                                                                DQN
+                                                                                                                                Max-pressure
+1500                                                                                                                            SOTL
+
+                                                                                                                                Uniform
+                                                                                                                                                 Webster's
+1250
+
+              1000
+T(ra,ve,lmTeimdiean()s)
+
+               750
+
+500
+
+250                      (72, 34, 65)              (78, 46, 66)  (59, 21, 54)                     (158, 169, 85)  (79, 37, 74)                              (71, 30, 66)
+
+0
+                                                                       Traffic Signal Controller
+
+Fig. 5. Boxplots depicting the distribution of travel times for each traffic signal controller. The solid white line represents the median, solid coloured box the
+interquartile range (IQR) (i.e., from first (Q1) to third quartile (Q3)), solid coloured lines the Q1-1.5IQR and Q3+1.5IQR and coloured crosses the outliers.
+
+                                       Intersection Measures of Effectiveness
+
+                                       gneJ0       DDPG                                                           gneJ6         DDPG
+                                                                                                                                DQN
+            8000                                   DQN                         8000                                             Max-pressure
+                                                   Max-pressure                                                                 Uniform
+            6000                                   Uniform                                                                      Webster's
+Queue (veh)                                        Webster's
+                                                                               6000
+            4000
+                                                                               4000
+
+2000                                                                           2000
+
+00                       25 50 75 100 125 150 175                              00                 25 50           75 100 125 150 175
+
+           80000                                   DDPG          70000                                                          DDPG
+           60000                                   DQN                                                                          DQN
+Delay (s) 40000                                    Max-pressure                                                                 Max-pressure
+                                                   Uniform       60000                                                          Uniform
+                                                   Webster's
+                                                                 50000                                                          Webster's
+
+                                                                 40000
+
+                                                                 30000
+
+20000                                                            20000
+
+                                                                 10000
+
+00                       25 50 75 100 125 150 175                              00                 25 50           75 100 125 150 175
+                                       Time (min)                                                                 Time (min)
+
+Fig. 6. Comparison of traffic signal controller individual intersection queue and delay measure of effectiveness in units of vehicles (veh) and seconds (s).
+Solid coloured lines represent the mean and shaded areas represent the 95% confidence interval. SOTL has been omitted to improve readability since its
+Queue and Delay values are exclusively outside the graph range.
+
+                             APPENDIX A                          a given problem. Like other temporal difference algorithms,
+                                  DQN                            Q-learning uses bootstrapping [68] (i.e., using an estimate to
+                                                                 improve future estimates) to develop an action-value function
+   Deep Q-Networks [65] combine Q-learning and deep neural       Q(s, a) which can estimate the expected return of taking action
+networks to produce autonomous agents capable of solving         a in state s and acting optimally thereafter. If the Q function
+complex tasks in high-dimensional environments. Q-learning       can be estimated accurately it can be used to derive the optimal
+[66] is a model-free, off-policy, value-based temporal dif-      policy  = argmaxaQ(s, a). In DQN the Q function is
+ference [67] reinforcement learning algorithm which can be       approximated with a deep neural network. The DQN algorithm
+used to develop an optimal discrete action space policy for
+JOURNAL OF TRANSACTIONS ON INTELLIGENT TRANSPORTATION SYSTEMS, VOL. X, NO. X, AUGUST 2019  9
+
+utilizes two techniques to ensure stable development of the Q         To ensure intersection safety, two second yellow change and
+function with DNN function approximation - a target network        three second all-red clearance phases were inserted between all
+and experience replay. Two parameter sets are used when            green phase transitions. For the DQN and DDPG traffic signal
+training a DQN, online  and target  . The target parameters        controllers, if no vehicles are present at the intersection, the
+ are used to stabilize the return estimates when performing        phase defaults to all-red, which is considered a terminal state
+updates to the neural network and are periodically changed to      sterminal. Each intersection's state observation is bounded by
+the online parameters  =  at a fixed interval. The experience      150 m (i.e., the queue and density are calculated from vehicles
+replay is a buffer which stores the most recent D experience       up to a maximum of 150 m from the intersection stop line).
+tuples to create a slowly changing dataset. The experience
+replay is uniformly sampled from for experience batches to                                 ACKNOWLEDGMENTS
+update the Q function online parameters .
+                                                                      This research was enabled in part by support in the form
+   Training a deep neural network requires a loss function,        of computing resources provided by SHARCNET (www.
+which is used to determine how to change the parameters to         sharcnet.ca), their McMaster University staff and Compute
+achieve better approximations of the training data. Reinforce-     Canada (www.computecanada.ca).
+ment learning develops value functions (e.g., neural networks)
+using experiences from the environment.                                                         REFERENCES
+
+   The DQN's loss function is the gradient of the mean squared      [1] L. Wu, Y. Ci, J. Chu, and H. Zhang, "The influence of intersections on
+error of the return Gt target yt and the prediction, defined in          fuel consumption in urban arterial road traffic: a single vehicle test in
+(3).                                                                     harbin, china," PloS one, vol. 10, no. 9, 2015.
+
+        yt = rt + Q(st+1, argmaxaQ(st+1, a| )| )  (3)               [2] R. A. Silva, Z. Adelman, M. M. Fry, and J. J. West, "The impact
+LDQN() = (yt - Q(st, at|))2                                              of individual anthropogenic emissions sectors on the global burden of
+                                                                         human mortality due to ambient air pollution," Environmental health
+                             APPENDIX B                                  perspectives, vol. 124, no. 11, p. 1776, 2016.
+                                 DDPG
+                                                                    [3] World Health Organization et al., "Ambient air pollution: A global
+   Deep deterministic policy gradients [69] are an extension             assessment of exposure and burden of disease," 2016.
+of DQN to continuous action spaces. Similiar to Q-learning,
+DDPG is a model-free, off-policy reinforcement learning al-         [4] G. Cookson, "INRIX global traffic scorecard," INRIX, Tech. Rep., 2018.
+gorithm. The DDPG algorithm is an example of actor-critic           [5] D. Krajzewicz, J. Erdmann, M. Behrisch, and L. Bieker, "Recent devel-
+learning, as it develops a policy function (s|) (i.e., actor)
+using an action-value function Q(s, a|) (i.e., critic). The actor        opment and applications of SUMO - Simulation of Urban MObility,"
+interacts with the environment and modifies its behaviour                International Journal On Advances in Systems and Measurements,
+based on feedback from the critic.                                       vol. 5, no. 3&4, pp. 128­138, December 2012.
+                                                                    [6] S. Mikami and Y. Kakazu, "Genetic reinforcement learning for cooper-
+   The DDPG critic's loss function is the gradient of the mean           ative traffic signal control," in Evolutionary Computation, 1994. IEEE
+squared error of the return Gt target yt and the prediction,             World Congress on Computational Intelligence., Proceedings of the First
+defined in (4).                                                          IEEE Conference on. IEEE, 1994, pp. 223­228.
+                                                                    [7] J. Lee, B. Abdulhai, A. Shalaby, and E.-H. Chung, "Real-time optimiza-
+        yt = rt + Q(st+1, (st+1| )| )             (4)                    tion for adaptive traffic signal control using genetic algorithms," Journal
+LCritic() = (yt - Q(st, at|))2                                           of Intelligent Transportation Systems, vol. 9, no. 3, pp. 111­122, 2005.
+                                                                    [8] H. Prothmann, F. Rochner, S. Tomforde, J. Branke, C. Mu¨ller-Schloer,
+   The DDPG actor's loss function is the sampled policy                  and H. Schmeck, "Organic control of traffic lights," in International
+gradient, defined in (5).                                                Conference on Autonomic and Trusted Computing. Springer, 2008, pp.
+                                                                         219­233.
+LActor() = Q(st, (st|)|)                          (5)               [9] L. Singh, S. Tripathi, and H. Arora, "Time optimization for traffic signal
+                                                                         control using genetic algorithm," International Journal of Recent Trends
+   Like DQN, DDPG uses two sets of parameters, online                    in Engineering, vol. 2, no. 2, p. 4, 2009.
+and target  , and experience replay [70] to reduce instability     [10] E. Ricalde and W. Banzhaf, "Evolving adaptive traffic signal controllers
+during training. DDPG performs updates on the parameters                 for a real scenario using genetic programming with an epigenetic
+for both the actor and critic by uniformly sampling batches of           mechanism," in 2017 16th IEEE International Conference on Machine
+experiences from the replay. The target parameters are slowly            Learning and Applications (ICMLA). IEEE, 2017, pp. 897­902.
+updated towards the online parameters according to  = (1 -         [11] X. Li and J.-Q. Sun, "Signal multiobjective optimization for urban traffic
+ ) + ( ) after every batch update.                                       network," IEEE Transactions on Intelligent Transportation Systems,
+                                                                         vol. 19, no. 11, pp. 3529­3537, 2018.
+                             APPENDIX C                            [12] T. Wongpiromsarn, T. Uthaicharoenpong, Y. Wang, E. Frazzoli, and
+                              TECHNICAL                                  D. Wang, "Distributed traffic signal control for maximum network
+                                                                         throughput," in Intelligent Transportation Systems (ITSC), 2012 15th
+   Software used include SUMO 1.2.0 [5], Tensorflow 1.13                 International IEEE Conference on. IEEE, 2012, pp. 588­595.
+[71], SciPy [72] and public code [73]. The neural network          [13] P. Varaiya, "The max-pressure controller for arbitrary networks of
+parameters were initialized with He [74] and optimized using             signalized intersections," in Advances in Dynamic Network Modeling
+Adam [75].                                                               in Complex Transportation Systems. Springer, 2013, pp. 27­66.
+                                                                   [14] J. Gregoire, X. Qian, E. Frazzoli, A. De La Fortelle, and T. Wong-
+                                                                         piromsarn, "Capacity-aware backpressure traffic signal control," IEEE
+                                                                         Transactions on Control of Network Systems, vol. 2, no. 2, pp. 164­
+                                                                         173, 2015.
+                                                                   [15] S. Darmoul, S. Elkosantini, A. Louati, and L. B. Said, "Multi-agent
+                                                                         immune networks to control interrupted flow at signalized intersections,"
+                                                                         Transportation Research Part C: Emerging Technologies, vol. 82, pp.
+                                                                         290­313, 2017.
+                                                                   [16] A. Louati, S. Darmoul, S. Elkosantini, and L. ben Said, "An artificial
+                                                                         immune network to control interrupted flow at a signalized intersection,"
+                                                                         Information Sciences, vol. 433, pp. 70­95, 2018.
+                                                                   [17] C. Gershenson, "Self-organizing traffic lights," arXiv preprint
+                                                                         nlin/0411066, 2004.
+JOURNAL OF TRANSACTIONS ON INTELLIGENT TRANSPORTATION SYSTEMS, VOL. X, NO. X, AUGUST 2019  10
+
+[18] S.-B. Cools, C. Gershenson, and B. DHooghe, "Self-organizing traffic          [43] P. Mannion, J. Duggan, and E. Howley, "An experimental review of
+      lights: A realistic simulation," in Advances in applied self-organizing            reinforcement learning algorithms for adaptive traffic signal control,"
+      systems. Springer, 2013, pp. 45­55.                                                in Autonomic Road Transport Support Systems. Springer, 2016, pp.
+                                                                                         47­66.
+[19] S. Goel, S. F. Bush, and C. Gershenson, "Self-organization in traffic
+      lights: Evolution of signal control with advances in sensors and com-        [44] K.-L. A. Yau, J. Qadir, H. L. Khoo, M. H. Ling, and P. Komisarczuk,
+      munications," arXiv preprint arXiv:1708.07188, 2017.                               "A survey on reinforcement learning models and algorithms for traffic
+                                                                                         signal control," ACM Computing Surveys (CSUR), vol. 50, no. 3, p. 34,
+[20] N. Gartner, "A demand-responsive strategy for traffic signal control,"              2017.
+      Transportation Research Record, vol. 906, pp. 75­81, 1983.
+                                                                                   [45] L. Kuyer, S. Whiteson, B. Bakker, and N. Vlassis, "Multiagent rein-
+[21] P. Lowrie, "Scats, sydney co-ordinated adaptive traffic system: A traffic           forcement learning for urban traffic control using coordination graphs,"
+      responsive method of controlling urban traffic," 1990.                             in Joint European Conference on Machine Learning and Knowledge
+                                                                                         Discovery in Databases. Springer, 2008, pp. 656­671.
+[22] P. Mirchandani and L. Head, "A real-time traffic signal control system:
+      architecture, algorithms, and analysis," Transportation Research Part C:     [46] J. C. Medina and R. F. Benekohal, "Traffic signal control using reinforce-
+      Emerging Technologies, vol. 9, no. 6, pp. 415­432, 2001.                           ment learning and the max-plus algorithm as a coordinating strategy,"
+                                                                                         in Intelligent Transportation Systems (ITSC), 2012 15th International
+[23] F. Luyanda, D. Gettman, L. Head, S. Shelby, D. Bullock, and P. Mirchan-             IEEE Conference on. IEEE, 2012, pp. 596­601.
+      dani, "Acs-lite algorithmic architecture: applying adaptive control system
+      technology to closed-loop traffic signal control systems," Transportation    [47] M. Abdoos, N. Mozayani, and A. L. Bazzan, "Holonic multi-agent
+      Research Record: Journal of the Transportation Research Board, no.                 system for traffic signals control," Engineering Applications of Artificial
+      1856, pp. 175­184, 2003.                                                           Intelligence, vol. 26, no. 5, pp. 1575­1587, 2013.
+
+[24] T. L. Thorpe and C. W. Anderson, "Traffic light control using sarsa with      [48] M. A. Khamis and W. Gomaa, "Adaptive multi-objective reinforcement
+      three state representations," Citeseer, Tech. Rep., 1996.                          learning with hybrid exploration for traffic signal control based on co-
+                                                                                         operative multi-agent framework," Engineering Applications of Artificial
+[25] E. Bingham, "Reinforcement learning in neurofuzzy traffic signal con-               Intelligence, vol. 29, pp. 134­151, 2014.
+      trol," European Journal of Operational Research, vol. 131, no. 2, pp.
+      232­241, 2001.                                                               [49] T. Chu, S. Qu, and J. Wang, "Large-scale traffic grid signal control
+                                                                                         with regional reinforcement learning," in American Control Conference
+[26] B. Abdulhai, R. Pringle, and G. J. Karakoulas, "Reinforcement learning              (ACC), 2016. IEEE, 2016, pp. 815­820.
+      for true adaptive traffic signal control," Journal of Transportation
+      Engineering, vol. 129, no. 3, pp. 278­285, 2003.                             [50] N. Casas, "Deep deterministic policy gradient for urban traffic light
+                                                                                         control," arXiv preprint arXiv:1703.09035, 2017.
+[27] L. Prashanth and S. Bhatnagar, "Reinforcement learning with function
+      approximation for traffic signal control," IEEE Transactions on Intelli-     [51] W. Liu, G. Qin, Y. He, and F. Jiang, "Distributed cooperative rein-
+      gent Transportation Systems, vol. 12, no. 2, pp. 412­421, 2011.                    forcement learning-based traffic signal control that integrates v2x net-
+                                                                                         works dynamic clustering," IEEE Transactions on Vehicular Technology,
+[28] S. El-Tantawy, B. Abdulhai, and H. Abdelgawad, "Multiagent rein-                    vol. 66, no. 10, pp. 8667­8681, 2017.
+      forcement learning for integrated network of adaptive traffic signal
+      controllers (marlin-atsc): methodology and large-scale application on        [52] W. Genders, "Deep reinforcement learning adaptive traffic signal con-
+      downtown toronto," IEEE Transactions on Intelligent Transportation                 trol," Ph.D. dissertation, McMaster University, 2018.
+      Systems, vol. 14, no. 3, pp. 1140­1150, 2013.
+                                                                                   [53] F. Webster, "Traffic signal settings, road research technical paper no.
+[29] T. Rijken, "Deeplight: Deep reinforcement learning for signalised traffic           39," Road Research Laboratory, 1958.
+      control," Ph.D. dissertation, Masters Thesis. University College London,
+      2015.                                                                        [54] S. Linnainmaa, "Taylor expansion of the accumulated rounding error,"
+                                                                                         BIT Numerical Mathematics, vol. 16, no. 2, pp. 146­160, 1976.
+[30] E. van der Pol, "Deep reinforcement learning for coordination in
+      traffic light control," Ph.D. dissertation, Masters Thesis. University of    [55] D. E. Rumelhart, G. E. Hinton, and R. J. Williams, "Learning represen-
+      Amsterdam, 2016.                                                                   tations by back-propagating errors," nature, vol. 323, no. 6088, p. 533,
+                                                                                         1986.
+[31] L. Li, Y. Lv, and F.-Y. Wang, "Traffic signal timing via deep reinforce-
+      ment learning," IEEE/CAA Journal of Automatica Sinica, vol. 3, no. 3,        [56] V. Mnih, A. P. Badia, M. Mirza, A. Graves, T. Lillicrap, T. Harley,
+      pp. 247­254, 2016.                                                                 D. Silver, and K. Kavukcuoglu, "Asynchronous methods for deep rein-
+                                                                                         forcement learning," in International Conference on Machine Learning,
+[32] W. Genders and S. Razavi, "Using a deep reinforcement learning agent                2016, pp. 1928­1937.
+      for traffic signal control," arXiv preprint arXiv:1611.01142, 2016, https:
+      //arxiv.org/abs/1611.01142.                                                  [57] D. Horgan, J. Quan, D. Budden, G. Barth-Maron, M. Hessel,
+                                                                                         H. Van Hasselt, and D. Silver, "Distributed prioritized experience
+[33] M. Aslani, M. S. Mesgari, and M. Wiering, "Adaptive traffic signal                  replay," arXiv preprint arXiv:1803.00933, 2018.
+      control with actor-critic methods in a real-world traffic network with
+      different traffic disruption events," Transportation Research Part C:        [58] L. Espeholt, H. Soyer, R. Munos, K. Simonyan, V. Mnih, T. Ward,
+      Emerging Technologies, vol. 85, pp. 732­752, 2017.                                 Y. Doron, V. Firoiu, T. Harley, I. Dunning et al., "Impala: Scalable dis-
+                                                                                         tributed deep-rl with importance weighted actor-learner architectures,"
+[34] S. S. Mousavi, M. Schukat, P. Corcoran, and E. Howley, "Traffic light               arXiv preprint arXiv:1802.01561, 2018.
+      control using deep policy-gradient and value-function based reinforce-
+      ment learning," arXiv preprint arXiv:1704.08883, 2017.                       [59] M. G. Bellemare, W. Dabney, and R. Munos, "A distributional perspec-
+                                                                                         tive on reinforcement learning," in Proceedings of the 34th International
+[35] X. Liang, X. Du, G. Wang, and Z. Han, "Deep reinforcement learn-                    Conference on Machine Learning-Volume 70. JMLR. org, 2017, pp.
+      ing for traffic light control in vehicular networks," arXiv preprint               449­458.
+      arXiv:1803.11115, 2018.
+                                                                                   [60] W. Dabney, M. Rowland, M. G. Bellemare, and R. Munos, "Distribu-
+[36] ----, "A deep reinforcement learning network for traffic light cycle                tional reinforcement learning with quantile regression," in Thirty-Second
+      control," IEEE Transactions on Vehicular Technology, vol. 68, no. 2,               AAAI Conference on Artificial Intelligence, 2018.
+      pp. 1243­1253, 2019.
+                                                                                   [61] W. Dabney, G. Ostrovski, D. Silver, and R. Munos, "Implicit quan-
+[37] S. Wang, X. Xie, K. Huang, J. Zeng, and Z. Cai, "Deep reinforcement                 tile networks for distributional reinforcement learning," arXiv preprint
+      learning-based traffic signal control using high-resolution event-based            arXiv:1806.06923, 2018.
+      data," Entropy, vol. 21, no. 8, p. 744, 2019.
+                                                                                   [62] R. S. Sutton, D. Precup, and S. Singh, "Between mdps and semi-mdps: A
+[38] W. Genders and S. Razavi, "Asynchronous n-step q-learning adaptive                  framework for temporal abstraction in reinforcement learning," Artificial
+      traffic signal control," Journal of Intelligent Transportation Systems,            intelligence, vol. 112, no. 1-2, pp. 181­211, 1999.
+      vol. 23, no. 4, pp. 319­331, 2019.
+                                                                                   [63] P.-L. Bacon, J. Harb, and D. Precup, "The option-critic architecture," in
+[39] T. Chu, J. Wang, L. Codeca`, and Z. Li, "Multi-agent deep reinforcement             Thirty-First AAAI Conference on Artificial Intelligence, 2017.
+      learning for large-scale traffic signal control," IEEE Transactions on
+      Intelligent Transportation Systems, 2019.                                    [64] S. Sharma, A. S. Lakshminarayanan, and B. Ravindran, "Learning to
+                                                                                         repeat: Fine grained action repetition for deep reinforcement learning,"
+[40] A. Stevanovic, Adaptive traffic control systems: domestic and foreign               arXiv preprint arXiv:1702.06054, 2017.
+      state of practice, 2010, no. Project 20-5 (Topic 40-03).
+                                                                                   [65] V. Mnih, K. Kavukcuoglu, D. Silver, A. A. Rusu, J. Veness, M. G.
+[41] S. El-Tantawy, B. Abdulhai, and H. Abdelgawad, "Design of reinforce-                Bellemare, A. Graves, M. Riedmiller, A. K. Fidjeland, G. Ostrovski
+      ment learning parameters for seamless application of adaptive traffic              et al., "Human-level control through deep reinforcement learning,"
+      signal control," Journal of Intelligent Transportation Systems, vol. 18,           Nature, vol. 518, no. 7540, pp. 529­533, 2015.
+      no. 3, pp. 227­245, 2014.
+                                                                                   [66] C. J. Watkins and P. Dayan, "Q-learning," Machine learning, vol. 8, no.
+[42] S. Araghi, A. Khosravi, and D. Creighton, "A review on computational                3-4, pp. 279­292, 1992.
+      intelligence methods for controlling traffic signal timing," Expert systems
+      with applications, vol. 42, no. 3, pp. 1538­1550, 2015.
+JOURNAL OF TRANSACTIONS ON INTELLIGENT TRANSPORTATION SYSTEMS, VOL. X, NO. X, AUGUST 2019  11
+
+[67] R. S. Sutton, "Learning to predict by the methods of temporal differ-
+      ences," Machine learning, vol. 3, no. 1, pp. 9­44, 1988.
+
+[68] R. S. Sutton and A. G. Barto, Reinforcement learning: An introduction.
+      MIT press Cambridge, 1998, vol. 1, no. 1.
+
+[69] T. P. Lillicrap, J. J. Hunt, A. Pritzel, N. Heess, T. Erez, Y. Tassa,
+      D. Silver, and D. Wierstra, "Continuous control with deep reinforcement
+      learning," arXiv preprint arXiv:1509.02971, 2015.
+
+[70] L.-J. Lin, "Self-improving reactive agents based on reinforcement learn-
+      ing, planning and teaching," Machine learning, vol. 8, no. 3-4, pp. 293­
+      321, 1992.
+
+[71] M. Abadi, A. Agarwal, P. Barham, E. Brevdo, Z. Chen, C. Citro, G. S.
+      Corrado, A. Davis, J. Dean, M. Devin, S. Ghemawat, I. Goodfellow,
+      A. Harp, G. Irving, M. Isard, Y. Jia, R. Jozefowicz, L. Kaiser,
+      M. Kudlur, J. Levenberg, D. Mane´, R. Monga, S. Moore, D. Murray,
+      C. Olah, M. Schuster, J. Shlens, B. Steiner, I. Sutskever, K. Talwar,
+      P. Tucker, V. Vanhoucke, V. Vasudevan, F. Vie´gas, O. Vinyals,
+      P. Warden, M. Wattenberg, M. Wicke, Y. Yu, and X. Zheng,
+      "TensorFlow: Large-scale machine learning on heterogeneous systems,"
+      2015, software available from tensorflow.org. [Online]. Available:
+      https://www.tensorflow.org/
+
+[72] E. Jones, T. Oliphant, P. Peterson et al., "SciPy: Open source scientific
+      tools for Python," 2001, "http://www.scipy.org/".
+
+[73] P. Tabor, 2019. [Online]. Available: https://github.com/philtabor/
+      Youtube-Code-Repository/blob/master/ReinforcementLearning/
+      PolicyGradient/DDPG/pendulum/tensorflow/ddpg orig tf.py
+
+[74] K. He, X. Zhang, S. Ren, and J. Sun, "Delving deep into rectifiers:
+      Surpassing human-level performance on imagenet classification," in
+      Proceedings of the IEEE international conference on computer vision,
+      2015, pp. 1026­1034.
+
+[75] D. Kingma and J. Ba, "Adam: A method for stochastic optimization,"
+      arXiv preprint arXiv:1412.6980, 2014.
+
+Wade Genders earned a Software B.Eng. & Society
+in 2013, Civil M.A.Sc. in 2014 and Civil Ph.D
+in 2018 from McMaster University. His research
+interests include traffic signal control, intelligent
+transportation systems, machine learning and arti-
+ficial intelligence.
+
+                               Saiedeh Razavi Saiedeh Razavi is the inaugural
+                               Chair in Heavy Construction, Director of the Mc-
+                               Master Institute for Transportation and Logistics
+                               and Associate Professor at the Department of Civil
+                               Engineering at McMaster University. Dr. Razavi
+                               has a multidisciplinary background and considerable
+                               experience in collaborating and leading national and
+                               international multidisciplinary team-based projects
+                               in sensing and data acquisition, sensor technologies,
+                               data analytics, data fusion and their applications in
+                               safety, productivity, and mobility of transportation,
+construction, and other systems. She combines several years of industrial expe-
+rience with academic teaching and research. Her formal education includes de-
+grees in Computer Engineering (B.Sc), Artificial Intelligence (M.Sc) and Civil
+Engineering (Ph.D.). Her research, funded by Canadian council (NSERC), as
+well as the ministry of Transportation of Ontario, focuses on connected and
+automated vehicles, on smart and connected work zones and on computational
+models for improving safety and productivity of highway construction. Dr.
+Razavi brings together the private and public sectors with academia for the
+development of high quality research in smarter mobility, construction and
+logistics. She has received several awards including McMasters Student Union
+Merit Award for Teaching, the Faculty of Engineering Team Excellent Award,
+and the Construction Industry Institute best poster award.
+

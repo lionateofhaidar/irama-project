@@ -1,0 +1,2389 @@
+            NYSERDA Department of
+                           Transportation
+
+                                    Decision-Making Tool
+                                   for Applying Adaptive
+                                 Traffic Control Systems
+
+                                                                                       Final Report
+
+March 2016  Report Number 16-12
+Decision-Making Tool for Applying Adaptive Traffic
+                        Control Systems
+
+                                                         Final Report
+
+                                                   Prepared for:
+                New York State Energy Research and Development Authority
+
+                                                          Albany, NY
+                                                       Joseph D. Tario
+                                                  Senior Project Manager
+
+                                                                and
+
+                           New York State Department of Transportation
+
+                                                          Albany, NY
+                                                      Guillermo Ramos
+                                                       Project Manager
+
+                                                   Prepared by:
+                                    Rensselaer Polytechnic Institute
+                       Department of Civil and Environmental Engineering
+
+                                                            Troy, NY
+                                      Xuegang (Jeff) Ban, Principal Investigator
+                                   Jeffrey Wojotowicz, Senior Research Engineer
+
+                                        Wan Li, Graduate Student Researcher
+
+NYSERDA Report 16-12  NYSERDA Contract 30902    March 2016
+                      NYS DOT Contract C-13-04
+Notice
+
+This report was prepared by the Department of Civil and Environmental Engineering at the Rensselaer
+Polytechnic Institute in the course of performing work contracted for and sponsored by the New York
+State Energy Research and Development Authority and the New York State Department of
+Transportation (hereafter the "Sponsors"). The opinions expressed in this report do not necessarily reflect
+those of the Sponsors or the State of New York, and reference to any specific product, service, process, or
+method does not constitute an implied or expressed recommendation or endorsement of it. Further, the
+Sponsors and the State of New York make no warranties or representations, expressed or implied, as to
+the fitness for particular purpose or merchantability of any product, apparatus, or service, or the
+usefulness, completeness, or accuracy of any processes, methods, or other information contained,
+described, disclosed, or referred to in this report. The Sponsors, the State of New York, and the contractor
+make no representation that the use of any product, apparatus, process, method, or other information will
+not infringe privately owned rights and will assume no liability for any loss, injury, or damage resulting
+from, or occurring in connection with, the use of information contained, described, disclosed, or referred
+to in this report.
+
+NYSERDA makes every effort to provide accurate information about copyright owners and
+related matters in the reports we publish. Contractors are responsible for determining and
+satisfying copyright or other use restrictions regarding the content of the reports that they write,
+in compliance with NYSERDA's policies and federal law. If you are the copyright owner and
+believe a NYSERDA report has not properly attributed your work to you or has used it without
+permission, please email print@nyserda.ny.gov.
+
+Disclaimer
+
+This report was funded in part through grant(s) from the Federal Highway Administration, United States
+Department of Transportation, under the State Planning and Research Program, Section 505 of Title 23,
+U.S. Code. The contents of this report do not necessarily reflect the official views or policy of the United
+States Department of Transportation, the Federal Highway Administration or the New York State
+Department of Transportation. This report does not constitute a standard, specification, regulation,
+product endorsement, or an endorsement of manufacturers.
+
+                                                                                       ii
+Technical Report Documentation Page
+
+1. Report No.             2. Government Accession No.                                 3. Recipient's Catalog No.
+C-13-04
+
+4. Title and Subtitle:                                                                5. Report Date: March 2016
+Decision Making Tool for Applying Adaptive Traffic Control Systems                    6. Performing Organization Code:
+
+7. Author(s): Xuegang (Jeff) Ban, Principal Investigator; Jeffrey Wojotowicz, Senior  8. Performing Organization Report
+Research Engineer; Wan Li, Graduate Student Researcher                                No.16-12:
+
+9. Performing Organization Name and Address:                                          10. Work Unit No.:
+Department of Civil and Environmental Engineering, Rensselaer Polytechnic Institute,
+110 8th St, Troy, NY 12180                                                            11. Contract or Grant No.:
+                                                                                      Contract No. 30902
+12. Sponsoring Agency Name and Address:                                               13. Type of Report and Period Covered:
+New York State Energy Research and Development Authority (NYSERDA), 17                2013-2015
+Columbia Circle, Albany, NY 12203; New York State Department of Transportation        14. Sponsoring Agency Code:
+(NYSDOT), 50 Wolf Road, Albany, NY 12232
+
+15. Supplementary Notes:
+Joseph D. Tario from NYSERDA and Guillermo Ramos from NYSDOT served as project managers.
+
+16. Abstract:
+
+17. Key Words:                                                          18. Distribution Statement:
+
+Adaptive traffic control, decision tree, support vector machine (SVM),
+big data analysis.
+
+19. Security Classification (of this report): 20. Security Classification (of this page): 21. No of Pages:  22. Price:
+
+                                                                                      72
+
+Form DOT F 1700.7 (8-72)
+
+                                     iii
+Abstract
+
+Adaptive traffic signal control technologies have been increasingly deployed in real world situations. The
+objective of this project was to develop a decision-making tool to guide traffic engineers and
+decision-makers who must decide whether or not adaptive control is better suited for a given traffic
+corridor and/or intersections than the existing actuator control system. The decision-making tool contains
+a qualitative analysis method and a quantitative analysis method. The qualitative method is a decision tree
+that lists the critical factors that influence the decision. Traffic analysis on network performance and
+infrastructure analysis on the required resources could help make decisions step-by-step. The quantitative
+analysis method is based on big data analysis methods using a large amount of data from various sources
+such as detectors, 511 systems, weather, and special events. Regression models and support vector
+machines (SVM) were applied to distinguish "good" and "bad" signal performances, as well as adaptive
+and actuated control strategies. Results show satisfactory performances of the SVM methods, and a
+decision-making procedure was developed to guide the deployment of adaptive traffic control.
+
+Acknowledgments
+
+The members of the research team gratefully acknowledge the sponsorship of this project by the New
+York State Energy Research and Development Authority (NYSERDA) and the New York State
+Department of Transportation (NYSDOT), under the direction of Mr. Joseph D. Tario of NYSERDA and
+Mr. Guillermo Ramos of NYSDOT. During the course of the project, traffic engineers and managers from
+NYSDOT Headquarters and Region 1, especially Mr. John Litteer, Mr. Abdus Salam, Mr. Sam Zhou, and
+Mr. Paul Mayor, provided data support and guidance regarding the direction of the research. Their
+support and guidance are highly appreciated. The project team also acknowledges the support by Sensys
+Networks for their invaluable data support, and in particular the discussions with Dr. Christopher Flores
+from Sensys. Undergraduate students from RPI, Ms. Li Sun and Mr. Nicolas Deflores, also contributed to
+the literature review of this report. Their effort is also appreciated.
+
+                                                                                       iv
+Table of Contents
+
+Notice........................................................................................................................................ ii
+Disclaimer................................................................................................................................. ii
+Abstract ....................................................................................................................................iv
+Acknowledgments ...................................................................................................................iv
+List of Figures ..........................................................................................................................vi
+List of Tables...........................................................................................................................vii
+1 Introduction....................................................................................................................... 1
+2 Review of Current Adaptive Signal Control Technologies............................................. 5
+
+   2.1 Alternative Adaptive Traffic Signal Control Systems..................................................................... 5
+   2.2 Measures of Effectiveness .......................................................................................................... 15
+
+3 Guideline of Deploying Adaptive Traffic Signal Control System..................................19
+4 Building the Database for Quantitative Analysis ...........................................................22
+
+   4.1 Geographic Information............................................................................................................... 24
+   4.2 Static Sensor Information............................................................................................................ 26
+   4.3 Dynamic Sensor Information....................................................................................................... 28
+   4.4 Signal Information ....................................................................................................................... 30
+   4.5 Signal Performance..................................................................................................................... 31
+   4.6 511NY Event ............................................................................................................................... 32
+   4.7 Java Programs for Wolf Road ..................................................................................................... 34
+
+5 Development of Quantitative Analysis Tool...................................................................36
+
+   5.1 Data Description.......................................................................................................................... 36
+   5.2 Regression Method ..................................................................................................................... 39
+
+      5.2.1 Multiple Linear Regression.................................................................................................. 39
+      5.2.2 Polynomial Regression ....................................................................................................... 40
+      5.2.3 Logistic Regression ............................................................................................................. 42
+   5.3 Support Vector Machine (SVM) Method ..................................................................................... 44
+   5.4 Development of the SVM-Based Quantitative Analysis Tool...................................................... 46
+      5.4.1 Linear SVM for Before and After Classification................................................................... 46
+      5.4.2 Linear SVM for LOS Classification...................................................................................... 50
+   5.5 Quantitative Decision-Making Procedure.................................................................................... 53
+   5.6 Discussion ................................................................................................................................... 54
+
+                                                                                       v
+6 Case Study .......................................................................................................................55
+7 Conclusions .....................................................................................................................59
+8 References .......................................................................................................................61
+
+List of Figures
+
+Figure 1. Average Cost per Intersection ..................................................................................... 7
+Figure 2. Map of Installed Signal in Roswell ............................................................................... 8
+Figure 3. Corridor Affected by the Adaptive System (Rosedale and U.S. 280 to Doug
+
+         Baker Rd in Alabama) .................................................................................................... 9
+Figure 4. San Marcos Boulevard (yellow) with intersecting Ronald Packard Pkwy (orange)......10
+Figure 5. Deployed Area in Gahanna, OH.................................................................................13
+Figure 6. Victory Boulevard Deployment Along Four Intersections ............................................15
+Figure 7. Communication Media between Central System and Field Controllers.......................20
+Figure 8. Decision Tree for Adaptive Signal Control ..................................................................21
+Figure 9. Deployment Locations of Actuated and Adaptive Traffic Control System on
+
+         Wolf Road .....................................................................................................................22
+Figure 10. Wolf Road Database Schema Layout.......................................................................24
+Figure 11. Two-Feature SVM Results ­ BC Based ...................................................................47
+Figure 12. Separating Hyperplane Comparison ­ BC Based.....................................................48
+Figure 13. Two-Feature SVM Models ­ LOS Based..................................................................51
+Figure 14. Separating Hyperplane Comparison ­ LOS Based...................................................52
+Figure 15. Route 20 in Albany from Route 155 to Route 85 ......................................................55
+Figure 16. Decision Tree for Western Ave.................................................................................57
+
+                                                                                       vi
+List of Tables
+
+Table 1. Adaptive Traffic Signal Control system and Respective Operational Goal .................... 6
+Table 2. Statistics on Toronto Deployment................................................................................. 7
+Table 3. Statistics along San Marcos Boulevard .......................................................................10
+Table 4. Statistics for Upper Merion, PA....................................................................................11
+Table 5. Comparison of System Benefits ..................................................................................11
+Table 6. Results for Hamilton Road...........................................................................................13
+Table 7. Identification of Data Sources and Measures of Effectiveness for Operational
+
+         Objectives .....................................................................................................................18
+Table 8. Table Names...............................................................................................................23
+Table 9. Tables of Geographic Information ...............................................................................25
+Table 10. Column in the Tables of Static Sensor information ....................................................27
+Table 11. Columns in the Tables of Dynamic Sensor Information .............................................29
+Table 12. Columns in the Tables of Signal Information .............................................................30
+Table 13. Columns in the Tables of Signal Performance...........................................................31
+Table 14. Columns in the Tables of Event Data ........................................................................33
+Table 15. Java Programs ..........................................................................................................35
+Table 16. Signal Performance Table .........................................................................................36
+Table 17. Network Performance................................................................................................38
+Table 18. Examples of Multiple Linear Regression Model .........................................................39
+Table 19. Parameter Estimation and R-squared Value for Multiple Linear Regression..............40
+Table 20. Parameter Estimation for Polynomial Regression Model ...........................................41
+Table 21. Tests in logistic regression ........................................................................................43
+Table 22. Example of logistic regression ...................................................................................44
+Table 23. Feature Selection and Classification Results for LOS................................................49
+Table 24. Feature Selection and Classification Results for Actuated and Adaptive Control .......53
+Table 25. Distance between Intersections on Western Ave.......................................................56
+Table 26. Major Upgrades Needed for Western Ave .................................................................58
+
+                                                                                      vii
+1 Introduction
+
+Traffic signal control systems require sophisticated control and coordination schemes to achieve traffic
+operation objectives, such as smooth and safe traffic movements and minimum delay, among others.
+A variety of traffic signal control systems have been developed and installed to deliver favorable signal
+timings to motorists, noticeably, actuated and adaptive traffic control systems. Actuated traffic signals
+maintain a green signal on the busiest street until a pedestrian or a vehicle on the less traveled side street
+approaches the intersection. Adaptive control technologies continuously adjust the length of green time
+based on traffic conditions, demand, and system capacity to accommodate current traffic patterns to
+promote smooth flow and reduce traffic congestion.
+
+Although actuated control systems are widely installed in the country, adaptive control systems have
+not been widely deployed due to the cost and uncertain outcomes. The objective of this project is to
+develop methods and procedures (i.e., a decision making tool) to help traffic engineers and decision-
+makers decide whether or not adaptive control is better suited for a given traffic corridor and/or
+intersection than actuated control. The decision-making tool consists of two types of methods: a
+qualitative analysis method based on nation-wide best practices and a quantitative analysis method
+using detailed traffic related data.
+
+Existing methods for such decision-making are mainly based on before and after comparisons, using
+statistical or simple data analysis methods. Various studies have focused on the empirical and statistical
+impacts of adaptive control on traffic performance. Brilon and Wietholt (2012) conducted an empirical
+studies based on probe car analysis to evaluate the performance of adaptive control in Muenster,
+Germany. Before and after analyses compared the performance of the old system, a rule-based traffic
+actuation and an adaptive system. The performance index (PI) was estimated at 30% improvement
+by the use of adaptive system. Transit also benefited from signal priority so that travel time could be
+reduced by more than 20%.
+
+Slavin et al. (2012) studied the joint impact of Sydney Coordinated Adaptive Traffic System (SCATS)
+and transit signal priority (TSP) on transit performance on congested corridors. The before and after
+analysis was conducted based on traffic and transit data along a congested urban arterial. It was
+determined that SCATS did not negatively affect transit performance based on statistical tests and
+regression analysis. They concluded that the improvement of travel time varied at different times of day
+and in different travel directions. Rodrigues (2014) investigated the impact of the SCATS on roadway
+
+                                                                                       1
+emissions of air pollutants and travel times on a corridor in Portland, OR. Reducing the maximum cycle
+length by 20 seconds for a two-week trial period was proposed for the SCATS to address the problem of
+pedestrian delay. It was observed that travel times were significantly higher during the reduced maximum
+cycle length based on before and after analysis. The authors concluded that the solution of maximum
+cycle length reduction did not interfere with other goals for the corridor.
+
+Kergaye et al. (2010) compared the performance of two systems: time-of-day actuated-coordinated signal
+and the SCATS installed in Park City, Utah. It was found that SCATS was better than the actuated system
+when assessed through both the "before-after" and "off-on" approaches. The before-after analysis was
+conducted to evaluate the traffic performance when a new traffic control system is deployed. The "off-on"
+method was implemented to assess the two traffic control strategies on the same system. The results were
+more favorable if the off-on approach was used. Monsere, Eshel, and Bertini (2009) reported on the
+results of a before-after evaluation of the performance of a System-Wide Adaptive Ramp Metering
+(SWARM) and pre-time system that was implemented in Portland, OR. Statistical analyses were made
+to evaluate performance matrices, including vehicle miles traveled (VMT), vehicle hours traveled (VHT),
+and delays. Mixed results were produced when comparing the performance metrics to the pre-timed
+operations. More recently, a before and after analysis was conducted on a traffic corridor in Albany,
+NY, which found that the adaptive traffic control system, Adaptive Control System Lite (ACS Lite),
+is effective to improve traffic within the adaptive control system, but increases delays at the boundary
+intersections (Ban et al. 2014).
+
+Clearly, adaptive control is not always the best choice for a given corridor or intersection. There are
+certain requirements and preconditions to deploy it, such as arterial networks with various traffic
+demands. Previous studies used before and after analysis to demonstrate the advantages of adaptive signal
+control, which has two potential issues. First, there lacks a "big-picture" assessment on whether adaptive
+control should even be considered, provided the characteristics of the corridor (such as delays, volumes,
+etc.) and the needed resources (such as hardware, software, communications, etc.). Second, the existing
+before-and-after based methods rely on simple statistical analysis, which may not be able to use the
+massive amount of data that are increasingly collected and available to transportation and traffic
+engineers.
+
+In this project, the aim was to develop two methods: a qualitative analysis method to provide the "big
+picture" assessment of adaptive control, and quantitative analysis method to provide in-depth analysis
+using large amount of traffic and other related data sets. The qualitative analysis was developed based
+
+                                                                                       2
+on the review of the best practices of adaptive signal control system deployment in the nation. The
+quantitative analysis methods are based on big data analytics methods to take advantage of the rich
+data sets traffic management agencies are collecting or having access to right now.
+
+Big data management is a recently developed technique that aims to better utilize massive amount
+of data sets accumulated in many engineering and science disciplines. Big data is usually characterized
+by "3V" or "4V" (Beyer and Laney 2012), which stands for:
+
+     · Volume - the size of the data set should be big enough.
+     · Velocity - the data has to be dynamic in the sense that there is always new data coming in
+
+           and old data becoming obsolete (for example, traffic detector data collected every 30 seconds).
+     · Variety - there are different types of data coming from different sources (for example, data
+
+           that can be collected from a transportation corridor, including volume, speeds, occupancy
+           from detectors, travel time from travel time sensors, weather information, special events,
+           among others).
+     · Veracity - inherently the data is incomplete and/or contains errors that need to be carefully
+           dealt with.
+
+It is clear that big data matters because it is not only "big" in terms of size, but also dynamic,
+heterogeneous, and erroneous. The key philosophy in big data analysis methods is for data "to speak."
+That is, one only cares about the correlations among data elements (i.e., the "what"), but not the
+underlying reasons behind the corrections (i.e., the "why"). There have been successful applications of
+big data analysis methods, mainly for decision making purposes, e.g., when is the best time to buy an
+airline ticket (McAfee, A. et al. 2012) and Google's epidemics prediction online tool (Google 2015).
+
+In transportation and traffic engineering, the data generated in real time with large quantities and collected
+from sensors, devices, video/audio, network, log files, transactional applications, web, and social media
+are naturally big data. Research has been emerging on using big data methods based on the massive
+amount of traffic-related data for the operations and planning of transportation systems. With the help of
+big data methods, researchers and practitioner can make better transportation decisions such as optimizing
+operations, developing rational infrastructure plans, and examining the distribution and patterns of large
+public events (Ozbay et al. 2014).
+
+                                                                                       3
+In this project, data analysis methods were introduced, such as regression analysis methods and support
+vector machine (SVM), to help conduct the quantitative analysis. In particular, using SVM, "good" signal
+performance (i.e., level of service [LOS] A-C) can be distinguished from "bad" signal performance
+(LOS D-F), based on multiple traffic measures. Two ways were proposed to correlate the before and
+after data using SVM, from which to develop the quantitative decision making tool for deploying adaptive
+control systems. Discussions were provided regarding the limitations of the proposed decision tool and
+future research directions. Limitations and research needs for big data analysis methods were also
+presented. The proposed decision making tools provide a two-stage decision making process for decision-
+makers to decide where adaptive control systems should be deployed. In the first stage, the qualitative
+tool was used to have a high level analysis, based on traffic and required resources, to obtain a quick
+assessment regarding whether adaptive control should even be considered. In the second stage, detailed
+data and analysis was conducted using the big data analysis method to determine whether adaptive control
+can be really beneficial compared with existing control systems (such as actuated control systems).
+
+                                                                                       4
+2 Review of Current Adaptive Signal Control
+      Technologies
+
+Adaptive signal control technologies adjust when green lights start and end based on the current traffic
+conditions, demand, and system capacity to accommodate current traffic patterns to promote smooth flow
+and ease traffic congestion. In the United States, several adaptive systems are available from multiple
+vendors. This chapter reviews how adaptive signal control systems perform, including the following:
+
+     · Investigating case studies in North America and several other countries.
+     · Identifying and describing the characteristics and performance of alternative adaptive signal
+
+           control systems.
+     · Identifying the measures of effectiveness of adaptive signal control systems.
+
+2.1 Alternative Adaptive Traffic Signal Control Systems
+
+Adaptive traffic signal control is not widely deployed now but receiving more and more attention
+throughout the United States. A synthesis report (Stevanovic 2010) described the state of practice in
+deploying adaptive traffic control systems in North America with an overview deployments around the
+world. Zhao and Tian (2012) provided a comprehensive overview of the state-of-the-art and state-of-the-
+practice of adaptive traffic control system. Shelby and Bullock (2008) provided an overview of the ACS
+Lite system with field evaluations. Fehon and Peters (2010) compared and contrasted the systems that
+have been successfully installed in the U.S. and discusses their advantages and disadvantages. Through
+several studies, it was determined that myriad benefits were demonstrated after the installation of these
+complex systems. Many vendors currently manufacture their own versions of software. Meanwhile, there
+are even more methods of analyzing the successes of the software packages in various settings and
+situations.
+
+The measures of effectiveness (MOEs) per system can vary greatly; so extensive research has been done
+to ensure that a potential system has the capabilities to accommodate demand in its respective area of
+deployment. These measures range from before-after studies, benefit-cost ratios, percent reduction in
+stops, among others. Although there is no one indicator that can prove a system is superior to another,
+there are ways to gauge the efficiency, including examining certain characteristics of each system.
+
+The operational goals involve varying degrees among different adaptive control systems as shown in
+Table 1.
+
+                                                                                       5
+Table 1. Adaptive Traffic Signal Control system and Respective Operational Goal
+
+Based on Stevanovic (2010)
+
+                       Adaptive System                                                   Goal
+ACS-Lite (by FHWA and Siemens)
+Adaptive Control Decision Support System (ACDSS)           Adjusts timing on a cycle basis
+                                                           Minimize delay, manage queue by diamond interchange
+Automated Traffic Surveillance and Control (ATSAC)         control.
+                                                           Adjusts timing on a cycle basis
+
+InSync (by Rhythm Engineering)                             Minimizes queues and delay time
+QuicTrac (by McCain Engineering)                           Minimizes delay, congestion via local volume collecting
+                                                           data controllers.
+Real Time Hierarchical Optimized Distributed Effective     Responds to natural behavior of traffic flow
+System (RHODES)
+Split Cycle Offset Optimization Techniques (SCOOT)         Minimizes delay with relative importance on stop
+
+Sydney Coordinated Adaptive Traffic System (SCATS)         Minimizes stops, delay, and travel time
+
+TranSuite                                                  Minimizes delay, stops, and travel time
+
+These systems are typically expensive, and the installation itself is costly. An approximated price
+breakdown is presented in Figure 1. For the purposes of the benefit-cost analysis, six models are
+compared, including SCOOT, SCATS, InSync, QuicTrac, ACS Lite, and ACDSS. The average cost
+to install the system per intersection ranges from $20,000 to nearly $80,000, which is quite expensive
+compared with existing fixed-time or actuated signal control systems. ACDSS is a relatively new
+system, and its cost data are not readily available yet. The cost is an important factor that needs to
+be fully considered when upgrading existing traffic control systems to adaptive traffic control system.
+The remainder of this section provides some review and analysis for these six systems.
+
+                                                        6
+Figure 1. Average Cost per Intersection
+
+Source: Jesus (2011)
+
+Price ($)  $80,000.00
+           $70,000.00
+           $60,000.00
+           $50,000.00
+           $40,000.00
+           $30,000.00
+           $20,000.00
+           $10,000.00
+
+                     $-
+
+                         SCOOT InSync ATSAC QuicTrac SCATS ACS Lite RHODES
+                                                    Adaptive System
+
+SCOOT. The Kernal software plays an important role in the SCOOT system. It is standard with each
+installation. Additional software, Urban Traffic Control (UTC), links SCOOT's Kernal to on-street
+equipment and provides the user interface. It is specific to each supplier. SCOOT MMX provides
+facilities to prioritize pedestrians at junctions. Table 2 provides the benefits of deploying SCOOT
+in Toronto, Canada (SCOOT 2014).
+
+Table 2. Statistics on Toronto Deployment
+
+Source: SCOOT (2014)
+
+           Category      Reduction (%)
+
+Delay                    17%
+Stops                    22%
+Fuel Consumption         5.7%
+Hydrocarbon Emissions     5%
+
+Roswell, GA has been building the SCOOT system since 2008. The system combines 38 traffic cameras
+and more than 60 traffic lights that can all be controlled from a control room in Roswell. According to
+Brent Srory (2011), SCOOT is an appropriate strategy because the area has high levels of nonrecurring
+congestion, such as incidents and special events, and with fluctuating traffic demand (Figure 2).
+
+                                           7
+Figure 2. Map of Installed Signal in Roswell
+
+Source: Copsey (2014)
+
+SCATS. The Sydney Coordinated Adaptive Traffic System (SCATS) is an area traffic control (ATC)
+or urban traffic control (UTC) system. SCATS manages groups of intersection rather than changing
+individual intersections in isolation. The system was developed in Sydney, Australia in the 1970s.
+The majority of signalized intersections in Australia today are SCATS-operated. It was also used in
+New Zealand, Hong Kong, Shanghai, Amman, Tehran, Dublin, and other places.
+In the United States, SCATS has been installed in White Plains, NY; Oakland County, MI; Bellevue,
+WA; and Sunnyvale, CA. According to Wang et al. (2013), SCATS has shown great improvement in
+the Oakland County, where 28 intersections were studied with the new technology. SCATS decreased
+the travel time by 6.7%, number of stops by 26.5%, queue length by 17.5%, total travel delay by 19%,
+fuel consumption by 5.1%, and increased the average travel speed by 7.0%.
+SCATS was deployed on Tarrytown Road in the city of White Plains in New York. Tarrytown Road
+is a major commuter arterial that carries approximately 50,000-60,000 vehicles daily. The traffic demand
+fluctuates daily with serious congestion during peak hours. According to Lardoux et al. (2014), there is
+15% reduction in travel times and 25% reduction in number of stops in the morning peak hour when the
+SCATS is deployed. In midday and afternoon, the number of stops decreased more than 30%.
+
+                                                                                       8
+Alabama has selected SCATS to reduce congestion at intersections on U.S. 280 (see Figure 3). The plan
+is to modify 26 signalized and non-signalized intersections along 8.2 miles of the highway in Jefferson
+and Shelby counties. Results showed that the adaptive traffic system has reduced overall motorist travel
+time by six to eight minutes (RPCGB 2014).
+
+Figure 3. Corridor Affected by the Adaptive System (Rosedale and U.S. 280 to Doug Baker Rd
+in Alabama)
+
+SCATS has also proved to be successful in Park City, Utah, with improvements made at 14 intersections
+during the afternoon and midday peaks. Conditions for the Park City test were under fair weather and dry
+pavement conditions. Based on the literature, SCATS produces higher cycle lengths than the fixed-time
+system. Moreover, SCATS tends to be set up with the preference to serve mainline over side street
+movements to improve mainline progression.
+QuicTrac. The QuicTrac system can introduce robust timing archive features, customized reports,
+and centralized document control. The benefit includes identifying trends and visualizing measures of
+effectiveness with accurate traffic counts displaced on charts (McCain 2013). QuicTrac collects data from
+a modest number of field detectors, loop or video, requiring only enough obtaining a reasonable sampling
+of speed along the corridor. Data is sent to the QuicTrac software module of central control software, and
+analyzed using specific algorithms, calculating optimum cycle lengths, splits and offsets based on
+prevailing traffic conditions.
+
+                                                                                       9
+The benefits of QuicTrac are illustrated Figure 4 and Table 3. Data was collected from San Marcos
+Boulevard in California. It is the second busiest arterial in San Diego County, with an average daily
+traffic volume of 22,000- 46,000. The corridor intersects a major highway and is lined with businesses
+and schools. The results show significant reductions in terms of delays and stops, and moderate to minor
+reductions in fuel consumption and emissions.
+
+Figure 4. San Marcos Boulevard (yellow) with intersecting Ronald Packard Pkwy (orange)
+
+Table 3. Statistics along San Marcos Boulevard
+
+Source: McCain (2015)
+
+Category               Reduction (%)
+
+Delay                  46%
+Stops                  39%
+Fuel Consumption       8%
+
+InSync. Widely deployed in the United States, InSync uses artificial intelligence to optimize traffic
+signals at individual intersections and coordinates signals along arterial corridors to reduce traffic
+congestion. Case studies have been conducted to demonstrate how well the InSync System works.
+One of the studies was conducted in Pinellas County, FL. After installing the InSync System, there
+was a 37% reduction in stops, a 12% reduction in travel time, a 24% reduction in delay, a 16% reduction
+in emissions, a 12% increase in average speed, and a 9% reduction in fuel usage (RHYTHM 2012).
+Another study in Upper Merion, PA was conducted to see how effective the InSync system is. By
+using video detection and its built-in artificial intelligence, InSync adapts signalization to actual
+demand, allowing queues of vehicles to clear quickly and completely every time. Table 4 shows
+significant reductions in terms of travel times, delays, stops, and increase of travel speeds.
+
+                                                10
+Table 4. Statistics for Upper Merion, PA
+
+Source: RHYTHM (2011)
+
+Category                   Percentage (%)
+
+Reduction in Travel Time                  26%
+Reduction in Stops                        21%
+Reduction in Delay                        34%
+Increase in Average Speed                 35%
+
+The InSync system was deployed on 10th Street in Greeley and the QuicTrac system was deployed on
+US 25 in Woodland Park in Colorado. A report from CDOT (CDOT 2012) summarized the results of
+the evaluation conducted regarding the implementation of these two different adaptive traffic signal
+control systems in Colorado. Although the installation cost of InSync system is much expensive than
+QuicTrac system, the Insync system would have saved the agencies more than $ 9.2 million over the
+rist 20 years of operation which outweighs the $ 5.7 million saving of QuicTrac system. Table 5
+compares InSync and QuicTrac.
+
+Table 5. Comparison of System Benefits
+
+Source:Colorado Department of Transportation (CDOT 2012)
+
+                                                          11
+ACS Lite (Adaptive Control Software Lite) is considered a closed adaptive loop system. In a closed
+loop system, a master communicates with locals, which collect data from the local detectors and the
+additional system detectors. ACS Lite works by collecting data, compares the collected data to normal
+coordinated timing plans, performs an analysis on this, and then implements phase split adjustments.
+ACS Lite requires stop line detectors, separated by individual lane-by-lane monitoring, although if lanes
+are serving the same phase/movement, they may be tied together. Stop line detectors monitor volume and
+occupancy on green, and the processing logic accounts or adjusts for the detector length. ACS Lite is
+very flexible with detector technologies, as it has been tested with various ranging from: inductive loops,
+video, wireless detectors, to radar detectors. The SCATS system works very similar to ACS Lite with the
+exception that this system does not use the pre-timed signal schedule to compare it to real time traffic like
+ACS Lite does. ACS Lite would be preferred if the installation cost was the most important aspect of the
+project at hand. The central control system is not required for ASC Lite; it can be controlled remotely
+through the use of a laptop device.
+The first deployment of the ACS Lite system was in Gahanna, OH, a suburb of the city of Columbus. The
+city has a Closed Loop System (CLS) along Hamilton Road with I-270 to the south and Clark State Road
+to the north, as shown in Figure 5. Hamilton Road serves as a connection between the city of Columbus
+to the north and I-270 to the south. Hamilton Road does not serve as a major route and is classified as a
+principal arterial. Additional results are provided in Table 6.
+
+                                                                                      12
+Figure 5. Deployed Area in Gahanna, OH
+
+Source: FHWA (2006)
+
+Table 6. Results for Hamilton Road
+
+Source: FHWA (2006)
+
+NYSDOT upgraded the actuated traffic signal control system on Wolf Road in Albany, NY to ACS
+Lite (Ban et al. 2014). The Wolf Road corridor is a destination corridor with very heavy demands
+during peak hours. The results showed that after ACS Lite was installed, the delays at the boundary
+intersections increased dramatically, while the delays of the intersections within the corridor decreased
+slightly. These results indicate that for a heavily congested corridor (such as the Wolf Road Corridor),
+ACS Lite can potentially improve traffic flow within its own system. However, this may be achieved
+
+                                                                                      13
+by "metering" (i.e., restricting) flow into the system, thereby generating large delays/problems at the
+boundary intersections. Obviously, this metering effect would depend on the specific adaptive control
+system as well as the actual traffic conditions of the corridor system. In addition, software issues were
+discovered with the specific ACS Lite control software packages used in the Wolf Road project, which
+also exacerbated the issues at the boundary intersections of the corridor (Ban et al. 2014).
+
+ACDSS (Adaptive Control Decision Support System) was developed for NYCDOT by KLD Associates,
+Inc., with support from NYSERDA. It is an advanced real-time, signal optimization system that integrates
+online simulation with actual field traffic controllers and detectors. It can provide optimized signal
+plans for both over- and under-saturated traffic. ACDSS uses the just-in-time (JIT) microscopic traffic
+simulation model AIMSUN because it can run multiple simultaneous instances at high speed. ACDSS
+enables several algorithms to be incorporated as switchable plug-ins. The concept of Signal Optimization
+Algorithm Repository, which enables delay minimization, diamond interchange control, and queue
+management, supports regional multi-objective and it can incorporate any state-of-the-art algorithm
+(ACDSS 2013a). ACDSS requires volume and occupancy data in approximately every 30 seconds. A
+Web service interface is responsible for retrieving data from sensors. The system supports autonomous
+mode and 24/7 operations. It can also be operated based on time of day, day of week, or date of month
+schedules.
+
+ACDSS has been successfully deployed in Midtown Manhattan where a closely spaced signalized
+grid system is present with highly over-saturated traffic. There are heavy pedestrian volumes and
+frequent intersection spill-backs due to the overflow queues. The implementation of ACDSS started
+on July 11, 2011, covering 110 square block zone in central business district of Midtown Manhattan.
+It has resulted in a 10% improvement in speeds in this area (ACDSS 2013b). To guarantee smooth
+pedestrian and bicycle movements, NYCDOT decided to maintain the 10% speed improvement.
+
+Victory Boulevard is a major east-west arterial road that runs 8 miles on Staten Island and is characterized
+by heavy communing traffic and the traffic entering and exiting the College campus (Figure 6). It is a
+good candidate for adaptive control because the traffic demand varies daily due to the class schedule.
+ACDSS was deployed in a 0.5-mile stretch of Victory Boulevard from North Gannon Ave to Morani St.
+including four intersections. There were significant improvements in arterial performance after deploying
+ACDSS, including 8% reduction in fuel consumption, 42% reduction in average stops, 30% reduction in
+average delay, 20% improvement in speeds, and 7% improvement of throughput (ACDSS 2013c).
+
+                                                                                      14
+Figure 6. Victory Boulevard Deployment Along Four Intersections
+
+Source: ACDSS (2013c)
+
+This review showed that the majority of system deployments has significant improvements in traffic
+delay, number of stops, and fuel consumptions than traditional pre-time signals, with some noticeable
+exceptions (such as the Wolf Road ACS Lite system in Albany, NY). Regarding deployment costs,
+QuicTrac was the lowest, while ATSAC was the highest. The actual costs vary significantly depending
+on the level of detection needed. The high cost for SCOOT was probably due to the large number of
+detectors required (Zhao and Tian 2012).
+
+2.2 Measures of Effectiveness
+
+Adaptive traffic signal control systems aim at achieving multiple objectives. There have been many
+attempts to measure the performances of adaptive traffic signal control systems. Some of the studies
+suggested that the impacts on performance could be different according to site-specific issues and
+selected performance metrics (Hunter, Wu and Kim 2005; Hunter et al. 2012; Hunter, Wu and Kim 1978).
+These studies developed procedures to access the overall impacts of adaptive signal control on arterials,
+including travel time, side street delays, and system-wide performance based on the data collected from
+probe vehicles. Other studies have accounted for the performance of side streets (Abdel-Rahim, Taylor,
+and Bangia 1998; Hunter, Wu, and Kim 2010; Peters et al. 2008), such as side street delay and delays for
+major turning approaches. The most typical measurements of performance are listed as follows.
+
+                                                                                      15
+Route Travel Time
+
+The most common evaluation approach is to measure route travel time. Travel times are always measured
+as the time difference at which each signalized intersection is encountered and the time to reach the stop
+line. Basically, there are two types of approaches for measurement of travel time: GPS probe vehicle and
+vehicle ­identification technology. The probe car techniques were well demonstrated in the studies from
+Robertson, Hummer, and Nelson (1994). The advanced technologies such as GPS probes and Bluetooth
+can be used to measure the travel time effectively. When collecting travel times, some of the issues need
+to be considered. It is normally assumed the traffic conditions are stable during the survey period. Travel
+times are typically collected during peak hours while it may limit the capacity of adaptive signal
+technology since it is most suitable when traffic demand is unpredictable. In addition, the number of
+runs using probes should be significant. NCHRP Report 398 (Lomax, Turner, and Shunk 1997) gave
+reference on the suggested sample size for data collection. They recommended sample sizes ranging
+from 2 to 14 individual test runs based on the desired level of confidence. Vehicle re-identification
+technology is able to provide 24/7 information but lack of detailed information on individual vehicle
+performance between the end points of the trip.
+
+Travel Time Reliability
+
+Travel time reliability is an important measurement of network performance. The concept of travel time
+reliability is defined interchangeably with travel time variability in the transportation research literature.
+Most reliability measures are calculated from the day-to-day distribution of travel times on a particular
+route, that is, the variability in travel time vehicles experience on a particular time-of-day (TOD) and
+day-of-week (DOW) period over a longer time period. A comprehensive overview of travel time
+reliability measures can be found in the research from Lomax et al. (2003).
+
+Delay
+
+Traffic delay and traffic count information are usually studied with traditional manual observation
+techniques. Floating car data can provide detailed information during the periods when data were
+collected. These techniques can be effective, but cannot be used for long periods of time because of
+the cost and staffing concerns. So they are usually collected at selected high-volume intersections.
+Other data sourced from GPS loggers, videotaping, high-resolution phase timing and detection data
+are available now to reduce the manual effort and expand storage capabilities. They can operate
+24-hours per day, which enables the researchers to access the performance of adaptive signal
+during off-peak hours or other times when data were not collected.
+
+                                                                                      16
+Traffic Volume
+Traffic volume is defined as the total number of vehicle traveling from the origin to the destination
+during a given period of travel time. It is the direct measurement of throughput. There are two types of
+technologies that could measure the traffic volume, based on point sensors and vehicle re-identification
+techniques.
+
+Derived MOEs
+The performance of adaptive traffic signal could also have impacts on society. The corresponding
+measurements, such as fuel use, emissions, and benefit/cost ratios are typically used to estimate the
+impacts. Fuel use and emission could be estimated from GPS probe vehicle trajectories. Benefit/cost
+analysis could justify if the benefits of the project outweigh the costs of implementation over a
+significant period of time by computing the Net Present Value and benefit/cost ratio according to
+economic principles.
+
+After collecting all these data, the before and after studies could be used to evaluate the network
+performance where "before" study represents traditional traffic signal control conditions and "after"
+study corresponds to adaptive signal control technologies. A before and after study using Empirical
+Bayes (EB) approach was recommended in Highway Safety Manual (HSM) (AASHTO 2010). They
+examined the impacts of adaptive signals at urban intersections. However, these types of studies are
+criticized as not being completely representative of a corridor's performance. The data are always
+collected under "before" conditions and "after" conditions separately so that the traffic volume and
+pattern are not identical. Other variables can impact the traffic flow between those times. Rather than
+dealing with issues of a "before and after" study, several studies have begun to study performances
+using on/off techniques. The network performance are compared with the studied system active and
+while it was inactive. Stevanovic et al. (2009) and (Fehon et al. 2012) have applied on/off techniques
+in simulation studies and evaluations.
+
+                                                                                      17
+Table 7. Identification of Data Sources and Measures of Effectiveness for Operational Objectives
+
+Source: Gettman et al. (2013)
+
+MOEs               Data Sources                     Operational Objectives
+                                                       (Fehon et al. 2012)
+
+· Smooth flow      · Import travel time data from   · Route travel time
+                         vehicle re-identification  · Route travel delay
+· Access Equity          scanners                   · Route average speed
+· Throughput                                        · Link travel time, delay
+· Travel time      · Import trajectory data         · Number of stops per mile on
+                         from GPS probes
+      reliability                                         route
+                   · Import high-resolution signal  · Percent arrivals on green, by
+                         timing and detector data
+                                                          link
+                   · Import high-resolution signal  · Platoon ratio, by link
+                         timing and detector data
+                                                    · Green-Occupancy-Ratio
+                   · Import count data from tube    · Min, Max, and Standard
+                         counter file
+                                                          Deviation of Green-
+                   · Import travel time data from         Occupancy-Ratio
+                         Bluetooth scanner          · Served Volume/Capacity ratio
+                                                          by movement
+                   · Import trajectory data
+                         from GPS probe             · Total traffic volume on route
+                                                    · Time to process equivalent
+                   · Import high-resolution signal
+                         timing and detector data         volume
+
+                                                    · Buffer time
+                                                    · Planning time
+                                                    · Minimum, maximum, and
+
+                                                          standard deviation of platoon
+                                                          ratio
+                                                    · Minimum, maximum, and
+                                                          standard deviation of percent
+                                                          arrivals on green
+
+These measures of effectiveness (MOEs) could be used to evaluate the performance of a traffic control
+strategy. The typical MOEs includes smooth flow, access equity, throughput, and travel time reliability.
+Table 7 summarizes the MOEs and data sources for each operational objective. The operation objectives
+for each MOE are listed separately.
+
+                   18
+3 Guideline of Deploying Adaptive Traffic Signal
+      Control System
+
+Guideline was developed to help conduct qualitative analysis of adaptive traffic signal control
+deployment. The decision tree in Figure 8 was developed for this purpose to help traffic engineers and
+decision-makers determine whether adaptive control is best suited for a given traffic corridor and/or
+intersections than existing control systems. The key to selecting an adaptive signal system is to identify
+its operational objectives and where it is effective.
+
+Adaptive signal should be installed in the environment in which they can contribute to reducing
+traffic congestion and improving traffic operations (Stevanovic 2010). A survey reported that 80% of the
+interviewed agencies deployed adaptive signal in the network with speed limits between 30 and 45 miles
+per hour. Another main benefit of adaptive signal control is that it can improve travel time reliability.
+Thus, it indicates that the conventional signal timing needs to be updated when serious delays and
+unreliable travel times occurred at an intersection. In addition, the network layout where an adaptive
+signal is deployed will also influence the performance of adaptive signal. It is observed that the
+significant advantages could be obtained when the adaptive signal are deployed on a through corridor
+at a signalized arterial route and for closely spaced intersections. Statistics showed that 42% of all
+agencies have deployed adaptive signal control solely on arterial networks and 10% deployed it on
+grid networks, which are more typical in European cities (Stevanovic 2010). Adaptive signal can also
+react to the unexpected changes or events in traffic conditions, such as high, various, and unpredictable
+traffic demand, crashes, and special events. By implementing the updated signal timing in real time,
+travelers are delivered improved service.
+
+According to Hicks and Carter (2000), cost is the major obstacle to deploy adaptive signal control. Costs
+include licensing, warranty, training and support, hardware, and maintenance (USDOT 2013). The cost
+of various adaptive signal control systems ranges between $20,000 and nearly $80,000 per intersection
+depending on the current infrastructure, requirements of communications, and detections of the certain
+systems. Mostly replacements of the local intersection hardware and software, or even installing new
+communication infrastructure may accompany with the deployment of the adaptive signal control system,
+which would increase the cost largely. Adaptive traffic signal control system needs accurate vehicle
+detection and relies heavily on the quantity and quality of traffic data available from detectors.
+
+                                                                                      19
+A survey showed that most of the agencies use a mixture of various detection technologies for their
+adaptive signal control systems. Approximately 93% of the agencies use inductive loops, almost half
+(43%) also use video detection. Nearly one-fifth (18%) of the agencies use radar detection, whereas only
+9% use other types of detection not contained in any of these three major technologies (Stevanovic 2010).
+Typically, most systems require at least one detector per lane per signal phase. The way in which signals
+are interconnected in network impacts the operation of adaptive signal control system. Figure 7 shows
+that around 80% of all agencies use three major types of communication media (twisted pair, telephone
+lines, and fiber optic cables) to communicate between the central system and field controllers. Centrally
+controlled systems usually cost between $40,000 and $80,000 per intersection (Malekm, Denney, and
+Halkias 1997).
+
+Figure 7. Communication Media between Central System and Field Controllers
+
+Source: Stevanovic (2010)
+
+Based on the state of the practice review and discussions with traffic signal control experts, the decision
+tree in Figure 8 represents a layered decision process on where and under which environments the
+adaptive signal control system is recommended to relieve traffic congestion and provide smooth traffic
+flow. Layer 1 lists the traffic analysis to install adaptive signal, including considerations of corridor
+volumes, delays, travel times, road type, and signal spacing. Layer 2 indicates the infrastructure analysis
+that needs to be considered, including cost, detector requirement, and communications requirement. It can
+provide the hardware, software, communication requirements for installing adaptive traffic signal control
+system, as well as the overall installation costs.
+
+                                                                                      20
+Figure 8. Decision Tree for Adaptive Signal Control
+
+                                                                                      21
+4 Building the Database for Quantitative Analysis
+
+The quantitative analysis method was developed using data collected from the Wolf Road corridor in
+the Albany, NY area (Ban et al. 2014). The big data analysis methods were also developed based on the
+Wolf Road data set. This chapter describes the database system that archives the Wolf Road data.
+Figure 9 depicts the Wolf Road corridor, which is a major arterial that connects to Interstate 87.
+Wolf Road experiences serious congestion due to the large number of restaurants, retailors, and
+shopping malls along the corridor and the heavy commuter traffic at peak hours.
+
+Figure 9. Deployment Locations of Actuated and Adaptive Traffic Control System on Wolf Road
+
+The Wolf Road database is constructed in MySQL, with SNAPS_WR as the database name. All table
+names are listed in Table 8. More details of each table and the schema are provided later in this section.
+Figure 10 illustrates the database schema layout. The name, type, and description of each column in each
+table are shown. The primary keys of the tables are highlighted in bold style.
+
+                                                                                      22
+Table 8. Table Names
+ WR_STATE
+ WR_CITY
+ WR_ROAD
+ WR_INTERSECTION
+ WR_APPROACH
+ WR_LANE_GROUP
+ WR_MOVEMENT
+ WR_LANE
+ WR_ACCESS_POINT
+ WR_SENSOR_ZONE_GROUP
+ WR_SENSOR_ZONE
+ WR_SENSOR
+ WR_SENSOR_EVENT
+ WR_SEGMENT
+ WR_VOLUME_RAW
+ WR_SENSOR_DIAGNOSTICS
+ WR_VOLUME_30S
+ WR_VOLUME_5MIN
+ WR_TRAVEL_TIME
+ WR_CONTROLLER
+ WR_PHASE
+ WR_SIGNAL_STATIC
+ WR_SIGNAL_DYNAMIC
+ WR_PERFORMANCE_5MIN
+ WR_PERFORMANCE_HOURLY
+ WR_PERFORMANCE_DAILY
+ WR_PERFORMANCE_WEEKLY
+ WR_PERFORMANCE_MONTHLY
+ WR_PERFORMANCE_ANNUAL
+
+                                                                                      23
+Figure 10. Wolf Road Database Schema Layout
+
+4.1 Geographic Information
+
+The geographic information block includes all location-related tables in the database, such as state,
+city, road, intersection, approach, lane group, movement and lane. Table 9 gives the name, data type,
+and definition of each column in each table.
+
+                                                                                      24
+Table 9. Tables of Geographic Information
+
+WR_STATE
+
+state            varchar(20) state names, including: NY
+WR_CITY
+
+city_id          int          ID of the city
+city             varchar(40)  city name, including: Albany
+state            varchar(20)  state location of the city
+WR_ROAD
+
+road_id          int          ID of the road
+road             varchar(40)
+                              road in the Wolf Road corridor, including: Wolf Rd, Old Wolf Rd,
+                              Albany Shaker Rd, Marcus Blvd, Metro Park Rd, Computer Dr,
+                              Sand Creek Rd, Colonie Center North, Colonie Center South
+
+city_id          int          city ID of the road
+
+WR_INTERSECTION
+
+intersection_id  int          ID of the intersection
+                              The road ID of north-south direction
+main_road_id     int          The road ID of east-west direction
+
+cross_street_id  int
+
+WR_APPROACH
+
+approach         varchar(20) Four directions, including: NB, SB, EB, WB
+
+WR_LANE_GROUP
+
+lane_group       varchar(20) lane group names, including: L, T, R, LT, TR, LR, LTR
+WR_MOVEMENT
+
+movement         varchar(20) movement names, including: L, T, R
+WR_LANE
+
+lane_id          int          ID of the lane
+intersection_id  varchar(40)  intersection ID of the lane
+approach         varchar(10)  approach of the lane
+lane_group       varchar(10)  lane group of the lane
+lane_number      int          The lane index of the approach (left to right)
+left_share       double       percentage of the left turn traffic volume for the lane, range: 0-1
+through_share    double       percentage of the through traffic volume for the lane, range: 0-1
+right_share      double       percentage of the right turn traffic volume for the lane, range: 0-1
+
+                                           25
+4.2 Static Sensor Information
+
+Sensys wireless detectors were used along Wolf Road. The static sensor information tables define all the
+objects in the detection system, including:
+
+     · Access point (WR_ACCESS_POINT) - devices installed in the field. It is the key link between
+           SNAPS and remote detector networks under management.
+
+     · Sensor zone groups (WR_SENSOR_ZONE_GROUP) - a collection of sensor zones used for the
+           purpose of supporting customized reporting or output requirements.
+
+     · Sensor zones (WR_SENSOR_ZONE) - a collection of sensors that perform a single function.
+     · Sensor (WR_SENSOR): a magneto-resistive wireless sensor to detect vehicle presence and
+
+           movement.
+     · Segment (WR_SEGMENT) - the link segment for travel time collection, defined by a pair of
+
+           sensor zones.
+Table 10 gives the name, data type, and definition of each column in each table.
+
+                                                                                      26
+Table 10. Column in the Tables of Static Sensor information
+
+WR_ACCESS_POINT
+
+access_point_id       int          ID of the access point
+access_point          varchar(20)  ID of the access point, including: APCC482, APCC483, APCC485,
+                                   APCC486, APCC488, APCC489, APCC494, APCC496
+intersection_id       varchar(40)
+                                   intersection id of the access point
+
+WR_SENSOR_ZONE_GROUP
+
+sensor_zone_group_id int           ID of the sensor zone
+
+sensor_zone_group     varchar(20)  sensor zone group name, including: I-87 SB Ramp, Albany Shaker
+                                   Rd, Marcus Blvd, Metro Park Rd, Computer Dr, Sand Creek Rd,
+                                   Colonie Center North, Colonie Center South
+
+access_point_id       int          the access point ID that the sensor zone is associated with
+
+WR_SENSOR_ZONE
+
+sensor_zone           varchar(20)  name of the sensor zone, e.g. WR@AS EBLN1
+sensor_zone_group_id  varchar(20)  the sensor zone group of the sensor zone
+sensor_zone_type      varchar(20)  type of the sensor zone, including: COUNT, ADVANCED, TT
+WR_SENSOR
+
+sensor                varchar(20)  name of the sensor, e.g. 86A6
+sensor_zone           varchar(20)  the sensor zone of the sensor
+sensor_type           varchar(20)  type of the sensor, including: COUNT, ADVANCED, TT
+WR_SEGMENT
+
+segment_id            int          ID of the travel time segment, range: 35-51
+                                   starting intersection of the segment
+from_intersection     varchar(40)  ending intersection of the segment
+                                   direction of the segment, including: NB, SB
+to_intersection       varchar(40)
+
+direction             varchar(20)
+
+WR_SENSOR_EVENT
+
+sensor_event          int          event id, range: 0-5
+sensor_event_type
+                      varchar(20)  name of the event type of the sensor, e.g. 0 for "off"; 1 for "on"
+
+                                   27
+4.3 Dynamic Sensor Information
+
+The sensor diagnostics, statistic, raw event, and travel time data, include:
+     · Diagnostics (WR_SENSOR_DIAGNOSTICS) - key radio-frequency performance measures
+           and other diagnostic data for the detection network over a user defined period.
+     · Statistics (WR_VOLUME_30S/ WR_VOLUME_5min) - traffic statistics from all sensor zones
+           at fixed intervals. Counts, occupancy are available for each sensor zone. The speed information
+           is not available currently.
+     · Raw event (WR_VOLUME_RAW) - individual, per-vehicle detections from sensor pairs at the
+           time of the detection event.
+     · Travel time (WR_TRAVEL_TIME) - segment travel time collected from a pair of travel time
+           sensor zones.
+
+Table 11 provides the name, data type, and definition of each column in each table.
+
+                                                                                      28
+Table 11. Columns in the Tables of Dynamic Sensor Information
+
+WR_SENSOR_DIAGNOSTICS
+
+sensor_diagnostics_id  int          ID of the sensor diagnostics record
+time_stamp             double       start time of diagnostic report, in Unix Epoch seconds
+period                 double       report period in seconds, i.e. 30 for this table
+sensor                 varchar(20)  name of the sensor for diagnostic
+access_point           varchar(20)  access point of the sensor
+status                 int          sensor status, 1 for "OK" and 0 for "not OK"
+WR_VOLUME_30S
+
+volume_30s_id          int          ID of the 30-seconds statistics record
+time_stamp             double       start time of statistics report, in Unix Epoch seconds
+period                 double       report period in seconds, i.e. 30 for this table
+sensor_zone            varchar(20)  name of the sensor zone for statistics
+volume                 int          traffic volume, in veh
+occupancy              double       occupancy, in %, range: 0-100
+speed                  double       speed, -1 if not available
+WR_VOLUME_5MIN
+
+volume_5min_id         int          ID of the 5-minutes statistics record
+time_stamp             double       start time of statistics report, in Unix Epoch seconds
+period                 double       report period in seconds, i.e. 300 for this table
+sensor_zone            varchar(20)  name of the sensor zone for statistics
+volume                 int          traffic volume, in veh
+occupancy              double       occupancy, in %, range: 0-100
+speed                  double       speed, -1 if not available
+WR_VOLUME_RAW
+
+volume_raw_id          int          ID of the raw event record
+time_stamp             double       time of the event, in Unix Epoch seconds
+sensor                 varchar(20)  name of the sensor for raw event
+sensor_long            varchar(20)  long name of the sensor for raw event
+access_point           varchar(20)  access point of the sensor
+event                  int          event id, range: 0-5
+WR_TRAVEL_TIME
+
+travel_time_id         int          ID of the travel time record
+time_stamp             double       time of that the vehicle passes the downstream sensor
+segment                int          ID of the travel time segment, range: 35-51
+                                    segment travel time of the vehicle
+         travel_time       double
+
+                                    29
+4.4 Signal Information
+
+Signal information includes all signal-related tables (Table 12). The WR_CONTROLLER and
+WR_PHASE tables list the controller names and phase id used in the signal control system. The
+WR_SIGNAL_STATIC table assigns a phase to each lane group at each intersection, which
+associates the signal controllers and geographic information. The WR_SIGNAL_DYNAMICS
+table provides the phase-by-phase record from the controller.
+
+Table 12. Columns in the Tables of Signal Information
+
+Currently, the signal timing data from the Wolf Road field server must be manually once a day or once a
+week, and then the data is post-processed and saved into the database.
+
+     WR_CONTROLLER
+
+controller          varchar(20)  controller id, former controller are 4-digit numbered; ACS
+                    varchar(20)  Lite controllers are numbered from 1-8
+controller_type
+WR_PHASE                         type of controller, including: former, ACS Lite
+
+phase_id            varchar(20)  ID of the phase, range: 1-8
+WR_SIGNAL_STATIC
+
+signal_static_id    int          ID of the static signal record
+                                 intersection ID of the signal
+intersection_id     int          approach of the signal phase
+                                 lane_group of the signal phase
+approach            varchar(10)  controller id
+                                 ID of the phase, range: 1-8
+lane_group          varchar(10)
+
+controller          varchar(20)
+
+phase_id            varchar(20)
+
+WR_SIGNAL_DYNAMICS
+
+signal_dynamics_id  int          ID of the dynamic signal information record
+cycle_start         double       start time of the cycle, in Unix Epoch seconds
+controller          varchar(20)  controller id
+phase_id            varchar(20)  ID of the phase, range: 1-8
+cycle length        double       cycle length in seconds
+phase_start         double       start time of the phase , in Unix Epoch seconds
+phase_duration      double       phase duration in seconds
+
+                                 30
+4.5 Signal Performance
+
+The signal performance tables record the average delay and Level of Service (LOS) of all movements at
+all intersections for certain time periods (Table 13). The delay calculation method in HCM2010 (2000) is
+applied.
+
+Table 13. Columns in the Tables of Signal Performance
+
+WR_PERFORMANCE_5MIN
+
+performance_5min_id    int          ID of the 5 minute performance record
+time_stamp             double       start time of performance report, , in Unix Epoch seconds
+intersection_id        int          intersection ID of the signal
+approach               varchar(10)  approach of the study movement, "All" for the intersection
+                                    performance
+movement               varchar(10)
+                                    study movement, "All" for the approach performance
+delay                  double       delay of the traffic for the movement
+                                    LOS of the movement
+level_of_service       varchar(10)
+
+WR_PERFORMANCE_HOURLY
+
+performance_hourly_id  int          ID of the hourly performance record
+time_stamp             double       start time of performance report, , in Unix Epoch seconds
+intersection_id        int          intersection ID of the signal
+approach               varchar(10)  approach of the study movement, "All" for the intersection
+                                    performance
+movement               varchar(10)
+                                    study movement, "All" for the approach performance
+delay                  double       delay of the traffic for the movement
+                                    LOS of the movement
+level_of_service       varchar(10)
+
+WR_PERFORMANCE_DAILY
+
+performance_DAILY_id   int          ID of the daily performance record
+time_stamp             double       start time of performance report, , in Unix Epoch seconds
+intersection_id        int          intersection ID of the signal
+approach               varchar(10)  approach of the study movement, "All" for the intersection
+                                    performance
+movement               varchar(10)
+delay                  double       study movement, "All" for the approach performance
+level_of_service       varchar(10)  delay of the traffic for the movement
+                                    LOS of the movement
+
+                                    31
+Table 13 continued
+
+WR_PERFORMANCE_WEEKLY
+
+performance_weekly_id   int          ID of the weekly performance record
+time_stamp              double       start time of performance report, , in Unix Epoch seconds
+intersection_id         int          intersection ID of the signal
+approach                varchar(10)  approach of the study movement, "All" for the intersection
+                                     performance
+movement                varchar(10)
+                                     study movement, "All" for the approach performance
+delay                   double       delay of the traffic for the movement
+                                     LOS of the movement
+level_of_service        varchar(10)
+
+WR_PERFORMANCE_MONTHLY
+
+performance_monthly_id  int          ID of the monthlyperformance record
+time_stamp              double       start time of performance report, , in Unix Epoch seconds
+intersection_id         int          intersection ID of the signal
+approach                varchar(10)  approach of the study movement, "All" for the intersection
+                                     performance
+movement                varchar(10)
+                                     study movement, "All" for the approach performance
+delay                   double       delay of the traffic for the movement
+                                     LOS of the movement
+level_of_service        varchar(10)
+
+WR_PERFORMANCE_ANNUAL
+
+performance_annual_id   int          ID of the annual performance record
+time_stamp              double       start time of performance report, , in Unix Epoch seconds
+intersection_id         int          intersection ID of the signal
+approach                varchar(10)  approach of the study movement, "All" for the intersection
+                                     performance
+movement                varchar(10)
+delay                   double       study movement, "All" for the approach performance
+level_of_service        varchar(10)  delay of the traffic for the movement
+                                     LOS of the movement
+
+4.6 511NY Event
+
+The traffic events data are acquired from the 511NY XML data feeds (Table 15). The definition of all
+variables in the table can be found in New York State Department of Transportation 511NY XML
+Data Feed API Documentation (https://511ny.org/developers/resources).
+
+                                     32
+Table 14. Columns in the Tables of Event Data
+
+WR_EVENT_511NY
+
+last_update        bigint         time the event was last updated (in in Unix Epoch).
+event_type         varchar(50)
+facility_name      varchar(100)   Specific event type description.
+direction          varchar(20)
+from_loc_point     varchar(100)   Name of the facility affected by the event.
+event_id           varchar(20)
+event_state        varchar(20)    Direction of traffic flow affected by the event.
+event_class        varchar(50)
+                                  Starting location of the event.
+
+                                  Unique ID of the event (19 character string).
+
+                                  Whether the event is in the opened or updated state.
+
+                                  Incident/Transit Incident/Active Construction/Transit Active
+                                  Construction/Construction/Transit Construction/Special
+                                  Event/Active Highway Special Event/Active Special
+                                  Event/Transit Special Event/Transit Active Special Event
+
+report_org_id      varchar(50)    Organization responsible for reporting the event.
+article_code       varchar(20)    Descriptor corresponding to the from and to location. (ex. on,
+                                  at, between)
+to_loc_point       varchar(100)
+create_time        bigint         Ending location of the event.
+event_description  varchar(1000)  Time the event was created.
+                                  Full event description containing detailed event information.
+city
+county             varchar(50)    City location of the event.
+state              varchar(50)    County location of the event.
+est_duration       varchar(20)    State location of the event.
+                   bigint         Number in seconds that the event is expected to be active for.
+lat
+                   double         Starting latitude location of the event (signed floating point
+lon                double         number).
+                   double
+to_lat             double         Starting longitude location of the event (signed floating point
+                                  number).
+to_lon
+                                  Ending latitude location of the event (signed floating point
+                                  number).
+
+                                  Ending longitude location of the event (signed floating point
+                                  number).
+
+                                               33
+Table 14 continued  bigint        Number of lanes affected by the event.
+                    varchar(50)   Lane status descriptor (ex. closed, blocked).
+ WR_EVENT_511NY     bigint        Total number of lanes affected by the event.
+ lanes_affected     varchar(50)   Lane descriptor (ex. 1 lane may be, right lane and shoulder,
+ lane_status                      left and center lanes).
+ total_lanes
+ lane_description                 Detailed lane description (ex. local lanes, local and express
+                                  roadways, express lanes).
+lane_detail         varchar(50)
+                                  Number of times the event has been updated.
+update_number       bigint        Organization or application responsible for the event entry.
+respond_org_id      varchar(50)
+                                  Condition of pavement where the event is located.
+pavement_condition  varchar(100)  Weather condition where the event is located.
+weather_condition   varchar(100)  Time the event is scheduled to begin.
+start_date          bigint        Time the event is scheduled to close.
+end_date            bigint        Other descriptive information about the event (ex. 15 minute
+event_other_desc    varchar(500)  delays, 2 mile delay).
+
+from_mile_marker    double        Starting milemarker affected by the event on the facility
+                                  affected by the event.
+to_mile_marker      double
+                                  Ending milemarker affected by the event on the facility
+local_only          bigint        affected by the event.
+
+construction_type   varchar(100)  Indicates whether the event is local to a particular agency, or
+confirmation_code   varchar(100)  is seen agency-wide (always false).
+
+closure_type        bigint        (ex. C,E,M,O,P)
+                                  Agency defined code usually associated with construction
+                                  events. Not always used and not typically needed for public
+                                  consumption.
+
+                                  Indicates the type of event closure. For internal use only.
+
+4.7 Java Programs for Wolf Road
+
+The team developed various Java programs for data collection from NYSDOT, Sensys Networks and
+511NY, delay calculations, and related purposes. Table 15 lists all the Java programs that have been
+developed by the team with major input files and output tables in the database.
+
+                                  34
+Table 15. Java Programs
+
+Program          Input                    Output
+
+ReadRaw          Sensys raw event xml     WR_VOLUME_RAW
+ReadStats        Sensys statistic xml     WR_VOLUME_30S,
+                                          WR_VOLUME_5MIN
+ReadDiag         Sensys diagnostics xml
+ReadTime         Sensys travel time xml   WR_DIAGNOSTICS
+ReadSignalSheet  DOT split sheet          WR_TRAVEL_TIME
+ReadACSLite      ACSLite phase time data  WR_SIGNAL_DYNAMIC
+DelayHCM         WR_VOLUME_30S,           WR_SIGNAL_DYNAMIC
+                 WR_SIGNAL_DYNAMIC        WR_PERFORMANCE_5MIN,
+                                          WR_PERFORMANCE_HOURLY,
+                                          WR_PERFORMANCE_DAILY,
+                                          WR_PERFORMANCE_WEEKLY,
+                                          WR_PERFORMANCE_ANNUAL
+
+Read511NY        511NY xml feed           WR_EVENT_511NY
+
+                                          35
+5 Development of Quantitative Analysis Tool
+
+5.1 Data Description
+
+This chapter describes how the quantitative decision-making tool was developed. It starts with the data
+that have been used for the development. The data were archived in the Wolf Road database as discussed
+in Chapter 4. In particular, the signal performance table, the traffic events table, and the weather table
+were used. The signal performance table is composed of average delay, level of service (LOS), volume,
+ratio of volume and capacity (vcr), event and weather of all movements at all intersections for certain
+time periods. The delay calculation method in HCM (2010) was applied. The traffic events data are binary
+variables. The event column takes "1" if an incident, construction, or special event occurred on Wolf
+Road for certain time period. The weather data were recorded as rainfall (inches) or snowfall (inches).
+The data were archived every five minutes from February to April and August to October in 2013, which
+was the separated time period for the actuated traffic and adaptive traffic control systems, respectively.
+Table 16 provides a snapshot of the signal performance table in the database.
+
+Table 16. Signal Performance Table
+
+time_stamp intersection_id approach movement delay  volume      vcr         occupancy level_of_service LOS      Event Weather
+
+1359694800  1 SB  All               16.95024539             44 0.002516721 1.315625 B                       1   0  0
+
+1359694800  2 EB  All               22.09850607     183.48 0.066205552      1.101 C                         1   0  0
+
+1359694800  2 NB  All               8.36556264              136 0.006983499 2.640291667 A                   1   0  0
+
+1359694800  2 WB  All               14.96608115             116 0.033019979 1.543291667 B                   1   0  0
+
+1359694800  4 NB  All               0.309200989             96 0.004929529 2.640291667 A                    1   0  0
+
+1359694800  4 SB  All               0.304059804             48 0.002745514 1.315625 A                       1   0  0
+
+1359694800  4 WB  All               45.02334584                 8 0.00227724 1.543291667 D                  -1  0  0
+
+1359694800  5 NB  All               0.001337493             104 0.005340323 2.640291667 A                   1   0  0
+
+1359694800  5 SB  All               0.113727514             72 0.004118271 1.315625 A                       1   0  0
+
+1359694800  6 EB  All               32.70788445             20 0.007216651  1.101 C                         1   0  0
+
+1359694800  6 NB  All               8.160981256             92 0.004724131 2.640291667 A                    1   0  0
+
+1359694800  6 SB  All               1.935418831             72 0.004118271 1.315625 A                       1   0  0
+
+1359694800  6 WB  All               10.99996897             16 0.00455448 1.543291667 B                     1   0  0
+
+1359694800  7 NB  All               0.165280922             72 0.003697146 2.640291667 A                    1   0  0
+
+1359694800  7 SB  All               0.167075232             100 0.005719821 1.315625 A                      1   0  0
+
+1359694800  7 WB  All               91.35016872                 8 0.00227724 1.543291667 F                  -1  0  0
+
+1359694800  8 NB  All               0.534684274             76 0.003902543 2.640291667 A                    1   0  0
+
+1359694800  8 SB  All               0.533279134             68 0.003889478 1.315625 A                       1   0  0
+
+1359694800  8 WB  All               68.75104274             12 0.00341586 1.543291667 E                     -1  0  0
+
+1359695700  1 SB  All               17.41932161             44 0.002566241 1.755958333 B                    1   0  0
+
+1359695700  2 EB  All               25.5587206      299.74 0.086933721      0.6495 C                        1   0  0
+
+1359695700  2 NB  All               7.252338553             90 0.004640419 2.034791667 A                    1   0  0
+
+1359695700  2 WB  All               18.69338778             32 0.008022917 1.280416667 B                    1   0  0
+
+1359695700  4 NB  All               0.461493032             76 0.003918576 2.034791667 A                    1   0  0
+
+1359695700  4 SB  All               0.454173282             28 0.001633063 1.755958333 A                    1   0  0
+
+1359695700  4 WB  All               45.02334584                 8 0.002005729 1.280416667 D                 -1  0  0
+
+1359695700  5 EB  All               46.84259906             24 0.00696073   0.6495 D                        -1  0  0.35
+
+1359695700  5 NB  All               0.452555405             68 0.003506094 2.034791667 A                    1   0  0.35
+
+1359695700  5 SB  All               0.448951512             44 0.002566241 1.755958333 A                    1   0  0.35
+
+1359695700  5 WB  All               46.16559226                 4 0.001002865 1.280416667 D                 -1  0  0.35
+
+1359695700  6 EB  All               33.79065482             16 0.004640487  0.6495 C                        1   0  0.35
+
+                                                            36
+Table 17a shows the overall network performance on Wolf Road for all movements for two time periods:
+February to April and August to October in 2013, representing the "before" (actuated signal control) and
+"after" (adaptive signal control) scenarios, respectively. By comparing the percentage of each level of
+service, it is observed that adaptive signal produces more LOS D, E, F. Table 17b and Table 17c illustrate
+that, after the deployment of the adaptive control, the LOS on for both the major street and the minor
+street got degraded, while the LOS for the minor street got even worse.
+The aim of this report was to apply big data analysis methods to further analyze the data to gain deeper
+insight on under what conditions adaptive control is more (or less) suitable for deploying adaptive
+control. Note that the big data method can be better developed if data from more corridors can be
+collected and used. The size of the data from only the Wolf Road corridor is not huge (about 40 GB or so)
+and arguably not big data. However, the Wolf Road dataset already contains various data elements from
+different sources, dynamic (such as volume data coming in every 30 seconds), and contains errors and
+data gaps due to detection or communication issues. In this sense, the data perfectly satisfies the Variety,
+Velocity, and Veracity characteristics of big data.
+
+                                                                                      37
+Table 17. Network Performance
+(a) Network performance for all movements
+
+(b) Network performance for SB and NB (Major Street)
+
+(c) Network performance for WB and EB (Minor Street)
+
+The team applied numerous data analytics methods to analyze the Wolf Road data and develop a
+"knowledge base," including various regression analysis methods and support vector machines
+(SVM). The following sections will describe each analysis method in detail.
+
+                                                                                      38
+5.2 Regression Method
+
+5.2.1 Multiple Linear Regression
+In multiple linear regressions (MLR), a number of variables can be involved and regressed on one another
+as in Equation 1:
+
+Equation 1.  =  +  +  + 
+
+The relationship between two or more explanatory variables and response variables can be modeled by a
+linear equation.
+
+The MLR was performed using delay as dependent variable and the others (volume, vcr, and occupancy)
+as independent variables. The estimated models were shown as Equation 2 and Equation 3 for actuated
+signal data and adaptive signal data.
+
+Equation 2.  = .  + .    - .    - .   
+Equation 3.  = .  + .    + .    + .   
+
+Given the values of all independent variables in Table 18, the delay can be predicted based the models
+below. The delays are estimated as 38 seconds under adaptive signal and 18 seconds under actuated
+signal.
+
+Table 18. Examples of Multiple Linear Regression Model
+
+volume vc ratio occupancy Delay1 Delay2
+
+200 0.1  25  18  38
+
+The R-squared value for actuated signal data was improved to 0.48 while there is no major improvement
+for adaptive signal data (Table 19c and Table 19d). More regression models should be investigated to fit
+the data.
+
+                     39
+Table 19. Parameter Estimation and R-squared Value for Multiple Linear Regression
+
+a)  Parameter estimation for actuated signal data
+
+b)  Parameter estimation for adaptive signal data
+
+c)  R-squared value for actuated signal data
+
+d)  R-squared value for adaptive signal data
+
+5.2.2 Polynomial Regression
+Polynomial regression is a statistical modeling technique to fit the curvilinear data that either shows a
+maximum or minimum in the curve. The polynomial regressions are multiple regressions that use power
+terms of the independent variables as shown in Equation 4.
+
+Equation 4.  =  +  +  ... + 
+
+                                              40
+In this study, the dependent variable was delay and independent variables were volume, vcr and
+occupancy. When fitting polynomial regression models, if a particular model term is significant, all terms
+of lower order should be assumed significant and retained in the regression model. The models produced
+by polynomial regression were shown in Equation 5 and Equation 6 for actuated signal data and adaptive
+signal data, respectively.
+
+Equation 5.   = .  - .    + .    + .    - .    -
+             .    + .    - .   
+
+Equation 6.   = .  - .    + .    - .    + .    - .  
+              + .    -    + .   
+
+Table 20c and Table 20d illustrate that R-squared values for actuated and adaptive signal data are both
+improved in polynomial regression model. Polynomial regression is a more accurate model to fit the data
+(Table 20).
+
+Table 20. Parameter Estimation for Polynomial Regression Model
+
+a)  Parameter estimation for actuated signal data
+
+b)  parameter estimation for adaptive signal data
+
+             41
+Table 20 continued
+
+c)  R-squared value for actuated signal data
+
+d)  R-squared value for adaptive signal data
+
+5.2.3 Logistic Regression
+
+Logistic regression is a type of predictive model that can be used when the dependent variable is a
+categorical variable with two categories. Thus the dependent variable can take the value 1 with a
+probability of success () or the value 0 with a probability of failure (1-p). In this study, success indicates
+that the certain signal control system produce LOS A, B, or C under certain conditions while failure refers
+to LOS D, E, or F. Logistic regression is adopted for the purposes of predicting the LOS given the
+independent variables.
+
+The independent or predictor variable can take any form (continuous, dichotomous, and/or dummy
+variable with more than two categories). That is, logistic regression makes no assumption about the
+distribution of the independent variables. The relationship between the independent and dependent
+variables is not a linear function as shown in Equation 7:
+
+Equation 7.   = (+++)
+
+where:               +(+++)
+
+    ·  = the constant of the equation
+    · = the coefficient of the independent variables.
+
+The computed value, , is a probability in the range of 0 to 1. The independent variables are volume,
+vcr, and occupancy.
+
+The important tests generated by logistic regression are the "Tests of Global Null Hypothesis: Beta=0"
+and the "Analysis of Maximum Likelihood Estimates." The "Tests of Global Null Hypothesis" are
+essentially tests of model significance. Typically, the best test to use is the likelihood ratio test, which
+
+                                              42
+uses a chi-square test of significance to test whether the slope parameter  are significant different from
+zero. The "Analysis of Maximum Likelihood Estimates" uses Wald statistics to test the null hypothesis
+H0 that the associated parameter estimates are not equal to zero.
+
+Logistic regression model is appropriate for experimental data based on the likelihood ratio test. The
+parameters corresponding to each independent variable are significant. Table 21a and Table 21c show
+the statistic results for actuated signal data. The model was estimated as Equation 8.
+
+Table 21. Tests in logistic regression
+
+a)  Test of model significance for actuated signal data
+
+b)  Test of model significance for adaptive signal data
+
+c)  Parameters estimation for actuated signal data
+
+d) Parameters estimation for adaptive signal data
+
+                                        43
+Equation 8.   ( = ) = .-.+.+.
+               +.-.+.+.
+
+Table 21b and Table 21d show the statistic results for adaptive signal data. The model and parameters are
+significant. The model was estimated as Equation 9.
+
+Equation 9.   ( = ) = .+.-.-.
+               +.+.-.-.
+
+Table 22 illustrates how to use logistic regression model. Given the value of volume, vcr, and occupancy,
+the predicted percentage that actuated and adaptive signal control system will produce LOS A, B, or C are
+estimated as 91.91% and 41.56%, respectively.
+
+Table 22. Example of logistic regression
+
+volume vc ratio occupancy P1              P2
+
+200 0.1        25 91.91% 41.56%
+
+It turns out that regression analysis methods, including linear regression, polynomial regression, and
+logistic regression, do not work very well for the purpose of this study. The low R values in linear and
+polynomial regression indicate that the models do not fit the data well. The available variables are rather
+limited, which cannot capture the characteristics of delay. Moreover, multicollinearity exists in the
+predicted model in which two or more predictor variables in the regression model are highly correlated,
+such as volume and vcr. A more advanced method is applied later in order to study the pattern of the data.
+
+5.3 Support Vector Machine (SVM) Method
+
+This section focuses on applying the robust pattern classification method called SVM (Corinna and
+Vladdimir, 1995). In the SVM method, features are extracted from the data sets to characterize the "good"
+(LOS A, B, C) and "bad" (LOS D, E, F) performances. A linear SVM model was applied to distinguish
+the good and bad performances, and their conditions. Linear SVM is briefly introduced here; references
+(Biship 2006; Gunn 1998) give more details.
+
+SVM is a method to classify data points into two (or multiple) classes. It defines the criterion to look for a
+decision hyperplane that is maximally far away from any data point. The decision function for an SVM is
+specified by a subset of the data, which are referred to as the support vectors. A decision hyperplane can
+be defined by an intercept term  and a decision hyperplane normal vector , which is perpendicular to
+the hyperplane. All the points  on the hyperplane satisfy Equation 10.
+
+                                          44
+Equation 10.  +  = 
+
+Suppose there are a set of training data points D = {(, )}, where each point is a pair of features  and
+a class label . For the two classes separation,  is always taking the value +1 or -1. The linear SVM
+classifier is then defined as Equation 11.
+
+Equation 11. ( + )  
+
+In SVM, two major steps are involved: training and testing. The optimal value of  and  can be uniquely
+determined with the training data. The margin is twice the absolute value of the distance between the
+support vectors to the separating hyperplane. The optimal SVM classifier can be obtained by maximizing
+the margin.
+
+The  distance  from  the  closest  sample     to  the  optimal  hyperplane  ()  =  0  is  +    =   1.  Thus,
+                                                                                             
+                                                                                                  
+
+the primal problem becomes a quadratic function and there is a single global minimum as shown in
+
+Equation 12 and Equation 13.
+
+Equation 12.   Maximize       margin:       =   
+                                               
+
+Equation 13. s.t. ( + )  
+
+The solution involves constructing a dual problem using the Kuhn-Tucker theorem, where a Lagrange
+
+multiplier  is associated with each constraint in the primal problem (Equation 14 and Equation 15).
+
+Equation 14.   Max:       =        -    =   =     
+                                      
+
+Equation 15. s.t.  >    and =   = 
+
+The solution is then of the form of Equation 16 and Equation 17.
+
+Equation 16.  =   
+Equation 17.  =  -  for any  such that   
+
+Each nonzero  indicates that the corresponding  is a support vector.
+
+The classification function is then shown as Equation 18.
+
+Equation 18. () = (   + )
+
+                                                       45
+In summary, the training data set uniquely defined the optimal separating hyperplane. The quadratic
+optimization problem is solved to find the plane. The classification function from Equation 18 is
+computing the projection of the point onto the hyperplane. The sign of this function indicates the
+class that the point belongs to. This SVM is for classes that are perfectly separable. For practical
+applications, classes may have overlaps and cannot be perfectly separable. In this case, an error term
+can be introduced as the tolerance for overlapping. This error term is then added to the objective to
+be minimized. More details related to transportation applications are in Biship (2006), Sun and Ban
+(2013), and Yang et al. (2015).
+
+5.4 Development of the SVM-Based Quantitative Analysis Tool
+
+The quantitative decision-making tool is based on SVM and the data collected from the Wolf Road
+Corridor. Through analyzing the data, certain patterns are expected, based on which to develop an
+easy-to-use procedure to determine whether adaptive control should be deployed for a specific location.
+Two ways were proposed to develop such procedures, based on how the actual before and after
+comparisons are conducted.
+
+5.4.1 Linear SVM for Before and After Classification
+In this section, two separate data sets were used to compare the different patterns. Data set LOS ABC
+includes all the data that contribute to "good" network performance. Dataset LOS DEF contains all
+the data points that produce "bad" performance. SVMs are then applied to each of the two data sets to
+distinguish between the actuated signal control (before) and the adaptive control (after). Because the
+SVM distinguished before and after performances (for both LOS A-C and LOS D-F), it is called
+"BC-based" SVM procedure in this report.
+
+It is usually observed that larger traffic volume could lead to longer delay and worse network
+performance. Also, vcr indicates the level of traffic congestion. These two variables are the most
+important features that can be used to separate sample data into two network performance classes.
+The other features used in SVM include occupancy, event, and weather. Among all sample points that
+were used in the SVM analysis, 70% of them were used for training which were used to find the optimal
+separating hyperplane. The others were used for testing, which can be used as the decision-making tool to
+determine if adaptive control is suitable for a given new corridor.
+
+                                                                                      46
+To help explain this concept better, volume and vcr were used to show the SVM results. Figure 11a and
+Figure 11b show how the separating lines differentiate the data points from adaptive control to actuated
+control based on the volume and vcr. The discriminant functions for the data sets LOS ABC and LOS
+DEF are show in Equation 19 and Equation 20.
+
+Figure 11. Two-Feature SVM Results ­ BC Based
+
+a) SVM model for data set LOS ABC
+
+                                LOS ABC
+
+           0.2                                Feb (training)
+         0.18                                 Feb (classified)
+         0.16                                 Aug (training)
+         0.14                                 Aug (classified)
+         0.12                                 Support Vectors
+
+    vcr    0.1
+         0.08
+         0.06         200  400           600  800                   1000
+         0.04
+         0.02
+
+                0
+                   0
+
+                                Volume
+
+b)       SVM model for data set LOS DEF
+
+                                LOS DEF
+
+           0.2                                Feb (training)
+         0.18                                 Feb (classified)
+         0.16                                 Aug (training)
+         0.14                                 Aug (classified)
+         0.12                                 Support Vectors
+
+    vcr    0.1
+         0.08
+         0.06         200  400           600  800                   1000
+         0.04
+         0.02
+
+                0
+                   0
+
+                                Volume
+
+                                                                47
+Equation 19. () = .    - .    + . 
+Equation 20. () = .    - .    - . 
+
+By showing the two separating hyperplanes from Figure 11 in Figure 12, the performance of actuated
+control and adaptive control can be better illustrated based on four different sections in the volume-vcr
+two-dimensional space. If most of the data occupy section 1 which indicates 1() < 0 and 2() > 0,
+actuated control should be recommended because it will produce better level of service (LOS A, B, or C)
+than adaptive control. Section 2 is directly opposite to section 1 in the sense that adaptive control
+produces better performance. Section 3 and section 4 are undetermined because the two discriminant
+functions have the same prediction results.
+
+Figure 12. Separating Hyperplane Comparison ­ BC Based
+
+Considering all five features in the SVM models, the distinct functions for LOS ABC and LOS DEF are
+shown in Equation 21 and Equation 22. Given all values for the five features, the SVM model can predict
+which traffic control system can produce "good" or "bad" level of service based on the sign of 1() or
+2(). If their signs are both negative and both positive, the two traffic signal control systems have no
+major difference. The signs of of 1() and 2() actually divide the entire space into four sections.
+1() < 0 and 2() > 0 is defined as section 1, for which actuated control system should be
+recommended. 1() > 0 and 2() < 0 is defined as section 2, for which adaptive control system
+should be recommended.
+
+                                                                                      48
+Here is an example that illustrates how to use the model. If the variables are known as volume = 400,
+vcr = 0.1, occupancy=30, event=0, weather=3, the values of 1() and 2() can be calculated based
+on Equation 21 and Equation 22. Because 1() = -8.71 < 0 and 2() = 1.5 > 0 in this example,
+actuated control should be recommended according to the SVM model.
+
+Equation 21.
+ () = .    - .    + .    - .    + .    + . 
+
+Equation 22.
+ () = .    - .    + .    - .    + .    + . 
+
+Table 23a and Table 23b show the feature selections and their classification results. Notice that the
+misclassification rate is defined as the number of falsely classified data points over the total number of
+data points; false positives is defined as the number of data points under adaptive control misclassified
+as actuated control; false negative is defined as the number of data points under actuated control
+misclassified as adaptive control. As the number of features considered by the model increases, all
+the error rates decrease as shown in Table 23. In particular, if all five features are used, the error
+rates are about 10% or less, which shows very good classification performance.
+
+Table 23. Feature Selection and Classification Results for LOS
+
+a)       Feature selection and classification results for LOS ABC
+
+    No.  Features                   Number of Misclassification Misclassification False positive False negative False positive False negative
+
+                                    features rate (testing) rate (training) (testing)  (testing)  (Training) (Training)
+
+    1    volume/vcr                    2  0.234      0.225         0.079               0.155      0.074  0.151
+
+    2    vcr/occupancy                 2  0.238      0.229         0.100               0.138      0.093  0.136
+
+    3    volume/occupancy              2  0.275      0.268         0.097               0.179      0.093  0.175
+
+    4    vcr/volume/weather            3  0.145      0.128         0.050               0.095      0.042  0.086
+
+    5 vcr/volume/occupancy/weather     4  0.145      0.129         0.052               0.094      0.044  0.085
+
+    6    All 5 features                5  0.115      0.102         0.026               0.089      0.020  0.082
+
+b)       Feature selection and classification results for LOS DEF
+
+    No.  Features               Number of Misclassification Misclassification False positive False negative False positive False negative
+
+                                    features rate (testing) rate (training) (testing)  (testing)  (Training) (Training)
+
+    1    volume/vcr                 2     0.147      0.135         0.018               0.129      0.014  0.122
+
+    2    vcr/occupancy              2     0.246      0.248         0.048               0.197      0.045  0.203
+
+    3    volume/occupancy           2     0.247      0.239         0.060               0.187      0.063  0.176
+
+    4    vcr/volume/weather         3     0.139      0.131         0.028               0.111      0.024  0.106
+
+    5 vcr/volume/weather/event      4     0.082      0.080         0.007               0.075      0.005  0.075
+
+    6    All 5 features             5     0.086      0.080         0.007               0.079      0.005  0.075
+
+                                                 49
+These SVM results can be used as a decision-making tool for deploying adaptive control at a signalized
+intersection or a corridor. To use SVM, data related to the previously described features need to be
+collected for a long period of time (months or years). This amount of collection time will result in a
+large number of data points. Equation 21 and Equation 22 can then be applied for each data point to
+check which section it resides. The percentage of the data points can be computed for each section.
+The decision can then be made on the basis of those percentages, especially the percentages on
+section 1 and section 2, as previously discussed.
+5.4.2 Linear SVM for LOS Classification
+This section describes how the features were extracted from data set and used to classify data points into
+two classes: LOS A, B, or C, and LOS D, E, or F, for both actuated control and adaptive control. It is
+referred to as "LOS-based" SVM method. The same set of features from the last section is also used here,
+including volume, vcr, occupancy, weather, and event. SVM models are developed for actuated signal
+and adaptive signal data separately.
+Similar to Figure 11, Figure 13a and Figure 13b show how the separating lines classify the data points
+from LOS A- C to LOS D- F by considering only volume and vcr. The discriminant functions for the
+actuated control and adaptive control are given in Equation 23and Equation 24. For a given data point,
+one can substitute the data point into the two equations. Positive value of 1() or 2() indicates that
+the data point will lead to worse LOS (LOS D, E, or F) while negative value indicates that the data point
+will contribute to a better performance (LOS A, B, or C), under their specific traffic control system.
+
+                                                                                      50
+Figure 13. Two-Feature SVM Models ­ LOS Based
+
+a)               SVM model for actuated control using two features (vcr and volume)
+
+       0.2                              ABC (training)
+     0.18                               ABC (classified)
+     0.16                               DEF (training)
+     0.14                               DEF (classified)
+                                        Support Vectors
+
+     0.12
+
+vcr  0.1
+
+     0.08
+
+     0.06
+
+     0.04
+
+     0.02
+
+           0
+
+              0  200  400          600  800               1000
+
+                           Volume
+
+b)               SVM model for adaptive control using two features (vcr and volume)
+
+       0.2                              ABC (training)
+     0.18                               ABC (classified)
+     0.16                               DEF (training)
+     0.14                               DEF (classified)
+                                        Support Vectors
+
+     0.12
+
+vcr  0.1
+
+     0.08
+
+     0.06
+
+     0.04
+
+     0.02
+
+           0
+
+              0  200  400          600  800               1000
+
+                           Volume
+
+Equation 23. () = .    - .    + . 
+
+Equation 24. () = .    - .    + . 
+
+The network performance can be compared based on the four sections as shown in Figure 14, which
+overlays the separating lines from Figure 14. Similar to Figure 12, section 2 represents 1() > 0 and
+2() < 0. If actuated control is installed, the level of service will be D, E, or F because the data point
+falls into section 2. If adaptive control is deployed, the level of service will be A, B, or C. Therefore,
+adaptive control is recommended for section 2. On the contrary, section 1 is for 1() < 0 and
+2() > 0, which means actuated control is recommended. Section 3 and section 4 are undetermined.
+
+                                                                51
+Figure 14. Separating Hyperplane Comparison ­ LOS Based
+
+If all five features are used, the distinct function for actuated control and adaptive control are described
+by Equation 25 and Equation 26, respectively. Because no events occurred before May 2013, the SVM
+model 1() only contains four features (the feature "event" is not included). If sample data points are
+available, substituting the values of all features into SVM models, each data point can be mapped into
+the four sections defined by the sign of 1() and 2(). 1() > 0 and 2() < 0 defines section 2,
+for which the adaptive control is recommended. 1() < 0 and 2() > 0 defines section 1, for which
+the actuated control is recommended. With the same example given before, the values of 1() and
+2() are calculated based on Equation 25 and Equation 26. Because 1() = -74.48 < 0 and
+2() = 21.4 > 0, the actuated signal is recommended, which is consistent with the results from
+before and after analysis.
+
+Equation 25. () = -.    + .    - .    - .    - . 
+Equation 26.
+
+    () = -.    + .    - .    + .    + .   
+                          - . 
+
+                                                                                      52
+Table 24a and Table 24b show the feature selection and classification results from considering different
+features for the actuated control and adaptive control, respectively. Again the misclassification rate is
+defined as the number of falsely classified data over total number of data; false positives is defined as
+the number of data points under LOS ABC misclassified as LOS DEF; false negative is defined as the
+number of data points under LOS DEF misclassified as LOS ABC. As the number of features considered
+by the model increases, all the error rates decrease as shown in Table 24. If all five features are used, the
+error rates are less than 10%. Similar to the BC-based SVM methods, for a given site, one can collect a
+large amount of data and compute the features. All the data points can be mapped into the four sections
+as shown above based on G1(x) and G2(x). The percentage of data points falling into each section can
+also be calculated. By comparing those percentages, one can decide whether adaptive control should be
+deployed of the site.
+
+Table 24. Feature Selection and Classification Results for Actuated and Adaptive Control
+
+a)       Feature selection and classification results for actuated control
+
+    No.  Features                      Number of Misclassification Misclassification False positive False negative False positive False negative
+
+                                       features rate (testing) rate (training) (testing)     (testing)  (Training) (Training)
+
+    1    volume/vcr                       2     0.220      0.221  0.204                      0.015      0.204  0.017
+
+    2    vcr/occupancy                    2     0.298      0.293  0.261                      0.037      0.260  0.033
+
+    3    volume/occupancy                 2     0.256      0.255  0.213                      0.043      0.214  0.042
+
+    4    vcr/volume/occupancy             3     0.215      0.202  0.193                      0.023      0.189  0.014
+
+    5 vcr/volume/occupancy/weather        4     0.026      0.027  0.026                      0.000      0.027  0.000
+
+b)       Feature selection and classification results for adaptive control
+
+    No.  Features                         Number of Misclassification Misclassification False positive False negative False positive False negative
+
+                                          features rate (testing) rate (training) (testing)  (testing)  (Training) (Training)
+
+    1    volume/vcr                          2  0.287      0.307  0.184                      0.103      0.205  0.101
+
+    4    vcr/volume/occupany                 3  0.234      0.220  0.209                      0.025      0.202  0.017
+
+    5    vcr/volume/occupancy/weather        3  0.232      0.208  0.207                      0.025      0.186  0.022
+
+    6    vcr/volume/occupancy/event          4  0.098      0.094  0.094                      0.004      0.092  0.002
+
+    7 vcr/volume/occupancy/event/weather     5  0.096      0.088  0.092                      0.004      0.082  0.006
+
+5.5 Quantitative Decision-Making Procedure
+
+To summarize, the following procedure can be used, along with detailed traffic data from a given
+location, to determine whether adaptive traffic signal control is beneficial if deployed at that location.
+
+SVM-based quantitative decision-making procedure for adaptive control deployment:
+
+    1. Collect data (volume, vcr, occupancy, event, weather, etc.), ideally for a few months or even
+         longer.
+
+                                                       53
+    2. Check the data points against either Method A (Equation 21 and Equation 22) or Method B
+         (Equation 25 and Equation 26) to map the data point into section 1 or section 2 or the other
+         sections. Each data point represents a "vote" for actuated (section 1) control or adaptive
+         (section 2) control.
+
+    3. Count the votes. If section 2 gets more votes, adaptive traffic signal control should be
+         recommended. Otherwise, adaptive traffic signal control is not recommended.
+
+5.6 Discussion
+
+Of note, using the two methods for the quantitative analysis may not produce consistent results. Figure 12
+and Figure 14 partially illustrate this observation. The two figures indicate that if only vcr and volume are
+used for decision-making, the two methods may give very different conclusions (Section 2 in Figure 12 is
+much bigger than Section 2 in Figure 14). Of course, if the five-feature SVMs are used, the differences
+are expected to be less dramatic. In any case, certain discrepancies in terms of decision-making should
+be expected by using the two methods. However, it is difficult to tell at this stage which method is better
+because they are both based on correlations among data samples, rather than investigating the
+fundamental reasons of why adaptive control is better or not.
+
+The observation can be attributed to one key feature of big data, which may also be considered as the
+limitation of big data-based methods. That is, these methods are suitable for decision-making, but not
+good enough for rigorous scientific investigations, simply because they care only about what but not why.
+
+There are also potential pitfalls when applying big data analysis methods. As Popper (2014) put it:
+"everything is similar to everything else in certain respects, and everything is different to everything
+else in certain respects, so the mere looking for similarities does not take you very far." At the same time,
+decision-making or big data method-based predictions assume that the pattern observed in the past will
+repeat itself in the future. This assumption may not hold true if abrupt events occur. For example, using
+the airline ticket application from Chapter 1, the big data method may predict that the ticket price will
+drop in the next couple days and one would be better off to wait to make a purchase. However, a sudden
+gas price increase may make the price increase significant, thus completely destroying the big data-based
+prediction. For this and similar reasons, increasing concerns recently in the big data research field call for
+developing foundational theories to understand what is behind the data correlations (Fricke 2015, Pan et
+al. 2015). In particular, such theories should be able to help develop engineering methods to control
+prediction errors from big data methods, in a way similar to engineering procedures to build bridges
+that were developed based on structural theories.
+
+                                                                                      54
+6 Case Study
+
+The case study in this chapter illustrates how the decision tree in Figure 8 can be used to assess whether
+adaptive traffic signal control system is suitable for a given corridor. The project team selected the
+Western Avenue in Albany, NY. It is a 4.5-mile major arterial that connects Interstate 87 and other major
+roads in the area. Figure 15 shows the boundaries of the study area of Western Ave are Route 155
+(point A) and Route 85 (point B).
+
+Figure 15. Route 20 in Albany from Route 155 to Route 85
+
+                    A
+
+                                                                                                                B
+
+The project team met with NYSDOT staff from Headquarters in Albany and Region 1 to learn about
+issues of the corridor. The team also did field investigation by driving along the corridor during peak
+hours. The congestion on the Western Ave is usually at the LOS C level. The travel time is relatively
+reliable at about 12 min. Table 25 lists the 11 State signals along Western Ave and the distance
+between them. The length of this corridor is 4.5 mile so the average distance between two intersections
+is 0.41 mile. Apart from these 11 signals, the City of Albany manages eight additional signals along
+the corridor. If the City of Albany signals are also integrated with the State signals, the average distance
+between signals will be much smaller than 0.5 mile (threshold in Decision Tree). The corridor is a
+through corridor during the peak hour, mainly serving commuting traffic. The volume on Western Ave
+
+                                                                                      55
+is high due to the nearby shopping mall, restaurants, and retailers and the commuting traffic during
+the peak hours. The traffic is usually alleviated during off-peak times, which leads to various and
+unpredictable traffic demands. As a result, Figure 16 shows the traffic analysis and indicates that adaptive
+control may not be the best option for Western Ave, mainly due to the current LOS and that the travel
+time is relatively reliable.
+
+Table 25. Distance between Intersections on Western Ave
+
+Distance indicates between intersections listed next to each other on the list. For example, between
+Fuller and Parkwood is 0.1 miles.
+
+ID         Intersection              Distance
+
+1 Rte 155                                 /
+
+2 Witt                                  0.8
+                                        0.3
+3 Gipp/ Palma                           0.5
+                                        0.5
+4 Johnston/ Rapp                        0.3
+                                        0.3
+5 Crossgates                            0.2
+                                        0.1
+6 Church                                0.1
+                                        0.4
+7 Fuller Road Alt / Schoolhouse
+
+8 Fuller
+
+9 Parkwood
+
+10 Norwood/ McKnown
+
+11 SUNY
+
+                                 56
+Figure 16. Decision Tree for Western Ave
+
+The Infrastructure Analysis in Figure 16 shows the adequate hardware, software, and communications
+support needed for operations and to ensure the adaptive signal control algorithms function properly.
+First, after talking to NYSDOT staff, the local controllers on Western Ave needed to be updated to meet
+the adaptive traffic control system requirements and be compatible with the central hardware. Training is
+necessary for field technicians to learn how to use new controllers and other hardware. Second, adaptive
+signal control systems rely heavily on the traffic data collected from detectors. Inductive loops were
+installed previously for specific locations of Western Ave, which need to be significantly expanded to
+serve the needs of adaptive control. For Western Ave, wireless detectors may be installed. Based on the
+project team's past experience with similar corridors (such as the Wolf Road corridor in Albany), around
+
+                                                                                      57
+200-300 wireless detectors may be needed to upgrade the corridor detection system in order to
+deploy adaptive control system. Third, communications define the way in which signals are
+interconnected in adaptive signal control system network, which are a critical component for adaptive
+control. Communication is not currently available for Western Ave, and must be installed (e.g., fiber
+cables or Wi-Fi) before deploying the adaptive signal control system. The major upgrades needed for
+the corridor for installing adaptive control are summarized in Table 26. It is clear from the analysis that
+the resources needed to deploy such system are quite substantial.
+
+Table 26. Major Upgrades Needed for Western Ave
+
+          Hardware                                      Controller Upgrades
+Detection           Wireless detectors installation
+Communications      Communication media installation, such as fiber cables or Wi-Fi
+
+From both the traffic and infrastructure analyses for the Western Ave corridor, adaptive traffic signal
+control may not be the best option for the corridor. Because detailed traffic, weather, and incident related
+data are not all available for Western Ave, the big data-based, quantitative analysis method proposed in
+Section 5 cannot be applied to this corridor. In the future, if such data are available, the quantitative
+method can be applied to the corridor to get more in-depth analysis and results. This quantitative analysis
+can help conducted more in-depth benefit-cost analysis, which will help document in detail the benefits
+(in terms of congestion, fuel consumption / emission reductions) and costs (resources) of deploying the
+adaptive control system. More informed decisions can then be made accordingly.
+
+                    58
+7 Conclusions
+
+This project developed a qualitative analysis method and a quantitative analysis method to guide traffic
+engineers and decision-makers deciding about whether adaptive control is best suited for a given traffic
+corridor and/or intersections. The qualitative analysis method was based on the nation-wide best practice
+of adaptive traffic signal control deployment. A decision tree was developed to help make decisions based
+on traffic analysis and infrastructure analysis. The critical factors, such as travel time, delay, volume,
+LOS, etc. are evaluated in the traffic analysis. Infrastructure analysis discussed the required hardware,
+software, and cost to deploy adaptive traffic signal control systems.
+
+Development of the quantitative analysis method was based on using a large amount of data from various
+sources such as wireless detectors and the 511NY system, including volume, occupancy, weather, and
+special events, among others. Regression models and SVM-based methods were applied to classify the
+"good" and "bad" performances of signals and to distinguish the adaptive control from the actuated
+control. The regression models did not work very well for the purpose of this study. Results from the
+SVM models showed that the misclassification errors decreased as the number of features that the
+model considered increased. Therefore, the five-feature SVM models should be used. Based on the
+SVM methods, a quantitative decision-making procedure was then developed to help deploying
+adaptive traffic signal control systems.
+
+A case study of Western Ave. corridor in Albany, NY demonstrated the qualitative decision-making tool.
+Due to the lack of detailed data, currently the quantitative analysis tool cannot be applied to the corridor,
+which is recommended for future studies. The decision tree in Figure 8 and decision-making tool in
+Section 5.4 may apply to other corridors once sufficient data, such as volume, vcr, occupancy, weather,
+and event are available.
+
+Major findings and limitations of the proposed decision-making tool and the data analysis methods are
+summarized as follows:
+
+     · Adaptive traffic signal control may not be suitable for any given transportation corridor
+           or intersections. Therefore, careful data collection and analysis should be conducted before
+           deploying adaptive traffic signal control systems. The proposed qualitative analysis and
+           quantitative analysis tools in this project could help conduct high-level and detailed
+           analyses to help make more informed decisions about adaptive signal control system
+           deployment.
+
+                                                                                      59
+· There are various types of adaptive traffic signal control systems. Their performances and costs
+     vary significantly (e.g., past deployment showed the deployment cost varies from $20,000 to
+     nearly $80,000 per intersection). Therefore, careful analysis and selection of the most suitable
+     adaptive traffic signal control system are needed, based on the given specific corridor.
+
+· The quantitative analysis method requires a large amount of data, ranging from traffic-related
+     data, to weather data, to special event data, to make the best use of the big data analysis method.
+     The method should be able to apply to transportation corridors or intersections in other areas.
+     However, the tools presented in this report (such as Figure 12) were developed only based on
+     the data from the Wolf Road corridor. Therefore, the results may not be applicable directly to
+     other corridors. More data from other types of traffic corridors and intersections should be
+     collected to further develop or improve the tool for better decision-making.
+
+· The qualitative and quantitative methods developed in this project should be viewed as
+     technical tools that may facilitate informed decisions about deploying adaptive traffic signal
+     control systems. They should not be viewed as the only tool or criteria for adaptive traffic signal
+     control deployment. Other factors, such as local knowledge and engineering judgement, should
+     also be considered in the decision-making process.
+
+                                                                              60
+8 References
+
+AASHTO. (2010). Highway Safety Manual. Washington, D.C.
+
+Abdel-Rahim, A. S., Taylor, W. C., & Bangia, A. (1998). Analysis of corridor delay under scats control.
+    In ITS America 8th Annual Meeting and Exposition: Transportation Technology for Tomorrow:
+    Conference Proceedings.
+
+ACDSS. (2013a). MIDTOWN MANHATTAN. Retrieved from http://www.kld-
+    acdss.com/ACDSSMidtown.html
+
+ACDSS. (2013b). NTELLIGENT CONTROL FOR SMARTER SIGNALS. Retrieved from
+    http://www.kld-acdss.com/
+
+ACDSS. (2013c). VICTORY BOULEVARD. Retrieved from http://www.kld-
+    acdss.com/ACDSSVictory.html
+
+Ban, X. J., Wang, C., & Kamga, C. (2014). Adaptive Traffic Signal Control System (ACS-Lite) for Wolf
+    Road, Albany, New York (No. C-10-13).
+
+Beyer, M. A., & Laney, D. (2012). The Importance of "Big Data": A Definition. Stamford, CT: Gartner.
+
+Biship, C. M. (2006). Pattern Recognition and Machine Learning. Elsevier.
+
+Brent Srory. (2011). Systems Engineering Report for SR 9 Adaptive Traffic Signal System. Retrieved
+    from https://gtas.dot.ga.gov/0012629/Concept Reports/0012629_CR_OCT2014.pdf
+
+Brilon, W., & Wietholt, T. (2012). Experiences with Adaptive Signal Control in Germany Experiences
+    with Adaptive Signal Control in Germany. Annual Meeting of the Transportation Research Board.
+
+CDOT. (2012). Adaptive Signal Timing Comparison between the InSync and QuicTrac Adaptive Signal
+    Systems Installed in Colorado, (Cd). Retrieved from
+    https://www.codot.gov/programs/research/pdfs/2012/adaptivesignaltiming.pdf
+
+Copsey, J. (2014). New traffic system could save headaches, time. Retrieved from
+    http://northfulton.com/stories/New-traffic-system-could-save-headaches-time,10763
+
+Corinna, C., & Vladdimir, N. (1995). Support-Vector Networks. Machine Learning, 20, 273­297.
+
+Fehon, K., Krueger, M., Peters, J., Denney, R., Olson, P., & Curtis, E. (2012). Model Systems
+    Engineering Documents for Adaptive Signal Control Technology Systems - Guidance Document.
+    Retrieved from http://ops.fhwa.dot.gov/publications/fhwahop11027/mse_asct.pdf
+
+Fehon, K., & Peters, J. (2010). Adaptive Traffic Signals , Comparison and Case Studies. In Institute of
+    Transportation Engineers Western ITE Meeting. San Francisco.
+
+FHWA. (2006). Adaptive Control Software ­ Lite, (September).
+
+                                                                                      61
+Fricke, M. (2015). Big data and its epistemology. Journal of the Association for Information Science and
+    Technology, 66 (4), 651­661.
+
+Gettman, D., Folk, E., Curtis, E., Kacir, K., Ormand, D., Mayer, M., & Flanigan, E. (2013). Measures of
+    effectiveness and validation guidance for adaptive signal control technologies (No. FHWA-HOP-13-
+    031). Retrieved from http://www.ops.fhwa.dot.gov/publications/fhwahop13031/fhwahop13031.pdf
+
+Google. (2015). Explore Flue Trends. Retrieved from https://www.google.org/flutrends/us/#US.
+
+Gunn, S. (1998). Support Vector Machines for Classification and Regresson. ISIS Technical Report 14.
+
+HCM. (2010). Highway capacity manual. Retrieved from http://hcm2010.org/.
+
+Hicks, B., & Carter, M. (2000). WHat Have We Learned About ITS Arterial Management. Washington,
+    D.C.
+
+Hunter, M. P., Wu, S. K., & H. K. Kim. (2010). Evaluation of adaptive traffic signal control: Case study
+    of Cobb County SCATS. 17th ITS World Congress.
+
+Hunter, M. P., Wu, S. K., & Kim, H. K. (2005). Cobb County ATMS phase III evaluation. Cobb County,
+    GA.
+
+Hunter, M. P., Wu, S. K., Kim, H. K., & Suh, W. (2012). A probe-vehicle-based evaluation of adaptive
+    traffic signal control. Intelligent Transportation Systems, IEEE Transactions on, 13(2), 704­713.
+
+Hunter, M., Wu, S., & Kim, H. (1978). Practical procedure to collect arterial travel time data using GPS-
+    Instrumented test vehicles. Transportation Research Record: Journal of the Transportation Research
+    Board, 160­168.
+
+Jesus, Y. De. (2011). Adaptive Signal Control Technology: Current Practice and Comparison Written
+    By:, (June).
+
+Kergaye, C., Stevanovic, A., & Martin, P. T. (2010). Comparison of Before-After Versus Off-On
+    Adaptive Traffic Control Evaluations. Transportation Research Record: Journal of the
+    Transportation Research Board, 2128(-1), 192­201. http://doi.org/10.3141/2128-20
+
+Lardoux, J., Martinez, R., White, C., Gross, N., Patel, N., & Meyer, R. (2014). Adaptive Traffic Signal
+    Control for Tarrytown Road in White Plains. New York (No. C-10-17).
+
+Lomax, T., Turner, S., & Shunk, G. (1997). Quantifying Congestion. NCHRP Report 398. National
+    Cooperative Highway Research Program. Ransportation Research Board, Washington, DC.
+
+Lomax, T., Schrank, D., Turner, S., & Margiotta, R. (2003). Selecting travel reliability measures. Texas
+    Transportation Institute monograph.
+
+Malekm, S., Denney, R., & Halkias, J. A. (1997). Traffic Signal Control Systems. Advanced
+    Transportation Management Technologies Participant Notebook, 3.1­3.15.
+
+                                                                                      62
+McAfee, A., Brynjolfsson, E., Davenport, T. H., Patil, D. J., & Barton, D. (2012). Big data. Harvard Bus
+    Rev, 90(10), 61­67.
+
+McCain. (2013). QuicNet Central Software. Retrieved from http://www.mccain-
+    inc.com/traffic.html?view=item&item_id=93
+
+McCain. (2015). Adaptive Signal Control Case Studies. Retrieved from http://www.mccain-inc.net/its-
+    solutions/adaptive-control/case-studies.html
+
+Monsere, C. M., Eshel, O., & Bertini, R. L. (2009). Empirical Evaluation of Freeway Corridor
+    Performance Before and After System-Wide Adaptive Ramp Metering System Implementation.
+    Transportation Research Record: Journal of the Transportation Research Board. Retrieved from
+    http://web.pdx.edu/~bertini/papers/09-0611.pdf
+
+Ozbay, K., Yang, H., Morgul, E. F., Mudigonda, S., & Bartin, B. (2014). Big Data and the Calibration
+    and Validation of Traffic Simulation Models. Traffic and Transportation Simulation, 92.
+
+Pan, X., Papailiopoulos, D., Oymak, S., Recht, B., Ramchandran, K., & Jordan, M. I. (2015). Parallel
+    Correlation Clustering on Big Graphs. N Advances in Neural Information Processing Systems, 82­90.
+
+Peters, J. M., Monsere, C. M., Huan, L., Mahmud, M., & S. Boice. (2008). Field-based evaluation of
+    corridor performance after deployment of an adaptive signal control systems in Gresham, Oregon.
+    Proc. Transp. Res. Board Annu. Meet., 1­14.
+
+Popper, K. (2014). Conjectures and refutations: The growth of scientific knowledge. Routledge.
+
+RHYTHM. (2012). PINELLAS COUNTY, FL. Retrieved from
+    http://rhythmtraffic.com/deployments/pinellas-county-fl/
+
+Robertson, H. D., Hummer, J. E., & Nelson., D. C. (1994). Manual of Transportation Engineering
+    Studies. Institute of Transportation Engineers.
+
+Rodrigues, C. (2014). Effect of Reducing Maximum Cycle Length on Roadside Air Quality and Travel
+    Times on a Corridor in Portland, OR. Annual Meeting of the Transportation Research Board,
+    3500(November 2013), 1­17.
+
+RPCGB. (2014). US 280 Transit Study. Retrieved from http://www.rpcgb.org/news/transportation-
+    projects/us-280-transit-study/
+
+SCOOT. (2014). Results & Case Studies - Toronto. Retrieved from http://www.scoot-
+    utc.com/Toronto.php?menu=Results
+
+Shelby, S., & Bullock, D. (2008). An Overview and Performance Evaluation of ACS Lite­A Low Cost
+    Adaptive Signal Control System. Transportation ..., 1­17. Retrieved from
+    https://w3.usa.siemens.com/mobility/us/en/urban-mobility/road-solutions/adaptive-
+    software/Documents/ACS_Lite_Overview_TRB_2008_CD.pdf
+
+                                                                                      63
+Slavin, C., Feng, W., Figliozzi, M., & Koonce, P. (2012). A Statistical Study of the Impacts of SCATS
+    Adaptive Traffic Signal Control on Traffic and Transit Performance. Annual Meeting of the
+    Transportation Research Board, 2250.
+
+Stevanovic, A. (2010). Adaptive traffic control systems: domestic and foreign state of practice. Retrieved
+    from http://trid.trb.org/view.aspx?id=916104
+
+Sun, Z., and Ban, X. (2013). Vehicle classification using GPS Data. Transportation Research Part C 37,
+    102­117.
+
+USDOT. (2013). Signal Conrol, Adaptive Signal Control Technologies. Retrieved from
+    http://www.fhwa.dot.gov/everydaycounts/technology/adsc/description.cfm
+
+Wang, Y., Corey, J., Lao, Y., Henrickson, K., & Xin, X. (2013). Criteria for the Selection and
+    Application of Advanced Traffic Signal Systems. Retrieved from http://www.oregon.gov/ODOT/TD/
+    TP_RES/docs/Reports/2013/SPR729_AdvancedTrafficSignals.pdf
+
+Yang, X., Sun, Z., Ban, X., Holguin-Veras, J. (2015). Urban freight delivery stop identification using
+    GPS data. Transportation Research Record 2411, 55­61.
+
+Zhao, Y., & Tian, Z. (2012). An Overview of the Usage of Adaptive Signal Control System in the United
+    States of America. Applied Mechanics and Materials, 178-181, 2591­2598.
+    http://doi.org/10.4028/www.scientific.net/AMM.178-181.2591
+
+                                                                                      64
+NYSERDA, a public benefit corporation, offers objective
+information and analysis, innovative programs,
+technical expertise, and support to help New Yorkers
+increase energy efficiency, save money, use renewable
+energy, and reduce reliance on fossil fuels. NYSERDA
+professionals work to protect the environment
+and create clean-energy jobs. NYSERDA has been
+developing partnerships to advance innovative energy
+solutions in New York State since 1975.
+
+To learn more about NYSERDA's programs and funding opportunities,
+visit nyserda.ny.gov or follow us on Twitter, Facebook, YouTube, or
+Instagram.
+
+                   New York State   toll free: 518-457-6195
+Department of Transportation        dot.ny.us
+
+                      50 Wolf Road
+                 Albany, NY 12232
+
+          New York State            toll free: 866-NYSERDA
+  Energy Research and               local: 518-862-1090
+Development Authority               fax: 518-862-1091
+
+       17 Columbia Circle           info@nyserda.ny.gov
+Albany, NY 12203-6399               nyserda.ny.gov
+NYSERDA         State of New York
+                Andrew M. Cuomo, Governor
+Department of
+Transportation  New York State Energy Research and Development Authority
+                Richard L. Kauffman, Chair | John B. Rhodes, President and CEO
+
+                New York State Department of Transportation
+                Matthew J. Driscoll, Commissioner
+

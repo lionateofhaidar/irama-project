@@ -1,0 +1,1327 @@
+                                       IEEE TRANSACTIONS ON NETWORK SCIENCE AND ENGINEERING, VOL. XX, NO. XX, XXX 2025         1
+
+                                       Deep Reinforcement Learning for Traffic Light
+                                        Control in Intelligent Transportation Systems
+
+                                              Ming Zhu+, Member, IEEE, Xiao-Yang Liu+, Member, IEEE, Sem Borst, Member, IEEE,
+                                                                                  and Anwar Walid, Fellow, IEEE
+
+arXiv:2302.03669v4 [cs.LG] 7 May 2025     Abstract--Smart traffic lights in intelligent transportation            promising approach to adaptively adjust the control policies of
+                                       systems (ITSs) are envisioned to greatly increase traffic efficiency       traffic lights according to the real-time traffic situation, e.g.,
+                                       and reduce congestion. Deep reinforcement learning (DRL) is a              the traffic throughput in each road.
+                                       promising approach to adaptively control traffic lights based on
+                                       the real-time traffic situation in a road network. However, conven-           Conventional methods for traffic light control may suffer
+                                       tional methods may suffer from poor scalability. In this paper, we         from poor scalability. 1) Classic optimization based methods
+                                       investigate deep reinforcement learning to control traffic lights,         [10]­[19] make decisions based on parameters calculated
+                                       and both theoretical analysis and numerical experiments show               from traffic data, and heuristic rules obtained from expert
+                                       that the intelligent behavior "greenwave" (i.e., a vehicle will see        knowledge. The number of parameters is also large if the
+                                       a progressive cascade of green lights, and not have to brake at            road network is large, requiring a large amount of computing
+                                       any intersection) emerges naturally a grid road network, which             resource and leading to poor scalability. These heuristic rules
+                                       is proved to be the optimal policy in an avenue with multiple              are based on experiences, and may not cover all cases in
+                                       cross streets. As a first step, we use two DRL algorithms for              complicated traffic scenarios, lacking flexibility. For example,
+                                       the traffic light control problems in two scenarios. In a single           in Maxband [12], all intersections should share the same
+                                       road intersection, we verify that the deep Q-network (DQN)                 cycle length, which is the maximum cycle lengths of all
+                                       algorithm delivers a thresholding policy; and in a grid road               intersections; and in Max-pressue [14], the pressure (the total
+                                       network, we adopt the deep deterministic policy gradient (DDPG)            queue length on incoming approaches minus the outgoing
+                                       algorithm. Secondly, numerical experiments show that the DQN               approaches) is only calculated when the current phase time
+                                       algorithm delivers the optimal control, and the DDPG algorithm             is larger than the minimum phase duration length, which is
+                                       with passive observations has the capability to produce on its own         set by expert knowledge. 2) The problem of adaptive traffic
+                                       a high-level intelligent behavior in a grid road network, namely,          light control can be formulated as a Markov Decision Process
+                                       the "greenwave" policy emerges. We also verify the "greenwave"             (MDP) [20]­[22], since the effects of a control action depend
+                                       patterns in a 5 × 10 grid road network. Thirdly, the "greenwave"           only on that state and not on the prior history. Conventional
+                                       patterns demonstrate that DRL algorithms produce favorable                 MDP-based methods such as value iteration, policy iteration
+                                       solutions since the "greenwave" policy shown in experiment                 and dynamic programming can obtain the optimal policy
+                                       results is proved to be optimal in a specified traffic model (an           for relatively small-scale problems. However, the state-action
+                                       avenue with multiple cross streets). The delivered policies both in        space grows exponentially with the number of road intersec-
+                                       a single road intersection and a grid road network demonstrate             tions, becoming infeasible in a large road network. 3) Some
+                                       the scalability of DRL algorithms.                                         DRL algorithms such as the deep Q-network (DQN) algorithm
+                                                                                                                  are not scalable either. The actions in the DQN algorithm
+                                          Index Terms--Traffic light control, intelligent transportation          are discrete. When the number of road intersections increases
+                                       systems, Markov Decision Process (MDP), deep reinforcement                 [8], [23], the number of Q-values to be estimated increases
+                                       learning, scalability, greenwave, high-level intelligent behavior.         exponentially. It is not practical to approximate such a large
+                                                                                                                  number of Q-values. Therefore, some DRL algorithms such
+                                                                 I. INTRODUCTION                                  as DQN may not produce a feasible solution in a large road
+                                                                                                                  network.
+                                          Smart traffic lights play an important role in intelligent
+                                       transportation systems (ITSs) [1]­[4], since they may greatly                 Deep reinforcement learning algorithms [24], [25] may not
+                                       increase traffic efficiency and reduce congestion. According               obtain a favorable solution in traffic light control. Neural
+                                       to a report [5], the annual cost caused by traffic congestion in           networks are used to approximate the Q-function [26] and/or
+                                       the US has grown from $75 billion in 2000 to $179 billion                  policy; however, they are black-box and have poor interpre-
+                                       in 2017. Vehicles' energy consumption and emission at road                 tation. Neural networks receive states (e.g., the number of
+                                       intersections are highly related to the control policies of traffic        waiting cars in each road, and the traffic light configure) and
+                                       lights [6]. Deep reinforcement learning (DRL) [7]­[9] is a                 actions (e.g., "continuing" or "switching"), and produce the
+                                                                                                                  estimated Q-values without offering any interpretation. There
+                                          +Equal contribution.                                                    is no guarantee for DRL to which stochastic gradient descent
+                                          Corresponding author.                                                   methods converge. In another word, whether the output action
+                                          M. Zhu is with Institute of Automation, Chinese Academy of Sciences,    produces the maximum Q-value over all actions in a state
+                                       and University of Chinese Academy of Sciences, Beijing, China. E-mail:     is not guaranteed. Moreover, over-fitting or under-fitting may
+                                       zhumingpassional@gmail.com.
+                                          M. Zhu was supported by National Natural Science Foundations of China
+                                       (Grant No. 61902387).
+                                          X.-Y. Liu is with the Department of Electrical Engineering, Columbia
+                                       University, New York, NY 10027, USA E-mail: {xl2427}@columbia.edu
+                                          S. Borst and A. Walid are with Nokia Bell Labs, sem.borst@outlook.com,
+                                       anwar.walid@nokia-bell-labs.com.
+IEEE TRANSACTIONS ON NETWORK SCIENCE AND ENGINEERING, VOL. XX, NO. XX, XXX 2025  2
+
+occur. Therefore, the estimated Q-values may not be accurate,      transmission rate and enough computing resource are required.
+and the output action may not produce the maximum Q-value.         Techniques such as wireless communications [31], [32] and
+                                                                   edge cloud computing [33] can significantly improve the
+   In this paper, we investigate deep reinforcement learning       data transmission rate and computing efficiency. Conventional
+approaches to control traffic lights, and analyze their perfor-    methods mainly include classic optimization based methods
+mance. In a single road intersection, we demonstrate that the      [10]­[19], evolutionary algorithms [34]­[36], and fuzzy logic
+policies obtained by the DQN algorithm matches the optimal         [37], [38].
+control obtained by a conventional MDP approach. In a grid
+road network, we adopt the deep deterministic policy gradient         Classic optimization based methods [10]­[19] usually adjust
+(DDPG) algorithm; and it is not practical to obtain the optimal    the cycle time and the phase splits based on parameters and
+policy by conventional MDP approaches since the state-action       heuristic rules. The time for green light is usually longer
+space is too large; and we prove that the intelligent behavior     than needed, which causes a large amount of wasted time for
+"greenwave" (i.e., a vehicle will see a progressive cascade of     waiting cars or pedestrians.
+green lights, and does not have to brake at any intersection)
+is theoretically optimal in a specified traffic model. Numerical      · Methods for single road intersection. The Webster
+results show that the "greenwave" policy emerges by applying             method calculates the desired cycle length, and then
+the DDPG algorithm, confirming its ability to produce the                calculates the green time splits, which are proportional to
+high-level intelligent behavior.                                         the ratios of critical lane volumes over each phase. Hofri
+                                                                         et al. [19] proposed a thresholding policy for a single
+   Our main contributions can be summarized as follows:                  road intersection with two queues, which depends on the
+   · We use two DRL algorithms for the traffic light control             traffic flow data and simulation experiments; however, it
+                                                                         may not be available in all real traffic situations.
+      problems in two scenarios. In a single road intersection,
+      we verify that the deep Q-network (DQN) algorithm               · Methods for multiple road intersections. Both GreenWave
+      delivers a thresholding policy, which matches the optimal          [11] and Maxband [12] methods aim to reduce the
+      control; and in a grid road network, we adopt the deep             number of stops for vehicles; however, GreenWave only
+      deterministic policy gradient (DDPG) algorithm.                    optimizes only one direction, and Maxband optimizes
+   · Numerical experiments show that the DDPG algorithm                  two opposite diretions. Both GreenWave and Maxband
+      with passive observations has the capability to produce            require the same cycle length for all intersections. In
+      on its own a high-level intelligent behavior in a grid road        the self-organizing traffic light (SOTL) [13] method,
+      network, namely, the "greenwave" policy emerges. We                the requests for a green signal from the current phase
+      also examine the "greenwave" patterns.                             and other competing phases are measured, and then
+   · The "greenwave" patterns delivered by the DDPG algo-                certain rules are built to make decisions ("continuing"
+      rithm demonstrate that DRL algorithms produce favor-               or "switching"). Its performance is highly dependent on
+      able solutions since the "greenwave" policy is optimal in          the rules. In the Max-pressure [14] method, the pressure
+      a specified traffic model (an avenue with multiple cross           of all phases is calculated, and then choose the phase
+      streets). The policies both in a single road intersection          with the maximum pressure. In the Sydney coordinated
+      and a grid road network demonstrate the scalability of             adaptive traffic system (SCATS) [15] method, the degree
+      DRL algorithms in solving traffic light control problems.          of saturation (DS), i.e., the ratio of effective green time
+                                                                         to the available green time, for each phase in the current
+   The remainder of the paper is organized as follows. Sec-              signal plan is calculated, and then the DSs for other
+tion II describes the related works. Section III gives a de-             signal plans are calculated, and finally the plan with
+tailed description of the road intersection model and the                the minimum total DS is selected. To reduce the large
+problem statement. Section IV provides specification of DRL              fluctuations of traffic flows, Lammer et al. [17] proposed
+algorithms for a single intersection as well as a grid road              a method to adjust the duration and the order of green
+network. Section V evaluates the performance of the proposed             phases, which reaches the stabilization of queues and red-
+DRL algorithms and illustrates the emergence of "greenwave"              time duration.
+patterns. Section VI concludes this paper.
+                                                                   These methods have poor scalability. If the road network is
+                        II. RELATED WORKS                          large, the number of parameters is also large, leading to much
+                                                                   time spent on parameter calculating and tuning. Moreover,
+   Existing works on traffic light control can be classified into  heuristic rules and some parameters are highly based on expert
+two categories, conventional methods and DRL methods.              knowledge without optimality gurantee.
+
+A. Conventional Methods                                               Evolutionary algorithms [39], [40] especially genetic algo-
+                                                                   rithms are usually used in multi-objective optimization, e.g.,
+   Traffic light control is in fact a mixed-integer linear pro-    fuel consumption, number of stops, traffic flow throughput,
+gramming problem [27] that is NP-hard. Traffic light control       and vehicles' waiting time [34]­[36]. In theory, these algo-
+heavily relies on accurate traffic parameters such as the ve-      rithms are based on the concept of survival of the fittest
+hicles' position and speed. Conventional techniques measure        through stochastic optimization and heuristics. Take genetic
+them using sensors [28]­[30], e.g., infrared sensors and in-       algorithms as an example. The solutions are encoded as chro-
+ductive loop detectors. To collect the traffic data and compute    mosomes, and in the next generation, through reproduction,
+policies for plenty of intersections in real-time, high data
+IEEE TRANSACTIONS ON NETWORK SCIENCE AND ENGINEERING, VOL. XX, NO. XX, XXX 2025                                 3
+
+Fig. 1. An intersection with two traffic flows (left), and the corresponding state-transition diagram (right).
+
+crossover, and a very small probability of mutation, new                  time), speed, phase duration (of the current phase) [45],
+offsprings are generated, and the ones with large fit values              congestion [46] (denoted by 0/1 or the congestion level),
+will survive. In this way, in each generation or iteration, the           and image or matrix [47], [48] (demonstrating positions
+solutions move nearer to the local or even global optimal                 of vehicles, where "0" denotes absence and "1" denotes
+points. Brian et al. [36] proposed a genetic algorithm to                 presence), etc. There is a trend of using image/matrix as
+minimize fuel consumption, emission, delay and number of                  the state recent years; however, the dimension of state is
+stops. Turky et al. [35] used a genetic algorithm to dynamically          very large, e.g., more than one thousand, which leads to
+control the red and green duration to optimize the vehicle                long training time.
+and the pedestrian flow throughput. However, the performance           · Action formulation. The action generally has four types:
+of genetic algorithms may depend on some parameters such                  set current phase duration [49], set phase ratio [50],
+as the population size, the number of generations, and the                continuing/switching [51], and select the next phase [52].
+mutation probability, and there is no performance guarantee.              The former two types of actions are continuous, and the
+For example, genetic algorithms may not obtain successful so-             latter two ones are discrete. Selecting the next phase
+lutions if the population size is small. Therefore, evolutionary          is more flexible since the traffic light does not need to
+algorithms may obtain an unfavorable solution within limited              change cyclically. Here, we select continuing/switching,
+time.                                                                     since it is comprehensive.
+                                                                       · Reward formulation. The action generally includes the
+   Fuzzy logic [37], [38] can be used in traffic light control            following items: queue length [41], waiting time [51],
+problems, since the ambiguity in the linguistic terms (e.g.,              throughput [49], speed [51], and pressure [53] (the num-
+low-, medium- and high-speed) can be represented using fuzzy              ber of incoming vehicles minus the outgoing ones). Some
+sets. To compensate the traffic flow fluctuation, Ali et al. [37]         research works use a weighted linear combination of
+used fuzzy logic to monitor and handle the alternation of                 the above items as reward. The tuning of weights is an
+the traffic condition between two successive cycles. Hawi                 important issue, and minor changes for weights may lead
+et al. [38] used fuzzy logic and wireless sensor networks to              to very different results. To avoid this case, we only select
+control traffic lights, where wireless sensor networks collect            queue length as the reward.
+traffic data in real-time and fuzzy logic outputs the order of the
+green light assignment with traffic quantity and waiting time          Secondly, we discribe single-agent and multi-agent DRL
+as the input. In the above methods, designing the fuzzy logic       approaches. In single-agent DRL approaches, the agent learns
+needs high human expertise and regular updating of rules, and       the Q-value for all actions of each state, and chooses the action
+generally accurate reasoning cannot be given. Moreover, the         with maximum approximated Q-value on that state. Through
+performance depends on the heuristic rules and parameters,          a bootstrap learning process, the agent obtains a policy for
+and there is no guarantee of stability or optimality.               an end-to-end task with raw input data. These methods are
+                                                                    only applied in small or medium-sized road networks due to
+B. Deep Reinforcement Learning Methods                              poor scalability. DQN and its variants [8], [25] are commonly
+                                                                    used methods. Liang et al. [8] proposed to use the dueling
+   DRL methods have various formulations, including state,          double DQN with prioritized experience replay to decide the
+action, and reward, leading to various results. Based on for-       traffic signal duration. The single-agent DRL methods have a
+mulations, DRL algorithms are applied, and these algorithms         global view of the traffic situations; however, they may not be
+are classified into single-agent and multi-agent ones.              practical in very large-scale road networks.
+
+   First, we discuss DRL formulations.                                 In multi-agent DRL approaches [42], [54]­[58], each agent
+                                                                    controls a traffic light in an intersection, and also considers the
+   · State formulation. The state is generally the combinations     states and actions of its neighborhoods to cooperate with them.
+      of the following items: queue length [41], waiting time       The sum of weighted reward of neighbor agents plus its own is
+      [42], volume [43] (number of vehicles on the lane/road),
+      delay [44] (realistic travel time minus the expected travel
+IEEE TRANSACTIONS ON NETWORK SCIENCE AND ENGINEERING, VOL. XX, NO. XX, XXX 2025                                        4
+
+then treated as a global reward. Liu et al. [56] proposed a co-     A. Model for Single Traffic Light
+operative Q-learning with a function approximation algorithm
+so that each local intersection can cooperatively make deci-           We start with a single intersection scenario to facilitate
+sions without any central supervising agents. Chu et al. [42]       the validation of DRL algorithms. We consider the simplest
+proposed an actor-critic based multi-agent DRL method to            meaningful setup with two intersecting unidirectional traffic
+stabilize the learning procedure, improve the observability         flows as schematically depicted in the left part of Fig. 1. We
+and reduce the learning difficulty. Xu et al. [55] proposed         assume two directions with 1 and 2 denoting a west-to-east
+a multi-agent DRL approach to optimize the signal timing            direction (avenue) and a north-to-south direction (cross street),
+plans at intersections. Wu et al. [54] proposed a multi-agent       respectively. Therefore, there are two traffic flows denoted
+DDPG method for traffic light control, where long short-term        by 1 and 2. The state S(t) at the beginning of time slot t
+memory (LSTM) [59] is used to improve the stability of the          may be described by the three-tuple (X1(t), X2(t); L(t)), with
+environment caused by partial observable state. Multi-agent         Xi(t), i  {1, 2} denoting the number of vehicles of traffic
+DRL methods can control traffic lights in a cooperative way         flow i waiting to pass the intersection and L(t)  {0, 1, 2, 3}
+among agents in a very large-scale road network. However,           denoting the configuration of the traffic lights:
+these methods generally may not have a global view of
+the traffic situations needed for the favorable control policy.        · "0", i.e., `green': green light for flow 1 (avenue) and
+Moreover, how to balance the utilities of an agent and its                hence red light for flow 2 (cross street);
+neighborhoods is also a hard problem.
+                                                                       · "1", i.e., `yellow': yellow light for flow 1 (avenue) and
+   The above DRL algorithms use the black-box neural net-                 hence red light for flow 2 (cross street);
+works to fit the Q-function, and stochastic gradient descent
+methods to minimize the non-convex loss function. These                · "2", i.e., `red': red light for flow 1 (avenue) and hence
+methods cannot provide guarantee the scalablity. In DQN                   green light for flow 2 (cross street);
+methods, the number of approximated Q-values under each
+state over all actions increases exponentially with the increas-       · "3", i.e., `orange': red light for flow 1 (avenue) and hence
+ing of the number of road intersections. The DQN algorithm                yellow light for flow 2 (cross street).
+needs too much computing resource and time to estimate
+the Q-values in a large road network, leading to the poor              Each configuration L(t) can either be simply continued in
+scalability. Multi-agent DRL methods such as multi-agent            the next time slot or otherwise be switched to the natural sub-
+DDPG [54] also may not guarantee for the scalability, since         sequent configuration (L(t) + 1) mod 4. This is determined
+they are black-box and the optimal policy may not be obtained.      by the action A(t)  {0, 1} selected at the end of time slot t,
+                                                                    which is represented by a binary variable: "0" for continuing,
+   Different from the existing methods, we apply DRL meth-          and "1" for switching. Then we have
+ods, namely, DQN and DDPG, to optimize the control policy
+for traffic lights in a single road intersection and a grid road                 L(t + 1) = (L(t) + A(t)) mod 4.       (1)
+network, respectively. Considering that the DQN algorithm
+has poor scalability, it is only used in a single road inter-       These rules give rise to a strictly cyclic control sequence as
+section. Considering that the DDPG algorithm can handle             illustrated in the right part of Fig. 1.
+complicated scenarios using continuous actions, it is used in
+a grid road network. We obtain the optimal policy in a single          The evolution of the queue state over time is governed by
+road intersection using a conventional method, and obtains          the recursion
+the optimal policy in a grid road network under specified
+traffic model, i.e., "greenwave" policy. Simulation results show    (X1(t + 1), X2(t + 1))                             (2)
+that the DQN algorithm delivers the optimal control, and the
+proposed DDPG algorithm produces a high-level intelligent           = (X1(t) + C1(t) - D1(t), X2(t) + C2(t) - D2(t)),
+behavior in real-time, i.e., the "greenwave" pattern emerges.
+                                                                    with Ci(t) denoting the number of vehicles of traffic flow i
+                                                                    appearing at the intersection during time slot t and Di(t)
+                                                                    denoting the number of departing vehicles of traffic flow i
+                                                                    crossing the intersection during time slot t. We make the
+                                                                    simplified assumption that if a traffic flow is granted the
+                                                                    green light, exactly one waiting vehicle, if any, will cross the
+                                                                    intersection during that time slot, i.e.,
+
+                                                                    D1(t) = min{1, X1(t)}, if L(t) = 0,
+
+ III. MODEL DESCRIPTION AND PROBLEM FORMULATION                     D1(t) = 0,              if L(t) = 0;
+                                                                                                                     (3)
+   In this section, we present the models and optimization          D2(t) = min{1, X2(t)}, if L(t) = 2,
+goals for single and multiple traffic lights. For the ease of
+exposition, we consider an admittedly stylized model which          D2(t) = 0,              if L(t) = 2.
+captures the most essential features governing the dynamics of
+traffic flows at road intersections. Our central aim is to broadly  B. Model for Multiple Traffic Lights
+explore the performance and scalability of DRL algorithms in
+optimizing real-time control policies, rather than to develop          To examine the scalability property of DRL algorithms
+a practical policy for a specific instance. Thus, we adopt a        in more complex scenarios, we consider a grid road net-
+discrete-time formulation to simplify the description and allow     work as depicted in Fig. 2. Specifically, we investigate a
+conventional MDP techniques for comparison. The methods             grid road network with N intersections and bidirectional
+and results can naturally extend to continuous-time operation.      traffic flows, representing an avenue with multiple cross
+                                                                    streets. We do not account for any traffic flows making
+IEEE TRANSACTIONS ON NETWORK SCIENCE AND ENGINEERING, VOL. XX, NO. XX, XXX 2025                                                          5
+
+Fig. 2. Illustration of a road network with grid topology.
+
+left or right turns, since the model could be easily gen-          (Xn1(t), Xn2(t), Xn3(t), Xn4(t))n{1,...,N}, and Z(X(t)) =
+eralized to accommodate it. The state S(t) at the begin-
+ning of time slot t may be described by a (5 N )-tuple             N    4        Xn2i(t).
+(Xn1(t), Xn2(t), Xn3(t), Xn4(t); Ln(t))n{1,...,N}. The first       n=1  i=1
+four components denote the number of vehicles waiting to
+cross the n-th intersection with 1, 2, 3, and 4 denoting           The optimization goal is to find a dynamic control policy
+the west-to-east, north-to-south, east-to-west, and south-to-
+north directions, respectively. The last component Ln(t)           which selects actions over time slots {0, 1, ..., T } to minimize
+{0, 1, 2, 3} indicates the configuration of the traffic light at
+the n-th intersection similar as before:                           the long-term expected discounted cost E        T     tZ    (X  (t))  ,
+                                                                                                                   t=0
+
+                                                                   with   (0, 1] representing a discount factor.
+
+                                                                   IV. DEEP REINFORCEMENT LEARNING ALGORITHMS
+
+Ln(t + 1) = (Ln(t) + An(t)) mod 4,                          (4)
+
+with An(t)  {0, 1} denoting the action selected for the n-th          In this section, we first show a brief description of the
+road intersection at the end of time slot t. The evolution of      reinforcement learning and Q-Learning. Then we propose
+the various queue states is determined by the recursion            two deep reinforcement learning schemes, DQN [25] and
+                                                                   DDPG [60] algorithms in different scenarios. We use the DQN
+Xni(t + 1) = Xni(t) + Cni(t) - Dni(t),                      (5)    algorithm in a single road intersection in Fig. 1. While we
+                                                                   use the DDPG algorithm in a grid road network in Fig. 2.
+with Cni(t) denoting the number of vehicles in direction i         The DDPG algorithm applies the actor-critic framework in
+appearing at the n-th intersection during time slot t and Dni(t)   continuous action space. The traffic lights' actions in our
+denoting the number of vehicles in direction i crossing the n-th   experiments are discrete, i.e., A(t)  {0, 1}, thus we apply
+intersection during time slot t, i  {1, ..., 4}, n  {1, ..., N }.  a discretization process to the conventional DDPG algorithm.
+Note that                                                          Finally, we demonstrate that the "greenwave" control policy
+                                                                   is optimal in a grid road network.
+Dn1(t) = min{1, Xn1(t)}, Dn3(t) = min{1, Xn3(t)},
+
+if Ln(t) = 0,
+
+Dn1(t) = 0, Dn3(t) = 0, if Ln(t) = 0;                       (6)    A. Reinforcement Learning and Q-Learning
+
+Dn2(t) = min{1, Xn2(t)}, Dn4(t) = min{1, Xn4(t)},                     Definition of cost function. We define a discounted con-
+                                                                   gestion cost over time slots {0, 1, ..., T } of a road intersection
+if Ln(t) = 2,                                                      under policy  with the discount factor 
+
+Dn2(t) = 0, Dn4(t) = 0, if Ln(t) = 2.
+
+                                                                                    V  =   1           T
+                                                                                           -                                       (7)
+                                                                                             T  E         t|X(t)|2 ,
+
+                                                                                                   t=0
+
+                                                                   where |X(t)|2 d=ef |X1(t)|2 + |X2(t)|2 in a single intersection
+
+C. Objective Function for Optimization                             or |X(t)|2 d=ef  N      4    |Xni(t)|2   in  a  grid  road  network.
+                                                                                    n=1    i=1
+   We assume that the "congestion cost" in time slot t
+may be expressed as a function of the queue state. A               The optimization goal in Subsection III-C is to minimize the
+quadratic function Z(X(t)) is applied to formulate the
+congestion cost. In the single road intersection scenario,         long-term expected queue length, thus we take the negative
+X(t) = (X1(t), X2(t)), and Z(X(t)) = X12(t) + X22(t).
+In the grid road network with N intersections, X(t) =              value to be consistent with the maximization operation. The
+
+                                                                   optimal policy  satisfies
+
+                                                                                                    1  T                           (8)
+                                                                                    V = - sup T E
+                                                                                                          t|X(t)|2 .
+
+                                                                                                       t=0
+IEEE TRANSACTIONS ON NETWORK SCIENCE AND ENGINEERING, VOL. XX, NO. XX, XXX 2025                                            6
+
+Algorithm 1: Environment simulation (one step) for a single road intersection or a grid road network
+
+1: Select action a according to line 3 in Alg. 2 [a single road intersection] or line 3 in Alg. 3 [a grid road network];
+
+2: Generate random variables C1, C2 [a single road intersection] or Cn1, Cn3 and Cn2, Cn4 for all n  {1, ..., N }
+
+[a grid road network];
+
+3: Execute action a, determine the new queue states and traffic light states X1 , X2 , L according to (1)  (3)
+    [a single road intersection] or Xn 1, Xn 2, Xn 3, Xn 4 = 0; Ln = 0 for all n  {1, ..., N } according to (4)  (6)
+    [a grid road network];
+
+4: Calculate the reward r = -(|X1 |2 + |X2 |2) [a single road intersection] or r = -  N    4    |Xn i|2
+                                                                                      n=1  i=1
+
+[a grid road network];
+
+5: Update states: X1 = X1 , X2 = X2 , L = L [a single road intersection] or Xn1 = Xn 1, Xn2 = Xn 2, Xn3 = Xn 3,
+   Xn4 = Xn 4, Ln = Ln for all n  {1, ..., N } [a grid road network].
+
+Algorithm 2: DQN for a single road intersection
+
+ 1: Initialize X1 = X2 = 0, L = 0, action-value Q with random weights 0, batch size M , number of time steps K,
+    and replay buffer D;
+
+ 2: for steps k = 1, . . . , K
+ 3: Select a = arg max Q(s, a¯) with probability 1 -  or a random action a with probability ;
+
+                                     a¯A
+
+ 4: Execute action a, get new state s = [X1 , X2 ; L] and reward r from Alg. 1;
+ 5: Store transition (s, a, r, s) in replay buffer D;
+ 6: Sample a mini-batch of M transitions {(sjt , ajt , rtj, stj+1)}j;
+ 7: Update the networks using Adam optimizer:
+
+         k Loss(k) = Estj,atj,rtj,stj+1 (r +  maxajt+1 Q(stj+1, ajt+1|k-1) - Q(stj , atj |k))k Q(stj , atj |k) .
+
+Algorithm 3: DDPG for a grid road network
+
+1: Initialize batch size M , number of time steps K, and replay buffer D, the actor and the critic's online networks
+
+(µ(s|µ) and Q(s, a|Q)) with parameters µ and Q, and target networks (µ(s|µ ) and Q(s, a|Q )) with parameters;
+
+µ and Q , queue states and traffic light states: Xn1, Xn2, Xn3, Xn4 = 0; Ln = 0 for all n  {1, ..., N };
+
+2: For steps k = 1, . . . , K
+
+3: Choose action a = µ(s|µ) + N , where N is Gaussian noise;
+
+4: Execute action a, get new state s = [Xn1, Xn2, Xn3, Xn4; Ln] for all n  {1, ..., N } and reward r from Alg. 1;
+
+5: Store transition (s, a, r, s) in memory;
+
+6: Sample a mini-batch of M transitions {(stj, ajt , rtj, sjt+1)}j;
+7: Calculate the target Q-value: yj = rtj + Q(stj+1, µ(sjt+1|µ )|Q );
+
+8: Update the critic's online Q-network Q by minimizing the loss function:
+
+Q Losst(Q)     =  Q [              1       M    (yj  -  Q(stj ,  ajt |Q))2];
+                                   M       j=1
+
+9: Update the actor's online policy network with the sampled policy gradient by the chain rule:
+
+         Est [µ Q(s, a|Q)|s=st,a=µ(st|µ)] = Est [aQ(s, a|Q)|s=st,a=µ(st)µ µ(s|µ)|s=st ];
+10: Update the critic's target Q-network Q and actor's target policy network µ:
+
+Q   Q + (1 -  )Q , µ   µ + (1 -  )µ with   1.
+
+Combining the Bellman optimality equation [61] and V = Q(s, a) satisfies the equation
+          T
+- max E[  t=0   t |X (t)|2 ],  we  derive  the  following  equation
+
+                                                                              Q(s, a) = r(s, a) +  p(s, s; a) max Q(s, a)
+                                                                                                      a A
+                                                   T -t                               s S
+                                                                                                                           (10)
+          V = max{rt +  max k-1rt+k},                            (9)
+                                                                              = r(s, a) + E max Q(s, a) ,
+                                                   k=1                                a A
+
+where rt = -|X(t)|2. We define Q(s, a) to be the max-                         with r(s, a) = -Z(X) denoting the reward (i.e., negative
+imum achievable expected discounted reward (or minimum                        congestion cost) in queue state X, and p(s, s; a) denoting the
+discounted congestion cost in our context) under the optimal                  transition probability from state s to state s when action a is
+policy starting from state s = (X; L) when action a is taken.
+                                                                              taken.
+IEEE TRANSACTIONS ON NETWORK SCIENCE AND ENGINEERING, VOL. XX, NO. XX, XXX 2025                    7
+
+B. DQN for Single Road Intersection                                    The conventional DDPG algorithm has a continuous action
+                                                                    space, while the traffic control actions in our model are
+   In the DQN algorithm [62], the neural network takes the          discrete, i.e., An(t)  {0, 1}. Therefore, we apply a discretiza-
+state and action as the input, and the action-value as the output.  tion process to transform the continuous outputs of the actor
+Compared with traditional Q-learning algorithms, the neural         network to discrete ones. A modified sigmoid function is added
+network of DQN is used as a function approximator to estimate       to the output layer of actor network as activation:
+the action-value function. The neural network is trained by
+adjusting its parameters in each iteration to reduce the mean-                   y = sigmoid( x),  (11)
+squared error in the Bellman equation.
+                                                                    where x, y are inputs and outputs of the final layer, and 
+   In addition, the DQN algorithm uses an experience replay         is the ratio for steepening the sigmoid function. Combining
+buffer to update network parameters. It has two advantages:         the modified sigmoid activation function with a node-wise
+1) enabling the stochastic gradient decent algorithm [63]; and      binarization process, our discrete DDPG algorithm can reduce
+2) removing the correlations between consecutive transitions.       the errors caused by the continuous-to-discrete transformation
+                                                                    to a great degree.
+   We simulate the environment using use Alg. 1. Line 1 se-
+lects an action according to DRL algorithms. Line 2 generates          To converge to a favorable strategy in a grid road net-
+the number of arrival vehicles of each traffic flow. Line 3         work, we set the number of cars and traffic light states at
+calculates new queue states and traffic light states. Line 4        all intersections as inputs in DDPG. Let's take intersection
+calculates the reward. Finally, line 5 updates all states.          n as an example. The number of cars on each queue is
+                                                                    [Xn1, Xn2, Xn3, Xn4], and a light state is Ln. The observation
+   Alg. 2 shows the details of the DQN for a single road            tuple S = [Xn1, Xn2, Xn3, Xn4, Ln] is a quintuple, which is
+intersection. Line 1 is the initialization. Lines 2  7 are a K-     also the inputs of both the critic's online Q-network and the
+step loop of the train process. Line 3 determines the action.       actor's online policy network.
+Line 4 executes the action, and updates the new queue states
+and traffic light states, and get the reward. Line 5 stores the        Alg. 3 shows the details of DDPG for a grid road network.
+state transition. Line 6 samples a mini-batch of transitions, and   Line 1 is the initialization. In the following for-loop (line 2
+line 7 updates the networks.                                         6), we train the policy. Line 3 chooses an action based on
+                                                                    the actor's online policy network and the exploration noise.
+C. Scalable DDPG for Grid Road Network                              Line 4 executes the action and gets the new state and reward.
+                                                                    Line 5 stores the state transition. Line 6 samples a mini-batch
+   The DDPG algorithm [60] applies neural networks, i.e., a         of transitions. Line 7 calculate the target Q-value, and line
+critic and an actor, to approximate the action-value and action     8 updates the critic's online Q-network. Line 9 updates the
+policy, respectively. The critic takes the state and action as the  actor's online policy network. Line 10 updates the critic's
+input, and action-value as the output. The actor takes the state    target Q-network Q and actor's target policy network µ based
+as the input, and the action policy as the output. This actor-      on their online networks, respectively.
+critic approach has two advantages: 1) it uses neural networks
+as approximators, essentially compressing the state and action      D. Optimality of the "Greenwave" Policy
+space to much smaller latent parameter space, and 2) the
+gradient descent method can be used to update the network              In this subsection, we demonstrate the optimality of the
+weights, which greatly speeds up the convergence and reduces        "greenwave" control policy in a grid road network with
+the training time. Therefore, the memory and computational          symmetric fluid traffic.
+resources are largely saved. The DDPG algorithm has shown
+impressive and powerful skills in AlphaGo zero [64] and Atari          To obtain the optimal policy in a grid road network, we first
+game playing [65].                                                  obtain the optimal policy in a single intersection, and then
+                                                                    extend it to a grid road network to obtain the "greenwave"
+   Besides the actor-critic approach, the DDPG algorithm            policy.
+mainly uses three techniques to solve MDP problems: expe-
+rience replay buffer, soft update, and exploration noise. The          In a single intersection scenario, the optimal policy is a
+experience replay buffer stores transitions just as described in    "thresholding policy" [19]. The traffic light changes only when
+the DQN algorithms. Soft update with a low learning rate is         the difference between two queue lengths reaches a critical
+introduced to improve the stability of learning. Exploration        value.
+noise is added to the actor's target policy to obtain a new
+exploration policy, which helps to explore the other space to          In the grid road network scenario, we assume there is an
+get better policy.                                                  avenue (i.e., an artery road) with multiple cross streets. We
+                                                                    imagine that all the intersections constitute a large "inter-
+   The DDPG algorithm is first trained offline using memory as      section". The "greenwave" policy is defined as follows: the
+the sample pool. In the training process, the DDPG algorithm        traffic lights simultaneously change only when the difference
+samples transitions online, and trains the agent on collected       between the avenue's queue length and the cross streets' queue
+data offline in memory for further learning. The networks are       length reaches a critical value. For a vehicle in the avenue, it
+updated with the Adam optimizer [66] gradient-descent. In           will see a progressive cascade of green lights, and not have
+the test process, the DDPG algorithms run in an online form         to brake at any intersection. Therefore, this control policy
+without the exploration noise.                                      is called "greenwave". The "greenwave" policy achieves the
+                                                                    optimality in a grid road network (an avenue with multiple
+                                                                    cross streets). The detailed proof is moved to the appendix.
+IEEE TRANSACTIONS ON NETWORK SCIENCE AND ENGINEERING, VOL. XX, NO. XX, XXX 2025  8
+
+                 V. PERFORMANCE EVALUATION                          derived by the DQN algorithm, the fixed-cycle policy, and
+                                                                    the optimal policy, are shown in Fig. 3. The result of the
+   In this section, we first show experiment settings, and then     DQN policy coincides with that of the optimal policy. The
+present the results in a single road intersection, and finally      training time using DQN is very short and can be ignored,
+demonstrate the results in a grid road network, especially the      since the state-action space is too small in a single road
+emergence of "greenwave" patterns.                                  intersection. In particular, they match the optimal performance
+                                                                    and exhibit a similar thresholding structure. This structural
+A. Experiment Settings                                              property was established in [19] for a strongly related two-
+                                                                    queue dynamic optimization problem (with switch-over costs
+   In the experiments, we apply a 2-layer fully-connected           rather than switch-over times). Fig. 4 explores the effects of
+neural network in DQN in the single intersection scenario,          different arrival/passing ratio. As the car arrival/passing ratio
+with size 400 and tanh as activation function. For the grid road    increases, the queue length also increases. And the policy
+network scenario, we apply a 4-layer fully-connected neural         learned by DQN shows better effects than the fixed-cycle
+network in DDPG with size 600 for both the actor and critic.        policy. Fig. 5 studies the stabilization with large initial queue
+The actor needs to output near-binary values as action values,      lengths. The arrival/passing ratio is 0.5. The policy learned by
+therefore, it has one modified sigmoid activation function for      DQN shows capability of stabilizing the traffic.
+the last output layer; while the critic network has no activation
+function for the last output layer.                                 C. "Greenwave" in Grid Road Network
+
+   The outputs of the actor network are clipped to binary              We now turn to a grid road network as Fig. 2. This is a
+values 0 and 1 indicating the traffic light state continuing        more challenging scenario. It serves to examine the scalability
+and switching. We take an episode length of 150 steps of            properties of our DDPG algorithm. Moreover, it has more
+simulation for collecting the learning samples, and train both      highly complex interactions arising from the vehicle flow
+actor and critic networks with a batch size of 64 and  =            along the avenue.
+0.99. The Ornstein-Uhlenbeck noise [67] with variance 0.3 is
+applied for explorations.                                              We assume the numbers of arriving vehicles in eastern
+                                                                    and western direction for the avenue in each time step are
+   The implementation of our algorithms uses the deep learn-        represented by random variables, which are independent and
+ing framework TensorFlow [68]. Our simulations are executed         Bernoulli distributed with parameter P1 = 0.5. The numbers
+on a server with Linux OS, 200 GB memory, two Intel(R)              of arriving vehicles in southern and northern directions on
+Xeon(R) Gold 5118 CPUs@2.30 GHz, a Tesla V100-PCIE                  each of the N cross streets in each time step are represented
+GPU.                                                                by random variables, which are independent and Bernoulli
+                                                                    distributed with parameter P2 = 0.25. Next, we evaluate the
+   Let's discuss the traffic environment settings. The vehicle      performance in a 5 × 10 grid road network.
+arrival rate indicates the number of vehicles arriving from
+outside of the road networks into the road networks on each            The car numbers with time steps are shown in Fig. 6.
+intersection per time slot, which is set to be a random value       The conventional MDP approach such as policy iteration is
+with upper bound Ca for avenue or Cc for cross streets; and the     computationally infeasible due to the state-action space ex-
+vehicle passing rates represents the number of vehicles passing     plosion, and hence whether our algorithm is favorable cannot
+one intersection within one time step, and set to be fixed          be assessed quantitatively. Therefore, we examine qualitative
+number of 16 and 4 for avenue and cross streets, respectively.      features to validate the intelligent behavior and evaluate its
+The arrival/passing ratio is the ratio of arrival rate to passing   performance merit. In particular, we observe the emergence
+rate. The comparison of average queue length (averaged sum          of "greenwave" patterns, even though such structural features
+of queueing cars on all roads over time) in a single intersection   are not explicitly prescribed in the optimization process. This
+with respect to the arrival/passing ratio for different policies    emergent intelligence confirms the capability of our algorithms
+is shown in Fig. 4.                                                 to learn favorable structural properties solely from passive
+                                                                    observations.
+B. Verifying Optimal Control in Single Road Intersection
+                                                                                              VI. CONCLUSION
+   As an initial validation benchmark, we first consider a single
+road intersection scenario as described in Subsection III-A.           We have explored the potential for deep Q-network (DQN)
+The reason for considering this toy scenario is that the state-     and deep deterministic policy gradient (DDPG) algorithms to
+action space is sufficiently small and the optimal policy can       optimize real-time traffic light control policies in a single
+be computed using a conventional MDP approach such as               road intersection and a grid road network. As an initial
+policy iteration. We assume the numbers of arriving vehicles        benchmark, we established that the policy obtained from
+of both traffic flows in each time step are represented by          the DQN algorithm matches the optimal policy achieved by
+the random variables, which are independent and Bernoulli           a conventional MDP approach in a single intersection. We
+distributed with parameter P = 0.25.                                subsequently evaluated the scalability of the DDPG algorithm
+                                                                    in a grid road network, and demonstrated the emergence of the
+   In the single intersection, the optimal policy is a "threshold-  high-level intelligent behavior named as "greenwave" policies,
+ing policy" [19]. And the optimal policy can be obtained using      confirming its ability to learn desirable structural features. We
+the policy iteration algorithm by the MDP toolbox [69], which
+is a "thresholding policy" [19]. Comparisons of the policies
+IEEE TRANSACTIONS ON NETWORK SCIENCE AND ENGINEERING, VOL. XX, NO. XX, XXX 2025                                                                                                                                                                                                         9
+
+Mean Reward     0                                                                                        Mean Reward                 0                                                                    Mean Reward     0
+                                                                                                                                                                                                                        100
+Cars Numbers  200                                 50 100 150 200 250 300                                              Cars Numbers5000            50 100 150 200 250 300                                  Cars Numbers  200      50 100 150 200 250 300
+                                                                                                      0                                                                                                0                300                                                          0
+              400                                                                                     1                           10000                                                                1                400                                                          1
+                                                                                                      2                                   0                                                            2                500                                                          2
+              600                                                                                     3                                                                                                3                                                                             3
+                                                                                                                                    100                                                                                       0
+                    0                             50   100 St1e5p0s 200  250  300                                                    80           50  100 St1e5p0s 200  250  300                                        100      50  100 St1e5p0s 200  250  300
+              100                                                                                                                    60
+               80                                                                                                                    40                                                                                  80
+               60                                                                                                                    20
+               40                                                                                                                     00                                                                                 60
+               20
+                                                                                                                                                                                                                         40
+                00
+                                                                                                                                                                                                                         20
+
+                                                                                                                                                                                                                          00
+
+Fig. 3. Performance of DQN control policy (left), fixed-cycle policy (middle), and the optimal policy (right) for single intersection. Tests of 300 steps in
+simulation are shown with average reward and number of waiting cars. Better policies are supposed to reduce the numbers of waiting cars. The DQN algorithm
+matches the optimal policy.
+
+                                              90       DQN
+                                                       Fixed-cycle
+                                              80       Optimal
+              Average number of waiting cars
+                                              70
+
+                                              60
+
+                                              50
+
+                                              40
+
+                                              30
+
+                                              20
+
+                                              10  0.5           0.6 Arrival/Pa0s.7sing Ratio 0.8                                             0.9
+
+Fig. 4. Comparison for a single intersection with different car ar-                                                                                   Fig. 5. Stabilization of a single intersection with large initial queue
+rival/passing ratio.                                                                                                                                  length.
+
+also theoretically proved that the "greenwave" policy is the                                                                                           [5] "New study underscores economy / traffic jam link." https://mobility.
+optimal control policy under a specified traffic flow model (an                                                                                             tamu.edu/umr/media-information/press-release/, 2021.
+avenue with multiple cross streets). The "greenwave" patterns
+demonstrate that DRL algorithms output favorable solutions                                                                                             [6] T.-Q. Tang, Z.-Y. Yi, and Q.-F. Lin, "Effects of signal light on the
+in a grid road network.                                                                                                                                     fuel consumption and emissions under car-following model," Elsevier
+                                                                                                                                                            Physica A: Statistical Mechanics and its Applications, vol. 469, pp. 200­
+   In future research, we will consider the traffic flows with                                                                                              205, 2017.
+stochastic arrivals and departures of vehicles among all areas
+of a road network, and we intend to investigate locality                                                                                               [7] Y. Liu, S. Liu, Y. Wang, F. Lombardi, and J. Han, "A survey of stochastic
+properties and analyze how to design distributed coordination                                                                                               computing neural networks for machine learning applications," IEEE
+schemes for wide-scale deployment scenarios using new tech-                                                                                                 Transactions on Neural Networks and Learning Systems (TNNLS),
+niques, e.g., multi-agent DRL algorithms, hierarchical DRL                                                                                                  vol. 32, no. 7, pp. 2809­2824, 2020.
+algorithms, and edge computing.
+                                                                                                                                                       [8] X. Liang, X. Du, G. Wang, and Z. Han, "A deep reinforcement learning
+                             REFERENCES                                                                                                                     network for traffic light cycle control," IEEE Transactions on Vehicular
+                                                                                                                                                            Technology (TVT), vol. 68, no. 2, pp. 1243­1253, 2019.
+ [1] W. Hong, G. Tao, H. Wang, and C. Wang, "Traffic signal control with
+      adaptive online-learning scheme using multiple-model neural networks,"                                                                           [9] R. Mao, R. Cui, and C. P. Chen, "Broad learning with reinforcement
+      IEEE transactions on neural networks and learning systems (TNNLS),                                                                                    learning signal feedback: Theory and applications," IEEE Transactions
+      2022.                                                                                                                                                 on Neural Networks and Learning Systems (TNNLS), 2021.
+
+ [2] F.-X. Devailly, D. Larocque, and L. Charlin, "Ig-rl: Inductive graph                                                                             [10] P. Koonce and L. Rodegerdts, "Traffic signal timing manual.," tech. rep.,
+      reinforcement learning for massive-scale traffic signal control," IEEE                                                                                United States. Federal Highway Administration, 2008.
+      Transactions on Intelligent Transportation Systems (TITS), 2021.
+                                                                                                                                                      [11] R. P. Roess, E. S. Prassas, and W. R. McShane, Traffic engineering.
+ [3] M. M. Vazifeh, P. Santi, G. Resta, S. Strogatz, and C. Ratti, "Addressing                                                                              Pearson/Prentice Hall, 2004.
+      the minimum fleet problem in on-demand urban mobility," Nature,
+      vol. 557, no. 7706, p. 534, 2018.                                                                                                               [12] J. D. Little, M. D. Kelson, and N. H. Gartner, "Maxband: A versatile
+                                                                                                                                                            program for setting signals on arteries and triangular networks," 1981.
+ [4] M. Zhu, X.-Y. Liu, F. Tang, M. Qiu, R. Shen, W. Shu, and M.-Y. Wu,
+      "Public vehicles for future urban transportation," IEEE Transactions on                                                                         [13] S.-B. Cools, C. Gershenson, and B. D'Hooghe, "Self-organizing traffic
+      Intelligent Transportation Systems (TITS), vol. 17, no. 12, pp. 3344­                                                                                 lights: A realistic simulation," in Springer Advances in applied self-
+      3353, 2016.                                                                                                                                           organizing systems, pp. 45­55, 2013.
+
+                                                                                                                                                      [14] P. Varaiya, "The max-pressure controller for arbitrary networks of
+                                                                                                                                                            signalized intersections," in Springer Advances in dynamic network
+                                                                                                                                                            modeling in complex transportation systems, pp. 27­66, 2013.
+
+                                                                                                                                                      [15] P. Lowrie, "Scats-a traffic responsive method of controlling urban traf-
+                                                                                                                                                            fic," Sales information brochure published by Roads & Traffic Authority,
+                                                                                                                                                            Sydney, Australia, 1990.
+
+                                                                                                                                                      [16] S. La¨mmer and D. Helbing, "Self-control of traffic lights and vehicle
+IEEE TRANSACTIONS ON NETWORK SCIENCE AND ENGINEERING, VOL. XX, NO. XX, XXX 2025  10
+
+Fig. 6. DDPG policy for a grid road network with 5 × 10 intersections.
+
+      flows in urban road networks," Journal of Statistical Mechanics: Theory    [31] M. Zhu, X.-Y. Liu, and X. Wang, "Deep reinforcement learning for un-
+      and Experiment, vol. 2008, no. 04, p. P04019, 2008.                              manned aerial vehicle-assisted vehicular networks," IEEE Transactions
+[17] S. La¨mmer and D. Helbing, "Self-stabilizing decentralized signal control         on Intelligent Transportation Systems (TITS), submitted, p. 15, 2021.
+      of realistic, saturated network traffic," Santa Fe Institute, 2010.
+                                                                                 [32] Z. Ma, M. Xiao, Y. Xiao, Z. Pang, H. V. Poor, and B. Vucetic, "High-
+[18] I. M. Albatish and S. S. Abu-Naser, "Modeling and controlling smart               reliability and low-latency wireless communication for internet of things:
+      traffic light system using a rule based system," in IEEE International           challenges, fundamentals, and enabling technologies," IEEE Internet of
+      Conference on Promising Electronic Technologies (ICPET), pp. 55­60,              Things Journal (IOTJ), vol. 6, no. 5, pp. 7946­7970, 2019.
+      2019.
+                                                                                 [33] H. Wu, Z. Zhang, C. Guan, K. Wolter, and M. Xu, "Collaborate edge and
+[19] M. Hofri and K. W. Ross, "On the optimal control of two queues                    cloud computing with distributed deep learning for smart city internet of
+      with server setup times and its analysis," SIAM Journal on Computing,            things," IEEE Internet of Things Journal (IOTJ), vol. 7, no. 9, pp. 8099­
+      vol. 16, no. 2, pp. 399­420, 1987.                                               8110, 2020.
+
+[20] S. Onori, L. Serrao, and G. Rizzoni, "Dynamic programming," in Hybrid       [34] H. Wang, P. Hu, P. Wang, and H. Wang, "A genetic timing scheduling
+      Electric Vehicles, pp. 41­49, Springer, 2016.                                    model for urban traffic signal control," Elsevier Information Sciences,
+                                                                                       2021.
+[21] M. L. Puterman, Markov decision processes: discrete stochastic dynamic
+      programming. John Wiley & Sons, 2014.                                      [35] A. M. Turky, M. S. Ahmad, and M. Z. M. Yusoff, "The use of genetic
+                                                                                       algorithm for traffic light and pedestrian crossing control," International
+[22] S. M. Ross, Introduction to stochastic dynamic programming. Academic              Journal of Computer Science and Network Security, vol. 9, no. 2, pp. 88­
+      press, 2014.                                                                     96, 2009.
+
+[23] N. Kumar, S. S. Rahman, and N. Dhakad, "Fuzzy inference enabled             [36] B. "Brian" Park, I. Yun, and K. Ahn, "Stochastic optimization for
+      deep reinforcement learning-based traffic light control for intelligent          sustainable traffic signal control," Taylor & Francis International journal
+      transportation system," IEEE Transactions on Intelligent Transportation          of sustainable transportation, vol. 3, no. 4, pp. 263­284, 2009.
+      Systems (TITS), 2020.
+                                                                                 [37] M. E. M. ALI, A. DURDU, S. A. CELTEK, and A. Yilmaz, "An adaptive
+[24] A. Haydari and Y. Yilmaz, "Deep reinforcement learning for intelligent            method for traffic signal control based on fuzzy logic with webster and
+      transportation systems: A survey," IEEE Transactions on Intelligent              modified webster formula using sumo traffic simulator," IEEE Access,
+      Transportation Systems (TITS), 2020.                                             2021.
+
+[25] V. Mnih, K. Kavukcuoglu, D. Silver, A. A. Rusu, J. Veness, M. G.            [38] R. Hawi, G. Okeyo, and M. Kimwele, "Smart traffic light control
+      Bellemare, A. Graves, M. Riedmiller, A. K. Fidjeland, G. Ostrovski,              using fuzzy logic and wireless sensor network," in IEEE Computing
+      et al., "Human-level control through deep reinforcement learning,"               Conference, pp. 450­460, 2017.
+      Nature, vol. 518, no. 7540, p. 529, 2015.
+                                                                                 [39] P. W. Shaikh, M. El-Abd, M. Khanafer, and K. Gao, "A review on
+[26] T. Tan, F. Bao, Y. Deng, A. Jin, Q. Dai, and J. Wang, "Cooperative deep           swarm intelligence and evolutionary algorithms for solving the traffic
+      reinforcement learning for large-scale traffic grid signal control," IEEE        signal control problem," IEEE transactions on intelligent transportation
+      transactions on cybernetics, vol. 50, no. 6, pp. 2687­2700, 2019.                systems (TITS), vol. 23, no. 1, pp. 48­63, 2020.
+
+[27] W.-H. Lin and C. Wang, "An enhanced 0-1 mixed-integer LP formulation        [40] H. R. Maier, S. Razavi, Z. Kapelan, L. S. Matott, J. Kasprzyk, and
+      for traffic signal control," IEEE Transactions on Intelligent transporta-        B. A. Tolson, "Introductory overview: Optimization using evolutionary
+      tion systems (TITS), vol. 5, no. 4, pp. 238­245, 2004.                           algorithms and other metaheuristics," Elsevier Environmental modelling
+                                                                                       & software, vol. 114, pp. 195­213, 2019.
+[28] L. P. J. Rani, M. K. Kumar, K. Naresh, and S. Vignesh, "Dynamic traffic
+      management system using infrared (IR) and Internet of Things (IoT),"       [41] H. Wei, G. Zheng, H. Yao, and Z. Li, "Intellilight: A reinforcement
+      in IEEE International Conference on Science Technology Engineering               learning approach for intelligent traffic light control," in ACM Interna-
+      & Management (ICONSTEM), pp. 353­357, 2017.                                      tional Conference on Knowledge Discovery & Data Mining (SIGKDD),
+                                                                                       pp. 2496­2505, 2018.
+[29] V. Kodire, S. Bhaskaran, and H. Vishwas, "Gps and zigbee based
+      traffic signal preemption," in IEEE International Conference on Inventive  [42] T. Chu, J. Wang, L. Codeca`, and Z. Li, "Multi-agent deep reinforcement
+      Computation Technologies (ICICT), vol. 2, pp. 1­5, 2016.                         learning for large-scale traffic signal control," IEEE Transactions on
+                                                                                       Intelligent Transportation Systems (TITS), vol. 21, no. 3, pp. 1086­1095,
+[30] S. Panichpapiboon and P. Leakkaw, "Traffic density estimation: A                  2019.
+      mobile sensing approach," IEEE Communications Magazine, vol. 55,
+      no. 12, pp. 126­131, 2017.
+IEEE TRANSACTIONS ON NETWORK SCIENCE AND ENGINEERING, VOL. XX, NO. XX, XXX 2025    11
+
+[43] P. Balaji, X. German, and D. Srinivasan, "Urban traffic signal control        [65] V. Mnih, K. Kavukcuoglu, D. Silver, A. Graves, I. Antonoglou, D. Wier-
+      using reinforcement learning agents," IET Intelligent Transport Systems,           stra, and M. Riedmiller, "Playing atari with deep reinforcement learn-
+      vol. 4, no. 3, pp. 177­188, 2010.                                                  ing," arXiv preprint arXiv:1312.5602, 2013.
+
+[44] I. Arel, C. Liu, T. Urbanik, and A. G. Kohls, "Reinforcement learning-        [66] D. P. Kingma and J. Ba, "Adam: A method for stochastic optimization,"
+      based multi-agent system for network traffic signal control," IET Intel-           arXiv preprint arXiv:1412.6980, 2014.
+      ligent Transport Systems, vol. 4, no. 2, pp. 128­135, 2010.
+                                                                                   [67] W. Horsthemke and R. Lefever, "A perturbation expansion for external
+[45] P. Mannion, J. Duggan, and E. Howley, "An experimental review of                    wide band markovian noise: Application to transitions induced by
+      reinforcement learning algorithms for adaptive traffic signal control,"            ornstein-uhlenbeck noise," Springer Zeitschrift fu¨r Physik B Condensed
+      Springer Autonomic road transport support systems, pp. 47­66, 2016.                Matter, vol. 40, no. 3, pp. 241­247, 1980.
+
+[46] B. Bakker, S. Whiteson, L. Kester, and F. C. Groen, "Traffic light control    [68] M. Abadi, P. Barham, J. Chen, Z. Chen, A. Davis, J. Dean, M. Devin,
+      by multiagent reinforcement learning systems," in Springer Interactive             S. Ghemawat, G. Irving, M. Isard, et al., "Tensorflow: A system for
+      Collaborative Information Systems, pp. 475­510, 2010.                              large-scale machine learning," in USENIX Symposium on Operating
+                                                                                         Systems Design and Implementation (OSDI), pp. 265­283, 2016.
+[47] S. S. Mousavi, M. Schukat, and E. Howley, "Traffic light control using
+      deep policy-gradient and value-function-based reinforcement learning,"       [69] "Python Markov decision process (MDP) Toolbox (2022)."
+      IET Intelligent Transport Systems, vol. 11, no. 7, pp. 417­423, 2017.              https://pymdptoolbox.readthedocs.io/en/latest/api/mdptoolbox.html.
+
+[48] H. Wei, G. Zheng, H. Yao, and Z. Li, "Intellilight: A reinforcement                                          Ming Zhu is with Institute of Automation, Chinese
+      learning approach for intelligent traffic light control," in Proceedings                                    Academy of Sciences, Beijing 100190, China, also
+      of the 24th ACM SIGKDD International Conference on Knowledge                                                with the School of Artificial Intelligence, University
+      Discovery & Data Mining, pp. 2496­2505, ACM, 2018.                                                          of Chinese Academy of Sciences, Beijing 100049,
+                                                                                                                  China.
+[49] M. Aslani, M. S. Mesgari, and M. Wiering, "Adaptive traffic signal
+      control with actor-critic methods in a real-world traffic network with                                         His research interests are in the area of machine
+      different traffic disruption events," Elsevier Transportation Research Part                                 learning and quantum computing.
+      C: Emerging Technologies, vol. 85, pp. 732­752, 2017.
+                                                                                                                  Xiao-Yang Liu received M.S. degree in Electrical
+[50] M. Abdoos, N. Mozayani, and A. L. Bazzan, "Traffic light control in                                          Engineering from Columbia University, New York,
+      non-stationary environments based on multi agent q-learning," in IEEE                                       NY, USA, in 2018, and is currently a Ph.D. can-
+      conference on intelligent transportation systems (ITSC), pp. 1580­1585,                                     didate at the Department of Electrical Engineering,
+      2011.                                                                                                       Columbia University, New York, NY, USA.
+
+[51] E. Van der Pol and F. A. Oliehoek, "Coordinated deep reinforcement                                              His research interests include tensor and tensor
+      learners for traffic light control," Advances in Neural Information                                         networks, high performance tensor computing, high
+      Processing Systems (NeurIPS), vol. 1, 2016.                                                                 performance tensor computing, deep learning, non-
+                                                                                                                  convex optimization, big data analysis and IoT ap-
+[52] X. Zang, H. Yao, G. Zheng, N. Xu, K. Xu, and Z. Li, "Metalight:                                              plications.
+      Value-based meta-reinforcement learning for traffic signal control," in
+      Proceedings of the AAAI Conference on Artificial Intelligence, vol. 34,                                     Sem Borst Sem Borst received his MSc degree in
+      pp. 1153­1160, 2020.                                                                                        applied mathematics from the University of Twente
+                                                                                                                  in 1990, and his PhD degree from Tilburg University
+[53] C. Chen, H. Wei, N. Xu, G. Zheng, M. Yang, Y. Xiong, K. Xu, and                                              in 1994. In 1994, he was a visiting scholar at the Sta-
+      Z. Li, "Toward a thousand lights: Decentralized deep reinforcement                                          tistical Laboratory of the University of Cambridge,
+      learning for large-scale traffic signal control," in Proceedings of the                                     England. In 1995, Sem joined the Mathematics of
+      AAAI Conference on Artificial Intelligence (AAAI), vol. 34, pp. 3414­                                       Networks and Systems research department of Bell
+      3421, 2020.                                                                                                 Labs in Murray Hill, USA. In addition to his position
+                                                                                                                  at TU/e, he maintains a (part-time) affiliation with
+[54] T. Wu, P. Zhou, K. Liu, Y. Yuan, and D. O. Wu, "Multi-agent deep                                             Bell Labs. Sem has published over 190 papers in
+      reinforcement learning for urban traffic light control in vehicular net-                                    refereed journals and conference proceedings, and
+      works," IEEE Transactions on Vehicular Technology (TVT), vol. PP,            his H-index is 39. He serves or has served on the editorial boards of
+      no. 99, pp. 1­1, 2020.                                                       several journals, such as ACM Transactions on Modeling and Performance
+                                                                                   Evaluation of Computing Systems, IEEE/ACM Transactions on Networking,
+[55] M. Xu, K. An, L. H. Vu, Z. Ye, J. Feng, and E. Chen, "Optimizing              Mathematical Methods of Operations Research and Queueing Systems, and
+      multi-agent based urban traffic signal control system," Taylor & Francis     served as program committee member of various conferences.
+      Journal of Intelligent Transportation Systems, vol. 23, no. 4, pp. 357­
+      369, 2019.
+
+[56] W. Liu, J. Liu, J. Peng, and Z. Zhu, "Cooperative multi-agent traffic
+      signal control system using fast gradient-descent function approximation
+      for V2I networks," in IEEE International Conference on Communica-
+      tions (ICC), pp. 2562­2567, 2014.
+
+[57] Y. Liu, L. Liu, and W.-P. Chen, "Intelligent traffic light control using
+      distributed multi-agent Q learning," in IEEE International Conference
+      on Intelligent Transportation Systems (ITSC), pp. 1­8, 2017.
+
+[58] K. Zhang, Z. Yang, and T. Bas¸ar, "Multi-agent reinforcement learning:
+      A selective overview of theories and algorithms," Springer Handbook
+      of Reinforcement Learning and Control, pp. 321­384, 2021.
+
+[59] Y. Yu, X. Si, C. Hu, and J. Zhang, "A review of recurrent neural
+      networks: Lstm cells and network architectures," Neural computation,
+      vol. 31, no. 7, pp. 1235­1270, 2019.
+
+[60] T. P. Lillicrap, J. J. Hunt, A. Pritzel, N. Heess, T. Erez, Y. Tassa,
+      D. Silver, and D. Wierstra, "Continuous control with deep reinforcement
+      learning," in International Conference on Learning Representations
+      (ICLR), 2016.
+
+[61] R. S. Sutton and A. G. Barto, Reinforcement learning: An introduction.
+      MIT press, 2018.
+
+[62] V. Mnih, K. Kavukcuoglu, D. Silver, A. A. Rusu, J. Veness, M. G.
+      Bellemare, A. Graves, M. Riedmiller, A. K. Fidjeland, G. Ostrovski,
+      et al., "Human-level control through deep reinforcement learning,"
+      Nature, vol. 518, no. 7540, p. 529, 2015.
+
+[63] A. Daniely, "Sgd learns the conjugate kernel class of the network," in
+      Advances in Neural Information Processing Systems (NIPS), pp. 2422­
+      2430, 2017.
+
+[64] D. Silver, J. Schrittwieser, K. Simonyan, I. Antonoglou, A. Huang,
+      A. Guez, T. Hubert, L. Baker, M. Lai, A. Bolton, et al., "Mastering
+      the game of go without human knowledge," Nature, vol. 550, no. 7676,
+      p. 354, 2017.
+IEEE TRANSACTIONS ON NETWORK SCIENCE AND ENGINEERING, VOL. XX, NO. XX, XXX 2025                                                                      12
+
+                               Anwar Walid Anwar Walid (F'09) received the         as the long-term average durations of the green and red periods
+                               B.S. and M.S. degrees in electrical and computer    at node n, assuming these limits to exist. Denote by Un the
+                               engineering from New York University, New York,     long-term average control cycle length at node n,
+                               NY, USA, and the Ph.D. degree from Columbia
+                               University, New York, NY, USA.                              Un = Gn + Rn + Yn + On, n  {1, ..., N }. (13)
+
+                                  He is a Director of Network Intelligence and a   B. Stability Condition
+                               Distributed Systems Research, and a Distinguished      To ensure the stability of queues, it is required that
+                               Member of the Research Staff with Nokia Bell Labs,
+                               Murray Hill, NJ, USA, where he also served as                   Gn     0,      Rn        n,   n  {1, ..., N },      (14)
+                               the Head of the Mathematics of System Research                  Un             Un
+                               Department and the Director of University Research
+Partnerships. He is an Adjunct Professor with the Electrical Engineering           since the avenue traffic arrives continuously at rate 0 and can
+Department, Columbia University. He has over 20 U.S. and international             only pass node n at unit rate during green periods at that node,
+granted patents on various aspects of networking and computing. His current
+research interests include control and optimization of distributed systems,        and likewise, the cross traffic at node n arrives continuously
+learning models and algorithms with applications to Internet of Things,
+digital health, smart transportations, cloud computing, and software defined       at rate n and can only pass at unit rate during red periods at
+networking. Dr. Walid was a recipient of IEEE and ACM Awards, including            that node.
+the 2017 IEEE Communications Society William R. Bennett Prize and
+the ACM SIGMETRICS/International Federation for Information Processing             Throughout the remainder of the appendix, we assume that
+(IFIP) Performance Best Paper Award. He served as an Associate Editor for
+the IEEE/ACM Transactions on Cloud Computing, IEEE Network Magazine,               the inequations in (14) are satisfied. Invoking (13), the two
+and the IEEE/ACM Transactions on Networking. He served as the Tech-
+nical Program Chair for IEEE INFOCOM, the General Chair of the 2018                inequations in (14) may be equivalently expressed as
+IEEE/ACM Conference on Connected Health (CHASE), and the Guest Editor
+of the IEEE Internet of Things Journal "Special Issue on AI-Enabled Cognitive          Gn        0     (Rn + Yn + On) ,        n  {1, ..., N },
+Communications and Networking for Internet of Things." He is an elected                        1 - 0
+member of the IFIP Working Group 7.3 and Tau Beta Pi Engineering Honor                                                                             (15)
+Society.                                                                                         n
+                                                                                       Rn      1 - n   (Gn + Yn + On) ,        n  {1, ..., N },
+
+                                                                                   or in the following forms
+
+                     APPENDIX                                                          Rn      1   - 0   Gn  -   Yn  -  On,  n  {1, ..., N },
+                                                                                                   0
+                                                                                                                                                   (16)
+                                                                                               1   - n
+   We first describe the traffic model. Then, we discuss the                           Gn          n     Rn   -  Yn  -  On,  n  {1, ..., N }.
+stability condition and the queue length evolution. Finally, we
+prove the optimality of the "greenwave" control policy.                            Considering that
+
+A. Model Description                                                                           1-  Gn    -  Rn   =   Yn + On   (14)  1 - 0   - n,  (17)
+                                                                                                   Un       Un          Un
+   Consider a grid road network topology with N nodes,                                                                         
+representing an avenue (i.e., an artery road) with N cross
+streets. Avenue traffic arrives at node 1 as a deterministic `fluid                therefore,                        Yn + On .
+flow' with a constant rate 0, and must traverse all the nodes                                                        - 0 - n
+before it leaves the network after passing through node N . In                                            Un      1                                (18)
+addition, cross traffic arrives at each node n as a deterministic
+fluid flow with a constant rate n and leaves the network after                     Further, from (14) and (18), we obtain
+passing through that node, n  {1, ..., N }. For stability, we
+assume that 0 + n < 1 for all n  {1, ..., N }.                                                        Gn      1  -   0      n (Yn  +  On),         (19)
+                                                                                                                     0 -
+   Avenue traffic can only flow through node n when the traffic
+light is green, either at unit rate when it is backed up at node n,                                   Rn      1  -   n      n (Yn  +  On).         (20)
+n  {1, ..., N }, or otherwise at the outflow rate of the upstream                                                    0 -
+node n - 1 (when n > 1) or the external arrival rate 0 (when
+n = 1). Likewise, cross traffic can only flow through node n                       Note that (13) and (14) together yield
+when the traffic light is red, either at unit rate when it is backed
+up, or otherwise at the arrival rate n, n  {1, ..., N }.                                           0 + n          1-    Yn + On    <  1,           (21)
+                                                                                                                           Un
+   Denote by Yn and On the (fixed) durations of the yel-
+low and orange periods at node n  {1, ..., N }, respec-                            as assumed above, and the next lemma states some further
+tively. The lengths of the k-th green and red periods at
+node n  {1, ..., N } can be controlled, and are denoted                            useful inequations, whose proofs are provided in the appendix.
+by G(nk) and Rn(k), respectively. For compactness, denote by
+Un(k) = G(nk) + Rn(k) + Yn + On the length of the k-th control                     Lemma 1. For all n  {1, ..., N },
+cycle at node n  {1, ..., N }. Further, we define
+                                                                                       (Gn + Yn + On)2  0(pn + 1)2(Yn + On) ,                      (22)
+                                                                                               Un                              pn
+
+                                                                                       (Rn + Yn + On)2  n(qn + 1)2(Yn + On) ,                      (23)
+                                                                                               Un                              qn
+
+                                                                                   pn  =  max{1,   1  -  0    n     },  qn  =  max{1,  1  -  n    n  }.
+                                                                                                         0 -                                 0 -
+
+             1  K                         1  K                                     The above inequations are strict unless Gn = pn(Yn + On)
+                                                                                   and Rn = qn(Yn + On), respectively.
+Gn  =   lim  K       Gn(k),  Rn  =   lim  K       Rn(k),  (12)
+
+       K        k=1                 K        k=1
+IEEE TRANSACTIONS ON NETWORK SCIENCE AND ENGINEERING, VOL. XX, NO. XX, XXX 2025                                          13
+
+Proof. We only show the proof of (22) since the proof of (23)      G1(b, t) - (1 - 0)(t - b)  G1(B(l), t) - (1 - 0)(t - B(l))
+is similar. We have                                                is always satisfied for each cycle l  {1, ..., (t)}.
+
+       (Gn + Yn + On)2      (14)  0(Gn + Yn + On)2 .                  Likewise, at node n, n(b, t) increases at rate n during
+                                                                   non-red periods and decreases at rate 1-n during red periods.
+               Un                   Gn                             Thus,
+
+Differentiation shows that the right-hand size is increasing in    n(b, t)  nRn(b, t)-(1 - n)(t - b - Rn(b, t))
+
+Gn for Gn  Yn + On, and decreasing in Gn for Gn <
+
+Yn + On. Thus, combining the lower bound of Gn in (19), the                  = Rn(b, t) - (1 - n)(t - b),                (28)
+
+minimum value of the right-hand side is attained for Gn =          for all b  t, yielding
+
+pn(Yn  +  On)  with  pn  =  max{1,       0  },  and  equals                n(t)  sup{Rn(b, t) - (1 - n)(t - b)}, (29)
+                                    1-0 -n
+                                                                                           st
+                     0(pn + 1)2(Yn + On) ,
+                                 pn                                and assuming n(0) = 0, we in fact have
+
+yielding the lower bound (22). It also follows that the lower                 n(t) = sup{Rn(b, t) - (1 - n)(t - b)}. (30)
+bound is strict unless Gn = pn(Yn + On).
+                                                                                                    st
+
+C. Queue Evolution                                                    The dynamics of n(t) are similar but also different, since
+   Denote by n(b, t) and n(b, t) the queue length of the           the inflow rate of avenue traffic at node n is not fixed, and
+
+avenue and the cross traffic at node n at time t with the traffic  equal to the outflow rate of the upstream node n - 1. Denote
+flow begins from the time b, respectively. Let n(b, t) and
+n(b, t) be the lower bounds of n(b, t) and n(b, t). If the         by n(t) the outflow rate of avenue traffic at node n at time t,
+traffic flow starts from the time b = 0, n(b, t), n(b, t),         and note that n(t) = 0 during non-green periods, n(t) = 1
+n(b, t) and n(b, t) are simplified as n(t), n(t), n(t)             during green periods when n(t) > 0, and n(t) = n-1(t)
+and n(t), respectively. Denote by Gn(b, t) and Rn(b, t) the        during green periods, and n(t) = 0 when n(t) = 0 in all
+amount of non-green and non-red time at node n  {1, ..., N },      periods. Assuming n(0) = 0, we have
+during the time interval (b, t], respectively. Now, observe that
+1(b, t) increases at rate 0 during non-green periods at node 1                                  t
+and decreases at rate 1 - 0 during green periods. Thus,
+                                                                   n(t) = sup{ n-1(x)dx - (t - b - Gn(b, t))}. (31)
+
+                                                                                   st x=0
+
+                                                                   Define
+
+                                                                                   n  =       lim sup    1   T
+
+    1(b, t)  0G1(b, t) - (1 - 0)(t - b - G1(b, t)) (24)                                             T    T      n(t)dt,
+              = G1(b, t) - (1 - 0)(t - b),
+                                                                                   n  =       lim   sup  1  t=0
+for all b  t, yielding                                                                                        T
+                                                                                                   T     T
+                                                                                                                n(t)dt,
+
+                                                                                                            t=0
+
+                                                                   as the long-term average queue length of the avenue and the
+
+       1(b, t)  sup{G1(b, t) - (1 - 0)(t - b)}, (25)               cross traffic at node n, respectively. The lower bound of 1(t)
+                                                                   is obtained by Lemma 2.
+                          st
+
+and assuming 1(0) = 0, we in fact have                             Lemma 2.
+
+                                                                                 
+                                                                   1(t)  max{G1(k)(t) - (1 - 0)U (k), 0},
+            1(t) = sup{G1(b, t) - (1 - 0)(t - b)}. (26)                                                                  (32)
+
+                                 st                                              k=1
+
+Remark 1. Without loss of generality, we assume that each          which is further deduced as
+control cycle ends with a green period, and thus starts with
+a yellow period. Denote by B(k) the start time of the k-th                                  
+control cycle at node 1. It can be shown that
+                                                                        1(t)  max{G(1k)(t) - (1 - 0)|t - B(k)|, 0}. (33)
+1(t) = sup{G1(b, t) - (1 - 0)(t - b)}
+                                                                                           k=1
+                st
+                                                                   Proof. Without loss of generality we assume that each control
+= max{ sup {G1(B(l), t)-(1-0)(t-B(l))},0}, (27)
+                                                                   cycle ends with a green period (and thus starts with a yellow
+              l{1,...,(t)}                                         period). For compactness, denote by G(1k) = R1(k) + Y1 + O1
+                                                                   the amount of non-green time during the k-th control cycle
+where (t) is the maximum number of cycles until time t.            at node 1. Denote by B(k) the start time of the k-th control
+                                                                   cycle at node 1. Define
+   First, if b  [B(l-1) + G(1l-1), B(l)], thus G1(b, t) =
+G1(B(l), t), and G1(b, t) - (1 - 0)(t - b)  G1(B(l), t) -                  G(1k)(t) = max{min{G1(k), t - B(k)}, 0},
+(1 - 0)(t - B(l)). Secondly, if b  [B(l), B(l) + G(1l)],
+thus G1(b, t) = G1(B(l), t) - (b - B(l)) with b - B(l)             as the amount of non-green time during the k-th control cycle
+0, and G1(b, t) - (1 - 0)(t - b)  G1(B(l), t) - (1 -               at node 1 that has elapsed by time t, or equivalently,
+0)(t - B(l)). The above two cases are finally merged as
+G1(b, t) - (1 - 0)(t - b)  G1(B(l), t) - (1 - 0)(t - B(l))                        0,               if t  B(k),
+for all b  [B(l-1) + G(1l-1), B(l) + G1(l)]. We see that,                        
+                                                                                                   if B(k)  t  B(k) + G1(k),
+                                                                   G1(k)(t) =  t - B(k),           if t  B(k) + G1(k).
+
+                                                                                      G(1k),                                         (34)
+                                                                                 
+IEEE TRANSACTIONS ON NETWORK SCIENCE AND ENGINEERING, VOL. XX, NO. XX, XXX 2025                                                                                                             14
+
+   Define G(1k)(b, t) = G1(k)(t) - G(1k)(b) as the amount of                                         i.e.,                  G(1l)  (1 - 0)               k
+non-green time during the k-th control cycle that occurs in                                          and thus
+                                                                                                                                                             U (m),
+the time interval (b, t] at node 1, and note that G1(b, t) =
+
+      G(1k)(b,  t)  is  total  amount  of  non-green                           time  that  occurs                                                    m=l
+k=1
+in the time interval (b, t] at node 1. Let U (k) be the duration
+
+of the k-th cycle.                                                                                     B(l)       +  1   1  0    G(1l)       B(l)    +     k              =  B(k+1).
+                                                                                                                        -
+   1(t) (=27) sup {G1(B(l), t)-(1-0)(t-B(l))}                                                                                                                 U (m)
+
+                      l{1,...,(t)}                                                                                                                       m=l
+
+            G1(1)(B(1), t) - (1 - 0)(t - B(1))                                                       Now consider
+
+                                                                                                       B(k+1)
+
+          (t)                                                                                                   1(t)dt
+
+          = [G(1k)(t) - (1 - 0)U (k)]                                                        (35)      t=0
+
+          k=1                                                                                        (33)      B(k+1) (t)
+
+          (t)                                                                                                               max{G(1l)(t) - (1 - 0)|t - B(l)|, 0}dt
+
+           [G(1k)(t) - (1 - 0)(t - B(k))].                                                   (36)          t=0          l=1
+
+          k=1                                                                                            (t)       B(k+1)
+
+When k  (t)+1, G1(k)(t) = 0, and G1(k)(t)-(1-0)U (k) <                                               =                     max{G1(l)(t) - (1 - 0)|t - B(l)|, 0}dt.
+0. Therefore, combining (35), (32) is obtained. When k =
+                                                                                                         l=1      t=0
+
+                                                                                                                                                                           (39)
+
+(t) + 1, t - B(k) = 0. When k  (t) + 2, t - B(k) < 0,                                                Note that
+
+and |t - B(k)| > 0. Therefore,         (t)                        [G1(k)  (t)  -  (1  -  0)(t   -
+                                       k=1
+                    max{G(1k)(t)                                                                     max{G(1l)(t) - (1 - 0)|t - B(l)|, 0} =
+B(k))] =                          -    (1  -                      0)|t    -  B(k)|,   0}.  Com-
+          k=1
+                                                                                                     
+bining (36), (33) is obtained.                                                                                                                       if t  B(l),
+                                                                                                     0,
+Now   observe       that  when  B(k)       t                        B(k)   +      1   G1(k)  ,  we                                                   if B(l)  t  B(l) + G(1l),
+                                                                               1-0                   
+                                                                                                     0(t - B(l)),
+have                                                                                                 G(1l) - (1 - 0)(t - B(l)),                      if B(l) + G(1l)  t                     (40)
+
+max{G(1k)(B(k), t) - (1 - 0)|t - B(k)|, 0}                                                                                                                       B(l)  +     1    G(1l)  ,
+                                                                                                                                                                          1-0
+= G1(k)(B(k), t) - (1 - 0)(t - B(k))                                                                 
+                                                                                                     
+                                                                                                     
+
+      0(t - B(k)) - G(1k)(B(k)),           if B(k)  t  B(k) + G1(k),                                                                                 if  t     B(l)    +     1    G(1l)  .
+                                                                                                     0,                                                                   1-0
+
+                                                                                                     Thus
+
+      G(1k) - (1 - 0)(t - B(k))            if B(k) + G(1k)  t                                              B(k+1)
+          - G(1k)(B(k)),
+                                                                                                                   max{G1(l)(t) - (1 - 0)t, 0}
+
+=
+
+   
+   
+
+                                                                                           G(1k)
+
+                                                                        B(k)   +        1         .        t=0
+                                                                                     1-0
+
+
+                                                                                                                B (l) +G1(l)  0(t - B(l))dt
+
+                                                                                                       =
+
+Proposition 1. For n  {1, ..., N }, we have                                                                    t=B(l)
+
+                                                                                                                                      G1(l)
+                                                                                                                     [G B (l) +   1             (l)                          B(l))]dt
+                            0(R1 + Y1 + O1)2 ,                                                                 +              1-0                    -   (1  -    0)(t    -
+                                2(1 - 0)U1
+                    1                                                                                                t=B (l) +G1(l)             1
+
+                                                                                             (37)               G(1l)                           G1(l)
+                            n(Gn + Yn + On)2 .                                                                                            [G 1              (l)
+                    n           2(1 - n)Un                                                             =             0xdx +                                       -   (1  -  0)x]dx
+                                                                                                                                        1-0                 1
+                                                                                                               x=0                      x=G1(l)
+
+Proof. Define                                                                                                  1           G(1l) 0 G1(l) 2                     1                      1     G(1l)
+                                                                                                               2                                               2                  1-0
+                                                                                                                  0x2                                                     0)x2
+                E(k) = G1(k) - (1 - 0)U (k),                                                           =                         +      1 - 0            -        (1  -
+
+                                                                                                                           0                                                      G1(l)
+
+and                                                                                                       1          G(1l)    2 0 G(1l)              2            G1(l) 2
+                                                                                                       = 2 0                    +                                 1 - 0
+                                                               k                                                                      1 - 0               1
+                                                                                                                                                       -
+                    F (k) = sup                                   E (m) ,
+                                                                                                                                                          2
+                               l{1,...,k} m=l
+                                                                                                                  1                   G(1l)  2
+
+and consider k such that F (k) = 0, i.e.,                                 k    E  (m)      0    for        +       (1   -   0)
+                                                                          m=l                                     2
+
+all l  {1, ..., k}, implying                                                                               0 G(1l) 2
+
+G1(l) - (1 - 0)     k             k    G(1m) - (1 - 0)                                k                =       2(1 - 0)       .                                                             (41)
+
+                          U (m)                                                            U (m)
+
+                    m=l           m=l                                                 m=l            We obtain that
+
+                                       k                                                              B(k+1)                     (t)  0 G(1l) 2          =       0           (t)  G1(l)     2
+                                                                                                     t=0                              2(1 - 0)               2(1 - 0)        l=1
+                                = E(m)  0,                                                                     1(t)dt                                                                        .
+
+                                    m=l                                                                                          l=1
+
+                                                                                             (38)
+IEEE TRANSACTIONS ON NETWORK SCIENCE AND ENGINEERING, VOL. XX, NO. XX, XXX 2025                                                                 15
+
+Now observe that                                                          the cross streets. We select a common length of the green
+                                                                          period
+              1   K
+       lim
+      K K              E(k) = R1 + Y1 + O1 - (1 - 0)U1                                       Gn      G()    =  0(1 + )(Y  + O)              (46)
+                                                                                                                                ,
+                  k=1                                                                                          1 - 0 - max
+
+      = -G1 + 0U1 < 0,                                              (42)
+
+which means that the subsequence of k for which F (k) = 0                 and a common length of the red period
+is infinite, so that
+                                                                                                            max(1 +   )(Y + O)
+                       1T                                                                    Rn    R()  =      1 - 0               ,        (47)
+
+                                                                                                                      - max
+
+1  =         lim sup         1(t)dt
+                 T  T
+                         t=0                                              where   0 is a small scalability factor based on the lower
+                                                                          bounds (19) and (20). Then (46) and (47) yield a common
+                       1             B(k+1)                               control cycle length
+
+             lim  sup  B(k+1)                1(t)dt
+
+                  k             t=0
+
+             lim sup      1        0             k      G(1l) 2                     Un         U ()  =  (1  + (0 + max))(Y    + O)          (48)
+                       B(k+1)  2(1 - 0)         l=1                                                              1 - 0 - max        .
+                   k
+
+                          1             0            k     G1(l) 2
+
+   = lim sup           k     U  (l)  2(1 -   0)      l=1                     The next proposition plays an instrumental role in establish-
+                       l=1                                                ing the optimality of the greenwave control policy.
+                 k
+                                                                          Proposition 2. The long-term average queue length under the
+   =              0 lim sup                  1          1k       G(1l) 2  greenwave control policy is equal to
+
+             2(1 - 0)     k          1  k       U  (l)  k  l=1
+                                     k  l=1
+
+   =              0 (R1 + Y1 + O1)2 ,                               (43)                     0(R() + Y + O)2
+             2(1 - 0)           U1                                            1()         =     2(1 - 0)U ()
+
+as claimed.                                                                   (47=) (48)         0(1 - 0 + max)2(Y + O)                  , (49)
+
+   Combining Lemma 1 and Proposition 1, we obtain the lower                               2(1 - 0)(1 - 0 - max)[1 + (0 + max)]
+bounds
+                                                                              n()         =  n(G() + Y + O)2
+                                                                                                2(1 - n)U ()
+                 0     0(p1  +  1)2(Y1       +  O1)
+   1         2(1 - 0)            p1                                           (46=) (48)         n(1 + 0 - max)2(Y + O)
+                                                                                                                                         , (50)
+                                                                                          (1 - n)(1 - 0 - max)[1 + (0 + max)]
+      = 20(p1 + 1)2(Y1 + O1) ,
+               2p1(1 - 0)                                                 for n  {1, ..., N }, and n() = 0 for all n  2.
+
+n           n          n(qn  +  1)2(Yn       +  On)                       Proof. Note that {n}n{1,...,N} increases by 0U () over
+        2(1 - n)                 qn                                       the course of a cycle, and must have decreased by G() over
+                                                                          the preceding cycle if it is strictly positive at the end of a
+      = 2n(qn + 1)2(Yn + On) ,                     n  {1, ..., N },       green period. Thus, if {n}n{1,...,N} is strictly positive at
+                2qn(1 - n)                                                the end of a green period, it must decrease at the end of the
+                                                                          preceding green period by
+and conclude that the two inequations are strict unless G1 =
+p1(Y1 + O1) and Rn = qn(Yn + On), respectively.                           n = G() - 0U ()
+
+   We henceforth make an mild assumption that the fixed                   (46=) (48) 0(1 + )(Y + O) - 0[1 + (0 + max)](Y + O)
+durations of the yellow and orange periods are identical at                               1 - 0 - max                 1 - 0 - max
+all nodes, i.e., Yn  Y and On  O for all n  {1, ..., N }.
+The above lower bounds are simplified as                                  = 0(Y + O)
+
+                  1      02(p1 + 1)2(Y +             O)                   > 0.
+                              2p1(1 - 0)                ,
+                                                                    (44)                                                                    (51)
+
+                  n       2n(qn      + 1)2(Y    + O)                (45)     We conclude that for any initial state {n}n{1,...,N} must
+                                                      ,                   eventually become 0 at the end of some green period, say at
+                                2qn(1 - n)
+
+which are strict unless G1 = p1(Y1 + O1) and Rn = qn(Yn +                 time t0. Now observe that {n}n{2,...,N} can only receive
+On), respectively.                                                        traffic (at most at unit rate) during a green period, but will
+D. Optimality of the "Greenwave" Control Policy
+                                                                          also serve traffic at unit rate during a green period, and hence
+   We now consider a greenwave control policy which syn-
+chronizes the states across all the nodes, i.e., uses simul-              must remain zero from that point onward.
+taneous green, orange, red and yellow periods. Denote by
+max = maxn{1,...,N} n the maximum arrival rate over all                       1 increases at rate 0 from time t0 to time t0 +R()+Y +
+
+                                                                          O, and decreases at rate 1 - 0 from time t0 + R() + Y + O
+
+                                                                          to  time  t0    + R() + Y     +O+      0  (R() + Y       + O)  =  t0  +
+                                                                                                               1-0
+IEEE TRANSACTIONS ON NETWORK SCIENCE AND ENGINEERING, VOL. XX, NO. XX, XXX 2025                                                                                16
+
+   1  (R() + Y      + O)     <  t0  +  U (),     to  become      zero  at  that     We deduce that
+1-0
+point and remain zero until t0 + U (). Thus
+                                                                                                            1T                    1      t1+U ()
+
+                                                                                    n()         =   lim    T        n(t)dt = U ()                     n(t)dt
+
+1(t0 + t) =                                                                                        T             0                       t=t1
+
+  0t,                           if t  [0, R() + Y + O],                             = n(G() + Y + O)2
+                                                                                          2(1 - n)U ()
+
+  -(1 - 0)t + R()                                                                                           n(1 + 0 - max)2(Y + O)
+
+
+
+
+      + Y + O,                  if t   1,     1      (R()     +  Y  + O)   ,        (46=) (48)                                                             .
+                                           1-0
+                                                                                                   2(1 - n)(1 - 0 - max)[1 + (0 + max)]
+
+
+
+  0,                            if t          1  (G()   +     Y  + O), U ()      .                                                                            (57)
+                                           1-0
+
+
+We deduce that                                                                                        n(0)    =   n(1 - max)2(Y + O) ,                        (58)
+                                                                                                                 2(1 - n)(1 - 0 - max)
+                    1T                                  t0+U ()
+                                              1
+1()    =       lim           1(t)dt = U ()                          1(t)dt          which has another form if n = 1 for n  {1, ..., N }
+                    T
+              T           0                             t=t0
+
+  = 0(R() + Y + O)2                                                                                   n(0)          =  1(1 - 1)(Y    + O)                     (59)
+        2(1 - 0)U ()                                                                                                     2(1 - 0 -          .
+
+                                                                                                                                     1)
+
+  (47=) (48)        0(1 - 0 + max)2(Y + O)                             .
+
+              2(1 - 0)(1 - 0 - max)[1 + (0 + max)]                                  We now use the propositions in IV-D to prove the optimality
+
+                                                                           (52)     of the "greenwave" control policy in a scenario with uniform
+                                                                                    cross traffic, i.e., n  1 = max for all n  {1, ..., N }. We
+              1(0)     =     0(1 - 0)(Y       + O)                         (53)     take one case as an example, i.e., 0 + 21  1, 20 + 1  1,
+                                                    ,                               and then we obtain
+                             2(1 - 0 - max)
+                                                                                                                    0(1 - 0 + 1)2(Y           + O)2
+which has another form if n = 1 for n  {1, ..., N }                                                   1()      =      2(1 - 0)(1 - 0 -        1)2     ,
+
+              1(0)     =     0(1 - 0)(Y      + O)                          (54)                       n()      =    1(1 + 0 -     1)2(Y       + O)2
+                               2(1 - 0 -            .                                                                 2(1 - 1)(1  - 0 -       1)2 ,
+
+                                             1)                                                                                           0
+                                                                                                                                     1-0 -1
+                                                                                    where n           {1, ..., N }. Also, p1   =                   ,  and  q1  =
+
+   We also obtain that {n}n{1,...,N} increases by n[U ()-                                1      .
+R()] over the course of a cycle, and must have decreased by                         1-0 -1
+R() over the preceding cycle if it is strictly positive at the
+end of a red period.                                                                The lower bounds in (44) and (45) reduce to the following
+
+                                                                                                           1         0(1 - 1)2(Y + O) ,                       (60)
+                                                                                                                    2(1 - 0)(1 - 0 - 1)
+
+n = R() - nU ()                                                                                            n         1(1 - 0)2(Y + O) ,                       (61)
+                                                                                                                    2(1 - 1)(1 - 0 - 1)
+(47=)(48) max(1 + )(Y + O) - n[1 + (0 + max)](Y + O)
+              1 - 0 - max                        1 - 0 - max
+                                                                                    which  are     strict  unless   G1  =  0(Y +O)       and  Rn   =     1(Y +O)  ,
+= (Y + O)[(1 + )max - n[1 + (0 + max)]                                                                                     1-0 -1                        1-0 -1
+                       1 - 0 - max
+                                                                                    respectively.
+
+> 0.                                                                       (55)     It is easily verified that, as   0, the values of 1() and
+
+                                                                                    n(), n  {1, ..., N }, approach the absolute lower bounds in
+
+Thus, if n is strictly positive at the end of a red period, it                      (60) and (61), respectively. The optimality of the "greenwave"
+must be smaller at the end of the preceding red period.
+                                                                                    control policy, in the sense that no other control policy can
+
+We conclude that for any initial state n must eventually                            achieve lower values for any n or n (while maintaining
+
+become 0 at the end of some red period, say at time t1. Then                        stability). In fact, the greenwave control policy is essentially
+
+n increases at rate n from time t1 to time t1+G()+Y +O,                             the unique optimal policy in the scenario under consideration.
+
+decreases at rate 1 - n from time t1 + G() + Y + O to                               Indeed, the optimality immediately forces Gn = G(0) =
+
+time  t1 +    G()  +   Y  +O+         n    (G(       )+Y +       O) = t1 +          0(Y +O)     ,  n       {1, ..., N }, and R1   =      R(0)      =     1(Y +O)  ,
+      (G(     )+Y  +                1-n    ), to     become      zero at that       1-0 -1                                                               1-0 -1
+   1
+1-n                    O)  t1 + U (                                                 because otherwise the inequations in (60) and (61) are strict.
+
+point and remain zero until t1 + U (). Thus                                         Also,  Rn      =  R(0)  =    1(Y +O)   is  required  for  all  n  =  2, . . . , N
+                                                                                                                 1-0 -1
+                                                                                    for stability. Now, we suppose that Rn > R(0) for some
+
+n(t1 + t) =                                                                         n = 2, . . . , N , or that the non-green periods do not strictly
+
+nt,                                                                                 coincide at all the nodes, and let Wn be the average elapsed
+
+-(1 - n)t + G()              if t  [0, G() + Y + O],                                simultaneous non-green period at all nodes {1, . . . , n - 1} at
+
+      + Y + O,                                                                      the start of a green period at node n. Then there must be at
+
+                             if t      1,     1      (G() + Y + O),(56)             least one node n for which Wn > 0. Now observe that n
+                                           1-n
+0,                                                                                  must grow at least at rate 0 when all the upstream nodes
+                                          1
+                             if t      1-n   (G(     )  +  Y  + O), U ()      .     {1, . . . , n - 1} are in a green period while node n is not. It
+IEEE TRANSACTIONS ON NETWORK SCIENCE AND ENGINEERING, VOL. XX, NO. XX, XXX 2025  17
+
+may  then  be  shown  that  n       0 Wn2   >  0,  preventing  the
+                                 2(1-0 )Un
+
+optimality. Therefore, the unique optimality of the greenwave
+
+control policy is proved.
+

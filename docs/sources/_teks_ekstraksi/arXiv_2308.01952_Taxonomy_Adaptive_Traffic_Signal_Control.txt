@@ -1,0 +1,1520 @@
+> REPLACE THIS LINE WITH YOUR PAPER IDENTIFICATION NUMBER (DOUBLE-CLICK HERE TO EDIT) <  1
+
+A Taxonomy of Adaptive Traffic Signal Control
+
+Andalib Shams, A. M. Tahsin Emtenan, and Christopher M. Day, Member, IEEE
+
+   Abstract--Research on adaptive traffic signal control (ATSC)         extensive reviews of ATSC. Katwijk et al. [2] proposed a tax-
+extends back to at least the 1960s, and many ATSC methods have          onomy of ATSC, but limited their discussion to local intersec-
+been proposed over the years. This paper provides a review of this      tion control, and their taxonomy focuses on optimization meth-
+research and proposes a taxonomy for organizing it, accompanied         ods. Papageorgiou et al. [3] reviewed control strategies for ur-
+by a consistent vocabulary for discussing the control concepts. We      ban road network, freeway networks and route guidance. Signal
+begin from the well-established concept of control generations.         control was one subtopic in the broader review, so details of
+Next, we classify the ATSC methods according to their topo-             ATSC are not discussed. Stevanovic prepared a synthesis of
+graphic structure (local-only, system/hierarchical), time resolution    ATSC deployments [4] which includes descriptions of several
+of decision-making (continuous versus planning-horizon), type of        methods provided by the vendors. This review focused mainly
+decision (rule-based or optimization), objective function, cy-          on commercial ATSC systems.
+clic/acyclic nature, and additional subcategories relevant to cer-
+tain "families" of methods. These various elements of system con-          Some reviews focused on ATSC for a particular situation or
+trol are organized into a taxonomy of ATSC to help future re-           a family of strategies. Wei et al. [5] surveyed signal control
+searchers understand the wide diversity of algorithmic approaches       strategies that use Reinforcement Learning (RL) framework.
+to the signal control problem that have been proposed to date, and      Jing et al. [6] and Wang et al. [7] reviewed ATSC strategies for
+which can be updated or expanded to incorporate future research.        connected vehicle environments. A recent review of computa-
+                                                                        tional intelligence in traffic signal control was presented by
+   Index Terms--traffic control, traffic signals, adaptive control,     Qadri et al. [8], examining papers published between 2015-
+adaptive traffic signal control                                         2020 and classifying them according to several criteria.
+
+                           I. INTRODUCTION                                 The present paper seeks to review ATSC more generally, but
+                                                                        to limit its scope to the most useful work for potential field de-
+   Traffic signal control is an important interdisciplinary prob-       ployment, we focus on methods that can be applied to multiple
+lem in transportation engineering. Methods of signal control            phases where opposing turning movements are permitted to ter-
+that adjust signal timing in response to traffic conditions are         minate independently, with the exception of other papers that
+generally referred to as adaptive traffic signal control (ATSC).        make significant methodological contributions. The paper be-
+Many different methods of ATSC have been proposed, and                  gins with a review of basic signal control concepts. Next, we
+there are thousands of publications on this subject in the litera-      describe the literature search and criteria for paper selection.
+ture. The objective of this paper is to survey the literature on        After this, we present the criteria for the taxonomy. Finally, we
+ATSC and develop a taxonomy to organize the literature.                 present the organization of the works into the taxonomy.
+
+   ATSC is a challenging topic to review comprehensively. A                This paper employs numerous acronyms which are explained
+search for the phrase "adaptive traffic signal" on Compendex            by Table VII in the Appendix.
+returns 1,767 results when filtered by the controlled vocabulary
+"traffic signals" (there are over 7,000 results without this filter).                              II. BACKGROUND
+Other search phrases are also relevant. It is infeasible to com-
+prehensively examine every publication. However, by examin-                This section provides a brief description of signal control
+ing a broad cross-section of the literature, it is possible to iden-    methods in general and elements of the history of their devel-
+tify certain trends and commonalities.                                  opment.
+
+   One difficulty in discussing ATSC in multiple disciplines is         1) Fixed-Time Control
+the lack of a consistent vocabulary. Even the definition of
+"adaptive" is not uniform. ATSC could be defined as self-reg-              The first traffic signals on public streets were human-oper-
+ulating control based on real-time traffic data, but this definition    ated, with automatic control emerging in the 1920s [9]. The
+is loose enough to include actuated control, which is not nor-          need for coordination of multiple intersections and variation by
+mally considered "adaptive." Alternatively, the term "adaptive"         time of day were recognized from the beginning and are the ba-
+could be reserved only for "real-time" control, similar to the          sis of conventional control methods that are still widely used.
+Traffic Control Systems Handbook [1], but this excludes adap-
+tive adjustments to conventional timing plans. Some authors do             The simplest signals transfer the right-of-way between two
+not use the term "adaptive" at all. This paper proposes a vocab-        streets, under "two-phase" control (Figure 1a). The need to ac-
+ulary for discussing ATSC.                                              commodate crossing turns (e.g., the left turns in right-hand
+                                                                        drive countries) led to the inclusion of additional phases,
+   Some previous publications have included some relatively
+
+   This work was supported in part by Pooled Fund Study TPF-5(483).        A. M. T. Emtenan is with University of Maryland, College Park, MD 20742
+   A. Shams is with Iowa State University, Ames, IA 50010 USA (e-mail:  USA (e-mail: tahsin@umd.edu).
+ashams@iastate.edu).
+                                                                           C. M. Day is with Iowa State University, Ames, IA 50010 USA (e-mail:
+                                                                        cmday@iastate.edu).
+> REPLACE THIS LINE WITH YOUR PAPER IDENTIFICATION NUMBER (DOUBLE-CLICK HERE TO EDIT) <  2
+
+leading to "four-phase" control (Figure 1b). "Eight-phase" con-            3) Actuated-Coordinated Control
+trol incorporates two rings that permit the opposing crossing
+turns to start or end independently, subject to phase compatibil-             Actuated-coordinated signal control uses the same COS
+ity constraints (Figure 1c). Eight-phase control is widely used            framework as fixed-time control, but the phase durations are
+in North America [10]. Elsewhere, stage-based control is more              adjustable by actuation, subject to constraints that maintain syn-
+common, which can achieve similar operation although the                   chronization. As under fully-actuated control, phases may be
+phase sequence may be more constrained.                                    skipped if there is no demand, and their green times may be
+                                                                           truncated if there is more split time than the amount of demand
+   In conventional coordinated control, the basic elements that            present for the phase in that cycle. This permits other phases to
+comprise a timing plan are the cycle, offset, and splits (COS).            access the yielded time, which can help if their demand exceeds
+The cycle (or cycle length) is the amount of time within which             what the split can handle. The coordinated phases receive spe-
+all phases must be served. The use of a common cycle length                cial treatment. The controller cannot skip the coordinated
+causes these patterns to repeat in successive cycles, as long as           phases, and it cannot terminate them unless it is within a portion
+the controllers are synchronized. The time difference between              of the cycle where there is sufficient time to serve the split for
+each intersection's local timing and a common system reference             the other phases and return to the coordinated phases prior to
+point is the offset. Finally, the share of the cycle length appor-         the start of their split. Numerous settings are available to fine-
+tioned to each phase is the split of that phase.                           tune this operation. For a more detailed description, readers
+                                                                           may consult the Signal Timing Manual [10].
+2) Actuated Control
+                                                                              In the United States, fully-actuated control without coordina-
+   Actuation allows the service of phases and the duration of              tion is generally used at isolated intersections or on arterial cor-
+green to be adjusted in response to changing traffic demands, as           ridors during low volume conditions. Actuated-coordinated
+measured by detectors. Detectors generally identify when vehi-             control is very common on arterial streets, while fixed-time
+cles are waiting for service on a movement, or if there is still           control is mostly limited to some central business districts
+traffic being served on a phase currently in service. Because ac-          where the need to serve pedestrians during every cycle limits
+tuation uses a relatively simple set of rules, it is not generally         the utility of actuation. Other countries vary considerably in use
+considered to be a form of "adaptive" control.                             of actuation.
+
+   Under fully-actuated control, all phases are actuated and are           4) Advanced Control Methods
+served in a constant sequence (with the possibility of skipping
+phases that have no demand) and with green times varying ac-                  Conventional control methods can provide an efficient oper-
+cording to demand. There is no fixed cycle length, but an effec-           ation when the settings are well-timed for expected traffic con-
+tive cycle length that is the consequence of phase durations de-           ditions. Timing plans can be designed to robustly accommodate
+termined by the actuation rules. Some authors have observed                some amounts of variation [12], but large variations can lead to
+that for random vehicle arrivals (such as at isolated intersec-            inefficient operation. Timing plans are usually developed from
+tions), the performance of fully-actuated control is nearly opti-          traffic counts obtained on a particular date, but traffic is highly
+mal in terms of delay [11].                                                variable and changes over time, making it difficult to keep tim-
+                                                                           ing plans updated.
+(a)              2               Protected
+                                 Permitted                                    One important distinction exists within the definition of gen-
+           1  2     3            Pedestrian                                erations: the use or non-use of COS. Some acyclic control meth-
+                                                                           ods do not use COS. However, being acyclic is not a necessary
+(b)           2     3  4                                                   or sufficient condition for being adaptive. Fully-actuated con-
+                                                                           trol is acyclic, and some adaptive methods operate within a
+           1           4                                                   COS framework.
+
+(c)                                                                           In the US, a key research effort in the mid-20th century was
+                                                                           the Urban Traffic Control System (UTSC) project [13], which
+           1                                                               started in the 1960s and continued until the early 1980s. This
+                                                                           project introduced the notion of "generations" of signal control.
+5             6     7  8                                                   Table I presents a description of the UTSC control generations.
+                                                                           This offers a useful framework for discussing ATSC.
+Figure 1 Conventional multiphase signal control: (a) two-phase; (b) four-
+phase; (c) eight-phase.                                                       System-level signal timing optimization is a NP-complete
+                                                                           problem [14] and is consequently difficult to solve within a
+                                                                           fraction of a second. Real-time ATSC strategies must therefore
+                                                                           consider a tradeoff between performance and computational ef-
+                                                                           ficiency. Detailed knowledge of these strategies is needed to
+                                                                           propose further refinements to these strategies or to implement
+                                                                           them in the real world. However, the sheer number of ATSC
+                                                                           strategies that have been proposed makes this challenging. The
+> REPLACE THIS LINE WITH YOUR PAPER IDENTIFICATION NUMBER (DOUBLE-CLICK HERE TO EDIT) <  3
+
+   TABLE I GENERATIONS OF ADAPTIVE TRAFFIC SIGNAL CONTROL              methods, and that information was used to develop a taxonomy.
+
+Number                Description                                                      IV. MAJOR TAXONOMY ELEMENTS
+
+0       Conventional control. Groups of signals use COS timing            This section presents findings of the literature search, focus-
+                                                                       ing on criteria that served as the foundation for the taxonomy,
+        plans that are selected by time-of-day control. Fully-actu-    which is presented later. More detailed information from the
+                                                                       surveyed papers are summarized in Tables IV­VII, which have
+        ated control is used for isolated intersections and sometimes  been included in the appendix.
+
+        for low volume conditions.                                     A. Control Generation
+
+1       Traffic Responsive COS Pattern Selection. Measure-                The UTCS generations are a starting point for classifying
+                                                                       ATSC methods. Here we briefly describe developments in ad-
+        ments of volume and occupancy are made at various loca-        vanced signal control relative to each control generation.
+
+        tions throughout the network, and quantities derived from      1) First-Generation (Traffic Responsive) Control
+
+        these are used to select from pre-programmed COS timing           First-generation control (1-GC) uses measurements of vol-
+                                                                       ume and occupancy from detectors distributed throughout the
+        plans, instead of time-of-day control.                         network to select COS patterns from a predefined library. 1-GC
+                                                                       control allows these to be selected according to measured de-
+2       Adaptive COS Pattern Adjustment. Similar to conven-            mand rather than transitions at arbitrary times of day. The pat-
+                                                                       tern library can be simple or complex depending on the number
+        tional control, with the addition of adaptive adjustments      of scenarios considered by the system designer.
+
+        that change the timing plans according to measured condi-         In practice, 1-GC is commonly referred to as "traffic respon-
+                                                                       sive" control. Perhaps the earliest attempt at 1-GC control was
+        tions.                                                         a 1938 attempt at adjusting cycle length using field measure-
+                                                                       ments of traffic demand [15] and analog computing equipment.
+3       Real-Time Adaptive Control. These control methods gen-         The first commercially available system was the "PR System"
+                                                                       developed in the 1950s (as reported in several papers, although
+        erally do not use COS, and either replace or augment fully-    few details can be found). The City of Toronto built one of the
+                                                                       earliest area-wide 1-GC systems in the early 1960s [17]. Today,
+        actuated control with an alternative phase-switching deci-     1-GC methods have been integrated into various advanced traf-
+                                                                       fic management system (ATMS) software packages. A sum-
+        sion method.                                                   mary of 1-GC methods is presented in Table V in the appendix.
+
+UTSC generations are useful for establishing a high-level per-         2) Second-Generation Control
+spective on ATSC, but they do not offer much classification be-
+yond the relationship of the algorithms to the COS paradigm.              Second-generation control (2-GC) measures traffic condi-
+To better survey the field of ATSC, this paper presents a taxon-       tions and makes adjustments to COS patterns. These adjust-
+omy of adaptive strategies incorporating multiple criteria.            ments can be made at predefined intervals (e.g., once every five
+                                                                       minutes) or in real time.
+            III. LITERATURE SEARCH METHODOLOGY
+                                                                          Some early 2-GC control methods were developed as part of
+   To develop a taxonomy of ATSC, we first conducted an ex-            the UTCS project [18], [19]. In the 1970s, SCATS was devel-
+tensive literature search. Relevant works were identified by           oped in Australia [20] and SCOOT in the UK [21]. SCATS and
+searching for keywords with Google Scholar and Compendex.              SCOOT have been widely used internationally. In the US in the
+Additional searches were made with IEEE Xplore, ScienceDi-             early 2000s, ACS-Lite was developed to try to add 2-GC capa-
+rect, arXiv, Scopus, and Web of Science. The following criteria        bilities to existing traffic signal systems [22].
+were used to select articles for further review:
+· Clarity. The underlying signal control algorithm needed to              SCOOT predicts the amount of delay and number of stops
+                                                                       for a typical cycle using measurements of link inflows and a
+     be clearly and adequately explained.                              platoon dispersion model [21], [23]. SCATS incorporates both
+· More Seminal Work. Some ATSC methods were discussed                  traffic-responsive capabilities as well as adaptive COS adjust-
+                                                                       ments [20]. Under ACS-Lite, existing COS patterns in the con-
+     by several papers, with some having derivative works. For         troller are implemented according to the time-of-day schedule,
+     these families of methods, we selected either the original        or by independent traffic responsive control [24]. ACS-Lite
+     publication or one that provided the most illuminating de-        measures conditions for at least two cycles and incrementally
+     scription of the control method.                                  adjusts the splits and offsets in the existing plan. More recent
+· Multiphase accommodation. We focused on methods that                 implementations have added cycle length adjustments.
+     are able to handle eight-phase control, with the exception
+     of papers that present novel algorithmic contributions de-           Some 2-GC methods are able to optimize and implement new
+     spite being limited to other phasing schemes.                     COS settings in real time. Several studies have explored real-
+· Method of evaluation. Because so much prior work has
+     been demonstrated only in simulation, we did not use con-
+     sider field evaluation as a criteria for selection. We tended
+     to select works that included comparisons against well-
+     timed and realistic conventional control.
+· Importance of the Work. The number of citations a paper
+     accumulated was considered a measure of its importance to
+     the ATSC literature. Some papers that were frequently
+     cited by others were included, even if they did not meet all
+     of the above criteria.
+   The initial search identified over 1700 articles. Using the
+above criteria, 137 articles were selected for a more detailed
+read. From that number, 88 ATSC methods were used to de-
+velop the taxonomy presented here. The selected articles were
+then rereviewed to identify characteristics of the control
+> REPLACE THIS LINE WITH YOUR PAPER IDENTIFICATION NUMBER (DOUBLE-CLICK HERE TO EDIT) <  4
+
+time determination of splits [25]­[29]. Others have optimized     planning horizon, which optimizes some performance measure.
+each of the COS component over each intersection of the sys-      Commonly, the methods try to minimize delay or a combination
+tem [30]­[32]. An example is IN-TUC, which has been de-           of delay and stops. The methods vary in their estimation meth-
+ployed in Greece, Germany, and the UK. The initial versions of    ods, selection of internal model, formulation of an optimization
+this method optimized only splits, and later expanded to include  criterion, and algorithm for determining the schedule.
+online optimization of offsets and cycle length as well.
+                                                                     MOVA [45] is an enhancement of actuated control that uses
+   A summary of 2-GC control methods is presented in Table        a particular detection scheme to identify approaching and cross-
+VI in the appendix.                                               ing traffic, developing an internal model of vehicle positions.
+                                                                  The decision to terminate the green tries to ensure that the initial
+3) Third-Generation (Real-Time) Control                           queue has cleared and then can extend the green further to min-
+                                                                  imize delay and stops.
+   Third-generation control (3-GC) includes methods that re-
+place the COS paradigm with an alternative scheme for sched-         PMSA was developed for local control under a connected ve-
+uling phases. Many 3-GC methods are acyclic, although some        hicle environment, and uses an embedded microsimulation
+methods have been formulated for local control that is con-       model to optimize delay and stops [46]. Pandit et al. [47] pro-
+strained within a cyclic or pseudo-cyclic system-level control.   posed an algorithm for VANETs where vehicles are aggregated
+Collectively, the 3-GC methods exhibit much greater variety       into platoons, and the local level signal control problem is for-
+than the 1-GC and 2-GC methods, so they require more criteria     mulated as a job scheduling problem.
+for classification.
+                                                                     Some local control methods have features that facilitate co-
+   The first known paper on real-time traffic signal control was  ordination, often as an emergent property of the local control.
+published by Miller [33], with another paper by Dunne and         The method of coordination is a separate criterion, discussed
+Potts [34] being published around the same time. Research un-     later in this paper.
+der the NCHRP program explored some of these early ideas for
+potential real-world application [35]. The UTCS project ex-       2) System and Hierarchical Control
+plored 3-GC control in greater detail, under different volume
+conditions [13], [36]­[38], yielding three methods: SOLIS for        Some control methods include a framework for managing
+lower traffic volumes; CYRANO for moderate traffic volume;        signal timing across multiple intersections. Certain control
+and CIC for high traffic volume. After the end of the UTCS        methods are scoped for individual corridors or small areas, and
+project, federal research in the US continued to invest in addi-  generally have a single layer to manage system control. Others
+tional systems. Some of the most frequently cited of these are    have multiple layers that permit multiple subsystems to be man-
+OPAC [39], RHODES [40], and ALLONS-D [41], [42]. Many             aged. We term this design pattern as "hierarchical" control.
+other methods have been proposed. A summary of 3-GC control
+methods is presented in Table VII in the appendix.                   The 2-GC control methods rely on the COS framework,
+                                                                  which is itself a manner of system control. However, different
+B. Control Scope                                                  control methods differ in the complexity of the system control
+                                                                  layer. Many 3-GC methods employ hierarchical strategies to
+   ATSC methods may execute control decisions for a single        manage local and system needs. Typically, the system compo-
+intersection (local) or multiple intersections (system).          nent constrains the local control to facilitate coordination. For
+                                                                  example, OPAC was originally formulated as a local control
+1) Local Control                                                  method, with certain provisions for multiple-intersection con-
+                                                                  trol. Coordination was later achieved through imposition of sys-
+   Most early publications on real-time ATSC focused on a sin-    tem-level constraints, using a "virtual cycle length" [48]. Simi-
+gle intersection. Miller's seminal work [33] considered a phase-  larly, the local control algorithm of RHODES (called COP) was
+switching decision for two-phase control using the criterion of   initially developed for local intersections [49]. Additional lev-
+whether more delay is saved than caused by switching phases       els in the control hierarchy were then added to manage coordi-
+at the present moment. Dunne and Potts proposed a similar rule-   nation. A decision-tree method called REALBAND [50] tracks
+based approach, also for a two-phase intersection [34]. Green     platoon movements and then requests service of specific phases
+and Hartley [43] considered similar rules for two, four, and      to serve these platoons. PAMSCOD [51] and MMITSS [52] are
+eight-phase intersections.                                        extensions of these concepts employing connected vehicle data,
+                                                                  which implement alternative system-control logic.
+   DYPIC [44] precalculated optimal solutions for every possi-
+ble link state, allowing the controller to "look up" the optimal  C. Responsiveness
+control according to the reported conditions. DYPIC was orig-
+inally intended to provide an "absolute standard of perfor-          Some ATSC systems make model-based predictions about
+mance" for comparing other control methods.                       future states. This characteristic marks another way that differ-
+                                                                  ent systems can be classified.
+   All of the other control methods previously mentioned, in-
+cluding those developed under UTCS and later studies, include     1) Reactive Control
+a method of determining the local control. In general, these
+methods try to predict when traffic is expected to arrive at the     Reactive approaches use recent measurements of traffic.
+intersection as well as how much traffic is presently queued,     Both 1-GC and 2-GC methods tend to operate in this manner.
+and then establishes a schedule for phase switching over a        The system state is measured over a few cycles or several
+> REPLACE THIS LINE WITH YOUR PAPER IDENTIFICATION NUMBER (DOUBLE-CLICK HERE TO EDIT) <  5
+
+minutes, and a new timing plan or set of adjustments are calcu-      1) Rule-Based
+lated based on the recent system state.
+2) Proactive Control                                                    Rule-based methods do not employ mathematical optimiza-
+                                                                     tion techniques, but instead use a series of relatively simple
+   Proactive algorithms try to determine a control decision for a    rules. These are generally limited to "if-then" rules and rela-
+predicted future traffic state, using recent measurements, some-     tively simple calculations and value comparisons. Such meth-
+times in combination with historical data. Proactive methods         ods have low computational requirements and can be executed
+can be divided into two subcategories based on how frequently        at high frequencies but preclude more complex modeling.
+the control decision is made: within a planning horizon (every
+few minutes) or as a continuous decision (each time step).           2) Max Pressure
+
+   Planning Horizon. Many 3-GC control methods employ a                 Max Pressure (MP) control was first proposed by Varaiya
+planning horizon over which an optimal schedule for signal tim-      [55]. In this method, a quantity called "pressure" is defined for
+ing is determined. Some use a rolling horizon (Figure 2)             each phase as a function of the current traffic state and a weight.
+wherein the control decision can be updated more frequently as       In Varaiya's initial work, queue length was selected as the
+the system state is refreshed.                                       weight. The group of phases having the greatest pressure is se-
+                                                                     lected for service. The initial theoretical work demonstrated that
+   The difficulty in measuring and predicting traffic at greater     MP control optimizes network throughput when the mean arri-
+distance from the intersection tends to limit the feasible dura-     val rate is less than the service rate (i.e., undersaturated condi-
+tion of the planning horizon. However, computational complex-        tions).
+ity limits the feasibility of shorter durations. Most algorithms
+described in the literature use longer planning horizons, with       3) Exact Optimization Methods
+durations similar to typical cycle lengths under conventional
+control. Some control methods are able to vary the duration of          Exact optimization methods use a mathematical statement of
+the planning horizon. For example, ALLONS-D enlarges the             the control problem, often incorporating a relatively complex
+existing planning horizon until all the projected queues are         traffic model, and derive an optimal solution. Several optimiza-
+cleared [41]. Algorithms that use shorter horizons can tend to       tion strategies are used within these methods, which offers a
+truncate the current phase before queues are fully cleared [53],     means of categorizing them further.
+[54]. One solution to mitigate this is to introduce a terminal cost
+to penalize truncation of a discharging queue.                          Dynamic Programming (DP). DP is a mathematical optimi-
+                                                                     zation technique that finds control for a dynamic system over a
+   Continuous Decision. Rather than determining an optimal           period to minimize cost. DP divides up the overall problem into
+schedule in advance, some control methods continually decide         subproblems in such a way that solving the subproblems yields
+whether to extend or terminate the current phase. The decision       global optimum performance. Unlike other recursive solutions,
+is made at very short time resolutions, similar to actuated con-     DP stores incremental data. If certain subproblems need to be
+trol (e.g., 0.1­1 s). Computational efficiency is therefore criti-   resolved multiple times, it is better to store their parameters to
+cal, and such methods are often implemented as simple rule sets      avoid repeating the same calculations. Thus, DP can be seen as
+without complex modeling.                                            a sort of time-efficient recursion.
+D. Decision Method
+                                                                        DP-based approaches for signal control use forward and
+   The next taxonomy criterion is the decision method em-            backward recursion. The forward recursive algorithm usually
+ployed as the kernel of the algorithm. Four categories were          calculates the performance function for the given parameters
+identified from the literature search: rule-based, max pressure,     and stores the optimal performance value. The backward recur-
+exact optimization, heuristic, simulation-based, and AI-based.       sive algorithm backtracks the optimal decision. OPAC, COP,
+                                                                     PAA, and SPPORT [56] use prediction algorithms to develop
+Figure 2. Planning Horizon.                                          an arrival table, and from this information establish a signal tim-
+                                                                     ing plan using DP. In OPAC and COP, phase duration and se-
+                                                                     quence are optimized. PAA uses a bi-level structure to handle
+                                                                     eight-phase control. The upper level uses a forward recursive
+                                                                     function to determine the "barrier length" (the time when the
+                                                                     right-of-way is transferred from phases on one street to the other
+                                                                     street). The lower-level function returns the optimized phase se-
+                                                                     quence and phase durations.
+
+                                                                        Mixed Integer-Linear Programming (MILP). Optimization
+                                                                     of traffic signal control often requires discrete values, which has
+                                                                     encouraged use of mixed-integer linear programming. For ex-
+                                                                     ample, PAMSCOD [51] is a unified platoon-based formulation
+                                                                     which performs online traffic signal optimization incorporating
+                                                                     MILP to determine the optimal signal timing.
+
+                                                                        Computational complexity is a limitation of MILP, leading
+                                                                     to various strategies to scale the control methods. Islam and
+> REPLACE THIS LINE WITH YOUR PAPER IDENTIFICATION NUMBER (DOUBLE-CLICK HERE TO EDIT) <  6
+
+Hajbabaie [57] limit the optimization process to the local inter-   Because of the potential computational complexity, simulation-
+section but maintain system level performance through implicit      based methods are challenging to implement with real-time
+coordination. Fei et al. [29] extended this work to address un-     control, but some studies have nonetheless explored this option.
+certainty in traffic demand and turning rates through two-stage
+stochastic programming. To make optimization scalable this             DYPIC [44] uses predetermined solutions for any given com-
+strategy used decomposition algorithms and coordination was         bination of demands on two phases. For every possible combi-
+maintained through cycle-offset structure. Wang et al. [58] for-    nation of traffic states for the simple two-phase scenario, an op-
+mulated the MILP problem as a multi-intersection optimization       timal control decision is determined by previously run simula-
+problem within which vehicles can plan a path. This study uses      tions. The control method is therefore more similar to a lookup
+Lagrangian decomposition with a subproblem approximation            function.
+method to scale the optimization process.
+                                                                       PMSA [46] is a decentralized control method for use with
+   Branch-and-Bound (B&B). This strategy renders the optimi-        V2I communication using a 15-second horizon for collecting
+zation problem into a treelike structure. The branches of the tree  vehicle location, speed, and headway information. Over the
+represent subsets of the solution set. Branches are defined by      planning horizon, microsimulation is used to determine a solu-
+upper and lower bounds. A detailed discussion of such algo-         tion that minimizes delay.
+rithms for two-phase control is presented by Shelby [54] Some
+algorithms such as ALLONS-D employ B&B in a pure form.              6) Artificial Intelligence (AI) Based Approaches
+RHODES uses B&B in a hybrid framework with DP. MILP so-
+lution methods contain B&B algorithms at their core.                   Recent advances in the field of AI have inspired researchers
+                                                                    to apply it to the problem of signal control. The most common
+   Linear Quadratic Regulator and variations. Due to the dy-        methods of AI seen in the literature on signal control are fuzzy
+namic nature of traffic, optimal feedback control methods such      logic, neural networks (NN), and reinforcement learning (RL).
+as model predictive control (MPC) or the linear-quadratic reg-
+ulator (LQR) algorithm have been tested to solve this problem.         Fuzzy Logic. Fuzzy logic is useful for solving nondetermin-
+LQR is often used for linear systems where the objective func-      istic and non-linear problems. The core concept of fuzzy logic
+tion is quadratic. INTUC used LQR and balanced the number           is the replacement of the strict binary or Boolean absolute con-
+of vehicles on links in the network by tapered split timing [25],   ditions of true (1) or false (0) with intermediate values repre-
+[31]. A possible limitation of LQR is that it works on an infinite  senting a state that lies somewhere between the two. This is in-
+time interval, and long-term prediction of traffic is prone to er-  tended to emulate human decision making.
+ror. Wang et al. [26] proposed the use of MPC, which works
+over a prediction horizon. These studies enhanced the store-           In human control of traffic signals, an experienced operator
+and-forward mathematical model of traffic control originally        quickly reaches a decision based on their previous qualitative
+developed by Gazis [59].                                            knowledge. Several researchers [67]­[71] have used fuzzy
+                                                                    logic in signal control, mostly for relatively simple intersection
+4) Heuristic Methods                                                configurations. Nakatsuyama et al. [72] incorporated local
+                                                                    fuzzy control with fuzzy offset control for one-way arterial
+   Heuristic approaches employ loosely defined rules to find a      movement. Wei et al. [73] used fuzzy logic to control isolated
+solution. These solutions tend to be locally optimal rather than    intersections with through and left turn movements.
+globally optimal. However, the need for computational effi-
+ciency, and the error inherent in predicting future traffic states     Chiu [74] proposed a self-organizing method integrating a set
+can limit the practicality of identifying a global optimum solu-    of 46 fuzzy decision rules to determine the signal timing. The
+tion. In other words, as the adage goes, "perfect is the enemy of   local controller also considered the signal timing of adjacent in-
+good."                                                              tersections to minimize number of stops on the major street.
+
+   Several previous studies [60]­[63] used genetic algorithms          Fuzzy logic has been integrated with other processes in ap-
+(GA), which are heuristic methods that simulates the biological     plication to signal control. Xie [75] developed a RL-based
+process of natural selection. Liang et al. [60] proposed a method   framework with fuzzy logic to differentiate between congested
+that identifies platoons in traffic stream using connected vehicle  and uncongested traffic conditions. A multi-agent independent
+data and determines the signal timing with a GA. GABNOR             RL method was used for arterial level signal control.
+[61] uses a GA stopping criterion determined by a time limit to
+apply a GA solution for 2-GC. Several other heuristic based            Reinforcement Learning (RL). RL has been used extensively
+methods have also been used to optimize signal timing, such as      in robotics and automation, and several researchers have ex-
+the Box algorithm [64], Tabu search [65] and Hill-climbing          plored its application to signal control. In RL, any decision-
+[66].                                                               making element is an "agent," and the problem conditions are
+                                                                    the "environment." The signal controller is an agent. RL-based
+5) Simulation-based optimization                                    signal control learns from the performance that results from its
+                                                                    previous control decisions. RL-based methods can be model-
+   An alternative to modeling is the use of simulation. Rather      based or model-free, depending on whether an agent is predict-
+than attempting to model traffic states, potential outcomes are     ing environmental responses or using direct feedback. The con-
+modeled by simulation. These may vary from rudimentary em-          trol algorithms can learn both from the results of their own ac-
+bedded simulations to the execution of simulation software.         tions, or they can be trained by previous data. In a sense, DYPIC
+                                                                    foreshadowed by effectively creating a training data set that was
+                                                                    populated to include every possible traffic state.
+> REPLACE THIS LINE WITH YOUR PAPER IDENTIFICATION NUMBER (DOUBLE-CLICK HERE TO EDIT) <  7
+
+   Thorpe [76] applied RL to control of a two-phase isolated          intersections can share data with each other but the control
+signal using a Q-table, which is computationally expensive. Ab-       scope is local. SURTRAC [86] employs a similar approach
+dulhai et al. [77] proposed a Q-learning method for system con-       where intersections share data with their neighbors, but the lo-
+trol that updated input state matrix based on projected flow          cal scheduling algorithm is decentralized.
+from adjacent intersections, the agent also has the flexibility to
+update signal timing based on the projected flow.                     2) Cycle-Offset-Split Paradigm
+
+   RL methods have received considerable attention recently,             2-GC control uses the COS paradigm for coordination. Thus,
+and a summary of RL-based methods is presented in Table VI.           2-GC methods are largely focused on adjusting the governing
+                                                                      parameters (the cycle length, offset, and splits).
+E. Coordination Mechanism
+                                                                         SCOOT adjusts cycle length, offset, and splits according to
+   The mechanism used for coordinating multiple intersections         measured demand flows and an internal platoon dispersion
+is a key feature of ATSC and offers another criterion for classi-     model. A model of cyclic traffic flows is developed that is sim-
+fying ATSC methods.                                                   ilar to the model used in offline optimizer TRANSYT [44]. The
+                                                                      settings are adjusted collectively to minimize a performance in-
+1) Emergent Coordination                                              dex consisting of delay and stops.
+
+   Some ATSC methods do not include any explicit coordina-               ACS-Lite [22] in its original form adjusts the offset and
+tion method, but some have demonstrated a potential for emer-         splits. The system measures arriving traffic to create cyclic pro-
+gent coordination that occurs as a natural consequence of the         files of the flow rate, similar to their representation in TRAN-
+local control algorithm.                                              SYT. The splits are adjusted to balance the level of utilization
+                                                                      while offsets are adjusted to maximize the number of arrivals
+   A 1966 paper [78] on fully-actuated control describes a pos-       on green. Extensions of ACS-Lite, such as Kadence [93], have
+sible "platoon carryover effect," which is perhaps the first time     added an incremental cycle length adjustment.
+the notion of emergent coordination appears in the literature.
+However, the paper stops short of actually demonstrating this            ACDSS [27] was developed for use in midtown Manhattan,
+potential.                                                            New York City, which has a famously dense and semiregular
+                                                                      urban street grid. The system operates on two levels. In the first
+   Gershenson et al. [79], [80] proposed an algorithm that con-       level, offsets and splits are selected from a library of existing
+sists of a phase-switching ruleset that tries to keep platoons to-    timing plans. For congested conditions, offsets are selected to
+gether, extends green based on the balance of approaching and         restrict or meter vehicle inflows. A second level adjust the splits
+waiting traffic, and adjusts for downstream blockages. Another        to balance queues and reduce spillback.
+decentralized algorithm was proposed by Lämmer et al. [81]
+which used a predictive method to minimize waiting times, at-         3) Weighted Priority
+tempting to prevent queue formation, which also exhibits self-
+organizing potential.                                                    Using biasing multipliers or putting weights on phases is a
+                                                                      time-efficient way of achieving system-wide performance in
+   Cesme and Furth proposed a method of self-organizing con-          decentralized adaptive signal control.
+trol [82] based on conventional fully-actuated control where a
+secondary extension is implemented to serve platoons on the              ALLONS-D [41] used a tree-searching algorithm to mini-
+major movements, subject to other criteria. Another decentral-        mize delay when planning phase sequence and duration. An ar-
+ized approach proposed by Islam and Hajbabaie [57] maxim-             rival table was developed with data from upstream detectors.
+izes throughput. Some other authors have described methods of         Weights in the objective function for certain phases are used to
+"platoon accommodation" which have similar characteristics,           account for the system effects of local controller decisions.
+although they focus on control of isolated intersections and do       PAA [52] uses a similar approach for higher amounts of traffic,
+not explore system effects [83], [84]. A recent pilot study of a      since serving the major movement under low volume is not
+rule-based decentralized method [85] that scheduled the service       likely to have a significant impact on performance.
+of minor street traffic during sufficient gaps in major street traf-
+fic, which is similar in character to some of these methods.          4) Pseudo-Cyclic Operation
+
+   Another implicit method of coordination is the use of up-             Some methods eliminate the COS paradigm yet retain a con-
+stream intersection traffic flow and signal state data to project     trol structure that functions similarly to a signal cycle (albeit
+vehicle arrivals within the rolling horizon periods of down-          more flexibly). In VFC-OPAC [48], the local cycle reference
+stream intersections. OPAC-III used this form of implicit coor-       point is allowed to vary between yield points. The yield points
+dination, followed by several subsqequent studies [41], [57],         are defined by the virtual cycle length and offsets. The local
+[86]­[88]. Several RL based algorithms [75], [77], [89]­[92]          control uses a modified version of OPAC for local signal tim-
+used multi-agent cooperation where projected traffic flows and        ing. A second control layer optimizes offsets, while a third con-
+shared signal state data facilitated coordination.                    trol layer calculates a system-wide virtual cycle length.
+
+   A distinction should be drawn between using information            5) Fixed priority request
+from multiple intersections and implementing control for mul-
+tiple intersections. For example, ALLONS-D is a local control            Priority control provides preferential treatment for special
+method, for which a variant, ALLONS-I, utilizes additional in-        modes of traffic (often public transportation). Some research
+formation from adjacent intersections [41]. Within ALLONS-I,          has proposed the handling of coordination as a priority request.
+> REPLACE THIS LINE WITH YOUR PAPER IDENTIFICATION NUMBER (DOUBLE-CLICK HERE TO EDIT) <  8
+
+One approach is to make this a fixed (constantly recurring) re-      However, the use of a common cycle length for many intersec-
+quest, since it is expected that such traffic will exist on the ma-  tions can be inefficient since many of the intersections may be
+jor street most of the time. Zamanipour et al. [94] proposed to      forced to operate with a non-optimal cycle length. Another
+treat coordination as a fixed priority request. PAA [52] inte-       strategy is to gather intersections into smaller size groups for
+grated this in a bi-level optimization framework for arterial pro-   coordination, which may help reduce opportunities for speeding
+gression. Beak et al. [95] extended this work by adding an offset    [101].
+refiner.
+                                                                        Lee et al. [102], [103] proposed a real-time group-based hi-
+6) Platoon-Based Priority Request                                    erarchical ATSC method which uses COS. To scale the optimi-
+                                                                     zation, system level group-based solutions are computed in the
+   Another approach to handling coordination via priority re-        current cycle and implemented in the next cycle. The current
+quest is to make the requests conditional on the existence of        cycle is tuned at the local level to address real-time changes.
+platoons in the traffic flow.
+                                                                        Most 3-GC methods are acyclic, although many incorporate
+   REALBAND [50] creates requests based on observed pla-             other constraints having a potentially similar influence as cycle
+toon movements. To deal with conflicts where multiple pla-           length, such as the duration of the planning horizon.
+toons are approaching an intersection on incompatible phases,
+a decision tree is used to determine the minimum delay option.          Similarities can be drawn between conventional coordination
+The platoon priority requests are handled by the local control       and 3-GC methods. For instance, if a local controller falls out
+logic as an additional constraint.                                   of coordination because of a timing disruption, the controller
+                                                                     will go into a "transition" mode where it adjusts force-off points
+   Das et al. [96] presented the addition of platoon-based prior-    to resynchronize. This is similar in nature to how 3-GC control
+ity requests to the MMITSS system, which also handles transit        schedules phase transition times in advance, although 3-GC
+and other priority requests.                                         control optimizes an explicit objective function, whereas coor-
+                                                                     dination transition uses rulesets to resynchronize the signal.0
+7) Iterative Approach
+                                                                     B. Multiphase Accommodation.
+   Some other control methods have used an iterative process to
+establish coordination. Yang et al. [97] used such an approach          Many early investigations into ATSC were limited to two-
+for system control. Initially, arrival flows are estimated by a      phase signals. The addition of more phases (and multiple rings)
+model, which is used to optimize signal timing plan. The flows       into the decision process can tremendously increase the solution
+are estimated again on the next step and the timing is reopti-       space and computational complexity. The type of phase and
+mized. The process continues until the performances converges.       phase sequence options is an important description of the capa-
+ALLONS-I [41] uses repeated simulation to calculate the effect       bility of an ATSC method.
+of each local controller on its neighbors.
+                                                                     C. Phase Sequence
+8) Max-Plus Algorithm
+                                                                        ATSC methods vary in their ability to handle phase se-
+   Most RL-based system-level methods use multi-agent RL.            quences (i.e., the order in which phases are served). The added
+Although it is possible in theory to use a centralized agent to      ability to change the phase sequence offers another degree of
+control all intersections, this is impractical to implement.         freedom for the control method to adjust the signal timing to fit
+                                                                     traffic conditions.
+   Van der Pol et al. [98] and Kuyer et al. [99] used an explicit
+coordination mechanism using the max-plus algorithm [100].              In practice, some agencies avoid changing phase sequences
+In multi-agent decision making, a coordination graph decom-          from one cycle to the next, out of caution that transgressing road
+poses the global reward function into a sum of local terms. Each     user expectancy may induce violations of the signal.
+agent selects the optimal action by variable elimination. How-
+ever, this variable elimination process is time consuming and        D. Detection
+not feasible for real-time control. The max-plus algorithm is an
+approximate alternative to variable elimination. In a series of         The type of detection, design of detection zones, and place-
+iterations, agents share information with each other, and a final    ment of detectors plays an important role in signal control, in-
+decision is reached based on the local pay-off function as well      cluding both actuated and adaptive control.
+as the global payoff of the network.
+                                                                        At present, most detectors in the US are point detectors that
+             V. ADDITIONAL TAXONOMY ELEMENTS                         report occupancy when a vehicle is within the detection zone.
+                                                                     Some of these can send pulses when new vehicles are identified
+   This section presents other traffic signal elements that sub-     in the zone. Detectors may be positioned close to the stop bar,
+stantially affect the nature of the control, but which are second-   or at an upstream location. Conventional detection zone design
+ary to defining the overall algorithm structure.                     practices are described elsewhere in greater detail [104].
+
+A. Cyclic Nature                                                        Some ATSC methods are designed to use existing detection
+                                                                     schemes to encourage implementation. ACS-Lite [99], for ex-
+   A cycle length is often used as an explicit coordination mech-    ample, uses stop bar detection on every phase to optimize splits,
+anism. By ensuring that all phases are served within a specific      and uses upstream detection to optimize offsets. The method is
+interval, it is possible to establish a reliably repeating pattern.  intended for detector locations used in practice with existing
+                                                                     conventional control. The self-organizing method proposed by
+> REPLACE THIS LINE WITH YOUR PAPER IDENTIFICATION NUMBER (DOUBLE-CLICK HERE TO EDIT) <  9
+
+Cesme and Furth [82] uses conventional detector locations but        underexplored subject in ATSC. Several researchers [27], [51],
+adds a set of detectors at a location further upstream than typical  [94] have explored ways to include pedestrians or bicyclists in
+practice to measure arrivals more in advance.                        the optimization framework, but the studies tend to focus on
+                                                                     motorized traffic (both private vehicle and public transporta-
+   In future, Connected Vehicle (CV) technology is anticipated       tion).
+to provide continuous position and speed data. Several studies
+[46], [51], [52], [57], [95] have proposed methods of control        G. Handling of Oversaturation
+using this type of data that may be able to extend the perfor-
+mance of local control. At present, CVs have a low market pen-          Signal timing for oversaturated networks is complex and re-
+etration rate, and it is not clear when it will become sufficiently  quires extensive analysis [116], [117]. Most ATSC methods
+large to enable real-time ATSC. A further challenge is the iden-     (and most conventional signal timing plans, for that matter) are
+tification of non-motorized users.                                   designed for undersaturated conditions where intersections
+                                                                     have adequate capacity for their demands and where it is possi-
+   Some types of detectors, such as radar and LiDAR, are able        ble to coordinate intersections for progressive traffic flow. For
+to provide vehicle position and speed data continuously [105],       oversaturated networks, however, not all movements may have
+[106]. This effectively creates one-way V2I communication. At        adequate capacity and the role of coordination is more to avoid
+present, such data is rarely used directly for signal control but    gridlock and permit as much throughput as possible, rather than
+is instead translated into equivalent presence data for detection    promoting smooth flow.
+zones. Gates [107] and Sharma [108] proposed applications of
+such data for conventional signal control. Day et al. demon-            SCOOT [21], [23] uses specific offsets for congested condi-
+strated the use of upstream detector data for actuated control in    tions and also has a "gating" function that meters traffic at se-
+a pilot field study [85]. A proof-of-concept study by Shams and      lected locations. IMPOST [118]­[120] controls the growth of
+Day [109] showed the potential performance of using trajectory       queues on a saturated approach by metering traffic to maintain
+data to replace conventional stop bar detectors.                     stable queues. ACDSS implements certain control strategies to
+                                                                     manage congestion including the use of specific offsets for
+E. Traffic Quantification (Input Data)                               oversaturation. Cesme and Furth [121] proposed strategies for
+                                                                     oversaturated signal control by preventing spillback and starva-
+   ATSC algorithms rely on data to measure the current traffic       tion. Temporary spillbacks were allowed at upstream intersec-
+state and produce a decision. The type of data required by the       tions to prevent starvation at downstream critical intersections,
+control method offers another criterion for classification.          and vice versa.
+
+   Some ATSC methods use flow measurements. The quintes-                              VI. TRENDS IN ATSC RESEARCH
+sential example is the measurement of cyclic flow profiles by
+SCOOT [21], [23]. Other ATSC methods develop tables of ve-              Table II shows the year frequency distribution by publication
+hicle estimated times of arrival (ETAs). Both types of data are      date of selected taxonomy elements for the 84 ATSC methods
+developed from detector input, with varying degrees of model-        selected from the literature to develop the taxonomy. The table
+ing used to project the flow pattern forward in time.                shows the number of control methods, as opposed to the number
+                                                                     of papers published. The earliest publication date was used to
+   The use of disaggregated data can increase the size of the        place each method in the table.
+state space, significantly increasing the computational com-
+plexity. To solve this problem, several researchers have simpli-        Early ATSC methods were mainly reactive, including 1-GC
+fied arrival patterns as platoons or clusters of vehicles. The was   and 2-GC methods. Today, most field-deployed ATSC methods
+pioneered in the offline optimizer MITROP, which used sim-           are still in this category. Considerably more research effort--at
+plified flow profile shapes [110]. SURTRAC [86] and PAM-             least in terms of numbers of papers in the scientific literature--
+SCOD [51] use clusters to lower the computational burden of          has been invested in developing 3-GC control. Consequently
+the algorithm. Datesh et al. [111] grouped vehicles using k-         there are more variations of 3-GC control than the earlier gen-
+means clustering for a two-phase control scheme.                     erations, and the number of publications on 3-GC control has
+                                                                     greatly increased in recent years.
+F. Multimodal Compatibility
+                                                                        The implementation of 3-GC control methods was challeng-
+   While signal control mainly exists because of motor vehicle       ing in the early history of ATSC. Despite these limitations, sev-
+traffic, there are many other modes present at intersections, in-    eral 3-GC methods were developed and tested. Since the year
+cluding pedestrians, bicycles, and transit. Emergency vehicles       2000, the number of decision methods tested for 3-GC has
+and freight may also be considered additional modes. ATSC            greatly increased, introducing novel concepts such as self-or-
+methods vary in the degree to which they accommodate these           ganizing and max pressure control. It seems that most concepts
+and incorporate them into decision making.                           that emerge in the computer and control engineering spaces
+                                                                     eventually find their way to a traffic signal application. AI-
+   Previously, researchers have investigated the operational         based approaches have recently become popular. ML-based al-
+benefits of prioritizing transit [112]­[115]. Some methods such      gorithms do not require pre-specified models of the environ-
+as PAMSCOD [51] and PAA [52] allow transit priority requests         ment, and the control agents in RL can automatically learn re-
+as additional constraints to the optimization formulation. Other     lationships between action and reward. Modeling traffic signal
+strategies [21], [25], [44], [45], [86] integrate transit movement
+into the algorithm structure.
+
+   In general, the handling of non-motorized traffic is an
+> REPLACE THIS LINE WITH YOUR PAPER IDENTIFICATION NUMBER (DOUBLE-CLICK HERE TO EDIT) < 10
+
+control while considering traffic flow and route choice is a com-    have continually introduced increasingly complex strategies for
+plicated task. It is unsurprising that methods that sidestep model   modeling and optimization.
+specification have attracted attention. Although this is a rela-
+tively new field, there has been a lot of work in this space, and                              VIII. CONCLUSION
+17 out of the 84 selected ATSC methods included here involve
+RL, despite this being a relatively new category.                       This study reviewed existing literature to develop a taxon-
+                                                                     omy of adaptive traffic signal control. This included an initial
+            VII. TAXONOMY OF ADAPTIVE METHODS                        selection of over 1700 articles, of which 137 describing 86
+                                                                     ATSC methods were selected for a more detailed read to gather
+   Figure 3 presents an illustration of the ATSC taxonomy that       the information needed for the taxonomy. While this does not
+was developed by a read through the literature as described to       necessarily represent an exhaustive search of the literature, we
+determine the categories described earlier. Certain elements are     believe this is a representative sample of the most widely cited
+specific to 3-GC methods (or to RL-based methods, which are          and influential works in this area of study. A comprehensive
+a subcategory of 3-GC), and are not included. Detailed catego-       review of this literature is challenging because of the variety of
+rization of the selected methods, including these subcategory        works reported in the literature. In fact, the tremendous amount
+classifications, are presented by Tables III­VI in the Appendix.     of variety, which is continually increasing as new ideas are ap-
+                                                                     plied to the signal control problem, was the primary inspiration
+   Major categories in the ATSC taxonomy include the reactive        for the development of the taxonomy.
+or proactive nature of the control; the control generation, using
+the UTCS definitions; the control scope; the method of coming           We anticipate that this taxonomy will be useful for future re-
+to a decision; and the coordination mechanism. Additional cat-       searchers to survey the literature on ATSC and understand the
+egories include the cyclic or acyclic nature of the control          scale of the preceding work in this space. As the amount of lit-
+method; the flexibility of phase sequencing; types of input data;    erature continues to accumulate in this area of study, the need
+and type of detection required.                                      for such a document is increasing. In future, it is likely that ad-
+                                                                     ditional branches and categories will be necessitated as technol-
+   Traffic signal control has been evolving with the improve-        ogy improves both on the infrastructure and vehicle side. For
+ment in technology. Historically, developers of ATSC methods         example, in some future era, the possibilities of integrated ve-
+have had to balance computational and operational efficiency.        hicle routing [122], [123] or of automated intersection control
+Traffic responsive (1-GC) strategies used relatively simple cal-     [124], [125] may necessitate additional top level categories
+culations to select patterns from a preexisting library of options.  (i.e., additional control generations). As these developments
+Pattern-adjusting (2-GC) algorithms introduced incremental           arise, it will be useful to occasionally update and expand the
+adjustments of these patterns through improved measurements          taxonomy presented here.
+and modeling techniques. Real-time control (3-GC) methods
+
+                                     TABLE II DISTRIBUTION OF SELECTED ATSC ALGORITHMS BY PUBLICATION DATE
+
+Category Generation  Decision Method            Scope 1980 or earlier 1981­90 1991­2000 2001­10                 2011­22  All Years
+                                                                                                                                   2
+Reactive 1-GC        All                        S                    1                                      1                      6
+
+2-GC (pattern        All                        S/H                  1  1  1                                3
+
+adjusting)
+
+Proactive 2-GC (real-time) All                  S                                                           3   9        12
+
+3-GC,                Self-Organizing            L                                                           2   1        3
+
+Continuous
+
+Decision             Max Pressure               L                                                               4        4
+
+                     Rule-based (others) L                           4                                      2   2        6
+
+                     RL                         H/L                        1                                7   9        17
+
+                     Fuzzy Logic                H/L                  1  1  1                                2            5
+
+                     Total, Continuous          (all)                3  1  2                                13  16       35
+
+                     Decision
+
+3-GC, Planning DP                               H/L                  1  2                                   4   3        10
+
+Horizon              MILP                       H/L                  1                                      1   6        8
+
+                     B&B                        H/L                        2                                             2
+
+                     Heuristic                  H/L                                                         2   4        6
+
+                     Other Methods              H/L                                                         3   2        6
+
+                     Total, Planning            (all)                2  2  2                                10  15       32
+
+                     Horizon
+
+3-GC, All Types                                 (all)                5  3  4                                23  31       66
+
+Total, All ATSC Selected for Review                                  9  4  5                                30  40       88
+
+Scope: H = Hierarchical, L = Local, S = System
+> REPLACE THIS LINE WITH YOUR PAPER IDENTIFICATION NUMBER (DOUBLE-CLICK HERE TO EDIT) < 11
+
+Figure 3. Visualization of the ATSC taxonomy.
+
+                                                                               [11] G. Newell and E. Osuna, "Properties of vehicle-actuated signals: II.
+
+                      IX. REFERENCES                                           two-way streets," Transp. Sci., vol. 3, no. 2, pp. 99­125, 1969, doi:
+                                                                               https://doi.org/10.1287/trsc.3.2.99.
+
+[1]  R. L. Gordon et al., "Traffic control systems handbook," United [12] Y. Yin, "Robust optimal traffic signal timing," Transp. Res. Part B
+
+     States. Federal Highway Administration. Office of Technology Ap-          Methodol., vol. 42, no. 10, pp. 911­924, 2008, doi:
+
+     plications, No. FHWA-SA-95-032, 1996.                                     https://doi.org/10.1016/j.trb.2008.03.005.
+
+[2]  R. T. van Katwijk, B. D. Schutter, and J. Hellendoorn, "Traffic adap- [13] E. B. Lieberman et al., "Variable Cycle Signal Timing Program Vol.
+
+     tive control of a single intersection: A taxonomy of approaches," in      1 - Development of Third-Generation Control Policies for the UTCS,"
+
+     IFAC Proceedings Volumes (IFAC-PapersOnline), IFAC, 2006, pp.             US Department of Transportation, FHWA, FHWA-RD-74-Vol-1 Fi-
+
+     227­232. doi: 10.3182/20060829-3-nl-2908.00040.                           nal Rpt., 1974.
+
+[3]  M. Papageorgiou, C. Diakaki, V. Dinopoulou, A. Kotsialos, and Y. [14] A. Hajbabaie, "Intelligent Signal Timing Optimization Program,"
+
+     Wang, "Review of Road Traffic Control Strategies," in Proceedings         University of Illinois at Urbana-Champaign, 2012.
+
+     of the IEEE, 2003, pp. 2041­2042. doi: [15] F. Tyack, "Street traffic signals, with particular reference to vehicle
+
+     10.1109/JPROC.2003.819606.                                                actuation," J. Inst. Electr. Eng., vol. 82, no. 494, pp. 125­154, 1938,
+
+[4]  A. Stevanovic, NCHRP Synthesis of Highway Practice 403: Adaptive          doi: 10.1049/jiee-1.1938.0022.
+
+     Traffic Control Systems: Domestic and Foreign State of Practice. [16] M. C. Dunne and R. B. Potts, "Algorithm for traffic control," Oper.
+
+     Washington, DC: The National Academies Press, 2010. doi:                  Res., vol. 12, no. 6, pp. 870­881, 1964, doi:
+
+     10.17226/14364.                                                           https://doi.org/10.1287/opre.12.6.870.
+
+[5]  H. Wei, G. Zheng, V. Gayah, and Z. Li, "A survey on traffic signal [17] J. T. Hewton, "The metropolitan Toronto traffic control signal sys-
+
+     control methods," ArXiv Prepr. ArXiv190408117, 2019.                      tem," Proc. IEEE, vol. 56, no. 4, pp. 577­599, 1968, doi:
+
+[6]  P. Jing, H. Huang, and L. Chen, "An adaptive traffic signal control in    10.1109/PROC.1968.6346.
+
+     a connected vehicle environment: A systematic review," Inf. Switz., [18] P. J. Tarnoff and C. J. MacGowan, "A Report on Urban Traffic Con-
+
+     vol. 8, no. 3, 2017, doi: 10.3390/info8030101.                            trol Research Conducted by the Federal Highway Administration,"
+
+[7]  Y. Wang, X. Yang, H. Liang, and Y. Liu, "A review of the self-adap-       IFAC Proc. Vol., vol. 9, no. 4, pp. 307­314, 1976, doi:
+
+     tive traffic signal control system based on future traffic environment,"  https://doi.org/10.1016/S1474-6670(17)67307-5.
+
+     J. Adv. Transp., vol. 2018, 2018, doi: 10.1155/2018/1096123.              [19] J. MacGowan and I. J. Fullerton, "Development and testing of ad-
+
+[8]  S. S. S. M. Qadri, M. A. Gökçe, and E. Öner, "State-of-art Review of      vanced control strategies in the urban traffic control system," Public
+
+     Traffic Signal Control Methods: Challenges and Opportunities," Eur.       Roads, vol. 43, no. 3, pp. 97­105, 1979.
+
+     Transp. Res. Rev., vol. 12, no. 55, 2020, doi: [20] A. G. Sims and K. W. Dobinson, "The Sydney coordinated adaptive
+
+     https://doi.org/10.1186/s12544-020-00439-1.                               traffic (SCAT) system philosophy and benefits," IEEE Trans. Veh.
+
+[9]  E. A. Mueller, "Aspects of the history of traffic signals," IEEE Trans.   Technol., vol. 29, no. 2, pp. 130­137, 1980, doi: 10.1109/T-
+
+     Veh. Technol., vol. 19, no. 1, pp. 6­17, 1970, doi: 10.1109/T-            VT.1980.23833.
+
+     VT.1970.23426.                                                            [21] P. B. Hunt, D. I. Robertson, R. D. Bretherton, and R. I. Winton,
+
+[10] T. Urbanik et al., Signal Timing Manual - Second Edition. 2015. doi:      "SCOOT-A Traffic Responsive Method of Coordinating Signals,"
+
+     10.17226/22097.
+> REPLACE THIS LINE WITH YOUR PAPER IDENTIFICATION NUMBER (DOUBLE-CLICK HERE TO EDIT) < 12
+
+Transport and Road Research Laboratory, No. LR 1014 Monograph, [42] I. Porche and S. Lafortune, "Dynamic traffic control: decentralized
+
+1981.                                                                      and coordinated methods," in Proceedings of Conference on Intelli-
+
+[22] F. Luyanda, D. Gettman, L. Head, S. Shelby, D. Bullock, and P.        gent Transportation Systems, 1997, pp. 930­935. doi:
+
+Mirchandani, "ACS-Lite Algorithmic Architecture: Applying Adap-            10.1109/ITSC.1997.660598.
+
+tive Control System Technology to Closed-Loop Traffic Signal Con- [43] D. H. Green and M. G. Hartley, "The Simulation of Some Simple
+
+trol Systems," Transp. Res. Rec., no. 1856, pp. 175­184, 2003, doi:        Control Policies for a Signalized Intersection," J. Oper. Res. Soc., vol.
+
+10.3141/1856-19.                                                           17, no. 3, pp. 263­277, Sep. 1966, doi: 10.1057/jors.1966.54.
+
+[23] D. I. Robertson and R. D. Bretherton, "Optimizing Networks of Traf- [44] D. I. Robertson and R. D. Bretherton, "Optimum Control of An Inter-
+
+fic Signals in Real Time--The SCOOT Method," IEEE Trans. Veh.              section for Any Known Sequence of Vehicle Arrivals," in Proceed-
+
+Technol., vol. 40, no. 1, pp. 11­15, 1991, doi: 10.1109/25.69966.          ings of the 2nd IFAC/IFIP/IFORS Symposium on Traffic Control and
+
+[24] C. M. Day et al., "Performance Measures for Adaptive Signal Con-      Transportation Systems, 1974.
+
+trol: Case Study of System-in-the-Loop Simulation," Transp. Res. [45] R. A. Vincent and J. R. Peirce, "MOVA: Traffic Responsive, Self-
+
+Rec., no. 2311, pp. 1­15, 2012, doi: 10.3141/2311-01.                      Optimizing Signal Control for Isolated Intersection," Transportation
+
+[25] C. Diakaki, M. Papageorgiou, and T. McLean, "Integrated traffic-re-   and Road Research Laboratory, Department of Transport, 1988.
+
+sponsive urban corridor control strategy in Glasgow, Scotland: Ap- [46] N. Goodall, B. Smith, and B. Park, "Traffic signal control with con-
+
+plication and evaluation," Transp. Res. Rec., no. 1727, pp. 101­111,       nected vehicles," Transp. Res. Rec., no. 2381, pp. 65­72, 2013, doi:
+
+2000, doi: 10.3141/1727-13.                                                10.3141/2381-08.
+
+[26] Q. Wang and M. Abbas, "Optimal Urban Traffic Model Predictive [47] K. Pandit, D. Ghosal, H. M. Zhang, and C. N. Chuah, "Adaptive traf-
+
+Control for NEMA Standards," Transp. Res. Rec., vol. 2673, no. 7,          fic signal control with vehicular Ad Hoc networks," IEEE Trans. Veh.
+
+pp. 413­424, 2019, doi: 10.1177/0361198119841851.                          Technol., vol. 62, no. 4, pp. 1459­1471, 2013, doi:
+
+[27] W. Xin, J. Chang, S. Muthuswamy, M. Talas, and E. Prassas, "Mul-      10.1109/TVT.2013.2241460.
+
+tiregime adaptive signal control for congested Urban Roadway Net- [48] N. H. Gartner, F. J. Pooran, and C. M. Andrews, "Optimized policies
+
+works," Transp. Res. Rec., no. 2356, pp. 44­52, 2013, doi:                 for adaptive control strategy in real-time traffic adaptive control sys-
+
+10.3141/2356-06.                                                           tems: Implementation and field testing," Transp. Res. Rec., no. 1811,
+
+[28] D. McKenney and T. White, "Distributed and adaptive traffic signal    pp. 148­156, 2002, doi: 10.3141/1811-18.
+
+control within a realistic traffic simulation," Eng. Appl. Artif. Intell., [49] S. Sen and K. L. Head, "Controlled optimization of phases at an in-
+
+vol. 26, no. 1, pp. 574­583, 2013, doi: 10.1016/j.en-                      tersection," Transp. Sci., vol. 31, no. 1, pp. 5­17, 1997, doi:
+
+gappai.2012.04.008.                                                        10.1287/trsc.31.1.5.
+
+[29] X. Fei et al., "Real-time Distributed Optimization of Traffic Signal [50] P. Dell'Olmo and P. B. Mirchandani, "REALBAND: An Approach
+
+Timing," Center for Connected and Automated Transportation, Uni-           for Real-Time Coordination of Traffic Flows on Networks," Transp.
+
+versity of Michigan Transportation Research Institute, CCAT Report         Res. Rec., vol. 1494, pp. 106­116, 1995.
+
+No. 13, 2021. doi: 10.7302/6942.                                           [51] Q. He, K. L. Head, and J. Ding, "PAMSCOD: Platoon-based arterial
+
+[30] F. Lian, B. Chen, K. Zhang, L. Miao, J. Wu, and S. Luan, "Adaptive    multi-modal signal control with online data," Transp. Res. Part C
+
+traffic signal control algorithms based on probe vehicle data," J. In-     Emerg. Technol., vol. 20, no. 1, pp. 164­184, 2012, doi:
+
+tell. Transp. Syst. Technol. Plan. Oper., vol. 25, no. 1, pp. 41­57,       https://doi.org/10.1016/j.trc.2011.05.007.
+
+2021, doi: 10.1080/15472450.2020.1750384.                                  [52] Y. Feng, K. L. Head, S. Khoshmagham, and M. Zamanipour, "A real-
+
+[31] C. Diakaki et al., "Extensions and New Applications of the Traffic-   time adaptive signal control in a connected vehicle environment,"
+
+Responsive Urban Control Strategy: Coordinated Signal Control for          Transp. Res. Part C Emerg. Technol., vol. 55, pp. 460­473, 2015, doi:
+
+Urban Networks," Transp. Res. Rec., no. 1856, pp. 202­211, 2003,           10.1016/j.trc.2015.01.007.
+
+doi: 10.3141/1856-22.                                                      [53] G. F. Newell, "The rolling horizon scheme of traffic signal control,"
+
+[32] W. Sun, Y. Wang, G. Yu, and H. X. Liu, "Quasi-optimal feedback        Transp. Res. Part Policy Pract., vol. 32, no. 1, pp. 39­44, 1998, doi:
+
+control for a system of oversaturated intersections," Transp. Res. Part    10.1016/S0965-8564(97)00017-7.
+
+C Emerg. Technol., vol. 57, pp. 224­240, 2015, doi: [54] S. G. Shelby, "Single-intersection evaluation of real-time adaptive
+
+10.1016/j.trc.2015.06.018.                                                 traffic signal control algorithms," Transp. Res. Rec., no. 1867, pp.
+
+[33] M. J. Alan, "A Computer Control System for Traffic Networks,"         183­192, 2004, doi: 10.3141/1867-21.
+
+Proc. 2nd Int. Symp. Theory Traffic Flow, pp. 200­220, 1963.               [55] P. Varaiya, "Max pressure control of a network of signalized inter-
+
+[34] M. C. Dunne and R. B. Potts, "Algorithm for Traffic Control," Oper.   sections," Transp. Res. Part C Emerg. Technol., vol. 36, pp. 177­195,
+
+Res., vol. 12, pp. 870­881, 1964.                                          2013, doi: 10.1016/j.trc.2013.08.014.
+
+[35] M. I. Weinberg, H. Goldstein, T. J. McDade, and R. H. Wahlen, "Dig- [56] S. Yagar and F. Dion, "Distributed approach to real-time control of
+
+ital-Computer-Controlled Traffic Signal System for a Small City,"          complex signalized networks," Transp. Res. Rec., no. 1554, pp. 1­8,
+
+Highway Research Board, 1966.                                              1997, doi: 10.1177/0361198196155400101.
+
+[36] J. Little, N. H. Gartner, H. Gabbay, and M. Springer, "Variable Cycle [57] S. M. A. B. A. Islam and A. Hajbabaie, "Distributed coordinated sig-
+
+Signal Timing Program Vol. 2 - Optimization of Traffic Signals in          nal timing optimization in connected transportation networks,"
+
+Networks by Mixed Integer Linear Programming," KLD-TR-12 Final             Transp. Res. Part C Emerg. Technol., vol. 80, pp. 272­285, 2017, doi:
+
+Rpt., 1974.                                                                10.1016/j.trc.2017.04.017.
+
+[37] E. B. Lieberman, W. R. McShane, and R. B. Goldblatt, "Variable Cy- [58] T. Wang, J. Cao, and A. Hussain, "Adaptive Traffic Signal Control
+
+cle Signal Timing Program Vol. 3 -CYRANO: Cycle-Free Respon-               for large-scale scenario with Cooperative Group-based Multi-agent
+
+sive Algorithms for Network Optimization: Moderate, Congested,             reinforcement learning," Transp. Res. Part C Emerg. Technol., vol.
+
+and Light Flow Regimes," US Department of Transportation, FHWA,            125, no. July 2020, p. 103046, 2021, doi: 10.1016/j.trc.2021.103046.
+
+LD-TR-14 Final Rpt., 1974.                                                 [59] D. C. Gazis, "Optimum Control of a System of Oversaturated Inter-
+
+[38] E. Lieberman, W. R. McShane, R. B. Goldblatt, and D. Wicks, "Var-     sections," Oper. Res., vol. 12, no. 6, pp. 815­831, 1964, doi:
+
+iable Cycle Signal Timing Program Vol. 4 Prediction Algorithms ,           https://doi.org/10.1287/opre.12.6.815.
+
+Software and Hardware Requirements, and Logical Flow Diagrams," [60] X. (Joyce) Liang, S. I. Guler, and V. V. Gayah, "A heuristic method
+
+US Department of Transportation, FHWA, KLD-TR-24 Final Rpt.,               to optimize generic signal phasing and timing plans at signalized in-
+
+1974.                                                                      tersections using Connected Vehicle technology," Transp. Res. Part
+
+[39] N. Gartner, "Demand-Responsive Decentralized Urban Traffic Con-       C Emerg. Technol., vol. 111, no. November 2019, pp. 156­170, 2020,
+
+trol. Part I: Single-Intersection Policies," University of Lowell re-      doi: 10.1016/j.trc.2019.11.008.
+
+search Foundation, DOT/RSPA/DPB-50/81/24, Feb. 1982.                       [61] C. Shao, "Adaptive Control Strategy for Isolated Intersection and
+
+[40] P. Mirchandani and L. Head, "A real-time traffic signal control sys-  Traffic Network," University of Akron, 2009.
+
+tem: Architecture, algorithms, and analysis," Transp. Res. Part C [62] J. Lee, B. Abdulhai, A. Shalaby, and E. H. Chung, "Real-time opti-
+
+Emerg. Technol., vol. 9, no. 6, pp. 415­432, 2001, doi:                    mization for adaptive traffic signal control using genetic algorithms,"
+
+10.1016/S0968-090X(00)00047-4.                                             J. Intell. Transp. Syst. Technol. Plan. Oper., vol. 9, no. 3, pp. 111­
+
+[41] I. R. Porche, "Dynamic Traffic Control: Decentralized and Coordi-     122, 2005, doi: 10.1080/15472450500183649.
+
+nated Methods," University of Michigan, 1998.
+> REPLACE THIS LINE WITH YOUR PAPER IDENTIFICATION NUMBER (DOUBLE-CLICK HERE TO EDIT) < 13
+
+[63] A. Hajbabaie and R. F. Benekohal, "A Program for Simultaneous Net-         Department of Transportation & Purdue University,
+
+work Signal Timing Optimization and Traffic Assignment," IEEE                   FHWA/IN/JTRP-99/1, Final Report, Project No. C-36-17VV, 1999.
+
+Trans. Intell. Transp. Syst., vol. 16, no. 5, pp. 2573­2586, 2015, doi: [84] Y. Jiang, S. Li, and D. E. Shamo, "A platoon-based traffic signal tim-
+
+10.1109/TITS.2015.2413360.                                                      ing algorithm for major­minor intersection types," Transp. Res. Part
+
+[64] F. Boillot, S. Midenet, and J. C. Pierrelée, "The real-time urban traffic  B Methodol., vol. 40, no. 7, pp. 543­562, 2006, doi:
+
+control system CRONOS: Algorithm and experiments," Transp. Res.                 https://doi.org/10.1016/j.trb.2005.07.003.
+
+Part C Emerg. Technol., vol. 14, no. 1, pp. 18­38, 2006, doi: [85] C. M. Day, R. Helt, D. Sines, and A. M. T. Emtenan, "Leveraging
+
+10.1016/j.trc.2006.05.001.                                                      Sensor-Based Vehicle Position and Speed Information in Traffic Sig-
+
+[65] M. Shenoda and R. Machemehl, "Development of a phase-by-phase,             nal Control with Existing Infrastructure," in 2019 IEEE Intelligent
+
+arrival-based, delay-optimized adaptive traffic signal control method-          Transportation Systems Conference (ITSC), 2019, pp. 4049­4054.
+
+ology with metaheuristic search," University of Texas at Austin,                doi: 10.1109/ITSC.2019.8917351.
+
+2006.                                                                           [86] S. F. Smith, G. Barlow, X.-F. Xie, and Z. B. Rubinstein, "SURTRAC:
+
+[66] M. Saito and J. Fan, "Artificial Neural Network-Based Heuristic Op-        Scalable Urban Traffic Control," presented at the Transportation Re-
+
+timal Traffic Signal Timing," Comput.-Aided Civ. Infrastruct. Eng.,             search Board 92nd Annual Meeting, Washington, DC, Jan. 2013.
+
+vol. 15, no. 4, pp. 293­307, 2000, doi: 10.1111/0885-9507.00192.                [87] R. T. V. Katwijk, "Multi-Agent Look-Ahead Traffic-Adaptive Con-
+
+[67] C. P. Pappis and E. H. Mamdani, "A Fuzzy Logic Controller for a            trol," Technical University Delft, 2008.
+
+Traffic Junction," IEEE Trans. Syst. Man Cybern., vol. 7, no. 10, pp. [88] M. Mehrabipour and A. Hajbabaie, "A Cell-Based Distributed-Coor-
+
+707­717, 1977, doi: 10.1109/TSMC.1977.4309605.                                  dinated Approach for Network-Level Signal Timing Optimization,"
+
+[68] Y. S. Murat and E. Gedizlioglu, "A fuzzy logic multi-phased signal         Comput.-Aided Civ. Infrastruct. Eng., vol. 32, no. 7, pp. 599­616,
+
+control model for isolated junctions," Transp. Res. Part C Emerg.               2017, doi: 10.1111/mice.12272.
+
+Technol., vol. 13, no. 1, pp. 19­36, 2005, doi: [89] S. El-Tantawy and B. Abdulhai, "Towards multi-agent reinforcement
+
+10.1016/j.trc.2004.12.004.                                                      learning for integrated network of optimal traffic controllers (MAR-
+
+[69] W. Yang, L. Zhang, Z. He, and L. Zhuang, "Optimized two-stage              LIN-OTC)," Transp. Lett., vol. 2, no. 2, pp. 89­110, 2010, doi:
+
+fuzzy control for urban traffic signals at isolated intersection and Par-       10.3328/TL.2010.02.02.89-110.
+
+amics simulation," in 2012 15th International IEEE Conference on [90] I. Arel, C. Liu, T. Urbanik, and A. G. Kohls, "Reinforcement learn-
+
+Intelligent Transportation Systems, 2012, pp. 391­396. doi:                     ing-based multi-agent system for network traffic signal control," IET
+
+10.1109/ITSC.2012.6338691.                                                      Intell. Transp. Syst., vol. 4, no. 2, pp. 128­135, 2010, doi: 10.1049/iet-
+
+[70] M. B. Trabia, M. S. Kaseko, and M. Ande, "A two-stage fuzzy logic          its.2009.0070.
+
+controller for traffic signals," Transp. Res. Part C Emerg. Technol., [91] P. G. Balaji, X. German, and D. Srinivasan, "Urban traffic signal con-
+
+vol. 7, no. 6, pp. 353­367, 1999, doi: https://doi.org/10.1016/S0968-           trol using reinforcement learning agents," IET Intell. Transp. Syst.,
+
+090X(99)00026-1.                                                                vol. 4, no. 3, pp. 177­188, 2010, doi: 10.1049/iet-its.2009.0096.
+
+[71] J. Niittymäki, "General fuzzy rule base for isolated traffic signal con- [92] T. Nishi, K. Otaki, K. Hayakawa, and T. Yoshimura, "Traffic Signal
+
+trol-rule formulation," Transp. Plan. Technol., vol. 24, no. 3, pp. 227­        Control Based on Reinforcement Learning with Graph Convolutional
+
+247, Feb. 2001, doi: 10.1080/03081060108717669.                                 Neural Nets," IEEE Conf. Intell. Transp. Syst. Proc. ITSC, vol. 2018-
+
+[72] M. Nakatsuyama, H. Nagahashi, and N. Nishizuka, "Fuzzy Logic               Novem, pp. 877­883, 2018, doi: 10.1109/ITSC.2018.8569301.
+
+Phase Controller for Traffic Junctions in the One-Way Arterial [93] D. Gettman, "Overview of the Kadence Real - Time Adaptive Control
+
+Road," IFAC Proc. Ser., vol. 17, no. 2, pp. 2865­2870, 1985, doi:               System," Kimley-Horn and Associates, Inc, FHWA SBIR DTRT57-
+
+10.1016/s1474-6670(17)61417-4.                                                  10-C-10044, Mar. 2012.
+
+[73] W. Wei, Y. Zhang, J. B. Mbede, Z. Zhang, and J. Song, "Traffic signal [94] M. Zamanipour, L. Head, and J. Ding, "Priority System for Multi-
+
+control using fuzzy logic and MOGA," in 2001 IEEE International                 modal Traffic Signal Control," presented at the Transportation Re-
+
+Conference on Systems, Man and Cybernetics. e-Systems and e-Man                 search Board 93rd Annual Meeting, Washington, DC, Jan. 2014.
+
+for Cybernetics in Cyberspace (Cat.No.01CH37236), 2001, pp. [95] B. Beak, K. L. Head, and Y. Feng, "Adaptive coordination based on
+
+1335­1340 vol.2. doi: 10.1109/ICSMC.2001.973106.                                connected vehicle technology," Transp. Res. Rec., vol. 2619, pp. 1­
+
+[74] S. Chiu and S. Chand, "Self-organizing traffic control via fuzzy           12, 2017, doi: 10.3141/2619-01.
+
+logic," in Proceedings of 32nd IEEE Conference on Decision and [96] D. Das, N. V. Altekar, and K. L. Head, "Priority-Based Traffic Signal
+
+Control, 1993, pp. 1897­1902 vol.2. doi:                                        Coordiantion System With Multi-Modal Priority and Vehicle Actua-
+
+10.1109/CDC.1993.325523.                                                        tion in a Connected Vehicle Environment," Transp. Res. Rec., 2022,
+
+[75] Y. Xie, "Development and Evaluation of An Arterial Adaptive Traffic        doi: https://doi.org/10.1177/03611981221134627.
+
+Signal Control System Using Reinforcement Learning," Texas A & [97] I. Yang and R. Jayakrishnan, "Real-time network-wide traffic signal
+
+M Univeristy, 2007.                                                             optimization considering long-term green ratios based on expected
+
+[76] T. L. Thorpe, "Vehicle traffic light control using sarsa," Tech. Rep.      route flows," Transp. Res. Part C Emerg. Technol., vol. 60, pp. 241­
+
+Citeseer, pp. 1­41, 1997.                                                       257, 2015, doi: 10.1016/j.trc.2015.09.003.
+
+[77] B. Abdulhai, R. Pringle, and G. J. Karakoulas, "Reinforcement Learn- [98] E. van der Pol and F. A. Oliehoek, "Coordinated deep reinforcement
+
+ing for True Adaptive Traffic Signal Control," J. Transp. Eng., vol.            learners for traffic light control," 30th Conf. Neural Inf. Process. Syst.
+
+129, no. May, pp. 278­285, 2003, doi: 10.1061/(ASCE)0733-                       NIPS, no. Nips, p. 8, 2016.
+
+947X(2003)129:3(278).                                                           [99] L. Kuyer, S. Whiteson, B. Bakker, and N. Vlassis, "Multiagent rein-
+
+[78] R. A. Duemmel, "Operation and Theory of Timing Two-Phase Vol-              forcement learning for Urban traffic control using coordination
+
+ume Density Controllers," Traffic Eng., vol. 36, no. 12, pp. 41­45,             graphs," Lect. Notes Comput. Sci. Subser. Lect. Notes Artif. Intell.
+
+1966.                                                                           Lect. Notes Bioinforma., vol. 5211 LNAI, no. PART 1, pp. 656­671,
+
+[79] C. Gershenson, "Self-Organizing Traffic Lights," Complex Syst., vol.       2008, doi: 10.1007/978-3-540-87479-9_61.
+
+16, pp. 29­53, 2005.                                                            [100] J. R. Kok and N. Vlassis, "Using the Max-Plus Algorithm for Multi-
+
+[80] C. Gershenson and D. Rosenblueth, "Self-Organizing Traffic Lights          agent Decision Making in Coordination Graphs," in RoboCup 2005:
+
+at Multiple-Street Intersections," Complexity, vol. 17, no. 4, pp. 23­          Robot Soccer World Cup IX, A. Bredenfeld, A. Jacoff, I. Noda, and
+
+39, 2011, doi: 10.1002/cplx.                                                    Y. Takahashi, Eds., Berlin, Heidelberg: Springer Berlin Heidelberg,
+
+[81] S. Lämmer and D. Helbing, "Self-control of traffic lights and vehicle      2006, pp. 1­12.
+
+flows in urban road networks," J. Stat. Mech. Theory Exp., vol. 2008, [101] P. G. Furth, B. E. Lippman, and M. Tahmasebi, "Using Short Coor-
+
+no. 04, p. P04019, Apr. 2008, doi: 10.1088/1742-                                dination Zones to Reduce Speeding on Urban Arterials," in Transpor-
+
+5468/2008/04/P04019.                                                            tation Research Board 101st Annual Meeting, 2022.
+
+[82] B. Cesme and P. G. Furth, "Self-organizing traffic signals using sec- [102] S. Lee, S. C. Wong, and P. Varaiya, "Group-based hierarchical adap-
+
+ondary extension and dynamic coordination," Transp. Res. Part C                 tive traffic-signal control part I: Formulation," Transp. Res. Part B
+
+Emerg. Technol., vol. 48, pp. 1­15, 2014, doi:                                  Methodol., vol. 105, pp. 1­18, 2017, doi: 10.1016/j.trb.2017.08.008.
+
+10.1016/j.trc.2014.08.006.                                                      [103] S. Lee, S. C. Wong, and P. Varaiya, "Group-based hierarchical adap-
+
+[83] J. Wasson, M. Abbas, D. M. Bullock, A. Rhodes, and C. K. Zhu,              tive traffic-signal control Part II: Implementation," Transp. Res. Part
+
+"Reconciled platoon accommodations at traffic signals," Indiana
+> REPLACE THIS LINE WITH YOUR PAPER IDENTIFICATION NUMBER (DOUBLE-CLICK HERE TO EDIT) < 14
+
+[104]  B Methodol., vol. 104, pp. 376­397, 2017, doi:                             [127]  perspective," Transp. Res. Rec., no. 1925, pp. 195­204, 2005, doi:
+[105]  10.1016/j.trb.2017.08.009.                                                 [128]  10.3141/1925-20.
+       P. Koonce et al., "Traffic Signal Timing Manual," Federal Highway          [129]  D. Ma, J. Xiao, and X. Ma, "A decentralized model predictive traffic
+[106]  Administration, FHWA-HOP-08-024, 2008.                                     [130]  signal control method with fixed phase sequence for urban networks,"
+       S. E. Young et al., "Concept of Operations of Next-Generation Traf-        [131]  J. Intell. Transp. Syst. Technol. Plan. Oper., vol. 25, no. 5, pp. 455­
+[107]  fic Control Utilizing Infrastructure-Based Cooperative Perception,"        [132]  468, 2021, doi: 10.1080/15472450.2020.1734801.
+       in International Conference on Transportation and Development              [133]  J. Li and H. M. Zhang, "Coupled linear programming approach for
+[108]  2022, pp. 93­104.                                                          [134]  decentralized control of urban traffic," Transp. Res. Rec., vol. 2439,
+[109]  M. A. S. Talukder, A. D. Lidbe, E. G. Tedla, A. M. Hainen, and T.          [135]  no. 1, pp. 83­93, 2014, doi: 10.3141/2439-08.
+[110]  Atkison, "Trajectory-based signal control in mixed connected vehicle       [136]  X. Zheng, W. Recker, and L. Chu, "Optimization of control parame-
+[111]  environments," J. Transp. Eng. Part Syst., vol. 147, no. 5, p. 4021016,    [137]  ters for adaptive traffic-actuated signal control," J. Intell. Transp.
+       2021, doi: https://doi.org/10.1061/JTEPBS.0000510.                         [138]  Syst. Technol. Plan. Oper., vol. 14, no. 2, pp. 95­108, 2010, doi:
+[112]  T. J. Gates, "A Dynamic On-Demand All-Red Clearance Interval Ex-           [139]  10.1080/15472451003719756.
+[113]  tension Process for Stochastic Vehicular Arrivals at Signalized Inter-     [140]  C. Yu, Y. Feng, H. X. Liu, W. Ma, and X. Yang, "Integrated optimi-
+       sections," PhD Thesis, University of Wisconsin-Madison, Madison,           [141]  zation of traffic signals and vehicle trajectories at isolated urban in-
+[114]  WI, 2007.                                                                  [142]  tersections," Transp. Res. Part B Methodol., vol. 112, pp. 89­112,
+       A. Sharma, D. Bullock, and S. Peeta, "Recasting Dilemma Zone De-           [143]  2018, doi: 10.1016/j.trb.2018.04.007.
+[115]  sign as a Marginal Cost-Benefit Problem," Transp. Res. Rec., vol.          [144]  C. Gershenson, "Self-Organizing Traffic Lights," 2004, doi:
+       2035, pp. 88­96, 2007.                                                     [145]  10.48550/ARXIV.NLIN/0411066.
+[116]  A. Shams and C. M. Day, "Advanced gap seeking logic for actuated           [146]  S. Kwatirayo, J. Almhana, and Z. Liu, "Adaptive traffic light control
+[117]  signal control using vehicle trajectory data: proof of concept,"           [147]  using VANET: A case study," 2013 9th Int. Wirel. Commun. Mob.
+[118]  Transp. Res. Rec., vol. 2677, no. 2, pp. 610­623, 2023.                           Comput. Conf. IWCMC 2013, pp. 752­757, 2013, doi:
+[119]  N. H. Gartner, J. D. C. Little, and H. Gabbay, "Mitrop: a computer                10.1109/IWCMC.2013.6583651.
+[120]  program for simultaneous optimisation of offsets, splits and cycle                S. Lämmer and D. Helbing, "Self-stabilizing decentralized signal
+[121]  time," Traffic Eng. Control, vol. 17, no. 8/9, 1976.                              control of realistic, saturated network traffic," Santa Fe Institute,
+[122]  J. Datesh, W. T. Scherer, and B. L. Smith, "Using k-means clustering              2010-09­019, 2010.
+[123]  to improve traffic signal efficacy in an IntelliDriveSM environment,"             K. Chandan, A. M. Seco, and A. B. Silva, "Real-time Traffic Signal
+[124]  2011 IEEE Forum Integr. Sustain. Transp. Syst. FISTS 2011, pp. 122­               Control for Isolated Intersection, using Car-following Logic under
+       127, 2011, doi: 10.1109/FISTS.2011.5973659.                                       Connected Vehicle Environment," Transp. Res. Procedia, vol. 25, pp.
+[125]  A. Shams and M. Zlatkovic, "Effects of capacity and transit improve-              1610­1625, 2017, doi: 10.1016/j.trpro.2017.05.207.
+[126]  ments on traffic and transit operations," Transp. Plan. Technol., 2020,           H. Li and P. D. Prevedouros, "Traffic adaptive control for oversatu-
+       doi: 10.1080/03081060.2020.1780710.                                               rated isolated intersections: Model development and simulation test-
+       M. Zlatkovic, A. Stevanovic, and P. T. Martin, "Development and                   ing," J. Transp. Eng., vol. 130, no. 5, pp. 594­601, 2004, doi:
+       evaluation of algorithm for resolution of conflicting transit signal pri-         10.1061/(ASCE)0733-947X(2004)130:5(594).
+       ority requests," Transp. Res. Rec., vol. 2311, pp. 167­175, 2012, doi:            K.-L. Bång and L.-E. Nilsson, "Optimal Control of Isolated Traffic
+       10.3141/2311-16.                                                                  Signals," IFAC Proc. Vol., vol. 9, no. 4, pp. 173­184, 1976, doi:
+       M. Zlatkovic, A. Stevanovic, P. T. Martin, and I. Tasic, "Evaluation              https://doi.org/10.1016/S1474-6670(17)67293-8.
+       of transit signal priority options for future bus rapid transit line in           B. Yin, M. Dridi, and A. E. Moudni, "Forward search algorithm based
+       West Valley City, Utah," Transp. Res. Rec., vol. 2311, no. 2311, pp.              on dynamic programming for real-time adaptive traffic signal con-
+       176­185, 2012, doi: 10.3141/2311-17.                                              trol," IET Intell. Transp. Syst., vol. 9, no. 7, pp. 754­764, 2015, doi:
+       A. Stevanovic, A. Abdel-Rahim, M. Zlatkovic, and E. Amin, "Micro-                 10.1049/iet-its.2014.0156.
+       scopic modeling of traffic signal operations: Comparative evaluation              X. H. Yu and W. W. Recker, "Stochastic adaptive control model for
+       of hardware-in-the-loop and software-in-the-loop simulations,"                    traffic signal systems," Transp. Res. Part C Emerg. Technol., vol. 14,
+       Transp. Res. Rec., no. 2128, pp. 143­151, 2009, doi: 10.3141/2128-                no. 4, pp. 263­282, 2006, doi: 10.1016/j.trc.2006.08.002.
+       15.                                                                               M. A. S. Kamal, T. Hayakawa, and J. Imura, "Development and Eval-
+       D. Gettman, M. Abbas, H. X. Liu, and A. Skabardonis, "Operation of                uation of an Adaptive Traffic Signal Control Scheme Under a Mixed-
+       Traffic Signal Systems in Oversaturated Conditions, Volume 1­Prac-                Automated Traffic Scenario," IEEE Trans. Intell. Transp. Syst., vol.
+       titioner Guidance," NCHRP Project 03-90, Sep. 2014.                               21, no. 2, pp. 590­602, 2020, doi: 10.1109/TITS.2019.2896943.
+       D. Gettman et al., "Operation of Traffic Signal Systems in Oversatu-              N. h Gartner, M. H. Kaltenbach, and M. M. Miyamoto, "Demand-
+       rated Conditions, Volume 2," NCHRP Project 03-90, 2014.                           Responsive Decentralized Urban Traffic Control part II: Network Ex-
+       Ch. Byung-Kuk, "Adaptive Signal Control for Oversaturated Arteri-                 tensions," University of Lowell, 1983.
+       als," Polytechnic University, 1997.                                               N. H. Gartner, "OPAC: A Demand-Responsive Strategy for Traffic
+       E. B. Lieberman, J. Chang, and E. S. Prassas, "Formulation of real-               Signal Control," Transp. Res. Rec., no. 906, pp. 75­81, 1983.
+       time control policy for oversaturated arterials," Transp. Res. Rec., vol.         J.-J. Henry, "PRODYN tests and future experiments on ZELT," in
+       38, no. 1727, pp. 77­78, 2000, doi: 10.3141/1727-10.                              Conference Record of papers presented at the First Vehicle Naviga-
+       E. Lieberman and J. Chang, "Optimizing traffic signal timing through              tion and Information Systems Conference (VNIS '89), 1989, pp. 292­
+       network decomposition," Transp. Res. Rec., no. 1925, pp. 167­175,                 295. doi: 10.1109/VNIS.1989.98779.
+       2005, doi: 10.3141/1925-17.                                                       X. F. Xie, S. F. Smith, L. Lu, and G. J. Barlow, "Schedule-driven
+       B. Cesme and P. G. Furth, "Self-organizing control logic for oversat-             intersection control," Transp. Res. Part C Emerg. Technol., vol. 24,
+       urated arterials," Transp. Res. Rec., no. 2356, pp. 92­99, 2013, doi:             pp. 168­189, 2012, doi: 10.1016/j.trc.2012.03.004.
+       10.3141/2356-11.                                                                  A. Kouvelas, J. Lioris, S. A. Fayazi, and P. Varaiya, "Maximum Pres-
+       R. C. Staats and A. I. Barnett, "Integration of Predictive Routing In-            sure Controller for Stabilizing Queues in Signalized Arterial Net-
+       formation with Dynamic Traffic Signal Control by," 1994.                          works," Transp. Res. Rec. J. Transp. Res. Board, vol. 2421, no. 1, pp.
+       J. Sun, "Vehicle Routing Problems in Signalized Traffic Networks,"                133­141, 2014, doi: 10.3141/2421-15.
+       University of Minnesota, 2014.                                                    X. Sun and Y. Yin, "A simulation study on max pressure control of
+       S. I. Guler, M. Menendez, and L. Meier, "Using connected vehicle                  signalized intersections," Transp. Res. Rec., vol. 2672, no. 18, pp.
+       technology to improve the efficiency of intersections," Transp. Res.              117­127, 2018, doi: 10.1177/0361198118786840.
+       Part C Emerg. Technol., vol. 46, pp. 121­131, 2014, doi:                          M. W. Levin, J. Hu, and M. Odell, "Max-pressure signal control with
+       10.1016/j.trc.2014.05.008.                                                        cyclical phase structure," Transp. Res. Part C Emerg. Technol., vol.
+       W. H. Lee and C. Y. Chiu, "Design and implementation of a smart                   120, no. October, p. 102828, 2020, doi: 10.1016/j.trc.2020.102828.
+       traffic signal control system for smart city applications," Sens. Switz.,         L. E. Owen and C. M. Stallard, "Rule-based approach to real-time
+       vol. 20, no. 2, 2020, doi: 10.3390/s20020508.                                     distributed adaptive signal control," Transp. Res. Rec., no. 1683, pp.
+       M. M. Abbas, N. A. Chaudhary, G. Pesti, and A. Sharma, "Configu-                  95­101, 1999, doi: 10.3141/1683-12.
+       ration methodology for traffic-responsive plan selection a global
+> REPLACE THIS LINE WITH YOUR PAPER IDENTIFICATION NUMBER (DOUBLE-CLICK HERE TO EDIT) < 15
+
+[148]  S. Araghi, A. Khosravi, and D. Creighton, "Intelligent cuckoo search    [153]  SIGKDD Int. Conf. Knowl. Discov. Data Min., pp. 2496­2505, 2018,
+[149]  optimized traffic signal controllers for multi-intersection network,"   [154]  doi: 10.1145/3219819.3220096.
+[150]  Expert Syst. Appl., vol. 42, no. 9, pp. 4422­4431, 2015, doi:           [155]  W. Genders, "Deep Reinforcment Learning Adaptive Traffic Signal
+[151]  10.1016/j.eswa.2015.01.063.                                                    Control," McMaster University, 2018.
+[152]  C. Cai, C. K. Wong, and B. G. Heydecker, "Adaptive traffic signal       [156]  M. Aslani, M. S. Mesgari, S. Seipel, and M. Wiering, "Developing
+       control using approximate dynamic programming," Transp. Res. Part              adaptive traffic signal control by actor­critic and direct exploration
+       C Emerg. Technol., vol. 17, no. 5, pp. 456­474, 2009, doi:                     methods," in Proceedings of the Institution of Civil Engineers -
+       10.1016/j.trc.2009.04.005.                                                     Transport, 2019, pp. 289­298. doi: 10.1680/jtran.17.00085.
+       M. A. Khamis and W. Gomaa, "Adaptive multi-objective reinforce-                M. Guo, P. Wang, C.-Y. Chan, and S. Askary, "A Reinforcement
+       ment learning with hybrid exploration for traffic signal control based         Learning Approach for Intelligent Traffic Signal Control at Urban In-
+       on cooperative multi-agent framework," Eng. Appl. Artif. Intell., vol.         tersections," in 2019 IEEE Intelligent Transportation Systems Con-
+       29, pp. 134­151, 2014, doi: 10.1016/j.engappai.2014.01.007.                    ference (ITSC), 2019, pp. 4242­4247. doi:
+       J. C. Medina, "MASTRAF: A Decentralized Multi-Agent System for                 10.1109/ITSC.2019.8917268.
+       Network-Wide Traffic Signal Control with Dynamic Coordination,"                K. L. Tan, S. Poddar, A. Sharma, and S. Sarkar, "Deep Reinforcement
+       University of Illinois at Urbana-Champaign, 2013.                              Learning for Adaptive Traffic Signal Control." arXiv, 2019. doi:
+       H. Wei, H. Yao, G. Zheng, and Z. Li, "IntelliLight: A reinforcement            10.48550/ARXIV.1911.06294.
+       learning approach for intelligent traffic light control," Proc. ACM
+
+                                                                 X. APPENDIX
+
+                                                 TABLE III FIRST-GENERATION ALGORITHMS
+
+No. System           Scope       Traffic Quantification          Objective Function Pattern Selection Mechanism
+
+1 UTCS11-GC [18]     S           Traffic volume                  Delay                        Time-of-day, operator selection, matched pattern
+
+2 Abbas2et al. [126] S           Occupancy, delay from simu- Delay, stops                     Used genetic algorithm to select appropriate plan
+                                 lation
+
+Scope: D = Distributed, H = Hierarchical, L = Local, S = System
+
+                                          TABLE IV SECOND-GENERATION ALGORITHMS
+
+No. System  Scope Traffic Quantification Objective Function                    Cycle Length          Offset Adjustment             Split Adjustment
+                                                                               Adjustment
+
+3 UTCS 2-GC S        Historical data      Delay                                Online optimization   CIC adjusts to accommo-       CIC adjusts based on rela-
+      [18]                                                                     every 5 min           date queue in every cycle;    tive approach volume in
+                                                                                                     if flow is over a threshold   every cycle
+                                                                                                     value offset will not be ad-
+                                                                                                     justed
+
+4 SCOOT [21], S      Arrival flow profile Delay                                Incrementally up- Incremental adjustment by Checks if stage change is
+      [23]                                                                     dated to serve critical nominal values, based on better earlier or later
+                                                                               subarea intersection flow profile
+
+5 SCATS [20] S       Degree of saturation, Degree of saturation                Incrementally up- Weighted priority; offset         Incremental adjustment
+                     link flow                                                                                                     based on current degree of
+                                                                               dated based on degree have linear relation with     saturation
+
+                                                                               of saturation         cycle length
+
+6 ACS-Lite [22] S    Occupancy            Degree of saturation; ar- None                             Adjusts offsets with some Incremental adjustment
+                                          rival on green
+                                                                                                     fixed step                    based on degree of satura-
+
+                                                                                                                                   tion
+
+7 Kadence [93] S     Occupancy, degree of Degree of saturation, ar- Incremental adjust- Adjust offset within a range Incremental adjustment
+
+                     saturation           rival on green, traffic ment based on current                                            based on degree of satura-
+
+                                          conflict area                        degree of saturation                                tion
+
+8 IN-TUC [31] S      Number of vehicles   Balance of vehicles,                 Fixed                 Fixed                         Traffic control is solved as
+                                          queue, and stops                                                                         Linear Quadratic (LQ)
+                                                                                                                                   problem, optimizes only
+                                                                                                                                   split value
+
+9 Wang et al. S      Detector occupancy/  Intersection utilization Fixed                             Fixed                         Traffic control is solved as
+      [26]           Number of vehicles   (ratio of throughput and                                                                 Model Predictive Control
+                                          capacity)                                                                                (MPC) problem, optimizes
+                                                                                                                                   only split value
+
+10 ACDSS [27] S      Volume, speed, occu- Balance queue storage Fixed                                Import timing plan from li- Local controller can shift
+                                                                                                     brary, Centrally offsets are splits to prevent spillback
+                     pancy, travel time   ratio                                                      tapered
+
+11 Ma et al [127] S  Vehicle arrival flow Delay                                Fixed                 Fixed                         Can extend split beyond
+                                                                                                     Fixed                         the initial split value in co-
+12 McKenney et S     Number of vehicles Queue length                           Fixed                                               ordinated phases; non co-
+      al. [28]                                                                                                                     ordinated phases may trun-
+                                                                                                                                   cate early but will not get
+                                                                                                                                   extension.
+
+                                                                                                                                   Split is a function of num-
+                                                                                                                                   ber of vehicles and cycle
+                                                                                                                                   length
+> REPLACE THIS LINE WITH YOUR PAPER IDENTIFICATION NUMBER (DOUBLE-CLICK HERE TO EDIT) < 16
+
+No. System           Scope Traffic Quantification Objective Function  Cycle Length            Offset Adjustment             Split Adjustment
+                                                                      Adjustment              Fixed
+13 Li et al. [128] S    Queue length            Queue spillback risk                                                        Split is adjusted cycle by
+                                                                      Fixed                                                 cycle
+
+14 Zheng et al. S       Number of vehicles      Minimize delay        Fixed                   Fixed                         Formulated the problem as
+      [129]             Number of vehicles      Maximize throughput   Fixed                   Fixed                         non-linear programming
+                                                                                                                            and optimized splits
+15 Fei et al. [29] S    Number of vehicles      Balance of vehicles,
+                        Queue length            queue, and stops                                                            This is a two-stage sto-
+16 IN-TUC [31] S        Queue length            Throughput            Feedback regulator      Feedback regulator opti-      chastic integer program to
+                        Queue length                                  optimizes cycle         mizes offset                  address uncertainty in traf-
+17 RT/ IMPOST S         Occupancy                                                                                           fic demand and vehicle
+      [119]                                                           MILP                    MILP                          turn. This method opti-
+                                                                                                                            mizes split time cycle by
+18 Lian et al. [30] S                                                                                                       cycle
+
+19 Sun et al. [32] S                                                                                                        LQR optimizes split
+
+                                                                                                                            MILP
+
+                                                Maximize splits with  Linear programming Linear programming                 Linear programming
+                                                weight per phase
+                                                                                                                            Quasi-optimal feedback
+                                                Terminate oversaturation Fixed                Fixed                         control strategy to opti-
+                                                period and minimize de-                                                     mize split
+                                                lay                                                                         Max pressure for second-
+                                                                                                                            by-second split decision
+20 Lee et al.        S                          Minimize delay        Non-linear optimiza- None
+                                                                      tion for cycle
+[102], [103]
+
+Scope: H = Hierarchical, L = Local, S = System
+
+No. System                                                 TABLE V THIRD-GENERATION ALGORITHMS                              Network Control
+
+                        Scope Type Traffic Quantification Cyclic Objective Func- Optimization Method                        None
+                                                                                        tion                                None
+                                                                                                                            None
+21 Miller [33]          L CD Arrival time                       No Delay                  Rule-based                        None
+                                                                                                                            None
+22 Dunne and Potts [34] L CD Queue length                       No Queue length Rule-based
+                                                                                                                            Emergent
+23 UTCS 3-GC [18] S PH Arrival time                             No Delay                  MILP
+                                                                                                                            None
+24 Yu et al. [130]      L PH Arrival time                       No Delay                  MILP                              Emergent
+                                                                                                                            None
+25 MOVA [45]            L CD Vehicle presence, Arrival No Minimize mar- Rule-based
+                                                                                                                            None
+                                      time                            ginal delay
+                                                                                                                            None
+26 Gershenson [80], L CD Number of vehicles                     No N/A                    Rule-based
+      [131]                                                                                                                 None
+                                                                                                                            None
+27 Kwatirayo et al. [132] L CD Number of vehicles               No N/A                    Rule-based                        None
+                                                                                                                            None
+28 Lammer et al. [133] L CD Number of vehicles                  No N/A                    Rule-based                        None
+                                                                                                                            None
+29 Chandan et al. [134] L CD Speed, position, number of No N/A                            Rule-based                        None
+                                                     vehicles                                                               None
+                                                                                                                            None
+30 Li et al. [135]      L PH Queue length                       No Maximize inter- Rule-based                               None
+                                                                           section utilization                              None
+
+31 Bang et al. [136]    L  CD Queue length                      No    Travel time,        Rule-based
+
+                                                                      number of stops
+
+32 Pandit et al. [47]   L PH Arrival table                      No Delay                  Job schedule
+
+33 DYPIC [44]           L PH Arrival table                      No Total delay            DP
+
+34 Yin et al. [137]     L PH Arrival table                      No Queue length DP
+
+35 Yu et al. [138]      L PH Number of vehicles                 No Queue length DP
+
+36 Kamal et al. [139] L PH Arrival time                         No Throughput             Bi-level non-linear optimization
+
+37 CRONOS [64]          L PH Arrival table                      No Total delay            Box algorithm
+
+38 Lee et al. [62]      L PH Number of vehicles                 No Total delay            GA
+
+39 Shenoda et al. [65] L PH Arrival table                       No Stopped delay Tabu search
+
+40 PMSA [46]            L PH N/A                                No Delay                  Simulation-based
+
+41 Pappis et al. [67] L CD Number of vehicles, queue No N/A                               Fuzzy logic
+
+42 Murat et al. [68]    L CD Longest queue on red; ve- No N/A                             Fuzzy logic
+                                          hicle arrival on green;
+> REPLACE THIS LINE WITH YOUR PAPER IDENTIFICATION NUMBER (DOUBLE-CLICK HERE TO EDIT) < 17
+
+No. System             Scope Type Traffic Quantification Cyclic Objective Func- Optimization Method                 Network Control
+                                                                                       tion
+
+43 Trabia et al. [70]  L  CD Arrival time; queue                  No N/A               Fuzzy logic                  None
+
+44 Niittymäki et al. [71] L CD Arrival time, pedestrian No N/A                         Fuzzy logic                  None
+                                                     waiting time
+
+45 Nakatsuyama et al. L CD Number of vehicles, queue No N/A                            Fuzzy logic                  None
+      [72]
+
+46 Talukdar et al. [106] L PH Number of vehicles                  No Delay             Rule-based                   None
+
+47 OPAC [48], [140], D    PH Arrival Table                        No Delay; or pre- DP                              Pseudo-cyclic opera-
+      [141]                                                                  ferred function                        tion, area wide coor-
+                                                                                                                    dination
+
+48 PRODYN [142]        D PH Not specified                         No Delay             DP                           Emergent
+
+49 ALLONS-D [41] D PH Queue length                                No Delay             B&B                          Emergent; weighted
+                                                                                                                    priority
+
+50 ALLONS-I [41]       D PH Queue length                          No Total delay       B&B                          Iterative approach
+
+51 RHODES [40], [49], H   PH Arrival Table                        No  Total delay,     DP                           Platoon request
+      [50]
+                                                                      queue length
+
+52 SchIC [143] and     D PH Queue length, Arrival ta- No any preferred DP                                           Emergent
+      SURTRAC [86]
+                                     ble                              function can be
+
+                                                                      used
+
+53 PAA [52]            D PH Arrival table                         No  Total delay,     DP                           Priority request;
+                                                                                                                    weighted priority
+                                                                      queue length
+
+54 Katwijk [87]        D PH Arrival table                         No Delay; or pre- DP                              Iterative approach
+                                                                             ferred function
+
+55 Yang et al. [97]    D PH Vehicle flow                          No Delay             DP                           Iterative approach
+
+56 PAMSCOD [51]        D PH Arrival table                         No  Total delay,     MILP                         Platoon priority re-
+                                                                                                                    quest
+                                                                      queue length
+
+57 DC-Approach [57] D PH Number of vehicles                       No Throughput with MILP                           Emergent
+                                                                             queue penalty
+
+58 DC-Approach [88] D PH Number of vehicles                       No Throughput with MILP                           Emergent
+                                                                             queue penalty
+
+59 Varaiya [55]        D PH Queue length                          No Pressure (queue Max Pressure                   Emergent
+                                                                             length)
+
+60 Kouvelas et al. [144] D CD Queue length                        Yes Rule-based       Max Pressure                 Emergent
+
+61 Sun et al. [145]    D PH upstream and downstream Yes Rule-based                     Max Pressure                 Emergent
+                                         queue length
+
+62 Levin et al.[146]   D PH upstream and downstream Yes Rule-based                     Max Pressure                 Emergent
+                                         queue length
+
+63 IDSTOP [14]         S PH Volume                                Yes Number of        GA                           COS
+
+                                                                      weighted trips
+
+64 Liang et al. [60]   D PH Vehicle speed, position No Delay                           Intelligent tree search, GA  Platoon-based phase
+                                                                                                                    sequencing and phase
+                                                                                                                    duration
+
+65 Cesme et al. [82] D CD Arrival Table                           No N/A               Rule-based                   Emergent
+
+66 GASCAP Uncon- D CD Number of approaching No N/A                                     Rule-based                   Offset like mecha-
+                                                                                                                    nism
+gested flow [147]                    vehicles, vehicles in queue
+
+67 Araghi et al. [148] D PH Queue length                          No Delay             Cuckoo search optimization   Emergent
+
+68 PODE [61]           L PH Queue size, Arrival time                  Delay            Piecewise optimization       None
+
+69 GABNOR [61]         S PH Arrival time                              Delay            GA                           System level delay
+                                                                                                                    minimization
+
+70 Saito et al. [66]   L PH Traffic condition, geome- Yes Delay                        Depth first search method and heu- None
+                                         try, signal                                   ristic based best first-method
+
+Scope: H = Hierarchical, L = Local, S = System
+Type: CD = Continuous Decision, PH = Planning Horizon
+Optimization Method: B&B = Branch and Bound, DP = Dynamic Programming, GA = Genetic Algorithm, MILP = Mixed-Integer Linear Programming
+
+                                          TABLE VI SUMMARY OF RL-BASED ALGORITHMS
+
+No. System             RL Algorithm       State                       Action           Reward                       Coordination
+71 Thorpe et al. [76]  SARSA
+                                          Vehicle number and po- Keep or switch        Number of vehicles and num- Local controller
+                                          sition                                       ber of vehicles per durations
+> REPLACE THIS LINE WITH YOUR PAPER IDENTIFICATION NUMBER (DOUBLE-CLICK HERE TO EDIT) < 18
+
+72 Abdulhai et al. [77]  Q-learning       Traffic volume           Keep or switch        Delay and throughput        Multi-agent cooperation
+73 Xie [75]
+74 Kuyer et al. [99]     Neural Fuzzy Actor queue length for each Keep or switch         Throughput, queue length, re- Multi-agent cooperation
+75 Tantawy et al. [89]                                                                   sidual queue
+76 Arel et al. [90]      Critic RL        phase; signal state
+77 Cai et al. [149]
+78 Balaji et al. [91]    Q function updated Vehicle position       Keep or switch        Waiting time                Integrates max-plus algo-
+                         using DP                                                                                    rithms
+79 Khamis et al. [150]
+80 MASTraf [151]         Multi-agent RL and Queue length, phase,   Keep or switch        Delay                       Multi-agent cooperation
+                         game theory
+81 Pol et al. [98]
+82 Nishi et al. [92]     Q-learning       Relative traffic flow Keep or switch           Delay                       Multi-agent cooperation
+83 Wei et al. [152]
+                         Approximate Dy- Traffic arrival           Keep or switch        Queue length                Local controller
+84 Genders [153]         namic Programming
+85 Aslani et al. [154]
+                         Q-learning       Traffic flow/ queue      Keep or switch        Total vehicle/ delay        Multi-agent cooperation
+86 Guo et al. [155]                                                                                                  (adjacent intersections share
+87 Tan et al. [156]                       (converted using Fuzzy)                                                    vehicle occupancy)
+
+88 Fei et al. [29]       Q function updated Queue Length           Keep or switch        Trip time, waiting time     Multi-agent cooperation
+                         using DP
+
+                         Q-learning and Ap- Number of vehicles, Keep or switch           Throughput, waiting time    Integrated max-plus algo-
+                         proximate Dynamic waiting time, signal state                                                rithm with multi-agent co-
+                         Programming                                                                                 operation
+
+                         Deep Q-learning  Vehicle position; signal Keep or switch        Delay, decelerations, waiting Integrates max-plus algo-
+                         network          state
+                                                                                         time, signal condition      rithm
+
+                         Graph convolutional Queue length; average Keep or switch        Travel time                 Multi-agent cooperation
+
+                         neural nets      velocity
+
+                         Deep Q network   Queue length, vehicle Keep or switch           Queue length, waiting time, Multi-agent cooperation
+                                          position, signal state                         travel time, delay, queue
+                                                                                         length
+
+                         nQN-TSC, RL TSC Density, queue, signal Keep or switch           delay                       Local control
+                                                   state, signal state time
+
+                         Actor-critic and di- Number of vehicles on Selects green time du- Total number of vehicles on Local control
+
+                         rect exploration each approach            ration from a prede- all approaches
+
+                                                                   fined set
+
+                         Q-function approxi- Queue length on each Extend up to a prede- Queue length                 Local control
+
+                         mation           approach                 fined time or switch
+
+                         Deep RL          Average travel time and Keep or switch         Queue length, delay and     Local control
+                                          queue length per ap-
+                                          proach                                         throughput, residual queue
+
+                         Q-learning       Number of vehicles in Keep or switch phase     Queue length, queue length Multi-agent cooperation
+                                          each cell; each intersec- for next 3 seconds   from downstream intersection
+                                          tion approach has 5 cells                      penalty for excessive delay
+                                          (length 30 m) per lane
+> REPLACE THIS LINE WITH YOUR PAPER IDENTIFICATION NUMBER (DOUBLE-CLICK HERE TO EDIT) < 19
+
+          TABLE VII ABBREVIATIONS USED IN THIS PAPER
+
+1-GC      First-generation control                            LQR        Linear Quadratic Regulator
+2-GC      Second-generation control                           MASTraf    Multi-Agent System for network wide Traffic signal
+3-GC      Third-generation control                                       control with dynamic coordination
+ACDSS     Adaptive Control with Integrated Decision Support   MDP        Markov Decision Process
+          System                                              MILP       Mixed Integer Linear Programming
+ACS-Lite  Adaptive Control System-Lite                        MOVA       Microprocessor Optimized Vehicle Actuation
+ADP       Approximate Dynamic Programming                     MPC        Model Predictive Control
+ALLONS-D  Adaptive Limited Lookahead Optimization of Net-     NCHRP      National Cooperative Highway Research Program
+          work Signals-Decentralized                          NLP        Non-Linear Programming
+ALLONS-I  Adaptive Limited Lookahead Optimization of Net-     NN         Neural Network
+          work Signals-Iterative                              OPAC       Optimization Policies for Adaptive Control
+ANN       Artificial Neural Network                           PAA        Phase Allocation Algorithm
+ATSC      Adaptive Traffic Signal Control                     PAMSCOD    Platoon-based Arterial Multi-modal Signal Control
+B&B       Branch and Bound                                               with Online Data
+CIC       Critical Intersection Control                       PI         Performance Index
+COP       Controlled Optimization of Phases                   PMSA       Predictive Microscopic Simulation Algorithm
+COS       Cycle Offset Split                                  PROTRACTS  Purdue Real-Time Offset Transitioning Algorithm for
+CV        Connected Vehicle                                              Coordinated Traffic Signals
+CYRANO    CYcle-free Responsive Algorithm for Network Opti-   RHODES     Real-Time, Hierarchical, Optimized, Distributed and
+          mization                                                       Effective System
+DC        Distributed-Coordinated                             RL         Reinforcement Learning
+DP        Dynamic Programming                                 SCAT       Sydney Cooperative Adaptive Traffic
+DYPIC     Dynamic Programmed Intersection Control             SCOOT      Split, Cycle, and Offset Optimization Technique
+GA        Genetic Algorithm                                   SOLIS      Signal Optimization using LInk Signatures
+GABNOR    Genetic Algorithm Based Network Optimization in     SPPORT     Signal Priority Procedure for Optimization in Real-
+          Real-time                                                      time
+GASCAP    Generalized Adaptive Signal Control Algorithm Pro-  SURTRAC    Scalable Urban Traffic Control
+          ject                                                TRANSYT    TRAffic Network StudY Tool
+I2V       Infrastructure-to-Vehicle                           UTCS       Urban Traffic Control System
+IMPOST    Internal Metering Policy to Optimize Signal Timing  V2I        Vehicle-to-Infrastructure
+INTUC     Integrated Traffic-responsive Urban Control         V2V        Vehicle-to-Vehicle
+LP        Linear Programming                                  VFC-OPAC   Virtual Fixed Cycle OPAC
+

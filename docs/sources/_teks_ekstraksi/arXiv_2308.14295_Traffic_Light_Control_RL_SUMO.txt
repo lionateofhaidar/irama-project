@@ -1,0 +1,760 @@
+                                            Traffic Light Control with Reinforcement Learning
+
+                                                                               Taoyu Pana
+
+                                        aCambridge A Level Centre, Hangzhou Foreign Language School, Hangzhou, China, 310000
+
+arXiv:2308.14295v1 [cs.AI] 28 Aug 2023  Abstract
+
+                                        Traffic light control is important for reducing congestion in urban mobility systems. This paper proposes a
+                                        real-time traffic light control method using deep Q learning. Our approach incorporates a reward function
+                                        considering queue lengths, delays, travel time, and throughput. The model dynamically decides phase
+                                        changes based on current traffic conditions. The training of the deep Q network involves an offline stage from
+                                        pre-generated data with fixed schedules and an online stage using real-time traffic data. A deep Q network
+                                        structure with a "phase gate" component is used to simplify the model's learning task under different phases.
+                                        A "memory palace" mechanism is used to address sample imbalance during the training process. We validate
+                                        our approach using both synthetic and real-world traffic flow data on a road intersecting in Hangzhou, China.
+                                        Results demonstrate significant performance improvements of the proposed method in reducing vehicle
+                                        waiting time (57.1% to 100%), queue lengths (40.9% to 100%), and total travel time (16.8% to 68.0%)
+                                        compared to traditional fixed signal plans.
+
+                                        Keywords: Traffic light control; Reinforcement learning
+
+                                        1. Introduction
+
+                                            With the rapid process of urbanization, car ownership has been constantly increasing, especially in China.
+                                        According to the statistics of the Ministry of Public Security of China (Chinese Ministry of Public Security,
+                                        2023), the number of motor vehicles owned nationwide reached 417 million in 2022. The rapid increase in
+                                        car ownership causes great traffic congestion, resulting in a waste of time for drivers and commuters.
+
+                                            Traffic light control is crucial for reducing congestion in urban mobility systems. However, traditional
+                                        traffic control methods typically rely on pre-defined timing schedules and fixed signal patterns to regulate
+                                        the flow of traffic at intersections (Miller, 1963). While traditional methods have been effective in regulating
+                                        traffic flow to a certain extent, the limitations of their fixed schedules make them inadequate for addressing
+                                        the complex and dynamic nature of modern traffic systems. For example, during peak traffic hours, the
+                                        green light of the major traffic flow direction may be too short to allow enough vehicles to pass through the
+                                        intersection, causing long queues and delays. Additionally, traditional methods may not take into account
+                                        the impact of unexpected events such as accidents, road closures, and sudden increase or decrease in traffic
+                                        flows, which further exacerbate congestion.
+
+                                            Recent developments in deep reinforcement learning (RL) have shown great promise in improving traffic
+                                        light control by enabling real-time adaptation to dynamic traffic conditions (Li et al., 2016). RL allows
+                                        the traffic light to learn from its environment by observing traffic patterns and adjusting its control strategy
+                                        accordingly. The traffic light is trained using a reward-based system, where the goal is to maximize the flow
+
+                                        Email address: pty060110@gmail.com (Taoyu Pan)
+
+                                        Preprint submitted to .                                                               August 29, 2023
+of traffic through the intersection while minimizing delays and reducing congestion. This adaptive approach
+to traffic control has shown great potential to improve traffic flows and reduce travel time.
+
+    This paper proposes a deep Q learning-based RL method for real-time traffic light control. Following
+the work of Wei et al. (2018), the proposed method considers a reward function that takes into account queue
+lengths, delays, travel time, and throughput. At each time step, the model decides whether to change the phase
+or not, providing an adaptive solution to dynamic traffic conditions. The training process is divided into two
+stages: offline and online. The offline training uses pre-generated traffic flow data with fixed time schedules
+to obtain a good prior for model parameters, while the online training leverages real-time traffic flow data
+for further adaptive learning of the model. To better capture the dynamics of different traffic light phases, a
+well-designed deep Q network structure with a "phase gate" component is employed. Additionally, to address
+the sample imbalance issue in the experience replay of the deep Q learning, a "memory palace" mechanism
+is used to ensure sufficient sampling of rarely appeared state-action combinations. The proposed approach is
+validated using both synthetic and real-world traffic flow data, with a road intersection in Hangzhou, China
+serving as the case study. Results show that our method outperforms traditional fixed signal plan traffic light
+control in terms of reducing vehicle waiting time (by 57.1%100%), queue lengths (by 40.9%100%), and
+total travel time (by 16.8%68.0%) in different traffic flow scenarios. The codes and data of this paper are
+available in https://github.com/OscarTaoyuPan/TrafficLightControl_QS.
+
+    The remainder of the paper is organized as follows. The literature review is shown in Section 2. In Section
+3, we describe the methodology including preliminaries, problem definition, and the proposed reinforcement
+framework. We apply the proposed framework to a Hangzhou road intersection as a case study in Section 4.
+Finally, we conclude our study and summarize the main findings in Section 5.
+
+2. Literature review
+
+2.1. Traditional traffic light control
+    Traditional traffic light control methods have been widely used for decades and are still prevalent in many
+
+cities around the world. These methods are typically based on fixed-time schedules or traffic-responsive
+strategies that adjust signal timings based on traffic volume or occupancy. Fixed-time schedules use pre-
+determined signal timings that are set according to historical traffic patterns or the peak traffic volume of a
+specific area. For example, the fixed-time schedules are set using historical traffic demand to determine the
+time for each phase (Dion et al., 2004; Miller, 1963; Webster, 1958). The traffic-responsive strategies use
+updated time information that is set according to real-world traffic data. For example, Porche and Lafortune
+(1999) and Cools et al. (2013) implement self-organizing traffic lights using real-time traffic data. These
+methods can deal with highly random traffic conditions.
+
+    One of the main drawbacks of fixed-time schedules is that they cannot adapt to changing traffic conditions,
+such as fluctuations in traffic volume or unexpected events. This often results in inefficient traffic flow, with
+long queues and delays and wasted time and fuel consumption. The problem with traffic-responsive strategies
+is that they are dependent on man-made rules for current traffic patterns, but do not consider the subsequent
+traffic conditions. In this way, it is unable to generate the optimal solution.
+
+2.2. Applications of reinforcement learning
+    Reinforcement learning (RL) is an area of machine learning that studies how intelligent agents should
+
+take actions in an environment in order to maximize the notion of cumulative reward. With the success of
+Alpha Go (Mnih et al., 2015), RL has gained considerable attention in many fields, including energy (Perera
+
+                                                                2
+and Kamalaruban, 2021), civil engineering (Fu et al., 2022), network system (Al-Rawi et al., 2015), finance
+(Hambly et al., 2023), logistics (Yan et al., 2022), and transportation (Haydari and Yilmaz, 2020). For a
+brief survey with recent advances in reinforcement learning, people can refer to Arulkumaran et al. (2017).
+
+2.3. Reinforcement learning-based traffic light control
+    Since traditional traffic light methods are not able to solve the multi-direction dynamic traffic light control
+
+problems in a comprehensive way, there are more and more attempts using RL to deal with the problem
+(Kuyer et al., 2008; Mannion et al., 2016). Traditional RL algorithms designed the state as discrete values
+of traffic conditions, such as the location of vehicles and the number of cars on the road (Wiering et al.,
+2000; Abdulhai et al., 2003; Bakker et al., 2010; Abdoos et al., 2013; El-Tantawy et al., 2013). However, the
+corresponding paired action-state matrix has a large space demand for storage. In this way, if larger state
+space problems are considered, the method will not work.
+
+    To solve the problem in order to consider a larger state space, the algorithm of Deep Q learning is
+applied to take continuous variables into account (Li et al., 2016). Deep Q learning sets up a deep neural
+network (DNN) to learn the Q function of RL from the traffic state inputs and the corresponding traffic
+system performance output. In this way, the state and action are associated with reward. The state design
+considers queue length (Li et al., 2016) and average delay (Van der Pol and Oliehoek, 2016), etc. The reward
+design also takes those variables into account. Nevertheless, these methods assume relatively static traffic
+environments, and hence far from real-world traffic conditions.
+
+    Recently, Wei et al. (2018) proposed an RL-based traffic light control model and tested the algorithms
+in a more realistic traffic setting. In this paper, we follow the framework of Wei et al. (2018), but using the
+real-world traffic flow data from a road intersection in Hangzhou, China, which none of the existing studies
+has considered.
+
+3. Methodology
+
+3.1. Preliminaries
+3.1.1. Introduction to reinforcement learning
+
+    RL is a machine learning paradigm (Szepesva´ri, 2010) that aims to control a system by maximizing
+a long-term objective. RL is based on the Markovian Decision Processes (MDPs) framework (Sutton and
+Barto, 2018) which is defined by a set of terms (S, P, A, R, ), where S is the state space, P is the probability
+of transition, A is the action space, R is the reward, and  is the discount factor.
+
+    State Space S: The state space S is a finite set of Markov states st of the environment that can be used
+by the agent to decide the next action. If a state is Markovian, the history of states can be ignored, and the
+agent can rely solely on the current state st instead of the whole history.
+
+    Action Space A: The action space A is a set of legal actions at that can be taken by the agent. At each
+time step t, the agent selects the optimal action from the action space A following a policy  that maximizes
+the long-term expected return.
+
+    Transition probability P: The transition probability P is defined for each triplet (st, at, st+1) 
+S × A × S and gives the probability of moving from state st to state st+1 by taking action at.
+
+    Reward R: The reward R is the scalar variable given by a reward function r: S × A  R, obtained
+by the agent after performing an action at at time step t according to its policy. The expected return Gt is
+
+                                                                3
+defined as the total discounted reward starting from the time step t up to time t + n (where n can be infinity):
+
+                                                                n
+
+Gt = Rt + Rt+1 + ... + nRt+n = kRt+k                                 (1)
+
+                                                                k=0
+
+where   [0, 1] is the discount factor multiplying the future expected rewards. It denotes the importance of
+future rewards versus immediate rewards.
+
+    The objective of the agent is to determine a policy , which is a set of rules for selecting an action based
+on a state, to maximize the total discounted reward. To achieve this, we employ the Q learning algorithm,
+which is a type of model-free, value-based, and off-policy RL technique introduced by Watkins and Dayan
+(1992). In Q learning, the Q value function estimates the expected discounted reward of an action given a
+state (i.e., the goodness of a selected action in a given state). We can define the Q value function as follows:
+
+                               Q(s, a) = E[Gt | s, a, ]              (2)
+
+The optimal action-value function Q(s, a) is the one that produces the maximum expected return. Therefore,
+the optimal policy  can be determined by selecting the action at that yields the highest Q value for the
+given state s:
+
+                               a = arg max Q(s, a)                   (3)
+
+                               aA
+
+The optimal Q value function is governed by the Bellman equation, and it can be learned through an iterative
+update process. Specifically, the Q value for the current state-action pair Qt(s, a) is updated by adding a
+fraction  of the temporal difference (TD) error t+1:
+
+                               Qt+1(s, a) = Qt(s, a) +  · t+1        (4)
+
+where 0 <  < 1 is the learning rate. TD error is defined as the difference between the TD-target yt and the
+current Q value Qt(s, a):
+
+                               t+1(s, a) = yt - Qt(s, a)             (5)
+
+The TD-target yt is given by:
+
+                               yt = Rt +  max Qt(st+1, at+1)         (6)
+                               at+1 A
+
+where Rt is the reward at time t, and  is the discount factor.
+
+3.1.2. Deep reinforcement learning
+    The traditional Q learning algorithm (Watkins and Dayan, 1992) uses a tabular structure to store the
+
+values of state-action pairs, which is challenging to implement in cases of high-dimensional or continuous
+state spaces. To overcome this limitation, deep neural networks can be used as an alternative to approximate
+the Q value function. These networks can handle high-dimensional or continuous state spaces, and capture
+complex state features to approximate the Q values. The standard deep RL algorithm is the Deep Q network
+(DQN) (Mnih et al., 2015), which is composed of an input layer that takes states (images or vectors) as input,
+
+                               4
+a number of hidden layers to extract and transform features, and an output layer to approximate the Q values
+of state-action pairs.
+
+    During the learning process, DQN uses a neural network with weights  and an experience replay
+memory to store past experiences. At each time step an experience et = (st, at, Rt, st+1) is added to the
+memory. To update the Q network, a mini-batch of experiences is randomly sampled from the experience
+replay memory, and the Q learning updates are applied using target values yt as defined in Eq. 6:
+
+yt = Rt +  max Qt(st+1, at+1; t)  (7)
+at+1 A
+
+where t is the weights of the DQN at time step t. The learning process aims to have a Q network that
+accurately predicts the target values in Eq. 7. Thus, the objective of the learning algorithm is to minimize
+the loss function:
+
+Losst() = E yt - Qt(st, at; t) 2  (8)
+
+3.2. Problem definition
+
+    Figure 1 provides an overview of the problem addressed in this study. The environment is a traffic
+signal intersection, and the deep RL agent receives a state st  S, selects an action at  A, and receives
+a reward Rt from the environment. The goal of the agent is to determine the optimal action at for each
+state st, with the aim of minimizing the average pre-defined cumulative discounted return. To maintain
+effective decision-making over time in the dynamic traffic signal intersection environment, the agent must
+continuously learn and improve its policy. We elaborate on each of the key components of the problem
+definition in the following.
+
+                                                             Figure 1: Problem definition
+
+    Phase. In this study, a traffic signal's phase is defined as a specification of signal color for each direction.
+Two phases are considered: NS and WE, where NS represents green for north and south directions and red
+for east and west directions and WE represents green for east and west directions and red for north and south
+directions. Yellow lights are ignored in this study as they have a fixed time length and can be attached to the
+end of each phase.
+
+                                                                5
+    Environment. The intersection environment in this study consists of four directions: East (E), West
+(W), North (N), and South (S). Each direction has a specific lane layout (e.g., three lanes). The environment
+also includes pre-defined vehicle movements for each phase, such as straight movements for East-West and
+left turns for East-West in the WE phase.
+
+    Agent. The agent plays a crucial role in this study. It observes the state of the environment (traffic signal
+intersection), selects an action based on its policy, and receives an immediate reward at each time step. Fig.
+1 illustrates the general structure of the interaction between the agent and the environment
+
+3.3. Model design
+    In this section, we describe the specific design for the model, including state, action, and reward functions.
+
+3.3.1. State description
+    The state is defined as a snapshot of the environment (i.e., intersection). Denote I as the set of all lanes
+
+for four directions. The state at time t includes:
+
+· Queue length: qt = (qi,t)iI, where qi,t indicates the queue length for lane i at time t.
+
+· Number of vehicles: vt = (vi,t)iI, where vi,t is the number of vehicles lane i at time t.
+
+· Total waiting time: wt = (wi,t)iI, where wi,t is the total waiting time (i.e., from the most recent
+  vehicle stop up to time t) of all vehicles in lane i at time t.
+
+· Phase: (Pt, Pt+1), where Pt is current phase and Pt+1 is the next phase.
+
+Besides the numerical environmental information above, the state includes an image representation of
+vehicles' positions. As shown in Figure 2, vehicle locations at time t are mapped to an image with grids
+(denoted as Mt). In each pixel of the image, value 1 represents there is a vehicle in that grid, otherwise 0.
+The image is encoded by a convolutional neural network (CNN) to get a latent vector lt:
+
+lt = CNN(Mt; Ct NN)                                                                          (9)
+
+where tCNN is the network weights of the CNN at time t.
+
+Figure 2: Representation of vehicle's position
+
+                     6
+Therefore, the final state of the model is
+
+    st = Concat(qt, vt, wt, Pt, Pt+1, lt)                                             (10)
+
+where Concat(·) represents concatenate of all vectors.
+
+3.3.2. Action set
+    There are two actions considered in this study: 1) change to the next phase and 2) keep the current phase.
+
+That is,
+
+A = {Change to next phase, Keep the current phase}                                    (11)
+
+With this action set, the agent can use current traffic conditions to dynamically determine the cycle length
+at each time t. Note that it does not make sense to switch phases frequently. Therefore, there will be a cost
+imposed for taking the action of "change to the next phase".
+
+3.3.3. Reward function
+    Reward is the key component of this study. Recall that the objective of the paper is to maximize the flow
+
+of traffic through the intersection while minimizing delays and reducing congestion, which is typically used
+in many transportation-related studies (Mo et al., 2023a,b,c). To achieve this objective, the reward function
+at time t is defined as a weighted sum of the various factors. These factors include:
+
+    · Total delays for lane i at time t (denoted as di,t):
+
+    di,t                                    =  1  -  Avg lane  speedi,t               (12)
+                                                       Speed   limiti
+
+where "Avg lane speed" is the mean speed of all vehicles at lane i and time t. "Speed limit" is the
+pre-determined lane speed limit.
+
+· Total waiting time for lane i (denoted as wi,t): The waiting time for vehicle j in lane i at time t
+  (denoted as wi(,jt)) is defined as the time from its most recent stop (speed < 0.1 m/s) to time t. Hence,
+  wi(,jt) will be recounted every time the vehicle moves (i.e., speed  0.1 m/s). Then the total waiting
+  time for lane i is wi,t = j wi(,jt).
+
+· Total queue length of lane i at time t (denoted as qi,t): number of vehicles of speed equal to zero at
+  lane i time t
+
+· Change of phase (denoted as Ct): Ct = 1 if the at is changing to the next phase.
+· Total number of vehicles that passed the intersection during time interval t (denoted as Vt).
+· Total travel time of all vehicles that passed the intersection during time interval t (denoted as Tt).
+Given the definition of these factors, the reward function at time t is defined as:
+
+Rt = 1 di,t + 2 wi,t + 3 qi,t + 4Ct + 5Vt + 6Tt                                       (13)
+
+iI  iI                                                  iI
+
+where 1, ..., 6 are weights determining the importance of each factor in the reward.
+
+                                                     7
+3.4. Deep Q Network structure
+    The structure of the deep Q network is shown in Figure 3. All state information (see Eq. 10 for details)
+
+is concatenated as an input vector before being put into the deep Q network.
+    In the real-world scenario, traffic conditions can be very different under different phases. For instance,
+
+when the system is in phase NS, more traffic on the WE direction should make the light tend to change.
+However, when the system is in phase WE, the traffic in the WE direction should make the light tend to
+keep. This means that the traffic on WE directions has two different roles under different phases. The agent
+should be able to intelligently differentiate this. Simply adding phase information into the state may not
+be enough. In this study, we implement a deep Q network structure that can consider the different cases
+explicitly, referred to as "phase gate"
+
+                                                     Figure 3: Structure of the deep Q network
+
+    As depicted in Figure 3, the concatenated features are input to fully connected (FC) layers to learn the
+mapping from traffic conditions to potential Q values. Separate FC layers (red square and blue square in
+Figure 3) are employed for each phase to enable a distinct learning process. A phase selector gate is used to
+determine which branch of the FC layers to activate based on the current phase Pt. When Pt = NS, the NS
+phase selector is set to 1 while the WE phase selector is set to 0, activating the NS branch. Similarly, when
+Pt = WE, the WE branch is activated. This approach ensures that the decision-making process is tailored
+to the specific phase, avoids bias towards certain actions, and improves the network's fitting capability (Wei
+et al., 2018).
+
+                                                                8
+3.5. Algorithm training
+
+3.5.1. Offline pretrain and online training
+    Our model is composed of two training steps (as shown in Figure 4): offline and online. In the offline
+
+stage, we set several fixed timetables for the lights and let traffic go through the system to collect data samples.
+Compared to the typical online deep Q learning, the offline training part decides the action based on the
+pre-determined fixed timetable:
+
+aOt ffline = TimetableOffline(t)  (14)
+
+where TimetableOffline(·) is a function that returns changing the phase or not according to the current time step
+
+t. For example, if the given fixed timetable is phase NS = 20 seconds, phase WE = 10 seconds, and t = 0 is
+phase WE. Then we have atOffline equals to "Change to the next phase" for all t = 10, 30, 40, 60, 70, 90, ... (i.e.,
+every time point when we switch the phase according to the 20/10 timetable). And otherwise aOt ffline ="Keep
+the current phase".
+
+    At each step t of the offline stage, the collected sample (experience) is eOt ffline = (st, aOt ffline, Rt, st+1).
+After collecting samples for several timetables, we use all collected samples to pre-train the DQN using the
+
+same loss function in Eq. 8.
+
+                                         Figure 4: Illusration of offline line pretrain and online training
+
+    After offline training, the pre-trained model is deployed in the online stage. At each time step t, the traffic
+light agent observes the state st from the environment and selects an action atOnline (i.e., whether to change
+the traffic signal to the next phase or not) using an -greedy strategy (Eq. 15) that combines exploration
+(i.e., taking a random action with probability ) and exploitation (i.e., selecting the action with the highest
+estimated reward). This strategy allows the agent to balance between exploring new actions and exploiting
+
+                                                                9
+the learned knowledge to make optimal decisions in real-time traffic scenarios.
+
+
+
+Randomly pick an action from A with probability 
+atOnline =
+             arg max Qt(st, a, t) otherwise,                                     (15)
+
+             aA
+
+After taking action atOnline, the agent will observe the environment and get the reward Rt from it. Then, the
+tuple etOnline = (st, aOt nline, Rt, st+1) will be stored into memory. After K timestamps (i.e., newly collected
+samples are (etOnline, ..., etO+nKline)), the agent will update the network according to samples in the memory.
+
+3.5.2. Phase-action dependent replay memory and Balanced sampling
+    In deep Q learning, the agent collects samples at every time step and then uses these samples to update the
+
+deep Q network. Typically, a memory buffer is used to store all these samples. New samples are added while
+old samples are removed to maintain a constant sample size. This technique is known as experience replay
+(Mnih et al., 2015) that is widely used in RL models. However, in real-world traffic conditions, traffic patterns
+across different directions can be highly imbalanced. Previous studies (Gao et al., 2017; Genders and Razavi,
+2016; Li et al., 2016; Van der Pol and Oliehoek, 2016) stored all the state-action-reward training samples in
+a single memory buffer. This memory buffer can be dominated by samples from frequently occurring phases
+and actions in imbalanced settings. For example, if a road intersection experiences mostly North-South (NS)
+traffic flows and few East-West (WE) flows, the memory buffer will be dominated by samples with at =
+"Keep the phase" and Pt = NS (along with associated st and Rt), while ignoring less frequent phase-action
+combinations such as at = "Change the phase" and Pt = WE. As a result, the Q values learned for these
+less frequent phase-action combinations may be inaccurate, leading to poor decision-making by the learned
+agent for infrequent phase-action combinations.
+
+             Figure 5: Illustration of memory palace
+
+                               10
+    To address this issue, this study employs a Memory Palace mechanism (Wei et al., 2018). Instead of using
+a single memory buffer for all samples as in typical Deep Q learning, we define separate memory buffers for
+different phase-action combinations, as illustrated in Figure 5. Training samples for different phase-action
+combinations are stored in their respective memory buffers. During each training step, an equal number
+of samples are selected from different memory buffers to ensure balanced training samples for learning the
+Deep Q network. This approach prevents interference among different phase-action combinations during
+the training process, improving the network's ability to accurately predict Q values for each phase-action
+combination.
+3.6. Simulation tool
+
+    The SUMO (Simulation of Urban Mobility) tool (Lopez et al., 2018) was used to simulate traffic
+in this study. SUMO is a widely recognized open-source traffic simulator that offers useful application
+programming interfaces (APIs) and a graphical user interface (GUI) for modeling large road networks and
+handling them effectively (see Figure 6). It supports dynamic routing based on the right-side driving rules
+of road intersections and provides a visual graphical interface for designing various road network layouts
+in multiple grid formats. Additionally, SUMO allows for controlling the traffic lights at each intersection
+according to user-defined policies. It also enables capturing snapshots of each simulation step, allowing us
+to obtain the state information st for our study.
+
+                                                       Figure 6: Example of SUMO simulator
+
+                                                               11
+4. Case study design
+4.1. Traffic intersection
+
+    This paper presents a case study of a real-world traffic intersection located at Xueyuan Road and Wensan
+Road in Hangzhou City. The layout of the intersection is depicted in Figure 7. The intersection features four
+directions, each with three lanes. The rightmost lane is designated for right turns and going straight, the
+middle lane is exclusively for going straight, and the leftmost lane is reserved for left turns.
+
+                                                  Figure 7: Layout of the case study intersection
+
+4.2. Experiment design
+    To evaluate the effectiveness of the proposed algorithm, we conducted experiments on four distinct traffic
+
+conditions as outlined in Table 1. The first three scenarios were synthetic, while the last one was based on
+actual traffic flow data collected from surveillance cameras in Hangzhou. The first scenario represented a
+balanced traffic situation, where both NS and WE directions had equal vehicle arrival rates of 720 vehicles
+per hour. The second scenario simulated an imbalanced traffic situation with significantly higher flow rates
+in the WE direction compared to the NS direction. The third scenario represented an extreme switching
+situation, where traffic flows were present in either the WE or NE direction for different halves of the
+simulation time. These synthetic scenarios were designed to assess the model's performance under varying
+and complex traffic conditions. The last scenario utilized actual flow rate data in Hangzhou from previous
+studies (Zheng et al., 2019; Wei et al., 2019a,b), which originally only covered the morning peak hour from
+7:00 AM to 8:00 AM. To allow for longer training time, we duplicated the data to span a 20-hour simulation
+period.
+4.3. Parameter setting
+
+    The parameter settings in this study are similar to Wei et al. (2018). The time interval between two
+consecutive time steps (t and t + 1) is set as 5 seconds. The model update interval is 300 seconds. The
+discount factor  for future reward is set as 0.8.  = 0.05 is used for -greedy exploration. The batch size
+for each training is 300. The memory length for each phase-action-based replay buffer is 1000. As the total
+experiment time is 20 hours, the first 2 hours are used for offline training. The coefficients for the reward
+function are summarized in Table 2.
+
+                                                               12
+                           Table 1: Experiment design
+
+Scenario Directions Arrival rate (# veh/hr) Start time (hr) End time (hr)
+
+Balanced    WE                720                      0               20
+            NS                720
+                              1440                     0               20
+                              240
+Imbalanced  WE                1440                     0               20
+            NS                1440
+                              716                      0               20
+                              1132
+Switch      WE                                         0               10
+            NS
+                                                       10              20
+
+Hangzhou    WE                                         0               20
+            NS
+                                                       0               20
+
+                    Table 2: Coefficients for the reward function
+
+                    1      2        3 4 5 6
+
+                    -0.25 -0.25 -0.25 -5 -1 -1
+
+4.4. Benchmark methods
+    For comparison, we use the well-known Webster's Equation (Federal Highway Administration Depart-
+
+ment of Transportation, 2022) to calculate fixed traffic signal plans for each of the four scenarios in Table 1.
+The green phase time for each direction is divided by proportional to the traffic flow volume. The resulting
+fixed signal plans are shown in Table 3
+
+                                                 Table 3: Fixed signal plans for different scenarios
+
+        Secnario WE (second) NS (second) Cycle length (second)
+
+        Balanced       18               18                         36
+
+        Imbalanced     33               6                          39
+
+            Switch     28               28                         56
+
+        Hangzhou       16               25                         41
+
+4.5. Results
+
+    Figure 8 shows the reward function change during the training process of RL models for four different
+scenarios. Similar to previous DQN work (Mnih et al., 2015), the training process has fluctuations but
+the overall reward function keeps increasing, showing that the algorithm keeps learning better traffic light
+control strategies. It is worth noting that in the switching scenario, where one-directional traffic flows change
+between the first and second half of the simulation period, the strategy is relatively straightforward to learn
+(i.e., always green for the current direction). As a result, the reward function remains largely unchanged
+for the majority of the simulation time. However, at the switching point, when the old strategy needs to
+be reversed, the system experiences a significant drop in the reward function. Fortunately, the RL method
+quickly adapts and adjusts its strategies to accommodate the dynamic traffic conditions in real time (i.e.,
+changes the direction of the green light). This is evident from the prompt recovery of the reward function.
+
+                                    13
+These results demonstrate the capability of the RL approach to dynamically adapt its control strategies in
+response to changing traffic patterns, ensuring efficient traffic flow management.
+
+(a) Balanced      (b) Imbalanced
+
+(c) Switch        (d) Hangzhou
+
+            Figure 8: Reward function during the training process
+
+    The final results of all models and scenarios are summarized in Table 4, with four metrics selected
+for comparison: average waiting time of all vehicles, average travel time of all vehicles, average queue
+length of all lanes, and the reward. These metrics are aggregated over a 1-hour interval. The RL-based
+method consistently outperforms the fixed signal method across all conditions and metrics, with notable
+improvements observed, particularly in imbalanced and switch scenarios. This highlights the limitations of
+traditional static methods in effectively addressing unconventional traffic conditions. It is worth noting that
+the 0 wait time and queue length for "switch" traffic conditions are due to its one-directional traffic flows
+during a period of time, where the RL model is able to learn that and sets the corresponding traffic signal to
+be green for the directions with flows. The superiority of the RL approach demonstrates its ability to adapt
+
+              14
+and optimize traffic control strategies, leading to reduced waiting times, improved travel times, shorter queue
+lengths, and overall enhanced performance.
+
+                                                                 Table 4: Model results
+
+Models        Scenario          Performance metrics
+
+                          Wait time (sec) Travel time (sec) Queue length  Reward
+
+              Balanced    14.5  204.2  1.988                              -1.139
+                                200.5  1.383                              -0.822
+Fixed signal  Imbalanced  13.8  697.2  7.717                              -1.691
+                Switch    80.3  270.9  2.720                              -1.488
+
+              Hangzhou    22.6
+
+              Balanced 6.2 (-57.2%) 169.3 (-17.1%) 1.180 (-40.6%) -0.903 (+20.7%)
+
+RL            Imbalanced 1.5 (-89.1%) 162.6 (-18.9%) 0.472 (-65.9%) -0.426 (+48.2%)
+
+              Switch      0.0 (-100%) 222.9 (-68.0%) 0.000 (-100%) 0.721 (+142.6%)
+
+              Hangzhou 9.7 (-57.1%) 226.2 (-16.5%) 1.697 (-37.6%) -1.164 (+21.8%)
+
+The numbers in the parentheses represent percentage change compared to the fixed signal method
+
+5. Conclusion and Discussion
+
+    In this paper, we present an RL approach, specifically deep Q learning, to tackle the challenging problem
+of traffic light control. Our proposed method incorporates a comprehensive reward function that considers
+queue lengths, delays, travel time, and throughput, enabling an adaptive solution to varying traffic conditions.
+At each time step, the model intelligently determines whether to change the traffic light phase, allowing for
+a dynamic response to the evolving traffic environment.
+
+    The training process consists of two stages: offline and online. During offline training, we utilize pre-
+generated traffic flow data with fixed time schedules to establish a strong initial set of model parameters.
+This offline training phase provides a solid foundation for subsequent adaptive learning during the online
+training stage, where real-time traffic flow data is leveraged to continually refine the model's performance.
+
+    To effectively capture the dynamics associated with different traffic light phases, we employ a well-
+designed deep Q network structure featuring a unique "phase gate" component. This component ensures
+that the model focuses on the appropriate information for each specific phase, enhancing its decision-making
+capabilities. Furthermore, to address the issue of sample imbalance in the experience replay process of
+deep Q learning, we introduce a novel "memory palace" mechanism. This mechanism guarantees sufficient
+sampling of rarely encountered state-action combinations, thus improving the model's ability to accurately
+estimate Q values for all possible phase-action pairs.
+
+    To validate our approach, we conduct experiments using both synthetic and real-world traffic flow data,
+with a road intersection in Hangzhou, China serving as our case study. The results demonstrate that our
+proposed method outperforms traditional fixed signal plan traffic light control in terms of reducing vehicle
+waiting time (by 57.1%100%), queue lengths (by 40.9%100%), and total travel time (by 16.8%68.0%)
+in different traffic flow scenarios. Importantly, since our trained model can make real-time decisions, our
+approach has the potential to be implemented for real-world traffic control scenarios, leveraging up-to-date
+traffic flow information as input.
+
+    Future studies can be pursued in several directions to further advance the field of traffic light control.
+Two potential avenues for exploration include 1) Extending the model to the multi-intersection case: While
+
+                                                               15
+this paper focuses on a single intersection, it is crucial to acknowledge that real-world road networks are
+significantly more complex. Future studies could delve into the interactions between different intersections
+and explore the application of multiple RL agents for network-level control. By considering the collective
+behavior of multiple intersections, we can develop more comprehensive and efficient traffic control strategies
+that optimize the overall network performance. 2) Developing enhanced network structures for information
+extraction: The current Deep Q network employs a phase gate mechanism, allowing different components
+to specialize in specific conditions. However, future research can investigate the integration of multiple
+phases or conditions to further streamline the learning process. For instance, incorporating distinct network
+components dedicated to peak and off-peak traffic conditions could facilitate more accurate and efficient
+decision-making. By tailoring the network structure to specific traffic scenarios, we can enhance the model's
+adaptability and performance in varying traffic conditions. 3) Comparing the proposed approach with more
+benchmark models, such as simulation-based optimization method (Osorio and Nanduri, 2015; Mo et al.,
+2021, 2020) and other state-or-the-art RL methods.
+
+References
+
+Abdoos, M., Mozayani, N., Bazzan, A.L., 2013. Holonic multi-agent system for traffic signals control.
+   Engineering Applications of Artificial Intelligence 26, 1575­1587.
+
+Abdulhai, B., Pringle, R., Karakoulas, G.J., 2003. Reinforcement learning for true adaptive traffic signal
+   control. Journal of Transportation Engineering 129, 278­285.
+
+Al-Rawi, H.A., Ng, M.A., Yau, K.L.A., 2015. Application of reinforcement learning to routing in distributed
+   wireless networks: a review. Artificial Intelligence Review 43, 381­416.
+
+Arulkumaran, K., Deisenroth, M.P., Brundage, M., Bharath, A.A., 2017. Deep reinforcement learning: A
+   brief survey. IEEE Signal Processing Magazine 34, 26­38.
+
+Bakker, B., Whiteson, S., Kester, L., Groen, F.C., 2010. Traffic light control by multiagent reinforcement
+   learning systems. Springer.
+
+Chinese Ministry of Public Security, 2023. The number of motor vehicles in the country has reached 417
+   million, with more than 500 million drivers. https://www.gov.cn/xinwen/2023-01/11/content_
+   5736278.htm. Accessed: 2023-08-13.
+
+Cools, S.B., Gershenson, C., D'Hooghe, B., 2013. Self-organizing traffic lights: A realistic simulation.
+   Advances in applied self-organizing systems , 45­55.
+
+Dion, F., Rakha, H., Kang, Y.S., 2004. Comparison of delay estimates at under-saturated and over-saturated
+   pre-timed signalized intersections. Transportation Research Part B: Methodological 38, 99­122.
+
+El-Tantawy, S., Abdulhai, B., Abdelgawad, H., 2013. Multiagent reinforcement learning for integrated
+   network of adaptive traffic signal controllers (marlin-atsc): methodology and large-scale application on
+   downtown toronto. IEEE transactions on Intelligent transportation systems 14, 1140­1150.
+
+Federal Highway Administration Department of Transportation, 2022. Signal timing on a shoestring.
+   https://ops.fhwa.dot.gov/publications/signal_timing/03.htm. Accessed: 2023-05-20.
+
+Fu, Q., Han, Z., Chen, J., Lu, Y., Wu, H., Wang, Y., 2022. Applications of reinforcement learning for
+   building energy efficiency control: A review. Journal of Building Engineering 50, 104165.
+
+Gao, J., Shen, Y., Liu, J., Ito, M., Shiratori, N., 2017. Adaptive traffic signal control: Deep reinforcement
+   learning algorithm with experience replay and target network. arXiv preprint arXiv:1705.02755 .
+
+Genders, W., Razavi, S., 2016. Using a deep reinforcement learning agent for traffic signal control. arXiv
+   preprint arXiv:1611.01142 .
+
+                                                               16
+Hambly, B., Xu, R., Yang, H., 2023. Recent advances in reinforcement learning in finance. Mathematical
+   Finance 33, 437­503.
+
+Haydari, A., Yilmaz, Y., 2020. Deep reinforcement learning for intelligent transportation systems: A survey.
+   IEEE Transactions on Intelligent Transportation Systems 23, 11­32.
+
+Kuyer, L., Whiteson, S., Bakker, B., Vlassis, N., 2008. Multiagent reinforcement learning for urban
+   traffic control using coordination graphs, in: Machine Learning and Knowledge Discovery in Databases:
+   European Conference, ECML PKDD 2008, Antwerp, Belgium, September 15-19, 2008, Proceedings,
+   Part I 19, Springer. pp. 656­671.
+
+Li, L., Lv, Y., Wang, F.Y., 2016. Traffic signal timing via deep reinforcement learning. IEEE/CAA Journal
+   of Automatica Sinica 3, 247­254.
+
+Lopez, P.A., Behrisch, M., Bieker-Walz, L., Erdmann, J., Flo¨ttero¨d, Y.P., Hilbrich, R., Lu¨cken, L., Rummel, J.,
+   Wagner, P., Wießner, E., 2018. Microscopic traffic simulation using sumo, in: The 21st IEEE International
+   Conference on Intelligent Transportation Systems, IEEE. URL: https://elib.dlr.de/124092/.
+
+Mannion, P., Duggan, J., Howley, E., 2016. An experimental review of reinforcement learning algorithms
+   for adaptive traffic signal control. Autonomic road transport support systems , 47­66.
+
+Miller, A.J., 1963. Settings for fixed-cycle traffic signals. Journal of the Operational Research Society 14,
+   373­386.
+
+Mnih, V., Kavukcuoglu, K., Silver, D., Rusu, A.A., Veness, J., Bellemare, M.G., Graves, A., Riedmiller, M.,
+   Fidjeland, A.K., Ostrovski, G., et al., 2015. Human-level control through deep reinforcement learning.
+   nature 518, 529­533.
+
+Mo, B., Koutsopoulos, H.N., Shen, Z.J.M., Zhao, J., 2023a. Individual path recommendation under public
+   transit service disruptions considering behavior uncertainty. arXiv preprint arXiv:2301.00916 .
+
+Mo, B., Koutsopoulos, H.N., Shen, Z.J.M., Zhao, J., 2023b. Robust path recommendations during public
+   transit disruptions under demand uncertainty. Transportation Research Part B: Methodological 169,
+   82­107.
+
+Mo, B., Ma, Z., Koutsopoulos, H.N., Zhao, J., 2020. Capacity-constrained network performance model for
+   urban rail systems. Transportation Research Record 2674, 59­69.
+
+Mo, B., Ma, Z., Koutsopoulos, H.N., Zhao, J., 2021. Calibrating path choices and train capacities for
+   urban rail transit simulation models using smart card and train movement data. Journal of Advanced
+   Transportation 2021, 1­15.
+
+Mo, B., Ma, Z., Koutsopoulos, H.N., Zhao, J., 2023c. Ex post path choice estimation for urban rail systems
+   using smart card data: An aggregated time-space hypernetwork approach. Transportation Science 57,
+   313­335.
+
+Osorio, C., Nanduri, K., 2015. Urban transportation emissions mitigation: Coupling high-resolution ve-
+   hicular emissions and traffic models for traffic signal optimization. Transportation Research Part B:
+   Methodological 81, 520­538.
+
+Perera, A., Kamalaruban, P., 2021. Applications of reinforcement learning in energy systems. Renewable
+   and Sustainable Energy Reviews 137, 110618.
+
+Van der Pol, E., Oliehoek, F.A., 2016. Coordinated deep reinforcement learners for traffic light control.
+   Proceedings of learning, inference and control of multi-agent systems (at NIPS 2016) 8, 21­38.
+
+Porche, I., Lafortune, S., 1999. Adaptive look-ahead optimization of traffic signals. Journal of Intelligent
+   Transportation System 4, 209­254.
+
+Sutton, R.S., Barto, A.G., 2018. Reinforcement learning: An introduction. MIT press.
+
+                                                               17
+Szepesva´ri, C., 2010. Algorithms for reinforcement learning. Synthesis lectures on artificial intelligence
+   and machine learning 4, 1­103.
+
+Watkins, C.J., Dayan, P., 1992. Q-learning. Machine learning 8, 279­292.
+Webster, F.V., 1958. Traffic signal settings. Technical Report.
+Wei, H., Xu, N., Zhang, H., Zheng, G., Zang, X., Chen, C., Zhang, W., Zhu, Y., Xu, K., Li, Z., 2019a.
+
+   Colight: Learning network-level cooperation for traffic signal control, in: Proceedings of the 28th ACM
+   International Conference on Information and Knowledge Management, pp. 1913­1922.
+Wei, H., Zheng, G., Gayah, V., Li, Z., 2019b. A survey on traffic signal control methods. arXiv preprint
+   arXiv:1904.08117 .
+Wei, H., Zheng, G., Yao, H., Li, Z., 2018. Intellilight: A reinforcement learning approach for intelligent
+   traffic light control, in: Proceedings of the 24th ACM SIGKDD International Conference on Knowledge
+   Discovery & Data Mining, pp. 2496­2505.
+Wiering, M.A., et al., 2000. Multi-agent reinforcement learning for traffic light control, in: Machine
+   Learning: Proceedings of the Seventeenth International Conference (ICML'2000), pp. 1151­1158.
+Yan, Y., Chow, A.H., Ho, C.P., Kuo, Y.H., Wu, Q., Ying, C., 2022. Reinforcement learning for logistics
+   and supply chain management: Methodologies, state of the art, and future opportunities. Transportation
+   Research Part E: Logistics and Transportation Review 162, 102712.
+Zheng, G., Xiong, Y., Zang, X., Feng, J., Wei, H., Zhang, H., Li, Y., Xu, K., Li, Z., 2019. Learning
+   phase competition for traffic signal control, in: Proceedings of the 28th ACM International Conference on
+   Information and Knowledge Management, pp. 1963­1972.
+
+                                                               18
+

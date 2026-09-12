@@ -1,0 +1,1499 @@
+                                          A Novel Max Pressure Algorithm Based on Traffic Delay
+
+                                          Hao Liua,, Vikash V. Gayaha
+
+                                          aDepartment of Civil and Environmental Engineering, The Pennsylvania State University, University Park, PA, USA
+
+arXiv:2202.03290v3 [math.OC] 13 Oct 2022  ARTICLE INFO                          ABSTRACT
+
+                                          Keywords:                             This paper considers a novel travel-delay-based Max Pressure algorithm for control of arbitrary
+                                          Max pressure control                  transportation networks with signalized intersections. The traditional number-of-vehicle-based
+                                          Adaptive traffic signal optimization  Max Pressure (Original-MP) algorithm has received tremendous attention recently due to its
+                                          Decentralized                         ease of implementation and scalability to large network scenarios. The Original-MP algorithm
+                                          Connected vehicles                    also has a desirable property called maximum stability, which means a demand scenario can
+                                                                                be accommodated by this method as long as it can be accommodated by any existing control
+                                                                                policy. However, implementation of the Original-MP Max Pressure algorithm may be difficult
+                                                                                in practice as estimation of queue lengths at intersections requires significant measurement in-
+                                                                                frastructure. The Original-MP framework also uses a point queue model to represent the vehicle
+                                                                                transition between links, which does not consider the position of the vehicles, even though this
+                                                                                may significantly impact the control performance. In addition, intersection approaches with
+                                                                                low travel demand can incur arbitrarily large delays due to having short queues. The proposed
+                                                                                travel-delay based Max Pressure model overcomes these drawbacks while inheriting the max-
+                                                                                imum stability feature of the Original-MP. It also is shown to outperform several benchmark
+                                                                                Max Pressure variants in a battery of simulation tests. Lastly, the proposed algorithm can be
+                                                                                implemented in a Connected Vehicle (CV) environment, in which a subset of vehicles serve as
+                                                                                mobile probes. The results show the proposed travel-delay-based model generates lower delay
+                                                                                with non-full penetration rate than the benchmark models with full penetration rate under certain
+                                                                                traffic conditions.
+
+                                          1. Introduction
+
+                                              Traffic congestion has been a steadily growing problem for the urban network users and is expected to only worsen
+                                          over time if current trends continue (Jia, Lu, Wang, Zhang and Shen, 2015). Traffic signal control, which aims to
+                                          optimize traffic conditions by coordinating the conflict vehicle movements at signalized intersections, serves as a cost
+                                          effective strategy to alleviate congestion in urban networks. Although it has drawn a considerable amount of research
+                                          efforts, traffic signal control is a complex problem and there are still many questions that need to be answered. One
+                                          particularly challenging topic is the network-wide traffic signal control, which increases in difficultly due to the in-
+                                          terdependence between adjacent intersections within the network. However, centralized control methods that include
+                                          direct coordination between all network intersections are not scalable owing to the drastic increase in computational
+                                          burden with the size of the network.
+
+                                              To address the scalability issue, decentralized models have been proposed, which only require local traffic states
+                                          and optimize signal timing at each individual intersection separately. The Max pressure (MP) policy, also known as
+                                          backpressure policy, is one more recently decentralized model that has been investigated vastly since its proposal for
+                                          traffic signal control during the last decade. The MP policy was initially presented in (Tassiulas and Ephremides, 1990)
+                                          for the routing and scheduling of packet transmission in a wireless network. (Varaiya, 2013a) proposed an MP control
+                                          model in the context of a network of signalized intersections. This algorithm uses point queues to model the vehicle
+                                          evolution on a link and uses queue length, which is the number of vehicles in the point queues, at each intersection
+                                          approach to determine what signal phase to implement at that intersection. Specifically, the algorithm requires the
+                                          queue lengths in adjacent links and the turning ratios between links at the intersection. Using this information, the
+                                          weight for each potential movement is calculated as the difference between its own queue length and average queue
+                                          length in all downstream links. The phase with maximum pressure, which is equal to the sum of weights of the served
+                                          movements, is selected for implementation. In addition to decentralization, the favorable properties of this algorithm
+                                          are twofold: 1) no need for prior knowledge on demand; and, 2) maximization of throughput, i.e., the MP control
+                                          algorithm can accommodate any demand as long as there exists a control policy can accommodate it, which cannot
+
+                                                    hfl5376@psu.edu (H. Liu); vvg104@psu.edu (V.V. Gayah)
+                                                ORCID(s): 0000-0002-5319-9514 (H. Liu)
+
+                                          First Author et al.: Preprint submitted to Elsevier                                                              Page 1 of 23
+                                                              Short Title of the Article
+
+be ensured by some classical control algorithms such as SCATS (Sims, 1979), SCOOT (Robertson and Bretherton,
+1991), OPAC (Gartner, Pooran and Andrews, 2001), etc.
+
+    Despite these desirable properties, the MP algorithm has assumptions that deviate from real traffic network, which
+limits its applicability in practical. Thanks to its decentralization and simplicity, different MP variations (Levin, Hu
+and Odell, 2020; Le, Kovács, Walton, Vu, Andrew and Hoogendoorn, 2015; Xiao, Frazzoli, Li, Wang and Wang,
+2014; Gregoire, Qian, Frazzoli, De La Fortelle and Wongpiromsarn, 2014; Mercader, Uwayid and Haddad, 2020;
+Wu, Ghosal, Zhang and Chuah, 2017; Dixit, Nair, Chand and Levin, 2020) have been proposed to address certain
+limitations. However, none of these algorithms guarantee the optimization of certain metrics, such as delay, throughput,
+queue length, etc. The control performance in terms of such metrics highly depends on the selection of parameters
+used to calculate the weight and pressure. Most of the MP variants use queue lengths at the instant when signal is
+updated. However, since the vehicles are not distinguished by their moving status, i.e., the moving vehicles are treated
+the same as the stopped vehicles, which might result in poor performance under specific situations. In addition, even if
+it uses real queue length to address this issue, the difficulty of queue measurements may also limit the applicability of
+queue-based MP variants in practice. Instead, non-queue-based alternatives have been recently proposed. For example,
+(Mercader et al., 2020) proposed a travel time-based MP (TT-MP) algorithm that uses travel time along approach links
+to calculate each movement's pressure.
+
+    Minimization of delay, which is the additional travel time experienced by a driver compared to the `ideal' travel time
+at free flow and without obstructions, is one of the most commonly used objectives in traffic control problems.(Ji, Joo
+and Shroff, 2012) proposed a delay-based MP (D-MP) schedule scheme for wireless networks to address the excessive
+delay incurred by flows due to the lack of subsequent packet arrivals. To the best of our knowledge, only two delay-
+based MP (D-MP) algorithms (Wu et al., 2017; Dixit et al., 2020) for traffic signal control have been proposed in
+the literature. However, both models have shortcomings, which will be discussed later in Section 2, that may limit
+their practicability. This paper proposes a novel D-MP that can overcome these drawbacks. The proposed model is
+analytically proved to own the key property of the MP in (Varaiya, 2013a), i.e., maximum stability. In addition, the
+performance is explored through microscopic simulation, and the simulation results show that the proposed model
+outperforms three benchmark models in commonly studied metrics such as delay and throughput under various traffic
+conditions.
+
+    The rest of this paper is organized as follows. Section 2 reviews MP policies that have been proposed. Section 3
+briefly introduces the basic mechanism of a MP model and two benchmark models. Section 4 shows the development
+of the proposed D-MP and the proof of the maximum stability. The numerical case study results using SUMO are
+presented in Section 5, and we conclude in Section 6.
+
+2. Literature review
+
+    The MP algorithm was initially implemented in traffic signal control by (Varaiya, 2013a). It is referred to as
+Original-MP in the remainder of this paper. In the Original-MP model, traffic operation is modeled using point queue
+models and queue capacity is assumed to be infinite, i.e., vehicles are never blocked by downstream queue spillover.
+The pressure is defined only based on the difference in queue lengths between upstream and downstream links; note
+that this does not consider priorities according to the absolute queue lengths, which can be disadvantageous. For
+example, intuitively, it should be more beneficial to serve a movement with a long upstream queue even if it does not
+have the largest weight because this can reduce the risk of spillover. These are the major bottlenecks that limit its
+practicability in real traffic signal systems. Thanks to its decentralization and simplicity, different variations of MP
+have been proposed to address these drawbacks. Table 1 summarizes the MP variants in literature. (Xiao et al., 2014)
+proposed a so-called "pressure releasing policy" (PRP) to consider queue capacities, and it was proved that the stability
+is maintained with a reduction on the throughput region. In addition to the adjacent queue lengths at an intersection,
+the PRP also takes the ingress queues (queues in the entry links) into consideration for the definition of phase pressure.
+Instead using the absolute queue lengths, (Kouvelas et al., 2014; Wei, Chen, Zheng, Wu, Gayah, Xu and Li, 2019) used
+the ratio between the absolute queue length and the queue capacity as the pressure to consider the effect of link length.
+(Gregoire et al., 2014) proposed a new MP policy in which the queue length is normalized by a convex function of
+queue capacity. The study claims that new vehicles joining a queue can be more problematic as the queue grows. The
+strict convexity of the normalization is capable of increasing marginal pressure due to an additional vehicle with the
+rising of queue. The model was proved to be work conservative, which can reduce the probability of blocking. It was
+also shown that the capacity-aware max pressure model outperforms the Original-MP mainly under heavy traffic loads.
+
+First Author et al.: Preprint submitted to Elsevier  Page 2 of 23
+                                                     Short Title of the Article
+
+Table 1
+A summary of MP variants
+
+Study name                Pressure measure           Signal Update               Special feature/notes
+                          Instant queue length       Every time step             Infinite link capacity;
+Max            pressure                                                          maximum stability;
+                          Instant queue length       Every cycle                 not work conservative
+(Varaiya,      2013a;
+                          Instant queue length       Every time step             Finite link capacity;
+Lioris, Kurzhanskiy                                                              normalized queue length
+
+and Varaiya, 2016)                                                               Consider ingress queues in addition to
+                                                                                 the queues at the optimized intersec-
+Modified max pres-                                                               tion;
+                                                                                 able to handle downstream spillover;
+sure (Kouvelas, Lioris,                                                          maximum stability within a reduced
+                                                                                 region
+Fayazi and Varaiya,                                                              Maximum stability;
+                                                                                 fixed phase sequence;
+2014)                                                                            able to adjust the green time differ-
+                                                                                 ence
+Pressure releasing pol-                                                          Maximum stability;
+                                                                                 better fairness than Original-MP;
+icy (Xiao et al., 2014)                                                          works for isolated intersections
+                                                                                 weight depends on vehicle locations;
+MP with fixed cy- Instant queue length               Every cycle                 Work conservative;
+cle length (Le et al.,                                                           strong stability
+2015)                                                                            Normalized travel time;
+                                                                                 work conservative
+Delay-based MP (Wu Sojourn time of the Every time step
+                                                                                 Cycle length is upper bounded;
+et al., 2017)             Head-Of-Line vehicle                                   fixed phase sequence;
+                                                                                 rolling horizon scheme;
+Position weighted         Instant vehicle spatial    Every time step             maximum stability within a reduced
+backpressure (Li and      distribution               Every cycle                 region
+Jabari, 2019)                                        Every time step             Cycle length is fixed;
+Travel time based         Normalized average                                     fixed phase sequence
+MP (Mercader et al.,      travel time during a
+2020)                     cycle
+MP with maximum           Instant queue length
+cycle length (Levin
+et al., 2020)
+
+Delay-based    MP Travel delay                       Every cycle
+
+(Dixit et al., 2020)
+
+Although the queue capacity is considered, the work conservation is only valid for certain circumstances in terms of
+the spatial distribution of vehicles due to the use of point queue model. To address this issue, (Li and Jabari, 2019)
+proposed a position-weighted backpressure (PWBP) model that is able to capture the spatial distribution of vehicles
+and spill-back dynamics.
+
+    Signal updating frequency plays another important role on the control policy. In the Original-MP, pre-defined
+discrete time periods are used and the signal phase with the maximal pressure is activated at the beginning of every
+period. (Lioris et al., 2016) numerically tested the effect of five update frequencies on control performance in terms
+of sum of queue lengths in the network and found increased frequency of control updates leads to diminished network
+queues. However, these tests only considered a certain demand scenario and the time period selection was thus not
+comprehensive. In contrast, we will numerically show that there exists a threshold for the update frequency above
+which the control performance can be deteriorated. Under this updating fashion, the signal timing including both
+phase sequence and duration from this policy could be undesirable since the disorder of phases brings frustrations to
+drivers and the waiting time for the approach with small demand can be arbitrarily long. As an alternative, another
+type of policy was proposed, cycle-based MP algorithms (Le et al., 2015; Kouvelas et al., 2014), that allocates effective
+green time to each phase based on the ratios of pressures at the beginning of each cycle. However, the cycle length in
+all these models are fixed. (Levin et al., 2020) proposed a model with fixed phase sequence and maximal cycle length.
+
+First Author et al.: Preprint submitted to Elsevier                              Page 3 of 23
+                                                              Short Title of the Article
+
+The cycle lengths between intersections can be different, but the effect of this discrepancy on control performance is
+still open to answer.
+
+    All above models use queue lengths to calculate weight and pressure. However, as mentioned before, the queue
+length in the Original-MP is equal to the number of vehicles rather than the stopped vehicles. In addition, queue length
+might be more difficult than other metrics to be obtained, as argued in (Mercader et al., 2020). Instead, other measures
+might be more readily available via floating vehicles or mobile vehicle probes. For example, (Dixit et al., 2020)
+acquired high-quality real-time traffic delay at a cheaper cost compared to physical sensors, which are required for queue
+measurement. The delay data was used as the input of their model of which the feasibility has been demonstrated at real
+intersections. In addition, with the rapid development and popularization of the connected vehicle (CV) technology,
+metrics like travel time and delay can be estimated with an acceptable accuracy from the information sent from the CVs
+even in a relatively low penetration rate. However, an accurate estimation on queue length requires a high coverage rate
+of detectors or infrastructure, which is usually not available in reality. Even in a CV environment, although the queue
+length can be estimated given the penetration rate, the error could be considerable especially when the penetration
+rate is low. Therefore, it is necessary to explore the MP variants based on different metrics. Several variants proposed
+non-queue length metrics that can be used to calculate the pressure. (Mercader et al., 2020) proposed a travel time-
+based MP (TT-MP) that is inherently capacity-aware, meaning the marginal increase in travel time with a long queue
+is higher than a short queue. It was shown that the proposed model has a lower unstable probability than the queue
+based model in (Kouvelas et al., 2014). (Le et al., 2015) pointed out that one drawback of the Original-MP is that the
+delay of one movement with low travel demand can be arbitrarily large. Delay-based models can resolve this issue
+since the movement with the largest delay will be served right away. Moreover, delay is also inherently capacity-aware,
+i.e., the marginal delay increases with queue length. Therefore, compared to the Original-MP which only relies on the
+difference in queue lengths, delay-based models can reduce the risk of spillover. The reason is that delays increases
+faster as queue length grows. Therefore, the delay based MP tends to activate a phase with a long upstream queue even
+it does not own the largest queue length-based weight. In addition, traffic delay might be the mostly used metric to
+indicate traffic operational performance, so the delay-based MP is a promising topic to be studied. Very few delay-based
+MP variants exist in the literature. A delay-based MP using Head-Of-Line (HOL) delay information for pressure was
+proposed in (Wu et al., 2017) to ensure the fairness with respect to mean delay between different movements; however,
+the algorithm proposed in that study only works for isolate intersections. (Dixit et al., 2020) proposed a parsimonious
+cycle-based D-MP that uses delay information provided by crowdsourced data to calculate the optimal green time
+allocation. The main drawback of this model is that it can only relates long-term average queue lengths and delays, but
+it cannot describe the relationship between queue lengths and delay at an arbitrary time. As a result, this model cannot
+verify the stable region or prove the maximum stability property, which is one of biggest strengths of the MP algorithm.
+In addition, the performance of their model was not clear compared to other MP variants under the conditions with or
+without a full knowledge about the traffic state, e.g., a fully or partially connected vehicle environment. Overall, the
+study of delay-based MP variants is inadequate.
+
+    Triggered by all the motivation above, this paper proposes a novel delay-based MP (D-MP) that works for networks
+and inherits the maximum stability property. In our model, vehicles on a link are divided into two groups: moving
+vehicles and stopped vehicles. The traffic operation is modeled using a store-and-forward model, and total delay is
+defined as the sum of stopped time over all vehicles on a link. We demonstrated that the proposed model inherits
+the most desirable property of the Original-MP: maximum stability. In addition, the simulation results show the
+proposed model outperforms three benchmark MP variants (Original-MP, TT-MP and a version of the Original-MP
+that considers only stopped vehicles, termed the H-MP in this paper) under various traffic conditions. Moreover, we
+also studied the control performance of the proposed model in a connected vehicle (CV) environment. Before we
+move to the next section, we clarify and emphasize the terms for measurements used in this paper. Before moving to
+the next section, we need to clarify the definition of `queue' in this paper. Due to the usage of point queue models,
+the original-MP algorithm and some MP variants mentioned in this section use the term `queue' to represent the total
+number of vehicles. However, the proposed model in this paper divides vehicles into two groups: moving vehicles and
+stopped vehicles, so keeping this definition may lead to confusion. To avoid the confusion, in the remaining of this
+paper, `queue' is used to indicate the stopped vehicles (i.e,. those that have traveled through the link and have joined
+the queue at the signal), and `the number of vehicles' is used to represent the total vehicles.
+
+First Author et al.: Preprint submitted to Elsevier  Page 4 of 23
+                                                     Short Title of the Article
+
+3. Original-MP and total travel time-based MP models
+
+    In this section, we briefly introduce the Original-MP model proposed in (Varaiya, 2013a) and the TT-MP proposed
+in (Mercader et al., 2020) as the first two benchmark models in this paper. First, we define some terms that are used in
+the remainder of this paper. The directional road segment between two adjacent intersections is called a link. A pair
+of links ( , ) that vehicles are allowed to travel from link and by the signal setting is called a movement. The term
+of phase is used to indicate a set of movements that are served by the same signal duration. In general, the basic idea
+of a MP model is that to first calculate the weight of a movement as the difference of a selected metric, such as the
+number of vehicles, between this movement and the average value in its downstream movements. Then, the pressure
+of a phase is the sum of the weights over all movements served by this phase. Next, the phase with the maximum
+pressure is activated to allow flows with the highest overall pressure to proceed. Note that the time step for updating
+traffic signals, denoted by , and the time step for updating traffic dynamics can be different. For example, many MP
+models use free flow travel time on a link as the time step to update signal phases, but the time step for traffic simulation
+is usually shorter.
+
+    Let ( , ) denote the metric used to calculate the weight, ( , ) be the mean value of saturation flow of movement
+( , ), ( , ) indicate the turning ratio from link to , be the set of downstream links of link and represent
+the set of movements served by phase . The general forms of the weight of a movement ( , ) and the pressure of
+phase ( ) at time can be expressed as Equations (1) and (2),
+
+( , )( ) = ( , )( ) -    (,) (,)                                                                                 (1)
+
+                       
+
+                 ( , )( ) ( , )( )                                                                               (2)
+
+( )( ) =
+
+          ( , )
+
+Then, for each intersection, the MP algorithm selects the phase with the largest pressure to activate, shown as
+
+( ) = arg max ( )( )                                                                                             (3)
+
+    In the Original-MP, the traffic flow on a link is modeled using point queue model in which the lengths of both
+the link and queue are ignored and the queue capacity of a link is assumed to be infinite. The current number of
+vehicles at time is used in the weight calculation. As shown in Equations (1)-(3), the model requires the mean values
+of saturation flow of each movement and turning ratios at each intersection, both of which can be allowed to vary
+depending on traffic operation. The desirable properties of the Original-MP includes: it is a decentralized control
+framework so the solution can be obtained very fast; it does not require the knowledge about demand; it can serve all
+demand if the demand can be served by any signal plan, which is called maximum stability. The third property is the
+most important and will be explained in detail in the next section.
+
+    As is shown in Equation (1), the weight is a linear function of the number of vehicles. However, in reality, it might
+be more reasonable to activate a movement with more vehicles even if the corresponding phase does not have the largest
+weight to avoid queue spillover. To this end, (Mercader et al., 2020) proposed a cycle-based TT-MP in which the travel
+time in a cycle is used to define the weight. The authors show that the travel time is a convex function of maximum of
+queue length in a signal cycle, and this convexity ensures the marginal weight increases as the queue grows; thus, the
+proposed model gives more priority to congested links. Although TT-MP does not guarantee the maximum stability,
+the authors proved the model is work conservative, i.e., the active phase serves at least one vehicle unless there is
+no vehicle in the upstream links or all downstream links are blocked. Since the proposed model in this paper is time
+step-based, i.e., the signal timing is updated every time step, we use the time step-based TT-MP as another benchmark
+model, in which the total travel time incurred in time interval [( - 1) , ] is used to calculate the weight for th time
+step. Proposition 1 shows that total travel time in a period is equivalent to the average number of vehicles. Therefore,
+while Original-MP uses the number of vehicles at a point in time to define the weight and pressure, the essence of
+TT-MP is to employ the average value of the same metric. Unlike the instant number of vehicles which only provides
+the traffic state at a time point, total travel time conveys more detailed information during the whole time interval, and
+it is expected to lead better performance, which will be demonstrated in the case study.
+
+Proposition 1. Total travel time in a certain period is equivalent to the average number of vehicles.
+
+First Author et al.: Preprint submitted to Elsevier                              Page 5 of 23
+                                                              Short Title of the Article
+
+Proof. Without loss of generality, assume the time step for traffic operation is 1 second. Then, the total travel time in
+each time step is equal to the number of vehicles. Therefore, the total travel time in any period is equal/equivalent to
+the total/average number of vehicles.
+
+4. Proposed delay-based MP model
+
+    Since the Original-MP always activates the phase with the largest difference in the number of vehicles between the
+upstream and the downstream links, one drawback is that the delay of one movement with low travel demand can be
+arbitrarily large (Le et al., 2015). In addition, the minimization of traffic delay, which is the additional travel time above
+the travel time a vehicle would experience at free flow, is the most common objective in traffic signal control problems.
+To this end, we propose a delay-based MP (D-MP) model, in which total traffic delay incurred in [( - 1) , ] is used
+to define the weight in a MP algorithm. Note, although delay is used to compute the weights and pressure, it does not
+guarantee the minimization of delay. In fact, none of the proposed MP models in the literature ensures the optimization
+of any metric such as delay, throughput, etc. However, the proposed model is demonstrated to outperform both the
+Original-MP and TT-MP under various traffic conditions in the case study section. More importantly, the improvement
+in the control performance does not sacrifice the key merits of the original MP including: decentralization, no need
+for the knowledge of mean demand and the maximum stability property.
+
+    The notations used in the following are summarized in Table 2.
+
+4.1. Traffic evolution
+    As the same as Original-MP and TT-MP, the traffic operation is modeled using a store-and-forward model. The
+
+discharge of a point queue is expressed as
+
+( , )( + ) = min{ ( , )( + ) ( , )( ) , ( , )( )}    (4)
+
+Equation (4) shows the discharge in one time step is equal to the minimum of the number of vehicles that can discharge
+at saturation during a single time step and the number of vehicles on the link at the beginning of the time step. Conse-
+quently, although the travel time is not considered in a point queue, the reasonable time step size in traffic environment
+is restricted to be equal to the free flow travel time traversing the link, like in (Levin et al., 2020). If is longer than
+the free flow travel time , new incoming vehicles from the upstream link of link could potentially join the stopped
+vehicles and discharge in the same step, so the discharge is underestimated by the term of ( , )( ) in the bracket. On
+the other hand, if is shorter than , vehicles near the upstream end of link are not able to reach the stop line in the
+current step, so the term of ( , )( ) will overestimate the discharge.
+
+    To replace the number of vehicles with traffic delay, we categorized vehicles on a link as being either stopped
+vehicles or moving vehicles; see Figure 1 in which the open-end box at the downstream end of a link indicates the
+queue and the number inside is the number of stopped vehicles at time 0, blue vehicles are moving at step 0 and
+stopped at 0 + 1, and green vehicles are moving in both time steps. Furthermore, the following assumptions are made:
+
+    · Like the Original-MP, the queue capacity of each link is assumed to be infinite, i.e., the queue length is ignored,
+       as shown in Figure 1. This assumption ignores the impact of downstream traffic state on the discharge from
+       upstream links and allows the number of stopped vehicles to increase arbitrarily;
+
+    · At any time , there exists at most one group of stopped vehicles on a link and the group is at the stop line at the
+       intersection, as shown in Figure 1;
+
+    · Moving vehicles always travel at free flow speed before they join the stopped vehicles, i.e., moving vehicles do
+       not incur delay;
+
+    · The number of moving vehicles on a link is upper bounded by a constant. The reason is that a moving vehicle
+       will either join the stopped vehicles or leave the link within a constant time (free flow travel time on the link).
+       On the contrary, the number of stopped vehicles is allowed to rise infinitely. This assumption plays a key role in
+       the maximum stability, and we prove this assumption in Proposition 2.
+
+Next, we show the traffic flow models for both groups. Figure 1 provides the traffic evolution on an activated movement
+between two consecutive steps for three different scenarios and is used to help explain the models.
+
+First Author et al.: Preprint submitted to Elsevier  Page 6 of 23
+Table 2                                      Short Title of the Article
+Notations
+                              Definition
+              Notation                                    Sets
+
+                 ( , )( )     set of links
+                 ( , )( )     set of entry links
+                 ( , )( )     set of links except for internal links
+                              set of incoming links of link
+                ( , )( )      set of outgoing links of link
+                 ( , )( )     set of feasible demand
+                 ( , )( )     set of vehicles of movement (l,m) at time t
+                 , ( , )( )   set of stopped vehicles of movement (l,m) at time t
+                              set of moving vehicles of movement (l,m) at time t
+                    ( , )( )
+                   ( , )( )                           Parameters
+                              number of vehicles in movement (l,m) at time
+                 (, )         number of stopped vehicles in movement (l,m) at time
+                (, )          number of moving vehicles in movement (l,m) at time
+                              number of moving vehicles in movement (l,m) at time that join the
+                ( , )( )      stopped vehicles in the next step
+               (, )           time step size for signal updating
+               ( , )          number of discharged vehicles in movement (l,m) between [t, t+1]
+                ()            number of stopped vehicles that can be discharged in movement (l,m)
+                ( , )( )      between [t, t+1]
+                ( , )( )      turning ratio from link l to link m
+                ()            demand for movement (l,m) if 
+                ( , )( )      average traffic volume for link
+                ( , )( )      saturation flow for movement (l,m) at time
+                              mean of the saturation flow for movement (l,m)
+                  ()          maximum of the saturation flow for movement (l,m)
+                ( , )( )      travel distance for vehicle in the time step
+                              travel distance for movement (l,m) in the th time interval
+                              total travel time for movement (l,m) in the th time interval
+                ( , )( )      traffic delay for vehicle in the time step
+                ( , )( )      traffic delay for movement (l,m) in the time step
+                ()            traffic delay for movement (l,m) in the th time interval
+                              1 if phase at intersection is activated, 0 otherwise.
+                 ( , )( )     1 if phase serving movement (l,m) is activated, 0 otherwise.
+              1               free flow speed
+                              time step size for traffic operation
+              2               delay based weight of movement (l,m) at time
+                              number of vehicle-based weight of movement (l,m) at time
+                              pressure at intersection
+
+                                                       Functions
+                              distribution of vehicles in link (l,m) at time
+                              a function mapping the distribution of vehicles to the number of vehicles
+                              joining the stopped vehicles
+                              a function mapping the distribution of vehicles to the maximal number of
+                              departing vehicles
+
+The store-and-forward model for stopped vehicles can be expressed as,                     (5)
+          ( , )( + 1) = ( , )( ) + , ( , )( ) - ( , )( ),   ,                             (6)
+                                                                               Page 7 of 23
+where
+          , ( , )( ) = 1( ( , )( ))
+            ( , )( ) = min{ ( , )( + 1) ( , )( + 1), ( , )( ) + 1( ( , )( ))}
+
+First Author et al.: Preprint submitted to Elsevier
+                                                     Short Title of the Article
+
+   , ( , )( ) is the number of moving vehicles at that join the stopped vehicles at + 1; ( , )( ) is the number
+of stopped vehicles that discharge in the time step. ( , )( ) is a time-dependent variable indicating the distribution
+
+of vehicles in link ( , ) at time . 1 is a function mapping the distribution of vehicles to , ( , )( ), as shown by
+blue vehicles in Figure 1. Note given the assumption that moving vehicles always travel at free flow speed before they
+
+stopped, the form of 1(.) is only related to the free flow speed (although the form can be complex). For simplicity,
+we assume the free flow speed is a constant, so the form of 1(.) is time-invariant. This source does not only depend
+on the number of vehicles in both groups, it also depends on the distribution of the vehicles in the link. For example,
+
+the top and middle lanes have the same number of vehicles in each group, but two vehicles on the top lane will join
+
+the stopped vehicles, while only one vehicle will in the middle lane because other vehicles are too far away to join the
+
+stopped vehicles in the next step. In addition, since this function denotes the number of vehicles joining the stopped
+
+vehicles in one time step, we assume 1 is finite. ( , )( ) is equal to the minimum of the number of vehicles
+that can discharge at saturation during a time step and the number of stopped vehicles present. Note this term only
+
+counts the departed vehicles that have stopped before leaving the link. The total served vehicles can exceed this term
+
+if moving vehicles traverse the link without stops, as shown in the bottom lane in Figure 1, and that portion of outflow
+
+will be considered in the evolution of moving vehicles. Equation (7) shows the evolution of moving vehicles in an
+
+entry link,
+
+       ( , )( + 1) = ( , )( ) - , ( , )( ) - [ ( , )( ) - ( , )( )] + ( , )( + 1),   ,                              (7)
+
+where
+
+             ( , )( ) = min{ ( , )( + 1) ( , )( + 1), 2( ( , )( ))}
+
+      ( , )( ) is the total number of departed vehicles. 2 is a function mapping the vehicle distribution to the maxi-
+mum number of vehicles that can leave the link. Therefore, the difference in the square bracket indicates the number
+of moving vehicles that depart the link without stops. Since ( , )( ) is always upper bounded by ( , )( +
+1) ( , )( + 1), we do not need 2 to be finite. In Figure 1, this term is zero for the top and middle lanes, but it is
+equal to one for the bottom lane since one vehicle is able to leave the link without stopping. The last term is the demand
+for the entry link at time + 1.
+
+    Similarly, the moving vehicles for the internal links can be expressed as,
+
+       ( , )( + 1) = ( , )( ) - , ( , )( ) - [ ( , )( ) - ( , )( )]
+
+                             ( , )( ) ( , )( + 1),   ,                                                              (8)
+
+                      +
+
+                         
+
+The last term indicates for internal links, the source for the moving vehicles is the outflow from upstream links.
+
+Proposition 2. The number of moving vehicles on a link is upper bounded by a constant if a moving vehicle will either
+join the stopped vehicles or leave the link after a constant time (free flow travel time on the link).
+
+Proof. For concision, Equation (8) can be reformed as
+
+       ( , )( + 1) =     (,  )( ) -     -( ,                     ( , )( ) ( , )( + 1),   ,                          (9)
+                                              )( + 1) +
+
+                                                       
+
+where -( , )( + 1) is the number of moving vehicles that join the stopped vehicles or depart link ( , ), i.e., the sum
+of the second and the third terms in Equation (8). Then, for any 1 > 1, we have
+
+                                     1                   1
+
+       ( , )( + 1) =  (,                -( ,         )( + ) +    ( , )( +  - 1) ( , )( + ),   , (10)
+                             )( ) -
+
+                              =1                       =1 
+
+Since we assume the moving vehicles will join the stopped vehicles or leave the link after the free flow travel time (this
+could be realized by functions 1 and 2), , we have
+
+       -( , )( +             ( , )( - 1) ( , )( ),   , ,                                                            (11)
+                  )
+
+                         
+
+First Author et al.: Preprint submitted to Elsevier                                         Page 8 of 23
+                                                     Short Title of the Article
+
+                          upstream link                                                       downstream link
+
+                                                                                         4
+                                                                                         4
+                                                                                         1
+
+                                                                   (a)
+
+                                                                                         4
+                                                                                         3
+                                                                                         0
+
+                                                                   (b)
+
+                 : Vehicles moving in both current and next time step
+                 : Currently moving vehicles that will join the point queue in the next step
+        xs(t) : Point queue. xs(t) is the number of vehicles in the queue
+
+Figure 1: Evolution of traffic.
+
+Therefore, combining Equation (10) and Equation (11), for any 1 > , we have
+
+                                      1
+
+                                                        ( , )( +  - 1) ( , )( + ),   ,                         (12)
+        ( , )( 1) < ( , )(0) +
+
+                                      = 1- +1 
+
+From Equation (7), we know ( , )( +  - 1) ( , )( + ) is upper bounded by a constant (saturation flow).
+Therefore, ( , )( ) is upper bounded by a constant for any time as well.
+
+    This can be proved for the entry links in a similar way.
+
+    Note that the evolution of the aggregated number of vehicles, shown as Equation (13), is the same as the flow model
+in the Original-MP.
+
+        ( , )( ) = ( , )( ) + ( , )( )                                                                         (13)
+
+4.2. Delay based max pressure model
+    This section demonstrates the proposed delay-based control policy using the store-and-forward model. First, we
+
+claim that total delay in a time step is equivalent to the number of stopped vehicles.
+
+Proposition 3. Total travel delay generated on a link in a time step, ( , )( ), is equivalent to the number of stopped
+vehicles, ( , )( ).
+
+Proof.
+
+        ( , )( ) =                                      
+
+                                 ()=                 +
+
+                     ( , )( )          ( , )( )           ( , )( )                                             (14)
+
+                                                        
+
+        =                      ( - ( ) ) +              ( - (  ) )
+
+                     ( , )( )                         ( , )( )
+
+Since ( ) = 0,   ( , )( ),
+  ( , )( ) = ( , )( )
+
+First Author et al.: Preprint submitted to Elsevier                                                            Page 9 of 23
+                                                              Short Title of the Article
+
+    Therefore, total delay in time steps is equivalent to the sum of the number of stopped vehicles multiplied by the
+time step of traffic operation. Like the Original-MP, the proposed D-MP allocates green time to maximize the overall
+pressure at each intersection. The pressure of each phase is defined as the sum of saturation flow multiplied by the
+weight over all served movements, and the weight is the difference in traffic delay between the upstream link and the
+average value of its downstream links incurred in the previous time step. In detail, for movement ( , ), the weight is
+defined as
+
+                               ( , )( -     + ) -                   ( , )( -           + )         ( , )( )              (15)
+         ( , )( ) =
+
+                       =1                                       =1
+
+Next, the pressure of a phase at intersection is defined as
+
+                               ( , )( ) ( , )( )                                                                         (16)
+
+         ( )( ) =
+
+                      ( , )
+
+For any intersection , at time , the delay based MP selects the phase with the maximal pressure, i.e.,
+
+          = arg max ( )                                                                                                  (17)
+
+    Equations (15)-(17) are repeated every steps. Note that for each intersection, only the delay from adjacent links
+is needed, so this model is decentralized.
+
+4.3. Stability of the delay-based MP
+    The key property of the original MP is its maximum stability, also known as maximization of throughput. In
+
+general, this property means if there exists a signal control policy that can accommodate a demand, then the stable
+control can accommodate the demand. This section will prove that the proposed D-MP is a stable control method.
+
+Definition 1. A demand scenario { ( ),  } is feasible if there exists a control sequence ( ) that
+
+( , ) ( , ) > ( , ) ( , )                                                                                                (18)
+
+    where is the average volume for each link uniquely determined by the entry demand and turning ratios at
+each intersection, see (Varaiya, 2013a), and  denotes the time ratio that each movement is served by the signal in the
+
+long-run ,
+
+( , ) = lim inf 1  ( )( , )
+                      
+                               =1
+
+    Therefore, a demand scenario is feasible if there exists a signal control sequence from which the average service
+rate for all movements in the long-run is higher than the average arrival rate.
+
+Definition 2. A control sequence         ( ) is stable in the mean if the average number of vehicles in the network,  1                   [ (,
+
+                                                                                                                             =1 ( ,    )
+
+is finite for all .
+
+    It has been shown that stable control sequences exist if and only if the demand is feasible. The proof can be found
+in (Varaiya, 2013a). Next, we prove D-MP is stable.
+
+Theorem 4. The delay based MP (17) is stable if  .
+
+Proof. The stability of a control policy is established if the following inequality holds under the control policy
+
+         {| ( + )|2 - | ( )|2| ( )}  - | ( )|, = 0, , 2 , ...                                                            (19)
+
+where |   2  is  the  sum  of  squares  of  each  element  in  , i.e., |   2  =        ,  )  2( ,  );  <  and  > 0 are two constants.
+
+         |                                                                |         (
+
+The proof can be found in (Varaiya, 2013a), but it is repeated here to make the proof easier to follow.
+
+First Author et al.: Preprint submitted to Elsevier                                                            Page 10 of 23
+                                                         Short Title of the Article  gives
+Unconditioning the expectation and summing over time = 0, , 2 , ...,
+
+       | ( )|2 - | (0)|2                                                                                       (20)
+
+                                -          |(            )|
+
+                                       =1
+
+Then,
+
+       1  | ( )|  + 1 | (1)|2                                                                                  (21)
+
+       =1
+
+    Equation (21) indicates the average number of vehicle in the network through any time is upper bounded, so The-
+orem 4 is proved. Therefore, Equation (19) is the key for the proof, which is proved by the following steps.
+
+First, let = ( + ) - ( ) denote the change in the number of vehicles between signal changes. Then,
+
+       | ( + )|2 - | ( )|2 = 2 ( )     +|   2        =2  +                                                     (22)
+
+                                           |
+
+Next, we are going to prove both and are upper bounded.
+
+Lemma 5. is upper bounded by - | ( )| +                      , where > 0.
+
+Proof. By substituting Equations (5)-(8) into the expression of , it is proved in (Varaiya, 2013a) that
+
+                             ( , )( ) - {min( ( , )( ) ( , )( ) , ( , )( )| ( )}] ( , )( ) = 1 + 2 (23)
+       { | ( )} = [
+
+                 ,
+
+where
+
+       ( ,    )( ( )) = ( ,            ( , )( )          ( , )( )                                              (24)
+                             )( ) -
+
+                                
+
+is the weight from Original-MP, and
+
+                 ( , ) - ( , )( ) ( , )( )] ( , )( )                                                           (25)
+       1= [
+
+              ,
+
+                    )( )     -  {min(  (,  )( ) , ( ,        )( )| ( )}] ( ,  )( )   ( ,  )( )                 (26)
+       2= [ (,
+
+              ,
+
+    Note although Equations (25) and (26) share the same form with (Varaiya, 2013a), the relationship between
+  ( , )( ) and ( , ) differs. In (Varaiya, 2013a), ( , )( ) is the phase according to the number of vehicle-
+based weight ( , ). On the contrary, in our model, ( , )( ) is the phase according to delay-based weight (15)
+rather than ( , ), which distinguishes the following proof different from (Varaiya, 2013a). Next, we prove 2 is
+upper bounded.
+
+    It is straightforward that the term in the square bracket in Equation (26) is always positive, ( , )( ) is a 0-1
+function , and according to (24), ( , )( )  ( , )
+
+                    )( )     -  {min(  (,  )( ) , ( ,        )( )| ( )}] ( ,  )( ) ( ,    )( )
+       2 [ (,
+
+              ,
+
+In addition,
+
+                                                             =0                      if ( , )( )  ( , )( + 1)
+       ( , )( ) - {min( ( , )( ) , ( , )( )| ( )}   ( , )( ) otherwise
+
+First Author et al.: Preprint submitted to Elsevier                                                      Page 11 of 23
+                                                              Short Title of the Article
+
+    Therefore, 2  ( , )  ( , ) where ( , ) and  ( , ) are the mean and the upper bound of the saturation flow,
+respectively. Consequently, 2 is upper bounded by a constant.
+Next, we will prove 1 is upper bounded.
+Combining Equations (13), (24) and (25) provides
+
+                   ( , ) - ( , )( ) ( , )( )]                            ( , )( ) -      ( , )( ) ( , )( )
+1= [
+                                                                                     
+       ,
+
+                   ( , ) - ( , )( ) ( , )( )]                                                                 (27)
+       +[
+                                                                         ( , )( ) -      ( , )( ) ( , )( )
+
+           ,                                                                           
+
+= 11 + 12
+
+    As mentioned before, the number of moving vehicles at any time ( , )( ) is upper bounded by a constant, and
+
+     ( , ) - ( , )( ) ( , )( ) is also upper bounded by a constant, so 11 is upper bounded by a constant. Next, we
+will prove 12 is also upper bounded. First, we introduce ( , )( ), defined in Equation (15), into 12 by
+
+                                                                 -1      ( , )( - ) -  ( , )( - ) ( , )( - )
+12 = [
+              ( , ) - ( , )( ) ( , )( )]                                                          
+        ,
+                                                                 =0
+
+                                                                     -1
+
+              ( , ) - ( , )( ) ( , )( )]                                 ( , )( - ) -  ( , )( - ) ( , )( - )
+-[
+
+,                                                     =1                                                      (28)
+
+              ( , ) - ( , )( ) ( , )( )] ( )
+=[
+
+,
+
+                                                                 -1      ( , )( - ) -  ( , )( - ) ( , )( - )
+-[
+              ( , ) - ( , )( ) ( , )( )]                                                          
+    ,
+                                                                 =1
+
+Next, we prove the first term in (28) is upper bounded. Let
+
+=                  ( , )( ) - ( , )( ) ( , )( )] ( )                                                          (29)
+           [
+
+       ,
+
+Since  , there exist a signal control matrix +  ( ) and > 0 such that ( , ) +( , ) > ( , ) +
+    ( , ), where ( ) is the convex hull of all possible signal timing. Therefore, we can find 1  ( ) such that
+
+( , ) 1( , )( ) = 0,     ( , )( ) + , if ( , )( )  0                                                          (30)
+
+                                                     otherwise
+
+Since  maximizes the term of ( , )( ) ( , )( ) ( ),
+
+                   ( , ) - ( , )( ) 1( , )( )] ( )
+           [
+
+       ,
+
+                         (,  )( ) - ]                +( ,                                ( , )] -( , )( )     (31)
+= [ ( , )-                                                               )( ) + [
+
+       ,                                                                 ,
+
+-                  ( )|
+                |
+
+           ,
+
+where + = max{0, } and - = min{0, }. According to Equation (15), ( , )( ) is a linear function of
+
+{ ( , )( - + 1), ( , )( - + 2), ..., ( , )( )}, so there exists a constant 1 > 0 such that   , | ( )| 
+           ( )| where                                                                    + 2), ..., ( , )( )]. Similarly, according to
+1 , |                    ( ) = [ ( , )( -            + 1), ( , )( -
+
+(5) and the assumption that 1( ( , )( )) is upper bounded by a constant, ( - 1) can be expressed as the sum
+
+First Author et al.: Preprint submitted to Elsevier                                                         Page 12 of 23
+                                                     Short Title of the Article
+
+of ( ) and another term that is upper bounded by a constant. Therefore, there exists a constant 2 > 0 such that
+
+         ( )|           ( , )( ). Therefore,
+   , |
+                  2 ,
+
+      -                 ( , )( )  - 1 2              ( , )( )                                                             (32)
+
+               12
+
+                  ,                       ,
+
+    Next, based on Equation (32), we prove that the second term in Equation (28) is also upper bounded. According
+to Equation (5),
+
+( , )( - 1) =      ( , )( ) - 1( ( , )( )) + min{ ( , )( + 1) ( , )( + 1),                        (,  )( ) + 1(       (,  )( ))}
+                                                                                                                                 (33)
+                = ( , )( ) + ( , )( - 1)
+
+where ( , )( - 1) is finite since we assume 1( ( , )( )) is upper bounded by a constant. Similarly,
+
+        ( , )( - ) = ( , )( ) + ( , )( - ),  = 1, 2, ..., - 1                                                             (34)
+
+Then, replacing ( , )( - ) and ( , )( - ) in Equation (28) with (34) provides
+
+                                                                      -1                   -1
+
+12 =  -            ( , ) - ( , )( ) ( , )( )]                                (,  )(  -  )        ( , )( - ) ( , )( - )
+             [                                                                             -
+                                                                      =1                        
+         ,                                                                                  =1
+                                                                                                 ( , )( ) + ( , )( - )
+- 1 2                                                                                    -1
+                   ( , )( ) - [
+                                  ( , )( ) - ( , )( ) ( , )( )] 
+               ,        ,
+                                                                                         =1
+
+           -1      ( , )( ) ( , )( ) + ( , )( - )
+
+        
+      -
+
+          =1 
+
+                                                                                         -1                 
+                   ( , )( ) - [                                                                 ( , )( ) -            ( , )( ) ( , )( )
+=- 1 2                            ( , )( ) - ( , )( ) ( , )( )] 
+
+               ,        ,                                                                =1                 
+
+           -1  ( , )( - ) -  ( , )( - )
+
+                                        
+      +
+
+           =1
+
+                                                     ( , )( ) - ( , )( ) ( , )( )]                             
+                   ( , )( ) - ( - 1) [                                                            ( , )( ) -          ( , )( ) ( , )( )
+=- 1 2                                                                                                                           (35)
+                                                                                                                    
+               ,                  ,
+
+                                                                         -1  ( , )( - ) -  ( , )( - )
+      -[
+                  ( , )( ) - ( , )( ) ( , )( )]                                                       
+          ,
+                                                                         =1
+
+                   ( , )( ) - ( - 1) 12
+
+=- 1 2
+
+               ,
+
+                                                                         -1  ( , )( - ) -  ( , )( - )
+      -[
+                  ( , )( ) - ( , )( ) ( , )( )]                                                       
+          ,
+                                                                         =1
+
+By moving the second term to the left-hand side, we obtain
+
+        12  - 1 2       ( , )( )
+
+                     ,
+
+                                                                                 -1                                       (36)
+
+                        ( , )( ) - ( , )( ) ( , )( )]  ( , )( - ) -  ( , )( - )
+               -[
+
+                ,                                                             =1                
+
+First Author et al.: Preprint submitted to Elsevier                                                                   Page 13 of 23
+                                                     Short Title of the Article
+
+Since the second term on the right-hand side is finite, we obtain,
+
+12  - 1 2     ( , )( ) +                                                                                               (37)
+
+           ,
+
+Let = 1 2, Lemma 5 is proved.
+Lemma 6. is upper bounded by a constant.
+
+Proof. Based on the store-and-forward models (5)-(8), it can be easily seen that the difference in the number of two
+
+consecutive time steps is upper bounded by a constant. Therefore,   =|            2  is  upper  bounded  a  constant.  The detailed
+
+                                                                                 |
+
+proof for this Lemma can be found in (Varaiya, 2013a).
+
+Above all, Equation (19) is proved. Consequently, Theorem 4 is proved.
+
+5. Case study
+
+    In addition to Original-MP and TT-MP, one may question how the Original-MP performs if we replace the number
+of vehicles (as indicated by `queue' in the Original-MP) with the number of stopped vehicles (the real queue). To make
+the comparison comprehensive, we include such model in the following, and it is referred to as halting MP (H-MP).
+Since Original-MP and H-MP use instantaneous measures while the TT-MP and D-MP use average metrics over a
+time step, they are also collectively referred to as instantaneous-based model and average-based models, respectively.
+Therefore, this section investigates the control performance of four MP models: Original-MP, TT-MP, H-MP, and D-
+MP under various demand scenarios in the microsimulator SUMO (Lopez, Behrisch, Bieker-Walz, Erdmann, Flötteröd,
+Hilbrich, Lücken, Rummel, Wagner and Wießner, 2018). Before moving to the network settings, we first clarify how
+the used metrics are obtained from SUMO. For the Original-MP, the number of vehicles on a link at a time instant can
+be retrieved directly from SUMO; for H-MP, the number of halting vehicles, which are defined as the vehicles with
+speed lower than 0.1 m/s, at a time instant can be retrieved directly from SUMO; for TT-MP, we implement a time step
+of 1s in SUMO, so the total travel time in the th interval [(i-1)T,iT] is equal to the sum of number of vehicles on the
+link over all time steps in this interval; for D-MP, we previously assumed (for simplicity) that all moving vehicles are
+traveling at free flow speed. To be more realistic, we relax this assumption in the simulation, and the total delay in the
+th time step is defined as:
+
+( , )( ) = ( , )( ) - ( , )( )                                                                                         (38)
+
+where the travel distance ( , )( ) is equal to the sum of average speed multiplied by the number of vehicles over all
+time steps in the th interval.
+
+    We simulate a 4×4 grid network. Each link is assumed to have two lanes, one for the left turning movement and the
+other for a shared through and right turn movement. For simplicity and without lack of genearlity, the turning ratios
+are assumed to be the same at all intersections: 0.2 (left), 0.3 (right) and 0.5 (through). The demand is symmetric
+between the north-south and east-west entry links. The north-south entry links' demand is assumed to be twice that of
+the east-west entry links. Figure 2 shows the network configuration. Three scenarios with different degree of saturation
+were tested. Note that the saturation flow is not an input that can be defined by users in SUMO. Instead, it is determined
+by the vehicle parameters, lane parameters and car-following models. The max speed for all links is set to 20 m/s; the
+vehicle length is 5 m; the maximum acceleration is 20 m/s2; the maximum deceleration is 4.5 m/s2, and the default
+Krauss car-following model (Krauß, 1998) is used. To calibrate the saturation flow, we simulated a very high demand
+for a single movement at an isolated intersection and activated its phase for the length of the simulation. The hourly
+throughput under this setting revealed the associated saturation flow. Using this method, the saturation flows for both
+left turns and through/right turns are obtained to be 1,800 veh/h/lane.
+
+5.1. Time step size
+    Although the time step is equal to the free flow speed in the store-and-forward model, it cannot be proved to be
+
+optimal for any metric. A long time step may lose resolution and lead to poor performance. For example, it is known
+that shorter green time (and green time updates) are desirable when traffic volumes are low. Therefore, the free flow
+
+First Author et al.: Preprint submitted to Elsevier                                                         Page 14 of 23
+                                                     Short Title of the Article
+
+                                                                                          Link configuration
+                                                                                                0.2 0.5
+
+                     13           14                 15                          16                 0.3
+
+                         [.61, .77, .92] [.60, .74, .89] [.58, .73, .88] [.60, .75, .90]
+
+                                                                                          Signal configuration
+
+                     9            10                 11                          12       Phase 1:
+
+                         [.53, .67, .80] [.53, .66, .79] [.53, .66, .79] [.53, .67, .80]
+
+                                                                                          Phase 2:
+
+                     5            6                  7                           8
+
+                         [.53, .67, .80] [.53, .66, .79] [.53, .66, .79] [.53, .67, .80]
+
+                                                                                          Phase 3:
+
+                     1            2                  3                           4
+
+                         [.60, .75, .90] [.58, .73, .88] [.60, .74, .89] [.61, .77, .92] Phase 4:
+
+     Internal link:               Entry link:            Exit link:
+
+Figure 2: Network configuration.
+
+travel time might be too long under low traffic conditions. On the other hand, the saturation flow in Equations (4)-(8)
+is adjusted by the lost time, assumed to be 3s in this paper. This means when we calculate the pressure for the phase
+that is different from the previous step, the saturation flow is equal to -3 , where 0 is the real saturation flow.
+Therefore, if is too short, the pressure for these phases can be considerably underestimated and the algorithm barely
+switches the signal phase, which can lead to poor performance as well. Therefore, before going further, simulation
+runs were used to obtain the optimal time step for the proposed model under different scenarios. Three time-invariant
+demands were considered. The demands for north-south entry links were equal to 600 veh/h, 750 veh/h and 900 veh/h
+in these scenarios. Given the demand at the entry links and the turning ratios, the average flow for internal and exit
+links can be computed as,
+
+     =( -  )                                                                                                    (39)
+
+and
+
+     =  +  ( - )                                                                                                (40)
+
+where and represent the average flow vector for interval and exit links, respectively;  ,  , 
+and  are the turning matrices from internal links to internal links, from entry links to internal links, from entry
+links to exit links and from internal links to exit links, respectively. Details can be found in (Hao, Boel and Li, 2018;
+
+Varaiya, 2013b). After obtaining the average flow rate for each link, the degree of saturation for each intersection was
+
+First Author et al.: Preprint submitted to Elsevier                                                 Page 15 of 23
+                                                              Short Title of the Article
+
+calculated by summing the critical degree of saturation over all four phases. The three numbers in a bracket next to an
+intersection are the calculated degree of saturation in the low, medium and high demand scenarios, respectively.
+
+    For each scenario, ten runs with different random starting seeds were performed. Figure 3 shows the impact on
+time step size on three metrics: average delay per vehicle, average queue length per link and average throughput for
+D-MP. The average delay per vehicle was output by SUMO directly. For queue lengths, the average queue length was
+found using the actual queue length over all links at each 1s simulation time period and dividing by the simulation time
+in seconds and the number of links. The average throughput was equal to the total number vehicles exiting the network
+divided by the simulation time. The results in Figure 3 reveal that for low demand and medium demand scenarios,
+5s is optimal for all metrics. For the high demand scenario, 6s is optimal, but the difference from 5s is relatively
+small. Therefore, we chose 5s as the time step for the proposed model in the following. The corresponding results
+for Original-MP, H-MP and TT-MP are shown in Appendix A. The optimal time steps for Original-MP, H-MP and
+TT-MP are 9s, 5s and 9s, respectively. To have a fair comparison, we use the optimal time step for each models in the
+following comparison to ensure the best performance of each.
+
+5.2. Control comparison on time varying traffic conditions
+    Using the time steps obtained from the previous section, we implemented the four models on the same network
+
+under a more realistic traffic pattern. The total simulation time is 4 hours. Travel demand was assumed to be low (equal
+to the low demand in Section 5.1) in the first half hour and then increased continuously to reach the high demand (equal
+to the high demand in Section 5.1) during the course of one hour. Then, the demand is held constant for one hour and
+decreases back to the low level of the course of an hour. The demand for north-south entry links was kept to be
+twice that of east-west entry links. Figure 4 shows the demand pattern for both types of entry links. 10 runs with
+different random seeds were performed and the shaded area indicates the variability (using the standard deviation) in
+the simulation runs.
+
+5.2.1. Internal delay
+    Figure 5 shows the comparison of internal delay produced by the four models, which is defined as the average
+
+delay incurred by the vehicles already in the network. First of all, D-MP has the best performance in terms of to-
+tal delay, as shown by Figure 5b. Quantitatively, compared to Original-MP, TT-MP and H-MP, D-MP reduces de-
+lay by 19.12%/330.87 hours, 11.54%/182.54 hours and 3.95%/57.49 hours, respectively. Figure 5a shows that both
+instantaneous-based models perform slightly better than the average-based models when the traffic condition is low
+(before 50 minutes). As traffic demand increases, the average-based models outperform the instantaneous-based mod-
+els. After demand returns the low level (after 210 minutes), the average-based models mitigate delay significantly
+faster than the instantaneous-based models. Overall, Figure 5a demonstrates that the number of stopped vehicles is a
+better choice in terms of reducing traffic delay than the number of vehicles, and the average metric is beneficial for
+heavy traffic conditions. Figure 6 shows the number of vehicles in the network, which has a similar pattern with the
+delay shown in Figure 5a. This plot proves the average density in the network from D-MP is the lowest for majority of
+the simulation period; this results in higher average speeds and lower delays.
+
+5.2.2. Blocked vehicles
+    Figure 5 shows only the delay incurred by the vehicles already in the network, but it does not take into consideration
+
+vehicles blocked at the entry nodes. If a vehicle cannot be inserted at the predefined depart time due to queue spillover,
+it has to wait until there is enough space on the entry link. Does the lower density from D-MP imply fewer vehicles are
+able to enter the network? Figure 7a shows the comparison of the number of blocked vehicles. As mentioned earlier,
+we defined the stable region as the set of demand that can be accommodate by a model. Before = 70 min, demand is
+low and appears to be stable for all models. As demand increases, Original-MP is the first model that starts blocking
+vehicles from entering the network, which indicates it has the smallest stable region under this specific demand pattern.
+It also has the highest number of blocked vehicles during the whole simulation. On the contrary, D-MP has the largest
+stable region and least number of blocked vehicles. The evolution of average waiting time, which is defined as the
+mean time all vehicles up to now (not just the blocked vehicles) have to wait for being inserted to the simulation, is
+shown in Figure 7b. Similarly, D-MP has the lowest waiting time while Original-MP has the highest.
+
+    Unlike the internal delay shown in Figure 5, TT-MP performs better than H-MP in this metric, i.e., TT-MP blocks
+fewer vehicles than H-MP. Also, the percent difference in blocked vehicles between D-MP and H-MP is much more
+significant than the internal delay. The reason is that it is more reasonable to have relatively long green time and
+
+First Author et al.: Preprint submitted to Elsevier  Page 16 of 23
+                                                     Short Title of the Article
+
+(a) Average delay per vehicle.
+
+                                                     (b) Average queue length
+
+                                                                (c) Average throughput
+Figure 3: Effect of time step on control performance.
+
+reduce phase switches when demand is high so that the queues served by the activated phase can be cleared before
+the signal changes to the next phase. However, the instantaneous-based metric of the H-MP tends to switch the signal
+more frequently than what is optimal. In SUMO, a halting vehicle is defined as a vehicle with speed lower than 0.1
+m/s. After the phase serving the entry link is activated, all vehicles start accelerating and moving forward. In a very
+short time, these vehicles are not detected as halting vehicles as long as they speed up to 0.1 m/s, although their speed
+can still be low (and are practically stopped). In this case, H-MP changes phase too frequently so that more vehicles
+can be blocked. On the contrary, the average-based algorithm, D-MP, can overcome this drawback since it uses delay,
+
+First Author et al.: Preprint submitted to Elsevier                                     Page 17 of 23
+                                       1000              Short Title of the Article
+                                        900
+                                        800                                                               N-S links
+                                        700                                                               E-W links
+                                        600
+                       Demand (veh/h)   500
+                                        400
+                                        300              50          100Time (min) 150                                                     200          250
+                                        200 0
+
+Figure 4: Demand.
+
+        D-MP                                                                                                                    100000     D-MP
+600     Original-MP                                                                                                              80000     Original-MP
+        TT-MP                                                                                                                              TT-MP
+500Total delay in each minute (min)H-MP                                                                                                    H-MP
+                                                                                                  Cumulative total delay (min)
+400                                                                                                                             60000
+
+300                                                                                                                             40000
+
+200
+
+100                                                                                                                             20000
+
+0                                                                                                                               0
+
+     0             50  100 Time (min)150           200          250                                                                     0       50      100Time (min) 150     200  250
+
+                      (a) Delay incurred in each minute.                                                                                                (b) Cumulative delay
+Figure 5: Comparison of internal delay.
+
+                                                   D-MP
+                                                   Original-MP
+                                           800     TT-MP
+
+                                                   H-MP
+
+                       Number of vehicles  600
+
+                                           400
+
+                                           200
+
+                                           0
+
+                                                0        50          100Time (min1)50                                                      200          250
+
+Figure 6: Number of vehicles in the network
+
+which increases whenever the speed is lower than the speed limit. Therefore, if the activated phase has a low average
+speed and large number of vehicles at the end of the current step, it is likely to be activated for the next step as well
+in D-MP. Then, we calculated the average total delay, which is equal to the sum of average internal delay and average
+waiting time, for all models, as shown in Table 3. Overall, the average-based models have lower average delay than the
+
+First Author et al.: Preprint submitted to Elsevier                                                                                                                                Page 18 of 23
+                                                        Short Title of the Article
+
+       D-MP                                                                                                                     140     D-MP
+
+800    Original-MP                                                                                                              120     Original-MP
+       TT-MP                                                                                                                            TT-MP
+Current number of blocked vehiclesH-MP                                                                                                  H-MP
+                                                                                                      Average waiting time (s)  100
+600
+                                                                                                                                80
+
+400                                                                                                                             60
+
+200                                                                                                                             40
+
+                                                                                                                                20
+
+0                     50  100 Time (min)150  200        250                                                                     0    0        50     100Time (min) 150  200  250
+    0
+
+                       (a) Number of blocked vehicles.                                                                                               (b) Waiting time.
+Figure 7: Comparison of blocked vehicles.
+
+Table 3
+Delay comparison (s)
+
+                             Model           Internal   Waiting  Total                                                                  Total reduction (%)
+
+                              D-MP           136.73      48.11   184.84                                                                             -
+                              H-MP           142.32      83.33   225.65                                                                          18.08
+                          Original-MP        168.96     121.88   290.84                                                                          36.44
+                             TT-MP           154.52      58.21   212.73                                                                          13.11
+
+instantaneous-based models. Compared to the benchmark models, the proposed D-MP can reduce delay by 13.11%-
+36.44%.
+
+5.2.3. Inflow and throughput
+    Figure 8 shows the difference in the cumulative number of entered, exit vehicles through all enter and exit nodes
+
+between each model and the D-MP, which generally has the highest values. The vertical axis is the cumulative number
+of vehicles from a given model subtracted by the cumulative value obtained using the D-MP, so negative values indicate
+the cumulative inflows/outflows for the corresponding model are lower than D-MP. The reason why we show the
+difference instead of the cumulative number is that compared to the absolute cumulative number, the difference is very
+small, so it is hard to observe the difference in cumulative plots. The results reveal shows that both the entry flow
+and exit flow from D-MP are higher than all benchmark models, except for the H-MP under very low demand. Under
+this situation, H-MP has a slightly higher throughput than D-MP, but it becomes lower before the demand becomes
+unstable (around 80 mins), as shown in Figure 7a.
+
+    Overall, this section shows that under a realistic and typical traffic pattern, e.g., off-peak hours->peak hours->off-
+peak hours, the proposed D-MP outperforms all three benchmark models in the following ways. First, D-MP has
+the lowest density, internal delay and waiting time. Second, D-MP has the largest stable region, which implies when
+demand increases, D-MP accommodates more vehicles before there are vehicles blocked at the boundary than other
+models. Third, D-MP has the highest average inflow and throughput rate during the whole period.
+
+5.3. Performance in a connected vehicle environment
+    The results above are obtained based on full knowledge of the required metrics. However, in reality, the availability
+
+or accuracy of these metrics is subject to the availability of corresponding devices or estimation models. Normally,
+it is expensive or even impossible to equip all intersections with the measurement devices, which is a bottleneck for
+the implementation of these algorithms in the real world. Thanks to the development and increasing popularity of
+connected vehicles (CVs), we can expect that more types and more accurate real-time data can be obtained through
+the communication with CVs directly without the help of other equipment in the future. Therefore, we investigated the
+performance of the proposed model in a CV environment. Here, we assume a portion of the vehicles in the network
+are connected, that these CVs are randomly distributed in the network, and only the information from CVs can be
+
+First Author et al.: Preprint submitted to Elsevier                                                                                                                          Page 19 of 23
+                                                          Short Title of the Article
+
+  0                                                                                                                 0
+100
+Difference in entered vehicles                                                                                      100
+                                                                                     Difference in exit vehicles
+200                                                                                                                 200
+
+300                                                                                                                 300
+
+400                                                                                                                 400
+
+        D-MP                                                                                                                D-MP
+        Original-MP                                                                                                 500     Original-MP
+        TT-MP                                                                                                               TT-MP
+500     H-MP                                                                                                                H-MP
+                                                                                                                    600
+     0         50    10T0ime (min)150                200         250                                                     0        50     10T0ime (min)150    200         250
+
+                              (a) Entered vehicles.                                                                                      (b) Exit vehicles.
+Figure 8: Comparison of blocked vehicles.
+
+obtained. Then, we used the estimation based on the CVs data to control the signal according to the models. We use
+the same network and same demand scenario in Section 5.1 and tested the performance of the models under various
+CV penetration rates.
+
+200                                                       D-MP                                                      250                                           D-MP
+                                                          Original-MP                                                                                             Original-MP
+                                                          TT-MP                                                                                                   TT-MP
+175                                                       H-MP                                                      200                                           H-MP
+Average delay per vehicle (s)
+                                          Average delay per vehicle (s)150
+
+                                                                                     Average delay per vehicle (s)125150
+
+100                                                                                                                 100
+
+75
+
+50                                                                                                                  50
+
+25
+
+0 20 30 40 Pe5n0etrati6o0n rate 7(%0 ) 80 90 100                                                                    0 20 30 40 Pe5n0etrati6o0n rate 7(%0 ) 80 90 100
+
+                     (a) Low demand.                                                                                                  (b) Medium demand.
+
+                     350                                                                                                    D-MP
+
+                     300                                                                                                    Original-MP
+                                                                                                                            TT-MP
+                                                                                                                            H-MP
+                     250
+
+                     200
+
+                     150
+
+                     100
+
+                     50
+
+                     0 30                                 40     50 Pene6tr0ation ra7t0e (%) 80                             90 100
+
+                                                                    (c) High demand.
+Figure 9: Effect of penetration rate on control performance.
+
+    Figure 9 shows the average delay per vehicle from D-MP and all benchmark models with optimal time steps for
+each under various penetration rates of connected vehicles. The results with penetration rate equal to 10% are removed
+
+First Author et al.: Preprint submitted to Elsevier                                                                                                                      Page 20 of 23
+                                                              Short Title of the Article
+
+since both the average value and standard deviation are too large, which implies the control performance is poor under
+extremely low penetration rate. Note that the results with penetration rate equal to 20% under high demand condition
+are also removed since the standard deviation from Original-MP and TT-MP is too large. The dashed horizontal
+lines indicate the average delay from the benchmark models in a fully connected environment, i.e., penetration rate
+equals 100%. As expected, both the average delay and variation of delay from all models decrease with the rise
+in CV penetration rate. In addition, this effect is more significant when the penetration rate is low. For example,
+the change in delay when penetration rate rises from 20% to 30% is much larger than when it rises from 90% to
+100%. The results reveal that under low demand conditions, D-MP outperforms both Original-MP and TT-MP for
+all penetration rates. When the penetration rate exceeds 50%, D-MP prevails over Original-MP and H-MP in a fully
+connected environment. H-MP has lower delay than D-MP with all penetration rates under low demand conditions.
+However, D-MP eventually outperforms H-MP as demand increases. Under medium demand conditions, D-MP has
+lower delay when the penetration rate exceeds 60%, and the delay from D-MP when the penetration rate exceeds 80%
+is lower than H-MP in a fully connected environment. Under high demand conditions, this threshold decreases to 70%.
+For simplicity, we omitted the comparison of other metrics because they lead to a similar conclusion.
+
+6. Conclusion
+
+    This paper proposes a novel MP network-wide signal control algorithm, which uses the total travel delay in the
+previous time step to calculate weight for movements. With the development and ubiquitous of probing vehicles or
+mobile devices, real-time travel delay can be readily measured at a low cost, which makes the proposed model feasible
+in practical. Under the assumption of infinite queue capacity, the model is analytically proven to maximize the network
+throughput, which is the key property of the Original-MP (Varaiya, 2013a). The performance of the proposed variant
+is compared with other MP frameworks using the microscopic traffic simulation in SUMO. First, we showed that
+time step for decision-making plays a key role on the model performance and selected the optimal time steps for each
+model according to the simulation results. Then, we applied all the models to a typical time-varying traffic condition.
+Overall, the proposed model outperforms three benchmark models: Original-MP, TT-MP and H-MP which use the
+number of vehicles on a link, total travel time and number of stopped (halting) vehicles, respectively, as the metric to
+define weight and pressure, in average delay, blocked vehicles and network throughput, although H-MP has a slightly
+better performance than the proposed model in low traffic conditions. One benefit of the proposed delay-based model
+is that it can be implemented using measurements taken from a subset of vehicles. Thus, we explored the results if
+the required metrics for the models are not fully known by assuming a CV environment. The control performance
+of the proposed model was tested under different penetration rates. As expected, a higher penetration rate leads to a
+better control performance. We also studied the threshold of the penetration rate at which the proposed model is better
+than the benchmark models under a full CV environment. The threshold values are shown to be decreasing with the
+increasing in demand.
+
+    One shortcoming of the proposed model is that it activates phases in arbitrary orders with arbitrary durations (which
+have to the multiples of time step size). As is pointed out by (Levin et al., 2020), this arbitrary phase selection can
+be confusing to drivers and thus unacceptable for some city engineers. (Levin et al., 2020) addressed this issue, to
+some extent, by restricting the cycle length to be upper bounded by a pre-defined value and fixing the phase sequence.
+However, since the cycle length changes from cycle to cycle and from intersection to intersection, the signals are not
+coordinated. To this end, it is meaningful to develop a coordination strategy combining with the proposed D-MP
+to improve its practicability. In addition, this model only tackles the signal control inside a network. To develop a
+framework that combines the perimeter control at the boundary of a network and the proposed model for the inside
+signals is another interesting direction.
+
+Acknowledgement
+
+    This research was supported by NSF Grant CMMI-1749200.
+
+A. Time step selection for the benchmark models
+
+    Figure 10 to Figure 12 show the influence of time step size on three metrics: average delay per vehicle, average
+queue length per link and average throughput, of three benchmark models. Based on the results, we use 9s, 9s and 5s
+as the optimal time steps for Original-MP, TT-MP and H-MP, respectively.
+
+First Author et al.: Preprint submitted to Elsevier         Page 21 of 23
+                                                                                                                             Short Title of the Article
+
+                               1200 low_demand  medium_demand        high_demand                                               low_demand  medium_demand        high_demand                                        low_demand  medium_demand        high_demand
+                               1000                                                                                      100                                                                                 2.4
+                                800                                                   Average queue length per link (m)                                                                                      2.2
+Average delay per vehicle (s)   600                                                                                      80                                                      Average throughput (veh/s)  2.0
+                                400                                                                                                                                                                          1.8
+                                200                                                                                      60                                                                                  1.6
+
+                                                                                                                         40
+
+                                                                                                                         20
+
+                                    4  5        7 Time s9tep (s) 11  13           15                                         4  5          7 Time s9tep (s) 11  13           15                                   4  5         7 Time s9tep (s) 11  13           15
+
+                                       (a) Average delay.                                                                       (b) Average queue.                                                                   (c) Average throughput.
+
+Figure 10: Influence of time steps on Original-MP.
+
+                                    low_demand  medium_demand        high_demand                                             low_demand    medium_demand        high_demand                                       low_demand   medium_demand        high_demand
+
+                               800                                                    Average queue length per link (m)
+
+Average delay per vehicle (s)  700                                                                                       80                                                      Average throughput (veh/s)  2.4
+
+                               600                                                                                                                                                                           2.2
+
+                               500                                                                                       60
+
+                               400                                                                                       40                                                                                  2.0
+
+                               300
+
+                               200                                                                                       20                                                                                  1.8
+
+                               100                                                                                                                                                                           1.6 4
+
+                                    4  5        7 Time s9tep (s) 11  13           15                                         4  5          7 Time s9tep (s) 11  13           15                                      5         7 Time s9tep (s) 11  13           15
+
+                                       (a) Average delay.                                                                       (b) Average queue.                                                                   (c) Average throughput.
+
+Figure 11: Influence of time steps on TT-MP.
+
+                               450 low_demand   medium_demand        high_demand                                             low_demand    medium_demand        high_demand                                       low_demand   medium_demand        high_demand
+
+Average delay per vehicle (s)  400                                                    Average queue length per link (m)  70                                                                                  2.5
+
+                               350                                                                                       60                                                      Average throughput (veh/s)  2.4
+
+                               300                                                                                       50                                                                                  2.3
+
+                               250                                                                                       40                                                                                  2.2
+
+                               200                                                                                                                                                                           2.1
+
+                               150                                                                                       30                                                                                  2.0
+
+                               100                                                                                       20                                                                                  1.9
+
+                               50                                                                                        10                                                                                  1.8
+
+                                    4  5        7 Time s9tep (s) 11  13           15                                         4  5          7 Time s9tep (s) 11  13           15                              1.7 4   5         7 Time s9tep (s) 11  13           15
+
+                                       (a) Average delay.                                                                       (b) Average queue.                                                                   (c) Average throughput.
+
+Figure 12: Influence of time steps on H-MP.
+
+References
+
+Dixit, V., Nair, D.J., Chand, S., Levin, M.W., 2020. A simple crowdsourced delay-based traffic signal control. PLoS one 15, e0230598.
+Gartner, N.H., Pooran, F.J., Andrews, C.M., 2001. Implementation of the opac adaptive control strategy in a traffic signal network, in: ITSC 2001.
+
+   2001 IEEE Intelligent Transportation Systems. Proceedings (Cat. No. 01TH8585), IEEE. pp. 195­200.
+Gregoire, J., Qian, X., Frazzoli, E., De La Fortelle, A., Wongpiromsarn, T., 2014. Capacity-aware backpressure traffic signal control. IEEE
+
+   Transactions on Control of Network Systems 2, 164­173.
+Hao, Z., Boel, R., Li, Z., 2018. Model based urban traffic control, part i: Local model and local model predictive controllers. Transportation research
+
+   part C: emerging technologies 97, 61­81.
+Ji, B., Joo, C., Shroff, N.B., 2012. Delay-based back-pressure scheduling in multihop wireless networks. IEEE/ACM Transactions on Networking
+
+   21, 1539­1552.
+Jia, D., Lu, K., Wang, J., Zhang, X., Shen, X., 2015. A survey on platoon-based vehicular cyber-physical systems. IEEE communications surveys
+
+   & tutorials 18, 263­284.
+Kouvelas, A., Lioris, J., Fayazi, S.A., Varaiya, P., 2014. Maximum pressure controller for stabilizing queues in signalized arterial networks.
+
+   Transportation Research Record 2421, 133­141.
+Krauß, S., 1998. Microscopic modeling of traffic flow: Investigation of collision free vehicle dynamics .
+Le, T., Kovács, P., Walton, N., Vu, H.L., Andrew, L.L., Hoogendoorn, S.S., 2015. Decentralized signal control for urban road networks. Trans-
+
+   portation Research Part C: Emerging Technologies 58, 431­450.
+Levin, M.W., Hu, J., Odell, M., 2020. Max-pressure signal control with cyclical phase structure. Transportation Research Part C: Emerging
+
+   Technologies 120, 102828.
+Li, L., Jabari, S.E., 2019. Position weighted backpressure intersection control for urban networks. Transportation Research Part B: Methodological
+
+   128, 435­461.
+Lioris, J., Kurzhanskiy, A., Varaiya, P., 2016. Adaptive max pressure control of network of signalized intersections. IFAC-PapersOnLine 49, 19­24.
+
+First Author et al.: Preprint submitted to Elsevier                                                                                                                                                                                                 Page 22 of 23
+                                                              Short Title of the Article
+
+Lopez, P.A., Behrisch, M., Bieker-Walz, L., Erdmann, J., Flötteröd, Y.P., Hilbrich, R., Lücken, L., Rummel, J., Wagner, P., Wießner, E., 2018.
+   Microscopic traffic simulation using sumo, in: The 21st IEEE International Conference on Intelligent Transportation Systems, IEEE. URL:
+   https://elib.dlr.de/124092/.
+
+Mercader, P., Uwayid, W., Haddad, J., 2020. Max-pressure traffic controller based on travel times: An experimental analysis. Transportation
+   Research Part C: Emerging Technologies 110, 275­290.
+
+Robertson, D.I., Bretherton, R.D., 1991. Optimizing networks of traffic signals in real time-the scoot method. IEEE Transactions on vehicular
+   technology 40, 11­15.
+
+Sims, A.G., 1979. The sydney coordinated adaptive traffic system, in: Engineering Foundation Conference on Research Directions in Computer
+   Control of Urban Traffic Systems, 1979, Pacific Grove, California, USA.
+
+Tassiulas, L., Ephremides, A., 1990. Stability properties of constrained queueing systems and scheduling policies for maximum throughput in
+   multihop radio networks, in: 29th IEEE Conference on Decision and Control, IEEE. pp. 2130­2132.
+
+Varaiya, P., 2013a. Max pressure control of a network of signalized intersections. Transportation Research Part C: Emerging Technologies 36,
+   177­195.
+
+Varaiya, P., 2013b. The max-pressure controller for arbitrary networks of signalized intersections, in: Advances in Dynamic Network Modeling in
+   Complex Transportation Systems. Springer, pp. 27­66.
+
+Wei, H., Chen, C., Zheng, G., Wu, K., Gayah, V., Xu, K., Li, Z., 2019. Presslight: Learning max pressure control to coordinate traffic signals in
+   arterial network, in: Proceedings of the 25th ACM SIGKDD International Conference on Knowledge Discovery & Data Mining, pp. 1290­1298.
+
+Wu, J., Ghosal, D., Zhang, M., Chuah, C.N., 2017. Delay-based traffic signal control for throughput optimality and fairness at an isolated intersection.
+   IEEE Transactions on Vehicular Technology 67, 896­909.
+
+Xiao, N., Frazzoli, E., Li, Y., Wang, Y., Wang, D., 2014. Pressure releasing policy in traffic signal control with finite queue capacities, in: 53rd
+   IEEE Conference on Decision and Control, IEEE. pp. 6492­6497.
+
+First Author et al.: Preprint submitted to Elsevier  Page 23 of 23
+

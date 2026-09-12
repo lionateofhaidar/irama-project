@@ -1,0 +1,1058 @@
+                                       SKRIPSI
+IMPLEMENTASI PROGRAM AREA TRAFFIC CONTROL SYSTEM
+
+                         (ATCS) DI KOTA MAKASSAR
+                         INDRAH ANUGRAH WIJAYA
+
+                                     E011181320
+
+               PROGRAM STUDI ADMINISTRASI PUBLIK
+                   DEPARTEMEN ILMU ADMINISTRASI
+
+             FAKULTAS ILMU SOSIAL DAN ILMU POLITIK
+                         UNIVERSITAS HASANUDDIN
+                                     MAKASSAR
+                                          2023
+                 UNIVERSITAS HASANUDDIN
+                 FAKULTAS ILMU SOSIAL DAN ILMU POLITIK
+
+                                               ABSTRAK
+Indrah Anugrah Wijaya (E011181320), Implementasi Program Area Traffic
+Control System (ATCS) di Kota Makassar. xiv + 100 Halaman + 7 Gambar +
+1 Tabel + 26 Pustaka + Lampiran, dibawah bimbingan Prof. Dr. Badu
+Ahmad, M.Si dan Adnan Nasution, S.Sos, M.Si.
+
+       Area Traffic Control System (ATCS) merupakan suatu sistem pengendalian
+lalu lintas berbasis teknologi informasi pada suatu kawasan yang bertujuan untuk
+mengoptimalkan kinerja jaringan jalan melalui optimasi dan koordinasi
+pengaturan lampu lalu lintas di setiap persimpangan. Penelitian ini berfokus pada
+implementasi program Area Traffic Control System (ATCS) di Kota Makassar.
+
+       Penelitian ini menggunakan metode kualitatif yang bersifat deskriptif
+dimana jenis data terdiri dari data primer dan data sekunder yang di analisis
+menggunakan dua variabel implementasi menurut Grindle (1980) yaitu variabel
+isi kebijakan dengan indikator jenis manfaat yang dihasilkan, derajat perubahan
+yang diinginkan, letak pengambilan keputusan, sumber daya yang dikerahkan
+dan variabel lingkungan kebijakan dengan indikator kekuasaan, kepentingan,
+strategi aktor yang terlibat, karakteristik lembaga dan penguasa, kepatuhan dan
+daya tanggap.
+
+       Hasil penelitian ini menunjukkan bahwa implementasi program Area Traffic
+Control System (ATCS) di Kota Makassar kurang maksimal dilaksanakan. Hal ini
+dikarenakan terdapat kendala pada kondisi jaringan yang sering tidak stabil dan
+keterbatasan kekuasaan Dinas Perhubungan sebagai aktor pelaksana dalam
+melakukan pengelolaan pada ATCS.
+Kata Kunci: Implementasi, E-Government, Area Traffic Control System
+
+                                                                                                           ii
+                 UNIVERSITAS HASANUDDIN
+                 FAKULTAS ILMU SOSIAL DAN ILMU POLITIK
+
+                                              ABSTRACT
+Indrah Anugrah Wijaya (E011181320), Implementation of The Area Traffic
+Control System (ATCS) Program in The City of Makassar. xiv + 100 Pages +
+7 Pictures + 1 Tables + 26 Bibliography + Appendix, under the guidance
+Prof. Dr. Badu Ahmad, M.Si and Adnan Nasution, S.Sos, M.Si.
+
+       Area Traffic Control System (ATCS) is an information technology-based
+traffic control system in an area that aims to optimize road network performance
+through optimizing and coordinating traffic light settings at each intersection. This
+research focuses on the implementation of the area traffic control system
+program in the city of Makassar.
+
+       This study used a descriptive qualitative method where the type of data
+consisted of primary data and secondary data which were analyzed using two
+implementation variables according to Grindle (1980) namely content of policy
+variables with indicators of type of benefits, extent of change envisioned, site of
+decision making, resources committed and context of implementation variables
+with indicators of power, interests, and strategies of actors involved, institution
+and regime characteristics, compliance and responsiveness.
+
+       The results of this study indicate that the implementation of the area traffic
+control system program in the city of Makassar is still not optimally implemented.
+This is because there are constraints on network conditions which are often
+unstable and the limited power of Dinas Perhubungan as the implementing actor
+in managing the ATCS.
+Keywords: Implementation, E-Government, Area Traffic Control System.
+
+                                                                                                           iii
+iv
+v
+vi
+                                        KATA PENGANTAR
+
+Assalamu'alaikum warahmatullah wabarakatuh
+
+       Pertama segala puji dan syukur penulis haturkan atas kehadirat Allah SWT
+karena berkat rahmat, pertolongan dan ridhoNyalah pada akhirnya penulis dapat
+menyelesaikan penulisan skripsi dengan judul "Implementasi Program Area
+Traffic Control System (ATCS) di Kota Makassar" sebagai salah satu syarat
+untuk mencapai gelar Sarjana (S1) pada Jurusan Ilmu Administrasi Fakultas Ilmu
+Sosial dan Ilmu Politik Universitas Hasanuddin. Tidak lupa sholawat serta salam
+senantiasa penulis curahkan kepada baginda Nabi Muhammad SAW sebagai
+nabi yang telah membimbing umat manusia dari zaman kebodohan menuju
+zaman terang benderang seperti sekarang ini.
+
+       Dalam penyelesaian skripsi ini begitu banyak pihak yang telah memberikan
+dukungan dan menjadi penyemangat bagi penulis. Pada kesempatan ini penulis
+ingin menyampaikan ucapan terima kasih yang sebesar-besarnya kepada
+keluarga penulis terutama kepada ayah dan ibunda tercinta, Rusly dan Sri Bauti
+yang selalu memberikan dukungan baik moral maupun material kepada penulis,
+begitupun kepada kakak dan adik penulis, Sri Indah Pertiwi dan Ayu Syahrani
+Rusly yang menjadi motivasi penulis untuk dapat memberikan contoh yang baik
+sebagai saudara laki-laki.
+
+       Selain itu, selama menempuh pendidikan dan menyusun skripsi ini, penulis
+juga mendapatkan bantuan, motivasi dan bimbingan dari berbagai pihak, oleh
+karena itu pada kesempatan ini juga penulis ingin mengucapkan banyak terima
+kasih kepada:
+
+                                                                                                          vii
+1. Prof. Dr. Ir. Jamaluddin Jompa, M.Sc. selaku Rektor Universitas
+    Hasanuddin dan Para Wakil Rektor beserta staf.
+
+2. Prof. Dr. Phil. Sukri, M.Si. selaku Dekan Fakultas Ilmu Sosial dan Ilmu
+    Politik Universitas Hasanuddin beserta Wakil Dekan, staf dan jajarannya.
+
+3. Prof. Dr. Alwi, M.Si. selaku Ketua Departemen Ilmu Administrasi
+    Fakultas Ilmu Sosial dan Ilmu Politik Universitas Hasanuddin.
+
+4. Dr. Muh. Tang Abdullah, S.Sos, M.AP. selaku Sekretaris Departemen
+    Ilmu Administrasi Fakultas Ilmu Sosial dan Ilmu Politik Universitas
+    Hasanuddin.
+
+5. Prof. Dr. Badu Ahmad, M.Si. selaku Dosen Penasehat Akademik dan
+    Dosen Pembimbing I yang sejak awal perkuliahan selalu memberi
+    nasehat, motivasi, dan arahan untuk penulis dengan penuh kesabaran.
+
+6. Adnan Nasution, S.Sos, M.Si. selaku Dosen Pembimbing II yang
+    senantiasa membimbing, mengarahkan, dan memberi masukan terhadap
+    penulis meskipun di tengah kesibukannya, beliau senantiasa meluangkan
+    waktunya, sehingga penulis dapat menyelesaikan skripsi ini.
+
+7. Prof. Dr. Hamsinah, M.Si. selaku Dosen Penguji dalam Seminar
+    Proposal dan Ujian Skripsi. Sekali lagi terima kasih atas saran perbaikan
+    dan masukan yang telah diberikan selama penyusunan skripsi ini.
+
+8. Irma Ariyanti Arif, S.Sos., M.Si. selaku Dosen Penguji dalam Seminar
+    Proposal dan Ujian Skripsi. Sekali lagi terima kasih atas saran perbaikan
+    dan masukan yang telah diberikan selama penyusunan skripsi ini.
+
+9. Seluruh Dosen Departemen Ilmu Administrasi FISIP UNHAS atas
+    segala ilmu dan nasehat yang telah diberikan untuk penulis. Semoga ilmu
+    yang diberikan senantiasa bermanfaat dan berberkah bagi penulis.
+
+                                                                                                    viii
+10. Seluruh Staff Departemen Ilmu Administrasi FISIP UNHAS atas
+    pelayanan dan kenyamanan yang telah diberikan kepada penulis selama
+    menjalani studi.
+
+11. Seluruh staf Dinas Perhubungan Kota Makassar dan Balai Pengelola
+    Transportasi Darat (BPTD) wilayah XIX Provinsi Sulselbar yang telah
+    bersedia memberikan bantuan kepada penulis selama meneliti.
+
+12. HUMANIS FISIP UNHAS yang telah menjadi tempat belajar, berproses,
+    dan tempat penulis memperoleh begitu banyak pengalaman
+    berorganisasi dan cara beradaptasi dengan dunia luar. Serta telah
+    menjadi wadah penulis untuk mengembangkan potensi di kampus.
+
+13. Departemen Keilmuan dan Penalaran "Dekape Family" HUMANIS
+    FISIP UNHAS (Ahmad Farhan, Wahyuli Rahman, Siti Khadijah Amalia,
+    Yunita Talib, Andi Reski Apriani, Ahmad Dyandi Prilasandi, Riswal
+    Andika, Naylawati Bachtiar, dan Asriana) yang telah menjadi partner
+    handal dalam segala kondisi selama kepengurusan.
+
+14. UKM LDM Ibnu Khaldun FISIP UNHAS yang sejak awal perkuliahan
+    begitu sabar dan istiqomah dalam menebar kebaikan dan memberi
+    nasehat termasuk kepada penulis.
+
+15. Teman-teman LENTERA 2018, terima kasih atas kekompakan, suka
+    duka yang telah dilalui bersama, canda tawa yang telah mengisi hari-hari
+    penulis sejak awal pertemuan di kampus. Semoga rasa persaudaraan
+    dan kekeluargaan yang terjalin selama ini tetap berlanjut selamanya.
+    Sukses selalu untuk teman-teman kedepannya.
+
+16. Kawan-kawan RK (Aan, Abe, Amar, Amin, Andrian, Borju, Dien,
+    Erwin, Fadli, Farhan, Fendy, Firman, Hafiz, Hasan, Ino, Iqra, Jema,
+
+                                                                                                      ix
+         Kahfi, Rahmat, Reza, Ricky, Sandi, Sulfadli, Syahli, Syahrizal) terima
+         kasih atas kebersamaan, solidaritas dan humor-humor di luar nalar yang
+         menghibur penulis sejak awal perkuliahan. Sukses selalu untuk teman-
+         teman kedepannya.
+    17. Saudara Ahmad Farhan, Firman dan Wahyuli Rahman. Terima kasih
+         telah banyak membantu penulis mulai dari awal pencarian judul,
+         pengumpulan data dan saran-saran perbaikan dalam proses
+         penyelesaian skripsi ini. Sukses selalu untuk kalian semua.
+    18. Kepada semua pihak yang tidak dapat penulis sebutkan satu per satu.
+         Terima kasih atas bantuan dan doanya. Semoga segala yang diupayakan
+         demi kelancaran penulis dalam menyelesaikan skripsi ini, mendapat
+         balasan yang besar dari Allah SWT.
+         Penulis berharap semoga skripsi ini dapat bermanfaat bagi ilmu
+penmgetahuan dan terkhusus bagi para pembaca yang budiman. Mohon maaf
+atas segala kekurangan. Terima kasih.
+
+                                                                             Makassar, 14 Juni 2023
+
+                                                                                        Penulis
+
+                                                                                                            x
+                                              DAFTAR ISI
+
+HALAMAN SAMPUL
+ABSTRAK ..................................................................................................................ii
+ABSTRACT................................................................................................................iii
+LEMBAR PERNYATAAN KEASLIAN ......................................................................iv
+LEMBAR PERSETUJUAN SKRIPSI ........................................................................v
+LEMBAR PENGESAHAN SKRIPSI .........................................................................vi
+KATA PENGANTAR .................................................................................................vii
+DAFTAR ISI ...............................................................................................................ix
+DAFTAR GAMBAR ...................................................................................................xiii
+DAFTAR TABEL .......................................................................................................xiv
+BAB I PENDAHULUAN ............................................................................................1
+
+   I.1 Latar Belakang .................................................................................................1
+   I.2 Rumusan Masalah ...........................................................................................6
+   I.3 Tujuan Penelitian..............................................................................................6
+   I.4 Manfaat Penelitian............................................................................................6
+BAB II TINJAUAN PUSTAKA ..................................................................................7
+   II.1 Konsep Implementasi Kebijakan.....................................................................7
+
+       II.1.1 Pengertian Implementasi.........................................................................7
+       II.1.2 Implementasi Kebijakan/Program ...........................................................8
+       II.1.3 Unsur-Unsur Implementasi Kebijakan ....................................................10
+       II.1.4 Model-Model Implementasi Kebijakan Publik .........................................10
+   II.2 Konsep Program .............................................................................................17
+       II.2.1 Pengertian Program ................................................................................17
+   II.3 Konsep E-government ....................................................................................18
+       II.3.1 Pengertian E-government .......................................................................19
+       II.3.2 Manfaat E-government............................................................................20
+       II.3.3 Faktor-Faktor Yang Mempengaruhi Penerapan E-government .............21
+
+                                                                                                           xi
+   II.4 Konsep Area Traffic Control System (ATCS) .................................................24
+       II.4.1 Pengertian ATCS.....................................................................................25
+       II.4.2 Fungsi ATCS ...........................................................................................25
+       II.4.3 Tujuan ATCS ...........................................................................................26
+       II.4.4 Sistem ATCS ...........................................................................................26
+       II.4.5 SOP ATCS...............................................................................................27
+
+   II.5 Konsep Kerangka Pikir....................................................................................29
+BAB III METODE PENELITIAN ................................................................................31
+
+   III.1 Pendekatan Penelitian ...................................................................................31
+   III.2 Lokasi Penelitian ............................................................................................31
+   III.3 Tipe dan Dasar Penelitian..............................................................................31
+   III.4 Fokus Penelitian.............................................................................................32
+   III.5 Sumber Data ..................................................................................................33
+   III.6 Narasumber atau Informan ............................................................................34
+   III.7 Teknik Pengumpulan Data.............................................................................34
+   III.8 Teknik Analisis Data.......................................................................................35
+BAB IV GAMBARAN UMUM ....................................................................................36
+   IV.1 Gambaran Umum Kota Makassar.................................................................36
+   IV.2 Profil Dinas Perhubungan Kota Makassar ....................................................40
+BAB V HASIL PENELITIAN DAN PEMBAHASAN .................................................43
+   V.1 Isi Kebijakan (content of policy)......................................................................44
+   V.2 Lingkungan Kebijakan (context of implementation) .......................................61
+BAB VI PENUTUP.....................................................................................................76
+   VI.1 Kesimpulan ....................................................................................................76
+   VI.2 Saran..............................................................................................................76
+DAFTAR PUSTAKA ..................................................................................................78
+LAMPIRAN ................................................................................................................80
+
+                                                                                                          xii
+                                         DAFTAR GAMBAR
+Gambar 2.1 Kerangka Berpikir Model Implementasi Edward III .................................... 12
+Gambar 2.2 Kerangka Berpikir Model Implementasi Mazmanian dan Sabatier............ 14
+Gambar 2.3 Kerangka Berpikir Model Implementasi Van Meter dan Van Horn ............ 15
+Gambar 2.4 Kerangka Berpikir Model Implementasi Merilee S. Grindle ....................... 16
+Gambar 2.5 Konsep Kerangka Berpikir.......................................................................... 30
+Gambar 4.1 Peta Kota Makassar ................................................................................... 37
+Gambar 4.2 Diagram Jumlah Penduduk Tahun 2017-2021 .......................................... 39
+
+                                                                                                         xiii
+                                          DAFTAR TABEL
+Tabel 2.1 Mekanisme Pemantauan Dan Pengaturan Arus Lalu Lintas Melalui
+ATCS ............................................................................................................................... 28
+
+                                                                                                         xiv
+                                                  BAB I
+
+                                          PENDAHULUAN
+
+I.1 Latar Belakang
+       Implementasi merupakan bagian yang tidak terlepas dari sebuah kebijakan
+
+publik. Kebijakan publik yang telah dibuat atau diformulasikan oleh para pembuat
+kebijakan, selanjutnya akan di implementasikan agar tujuan dan sasaran
+kebijakan dapat tercapai. Menurut Hardiyansyah (2017) implementasi kebijakan
+dipandang dalam arti yang lebih luas merupakan suatu tindakan dari proses
+kebijakan publik yang dilakukan segera setelah undang-undang ditetapkan oleh
+lembaga yang berwenang, dan selanjutnya dilakukan oleh pemerintah, individu
+secara pribadi atau kelompok masyarakat untuk mencapai tujuan kebijakan.
+
+       Implementasi merupakan salah satu proses dalam kebijakan publik yang
+penting untuk dapat dilaksanakan dengan baik karena menjadi salah satu
+penentu keberhasilan suatu kebijakan publik. Menurut Mulyadi (2015) pemerintah
+mampu membuat banyak kebijakan yang baik, namun pada kenyataannya tidak
+berdampak apa-apa dalam kehidupan bernegara karena tidak dilaksanakan.
+
+       Proses pelaksanaan implementasi kebijakan dilakukan atau direalisasikan
+dengan membuat program-program yang nantinya akan diterapkan di
+masyarakat. Program-program tersebut dibuat agar dapat mendukung
+pencapaian tujuan dan sasaran dari kebijakan publik.
+
+       Pada zaman modern seperti sekarang ini, banyak kebijakan-kebijakan
+yang dikeluarkan oleh pemerintah berhubungan dengan pemanfaatan teknologi,
+informasi, dan komunikasi (TIK) dalam proses penyelenggaraan pemerintahan.
+
+                                                                                                           1
+Hal ini pun juga berdampak pada program-program pemerintah yang banyak
+menggunakan teknologi, informasi, dan komunikasi (TIK) dalam penerapannya.
+Banyaknya pemanfaatan teknologi digital dalam penyelenggaraan pemerintahan
+dikarenakan untuk mewujudkan efektivitas dan efisiensi dan juga merupakan
+usaha pemerintah dalam menerapkan sistem E-government sesuai dengan
+instruksi presiden no. 3 tahun 2003 tentang kebijakan strategi nasional
+pengembangan E-government.
+
+       Penerapan sistem E-government pada proses penyelenggaraan
+pemerintahan bertujuan untuk mewujudkan efektivitas dan efisiensi dalam
+meningkatkan kinerja pegawai pemerintah. Menurut Kase dalam Nugraha (2018)
+dengan E-government diharapkan dapat meningkatkan pelayanan publik,
+meningkatkan efektivitas internal organisasi pemerintah, dan memberikan
+kemudahan akses informasi terkait pemerintahan kepada masyarakat. Selain itu,
+penerapan E-government juga bertujuan untuk mengatasi persoalan-persoalan
+yang biasa terjadi di suatu pemerintahan.
+
+       Program Area Traffic Control System (ATCS) adalah salah satu program
+pemerintah yang memanfaatkan teknologi, informasi, dan komunikasi (TIK)
+dalam penerapannya. Program ini merupakan salah satu wujud dari
+implementasi sistem E-government pada sektor transportasi. Area Traffic Control
+System (ATCS) adalah sebuah sistem pengendalian lalu lintas yang telah
+berbasis teknologi informasi pada suatu kawasan yang memiliki tujuan untuk
+mengoptimalkan kinerja jaringan jalan raya melalui koordinasi dan optimasi
+pengaturan lampu lalu lintas di setiap persimpangan jalan. Program Area Traffic
+Control System (ATCS) juga merupakan salah satu usaha yang dilakukan oleh
+pemerintah dalam menangani permasalahan-permasalahan pada sektor
+
+                                                                                                           2
+transportasi seperti kemacetan di jalan raya dan pelanggaran lalu lintas
+khususnya pada daerah persimpangan jalan.
+
+       Penerapan program Area Traffic Control System (ATCS) telah diatur dalam
+undang-undang nomor 22 tahun 2009 pasal 245 tentang lalu lintas dan angkutan
+jalan bahwa setiap daerah provinsi dan kabupaten/kota perlu untuk
+menyelenggarakan sistem informasi dan komunikasi lalu lintas dan angkutan
+jalan untuk mendukung keamanan, keselamatan, ketertiban, dan kelancaran lalu
+lintas dan angkutan jalan. Program Area Traffic Control System (ATCS) telah
+diterapkan pada beberapa daerah di Indonesia, salah satunya yaitu di Kota
+Makassar.
+
+       Program Area Traffic Control System (ATCS) Kota Makassar merupakan
+program pengadaan dari Kementrian Perhubungan yang bekerja sama dengan
+Dinas Perhubungan Kota Makassar dalam menerapkan sistem ATCS di Kota
+Makassar. Program ini telah dilaksanakan sejak awal tahun 2019 hingga
+sekarang, saat ini Kota Makassar memiliki total 15 ATCS yang terpasang di
+beberapa kawasan persimpangan jalan yang ada di Kota Makassar. Penerapan
+program ATCS di Kota Makassar bertujuan untuk menanggulangi masalah
+kemacetan pada ruas-ruas jalan yang rawan terjadi kemacetan dan untuk
+mengurangi pelanggaran lalu lintas pada area traffic light (lampu merah) yang
+biasa dilanggar oleh pengguna jalan agar ketertiban dan kelancaran lalu lintas
+dapat terjaga dengan baik.
+
+       Keberhasilan implementasi program Area Traffic Control System (ATCS)
+dapat diketahui dengan terwujudnya kelancaran dan ketertiban lalu lintas pada
+area persimpangan jalan yang telah terpasang ATCS sesuai dengan manfaat
+
+                                                                                                           3
+yang diharapkan dari penerapan ATCS yaitu optimalisasi kinerja jaringan jalan.
+Namun, berdasarkan hasil pengamatan pada beberapa persimpangan jalan
+masih sering terjadi kemacetan dan banyak penggendara yang melanggar rambu
+lalu lintas tetapi tidak ada teguran dari Dinas Perhubungan melalui ATCS yang
+telah terpasang.
+
+       Berdasarkan penelitian yang pernah dilakukan oleh Zulfikar (2018)
+mengenai "Analisis Kinerja Dinas Perhubungan Dalam Pelaksanaan ATCS (Area
+Traffic Control System) Di Kota Makassar" pada tahun 2018 mengemukakan
+bahwa pelaksanaan ATCS di Kota Makassar oleh Dinas Perhubungan Kota
+Makassar tidak terlaksana dengan baik, dikarenakan terdapat faktor yang
+menjadi penghambat dalam pelaksanaan ATCS sehingga mengakibatkan tidak
+berjalan dengan baik. Pada penelitiannya A. Zulfikar menggunakan metode
+penelitian yaitu pendekatan deskriptif kualitatif dengan menggunakan teori
+indikator kinerja menurut Mahsun (2014) yaitu masukan (input), keluaran
+(output), proses (process), dan hasil (outcome).
+
+       Penelitian terdahulu yang telah dilakukan oleh Alam et al. (2021) mengenai
+"Implementasi Area Traffic Control System Dalam Konteks Kepatuhan Berlalu
+Lintas Di Kota Serang" mengemukakan bahwa implementasi Area Traffic Control
+System (ATCS) di Kota Serang yang dilaksanakan oleh Dinas Perhubungan
+Provinsi Banten belum berjalan dengan optimal. Pada penelitiannya Alam dkk
+menggunakan metode penelitian yaitu pendekatan kualitatif dengan metode
+deskriptif dan menggunakan model implementasi kebijakan Donald Van Meter
+dan Carl Van Horn.
+
+                                                                                                           4
+       Adapun penelitian yang telah dilakukan oleh Triani et al. (2021) mengenai
+"Evaluasi Program ATCS (Area Traffic Control System) Di Kota Bandung"
+mengemukakan bahwa evaluasi program ATCS (Area Traffic Control System) di
+Kota Bandung belum sepenuhnya dapat mencapai tujuan dari program
+dikarenakan masih terdapat permasalahan-permasalahan dalam
+pelaksanaannya. Pada penelitiannya Triani dkk menggunakan metode penelitian
+deskriptif kualitatif dan menggunakan model evaluasi dari Stufflebeam.
+
+       Berdasarkan beberapa penelitian terdahulu yang telah dibahas
+sebelumnya, dapat diketahui bahwa penerapan program ATCS masih belum
+optimal dilaksanakan dikarenakan masih terdapat kendala dalam proses
+pelaksanaannya.
+
+       Berdasarkan permasalahan yang telah dibahas sebelumnya, perlu kajian
+lebih mendalam untuk mengetahui tingkat keberhasilan implementasi program
+Area Traffic Control System (ATCS) di Kota Makassar, karena itu penulis
+berencana ingin mengambil judul penelitian skripsi "Implementasi Program Area
+Traffic Control System (ATCS) Di Kota Makassar".
+
+       Pada penelitian ini, penulis akan menggunakan teori model implementasi
+kebijakan dari Grindle untuk mendeskripsikan implementasi program Area Traffic
+Control System (ATCS) di Kota Makassar. Model ini digunakan karena
+penjelasannya yang komprehensif akan konteks kebijakan dan dapat membantu
+peneliti untuk menggambarkan implementasi program ATCS dan untuk
+mengetahui faktor pendukung dan penghambat dari penerapan program ATCS di
+Kota Makassar.
+
+                                                                                                           5
+I.2 Rumusan Masalah
+       Pada penelitian skripsi ini, rumusan masalah yang diambil yaitu bagaimana
+
+implementasi program Area Traffic Control System (ATCS) dalam mengadakan
+tertib pada lalu lintas di Kota Makassar.
+I.3 Tujuan
+
+       Penelitian skripsi ini bertujuan untuk mendeskripsikan implementasi
+program Area Traffic Control System (ATCS) di Kota Makassar.
+I.4 Manfaat Penelitian
+
+       Dengan penelitian ini, diharapkan dapat memberi manfaat bagi para
+pembaca baik secara akademis maupun praktis.
+a. Manfaat Akademis
+
+       Dengan penelitian ini, diharapkan dapat memberi wawasan dan
+pengetahuan baru bagi para pembaca mengenai implementasi program ATCS
+dalam mendukung tertib lalu lintas di kota Makassar dan dapat dijadikan sumber
+referensi bagi mahasiswa yang ingin meneliti terkait program ATCS.
+b. Manfaat Praktis
+
+       Dari hasil penelitian ini, diharapkan dapat dijadikan rekomendasi dalam
+mengevaluasi penerapan program ATCS oleh pemerintah di masa mendatang.
+
+                                                                                                           6
+                                                  BAB II
+
+                                       TINJAUAN PUSTAKA
+
+II.1 Konsep Implementasi Kebijakan
+II.1.1 Pengertian Implementasi
+
+       Berdasarkan Kamus Besar Bahasa Indonesia (2008:548) implementasi
+berarti pelaksanaan atau penerapan. Menurut Harsono dalam Londah et al.
+(2018), implementasi adalah suatu proses untuk melaksanakan kebijakan
+menjadi tindakan kebijakan dari politik ke dalam administrasi. Implementasi
+merupakan salah satu proses dalam kebijakan publik dimana hasil keputusan
+kebijakan yang telah diambil atau diputuskan oleh para pengambil keputusan
+akan ditindaklanjuti ke tahapan penerapan atau pelaksanaan kebijakan.
+
+       Menurut Grindle (1980) dalam bukunya "Politics And Policy Implementation
+In The Third World" menyatakan bahwa:
+
+       "Implementation to be a general process of administrative action that can
+       be investigated at the specific program level"
+       (implementasi merupakan proses umum tindakan administratif yang dapat
+       diteliti pada tingkat program tertentu).
+       Lebih lanjut Grindle menjelaskan bahwa:
+
+       "The general process of implementation thus can begin only when general
+       goals and objectives have been specified, when action programs have
+       been designed, and when funds have been allocated for the pursuit of the
+       goals"
+       (Proses implementasi baru akan dimulai apabila tujuan dan sasaran telah
+       ditetapkan, program kegiatan telah tersusun dan dana telah siap dan
+       disalurkan untuk mencapai sasaran).
+       Menurut Van Meter dan Van Horn dalam Subianto (2020) memberikan
+pengertian bahwa implementasi merupakan tindakan yang dilakukan, baik oleh
+individu/pejabat atau kelompok pemerintah atau swasta yang diarahkan untuk
+
+                                                                                                           7
+mencapai tujuan yang telah digariskan dalam keputusan kebijakan. Tindakan
+tersebut merupakan tindak lanjut dari kebijakan yang telah diputuskan bersama
+pihak-pihak terkait agar tujuan dan sasaran dari kebijakan yang dibuat dapat
+tercapai.
+
+       Menurut Abdul (2019) implementasi merupakan salah satu fase dari proses
+kebijakan publik yang menentukan berhasil atau tidaknya suatu kebijakan.
+Implementasi biasanya mulai dilaksanakan setelah suatu kebijakan dirumuskan,
+dibuat dan disahkan menjadi sebuah kebijakan dengan tujuan yang jelas.
+
+       Pramono (2020) berpendapat bahwa hakikat utama implementasi adalah
+pemahaman mengenai hal apa saja yang harus dilakukan setelah sebuah
+kebijakan diputuskan dan memiliki output dalam bentuk yang konkret seperti
+dokumen, gedung, jalan, manusia dan sebagainya. Adapun bentuk outcomenya
+adalah adanya rumusan target-target, tercapainya kesepahaman antara
+pemerintah dan masyarakat atau lembaga masyarakat dan sebagainya.
+
+II.1.2 Implementasi Program/Kebijakan
+       Menurut Thomas R. Dye dalam Widodo (2021) proses kebijakan publik
+
+meliputi identifikasi masalah kebijakan, penyusunan agenda, perumusan
+kebijakan, pengesahan kebijakan, implementasi kebijakan dan evaluasi
+kebijakan. Jadi dapat kita ketahui bahwa implementasi merupakan salah satu
+tahapan dari proses kebijakan publik yang penting untuk dilaksanakan dengan
+baik karena menjadi salah satu factor keberhasilan kebijakan publik. Menurut
+Edwards III (1980) berpendapat bahwa:
+
+       "without effective implementation the decision of policy makers will not be
+       carried out successfully"
+
+                                                                                                           8
+       (tanpa implementasi yang efektif keputusan dari para pengambil kebijakan
+       tidak akan terlaksana dengan baik)
+       Menurut Winarno dalam Suprapto & Malik (2019) implementasi kebijakan
+publik adalah sebuah alat dimana berbagai aktor, organisasi, prosedur, dan
+teknik bekerja bersama-sama untuk menjalankan kebijakan untuk mencapai
+tujuan yang diharapkan. Pada tahap implementasi kebijakan diperlukan
+kerjasama yang baik antara pihak-pihak terkait agar dapat mendukung
+pencapaian tujuan kebijakan.
+
+       Menurut Hardiyansyah (2017) implementasi kebijakan dipandang dalam
+arti yang luas sebagai suatu tindakan dari proses kebijakan yang dilakukan
+segera setelah undang-undang ditetapkan oleh lembaga yang berwenang, dan
+selanjutnya dilakukan oleh pemerintah, individu secara pribadi atau kelompok
+masyarakat untuk mencapai tujuan. Tindakan yang dilakukan dalam proses
+implementasi kebijakan harus dapat mengaitkan antara tujuan yang dirumuskan
+dan realisasi atau hasil yang telah atau akan dilakukan, agar ada sinkronisasi.
+
+       Menurut Ramdhani & Ramdhani (2017) pelaksanaan kebijakan merupakan
+kegiatan lanjutan dari proses perumusan dan penetapan kebijakan. Sehingga
+pelaksanaan kebijakan dapat dimaknai sebagai tindakan-tindakan yang
+dilakukan, baik oleh individu maupun kelompok pemerintah yang diorientasikan
+pada pencapaian tujuan-tujuan yang telah digariskan dalam keputusan
+kebijakan.
+
+       Menurut Tachjan dalam Natari et al., (2018) kata implementasi kebijakan
+publik dapat diartikan sebagai aktivitas penyelesaian atau pelaksanaan suatu
+kebijakan publik yang telah ditetapkan atau disetujui dengan penggunaan sarana
+(tools) untuk mencapai tujuan kebijakan. Implementasi suatu kebijakan publik
+
+                                                                                                           9
+perlu didukung dengan sarana yang berkualitas agar tujuan kebijakan dapat
+tercapai.
+
+       Menurut Mazmanian & Sabatier (1983) berpendapat mengenai
+implementasi kebijakan, bahwa:
+
+       "To understand what actually happens after a program is enacted or
+       formulated is the subject of policy implementation: those events and
+       activities that occur after the issuing of authoritative public policy directives.
+       Which include both the effort to administer and the substantive impacts on
+       people and events"
+       (Memahami apa yang senyatanya terjadi sesudah suatu program
+       diberlakukan atau dirumuskan, yakni peristiwa-peristiwa dan kegiatan-
+       kegiatan yang terjadi sesudah proses pengesahan kebijakan Negara, baik
+       itu menyangkut usaha-usaha mengadministrasikan maupun usaha-usaha
+       untuk memberikan dampak tertentu pada masyarakat maupun peristiwa-
+       peristiwa)
+       Pada tahap implementasi, para pelaksana kebijakan harus telah
+memahami apa saja kegiatan-kegiatan yang akan dilakukan yang dapat memberi
+dampak positif bagi masyarakat agar tujuan dan sasaran kebijakan dapat
+tercapai.
+
+II.1.3 Unsur-Unsur Implementasi Kebijakan
+       Menurut Tachjan dalam Anisa & Arifin (2021) unsur-unsur implementasi
+
+kebijakan yang mutlak harus ada yaitu:
+
+        1. Unsur pelaksana (implementator),
+        2. Adanya program yang akan dilaksanakan, dan
+        3. Target groups atau kelompok sasaran.
+
+II.1.3 Model-Model Implementasi Kebijakan Publik
+1. Teori George C. Edward III
+
+       Menurut Edwards III (1980), merumuskan empat faktor atau variabel yang
+menjadi syarat penting guna berhasilnya proses implementasi. Keempat faktor
+
+                                                                                                          10
+tersebut yaitu faktor komunikasi, sumber daya (resources), sikap birokrasi dan
+pelaksana serta struktur organisasi dan tata aliran kerja birokrasi pelaksana.
+a. Komunikasi
+
+       Komunikasi sangat penting, karena suatu program hanya dapat
+diimplementasikan dengan baik, jika jelas bagi pelaksana program. Hal ini
+berkaitan dengan proses pemberian atau penyampaian informasi, kejelasan
+informasi (clarity), dan konsentrasi informasi yang dikomunikasikan.
+b. Resources (Sumber Daya)
+
+       Mencakup empat komponen yaitu, staff yang cukup (kualitas dan
+kuantitas), informasi yang diperlukan untuk pengambilan keputusan, authority
+(kewenangan) guna melaksanakan tugas dan tanggung jawab serta fasilitas
+yang dibutuhkan dalam pelaksanaan.
+c. Disposisi
+
+       Disposisi adalah sikap dan komitmen dari para pelaksana terhadap
+program, terutama bagi mereka yang menjadi pelaksana, dalam hal ini yaitu
+aparatur birokrasi.
+d. Struktur Birokrasi
+
+       Yaitu terdapatnya suatu SOP (Standard Operating Procedures), tata aliran
+pekerjaan dan pelaksanaan program. Tanpa hal tersebut, pemecahan masalah
+bersifat ad hoc dan memerlukan penanganan dan penyelesaian khusus tanpa
+pola standar, sehingga sulit untuk mencapai hasil yang memuaskan.
+Fragmentasi yang sering terjadi dalam suatu organisasi harus dihindari dan
+diatasi dengan sistem koordinasi.
+
+                                                                                                          11
+          Gambar 2.1 Kerangka Berpikir Model Implementasi Edward III
+2. Model Mazmanian dan Sabatier
+
+       Menurut Mazmanian & Sabatier (1983) mengemukakan bahwa unsur
+penting dari analisis implementasi kebijakan adalah melakukan identifikasi
+variabel yang dapat mempengaruhi tercapainya tujuan formal pada keseluruhan
+proses implementasi. Variabel-variabel tersebut diklasifikasikan menjadi tiga
+kategori, yaitu:
+A. Mudah tidaknya permasalahan dikendalikan
+
+     Permasalahan teknis
+     Keragaman perilaku kelompok sasaran
+     Kelompok sasaran sebagai persentase dari populasi
+     Tingkat perubahan perilaku yang diperlukan
+B. Kemampuan kebijakan untuk menyusun proses implementasi
+     Tujuan yang jelas dan konsisten
+     Keterandalan teori kualitas yang akan digunakan
+
+                                                                                                          12
+     Ketepatan alokasi sumber-sumber dana
+     Keterpaduan hierarki di dalam lingkungan dan di antara lembaga
+
+         pelaksana
+     Aturan yang diputuskan dari badan-badan pelaksana
+     Rekrutmen pejabat pelaksana
+     Akses formal dari pihak-pihak luar
+C. Variabel-variabel di luar kebijakan (Non Statutory/Non Legal Variable) yang
+ikut mempengaruhi implementasi
+     Kondisi sosio-ekonomi dan teknologi
+     Dukungan publik
+     Sikap dan sumber-sumber yang dimiliki kelompok-kelompok masyarakat
+     Dukungan dari badan/lembaga atasan yang berwenang
+     Kesepakatan dan kemampuan kepemimpinan dari pejabat pelaksana
+
+                                                                                                          13
+ Gambar 2.2 Kerangka Berpikir Model Implementasi Mazmanian & Sabatier
+3. Model Van Meter dan Van Horn
+
+       Menurut Van Meter dan Van Horn dalam Kurniawan et al. (2018)
+mengandaikan bahwa implementasi kebijakan berjalan secara linear dari
+keputusan politik, pelaksana dan kinerja kebijakan publik. Model ini menjelaskan
+
+                                                                                                          14
+bahwa kinerja kebijakan dipengaruhi oleh beberapa variabel yang saling terkait,
+variabel-variabel tersebut yaitu:
+
+    1. Standar dan sasaran kebijakan/ukuran dan tujuan kebijakan
+    2. Sumber daya
+    3. Karakteristik organisasi pelaksana
+    4. Sikap para pelaksana
+    5. Komunikasi antar organisasi terkait dan kegiatan-kegiatan pelaksanaan
+    6. Lingkungan sosial, ekonomi dan politik
+
+Gambar 2.3 Kerangka Berpikir Model Implementasi Van Meter dan Van Horn
+4. Model Merilee S. Grindle
+
+       Keberhasilan implementasi menurut Grindle (1980) dipengaruhi oleh isi
+kebijakan (content of policy) dan lingkungan kebijakan (content of
+implementation). Ide dasarnya adalah bahwa setelah kebijakan
+ditransformasikan, barulah implementasi kebijakan dilakukan. Keberhasilannya
+ditentukan oleh derajat implementability dari kebijakan tersebut.
+Isi kebijakan tersebut mencakup hal-hal berikut:
+
+                                                                                                          15
+    1. Kepentingan yang terpengaruhi oleh kebijakan;
+    2. Jenis manfaat yang dihasilkan;
+    3. Derajat perubahan yang diinginkan;
+    4. Kedudukan pembuat kebijakan;
+    5. Siapa pelaksana program;
+    6. Sumber daya yang dikerahkan.
+Sedangkan lingkungan kebijakan (context of implementation) mencakup:
+    1. Kekuasaan, kepentingan dan strategi actor yang terlibat;
+    2. Karakteristik lembaga dan penguasa;
+    3. Kepatuhan dan daya tanggap.
+
+    Gambar 2.4 Kerangka Berpikir Model Implementasi Merilee S. Grindle
+                                                                                                          16
+5. Model Hogwood dan Gunn
+       Model ini dikenal dengan nama "top down approach". Menurut Hogwood
+
+dan Gunn dalam Subianto (2020), untuk mengimplementasikan kebijakan publik
+secara sempurna (Perfect Implementation), dibutuhkan beberapa persyaratan
+sebagai berikut:
+
+    1. Kondisi eksternal yang dihadapi oleh lembaga/badan pelaksana tidak
+         akan menimbulkan masalah yang serius.
+
+    2. Untuk melaksanakan program tersedia waktu dan sumber daya yang
+         cukup memadai
+
+    3. Perpaduan sumber-sumber yang diperlukan benar-benar ada.
+    4. Kebijakan yang akan diimplementasikan didasari hubungan kausal yang
+
+         andal.
+    5. Hubungan kausalitas bersifat langsung dan hanya sedikit mata rantai
+
+         penghubungnya.
+    6. Hubungan saling ketergantungan harus kecil.
+    7. Pemahaman yang mendalam dan kesepakatan terhadap tujuan.
+    8. Tugas-tugas telah dirinci dan ditempatkan dalam urutan yang benar.
+    9. Komunikasi dan koordinasi yang sempurna.
+    10. Pihak-pihak yang memiliki wewenang kekuasaan dapat menuntut dan
+
+         mendapatkan kepatuhan yang sempurna.
+
+II.2 Konsep Program
+II.2.1 Pengertian Program
+
+       Dalam mengimplementasikan suatu kebijakan yang telah dibuat atau
+diputuskan oleh para pengambil keputusan selanjutnya akan direalisasikan
+dengan membuat program-program agar tujuan dan sasaran dari kebijakan yang
+
+                                                                                                          17
+dibuat dapat tercapai. kebijakan yang telah diputuskan akan dilaksanakan oleh
+aktor pelaksana yang nantinya akan mengatur sumber daya yang akan
+dikerahkan.
+
+       Menurut Arikunto dan Jabar dalam Djuanda (2020) program merupakan
+realisasi atau implementasi dari suatu kebijakan dan didefinisikan sebagai suatu
+unit atau kesatuan kegiatan yang terjadi dalam suatu organisasi dan berlangsung
+dalam suatu proses yang berkesinambungan dan melibatkan sekelompok orang.
+
+       Menurut Halim dan Supomo (2001) dalam Hertanti et al. (2019) program
+merupakan kegiatan satu organisasi dalam jangka panjang dan taksiran jumlah
+sumber yang akan dialokasikan untuk setiap program, yang umumnya disusun
+sesuai dengan jenis atau kelompok produk yang dihasilkan.
+
+       Menurut Wirawan dalam Djuanda (2020) menyatakan program adalah
+kegiatan atau aktivitas yang dirancang untuk melaksanakan kebijakan dan
+dilaksanakan untuk waktu yang tidak terbatas. Kebijakan bersifat umum dan
+untuk merealisasikan kebijakan disusun berbagai jenis program. Program-
+program tersebut diadakan agar dapat mendukung pencapaian tujuan dari
+kebijakan.
+
+II.3 Konsep E-government
+       Pada zaman sekarang perkembangan teknologi telah semakin canggih dan
+
+modern dimana segala aktivitas manusia di berbagai sektor telah menggunakan
+dan memanfaatkan teknologi modern, hal ini dikarenakan adanya kemudahan
+pada pelaksanaan aktivitas dengan menggunakan teknologi modern. Seiring
+berjalannya waktu penggunaan teknologi modern mulai diterapkan pada sektor
+
+                                                                                                          18
+pemerintahan dengan munculnya konsep electronic government atau E-
+government.
+
+II.3.1 Pengertian E-government
+       Electronic government atau yang biasa disebut sebagai E-government
+
+merupakan suatu konsep baru dalam penyelenggaraan pemerintahan dengan
+memanfaatkan teknologi digital untuk meningkatkan mutu kinerja pegawai dan
+kualitas pelayanan yang diberikan kepada masyarakat.
+
+       Menurut Hole dalam Nugraha (2018) secara konseptual, sebenarnya
+konsep dasar e-government adalah bagaimana memberikan pelayanan secara
+elektronik (e-service), seperti melalui internet, jaringan telepon seluler dan
+komputer, serta multimedia.
+
+       Menurut Indrajit dalam Muliawaty & Hendryawan (2020) e-government
+merupakan penggunaan teknologi informasi oleh pemerintah yang
+memungkinkan pemerintah untuk mentransformasikan hubungan dengan
+masyarakat, dunia bisnis dan pihak yang berkepentingan, dan dalam praktiknya
+e-government adalah penggunaan internet untuk melaksanakan urusan
+pemerintah dan penyediaan pelayanan publik agar supaya lebih baik dan
+berorientasi pada pelayanan masyarakat. Dengan penerapan E-government
+pada proses penyelenggaraan pemerintahan akan memberikan kemudahan
+kepada pegawai pemerintah dalam melaksanakan tugasnya sehingga dapat
+mewujudkan efektivitas, efisiensi, dan transparansi dalam proses
+penyelenggaraan pemerintahan.
+
+       Menurut Hartono dalam Nugraha (2018) E-government merupakan suatu
+proses sistem pemerintahan dengan memanfaatkan ICT (Information,
+
+                                                                                                          19
+Communication and Technology) sebagai alat untuk memberikan kemudahan
+proses komunikasi dan transaksi kepada warga masyarakat, organisasi bisnis
+dan lembaga pemerintah serta stafnya. Sehingga dapat dicapai efisiensi,
+efektivitas, transparansi dan pertanggungjawaban pemerintah kepada warganya.
+
+       E-government merupakan suatu upaya inovasi yang dilakukan oleh
+pemerintah dalam proses penyelenggaraan Negara dengan memanfaatkan
+teknologi informasi dan komunikasi agar dapat mewujudkan pemerintahan yang
+lebih efisien, effektif, dan transparan sehingga dapat memberikan fasilitas
+layanan yang lebih nyaman dan akuntabel kepada warga masyarakat.
+II.3.2 Manfaat E-government
+
+       Konsep E-government telah banyak diterapkan oleh Negara-negara di
+dunia dikarenakan banyaknya dampak positif atau manfaat yang dirasakan
+dalam proses penyelenggaraan pemerintahan. Menurut Al Gore dan Tony Blair
+dalam Indrajit (2006) dalam Lestari (2021), telah secara jelas dan terperinci
+menggambarkan manfaat yang diperoleh dengan diterapkannya konsep E-
+government bagi suatu negara, antara lain:
+
+     Memperbaiki kualitas pelayanan pemerintah kepada para stakeholder-nya
+         (masyarakat, kalangan bisnis, dan industri) terutama dalam hal kinerja
+         efektivitas dan efisiensi di berbagai bidang kehidupan bernegara.
+
+     Meningkatkan transparansi, kontrol, dan akuntabilitas penyelenggaraan
+         pemerintahan dalam rangka penerapan konsep Good Corporate
+         Governance.
+
+                                                                                                          20
+     Mengurangi secara signifikan total biaya administrasi, relasi, dan interaksi
+         yang dikeluarkan pemerintah maupun stakeholdernya untuk keperluan
+         aktivitas sehari-hari.
+
+     Memberikan peluang bagi pemerintah untuk mendapatkan sumber-
+         sumber pendapatan baru melalui interaksinya dengan pihak-pihak yang
+         berkepentingan; dan
+
+     Menciptakan suatu lingkungan masyarakat baru yang dapat secara cepat
+         dan tepat menjawab berbagai permasalahan yang dihadapi sejalan
+         dengan berbagai perubahan global dan trend yang ada; serta
+
+     Memberdayakan masyarakat dan pihak-pihak lain sebagai mitra
+         pemerintah dalam proses pengambilan berbagai kebijakan publik secara
+         merata dan demokratis.
+
+II.3.3 Faktor-Faktor yang Mempengaruhi Penerapan E-government
+       Menurut hasil kajian dan riset dari Harvard JFK School of Government
+
+dalam Indrajit (2006) dalam Nugraha (2018) untuk menerapkan konsep-konsep
+digitalisasi pada sektor publik, ada tiga elemen sukses yang harus dimiliki dan
+diperhatikan sungguh-sungguh, yaitu Support, Capacity, dan Value.
+
+1. Support
+       Elemen pertama dan paling krusial yang harus dimiliki oleh pemerintah
+
+adalah keinginan (intent) dari berbagai kalangan pejabat publik dan politik untuk
+benar-benar menerapkan konsep E-government, bukan hanya sekedar mengikuti
+trend atau justru menentang inisiatif yang berkaitan dengan prinsip-prinsip E-
+government. Yang dimaksud dengan dukungan disini juga bukanlah hanya pada
+omongan semata, namun lebih jauh lagi dukungan yang diharapkan adalah
+dalam bentuk hal-hal sebagai berikut:
+
+                                                                                                          21
+     Disepakatinya kerangka E-government sebagai salah satu kunci sukses
+         Negara dalam mencapai visi dan misi bangsanya, sehingga harus
+         diberikan prioritas tinggi sebagaimana kunci-kunci sukses lain
+         diperlakukan.
+
+     Dialokasikannya sejumlah sumber daya (manusia, finansial, tenaga,
+         waktu, informasi, dan lain-lain) di setiap tataran pemerintahan untuk
+         membangun konsep ini dengan semangat lintas sektoral.
+
+     Dibangunnya berbagai infrastruktur dan superstruktur pendukung agar
+         tercipta lingkungan kondusif untuk mengembangkan E-government
+         (seperti adanya Undang-Undang dan Peraturan Pemerintah yang jelas,
+         ditugaskannya lembaga-lembaga khusus ­ misalnya kantor e-Envoy ­
+         sebagai penanggung jawab utama, disusunnya aturan main kerja sama
+         dengan swasta, dan lain sebagainya).
+
+     Disosialisasikannya konsep E-government secara merata, kontinyu,
+         konsisten, dan menyeluruh kepada seluruh kalangan birokrat secara
+         khusus dan masyarakat secara umum melalui berbagai cara kampanye
+         yang simpatik.
+
+2. Capacity
+       Yang dimaksud dengan elemen kedua ini adalah adanya unsur
+
+kemampuan atau keberdayaan dari pemerintah setempat dalam mewujudkan
+"impian" E-government terkait menjadi kenyataan. Ada tiga hal minimum yang
+paling tidak harus dimiliki oleh pemerintah sehubungan dengan elemen ini, yaitu:
+
+                                                                                                          22
+     Ketersediaan sumber daya yang cukup untuk melaksanakan berbagi
+         inisiatif E-government, terutama yang berkaitan dengan sumber daya
+         finansial.
+
+     Ketersediaan infrastruktur teknologi informasi yang memadai karena
+         fasilitas ini merupakan 50% dari kunci keberhasilan penerapan konsep E-
+         government.
+
+     Ketersediaan sumber daya manusia yang memiliki kompetensi dan
+         keahlian yang dibutuhkan agar penerapan E-government dapat sesuai
+         dengan asas manfaat yang diharapkan.
+
+3. Value
+       Elemen pertama dan kedua merupakan dua buah aspek yang dilihat dari
+
+sisi pemerintah selaku pihak pemberi jasa (supply side). Berbagai inisiatif E-
+government tidak akan ada gunanya jika tidak ada pihak yang merasa
+diuntungkan dengan adanya implementasi konsep tersebut. Dan dalam hal ini,
+yang menentukan besar tidaknya manfaat yang diperoleh dengan adanya E-
+government bukanlah kalangan pemerintah sendiri, melainkan masyarakat dan
+mereka yang berkepentingan (demand side). Untuk itulah maka pemerintah
+harus benar-benar teliti dalam memilih prioritas jenis aplikasi E-government apa
+saja yang harus didahulukan pembangunannya agar benar-benar memberikan
+value (manfaat) yang secara signifikan dirasakan oleh masyarakatnya. Salah
+dalam mengerti apa yang dibutuhkan masyarakat justru akan mendatangkan
+bumerang bagi pemerintah yang akan semakin mempersulit meneruskan usaha
+mengembangkan konsep E-government.
+
+                                                                                                          23
+II.4 Konsep Area Traffic Control System (ATCS)
+       Pada zaman sekarang perkembangan teknologi telah semakin canggih dan
+
+modern dimana penggunaan dan pemanfaatan teknologi modern telah
+diterapkan di berbagai sektor kehidupan manusia. Banyaknya penggunaan
+teknologi modern dikarenakan dapat memberikan kemudahan dalam
+penyelesaian suatu pekerjaan dan meningkatkan produktifitas. Selain itu,
+penggunaan teknologi juga dijadikan solusi untuk mengatasi persoalan-persoalan
+yang terjadi di masyarakat. ATCS atau Area Traffic Control System merupakan
+salah satu teknologi modern yang digunakan pada sektor transportasi oleh
+pemerintah sebagai salah satu cara untuk mengatasi persoalan-persoalan yang
+sering terjadi di jalan raya khususnya pada area persimpangan jalan seperti
+kemacetan dan pelanggaran lalu lintas.
+
+       Berdasarkan undang-undang nomor 22 tahun 2009 tentang lalu lintas dan
+angkutan jalan pasal 245 bahwa untuk mendukung keamanan, keselamatan,
+ketertiban dan kelancaran lalu lintas dan angkutan jalan diselenggarakan sistem
+informasi dan komunikasi yang terpadu. Sistem informasi dan komunikasi lalu
+lintas dan angkutan jalan digunakan untuk kegiatan perencanaan, pengaturan,
+pengendalian, dan pengawasan serta operasional lalu lintas dan angkutan jalan
+dimana pelaksanaannya dilakukan oleh pemerintah pusat, pemerintah provinsi,
+dan pemerintah kabupaten/kota. Area Traffic Control System (ATCS) merupakan
+program pemerintah yang telah berbasis TIK (Teknologi, Informasi dan
+Komunikasi) yang diselenggarakan oleh Balai Pengelola Transportasi Darat
+(BPTD) wilayah XIX Provinsi Sulselbar di jalan-jalan nasional yang ada di Kota
+Makassar. Adapun penerapan program Area Traffic Control System (ATCS) di
+Kota Makassar diserahkan kepada Dinas Perhubungan Kota Makassar.
+
+                                                                                                          24
+II.4.1 Pengertian ATCS
+       Area Traffic Control System (ATCS) adalah pengaturan secara
+
+terkoordinasi pada beberapa persimpangan berdekatan sehingga kinerja antar
+persimpangan saling terhubung. Dengan sistem terkoordinasi maka arus
+lalulintas pada persimpangan dapat dihubungkan dengan persimpangan
+berikutnya sehingga tundaan arus lalulintas dapat diminimalkan (Balai Pengelola
+Transportasi Darat Kemenhub Makassar). Sistem ATCS saat ini telah diterapkan
+di beberapa kota di Indonesia, salah satunya yaitu kota Makassar.
+
+       Penerapan sistem ATCS di kota Makassar saat ini telah berbasis intelligent
+transport system yang disebut dengan Intelligent Traffic Control System (ITCS).
+Intelligent Traffic Control System (ITCS) adalah pengaturan persimpangan
+dengan sistem responsif berbasis deteksi kendaraan yang juga terhubung
+dengan pusat kendali/server sehingga dapat dilakukan pengendalian,
+pemantauan, pengolahan data dan penyampaian informasi lalulintas dari/ke
+persimpangan (Balai Pengelola Transportasi Darat Kemenhub Makassar).
+
+II.4.2 Fungsi ATCS
+       ATCS memiliki beberapa fungsi sebagai berikut:
+
+    a. Mengatur waktu sinyal di persimpangan secara responsif dan
+         terkoordinasi.
+
+    b. Dalam keadaan tertentu, memberikan waktu hijau pada kendaraan yang
+         memiliki prioritas (Pemadam Kendaraan, Ambulance, VVIP, Konvoi, Dll).
+
+    c. Menyampaikan informasi kondisi lalulintas dan alternatif lintasan jika
+         terjadi kemacetan (penumpukan kendaraan pada ruas jalan).
+
+                                                                                                          25
+    d. Menyediakan rekaman data lalu lintas, kejadian kecelakaan, dan kejadian
+         lainnya di persimpangan.
+
+II.4.3 Tujuan ATCS
+       Adapun tujuan ATCS adalah sebagai berikut:
+
+    a. Terciptanya optimalisasi kinerja jaringan jalan.
+    b. Mewujudkan sistem lalu lintas dan angkutan jalan yang aman, selamat
+
+         dan berwawasan lingkungan.
+    c. Mengurangi jumlah dan beban petugas pengatur lalu lintas persimpangan
+
+         jalan.
+    d. Untuk mencapai kinerja lalu lintas yang optimal dengan meminimalkan
+
+         tundaan disetiap simpang yang dikoordinasikan dan mempersingkat
+         waktu tempuh, dan salah satu strategi dalam upaya pengurangan emisi
+         dari sektor transportasi.
+
+II.4.4 Sistem ATCS
+       ATCS terdiri dari beberapa sistem utama yaitu:
+
+    1. Server Workstation, yang berfungsi sebagai pusat operasional untuk
+         memonitor dan mengontrol kondisi lalu lintas dari seluruh persimpangan
+         dalam satu area.
+
+    2. Wall map, yang berfungsi menyediakan informasi status dan kondisi dari
+         Local Controller.
+
+    3. Local Controller yang berfungsi sebagai pengontrol persimpangan
+    4. Video Surveilance yang berfungsi untuk memantau melalui jaringan
+
+         kamera CCTV.
+
+                                                                                                          26
+    5. Vehicle Detector yang berfungsi untuk mendeteksi kendaraan-kendaraan
+         yang terpantau melalui kamera CCTV.
+
+II.4.5 Standar Operasional Prosedur Pemantauan Dan Pengaturan Arus Lalu
+       Lintas Melalui Area Traffic Control System
+
+Kualifikasi pelaksana
+ Memahami tugas dan fungsi pelayanan LLAJ
+ Memahami pengawasan dan pengaturan arus lalu lintas
+ Memahami cara mengoperasikan system ATCS
+ Memiliki pemahaman mengenai peraturan perundang-undangan tentang
+
+     LLAJ
+Peralatan/perlengkapan
+ Perangkat ATCS dan CC Room
+ ATK
+ Data inventarisasi barang
+ Handy Talkie (HT)/alat komunikasi
+ CCTV CC Room
+Mekanisme pemantauan dan pengaturan arus lalu lintas melalui Area
+Traffic Control System (ATCS)
+
+                                                                                                          27
+28  Tabel 2.1 Mekanisme pemantauan dan pengaturan arus lalu lintas melalui ATCS
+                             Sumber : BPTD wilayah XIX Provinsi Sulselbar
+II.5 Konsep Kerangka Pikir
+       Pada penelitian ini, peneliti ingin mencari tahu mengenai bagaimana
+
+penerapan program Area Traffic Control System (ATCS) di kota Makassar dan
+tingkat keberhasilan dari penerapan program tersebut. Untuk melihat bagaimana
+penerapan program ATCS di kota Makassar, peneliti menggunakan teori Merilee
+S. Grindle mengenai keberhasilan implementasi dipengaruhi oleh dua aspek
+yaitu isi kebijakan (content of policy) dengan empat indikator dari enam indikator
+dan lingkungan kebijakan (context of implementation) dengan tiga indikator.
+Adapun indikator yang tidak digunakan yaitu interest affected (pihak yang
+kepentingannya dipengaruhi) dikarenakan kurang relevan dengan disiplin ilmu
+administrasi dan program implementor (pelaksana program) dikarenakan telah
+terjawab pada pembahasan latar belakang yang telah dijelaskan sebelumnya.
+Adapun gambarannya sebagai berikut:
+
+                                                                                                          29
+                 Implementasi Program Area Traffic Control System
+                                 (ATCS) Di Kota Makassar
+
+                  Isi kebijakan (content of policy)
+                  Lingkungan kebijakan (context of
+
+                     implementation)
+
+(Grindle, 1980)
+
+                 Keberhasilan implementasi program Area Traffic
+                      Control System (ATCS) di kota Makassar
+
+                  Gambar 2.5 Konsep Kerangka Berpikir
+
+                                                                   30
+

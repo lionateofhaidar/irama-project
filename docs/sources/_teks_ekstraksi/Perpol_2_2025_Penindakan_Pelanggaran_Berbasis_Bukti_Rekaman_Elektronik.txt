@@ -1,0 +1,491 @@
+       PERATURAN KEPOLISIAN NEGARA REPUBLIK INDONESIA
+                                 NOMOR 2 TAHUN 2025
+                                            TENTANG
+
+PENINDAKAN PELANGGARAN LALU LINTAS DAN ANGKUTAN JALAN
+          BERDASARKAN ALAT BUKTI REKAMAN ELEKTRONIK
+
+         KEPALA KEPOLISIAN NEGARA REPUBLIK INDONESIA,
+
+Menimbang  : bahwa untuk melaksanakan ketentuan Pasal 28 ayat (5)
+              Peraturan Pemerintah Nomor 80 Tahun 2012 tentang Tata
+              Cara Pemeriksaan Kendaraan Bermotor di Jalan dan
+              Penindakan Pelanggaraan Lalu Lintas dan Angkutan Jalan,
+              perlu menetapkan Peraturan Kepolisian Negara Republik
+              Indonesia tentang Penindakan Pelanggaran Lalu Lintas dan
+              Angkutan Jalan Berdasarkan Alat Bukti Rekaman
+              Elektronik;
+
+Mengingat  : 1.   Undang-Undang Nomor 2 Tahun 2002 tentang
+              2.  Kepolisian Negara Republik Indonesia (Lembaran
+                  Negara Republik Indonesia Tahun 2002 Nomor 2,
+                  Tambahan Lembaran Negara Republik Indonesia Nomor
+                  4168);
+                  Peraturan Pemerintah Nomor 80 Tahun 2012 tentang
+                  Tata Cara Pemeriksaan Kendaraan Bermotor di Jalan
+                  dan Penindakan Pelanggaraan Lalu Lintas dan
+                  Angkutan Jalan (Lembaran Negara Republik Indonesia
+                  Tahun 2012 Nomor 187, Tambahan Lembaran Negara
+                  Republik Indonesia Nomor 5346);
+
+                  MEMUTUSKAN:
+
+Menetapkan : PERATURAN KEPOLISIAN NEGARA REPUBLIK INDONESIA
+                         TENTANG PENINDAKAN PELANGGARAN LALU LINTAS DAN
+                         ANGKUTAN JALAN BERDASARKAN ALAT BUKTI REKAMAN
+                         ELEKTRONIK.
+
+                                                  Pasal 1
+           Dalam Peraturan Kepolisian ini yang dimaksud dengan:
+           1. Kepolisian Negara Republik Indonesia yang selanjutnya
+
+                  disebut Polri adalah alat negara yang berperan dalam
+                  memelihara keamanan dan ketertiban masyarakat,
+                  menegakkan hukum, serta memberikan perlindungan,
+                  pengayoman dan pelayanan kepada masyarakat dalam
+                  rangka terpeliharanya keamanan dalam negeri.
+                             -2-
+
+2. Kepala Polri yang selanjutnya disebut Kapolri adalah
+       pimpinan Polri dan penanggung jawab penyelenggaraan
+       fungsi kepolisian.
+
+3. Korps Lalu Lintas Polri yang selanjutnya disebut
+       Korlantas Polri adalah unsur pelaksana tugas pokok
+       Polri di bidang keamanan, keselamatan, ketertiban, dan
+       kelancaran lalu lintas pada tingkat markas besar Polri
+       yang berada di bawah Kapolri.
+
+4. Kepala Korps Lalu Lintas Polri yang selanjutnya disebut
+       Kakorlantas Polri adalah unsur pimpinan pada
+       Korlantas Polri yang berkedudukan di bawah dan
+       bertanggung jawab kepada Kapolri dan dalam
+       melaksanakan tugas sehari-hari berada di bawah
+       kendali wakil Kapolri.
+
+5. Lalu Lintas dan Angkutan Jalan yang selanjutnya
+       disingkat LLAJ adalah satu kesatuan sistem yang
+       terdiri atas lalu lintas, angkutan jalan, jaringan lalu
+       lintas dan angkutan jalan, prasarana lalu lintas dan
+       angkutan jalan, kendaraan, pengemudi, pengguna
+       jalan, serta pengelolaannya.
+
+6. Petugas Polri adalah Penyidik dan Penyidik Pembantu
+       pada fungsi lalu lintas Polri yang ditugaskan sebagai
+       penindak pelanggaran LLAJ.
+
+7. Penindakan Pelanggaran LLAJ adalah serangkaian
+       tindakan yang dilaksanakan oleh penyidik Polri atau
+       Penyidik pegawai negeri sipil di bidang LLAJ terhadap
+       pelanggaran LLAJ.
+
+8. Pelanggaran LLAJ adalah perbuatan melakukan atau
+       tidak melakukan sesuatu yang diancam dengan pidana
+       pelanggaran berdasarkan Undang-Undang tentang Lalu
+       Lintas dan Angkutan Jalan.
+
+9. Pelanggar LLAJ yang selanjutnya disebut pelanggar
+       adalah setiap orang yang melakukan Pelanggaran LLAJ.
+
+10. Surat Tilang adalah surat elektronik atau manual
+       dengan format tertentu berisi fakta-fakta pelanggaran
+       dan perintah Petugas Polri kepada pelanggar yang
+       digunakan sebagai instrumen penindakan dan
+       penyelesaian perkara Pelanggaran LLAJ tertentu.
+
+11. Electronic Tilang yang selanjutnya disebut E-Tilang
+       adalah mekanisme penindakan dan penyelesaian
+       perkara Pelanggaran LLAJ berbasis aplikasi secara
+       online yang terintegrasi dengan sistem penyetoran uang
+       Titipan Denda Tilang.
+
+12. Alat Pemberi Isyarat Lalu Lintas yang selanjutnya
+       disingkat Apill adalah perangkat elektronik yang
+       menggunakan isyarat lampu yang dapat dilengkapi
+       dengan isyarat bunyi untuk mengatur lalu lintas, orang
+       dan/atau kendaraan dipersimpangan atau pada ruas
+       jalan.
+
+13. Alat Bukti Rekaman Elektronik adalah rekaman data
+       dan informasi elektronik Pelanggaran LLAJ hasil kinerja
+       perangkat penegakan hukum elektronik baik dalam
+       bentuk penggandaan atau salinan rekaman, hasil
+       cetak, atau fotokopi.
+                             -3-
+
+14. Electronic Traffic Law Enforcement yang selanjut
+       disingkat ETLE adalah perangkat elektronik berbasis
+       informasi teknologi berupa kamera yang dapat
+       mendeteksi berbagai jenis pelanggaran lalu lintas
+       untuk penegakan hukum di bidang LLAJ.
+
+15. Back Office ETLE adalah bagian dari sistem ETLE yang
+       berfungsi sebagai pusat pengolahan dan manajemen
+       data pelanggaran lalu lintas yang ditangkap oleh
+       kamera ETLE.
+
+16. ETLE Statis adalah peralatan elektronik yang dipasang
+       secara permanen di ruang lalu lintas untuk mengawasi
+       dan mengidentifikasi Pelanggaran LLAJ.
+
+17. ETLE Portabel adalah peralatan elektronik untuk
+       mengawasi dan mengidentifikasi Pelanggaran LLAJ
+       yang digunakan oleh Petugas Polri pada fungsi lalu
+       lintas untuk diletakkan secara berpindah-pindah
+       di jalan.
+
+18. ETLE Mobile adalah peralatan elektronik untuk
+       mengawasi dan mengidentifikasi Pelanggaran LLAJ
+       yang dipasang pada kendaraan bermotor dinas Polri
+       khusus dan perangkat gawai petugas yang digunakan
+       secara bergerak atau mobile.
+
+19. Identifikasi adalah proses mengenali, menentukan,
+       atau mengungkapkan identitas sesuatu atau seseorang
+       berdasarkan ciri-ciri, karakteristik, atau informasi
+       tertentu.
+
+20. Verifikasi adalah pemeriksaan yang dilakukan oleh
+       Polri tentang kebenaran jawaban, pernyataan, atau
+       laporan pemilik kendaraan dan/atau pelanggar dalam
+       surat konfirmasi.
+
+21. Surat Konfirmasi adalah surat pemberitahuan yang
+       dikirimkan oleh Polri kepada pemilik kendaraan
+       dan/atau pelanggar untuk mengonfirmasikan
+       kendaraannya yang terekam Perangkat penegakan
+       hukum elektronik digunakan melakukan pelanggaran
+       LLAJ.
+
+22. Electronic Registration and Identification yang
+       selanjutnya disingkat ERI adalah sistem pendataan
+       registrasi dan identifikasi secara elektronik yang
+       dikerjakan pada bagian buku pemilik kendaraan
+       bermotor sebagai landasan keabsahan kepemilikan dan
+       asal usul.
+
+23. Biometrik Wajah Pelanggar adalah teknologi yang
+       menggunakan karakteristik unik wajah pengemudi untuk
+       mengidentifikasi atau memverifikasi identitasnya.
+
+                                       Pasal 2
+(1) Penindakan Pelanggaran LLAJ berdasarkan Alat Bukti
+
+       Rekaman Elektronik dilaksanakan dengan menerbitkan
+       Surat Tilang yang dilampirkan Alat Bukti Rekaman
+       Elektronik.
+(2) Penindakan Pelanggaran LLAJ berdasarkan Alat Bukti
+       Rekaman Elektronik sebagaimana dimaksud pada (1)
+       merupakan bagian dari penegakan hukum di bidang
+       LLAJ.
+                             -4-
+
+                                       Pasal 3
+(1) Alat Bukti Rekaman Elektronik sebagaimana dimaksud
+
+       dalam Pasal 2 diperoleh melalui:
+       a. ETLE Statis;
+       b. ETLE Portabel;
+       c. ETLE Mobile; dan/atau
+       d. perangkat elektronik lainnya.
+(2) Alat Bukti Rekaman Elektronik yang diperoleh dari
+       perangkat elektronik lainnya sebagaimana dimaksud
+       pada ayat (1) huruf d harus diverifikasi oleh petugas
+       Polri.
+(3) Alat Bukti Rekaman Elektronik sebagaimana dimaksud
+       pada ayat (1) huruf a, huruf b, dan huruf c, terintegrasi
+       dengan Back Office ETLE yang diselenggarakan oleh
+       Polri.
+
+                                       Pasal 4
+Penindakan Pelanggaran LLAJ sebagaimana dimaksud
+dalam Pasal 2 dilakukan terhadap pelanggaran:
+a. batas kecepatan maksimum dan minimum;
+b. penggunaan sabuk keselamatan;
+c. rambu atau marka jalan;
+d. Apill;
+e. jumlah penumpang pada sepeda motor;
+f. penggunaan helm tidak sesuai standar nasional
+
+       Indonesia;
+g. melakukan aktivitas lain yang dapat mengganggu
+
+       konsentrasi saat mengemudi;
+h. tidak menggunakan lajur atau jalur yang telah
+
+       ditentukan;
+i. parkir tidak pada tempatnya;
+j. tata cara pemuatan, daya angkut dan dimensi
+
+       kendaraan; dan
+k. pelanggaran lainnya sesuai dengan ketentuan
+
+       peraturan perundang-undangan.
+
+                                       Pasal 5
+(1) Pelaksanaan Penindakan Pelanggaran LLAJ
+
+       berdasarkan Alat Bukti Rekaman Elektronik
+       dilaksanakan oleh:
+       a. Petugas Polri; atau
+       b. PPNS bidang LLAJ.
+(2) Petugas Polri dan PPNS bidang LLAJ sebagaimana
+       dimaksud pada ayat (1), harus memenuhi persyaratan:
+       a. telah mengikuti pelatihan petugas penindak
+
+              Pelanggaran LLAJ dengan sistem ETLE; dan
+       b. memiliki kompetensi petugas penindakan
+
+              pelanggaran lalu lintas.
+
+                                       Pasal 6
+Petugas Polri sebagaimana dimaksud dalam Pasal 5 huruf a
+terdiri atas:
+a. Petugas Back Office ETLE;
+b. Petugas posko penegakan hukum ETLE; dan
+c. Petugas pengendali operasional ETLE.
+                             -5-
+
+                                       Pasal 7
+(1) PPNS bidang LLAJ sebagaimana dimaksud dalam Pasal
+
+       5 huruf b, melaksanakan penindakan LLAJ di jalan,
+       terminal, dan/atau tempat alat penimbangan yang
+       dipasang secara tetap dengan berkoordinasi sesuai
+       dengan ketentuan peraturan perundang-undangan.
+(2) PPNS bidang LLAJ dalam melaksanakan penindakan
+       LLAJ sebagaimana dimaksud pada ayat (1)
+       berkoordinasi dengan petugas Polri.
+(3) Dalam hal PPNS melaksanakan penindakan di jalan
+       sebagaimana dimaksud pada ayat (2) wajib didampingi
+       Petugas Polri sesuai dengan ketentuan peraturan
+       perundang-undangan.
+
+                                       Pasal 8
+(1) Penindakan Pelanggaran LLAJ berdasarkan Alat Bukti
+
+       Rekaman Elektronik oleh Petugas Polri sebagaimana
+       dimaksud dalam Pasal 5 ayat (1) huruf a, dilaksanakan
+       melalui:
+       a. Identifikasi;
+       b. Verifikasi; dan
+       c. penerbitan Surat Konfirmasi.
+(2) Pelaksana penindakan pelanggaran sebagaimana
+       dimaksud pada ayat (1) dilaksanakan oleh petugas
+       Back Office ETLE.
+
+                                      Pasal 9
+(1) Identifikasi sebagaimana dimaksud dalam Pasal 8
+
+       ayat (1) huruf a dilakukan untuk menilai pelanggaran
+       LLAJ berdasarkan Alat Bukti Rekaman Elektronik
+       sebagaimana dimaksud dalam Pasal 3 ayat (1) berupa
+       hasil tangkapan layar.
+(2) Penilaian Pelanggaran LLAJ sebagaimana dimaksud
+       pada ayat (1) dilakukan terhadap:
+       a. jenis pelanggaran yang terjadi;
+       b. waktu dan tempat kejadian;
+       c. TNKB terekam; dan/atau
+       d. Biometrik wajah pengemudi.
+(3) Hasil Identifikasi sebagaimana dimaksud pada ayat (1)
+       disimpan pada pangkalan data Pelanggaran LLAJ.
+
+                                      Pasal 10
+(1) Verifikasi sebagaimana dimaksud dalam Pasal 8 ayat (1)
+
+       huruf b, dilaksanakan terhadap hasil identifikasi untuk
+       memeriksa kesesuaian dengan data base ERI.
+(2) Dalam hal hasil Verifikasi sebagaimana dimaksud pada
+       ayat (1) tidak sesuai dengan data base ERI, dilakukan
+       Penelitian Khusus untuk penyelidikan.
+
+                                      Pasal 11
+(1) Penerbitan surat konfirmasi sebagaimana dimaksud
+
+       dalam Pasal 8 ayat (1) huruf c, hasil data verifikasi yang
+       sesuai dengan data base ERI.
+(2) Surat Konfirmasi sebagaimana dimaksud pada ayat (1)
+       ditujukan kepada pemilik kendaraan bermotor
+       dan/atau Pelanggar.
+                             -6-
+
+(3) Surat Konfirmasi sebagaimana dimaksud pada ayat (1)
+       paling sedikit memuat:
+       a. rujukan;
+       b. kronologis;
+       c. identitas kendaraan bermotor;
+       d. identitas pelanggar;
+       e. tata cara konfirmasi;
+       f. foto kendaraan; dan/atau
+       g. Biometrik Wajah Pelanggar.
+
+(4) Surat Konfirmasi sebagaimana dimaksud pada ayat (3)
+       ditandatangani oleh:
+       a. Kakorlantas Polri untuk tingkat markas besar
+              Polri;
+       b. Kepala Kepolisian Daerah untuk Tingkat
+              Kepolisian Daerah; dan
+       c. Kepala Kepolisian Resor untuk Tingkat Kepolisian
+              Resor.
+
+(5) Surat Konfirmasi sebagaimana dimaksud pada ayat (2)
+       dikirimkan paling lambat 3 (tiga) hari setelah
+       ditandatangani.
+
+                                      Pasal 12
+(1) Pemilik kendaraan bermotor dan/atau Pelanggar
+
+       melakukan konfirmasi paling lama 5 (lima) hari setelah
+       Surat Konfirmasi dikirim.
+(2) Konfirmasi sebagaimana dimaksud pada ayat (1)
+       dilakukan melalui:
+       a. laman atau aplikasi yang telah ditentukan; atau
+       b. posko penegakan hukum ETLE.
+(3) Konfirmasi sebagaimana dimaksud pada ayat (2)
+       dilakukan dengan cara mengisi:
+       a. nomor referensi yang terdapat pada surat
+
+              konfirmasi;
+       b. nomor kendaraan bermotor;
+       c. nomor telepon seluler pemilik kendaraan dan/atau
+
+              Pelanggar;
+       d. identitas pemilik kendaraan dan/atau Pelanggar;
+
+              dan
+       e. pernyataan mengakui atau tidak mengakui
+
+              Pelanggaran LLAJ.
+(4) Dalam hal pemilik kendaraan dan/atau pelanggar tidak
+
+       melakukan konfirmasi sebagaimana dimaksud pada
+       ayat (3) dilakukan pemblokiran terhadap data surat
+       tanda nomor kendaraan.
+(5) Pemblokiran sebagaimana dimaksud pada ayat (4)
+       dapat dibuka kembali setelah pemilik kendaraan atau
+       pelanggar melakukan klarifikasi secara langsung
+       ke posko penegakan hukum ETLE.
+
+                                      Pasal 13
+(1) Dalam hal pemilik kendaraan dan/atau Pelanggar
+
+       mengakui melakukan Pelanggaran LLAJ dalam
+       konfirmasi sebagaimana dimaksud dalam Pasal 12
+       ayat (1) diterbitkan Surat Tilang.
+                             -7-
+
+(2) Dalam hal pemilik kendaraan dan/atau Pelanggar tidak
+       mengakui melakukan pelanggaran LLAJ dalam Surat
+       Konfirmasi sebagaimana dimaksud pada ayat (1)
+       dilakukan pemblokiran terhadap data surat tanda
+       nomor kendaraan.
+
+(3) Dalam hal dilakukan pemblokiran sebagaimana
+       dimaksud pada ayat (2) pemilik kendaraan dan/atau
+       Pelanggar melakukan klarifikasi secara langsung
+       ke posko penegakan hukum ETLE.
+
+                                      Pasal 14
+(1) Pemilik kendaraan dan/atau Pelanggar yang telah
+
+       menerima Surat Tilang sebagaimana dimaksud dalam
+       Pasal 13 ayat (1) diberikan kode pembayaran virtual
+       dari bank persepsi yang ditunjuk dan melakukan
+       pembayaran titipan denda tilang.
+(2) Dalam hal pemilik kendaraan dan/atau Pelanggar tidak
+       melakukan pembayaran titipan denda tilang paling
+       lama 7 (tujuh) hari setelah menerima kode pembayaran
+       sebagaimana dimaksud pada ayat (1), dilakukan
+       pemblokiran data surat tanda nomor kendaraan.
+(3) Pemblokiran data surat tanda nomor kendaraan
+       sebagaimana dimaksud pada ayat (2), dibuka setelah
+       pemilik kendaraan dan/atau pelanggar menunjukkan
+       bukti pembayaran titipan denda tilang.
+
+                                      Pasal 15
+(1) Petugas posko penegakan hukum ETLE menyiapkan
+
+       berkas perkara tilang setelah pemilik kendaraan
+       dan/atau Pelanggar menitipkan denda tilang
+       sebagaimana dimaksud dalam Pasal 14.
+(2) Berkas perkara tilang sebagaimana dimaksud pada
+       ayat (1) terdiri atas:
+       a. Surat Tilang;
+       b. bukti pembayaran titipan denda tilang; dan
+       c. Surat Konfirmasi tentang Pelanggaran ETLE.
+(3) Petugas posko penegakan hukum ETLE menyerahkan
+       berkas perkara tilang sebagaimana dimaksud pada ayat
+       (2) paling lambat 3 (tiga) hari sebelum sidang
+       dilaksanakan dan menginput data tilang ke dalam
+       aplikasi E-Tilang.
+(4) Aplikasi E-Tilang sebagaimana dimaksud pada ayat (3)
+       dikelola oleh Korlantas Polri.
+
+                                      Pasal 16
+(1) Petugas Back Office ETLE dan petugas posko
+
+       penegakan hukum ETLE dalam melakukan Penindakan
+       Pelanggaran LLAJ dilakukan pengawasan dan
+       pengendalian oleh petugas pengendali operasional
+       ETLE.
+(2) Petugas pengendali operasional ETLE sebagaimana
+       dimaksud pada ayat (1) merupakan:
+       a. Kepala Seksi Pembinaan Dan Pengawasan
+
+              Subdirektorat Penindakan Pelanggaran Direktorat
+              Penegakan Hukum Korlantas untuk tingkat
+              Markas Besar Polri;
+                                           -8-
+
+                     b. Kepala Seksi Pelanggaran untuk tingkat Kepolisian
+                            Daerah; dan
+
+                     c. Kepala Unit Penegakan Hukum untuk tingkat
+                            Kepolisian Resor.
+
+              (3) Petugas pengendali operasional ETLE sebagaimana
+                     dimaksud pada ayat (2) melakukan pelaporan kegiatan
+                     pengawasan dan pengendalian paling sedikit 1 (satu)
+                     kali dalam 1 (satu) bulan.
+
+              (4) Pelaporan sebagaimana dimaksud pada ayat (4)
+                     disampaikan secara berjenjang kepada:
+                     a. Kakorlantas Polri untuk tingkat Markas Besar
+                            Polri;
+                     b. Kepala Kepolisian Daerah untuk Tingkat
+                            Kepolisian Daerah; dan
+                     c. Kepala Kepolisian Resor untuk Tingkat Kepolisian
+                            Resor.
+
+                                                    Pasal 17
+              Peraturan Kepolisian ini mulai berlaku pada tanggal
+              diundangkan.
+
+              Agar setiap orang mengetahuinya, memerintahkan
+              pengundangan Peraturan Kepolisian ini dengan
+              penempatannya dalam Berita Negara Republik Indonesia.
+
+                        Ditetapkan di Jakarta
+                        pada tanggal 5 Maret 2025
+
+                        KEPALA KEPOLISIAN NEGARA
+                        REPUBLIK INDONESIA,
+
+                                       OE
+
+                        LISTYO SIGIT PRABOWO
+
+Diundangkan di Jakarta
+
+pada tanggal   
+
+DIREKTUR JENDERAL
+PERATURAN PERUNDANG-UNDANGAN
+KEMENTERIAN HUKUM REPUBLIK INDONESIA,
+
+
+
+DHAHANA PUTRA
+
+BERITA NEGARA REPUBLIK INDONESIA TAHUN 2025 NOMOR 
+

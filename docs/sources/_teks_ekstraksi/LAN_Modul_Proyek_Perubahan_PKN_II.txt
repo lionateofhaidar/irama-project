@@ -1,0 +1,1861 @@
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+                                              i
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+Hak Cipta © pada:
+Lembaga Administrasi Negara
+Edisi Tahun 2021
+Lembaga Administrasi Negara Republik Indonesia
+Jl. Veteran No. 10 Jakarta Pusat 10110
+PROYEK PERUBAHAN
+Modul Pelatihan Kepemimpinan Nasional Tingkat II
+
+TIM PENGARAH SUBSTANSI:
+1. Dr. Muhammad Taufiq, DEA
+2. Erna Irawati, S.Sos., M.Pol.Adm.
+PENULIS MODUL:
+Drs. Setia Budi, MA.
+Tim P3K Bangkom ASN LAN RI
+
+REVIEWER: Dr. Adi Suryanto, M.Si.
+EDITOR: Toofik Dwi Nugroho, S.Sos
+
+                                              ii
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+                           KATA PENGANTAR
+
+         Arah pembangunan Sumber Daya Manusia (SDM) Aparatur
+ditujukan pada pembentukan SDM Aparatur yang memiliki integritas,
+profesional, netral dan bebas dari intervensi politik, bersih dari praktik
+KKN, mampu menyelenggarakan pelayanan publik bagi masyarakat dan
+mampu menjalankan peran sebagai unsur perekat persatuan dan
+kesatuan bangsa berdasarkan Pancasila dan Undang-Undang Dasar
+Negara Republik Indonesia Tahun 1945. SDM Aparatur juga diarahkan
+agar mampu beradaptasi terhadap perubahan global yang sangat dinamis.
+Oleh karena itu, penyiapan SDM Aparatur ke depan harus diarahkan pada
+peningkatan daya saing yang komprehensif baik terkait penguatan
+teknologi, infrastruktur, dan sistem, maupun penguatan terhadap
+penguasaan pengetahuan, networking, dan kolaborasi. Kunci keberhasilan
+dari semua unsur tersebut terletak pada kualitas sumber daya manusia
+yang berperan sebagai penggerak utamanya.
+
+         Perubahan mendasar yang saat ini sedang terjadi di dunia yaitu
+Revolusi Industri 4.0 dimana teknologi informasi menjadi hal yang tidak
+dapat dipisahkan dari kegiatan sehari-hari. Hal tersebut juga membawa
+pengaruh terhadap pengembangan kompetensi Aparatur Sipil Negara
+(ASN). Perkembangan teknologi informasi mengubah business process di
+segala bidang dan menjadikan kegiatan yang semula dilakukan secara
+manual kini dilakukan melalui teknologi informasi. Dalam dunia bisnis,
+pelaku usaha tidak perlu memiliki modal yang berwujud untuk dapat
+memulai sebuah bisnis, sedangkan dari sisi konsumen segala transaksi
+dapat dilakukan melalui online. Untuk mendapatkan barang yang
+dibutuhkan, orang tidak perlu datang ke supermarket, cukup dengan
+
+                                             iii
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+menggunakan berbagai aplikasi, barang yang dibutuhkan tersebut dapat
+diantarkan langsung ke depan pintu rumah.
+
+         Demikian juga dengan pembelajaran, orang tidak perlu datang ke
+tempat pelatihan, tetapi dapat melalui model pembelajaran e-learning. Hal
+ini tentu membawa pengaruh perubahan mindset dalam pengembangan
+kompetensi ASN dimana pembelajaran jarak jauh melalui e-learning
+menjadi hal yang tidak dapat dihindarkan.
+
+         Perubahan business process dari manual ke online telah
+memperkaya sistem kediklatan dari pola lama yang mengutamakan
+pembelajaran tatap muka dan di dalam kelas menjadi pembelajaran
+mandiri dan jarak jauh.
+
+         Lembaga Administrasi Negara (LAN) sebagai instansi pembina
+pelatihan perlu melakukan berbagai penyesuaian dan pembaharuan agar
+sesuai dengan tuntutan zaman. Untuk memenuhi tuntutan tersebut maka
+LAN melakukan perubahan mendasar dalam penyiapan kompetensi bagi
+Pejabat Pengawas melalui perubahan kurikulum dan bahan ajar.
+
+         Akhir kata, kami atas nama Lembaga Administrasi Negara,
+mengucapkan terima kasih kepada tim penulis yang telah meluangkan
+waktu dan pikiran sehingga bahan ajar ini dapat hadir di tengah-tengah
+Bapak dan Ibu peserta pelatihan. Kami berharap bahan ajar ini dapat
+menjawab tuntutan pembelajaran dan membawa manfaat bagi
+pembacanya. Namun demikian, kami menyadari bahwa bahan ajar ini
+masih jauh dari sempurna, maka kami membuka lebar terhadap masukan
+dan saran perbaikan atas isi bahan ajar ini.
+Demikian, selamat membaca. Semoga bermanfaat.
+
+                                              iv
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+                                DAFTAR ISI
+
+KATA PENGANTAR.........................................................................................III
+DAFTAR ISI........................................................................................................ V
+DAFTAR GAMBAR..........................................................................................VII
+DAFTAR LAMPIRAN .................................................................................... VIII
+BAB I PENDAHULUAN......................................................................................1
+BAB II TUJUAN DAN HASIL BELAJAR...........................................................5
+A. Tujuan ................................................................................................................................. 5
+B. Hasil Belajar ..................................................................................................................... 7
+C. Indikator Hasil Belajar ................................................................................................ 7
+D. Materi Pokok.................................................................................................................... 8
+BAB III KONSEPSI PROYEK PERUBAHAN ................................................ 10
+A. Deskripsi Proyek Perubahan .................................................................................10
+B. Muatan Proyek Perubahan......................................................................................10
+C. Hubungan Proyek Perubahan dengan Agenda lain.....................................11
+D. Proses Pembelajaran Proyek Perubahan.........................................................13
+E. Ciri Pemimpin Perubahan dan Perannya sebagai Coach..........................15
+F. Manajemen Perubahan .............................................................................................17
+G. Rangkuman.....................................................................................................................20
+H. Soal Latihan ....................................................................................................................21
+BAB IV PERANCANGAN PROYEK PERUBAHAN ...................................... 22
+A. Membangun Gagasan Perubahan ........................................................................23
+B. Membangun Dukungan.............................................................................................23
+C. Menyusun Rencana Proyek Perubahan ............................................................23
+D. Seminar Rancangan Proyek Perubahan ...........................................................32
+E. Rangkuman.....................................................................................................................32
+F. Soal Latihan ....................................................................................................................33
+BAB V PELAKSANAAN PROYEK PERUBAHAN ........................................ 34
+
+                                              v
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+A. Persiapan Implementasi Proyek Perubahan..................................................34
+B. Melaksanakan Tahapan Perubahan....................................................................34
+C. Menyusun Laporan Hasil Pelaksanaan Proyek Perubahan (Tahapan
+
+    Jangka Pendek) .............................................................................................................35
+D. Seminar Hasil Implementasi Proyek Proyek Perubahan .........................38
+E. Komitmen Melanjutkan Proyek Perubahan ...................................................39
+F. Rangkuman.....................................................................................................................39
+G. Soal Latihan ....................................................................................................................39
+BAB VI PERAN/TUGAS MENTOR, COACH & PESERTA PELATIHAN .. 40
+A. Peran Mentor.................................................................................................................41
+B. Peran Coach ....................................................................................................................42
+C. Tugas Peserta ................................................................................................................43
+BAB VII PENUTUP.......................................................................................... 46
+LAMPIRAN DOKUMEN PELENGKAP PROYEK PERUBAHAN ............... 47
+PENGGUNAAN E-LEARNING ........................................................................ 53
+DAFTAR PUSTAKA ........................................................................................ 54
+
+                                              vi
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+                            DAFTAR GAMBAR
+
+Gambar 1 Proses Pembelajaran Proyek Perubahan                 14
+
+Gambar 2 Manajemen Perubahan                                  19
+
+Gambar 3 Kerangka Pikir Manajemen Perubahan                   19
+
+Gambar 4 Kerangka Pikir Teknik Analisis                       24
+
+Gambar 5 Kerangka Pikir Teknik Analisis yang Lebih Sederhana  25
+
+                              vii
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+DAFTAR LAMPIRAN
+
+Lampiran 1 Formulir Persetujuan Mentor                  47
+
+Lampiran 2 Formulir Persetujuan Coach                   48
+
+Lampiran 3 Kartu Kendali Coaching Bagi Peserta          49
+
+Lampiran 4 Kartu Kendali Coaching Bagi Coach            50
+
+Lampiran 5 Kartu Kendali Mentoring Bagi Peserta         51
+
+Lampiran 6 Komitmen Melanjutkan Proyek Perubahan        52
+
+viii
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+                                    BAB I
+                             PENDAHULUAN
+
+                                BAB I PENDAHULUAN
+    Dinamika perubahan dalam segala aktivitas kehidupan di masyarakat
+terjadi begitu cepat yang dipengaruhi oleh perkembangan teknologi
+informasi dalam dua dekade terakhir ini. Perubahan tersebut juga
+dipengaruhi oleh hal lain yang kadang tidak diperkirakan sebelumnya.
+Dalam dua tahun terakhir, pandemi Covid-19 yang melanda dunia,
+berpengaruh kuat dan mendorong perubahan yang cepat dalam dunia
+usaha, pemerintahan, kehidupan sosial, dan pendidikan dan pelatihan
+termasuk pelatihan aparatur sipil negara.
+    Perubahan tersebut membuat pelayanan dalam sektor publik harus
+bisa menjawab perubahan dengan menyediakan akses pelayanan yang
+dibutuhkan oleh masyarakat dengan lebih baik. Untuk itu, kemampuan
+pegawai aparatur sipil negara harus selalu dapat menjawab perubahan
+yang terjadi dalam lingkup nasional dan internasional. Sejalan dengan itu,
+Peraturan Lembaga Administrasi Negara Nomor 5 Tahun 2022 tentang
+Penyelenggaraan Pelatihan Struktural Kepemimpinan dimaksudkan
+untuk menjawab kebutuhan kompetensi pejabat pimpinan tinggi pratama
+yang perlu dibangun dalam meningkatkan, mengembangkan dan
+memaksimalkan kompetensi kepemimpinan aparatur nasional.
+    Sesuai amanat PerLAN ini, pembelajaran PKN Tingkat II melalui 4
+(empat) agenda yaitu: 1) Agenda Mengelola Diri (Self Mastery); 2) Agenda
+Kepemimpinan Strategis; 3) Agenda Manajemen Strategis dan; 4) Agenda
+Aktualisasi Kepemimpinan Strategis. Masing-masing agenda memiliki
+tujuan khusus dalam membekali peserta.
+
+                                              1
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+    Para peserta PKN Tingkat II yang merupakan pejabat pimpinan tinggi
+pratama, memainkan peranan sangat menentukan dalam menetapkan
+perubahan di instansi dan memobilisasi stakeholders-nya untuk
+mendukung perubahan tersebut. Namun demikian, dalam proses
+implementasi perubahan tersebut, peserta tidak dapat melakukannya
+sendiri. Para peserta pelatihan, seperti yang terjadi dalam kepemimpinan
+mereka di tempat kerjanya, memerlukan dukungan mentor dan
+stakeholders. Peserta juga memerlukan coach yang memberikan arahan
+akademik, dorongan, dukungan dan motivasi yang cukup agar perubahan
+yang diharapkan dapat terealisasi dengan sukses.
+
+    Modul Proyek Perubahan ini ditujukan secara spesifik untuk
+memberikan gambaran tentang Agenda Aktualisasi Kepemimpinan
+Strategis. Agenda ini merupakan proses pembelajaran yang terjadi di
+organisasi/unit kerja peserta (off-campus). Dalam pola PKN Tingkat II
+dipergunakan istilah mentor dan coach. Mentor adalah atasan
+langsung/yang ditunjuk dan coach adalah pembimbing proyek
+perubahan. Keduanya diperlukan dalam menentukan dan mendukung
+perubahan yang akan dilakukan oleh peserta sebagai sebuah proyek
+perubahan dari proses pembelajaran kepemimpinan strategis sebagai
+salah satu bagian dalam rangkaian proses pembelajaran. Penentuan coach
+ditentukan oleh pimpinan penyelenggara lembaga pelatihan.
+
+    Perencanaan dan pelaksanaan proyek perubahan ini merupakan
+upaya mengaktualisasikan materi yang diterima selama mengikuti PKN
+Tingkat II. Selanjutnya, hal yang perlu dipahami oleh para peserta adalah
+bahwa proyek perubahan yang dirancang harus memiliki keterkaitan
+yang kuat dengan materi yang diberikan selama pembelajaran dan
+kondisi yang akan di-reform oleh peserta. Proyek perubahan harus
+
+                                              2
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+memiliki nilai strategis yang tinggi terutama dalam
+mengimplementasikan proyek perubahan inovatif yang akan
+dilaksanakan oleh setiap peserta pada lingkup organisasi/unit kerja
+pimpinan tinggi pratama.
+
+    Pada Agenda Aktualisasi Kepemimpinan Strategis, peserta diharapkan
+dapat membangun organizational learning dengan para stakeholders dan
+para stafnya (tim kerja/tim efektif) dengan mengkomunikasikan
+permasalahan organisasi yang dirasakan, diamati dan diidentifikasi
+secara sistematis, yang selanjutnya dikomunikasikan untuk mendapat
+persetujuan melakukan reformasi terkait dengan permasalahan tersebut.
+Persetujuan tersebut utamanya dari atasan langsung selaku mentor
+dalam pelatihan ini. Selanjutnya pada kegiatan Evaluasi Kepemimpinan
+dalam seminar hasil implementasi proyek perubahan (laboratorium
+kepemimpinan), peserta diminta untuk menjelaskan tentang penerapan
+kepemimpinannya selama proyek perubahan, sejak merencanakan
+perubahan hingga implementasinya. Penjelasan tersebut dituangkan
+dalam dokumen pelaksanaan proyek perubahan.
+
+    Sesuai hasil evaluasi terhadap PKN Tingkat II, peran coach tidak hanya
+dilakukan oleh widyaiswara yang ditunjuk yang memiliki kompetensi
+yang sesuai, tetapi juga perlu dilakukan oleh peserta PKN Tingkat II pada
+saat memimpin penyusunan rancangan proyek perubahan sehingga
+pelaksanaannya, bahkan pada pasca PKN Tingkat II. Karena itu, ia harus
+mampu mempengaruhi, membimbing, dan menggerakkan para staf,
+utamanya yang masuk dalam tim kerjanya untuk aktif terlibat dalam
+proyek perubahan, sejak tahap perancangan hingga pasca PKN. Peran
+peserta sebagai coach tersebut menjadi salah satu yang harus
+
+                                              3
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+disampaikan dan dinilai dalam seminar hasil implementasi proyek
+perubahan.
+
+    Semoga modul ini dapat menjadi penuntun bagi peserta, coach dan
+mentor dalam menyukseskan agenda aktualisasi kepemimpinan strategis
+untuk mencapai tujuan PKN II ini.
+
+                                              4
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+                              BAB II
+
+               TUJUAN DAN HASIL BELAJAR
+
+                      BAB II TUJUAN DAN HASIL BELAJAR
+    Mata pelatihan Proyek Perubahan ini memfasilitasi peserta PKN
+Tingkat II untuk mengaktualisasikan kepemimpinan perubahan strategis
+di organisasi/unit kerjanya dengan membekali peserta dengan konsepsi
+proyek perubahan, penyusunan rancangan proyek perubahan, seminar
+rancangan proyek perubahan, pelaksanaan proyek perubahan, seminar
+implementasi proyek perubahan dan diseminasi proyek perubahan.
+Proses pembelajaran mata pelatihan ini diberikan oleh pengajar dan/atau
+penceramah dengan menggunakan metode klasikal secara interaktif, e-
+learning maupun dengan implementasi di organisasi/unit kerjanya. Pada
+akhir pembelajaran, peserta diharapkan menunjukkan kemampuannya
+sebagai pemimpin perubahan strategis di organisasi/unit kerjanya.
+   A. Tujuan
+    Berbeda dengan mata pelatihan pada 1) Agenda Mengelola Diri (Self
+Mastery); 2) Agenda Kepemimpinan Strategis; dan 3) Agenda Manajemen
+Strategis yang dilakukan di secara klasikal dan/atau secara e-learning
+dimana peserta dibimbing oleh fasilitator/widyaiswara. pembelajaran,
+proses pembelajaran mata pelatihan Proyek Perubahan dalam Agenda
+Aktualisasi Kepemimpinan Strategis ini dilakukan di organisasi/unit
+kerja, tempat peserta bekerja. Dalam pembelajarannya, peserta dibimbing
+oleh coach dan atasan langsung yang menjadi mentor bagi peserta.
+    Aktualisasi Kepemimpinan Strategis merupakan agenda pembelajaran
+yang bersifat off-campus. Agenda ini mengarahkan peserta untuk
+membangun organizational learning, membangun kesadaran bersama,
+dan untuk mereformasi area perubahan organisasi yang bermasalah agar
+
+                                              5
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+mencapai kondisi atau kinerja yang lebih baik. Berikut tujuan dan apa
+yang diharapkan dari agenda ini.
+
+    Tujuan Mata Pelatihan Proyek Perubahan dalam agenda Aktualisasi
+Kepemimpinan Strategis ini adalah memberikan kesempatan bagi peserta
+pelatihan untuk membuktikan kompetensi kepemimpinan dalam
+merancang dan menetapkan strategi perubahan melalui penyusunan
+gagasan perubahan pada organisasinya dan mendemonstrasikan hasil
+belajar yang telah diperoleh selama pelatihan ke dalam praktek
+penyelesaian isu strategik atau permasalahan, yang dituangkan ke dalam
+proyek perubahannya. Khusus untuk penyusunan gagasan perubahan dan
+proyek perubahan selama masa pembelajaran proyek perubahan, dimulai
+dengan melakukan diagnosis situasi problematik atau kebutuhan
+peningkatan kinerja pada organisasi/unit kerjanya, mengusulkan scope
+atau area perubahan, dan melakukan konsultasi tentang gagasan
+perubahan dengan mentor untuk mendapatkan kesepakatan, persetujuan
+dan dukungan dari mentor.
+
+    Dalam melaksanakan mata pelatihan Proyek Perubahan dalam agenda
+Aktualisasi Kepemimpinan Strategis ini, peserta diharapkan mampu:
+
+    1. Mengidentifikasi isu, permasalahan dan kebutuhan peningkatan
+        kinerja dalam lingkup kerja dan kewenangannya;
+
+    2. Mengkomunikasikan kepada stakeholders terkait permasalahan/
+        kebutuhan peningkatan kinerja yang dihadapi dan gagasan
+        perubahan atau cara/alternatif penyelesaiannya yang inovatif;
+
+    3. Mengumpulkan bukti-bukti/data lengkap yang mendukung
+        pentingnya permasalahan untuk diselesaikan atau pentingnya
+        kebutuhan peningkatan;
+
+                                              6
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+    4. Mengidentifikasi stakeholders yang akan terlibat dalam proyek
+        perubahannya sekaligus merancang strategi marketing proyek
+        perubahannya;
+
+    5. Mendapatkan persetujuan dari atasan atau mentor untuk
+        melakukan reformasi (perubahan) pada bidang yang telah
+        diidentifikasi (formulir persetujuan terlampir).
+
+    6. Menentukan dan melaksanakan peran dirinya sebagai pemimpin
+        perubahan yang akan memimpin tim kerja dan melibatkan
+        stakeholders untuk mendukung proyek perubahannya sejak
+        direncanakan hingga pelaksanaan dan evaluasi hasilnya. Sebagai
+        pemimpin perubahan, peserta juga harus dapat berperan sebagai
+        coach bagi para staf atau tim kerjanya dalam proses proyek
+        perubahannya.
+
+   B. Hasil Belajar
+    Setelah mengikuti mata pelatihan ini peserta diharapkan mampu
+menjelaskan konsepsi proyek perubahan, menyusun proyek perubahan,
+menyajikan Rancangan Proyek Perubahan, mengimplementasikan
+Rancangan Proyek Perubahan (memimpin perubahan di instansi),
+menyajikan hasil implementasi proyek perubahan, dan pada akhir
+pembelajaran peserta diminta mendiseminasikan hasil proyek perubahan
+kepada masyarakat.
+    Proses pembelajaran mata pelatihan ini diberikan oleh fasilitator
+dengan menggunakan metode klasikal dan/atau e-learning (ceramah,
+diskusi interaktif dalam kelompok) dan melalui coaching, mentoring
+dengan atasan, serta praktek di tempat kerja.
+   C. Indikator Hasil Belajar
+    Setelah mengikuti pembelajaran ini, peserta dapat:
+
+                                              7
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+1. menjelaskan konsep pembelajaran aktualisasi kepemimpinan
+
+strategis dalam bentuk Rancangan Proyek Perubahan;
+
+2. menjelaskan pembelajaran merancang aktualisasi
+
+kepemimpinan strategis dalam bentuk Rancangan Proyek
+
+Perubahan;
+
+3. melaksanakan    pembimbingan                         Rancangan
+
+Proyek Perubahan;
+
+4. melaksanakan seminar Rancangan Proyek Perubahan;
+
+5. mengikuti pembekalan implementasi Proyek Perubahan (off
+
+campus);
+
+6. melaksanakan aktualisasi Proyek Perubahan;
+
+7. melaksanakan pembimbingan Pelaksanaan Proyek
+
+Perubahan;
+
+8. melaksanakan Seminar Proyek Perubahan; dan
+
+9. berbagi pengalaman memimpin aktualisasi kepemimpinan.
+
+D. Materi Pokok
+
+Materi pokok untuk mata pelatihan proyek perubahan ini, terdiri atas:
+
+1. konsep pembelajaran aktualisasi kepemimpinan strategis dalam
+
+bentuk Rancangan Proyek Perubahan;
+
+2. merancang aktualisasi kepemimpinan strategis dalam bentuk
+
+Rancangan Proyek Perubahan
+
+3. pembimbingan Rancangan Proyek Perubahan;
+
+4. seminar Rancangan Proyek Perubahan;
+
+5. pembekalan implementasi Proyek Perubahan;
+
+6. implementasi aktualisasi Proyek Perubahan;
+
+7. pembimbingan pelaksanaan Proyek Perubahan;
+
+8. Seminar Proyek Perubahan; dan
+
+                   8
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+9. berbagi  pengalaman   memimpin                       aktualisasi
+
+kepemimpinan strategis.
+
+Materi-materi pokok tersebut dijelaskan dalam bab-bab berikut.
+
+                 BAB III
+KONSEPSI PROYEK PERUBAHAN
+
+                            9
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+                   BAB III KONSEPSI PROYEK PERUBAHAN
+    Konsepsi proyek perubahan mencakup pengertian proyek perubahan,
+proses pembelajaran pengelolaan proyek perubahan hingga manajemen
+perubahannya.
+A. Deskripsi Proyek Perubahan
+
+    Pengertian atau deskripsi proyek perubahan yang merupakan salah
+satu mata pelatihan dalam PKN Tingkat II adalah wadah atau tugas
+perorangan peserta pelatihan untuk menerapkan pembelajaran semua
+agenda pembelajaran dalam PKN Tingkat II dan membuktikan
+kemampuan kepemimpinannya sebagai seorang pemimpin yang visioner,
+adaptif, strategis, inovatif dan transformatif melalui proses merancang
+dan melaksanakan proyek perubahan, menyampaikan laporan hasilnya,
+serta mendesiminasikannya. Karena merupakan tugas peserta, maka
+proyek perubahan dinilai untuk melihat keberhasilannya, sejak
+penyusunan rencana proyek perubahan hingga pelaksanaannya.
+B. Muatan Proyek Perubahan
+
+    Proyek perubahan disusun dengan memperhatikan beberapa kriteria
+sebagai berikut:
+
+    1. Proyek perubahan harus betul-betul merupakan ide terobosan dan
+        bersifat inovatif dari peserta bukan dari orang lain,
+
+    2. Proyek perubahan merupakan hasil proses diagnosis di
+        organisasi/unit kerja organisasi yang dipilih yang dilakukan pada
+        saat pelatihan (isu/permasalahan yang up-to-date);
+
+    3. Proyek perubahan harus mendapat dukungan penuh baik oleh
+        atasan langsung maupun institusi;
+
+    4. Proyek perubahan harus dapat meningkatkan kinerja organisasi
+        menuju organisasi adaptif;
+
+                                             10
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+    5. Harus dapat dilaksanakan (feasible, implementable), bermanfaat
+        atau memberi keuntungan bagi organisasi;
+
+    6. Menunjukkan branding dari proyek perubahannya.
+    Untuk kriteria terobosan yang inovatif atau ada tidaknya kebaruan
+(novelty) dalam sebuah perubahan dapat dilihat dari:
+    1. Ada tidaknya dampak positif atau kemanfaatan dari suatu inisiatif
+
+        perubahan;
+    2. Mampu tidaknya inisiasi perubahan memberi solusi terhadap
+
+        masalah yang ada;
+    3. Harus berkesinambungan (tidak tergantung pada inisiator/
+
+        konseptornya) dan dapat direplikasikan;
+    4. Memiliki kompatibilitas dengan sistem di luar dirinya, tidak
+
+        membentur/melanggar sistem yg telah ada.
+    Selain kriteria substansi proyek perubahan tersebut di atas, locus
+proyek proyek perubahan perlu memperhatikan kedudukan peserta di
+instansinya, sebagai berikut:
+    1. Bagi peserta yang sudah duduk/menjabat, memilih proyek
+
+        perubahan sesuai dengan tugas dan wewenang pada
+        organisasi/unit organisasinya saat ini.
+    2. Sedangkan bagi peserta yang menduduki jabatan, peserta dapat
+        memilih proyek perubahan pada organisasi/unit kerja JPT
+        Pratama baik di atasnya langsung maupun bukan di atasnya
+        langsung, sesuai penugasan atasannya.
+   C. Hubungan Proyek Perubahan dengan Agenda lain
+
+    Sebagaimana telah dijelaskan sebelumnya bahwa Proyek Perubahan
+adalah salah satu mata pelatihan dalam Agenda Aktualisasi
+Kepemimpinan Strategis, dan merupakan wadah atau tugas perorangan
+
+                                             11
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+peserta pelatihan untuk menerapkan pembelajaran semua agenda
+pembelajaran dalam PKN Tingkat II. Karena itu, substansi proyek
+perubahan berisikan implementasi mata-mata pelatihan yang telah
+dipelajari dan dituangkan dalam bentuk rencana proyek perubahan dan
+pelaksanaannya. Mata pelatihan yang diadopsi/diterapkan dalam
+rencana proyek perubahan adalah yang relevan dengan substansi proyek
+perubahan peserta. Penerapan tersebut selain dituangkan dalam
+dokumen rencana proyek perubahan, juga dapat diterapkan dalam proses
+implementasinya, misalnya mempraktekkan substansi Energi
+Kepemimpinan ketika menyusun rencana proyek perubahan dan
+mempraktekannya di instansi peserta atau ketika melaksanakan proyek
+perubahan bersama stakeholders.
+
+    Rancangan proyek perubahan disusun dengan memperhatikan dan
+mengadopsi substansi mata pelatihan sebagai berikut:
+
+    1. Agenda Mengelola Diri (Self Mastery) meliputi mata pelatihan:
+        Integritas Kepemimpinan; Energi Kepemimpinan.
+
+    2. Agenda Kepemimpinan Strategis: mata pelatihan Kepemimpinan
+         Digital, Kepemimpinan Kewirausahaan dan Organisasi Pembelajar.
+
+    3. Agenda Manajemen Strategis, terdiri dari mata pelatihan
+         Manajemen Strategis Sektor Publik, Marketing Sektor Publik, Isu
+         Strategis dan Kemitraan Pemerintah Swasta (Public Private
+         Partnership).
+
+    4. Agenda Aktualisasi Kepemimpinan Strategis, terdiri dari mata
+         pelatihan Visitasi Kepemimpinan Nasional, Policy Brief, dan mata
+         pelatihan Proyek Perubahan.
+
+                                             12
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+   D. Proses Pembelajaran Proyek Perubahan
+
+    Proses pembelajaran mata pelatihan proyek perubahan selama masa
+PKN II, dibagi dalam dua bagian yaitu; 1) proses perancangan proyek
+perubahan atau penyusunan proyek perubahan; dan 2) proses
+implementasi proyek perubahan. Pembelajaran dimaksud selain secara
+klasikal dan/atau secara e-learning juga di instansinya untuk
+mempraktekkan materi agenda-agenda pembelajaran. Namun secara
+keseluruhan, proses proyek perubahan adalah proses
+mengimplementasikannya di organisasi/unit kerja peserta.
+
+    Untuk proses pembelajaran klasikal atau e-learning dibimbing oleh
+fasilitator dan membahas sub materi proyek perubahan untuk membekali
+peserta dalam merumuskan rancangan proyek perubahan dan
+menerapkannya. Setiap bagian dari proses pembelajaran sub materi
+proyek perubahan yang dibimbing oleh fasilitator/widyaiswara tersebut,
+adalah sebagai berikut:
+
+    1. Tahap perancangan proyek perubahan, meliputi
+         a. Penjelasan konsep proyek perubahan
+               materi: membahas gagasan proyek perubahan
+         b. Pembekalan taking ownership
+               marketing gagasan proyek perubahan ke mentor,
+                 stakeholders
+         c. Pembimbingan (coaching) untuk tindak lanjut taking
+              ownership untuk pembahasan gagasan perubahan.
+               Materi: finalisasi gagasan proyek perubahan, yang telah
+                 disetujui mentor
+         d. Penjelasan merancang proyek perubahan
+               Materi: draft rancangan proyek perubahan
+                                             13
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+         e. Pembimbingan penyusunan rencana proyek perubahan (RPP)
+               Materi: finalisasi rancangan proyek perubahan
+
+         f. Seminar rencana proyek perubahan (RPP)
+               Materi: Komitmen dan penajaman proyek perubahan
+
+    2. Tahap implementasi perancangan proyek perubahan, meliputi:
+         a. Pembekalan implementasi proyek perubahan
+               Materi: untuk implementasi proyek perubahan
+         b. Pembimbingan proyek perubahan
+               Materi: draft laporan hasil implementasi proyek perubahan
+         c. Seminar proyek perubahan
+               Materi: Laporan proyek perubahan (hasil implementasi
+                 proyek perubahan pada tahapan jangka pendek,
+                 laboratorium kepemimpinan)
+
+                        1.
+                 Belajar
+                 mandiri
+                 dan e-
+                 learning
+                 konsep
+                 Proper
+
+                                             14
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+    Proses di atas adalah pembelajaran di kelas (on campus) dengan
+pengampu (widyaiswara), sedangkan waktu terbanyak adalah proses
+perancangan proyek perubahan dan proses implementasinya di
+instansinya (off campus). Adapun lingkup kegiatan dari proses merancang
+dan implementasi proyek perubahan oleh peserta di instansinya, sebagai
+berikut:
+
+    1. Mendiagnosa permasalahan/organisasi;
+    2. Mengkomunikasikan permasalahan dengan mentor dan
+
+        stakeholders;
+    3. Menyusun rancangan proyek perubahan dan membangun tim
+
+        kerja/tim efektif
+    4. Menyajikan rancangan proyek perubahan (dalam seminar
+
+        rancangan proyek perubahan);
+    5. Melaksanakan dan mendiseminasikan proyek perubahan;
+    6. Menyusun laporan proyek perubahan
+    7. Menyajikan hasil pelaksanaan proyek perubahan (dalam seminar
+
+        laboratorium kepemimpinan).
+
+   E. Ciri Pemimpin Perubahan dan Perannya sebagai Coach
+
+    Banyak ahli memberikan pengertian atau definisi tentang pemimpin.
+Dari berbagai definisi, ada kesamaan makna tugas pemimpin, yaitu
+tugasnya adalah memimpin atau mengelola sumber daya untuk mencapai
+tujuan organisasi atau kondisi atau kinerja organisasi yang lebih baik.
+Makna tersebut mengandung pemahaman bahwa seorang pemimpin
+harus dapat mengubah kondisi semula menjadi kondisi yang lebih baik,
+lebih menyenangkan, kinerja lebih atau terbaik (better or best
+performance) dan sebagainya. Ini berarti ada perubahan, karena itu
+
+                                             15
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+seorang pemimpin dianggap juga sebagai orang yang membawa
+perubahan atau agent of change.
+
+    Berdasarkan pengalaman dan pengamatan penulis, ada 3 (tiga) ciri
+atau syarat pemimpin perubahan. Pertama, pemimpin perubahan
+memiliki tujuan yang jelas yang ingin dicapai, yaitu suatu keadaan yang
+lebih baik dari keadaan sebelumnya. Dalam proyek perubahan, keadaan
+tersebut adalah kondisi yang diinginkan atau kondisi ideal yang ingin
+dicapai. Kedua, pemimpin perubahan memiliki cara untuk melakukan
+perubahan, dengan kata lain paham dan tahu apa yang harus dilakukan
+untuk mengubah dari keadaan semula menjadi keadaan yang lebih baik.
+Cara tersebut disusun dalam suatu rencana, yang dapat disebut dengan
+nama berbeda tetap mengandung hal yang sama yaitu upaya perubahan,
+seperti rencana aksi, Renstra, Roadmap, atau dokumen lainnya. Ketiga,
+pemimpin perubahan memiliki kemampuan mempengaruhi atau
+menggerakan staf dan pemangku kepentingan (stakeholders) untuk
+terlibat dan mendukung upaya perubahannya.
+
+    Ketiga ciri atau syarat tersebut harus dimiliki pemimpin perubahan,
+dan jika hanya satu atau dua syarat saja, maka dapat dipastikan dia tidak
+dapat melakukan perubahan dengan baik atau tidak akan mencapai
+perubahan yang diinginkannya. Karena pemimpin perubahan harus
+mengelola para stafnya dalam proyek perubahan, maka dia juga harus
+mampu berperan sebagai coach bagi para stafnya. Sebenarnya peran
+sebagai coach ini bukan suatu yang baru, karena ketika memimpin
+perumusan dan pelaksanaan proyek perubahan, peserta juga
+menggerakkan staf/tim kerja untuk terlibat dan dapat mendukung
+proyek perubahan. Namun untuk lebih memperjelas dan lebih fokus,
+
+                                             16
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+peran tersebut perlu dimunculkan dan ditegaskan sesuai kaidah-kaidah
+yang benar dalam proses proyek perubahan dan pelaporan hasilnya.
+
+    Dalam hal ini, peserta juga melaksanakan tugas atau perannya sebagai
+coach bagi staf atau tim kerjanya, tidak hanya untuk keberhasilan proyek
+perubahan tetapi juga untuk membangun nilai-nilai (values) inovatif,
+team work dan sebagainya di organisasi/unit kerjanya. Sebagai coach,
+peserta harus mampu menggali potensi staf, mendorong dan
+memotivasinya untuk memiliki dan menerapkan ide-ide inovatif demi
+suksesnya perubahan yang diinginkan
+
+    Berikut ini beberapa peran atau tugas coach, yang dapat dilakukan
+peserta dalam memimpin proyek perubahan di instansinya, antara lain:
+
+    1. Observasi kinerja/masalah dalam tim kerja proyek perubahan;
+    2. Menggali potensi, mendorong dan memotivasi serta
+
+        mengembangkan kompetensi staf/tim kerja untuk bekerja yang
+        terbaik;
+    3. Memberikan umpan balik sesuai kompetensi staf/tim;
+    4. Mendorong staf/tim untuk belajar dari orang lain;
+    5. Membangun kepercayaan diri.
+
+    Selain hal-hal yang perlu dilakukan (do) peserta sebagai coach, juga
+perlu memperhatikan untuk tidak melakukan (don't) hal-hal yang tidak
+perlu, misalnya jangan menghakimi (judge), jangan mengambil alih tugas
+staf/tim kerja, dan sebagainya.
+
+    Untuk materi ini, fasilitator/widyaiswara dan peserta dapat
+memperkaya dari sumber-sumber lainnya.
+
+   F. Manajemen Perubahan
+
+    Agar proyek perubahan dapat berhasil baik, maka perlu dikelola
+dengan baik sejak tahap menyusun rencana hingga evaluasi atas
+
+                                             17
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+pelaksanaanya, dengan menerapkan manajemen perubahan (change
+management). Terdapat banyak definisi manajemen perubahan. Menurut
+John Kotter (2006), manajemen perubahan adalah suatu pendekatan
+untuk mengubah individu, tim, dan organisasi kepada kondisi masa depan
+yang diinginkan. Pendapat lainnya lainnya disampaikan Karen Coffman
+dan Katie Lutes (2007): manajemen perubahan adalah sebuah
+pendekatan terstruktur untuk membantu organisasi dan orang-orang
+untuk transisi secara perlahan tapi pasti dari keadaan sekarang menuju
+ke keadaan yang diinginkan. Para ahli lainnya juga berpendapat relatif
+sama, bahwa manajemen perubahan adalah tentang cara mengelola masa
+transisi dari sebuah kondisi yang tidak diinginkan kepada kondisi yang
+diinginkan melalui nilai, sistem, kepemimpinan, individu, tim, dan
+organisasi untuk masa depan yang lebih baik.
+
+    Dari berbagai definisi dan pengertian tersebut di atas, dapat
+disimpulkan bahwa manajemen perubahan adalah suatu proses
+sistematis untuk melakukan sesuatu yang berbeda dan menuju arah yang
+lebih baik, baik bagi perorangan (individu, pegawai) maupun organisasi.
+Disebut proses sistematis, karena proses tersebut dilakukan dengan
+tahapan perubahan yang terencana, jelas, terukur dan terbuka melalui
+komunikasi, integrasi, dan kolaborasi yang menyatukan semua
+keunggulan organisasi secara profesional. Dengan demikian, manajemen
+perubahan dimaksudkan untuk melakukan perubahan yang disengaja,
+dilaksanakan, dikendalikan dan dievaluasi dengan baik, sesuai fungsi-
+fungsi manajemen.
+
+    Idealnya, perubahan tersebut adalah perubahan yang inovatif, yaitu
+perubahan yang mengandung sesuatu yang baru setidak-tidaknya bagi
+
+                                             18
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+organisasi atau unit kerjanya untuk diimplementasikan dan memberi
+manfaat bagi peningkatan kinerja organisasi dan individunya.
+
+    Perubahan yang tidak dikelola dengan baik dengan manajemen
+perubahan, berpotensi menimbulkan penolakan, resistensi dan gagal
+mencapai target waktu dan hasil yang diharapkan. Dengan demikian, agar
+perubahan dapat berhasil, memerlukan pengelolaan yang baik, dengan
+menggunakan tahapan manajemen perubahan dan strategi yang tepat
+dengan kondisi di organisasi masing-masing peserta. Dalam hal ini,
+fasilitator/widyaiswara dapat memperkaya tentang strategi dalam
+manajemen perubahan dari sumber-sumber lain.
+
+    Manajemen perubahan memiliki fungsi-fungsi yang ditujukan untuk
+mengelola perubahan, sebagaimana gambar berikut ini.
+
+    Untuk penerapan manajemen perubahan pada proyek perubahan
+peserta dapat dijelaskan dalam gambar di bawah ini.
+
+                                             19
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+   G. Rangkuman
+    Proyek perubahan merupakan wadah dan tugas peserta PKN Tingkat
+II dalam menerapkan pembelajaran mata-mata pelatihan PKN Tingkat II.
+Penerapan yang dilakukan di instansinya masing-masing juga untuk
+membangun kompetensi peserta sebagai pemimpin strategis dalam
+menyelesaikan masalah-masalah strategis di instansi dan bahkan
+cakupan yang lebih luas. Sekurang-kurangnya ada enam muatan proyek
+perubahan, termasuk muatan yang inovatif.
+    Proses pembelajaran proyek perubahan dimulai dengan menjelaskan
+konsepsi proyek perubahan hingga seminar pelaksanaan proyek
+perubahan dan diseminasinya. Pembelajaran juga membahas tiga ciri
+pemimpin perubahan dan perannya tidak hanya sebagai team leader tapi
+juga harus dapat berperan sebagai coach bagi staf/tim kerja dalam proses
+perubahan sejak merancang hingga implementasinya. Kemudian, untuk
+mendukung keberhasilan, peserta perlu menerapkan manajemen
+perubahan dalam proses proyek perubahannya
+
+                                             20
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+H. Soal Latihan
+
+Diskusikan dalam kelompok:
+
+    Apa yang akan peserta lakukan sebagai pemimpin perubahan yang
+harus berperan sebagai coach dalam melakukan perubahan di
+organisasi/unit kerja peserta?
+
+    Fasilitator/widyaiswara dapat     menyiapkan/menyesuaikan
+materi/soal lain untuk didiskusikan.
+
+                            21
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+                              BAB IV
+
+         PERANCANGAN PROYEK PERUBAHAN
+
+               BAB IV PERANCANGAN PROYEK PERUBAHAN
+    Menyusun rancangan proyek perubahan diawali dengan
+memperhatikan, merasakan dan menganalisa berbagai isu yang ada di
+organisasi atau unit kerjanya. Kadangkala isu dirasakan oleh sebagian
+orang, tetapi tidak dirasakan oleh pihak lain. Hal ini tergantung kepekaan,
+kepentingan, kemampuan analisis dan mentalitas seseorang termasuk
+pemimpin. Karena itu, bukan suatu yang mengejutkan jika sebagian orang
+menganggap ada isu yang harus diselesaikan, sedangkan sebagian lainnya
+tidak menganggap ada isu yang harus diperhatikan.
+    Dari berbagai isu, dipilih isu yang strategis untuk dibahas. Isu yang
+dapat dibuktikan dengan data atau informasi yang valid, dapat ditetapkan
+menjadi masalah. Ada dua masalah. Pertama masalah yang sudah terjadi
+dan belum ada solusinya. Kedua, masalah yang belum terjadi, atau disebut
+berpotensi akan terjadi dalam beberapa waktu ke depan. Seorang
+pemimpin perubahan harus memiliki ketajaman tentang adanya masalah,
+baik yang sudah terjadi dan bahkan yang akan terjadi. Terhadap potensi
+masalah yang akan terjadi, pemimpin dapat menyusun upaya
+antisipasinya agar masalah tersebut tidak terjadi atau sekurang-
+kurangnya diminimalisir.
+    Ketajaman analisa ini diperoleh jika pemimpin memiliki, paling tidak,
+dua hal: 1) kepedulian yang kuat terhadap kinerja organisasi/unit
+organisasinya dan selalu ingin melakukan perbaikan/peningkatan
+kinerja; 2) komitmen yang kuat untuk bekerja yang terbaik bagi
+kepentingan organisasi/unit kerja dan bahkan bangsa dan negara
+Indonesia.
+
+                                             22
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+A. Membangun Gagasan Perubahan
+
+    Hasil ketajaman analisa pemimpin tersebut memunculkan ide-ide atau
+gagasan-gagasan untuk melakukan perubahan, perbaikan, peningkatan
+atau penyempurnaan. Untuk memperoleh gagasan yang tepat dan dapat
+ditindaklanjuti menjadi proyek perubahan, pemimpin perubahan perlu
+mencari data/informasi yang relevan melalui pengamatan, dokumen,
+laporan, dan atau diskusi dengan staf,
+
+    Adakalanya, gagasan perubahan muncul dari atasan peserta yang
+lebih dulu memahami permasalahan yang ada atau yang akan terjadi. Jika
+demikian, peserta dapat menerima gagasan tersebut jika atasannya
+memintanya menjadi proyek perubahan.
+B. Membangun Dukungan
+
+    Sejak menyampaikan gagasan hingga pelaksanaan rencana proyek
+perubahan, peserta/pemimpin perubahan sudah harus membangun
+dukungan. Untuk itu, peserta dapat menggunakan materi, strategi dan
+teknik dalam mata pelatihan Marketing Sektor Publik, Energi
+Kepemimpinan dan juga pembelajaran dari Visitasi Kepemimpinan
+Nasional.
+C. Menyusun Rencana Proyek Perubahan
+
+    Tahap berikutnya adalah menyusun proyek perubahan yang dimulai
+dengan menemukan gagasan dan kemudian menjadi masalah proyek
+perubahan. Masalah ini didiagnosa dengan menggunakan teknik analisa
+yang tepat. Jika masalah yang dihadapi adalah terkait dan sebagian besar
+dalam organisasinya, misalnya masalah pengawasan, pengelolaan kinerja
+instansi atau manajemen sumber daya manusia di kementerian/lembaga,
+maka dapat digunakan teknik analisa organisasi/manajemen yang baku
+
+                                             23
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+karena sudah ada variabel atau faktor-faktornya, misal 7S Mackinsey (jika
+tersedia instrumennya), Weisboard Six Model, hasil penilaian mandiri
+pelaksanaan reformasi birokrasi (PMPRB) dikelola Kementerian PAN
+dengan 8 area perubahannya, jika terdapat permasalahan yang relevan
+dengan proyek perubahan peserta. Dapat juga menggunakan teknik
+analisa yang terbuka karena variabelnya ditentukan peserta sendiri, misal
+tree diagram, fishbone, SWOT atau SOAR. Namun diagnosa masalah dapat
+juga dengan metode focus group discussion untuk mencari
+variabel/aspek-aspek dalam organisasi yang lemah/berpengaruh kuat
+terhadap munculnya masalah yang akan diselesaikan.
+
+    Jika masalah yang akan diselesaikan adalah masalah yang terjadi di
+luar instansi yang menjadi tanggung jawab organisasi/unit kerja peserta,
+misal masalah pemberdayaan masyarakat, kesehatan masyarakat,
+lingkungan hidup, kriminalitas, penanganan narkoba di masyarakat, maka
+dapat menggunakan metode atau teknik yang relevan dengan masalah
+tersebut, misalnya dengan metode survei sosial, wawancara dan atau
+pengamatan langsung.
+
+    Hal yang harus diperhatikan, masalah apa saja dan dengan
+menggunakan teknik analisis/diagnosis apa saja, hasilnya perlu
+dituangkan dalam kerangka pikir sederhana berikut ini.
+
+                                             24
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+                       Gambar 4 Kerangka Pikir Teknik Analisis
+Atau dituangkan dalam kerangka pikir yang lebih sederhana.
+
+                                             25
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+    Berikut hal-hal yang perlu diperhatikan oleh peserta dalam membuat
+rancangan proyek perubahan, sebagai berikut:
+
+    1. Jika peserta telah menduduki Jabatan Pimpinan Tinggi (JPT)
+         Pratama atau unit organisasi setingkat JPT Pratama, maka tugas
+         dan fungsi tempat peserta bekerja menjadi acuan untuk menyusun
+         rancangan proyek perubahan. Namun jika peserta belum
+         menduduki jabatan setingkat JPT Pratama maka locus untuk
+         proyek perubahannya adalah organisasi/unit kerja setingkat JPT
+         Pratama, yang ditugaskan atasan atau mentor untuk dijadikan
+         locus proyek perubahan.
+
+    2. Dalam menyusun rancangan proyek perubahan dan
+         implementasinya, peserta menggunakan materi pembelajaran
+         yang dinilai relevan dengan substansi proyek perubahannya,
+
+                                             26
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+         seperti mata pelatihan-mata pelatihan dalam Agenda
+         Kepemimpinan Strategis dan Agenda Manajemen Strategis.
+    3. Mengacu pada pembelajaran atau penjelasan Konsep Proyek
+         Perubahan, termasuk hal-hal yang perlu masuk dalam rancangan
+         proyek perubahan dan laporan implementasinya.
+    4. Mengacu pada kriteria evaluasi atau penilaian: a)
+         Rancangan/Rencana Proyek Perubahan dan Laporan
+         Implementasi Proyek Perubahan, sebagaimana diatur dalam
+         Keputusan Kepala Lembaga Administrasi Negara, Nomor:
+         311/K.1/ PDP.07/2019 Tentang Pedoman Penyelenggaraan
+         Pelatihan Kepemimpinan Nasional Tingkat II. Hal ini dimaksudkan,
+         agar proyek perubahan peserta memenuhi kriteria evaluasi
+         penilaian proyek perubahan tersebut.
+    Untuk Rancangan atau Rencana Proyek Perubahan, ada 5 (lima) aspek
+evaluasi atau penilaian yaitu:
+    a. Ketepatan rencana proyek perubahan dengan tuntutan organisasi
+        adaptif
+    b. Terobosan inovatif dan cakupan manfaat untuk organisasi adaptif
+    c. Tahapan rencana perubahan dan ketepatan strategi organisasi
+    d. Rencana Strategi Marketing: kejelasan peta stakeholders,
+        pemanfaatan sumber daya organisasi, dan strategi marketing
+
+    e. Rencana strategi pengembangan kompetensi dalam proyek
+        perubahan.
+
+    Kelima aspek penilaian tersebut harus tercakup dalam Rancangan
+Proyek Perubahan. Untuk memudahkan peserta menyusun rancangan
+tersebut, substansi proyek perubahan yang memenuhi kelima aspek
+
+                                             27
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+tersebut dapat dituangkan, pada bagian-bagian dalam Rancangan Proyek
+Perubahan, yang sekurang-kurangnya mencakup:
+
+    1. Judul
+        Memuat judul proyek perubahan yang akan dilakukan.
+
+    2. Deskripsi Proyek Perubahan
+        Memuat penjelasan singkat tentang substansi proyek perubahan.
+
+    3. Latar Belakang (Burning Platform)
+        Latar belakang yang merupakan burning platform berisi
+        penjelasan logis alasan mengapa perlu disusun Rancangan Proyek
+        Perubahan, dengan mengacu kepada tugas pokok dan fungsi
+        tempat peserta bekerja sesuai dengan jenjang PKN Tingkat II.
+        Penjelasan tersebut didukung dengan data/informasi yang
+        relevan.
+        Dalam latar belakang ini, dijelaskan juga kondisi ideal organisasi
+        yang akan dicapai, kondisi saat ini, dan permasalahan atau kendala
+        yang dihadapi, serta strategi untuk mencapai kondisi ideal yang
+        diharapkan.
+        Agar fokus dan memudahkan pelaksanaan dan pengukuran
+        capaian perubahannya, dibuat kondisi ideal yang dapat dirinci ke
+        dalam tiga tahapan: jangka panjang, jangka menengah dan jangka
+        pendek. Demikian juga, strategi atau solusinya penyelesaian (akan
+        dijelaskan dalam bagian tahapan perubahan rencana strategis).
+        Hal ini dimaksudkan agar terdapat relevansi atau keterkaitan dan
+        memudahkan pengukurannya antara strategi/solusi dengan target
+        atau sasaran dalam jangka panjang, menengah dan pendek.
+        Jika substansi proyek perubahan ini relevan atau memiliki
+        kemiripan yang relatif dengan proyek perubahan sebelumnya,
+
+                                             28
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+        maka dalam latar belakang perlu dijelaskan referensinya, antara
+        lain proyek perubahan yang pernah dilakukan oleh peserta PKN
+        Tingkat II sebelumnya dan memiliki relevansi dengan proyek
+        perubahan yang akan dilakukan peserta diulas secara singkat.
+        Ulasan tersebut menggambarkan perspektif baru terhadap proyek
+        perubahan yang sedang disusun.
+    4. Tujuan Proyek Perubahan
+        Tujuan proyek perubahan difokuskan pada upaya untuk
+        membangun organisasi adaptif. Dalam tujuan ini dijelaskan
+        tentang tujuan yang akan dicapai baik jangka panjang (satu atau
+        dua tahun), jangka menengah (enam bulan atau satu tahun) dan
+        jangka pendek (batas waktu berakhirnya PKN Tingkat II). Peserta
+        perlu memperhatikan secara tajam capaian-capaian yang akan
+        diperoleh dalam rencana proyek perubahan. Informasi capaian
+        tersebut dapat bersifat terobosan inovatif.
+    5. Output (keluaran) dan Outcome (hasil/manfaat)
+        Secara umum, output adalah produk yang dihasilkan adalah
+        produk akhir proyek perubahan yang akan diseminarkan dalam
+        seminar implementasi proyek perubahan, yang dilakukan pada
+        akhir pembelajaran PKN II. Artinya produk akhir adalah produk
+        jangka pendek dari proyek perubahan.
+        Sedangkan outcome adalah hasil adalah berfungsinya output atau
+        produk tersebut, yang dalam konteks ini disebut juga manfaat.
+        Outcome atau hasil/manfaat merupakan hasil jangka panjang yang
+        akan dicapai dari produk akhir proyek perubahan Manfaat proyek
+        perubahan berisi penjelasan hasil yang akan diperoleh instansi
+        tempat bekerja peserta PKN II dari proyek perubahan peserta.
+
+                                             29
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+        Manfaat yang diberikan ini juga untuk merespon tuntutan
+        perubahan dan tantangan lingkungan strategis.
+    6. Tahapan Perubahan Rencana Strategis
+        Rencana tahapan terbagi dalam time-frame yang telah ditentukan
+        dan disesuaikan dengan output kunci yang akan dicapai sesuai
+        tujuan proyek perubahan.
+        Di dalam tahapan rencana strategis ini juga dijelaskan tentang
+        output/capaian yang dihasilkan dalam setiap tahapan yaitu tahap
+        jangka panjang, jangka menengah dan jangka pendek. Penjelasan
+        tersebut mencakup juga tentang proses kegiatan yang dilakukan
+        untuk mencapai output pada setiap tahapan. Tahapan pelaksanaan
+        proyek perubahan dapat berisi informasi yang disusun dalam
+        bentuk tabel, sebagai berikut:
+        a. tentang jenis kegiatan dalam pelaksanaan proyek perubahan;
+        b. siapa melakukan kegiatannya;
+        c. target waktu penyelesaian kegiatan;
+        d. kapan kegiatan dimulai dan selesai;
+        e. serta output kegiatan.
+
+            Dalam bagian ini juga dijelaskan strategi pengembangan
+            kompetensi yang dibutuhkan untuk adopsi proyek perubahan.
+            Pengembangan kompetensi dapat dilakukan bagi tim efektif
+            maupun stakeholders yang terkait dengan proyek perubahan.
+
+    7. Rencana Strategi Marketing
+
+                                             30
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+        Rencana strategi marketing mencakup: a) rencana strategi
+        marketing penyusunan rencana proyek perubahan, b) rencana
+        strategi marketing pelaksanaan/implementasi proyek perubahan.
+        Rencana strategi marketing memuat identifikasi instansi/individu
+        yang berkepentingan dan memiliki pengaruh baik pengaruh positif
+        (mendukung) maupun negatif (sumber penghambat) terhadap
+        hasil akhir dari proyek perubahan. Stakeholder dapat dibedakan
+        antara stakeholder internal (masih dalam satu instansi) atau
+        eksternal yaitu instansi lain atau individu yang berpengaruh di luar
+        instansi peserta. Pemetaan stakeholder dan perencanaan strategi
+        marketing dapat mengacu kepada mata pelatihan Dialog Strategis
+        dan Marketing Sektor Publik.
+    8. Identifikasi potensi kendala dan dan solusinya
+        Berisi identifikasi beberapa kendala yang beresiko menghambat
+        pelaksanaan proyek perubahan dan solusinya.
+    9. Faktor Kunci Keberhasilan
+        Berisi beberapa faktor kunci atau utama yang diperkirakan
+        mempengaruhi keberhasilan proyek perubahan.
+    10.Tata kelola proyek perubahan
+        Berisi struktur tim kerja proyek perubahan dimana peserta
+        sebagai pemimpin tim (team leader) proyek perubahan.
+    11.Persetujuan Project Sponsor
+        Rencana perubahan sebaik apapun tidak akan sukses jika atasan
+        langsung peserta tidak terinformasikan, apalagi tidak mendukung.
+        Untuk itu, peserta perlu mendapatkan persetujuan dalam
+        menyusun rencana dan mengimplementasikan proyek
+        perubahannya. Persetujuan atasan atau mentor berupa
+
+                                             31
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+        pernyataan persetujuan atasan terhadap gagasan perubahan yang
+        diajukan peserta (form persetujuan terlampir).
+    Pokok-pokok RPP di atas adalah acuan secara umum. Selanjutnya.
+struktur, substansi dan penulisan RPP diarahkan oleh masing-masing
+coach dengan tetap memperhatikan peraturan dan arahan dari
+penyelenggara.
+D. Seminar Rancangan Proyek Perubahan
+
+    Seminar Rancangan Proyek Perubahan (RPP) merupakan evaluasi
+oleh narasumber/penguji atas RPP yang disajikan peserta PKN II, yang
+dihadiri mentor dan coach yang juga berperan sebagai moderator.
+Evaluasi ini dimaksudkan untuk melihat apakah RPP sudah memenuhi
+lima aspek RPP, mengandung kebaharuan (inovatif) dan dapat
+dilaksanakan pada tahap jangka pendek atau selama masa PKN II dan
+paska pelatihan.
+
+    Narasumber dapat memberi masukan/saran-saran perbaikan agar
+RPP dapat dilaksanakan dan mencapai hasil yang baik. Mentor memberi
+dukungan atau dapat membantu menjelaskan atau memberi saran-saran
+perbaikan RPP merespon saran-saran narasumber.
+
+    Pada seminar proyek perubahan peserta juga memaparkan hasil
+pemetaan kompetensi kepemimpinan dan strategi pengembangan
+potensi diri dalam bentuk PPT 1 (satu) halaman yang menjadi bagian yang
+tidak terpisahkan dari dokumen PPT Proyek Perubahan. Penilaian
+terhadap komponen ini dilakukan oleh coach dan mentor.
+E. Rangkuman
+
+    Setelah mempelajari konsepsi proyek perubahan, peserta merancang
+proyek perubahan, yang didahului dengan membangun gagasan
+perubahan. Masalah gagasan dan kemudian menjadi masalah proyek
+
+                                             32
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+perubahan. Masalah didiagnosa dengan menggunakan teknik analisa yang
+tepat, baik yang memiliki variabel atau faktor-faktor yang sudah
+ditentukan atau yang terbuka (variable ditentukan peserta/tim kerja).
+Untuk memudahkan analisa dan penyajiannya, hasil analisa dengan
+teknik analisa manajemen disajikan dalam kerangka pikir.
+
+    Rancangan Proyek Perubahan (RPP) harus memenuhi 5 (lima) aspek
+evaluasi atau penilaian yaitu: ketepatan rencana proyek perubahan
+dengan tuntutan organisasi adaptif, terobosan inovatif dan cakupan
+manfaat untuk organisasi adaptif, tahapan rencana perubahan dan
+ketepatan strategi organisasi, rencana strategi marketing (kejelasan peta
+stakeholders, pemanfaatan sumber daya organisasi, dan strategi
+marketing), rencana strategi pengembangan kompetensi dalam proyek
+perubahan. Tujuan seminar adalah untuk menilai dan menyempurnakan
+RPP agar dapat dilaksanakan dan menjamin keberhasilannya.
+F. Soal Latihan
+
+    Diskusikan dalam kelompok:
+    Inventarisasi beberapa masalah di organisasi/unit kerja salah satu
+peserta dalam kelompok, pilih salah satu masalah untuk diselesaikan
+dalam proyek perubahanya. Lakukan diagnosa masalah tersebut sebagai
+kondisi awal/saat ini, analisa penyebab atau faktor-faktor penyebab yang
+berpengaruh terhadap mempengaruhi terjadinya masalah tersebut.
+Kemudian tentukan kondisi yang diinginkan, dan tentukan terobosan atau
+solusi inovatifnya
+    Fasilitator/widyaiswara dapat menyesuaikan/menyiapkan
+materi/soal lain untuk didiskusikan.
+
+                                             33
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+                                    BAB V
+              PELAKSANAAN PROYEK PERUBAHAN
+
+                BAB V PELAKSANAAN PROYEK PERUBAHAN
+A. Persiapan Implementasi Proyek Perubahan
+
+    Setelah Seminar Rancangan Proyek Perubahan (RPP), maka peserta
+masuk ke tahap implementasi proyek perubahan. Sebelum dilaksanakan,
+peserta perlu memastikan saran-saran narasumber (penguji) yang
+disampaikan dalam Seminar RPP, atau juga jika ada saran-saran mentor
+dan arahan coach. Perbaikan RPP dilakukan sesuai saran atau arahan
+tersebut. Saran-saran narasumber akan ditanyakan kembali olehnya pada
+saat Seminar Hasil Implementasi Proyek Perubahan (Laboratorium
+Kepemimpinan). Untuk persiapan implementasi, peserta juga akan
+mendapat pembelajaran dari widyaiswara/fasilitator secara klasikal
+dan/atau e-learning dan tentunya arahan dari coach masing-masing
+peserta sesuai masa proyek perubahan.
+B. Melaksanakan Tahapan Perubahan
+
+    Implementasi proyek perubahan dengan menggunakan RPP yang
+telah diperbaiki sesuai hasil seminar, jika ada saran-saran perbaikan
+dalam seminar. Kegiatan-kegiatan yang dilaksanakan dalam masa sekitar
+2 bulan adalah kegiatan pada tahapan jangka pendek, sejak selesai
+seminar RPP hingga sehari sebelum Seminar Laboratorium
+Kepemimpinan.
+
+    Untuk kegiatan-kegiatan pada tahapan jangka menengah dan jangka
+panjang dilaksanakan setelah paska PKN II. Diharapkan, peserta memiliki
+komitmen kuat dengan didukung mentor dan instansinya, untuk
+konsisten melanjutkan pelaksanaan proyek perubahannya agar dapat
+
+                                             34
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+memberikan manfaat yang optimal bagi organisasinya dan stakeholders-
+nya.
+
+    Pada tahapan ini peserta menyelesaikan mata pelatihan pilihan yang
+mendukung proyek perubahan. Serta melakukan pengembangan potensi
+diri sesuai dengan strategi yang telah disusun dan telah disepakati dengan
+mentor.
+C. Menyusun Laporan Hasil Pelaksanaan Proyek Perubahan
+
+    (Tahapan Jangka Pendek)
+
+    Sesuai dengan Keputusan Kepala Lembaga Administrasi Negara. No.
+Keputusan Kepala Lembaga Administrasi Negara, Nomor: 311/K.1/
+PDP.07/2019 Tentang Pedoman Penyelenggaraan Pelatihan
+Kepemimpinan Nasional Tingkat II, ada 6 (enam) aspek evaluasi atau
+penilaian terhadap implementasi proyek perubahan, yaitu:
+
+    1. Capaian Perubahan Terhadap Rencana Perubahan
+    2. Kepemimpinan Strategis
+    3. Implementasi Strategi Marketing : ketepatan stakeholder utama
+
+        dan strategi komunikasinya, pemanfaatan strategi organisasi, dan
+        strategi marketing (diseminasi dan publikasi proyek perubahan)
+    4. Keberlanjutan proyek perubahan
+    5. Pemberdayaan organisasi pembelajar: pelaksanaan strategi
+        pengembangan kompetensi dalam proyek perubahan
+    6. Keterkaitan mata pelatihan pilihan dengan proyek perubahan
+    Untuk memudahkan penyampaian hasil implementasi proyek
+perubahan, laporan dibuat dalam 3 (tiga) bagian utama, selain ringkasan
+eksekutif, yaitu:
+    1. Ringkasan Eksekutif
+    2. Bab I Rencana Proyek Perubahan
+
+                                             35
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+        (termasuk Sub Bagian Pendahuluan)
+
+        Berisi butir-butir yang telah dijelaskan di atas, dan sudah dibahas
+        atau diperbaiki sesuai hasil Seminar RPP, tanpa deskripsi dan judul
+        lagi (karena sudah ada pada halaman lain)
+
+    3. Bab II Pelaksanaan Proyek Perubahan.
+
+        Memuat penjelasan logis beberapa hal, sekurang-kurangnya
+        sebagai berikut:
+
+                 a. Capaian Perubahan Terhadap Rencana Perubahan
+                 b. Kepemimpinan Strategis
+                 c. Implementasi Strategi Marketing : ketepatan
+
+                     stakeholder utama dan strategi komunikasinya,
+                     pemanfaatan strategi organisasi, dan strategi marketing
+                     (diseminasi dan publikasi proyek perubahan)
+                 d. Keberlanjutan proyek perubahan
+                 e. Pemberdayaan organisasi pembelajar: pelaksanaan
+                     strategi pengembangan kompetensi dalam proyek
+                     perubahan
+                 f. Keterkaitan mata pelatihan pilihan dengan proyek
+                     perubahan
+    4. Bab III Penutup
+         A. Lesson learnt
+              Uraian lesson learnt merupakan gambaran aktualisasi dari
+              proses pembelajaran yang utamanya adalah aktualisasi
+              pengembangan kepemimpinan strategis, berisi uraian
+              pengalaman peserta sejak menyusun RPP hingga
+              implementasinya, termasuk pelaksanaan peran/tugas peserta
+
+                                             36
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+              sebagai coach bagi tim kerja/tim efektif dan staf lain di
+              organisasi/unit kerjanya sejak penyusunan RPP hingga
+              pelaksanaannya. Lesson learnt dimulai sejak penyusunan
+              rancangan proyek perubahan, karena ketika taking ownership,
+              peserta sudah harus menerapkan strategi komunikasi
+              bagaimana berkomunikasi dengan atasan, staf/tim kerja dan
+              stakeholders untuk mendiskusikan rancangan proyek
+              perubahan. Hal ini juga sesuai dengan tahapan/fungsi dalam
+              manajemen perubahan.
+
+              Uraian lesson learnt juga akan lebih baik jika berkaitan dengan
+              penerapan berbagai pendekatan atau mata pelatihan PKN II
+              yang disusun secara solid sebagai suatu pengalaman dan
+              pembelajaran yang menarik dan bermanfaat.
+
+         B. Kesimpulan
+         C. Saran.
+
+              Terkait dengan laporan proyek perubahan, dapat
+              disampaikan:
+
+    Struktur laporan di atas sebagai acuan secara umum, selanjutnya,
+struktur, substansi dan penulisan RPP diarahkan oleh masing-masing
+coach dengan tetap memperhatikan peraturan dan arahan dari
+penyelenggara.
+
+    Kedepan, penyelenggara dapat mengarahkan penyesuaian
+format/substansi dapat disesuaikan sesuai kebutuhan dengan tetap
+memperhatikan muatan kriteria evaluasi, misalnya jumlah halaman
+laporan dan penggunaan infografis-infografis serta video sebagai laporan.
+
+                                             37
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+D. Seminar Hasil Implementasi Proyek Proyek Perubahan
+
+    Seminar Hasil Implementasi Proyek Perubahan atau Laboratorium
+Kepemimpinan Rancangan Proyek Perubahan (RPP) merupakan evaluasi
+oleh narasumber (penguji) atas hasil pelaksanaan RPP di organisasi/unit
+kerja peserta selama masa aktualisasi kepemimpinan peserta di
+instansinya. Penyajian disampaikan peserta dengan paparan dan/atau
+dapat juga berupa video yang menjelaskan keberhasilan proyek
+perubahannya
+
+    Video berisi proses proyek perubahan sejak menyusun Rancangan
+proyek perubahan hingga implementasinya dengan fokus pada substansi
+dan relevan. Video yang disimpan dalam compact disc (CD) dengan durasi
+maksimal 10 menit, dapat disampaikan dalam seminar laporan
+kepemimpinan.
+
+    Untuk mendukung penjelasannya, setiap peserta perlu mencatat,
+merekam, dan mengumpulkan semua bukti kegiatan dan dukungan
+stakeholders dalam pelaksanaan proyek perubahannya, dan melampirkan
+bukti yang ada pada saat seminar hasil implementasi proyek perubahan.
+Soft copy dari laporan proyek perubahan dan link video diunggah dalam
+LMS Pelatihan Struktural Kepemimpinan.
+
+    Sama dengan seminar RPP, seminar ini juga dihadiri mentor dan coach
+yang berperan sebagai moderator. Evaluasi ini dimaksudkan untuk
+melihat keberhasilan proyek perubahan dengan menggunakan kriteria
+yang sudah ditentukan. Mentor dapat memberi tambahan penjelasan
+tentang hasil pelaksanaan proyek perubahan peserta. Pada akhir seminar,
+peserta dan mentor berkomitmen melanjutkan proyek perubahan
+tahapan berikutnya agar dapat memberikan kontribusi terbaik bagi
+kemajuan instansi, negara dan bangsa Indonesia.
+
+                                             38
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+    Pada seminar implementasi proyek perubahan peserta juga
+memaparkan proses dan progres/hasil pengembangan potensi diri dalam
+bentuk PPT 1 (satu) halaman yang menjadi bagian yang tidak terpisahkan
+dari dokumen PPT Implementasi Proyek Perubahan. Penilaian terhadap
+komponen ini dilakukan oleh coach dan mentor.
+E. Komitmen Melanjutkan Proyek Perubahan
+
+    Sebagaimana telah dijelaskan sebelumnya, peserta menyatakan atau
+berkomitmen melanjutkan implementasi proyek perubahan pada tahap
+jangka menengah dan jangka panjang. Komitmen ini ditandatangani oleh
+Pejabat Pembina Kepegawaian di instansi peserta, Peserta dan Mentor.
+F. Rangkuman
+
+    Setelah seminar RPP, peserta memperbaiki RPP sesuai saran-saran
+narasumber dan mentor, jika ada. Kemudian peserta melaksanakan
+kegiatan-kegiatan dalam tahapan jangka pendek sesuai rancangan
+dengan tetap berkonsultasi dengan coach dan arahan mentor.
+
+    Peserta menyusun laporan hasil pelaksanaan proyek perubahan
+dengan memperhatikan 6 (enam) aspek penilaian. Laporan disajikan
+dalam seminar yang dihadiri narasumber/penguji, mentor dan coach yang
+juga sebagai moderator. Narasumber memberikan penilaian tingkat
+keberhasilan dengan enam aspek tersebut. Pada akhir seminar peserta
+dan mentor memberikan komitmen untuk melanjutkan proyek
+perubahan pada tahapan berikutnya, dan mendesiminasikannya.
+G. Soal Latihan
+
+    Pembelajaran PKN II selesai, tidak ada soal Latihan Namun jika
+dianggap perlu, soal dapat disampaikan dan dinilai oleh
+fasilitator/widyaiswara.
+
+                                             39
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+                                   BAB VI
+ PERAN/TUGAS MENTOR, COACH & PESERTA PELATIHAN
+
+  BAB VI PERAN/TUGAS MENTOR, COACH & PESERTA PELATIHAN
+    Istilah coach dan mentor dipergunakan pada pelatihan kepemimpinan
+
+nasional saat ini. Kedua istilah ini lebih populer di bidang olah raga untuk
+para atlet, seperti sepak bola dan dunia bisnis untuk para pemula baik di
+bidang pemasaran dan bidang kepemimpinan. Peran coach dan mentor
+memiliki kesamaan. Coaching dan mentoring merupakan proses yang
+membantu individu atau klien dalam organisasi untuk menggunakan
+potensinya secara penuh. Peran coach dijelaskan sebagai seseorang yang
+memampukan seorang atlet untuk mencapai kinerja atlet tersebut pada
+tingkat yang ia tidak bisa raih, jika ia melakukannya sendiri. Sedangkan
+mentor adalah seseorang dalam organisasi yang sama dengan mentee
+yang bersikap bijak yang dapat memberikan pengetahuan, pengalaman
+dan membuka pintu-pintu peluang yang membantu individu dalam
+organisasi untuk mencapai potensinya untuk berkinerja dalam organisasi.
+
+    Pada dasarnya, konsep dan peran coach serta mentor sudah kerap
+dilakukan oleh para fasilitator dan penyelenggara pelatihan. Peran
+mentor pun juga sudah melekat pada setiap pimpinan. Dalam PKN Tingkat
+II ini akan lebih diperjelas dan diformalkan sehingga bukti peran itu
+berjalan lebih dapat diidentifikasi dan dievaluasi.
+
+    Oleh sebab itu, dalam agenda aktualisasi kepemimpinan, mentor
+memiliki peran yang sangat diperlukan untuk mempersiapkan dan
+memberi dukungan dalam pengimplementasian perubahan yang
+dirancang untuk perbaikan organisasi dan mengatasi isu strategik
+nasional. Di sisi lain, mentor berperan dalam membangun kapasitas
+
+                                             40
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+kepemimpinan dan manajerial peserta dengan lebih maksimal
+dibandingkan jika peserta melakukannya sendiri.
+
+    Selanjutnya, dalam pelatihan ini, coach akan mendapatkan penugasan
+resmi dari lembaga pelatihan penyelenggara. Sedangkan mentor
+mendapatkan penugasan dari instansi peserta terkait.
+A. Peran Mentor
+
+    Secara umum peran/tugas mentor adalah:
+ 1. Memberikan persetujuan dalam penetapan isu;
+ 2. Menyepakati timeline penyelesaian kegiatan yang akan
+
+      dilaksanakan;
+ 3. Memberikan dukungan penuh kepada Peserta dalam melaksanakan
+
+      kegiatan-kegiatan;
+ 4. Memberikan bimbingan dalam melaksanakan kegiatan-kegiatan;
+ 5. Sebagai inspirator dalam melakukan kegiatan-kegiatan penyelesaian
+
+      isu;
+ 6. Memberikan bimbingan lanjutan apabila peserta bimbingan ditunda
+
+      kelulusannya;
+ 7. Melakukan penilaian sikap perilaku kepemimpinan peserta
+
+      pelatihan dengan menggunakan instrumen pemetaan sikap perilaku
+      kepemimpinan;
+ 8. Bersama dengan peserta, menyepakati strategi pengembangan
+      potensi diri;
+ 9. Memberikan bimbingan dan pendampingan pelaksanaan
+      pengembangan potensi diri;
+ 10. Memberikan penilaian sikap perilaku pada kegiatan pemetaan sikap
+      perilaku kepemimpinan dan strategi pengembangan potensi diri.
+
+                                             41
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+B. Peran Coach
+
+    Dalam PKN II, coach memiliki peran/tugas:
+    1. Memberikan motivasi dan tantangan-tantangan kepada peserta.
+    2. Membimbing peserta menyelesaikan seluruh tahapan
+
+         pembelajaran aktualisasi/aksi perubahan/proyek perubahan;
+    3. Melakukan monitoring kegiatan peserta selama pembelajaran
+
+         aktualisasi/aksi perubahan/proyek perubahan menggunakan
+         media/metode yang disepakati;
+    4. Melakukan koordinasi dengan mentor untuk membantu peserta
+         apabila peserta mengalami permasalahan selama pembelajaran
+         aktualisasi/aksi perubahan/proyek perubahan (jika dipelukan);
+    5. Memberikan masukan kepada peserta terkait aktualisasi/aksi
+         perubahan/proyek perubahan substansi mata pelatihan pada saat
+         pemilihan isu yang aktual, gagasan kreatif yang diusulkan, dan
+         pelaksanaan kegiatan dalam menyelesaikan isu selama
+         pembelajaran aktualisasi/aksi perubahan/proyek perubahan di
+         tempat kerja;
+    6. Memberikan feedback terhadap laporan progress implementasi
+         aktualisasi/aksi perubahan/proyek perubahan yang disampaikan
+         peserta bimbingan minimal seminggu sekali (setiap hari akhir
+         pekan);
+    7. Mengembangkan instrumen monitoring dan perekaman terhadap
+         progress yang dilaporkan oleh peserta bimbingan;
+    8. Mengkomunikasikan proses, kemajuan dan hasil coaching kepada
+         penyelenggara pelatihan;
+    9. Menjadi konselor pada saat peserta mengalami lack of motivation
+         selama proses pembelajaran aktualisasi/aksi perubahan/proyek
+
+                                             42
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+         perubahan atau menyusun rancangan dan laporan
+         aktualisasi/aksi perubahan/proyek perubahan;
+    10. Melakukan pengecekan progres pemetaan sikap perilaku
+         kepemimpinan dan pelaksanaan pengembangan potensi diri;
+    11. Memberikan penilaian sikap perilaku pada kegiatan pemetaan
+         sikap perilaku kepemimpinan dan strategi pengembangan potensi
+         diri.
+
+C. Tugas Peserta
+    Selama berada pada agenda aktualisasi kepemimpinan peserta lebih
+
+bersifat mandiri dalam menginisiasi gagasan rencana perubahan,
+memobilisasi kegiatan-kegiatan yang telah direncanakan dalam
+implementasi proyek perubahan. Peran coach dan mentor sebagai
+pembimbing akan sangat dibutuhkan pada agenda tersebut.
+Pembelajaran yang telah diperoleh pada agenda sebelumnya menjadi
+rujukan teoritis dan inspirasi dalam mengembangkan rencana dan
+implementasi proyek perubahan.
+
+    Beberapa hal yang harus dilakukan peserta adalah :
+    1. Mempersiapkan/merencanakan dokumen/instrumen/waktu
+
+         yang diperlukan dengan baik sebelum pertemuan dengan mentor
+         dan coach;
+    2. Mengambil inisiatif dalam dialog dengan mentor dan coach;
+    3. Menggalang komunikasi dan kesepakatan dengan stakeholders
+         terkait (internal & eksternal);
+
+                                             43
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+    4. Membuat laporan terkait dengan Rancangan Proyek Perubahan
+         (RPP) diunggah ke dalam LMS 1 hari sebelum Seminar RPP
+         dilakukan.
+
+    5. Melakukan eksekusi keseluruhan tahapan yang telah dirancang
+         dengan mendayagunakan seluruh sumber daya yang dimiliki;
+
+    6. Secara aktif melakukan diskusi, bertanya atau melaporkan
+         perkembangan implementasi proyek perubahan kepada coach
+         minimal satu minggu sekali (misal: setiap hari Kamis) dan
+         mendiskusikan progress penyusunan proyek perubahan sesuai
+         waktu yang ditentukan;
+
+    7. Merujuk pada tahapan perubahan rencana strategis yang telah
+         ditargetkan dalam pelaksanaan proyek perubahan sebagai dasar
+         pencapaian target perubahan;
+
+    8. Mengumpulkan dokumen kegiatan yang dapat dijadikan bukti
+         dalam evaluasi dan untuk bahan pelengkap laporan kegiatan;
+
+    9. Menggerakkan seluruh elemen stakeholders terkait (internal &
+         eksternal) dalam mendukung keseluruhan tahapan implementasi
+         perubahan;
+
+    10. Mengembangkan instrumen monitoring dan melakukan
+         perekaman terhadap setiap progress yang dihasilkan dalam
+         proses implementasi proyek perubahan;
+
+    11. Menyusun laporan proyek perubahan secara utuh, mulai dari
+         rancangan proyek perubahan sampai dengan hasil/capaian dari
+         implementasi proyek perubahan. Deskripsi dan analisis terhadap
+         critical success factor dan strategi mengatasi kendala-kendala yang
+
+                                             44
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+         muncul selama tahapan ini merupakan bagian penting yang harus
+         tercakup dalam laporan ini.
+    12. Mengunggah laporan implementasi proyek perubahan ke dalam
+         LMS sesuai jadwal yang telah ditetapkan.
+    13. Sesuai dengan penjelasan pada Bab III, peserta selain sebagai
+         pemimpin tim (team leader) perubahan, juga melaksanakan tugas
+         atau perannya sebagai coach untuk staf atau tim kerjanya, tidak
+         hanya untuk keberhasilan proyek perubahan tetapi juga untuk
+         membangun nilai-nilai (values) inovatif, team work dan
+         sebagainya di organisasi/unit kerjanya.
+    14. Berkomunikasi secara aktif dengan mentor dan coach terkait
+         dengan pemetaan sikap perilaku kepemimpinan dan
+         pengembangan potensi diri.
+
+                                             45
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+                                   BAB VII
+                                 PENUTUP
+
+                                  BAB VII PENUTUP
+    Sebagaimana telah dijelaskan dalam Bab Pendahuluan, modul ini
+diharapkan dapat menjadi penuntun bagi peserta, coach dan mentor
+dalam menyukseskan agenda aktualisasi kepemimpinan strategis. Untuk
+lebih memperjelas dan memudahkan pemahaman peserta, substansi
+modul dapat diperkaya oleh fasilitator/widyaiswara yang menyampaikan
+materi proyek perubahan secara klasikal dan/atau e-learning dan juga
+oleh coach, Demikian juga, format rancangan proyek perubahan dan
+implementasinya dapat diperkaya, tetapi dengan tetap memperhatikan
+aspek evaluasi untuk rancangan proyek perubahan dan laporannya, serta
+arahan pimpinan.
+
+                                             46
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+Lampiran 1 Formulir Persetujuan Mentor
+
+                                                      CONTOH
+
+LEMBAGA ADMINISTRASI NEGARA
+       REPUBLIK INDONESIA
+
+                 FORM PERSETUJUAN MENTOR
+              PKN TK. II ANGKATAN .... TAHUN ....
+
+Nama Peserta                 :
+
+NDH :
+
+Instansi :
+
+Nama Mentor                  :
+
+NIP  :
+
+Jabatan :
+
+No. HP Mentor :
+
+Gagasan Perubahan :
+
+       *) Mengetahui                                  Disetujui oleh
+     Atasan Langsung,                                    Mentor,
+
+     ...............................................  ...............................................
+
+*) Ditandatangani jika atasan langsung bukanNsIePb.agai mentor
+
+Note: dilampirkan dalam Rancangan Proyek Perubahan
+
+                                47
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+Lampiran 2 Formulir Persetujuan Coach
+
+1. Nama Peserta  :
+
+2. Instansi      :
+
+                                 :
+3. Gagasan Perubahan
+
+Catatan terhadap Gagasan Perubahan yang disiapkan peserta
+   ........................................................................................................
+   ........................................................................................................
+   ........................................................................................................
+   .............................................................................................dst
+
+Rekomendasi
+........................................................................................................
+........................................................................................................
+........................................................................................................
+...............................................................................................dst
+
+                                        Jakarta , ...........................
+
+                                               COACH
+
+                                       ( .......................... )
+
+                                    48
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+Lampiran 3 Kartu Kendali Coaching bagi Peserta*
+    *jika diperlukan
+
+     Lembaga Administrasi Negara Republik Indonesia                 PESERTA
+     Pusbangkom Pimnas dan Manajerial ASN
+                                                                 :
+                 KARTU KENDALI PROSES COACHING PKN TK. II
+                         ANGKATAN.......TAHUN ...............
+
+Nama Peserta  :                                      Nama Coach
+
+NDH  :
+
+Instansi :
+
+                                                                 CONTOH
+
+     *) Coaching yang sah adalah yang
+     sudah dtandatangani oleh coach
+
+                                   49
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+Lampiran 3 Kartu Kendali Coaching bagi Coach*
+    *jika diperlukan
+
+     Lembaga Administrasi Negara Republik Indonesia                  COACH
+     Pusbangkom Pimnas dan Manajerial ASN
+                                                                 :
+                 KARTU KENDALI PROSES COACHING PKN TK. II
+                         ANGKATAN.......TAHUN ...............
+
+Nama Peserta  :                                      Nama Coach
+
+NDH  :
+
+Instansi :
+
+                                                                 CONTOH
+
+     *) Coaching yang sah adalah yang
+     sudah dtandatangani oleh coach
+
+                                   50
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+Lampiran 5 Kartu Kendali Mentoring Bagi Peserta*
+*Jika diperlukan
+
+     Lembaga Administrasi Negara Republik Indonesia                          PESERTA
+     Pusbangkom Pimnas dan Manajerial ASN
+
+                            KARTU KENDALI PROSES MENTORING PKN TK. II
+                                       ANGKATAN ....... TAHUN ..........
+
+Nama Peserta  :                           Nama Mentor                     :
+
+NDH  :
+
+Instansi :
+
+                                                                             CONTOH
+
+*) Mentoring yang sah adalah yang
+sudah dtandatangani oleh Mentor
+
+                                      51
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+Lampiran 6 Komitmen Melanjutkan Proyek Perubahan
+
+                            (Kop Surat Instansi Peserta)
+                    -----------------------------------------------------
+
+            KOMITMEN MELANJUTKAN PROYEK PERUBAHAN
+
+                            Kami yang bertanda tangan di bawah ini
+                            Nama : ...............
+                            NIP : ...............
+                            Jabatan : ..............
+
+                            Nama : ...............
+                            NIP : ...............
+                            Jabatan : ..............
+
+                            Nama : ...............
+                            NIP : ...............
+                            Jabatan : ..............
+
+                            Berkomitmen...........................................................
+           ..
+           ....................................................................................................................
+           ....................................................................................................................
+           ...................
+
+                            (akan dirumuskan kemudian...)
+
+                                                     ............., ..................., 202....
+
+L  52
+
+a
+
+m
+
+p
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+                     PENGGUNAAN E-LEARNING
+
+Peserta PKN Tk. II memanfaatkan fasilitas LMS Struktural Kepemimpinan
+http://kepemimpinan-asnpintar.lan.go.id untuk proses coaching,
+mentoring serta unggah dokumen-dokumen yang dibutuhkan.
+
+                                             53
+Modul Proyek Perubahan Pelatihan Kepemimpinan Nasional
+Tingkat II
+
+                           DAFTAR PUSTAKA
+
+Davidson, J. (2005). The Complate Idiot's Guide to Change Management.
+     Indianapolis: Alpha Book.
+
+Dewi, Rosmala Rosma dan Teguh Kurniawan. (2019). Manajemen
+     Perubahan Organisasi Publik: Mengatasi Resistensi Perubahan. Jurnal
+     Natapraja, Vo. 7, No.1, , Univesitas Negeri Yogyakarta
+
+Kotter, John. (2014). Leading Change, Strategi Kepemimpinan Bisnis dari
+     Pakar Kenamaan Dunia. Jakarta: PT. Gramedia Pustaka Utama.
+
+Prenada. Cameron, K. (2004). A Process for Changing Organizational
+     Culture.
+
+Rogers, M. Everett. (1983). Diffuision of Innovation. Third Edition. New
+     York: The Free Press.
+
+Sulaksana, Uyung. (2004). Managemen Perubahan. Yogyakarta: Pustaka
+     Pelajar.
+
+https://samahitawirotama.com/peran-coach-yang-efektif-dalam-
+     organisasi/#:
+
+https://glcworld.co.id/coaching-untuk-tim/
+https://www.goodaidea.com/book
+https://employers.glints.id/resources/6-prinsip-utama-dari-leadership-
+
+     coaching-style/
+https://korporaconsulting.com/coaching-101-prinsip-dasar-coaching/
+Peraturan Lembaga Administrasi Negara Nomor 2 Tahun 2019 tentang
+
+     Pelatihan Kepemimpinan Nasional Tingkat II.
+Keputusan Kepala Lembaga Administrasi Negara, Nomor: 311/
+
+     K.1/PDP.07/2019 Tentang Pedoman Penyelenggaraan Pelatihan
+     Kepemimpinan Nasional Tingkat II.
+
+                                             54
+

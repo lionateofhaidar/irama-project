@@ -1,0 +1,807 @@
+                                         CityLight: A Neighborhood-inclusive Universal Model for
+                                                 Coordinated City-scale Traffic Signal Control
+
+                                                    Jinwei Zeng                               Chao Yu                                               Xinyi Yang
+
+                                         Department of Electronic Engineering,  Department of Electronic Engineering,                   Department of Electronic Engineering,
+                                                   Tsinghua University                    Tsinghua University                                     Tsinghua University
+                                                       Beijing, China                         Beijing, China                                          Beijing, China
+
+arXiv:2406.02126v4 [eess.SY] 6 Aug 2025             Wenxuan Ao                             Qianyue Hao                                               Jian Yuan
+
+                                         Department of Electronic Engineering,  Department of Electronic Engineering,                   Department of Electronic Engineering,
+                                                   Tsinghua University                    Tsinghua University                                     Tsinghua University
+                                                       Beijing, China                         Beijing, China                                          Beijing, China
+
+                                                       Yong Li                               Yu Wang                                             Huazhong Yang
+
+                                         Department of Electronic Engineering,  Department of Electronic Engineering,                   Department of Electronic Engineering,
+                                                   Tsinghua University                    Tsinghua University                                     Tsinghua University
+                                                       Beijing, China                         Beijing, China                                          Beijing, China
+
+                                         Abstract                                                                                       CCS Concepts
+
+                                         City-scale traffic signal control (TSC) involves thousands of hetero-                          · Do Not Use This Code  Generate the Correct Terms for Your
+                                         geneous intersections with varying topologies, making cooperative                              Paper; Generate the Correct Terms for Your Paper; Generate the
+                                         decision-making across intersections particularly challenging. Given                           Correct Terms for Your Paper; Generate the Correct Terms for Your
+                                         the prohibitive computational cost of learning individual policies                             Paper.
+                                         for each intersection, some researchers explore learning a univer-
+                                         sal policy to control each intersection in a decentralized manner,                             Keywords
+                                         where the key challenge is to construct a universal representation
+                                         method for heterogeneous intersections. However, existing methods                              Traffic Signal Control, Multi-agent Reinforcement Learning, Uni-
+                                         are limited to universally representing information of heterogeneous                           versal Representations
+                                         ego intersections, neglecting the essential representation of influ-
+                                         ence from their heterogeneous neighbors. Universally incorporating                             ACM Reference Format:
+                                         neighborhood information is nontrivial due to the intrinsic complex-                           Jinwei Zeng, Chao Yu, Xinyi Yang, Wenxuan Ao, Qianyue Hao, Jian Yuan,
+                                         ity of traffic flow interactions, as well as the challenge of modeling                         Yong Li, Yu Wang, and Huazhong Yang. 2018. CityLight: A Neighborhood-
+                                         collective influences from neighbor intersections. To address these                            inclusive Universal Model for Coordinated City-scale Traffic Signal Control.
+                                         challenges, we propose CityLight, which learns a universal pol-                                In Proceedings of Make sure to enter the correct conference title from your
+                                         icy based on representations obtained with two major modules: a                                rights confirmation email (Conference acronym 'XX). ACM, New York, NY,
+                                         Neighbor Influence Encoder to explicitly model neighbor's influ-                               USA, 10 pages. https://doi.org/XXXXXXX.XXXXXXX
+                                         ence with specified traffic flow relation and connectivity to the ego
+                                         intersection; a Neighbor Influence Aggregator to attentively aggre-                            1 Introduction
+                                         gate the influence of neighbors based on their mutual competitive
+                                         relations. Extensive experiments on five city-scale datasets, ranging                          Given the severe traffic congestion in modern metropolitan cities [1],
+                                         from 97 to 13,952 intersections, confirm the efficacy of CityLight,                            developing effective traffic signal control (TSC) methods for city-
+                                         with an average throughput improvement of 11.68% and a lift of                                 scale traffic management becomes imperative. With the goal of ensur-
+                                         22.59% for generalization. Our codes and datasets are released:                                ing the smooth passing of vehicles inside and between intersections,
+                                         https://github.com/JinweiZzz/CityLight.                                                        TSC methods are expected to greatly improve traffic efficiency [3],
+                                                                                                                                        reduce congestion [20], and decrease vehicle emissions [31].
+                                         Permission to make digital or hard copies of all or part of this work for personal or
+                                         classroom use is granted without fee provided that copies are not made or distributed             Despite great efforts in TSC, cooperative decision-making across
+                                         for profit or commercial advantage and that copies bear this notice and the full citation      thousands of heterogeneous intersections with varying topologies
+                                         on the first page. Copyrights for components of this work owned by others than the             and arbitrary scales is still at a preliminary stage and has shortcom-
+                                         author(s) must be honored. Abstracting with credit is permitted. To copy otherwise, or         ings. Conventional methods [8, 15] rely on human-crafted decision
+                                         republish, to post on servers or to redistribute to lists, requires prior specific permission  rules and lack flexibility in addressing complex traffic dynamics.
+                                         and/or a fee. Request permissions from permissions@acm.org.                                    Multi-agent reinforcement learning (MARL) methods excel in flexi-
+                                         Conference acronym 'XX, Woodstock, NY                                                          bility by adaptively learning optimal strategies based on environmen-
+                                         © 2018 Copyright held by the owner/author(s). Publication rights licensed to ACM.              tal feedback, but the city-scale optimization urges the construction
+                                         ACM ISBN 978-1-4503-XXXX-X/2018/06                                                             of a universal policy for resource and training efficiency consider-
+                                         https://doi.org/XXXXXXX.XXXXXXX                                                                ations. However, since universal policy methods assign a shared
+                                                                                                                                        policy network for heterogeneous intersections, a key point here is
+                                                                                                                                        to universally represent these intersections with varying topologies
+Conference acronym 'XX, June 03­05, 2018, Woodstock, NY                                                                                                            Trovato et al.
+
+ Inconsistent phase compositions of   Arbitrary connection directions and   achieving a 22.59% increase of throughput in transfer scenarios.
+heterogeneous neighbor intersections  connectivity to the ego intersection  These comprehensive evaluations validate our designs' strength in
+                                                                            effectively aligning and aggregating diverse and intricate neighbor-
+                    (a)                                     (b)             hood influences, enabling the universal policy to learn the shared
+                                                                            strategy of neighborhood coordination across heterogeneous inter-
+Figure 1: Diverse and intricate neighbor intersection traffic flow          sections. Our main contributions can be summarized as:
+relations come from (a) heterogeneity of neighbor intersections
+that causes inconsistent phase compositions; (b) arbitrary con-                  · We target the challenging city-scale traffic signal control prob-
+necting directions and connectivity from neighbor intersections                     lems, extending existing universal policy methods from uni-
+to ego intersection.                                                                versally representing only ego intersections' information to
+                                                                                    also effectively representing heterogeneous neighbors' influ-
+and physical properties so that the shared policy can effectively                   ences.
+interpret and generalize across diverse intersections. Nevertheless,
+existing universal policy methods are limited to achieving the repre-            · By proposing a Neighbor Influence Encoder and a Neighbor
+sentation of heterogeneous ego intersections' information [10, 12].                 Influence Aggregator that project neighbor observations into
+The effective universal representation of neighbor intersection in-                 a uniform influence space and attentively fuse their repre-
+fluences is insufficiently addressed, leaving space for performance                 sentations based on traffic relations and interactions with the
+improvement.                                                                        ego intersection, CityLight manages to learn a cooperative
+                                                                                    universal policy for city-scale heterogeneous intersections.
+   Universally representing and aggregating neighborhood in-
+fluences to enhance cooperation in the learned universal policy is               · Extensive experiments on five city-scale datasets with up to
+non-trivial and challenging. Firstly, heterogeneous neighbor intersec-              14k intersections validate the effectiveness of CityLight, with
+tions have inconsistent traffic flow relations to the ego intersection              an overall 11.68% improvement and a superiority of 22.59%
+(Fig 1(a)), and the diversity is even exacerbated by their arbitrary                in transfer scenarios in throughput.
+connecting directions and connectivity (indicated by distance and
+number of connecting lanes) (Fig 1(b)). Representing neighbor in-                · We have open-sourced our high-authenticity city-scale datasets,
+tersections' influences under the varying traffic flow relation and                 which are the first to achieve the scale of 10k intersections,
+connectivity in an aligned measure is challenging. Secondly, the ro-                with the hope of facilitating research advancement in city-
+tational symmetry of intersections governs the inherent competitive                 scale traffic signal control.
+and collaborative relationships between neighboring intersections,
+increasing the complexity of modeling their combined influences             2 Related Work
+when aggregating their representations.
+                                                                            City-scale traffic signal control is a vital measure for traffic efficiency
+   To address this challenge, we propose CityLight, a MARL-based            enhancement, which has therefore been extensively researched. Con-
+method to learn a universal policy based on representations that con-       ventional approaches generally incorporate manually designed rules
+sider the influences of heterogeneous neighbor intersections. Built         for signal transition judgement [4, 8, 11, 13]. Although applicable
+on the parameter-sharing Multi-Agent Proximal Policy Optimization           to large-scale intersections, rule-based methods lack flexibility in
+(MAPPO) algorithm [25], CityLight comprises two major mod-                  addressing complex traffic dynamics and achieving coordination [5],
+ules to universally representing the intricate neighbor influences: a       resulting in limited effectiveness. Recent advancements in reinforce-
+Neighbor Influence Encoder to project neighbor observations onto a          ment learning have led to a surge in RL-based solutions [19, 23]:
+uniform influence space based on specified traffic relations and con-       FRAP [32] models phase selection as a competition between phases,
+nectivities to the ego intersection; a Neighbor Influence Aggregator        utilizing the intrinsic symmetry of intersections; CoLight [18] in-
+to attentively fuse neighbor intersections' influence representations       troduces a graph neural network to model coordination between
+based on their mutual collaborative and competitive relations. We           intersections. [30](Advanced-) and [22](Efficient-) introduce more
+further introduce a neighborhood-inclusive reward design to better          informative observations that improve the performance of exist-
+incorporate neighborhood outcomes into the optimization process.            ing methods. However, most existing methods address intersection
+Extensive experiments on five datasets that comprise 97 to 13952            heterogeneity by assigning each intersection an independent pol-
+heterogeneous real-world intersections show that CityLight consis-          icy network, resulting in excessively high resource demands and
+tently outperforms both state-of-the-art universal policy models and        low training efficiency when dealing with numerous city-scale in-
+individual policy methods, bringing an average 11.68% lift of the           tersections. Therefore, city-scale TSC necessitates the adoption of
+throughput. Meanwhile, CityLight shows superior generalizability,           universal policy-based methods.
+
+                                                                               Constructing a universal policy for city-scale TSC has to address
+                                                                            the heterogeneity of intersections, enabling the wide applicability
+                                                                            of the policy to intersections with varying topologies and scales.
+                                                                            Existing universal policy methods simplify this problem to tackling
+                                                                            only the heterogeneous ego intersections' information, neglecting
+                                                                            the effective utilization of their heterogeneous neighbor intersec-
+                                                                            tions. Specifically, MPLight [2] designs universal observations of
+                                                                            traffic states at intersections and uses parameter-sharing techniques
+                                                                            to train large-scale solutions. UniTSA [17] and GESA [6] leverage
+                                                                            the symmetry of intersections to improve the training efficiency of
+CityLight: A Neighborhood-inclusive Universal Model for Coordinated City-scale Traffic Signal Control Conference acronym 'XX, June 03­05, 2018, Woodstock, NY
+
+                                       lane  (b) Traffic movements                              of each phase, the number of lanes of each phase, and the passing
+                                       road                                                     state (which phase is the last passing phase). The objective of the
+                                                                        same incoming           task is to maximize the overall traffic efficiency of the system, which
+                                                                            directions          is commonly measured by the average vehicle travel time and overall
+                                                                                                vehicle throughput.
+
+                                             going-straight phases                              3.3 Problem Formulation
+
+passing                                      turning-left phases                                To apply RL training, we model the problem as a decentralized
+  lane
+                                             (c) Phases                                         partially observable Markov decision process (Dec-POMDP). Dec-
+  (a) Illustration of an intersection
+
+                                                                                                POMDP is parameterized by (, , , , , , , ).  is the number
+
+Figure 2: Illustration of (a) intersections, (b) traffic movements,                             of agents.  is the state space,  is the joint action space.  =  (; )
+and (c) phases. The grey area indicates the removed section
+for 3-arm intersections. We also annotate going-straight phases,                                is agent 's observations at state .  ( | , ) defines the transition
+turning-left phases, and phases from the same incoming direc-
+tion in (c). Best viewed in colors.                                                             probability  from  state    to  state     via  agents'  joint  action  .  (, )  is
+
+                                                                                                                                        
+
+                                                                                                the reward function.  is the discount factor. The objective function
+
+                                                                                                is  ( ) = E,   ( ,  ) . In this task, all agents share the
+                                                                                                same policy  . The action space is the available phases at each
+                                                                                                decision-making step.
+
+the universal policy. Attendlight [12] and OAM [10] design represen-                            4 Method: CityLight
+tation techniques that accommodate variable-length inputs, making
+the model applicable to intersections with varying topologies and                               Our proposed method, CityLight, aims to learn a universal coordi-
+scales. However, the effective representation of the influence from                             nated TSC policy for large-scale heterogeneous intersections with
+neighbor intersections is largely unexplored, possibly due to the                               diverse and intricate neighbor intersections, tackling the insufficient
+existence of intricate and varying traffic flow relations between                               representation of neighbor influences in existing universal policy-
+intersections that challenge the construction of a universal and                                based methods. The overall framework of CityLight is illustrated in
+consistent neighbor influence representation. Therefore, our City-                              Fig. 3, which uses the centralized training with decentralized execu-
+Light aims to solve the challenge of consistently representing and                              tion paradigm in MARL and assigns each agent a parameter-sharing
+aggregating neighbor influences, so that the universal TSC policy can                           policy to enable the learning of the universal policy. To obtain the
+learn shared coordinated policies that fit city-scale heterogeneous                             the universal representations of heterogeneous intersections, City-
+intersections.                                                                                  Light first fixes the inner phase orders of heterogeneous intersections
+                                                                                                and constructs phase-based unified observations for them. Since the
+3 Preliminaries                                                                                 traffic flow relation space between adjacent intersections is narrowed
+                                                                                                after phase order fixing, an attention-based Neighbor Influence En-
+3.1 Definitions                                                                                 coder follows to model the influence of neighbors based on the
+                                                                                                specified neighbor relation and connectivity information. A Neigh-
+Road (Fig. 2(a)): Roads of an intersection are unidirectional edges                             bor Influence Aggregator further attentively aggregates neighbor
+connecting to or from the intersection. Each road has multiple lanes                            influences, accounting for mutual competitive relationships between
+and each lane usually leads to one exact traffic movement at the                                neighbors. Inspired by mean field theory [24], we further design
+intersection.                                                                                   a neighborhood-incorporated reward to boost coordination in opti-
+Traffic Intersection (Fig. 2(a)): A traffic intersection is where multi-                        mization.
+ple roads intersect and traffic signals are used to regulate the smooth
+flow of vehicles. Intersections in cities show heterogeneity, vary-                             4.1 Phase-based Intersection Observation
+ing in topology (3-arm or 4-arm) and scale (number of connecting
+lanes).                                                                                         As real-world heterogeneous intersections consist of various num-
+Traffic Movement (Fig. 2(b)): The progression of vehicles across                                bers of lanes, it is hard to construct unified lane-level observations to
+an intersection in a specific direction, namely, turning left, going                            represent the states inside intersections. Since the number of phases
+straight, or turning right.                                                                     has a smaller range (only 3 or 4), we turn to construct the obser-
+Phase (Fig. 2(a)): A set of two traffic movements that do not con-                              vation from the phase perspective. However, since the traffic flow
+flict and are generally allowed simultaneously. Consistent with the                             relationships between the phases of neighboring intersections and
+standard setting in traffic management and planning, the number of                              the ego intersection are diverse (Fig.1(a)), observing phases in an
+phases in the intersections can be three or four.                                               arbitrary order creates a vast and complex traffic flow relation space
+                                                                                                between adjacent intersections, making it difficult to universally
+3.2 Task Setup                                                                                  represent neighbor influences. Therefore, we propose a phase rein-
+                                                                                                dexing operation to fix the inner relative observation phase order
+Our research problem is a city-scale multi-agent coordination traffic                           for heterogeneous intersections. Specifically, we select any of the
+signal control problem, with the number of agents scaling up to ten                             two going-straight phase as the first phase, and choose the turning-
+thousand levels. At each time step , the partial observation  of                                left phase with the same incoming direction as the second phase,
+                                                                                                followed by the other going-straight phase and turning-left phase
+                                                                                              
+
+agent , i.e. an intersection, includes the number of queueing vehicles
+Conference acronym 'XX, June 03­05, 2018, Woodstock, NY                                                                                   Trovato et al.
+
+                                                                4.3 Neighbor Influence Aggregator
+
+Environment                                                     Competing                               Attentive
+                                                                   Group                               Aggregation
+                           Traffic Flow Relation Specification       A
+Competing Group                                                                                         Attentive        aggregatedConcatenate
+                                                                Competing                              Aggregation   neighbor influence          Concatenate
+   Ego Signal                                                     Group
+Neighbor Signal                                                      B
+
+4.1 Phase-based Intersection Observations                       4.2 Neighbor Influence Encoder
+
+ 4-arm intersection                                                                    Self Encoder
+Observation
+                                                                ego observation                                              ego emb
+3-arm intersection
+                                                                                       Relation        Connectivity
+                                                                                        -based
+                                                                neighbor observation   Projector       -informed
+                                                                neighbor relation
+                     -1                                                                                 Impact              aligned
+                                                                                                       Modeling      neighbor influences
+                         #queueing vehicles
+                             in the phase                                              For every neighbor
+                            whether is the
+                                                                neighbor connectivity
+                         last passing phase
+                          #lanes in the phase
+
+                         Action                                  Action
+                                                                Decoder
+
+Figure 3: Illustrations of CityLight's major modules for universally modeling and aggregating the influences of heterogeneous neighbor
+intersections. Best viewed in colors.
+
+pair as the third and fourth one (please refer to Fig. 2(c) for illus-     observation   of the neighbor intersection  as the value, the cross-
+trations). A standard four-arm intersection can have two possible          attention mechanism adaptively maps the neighbor observation onto
+phase observation orders. For each phase, we observe the number            a relative traffic movement representation space. A self-attention
+of queueing vehicles in this phase, its passing state (whether it          layer further extracts features as the relative traffic movement repre-
+is the last passing phase), and the number of lanes in the phase.          sentation  of neighbor  to ego intersection , the process can be
+The observation   R12 of an intersection  is obtained by con-
+catenating the phases' features along the order. For three-arm                              
+intersections, features of the missing phase are padded by -1
+(Fig. 3(a)).                                                               formulated as
+
+4.2 Neighbor Influence Encoder                                                                      =  SA(CA(  ,    (  ))),      M ().                        (1)
+
+4.2.1 4.2.1 Traffic Flow Relation Specification. To universally                                 
+represent the influences of various neighbors, it is essential to specify
+the traffic flow relations of each phase of the neighboring intersec-                             
+tions on that of the ego intersection. Since we have fixed the inner
+phase observation order, the traffic flow relation space between adja-     Here,   R1× is a linear layer, where  is the embedding di-
+cent intersections is reduced from 4 × 4 to 2, and can be classified by    mension and is a hyperparameter.   is the observation of neighbor
+whether flows in their first phases intersect. Therefore, we specify       intersection , and   is the specified relation of neighbor intersec-
+this relation with a one-hot vector   R1.                                  tion  to ego intersection . M () is the set of one-hop neighbors,
+                                                                           SA( ) and CA(, ) are short for self-attention and cross-attention.
+4.2.2 4.2.2 Neighbor Influence Modeling Workflow. Consid-
+ering the validated effectiveness of the cross-attention mechanism            Besides the traffic flow relation, the connectivity from neighbor
+in modeling the interactions between queries and values [16], we           intersections to the ego intersection, which can be indicated by dis-
+incorporate it to learn neighbors' relative traffic movement repre-        tance and number of connected lanes from them, can also impact
+sentations based on their observations and specified flow relation         their influence intensities. Therefore, denoting the connectivity in-
+vectors. Specifically, with the relation vector  as the query and the      formation with   R2, we again use cross-attention to model the
+                                                                           connectivity-informed influence intensities. Specifically, using con-
+                                                                           nectivity information  and the ego intersection 's feature  as the
+                                                                           query and the learned relative traffic movement representation 
+                                                                           of neighbors as the value, cross-attention outputs representations
+                                                                            of the ego intersection's perceived influence. The process can be
+
+                                                                             
+
+                                                                           formulated as
+CityLight: A Neighborhood-inclusive Universal Model for Coordinated City-scale Traffic Signal Control Conference acronym 'XX, June 03­05, 2018, Woodstock, NY
+
+                  =  CA      ,  SA(  )      (  )  ,      M ().      (2)
+                           
+             
+
+               
+
+Here   R2× is a linear layer, and  denotes vector concatenation.
+
+SA serves as a self encoder to extract informative parts from the ego
+
+intersection's observation  .
+
+4.3 Neighbor Influence Aggregator                                        (a) Chaoyang  (b) Central Beijing
+
+Due to the rotational symmetry of intersections, the influence of        Figure 4: Illustrations of our collected real-world city-scale
+reversed neighbors on the ego intersection is consistent. The two        datasets: (a) Chaoyang; (b) Central Beijing.
+groups of reversed neighbors are typically arranged orthogonally,
+each exerting a competitive influence on the ego intersection. There-     =  +  ·        M ( )              (5)
+fore, directly concatenating or summing over the influence repre-                                  .
+sentations of multiple neighbors will overlook their mutual com-
+petitive relationship, resulting in insufficient representations of the                |M ()|
+overall neighborhood influences. To explicitly consider the inner
+correlations between neighbors, we regard each group of reversed         where M () denotes the one-hop neighbor set;  is a tunable coeffi-
+neighbors as a competing group. For each group, we obtain its over-      cient to balance local-global optimization.
+all influence representations by attentively aggregating neighbors'
+influences, putting higher weight on noteworthy neighboring pat-         5 Numerical Experiments
+terns. Denoting the competing group as M , where  denotes the
+competing group index and is  {1, 2}, for neighbor intersections         5.1 Experimental Setup
+in M , the process of calculating the attentive weights can be
+formulated as                                                            This section summarizes the setting of our testbed, datasets, base-
+                                                                         lines, metrics, and implementations.
+            =                    ,   M (),   {0, 1},
+                                                                         5.1.1 Datasets. Since we target city-scale TSC optimization, we
+                                                                    (3)  incorporate one city-scale benchmark dataset, Manhattan (196 in-
+                                                                         tersections), and another four city-scale datasets collected from
+                    M ( )                                                the real world: Chaoyang (97 intersections) (Fig. 4(a)), Central
+                                                                         Beijing (885 intersections) (Fig. 4(b)), Jinan (3930 intersections)
+where                                                                    and Beijing (13952 intersections). For the collected datasets, the
+                                                                         road network is directly extracted from OpenStreetMap, and the
+          =    ·  Tanh(      ·     + ),       M (),        {0, 1}.  (4)  vehicle flows are obtained from collected real-world traffic data: For
+                                                                         Beijing, we obtain a 2020 hour-level OD flow matrix from a Chinese
+                                                                         location-based service (LBS) provider; For Jinan, the traffic flows
+                                                                         are recovered from traffic camera videos [26, 27]. Statistics of the
+Here   R1× ,   R1, and   R1 are the learnable parameters,                five datasets are presented in Table 1.
+
+and  is the dimension of neighboring representations { }. The            5.1.2 Testbed. Since we target city-scale optimization, the simu-
+                                                                         lation efficiency is vital for our testbed selection. Therefore, we refer
+representation of each competing group is the weighted sum of its        to the MObility Simulation System (MOSS) [29] 1. MOSS uses the
+                                                                         well-acknowledged IDM car-following model [14] and the MOBIL
+influence representations, and the overall representation of the ego     lane-changing model [7] to simulate the realistic motions of vehicles.
+                                                                         Its simulation efficiency is achieved by the GPU acceleration, which
+intersection is the concatenation of its own representation with the     has a 100 times acceleration compared to the existing CityFlow and
+                                                                         SUMO simulators [29]. The experimental setting of the TSC follows
+representation of its two competing groups. Based on the representa-     existing work [21]: For a 60-minute timeframe, every 15-second
+                                                                         time interval, each signal selects its next phase.
+tion, our action decoder, which is a multi-layer perception followed
+                                                                         5.1.3 Baselines and Metrics. For comprehensive comparisons,
+by a softmax layer, outputs the selection possibilities of candidate     we compare with conventional rule-based, large language model-
+                                                                         empowered, individual policy-based, and universal policy methods.
+actions, i.e., the phases of the intersections.                          Rule-based methods:
+
+4.4 Neighborhood-Inclusive Reward Design                                 · Fixed Time [8]. Transit along the phase set with the fixed time
+                                                                           interval.
+Existing literature in traffic signal controls typically assigns inde-
+pendent rewards for intersections, aiming to maximize each intersec-     1 https://moss.fiblab.net/
+tion's traffic efficiency. For instance, releasing numerous vehicles
+from one upstream intersection to the already congested downstream
+intersection might enhance the traffic efficiency itself, but it could
+exacerbate extreme congestion at the downstream intersection, even
+leading to a gridlock. However, the combination of local optimal
+policies may not ensure a global optimal policy [23]. Thus, it is
+important to include neighbor intersections' situations in the opti-
+mization target to boost coordination further. Inspired by mean field
+theory [24], we design our reward as a weighted sum of the local
+traffic metric and the averaged neighborhood metric. Following es-
+tablished traffic RL works [18, 28, 32], we adopt the average queue
+length as the local metric  for intersection . The integrated reward
+ is formulated as
+Conference acronym 'XX, June 03­05, 2018, Woodstock, NY                                                                                                                    Trovato et al.
+
+                                           Table 1: The basic information and statistics of our five datasets.
+
+                          Datasets                                                     Manhattan                  Chaoyang  Central Beijing    Beijing     Jinan
+
+                      #Intersections                                                       196                        97           885          13952       4064
+               #Three-phase intersections                                                   0                         49           630           9752       2466
+               #Four-phase intersections                                                   196                        48           255           4200       1595
+                                                                                           854                       608          4640          76806      23950
+                          #Roads                                                       25.3 2                     14.2 2       79.3 2        3104.4 2   1477.5 2
+                      Covered Area                                                       16317                       9000        55429         143298      99712
+
+                          #Agents
+
+Table 2: Average performances on three random seeds in five city-scale datasets. Bold denotes the best results and underline denotes
+the second-best. '-' denotes 'no result' due to extremely high resource demands or expenses. TP and ATT are short for throughput and
+average travel time.
+
+                                                                Manhattan                                     Chaoyang       Central Beijing     Jinan            Beijing
+                                                              TP ATT                                                          TP ATT
+          Model                                               2343 1687                                 TP ATT               18602 1515       TP ATT       TP ATT
+       Fixed Time                                             2731 1588                                                       5448 1880
+     Max Pressure                                             3371 1499                                 6076      827        18950 1497       33681 1605   60615 1134
+Adjusted Max Pressure                                         2325 1717                                                       7568 1828
+       LLMLight                                               3480 1519                                 1215 1776            18584 1491       2492 2052    15563 1567
+                                                              3523 1515                                                      17608 1548
+         CoLight                                              1957 1682                                 5909      785        17156 1576       33367 1602   64613 1090
+  Advanced-CoLight                                            3136 1575                                                      17535 1550
+                                                              2819 1636                                 1835 1654            16063 1592       -         -  -               -
+          FRAP                                                3339 1548                                                      16691 1578
+        MPLight                                               2857 1655                                 6661      758        15748 1608       -         -  -               -
+  Efficient-MPLight                                          3962 1423                                                       21548 1440
+  Advanced-MPLight                                          12.46% 6.07%                                6730      749       13.71% 3.97%      -         -  -               -
+
+          GESA                                                                                          6188      920                         27358 1715   52720 1112
+   CityLight (Ours)
+                                                                                                        6104      888                         30476 1633   60652 1146
+     Improvement
+                                                                                                        5916      965                         29249 1659   57826 1165
+
+                                                                                                        6347      814                         33800 1609   64764 1088
+
+                                                                                                        6013      955                         28199 1698   55814 1178
+
+                                                                                                        7702 600                              36742 1554   70451 1030
+
+                                                                                                        14.45% 23.65%                         8.70% 3.01%  9.05% 5.34%
+
+                                                                Neighbor Relation (1)  Neighbor Obs (12)                      the maximum value of pressure. In this way, the traffic system
+                                                                                                                              reaches equitable traffic flow.
+                                                                Embedding(1) -> 64 Embedding(1) -> 64                       · Adjusted Max Pressure [15]. The length of roads in real-world
+                                                                                                                              road systems varies a lot, leading to wide-range vehicle capacity.
+                                                                (64, 64 )   (64, 64 )                   (64, 64)              We take into account the inherent discrepancies of road capacities
+                                                                                                                              and distill such impact by redefining pressure as the discrepancy
+                                                                (64)                   (64)             (64)                  in the number of vehicles per road length for the entering lanes
+                                                                                                                              and exiting lanes.
+                                                                Num_heads = 2
+                                                                                                                            Individual policy methods:
+                                                                     Scaled Dot Product (128)
+                                                                                                                            · CoLight [18]. A reinforcement learning-based method that uses a
+                                                  × ()                             Embedding(64) -> 64                        graph attentional network to model neighbor interactions. Each
+                                                 neighbors       Relation-based Projector                                     intersection has its own independent policy network.
+
+      Ego Obs (12)                                              Neighbor Connectivity (2)                                   · Advanced-CoLight [30]. It adjusts CoLight by taking into ac-
+                                                                                                                              count the running vehicles approaching the intersection in the
+      Embedding(1) -> 64                                        Embedding(1) -> 64                                            observation.
+
+(64, 64 )  (64, 64 ) (64, 64)                                   (64, 64 )   (64, 64 )                   (64, 64)            Universal policy methods:
+
+(64)  (64)                                 (64)                 (64)                   (64)             (64)                · FRAP [32]. A universal traffic signal control method that consid-
+                                                                                                                              ers the rotation-symmetry of intersections by modeling from the
+Num_heads = 2                                                   Num_heads = 2                                                 perspective of phase competition relation.
+
+Scaled Dot Product (128)                                             Scaled Dot Product (128)                               · MPLight [2]. It adopts a parameter-sharing FRAP model as the
+                                                                                                                              unified policy network and introduces pressure of the intersection,
+                  Embedding(64) -> 64                                             Embedding(64) -> 64                         which is the discrepancy in the number of vehicles for all entering
+Self Encoder                                                    Connectivity-informed Impact Modeling                         lanes and all exiting lanes, as the reward.
+
+                                 Self emb                                                      ...
+
+                                                                           Embedding(64) -> 64
+
+                                           Aggregated neighbor                     ...
+                                                  influence     Softmax & Weighted Sum(64)
+
+      Action Decoder(4)                                                            Concatenate(128)
+              -> 4                                              Neighbor Influence Aggregator
+
+      Figure 5: Architecture of CityLight.
+
+· Max Pressure [15]. Pressure is defined as the discrepancy in the
+  number of vehicles for the entering lanes and existing lanes of a
+  phase. Max pressure transits the traffic signal to the phase with
+CityLight: A Neighborhood-inclusive Universal Model for Coordinated City-scale Traffic Signal Control Conference acronym 'XX, June 03­05, 2018, Woodstock, NY
+
+      MAPPO               w/o relation projector        w/o impact modeling                  w/o impact aggregation  w/o reward integration  CityLight
+
+4000                           8000                     660                                      37000                    156470600                           1036
+3950                      1460                          640 21600                            144036800                                                        1034
+3900                                                                                         143836600                    156270500                           1032
+3850                           7800                     620 21400                                                         156070400                           1030
+3800                      1450                          600                                      36400                    15587700230000                      1028
+3750                                                                                         143636200                    155670100
+3700                           7600                         21200                            143436000                    155470000
+3650                      1440                          580
+                                                        560 21000                                35800                    155269900
+                               7400                                                          1432
+      T(Pa) ManhattanATT  1430       TP(b) ChaoyangATT             (bT)P Central BeijAinTTg             TP (c) Jinan ATT                  TP (d) Beijing ATT
+
+                               7200
+                          1420
+
+                               7000
+
+                                     Figure 6: Performance of ablation variants.
+
+· Efficient-MPLight [22]. It introduces the efficient pressure into          5.3 Overall Performance
+  the observation space, which is calculated by the discrepancy in
+  the number of vehicles per entering lane and per exiting lane of           Comparisons between CityLight and the 11 state-of-the-art baselines
+  every phase.                                                               over five datasets are presented in Table 2. As Colight and Advanced-
+                                                                             Colight are individual policy methods that assign an independent
+· Advanced-MPLight [30]. It adjusts MPLight by taking into ac-               policy network to each intersection, they demand excessively high
+  count the running vehicles approaching the intersection in the             memory and suffer from low training efficiency in city-scale op-
+  observation.                                                               timization scenarios. LLMLight, which leverages large language
+                                                                             models, also incurs prohibitively high API costs in such large-scale
+· GESA [6].A general scenario-agnostic (GESA) reinforcement                  settings. Therefore, we do not apply these methods to the Jinan and
+  learning framework for traffic signal control, which eliminates the        Beijing datasets. Based on Table 2, we have drawn these noteworthy
+  need for heavy manual labeling, co-trains a generic agent across           observations:
+  multiple city scenarios, and achieves superior transferability and
+  performance in zero-shot settings.                                         · Consistent Superiority. Our CityLight consistently achieves the
+                                                                               best performance across different metrics and datasets. Compared
+Large language model-empowered method:                                         with the best baselines, the average performance gain of CityLight
+                                                                               is 11.67% in terms of throughput and 8.41% in terms of average
+· LLMLight [9]. It employs Large Language Models (LLMs) as                     travel time. Such a consistent and large performance gain validates
+  decision-making agents for TSC. In our experiments, we use GPT-              CityLight's effectiveness in dealing with city-scale intricate road
+  4o-mini as our agents.                                                       networks and diverse traffic patterns.
+
+   Following existing methods [32], we introduce two common                  · CityLight outperforms existing non-universal policy-based
+metrics for traffic efficiency measurement:                                    coordination methods. CoLight and Advanced-CoLight assign
+                                                                               each intersection an independent policy network to learn coordi-
+· Throughput (TP). The total number of finished travels in the                 nation based on neighborhood representations aggregated with
+  simulation episode. A higher throughput corresponds to a higher              graph neural networks. In contrast, our approach consistently rep-
+  traffic efficiency.                                                          resents and aggregates influences from heterogeneous neighbor
+                                                                               intersections with varying traffic flow interdependencies. This
+· Average Travel Time (ATT). The average travel time spent by                  demonstrates that through training with diverse coordination sce-
+  all vehicles in the simulation episode. A low average travel time            narios across heterogeneous intersections, our learned universal
+  corresponds to a higher traffic efficiency.                                  strategy gains more effectiveness in tackling coordination.
+
+5.2 Implementation                                                           · Incorporating neighbor information enhances the robustness
+                                                                               and effectiveness of the learned universal policy. As the datasets
+Figure 5 illustrates the overall architecture of our model, includ-            scale up, the heterogeneity of intersection topologies and traffic
+ing detailed layer configurations and dimensions to facilitate re-             patterns increases, and the performance of baseline universal pol-
+producibility. During training, we adopted the Adam optimizer for              icy methods deteriorates, even falling below that of rule-based
+gradient-based model optimization. The learning rates for both the             approaches. This demonstrates existing universal policy methods'
+actor and critic were set to 5e-4, following the default configuration         applicability to diverse and intricate situations. In contrast, our
+of MAPPO [25]. We performed a grid search over other MAPPO-                    CityLight significantly outperforms both rule-based and universal
+related hyperparameters, and the best configurations are available at          policy methods, showing its effective coordination and robustness
+https://github.com/JinweiZzz/CityLight. The balancing coefficient              of the learned universal policy.
+was searched within the range 0.1, 0.2, 0.3. For a fair comparison, we
+also fine-tuned the hyperparameters of all baselines on each dataset         5.4 Generalizability Test
+individually. All experiments were conducted on a single RTX 4090
+GPU. The GPU memory usage of CityLight is approximately 20 GB.               Unlike individual policy methods that have to learn the individual
+Training CityLight takes around 9 hours, which is comparable in              policy networks from scratch when transferred to new regions, the
+efficiency to other universal policy methods and significantly faster        universal policy trained in one region can be easily applied to oth-
+than individual policy methods, which require over two days.                 ers as it's commonly applicable to various intersection topologies.
+                                                                             Therefore, we conduct comprehensive generalizability tests on uni-
+                                                                             versal policy methods, directly applying the learned policy in one
+Conference acronym 'XX, June 03­05, 2018, Woodstock, NY                                                                                Trovato et al.
+
+Table 3: Generalizability of CityLight and three most competitive universal policy baselines across scale and city. Due to space limits,
+we shorten Chaoyang to 'CY' and Central Beijing to 'CB'.
+
+                    =                                       =                =                       =  
+                                                           TP ATT            TP ATT                   TP ATT
+        Model      TP ATT                                 14522 1667        25190 1704               51920 1304
+        FRAP                                              15010 1625        26621 1695               52615 1186
+      MPLight      4988 1055                              14966 1626        23144 1749               53175 1208
+Efficient-MPLight                                         15040 1623        29933 1636               57199 1150
+Advanced-MPLight   5048 1026                              14409 1702        24880 1721               52310 1270
+        GESA                                              19648 1477        34016 1580               66116 1071
+ CityLight (Ours)  1955 1626                             30.64% 9.04%
+   Improvement                                                             13.64% 3.42%             15.59% 6.94%
+                   5137  926
+
+                   4691 1092
+
+                   6704 742
+
+                   30.50% 19.94%
+
+region to the other. We select two transfer pairs: The first pair is       Table 4: Performance comparison of one universal policy across
+Chaoyang and Central Beijing for evaluations of generalizability           different topologies versus separate policies for each topology in
+across scales. The second pair is Beijing and Jinan for evaluations of     terms of throughput.
+generalizability across cities. As shown in Table 3, CityLight shows
+great transferability across both scale and city. The performance gain            Chaoyang Central Beijing Jinan Beijing
+of CityLight over the best baseline even enlarges compared with
+the non-transfer scenarios, with an average improvement of 30.57%          Separate 7325            20944                   35943 70031
+when transferred across scales and 14.62% when transferred across          Universal 7702           21548                   36742 70451
+cities in terms of throughput. All these phenomena underline the
+robustness of the universal policy gained by uniformly considering         Improv. 5.15%            2.88%                   2.22% 0.60%
+neighborhood information. By learning from diverse neighborhood
+connectivity and traffic flow relations, the universal policy effectively         No Division       Horizontal    Vertical  Quarterly  1050
+captures a shared and widely applicable coordination strategy.                                      1570.0
+                                                                           36800
+5.5 Ablation Studies                                                       36600                    1567.5 70500                       1045
+                                                                                                    1565.0
+To assess the contribution of each component in CityLight, we con-         36400                    1562.5 70000                       1040
+duct ablation studies on four key modules: the relation-based relative
+traffic movement projector, connectivity-informed influence model-         36200                    1560.0 69500                       1035
+ing, competitiveness-aware influence aggregator, and neighborhood-         36000                    1557.5                             1030
+inclusive reward design. As shown in Figure 6, removing the relative
+traffic movement projector reduces throughput by 2.23%, highlight-         35800                    1555.0 69000
+ing the importance of consistently representing neighbor intersec-
+tions. Excluding the connectivity-informed module leads to a 1.66%         35600                    1552.5                             1025
+drop, showing the value of modeling distance and lane connections.
+Removing the competitiveness-aware aggregator results in a 1.85%           35400  TP (a) Jinan ATT  1550.0 68500  TP (b) Beijing ATT   1020
+decrease, confirming the benefit of capturing competitive and co-
+operative relationships between intersections. Lastly, adding the          Figure 7: Performance comparison of one universal coordinated
+neighborhood-inclusive reward brings a 1.28% gain, demonstrating           policy across space versus separate policies for regions divided
+its role in enhancing coordination. These results collectively val-        horizontally, vertically, and quarterly in terms of throughput.
+idate the effectiveness of our components in building a universal
+coordinated TSC policy.                                                    complex neighbor relationships, enabling a robust and generalizable
+                                                                           universal policy. A theoretical analysis in Appendix A further sup-
+5.6 Effectiveness of Our Universal Policy                                  ports the rationality of employing a 'universal' method, arguing that
+                                                                           due to shared goals and patterns across intersections, the benefits of
+In CityLight, we aim to develop a universal coordinated traffic signal     generalization may outweigh those of learning intersection-specific
+control (TSC) strategy for heterogeneous intersections. To evaluate        details.
+whether a single universal policy is more effective than training sep-
+arate ones, we conduct two comparative experiments to see whether          5.6.1 Effectiveness of one universal policy across heteroge-
+our universal representation can unify intersections with varying          neous intersections. As shown in Table 4, training one universal
+numbers of neighbors and generalize across regions with different          policy for both three-arm and four-arm intersections together out-
+road network characteristics, such as density and layout. The valida-      performs training separate policies respectively by 2.71%. Such a
+tion of these two aspects can further support the effectiveness of our     performance gain emphasizes our model's capacity to tackle hetero-
+method in consistently representing heterogeneous intersections and        geneous intersections, which could stem from modeling the influence
+                                                                           of neighbors and normalizing this influence through attentive fusion.
+                                                                           As a result, the representation of neighbor influence will not be
+                                                                           affected by the number of neighbors.
+
+                                                                           5.6.2 Effectiveness of one universal policy across space.
+                                                                           Although conducting city-level traffic signal control is essential, it
+                                                                           remains a question of whether intersections across space fit into
+                                                                           a universal traffic signal control strategy. Thereby, we conduct a
+CityLight: A Neighborhood-inclusive Universal Model for Coordinated City-scale Traffic Signal Control Conference acronym 'XX, June 03­05, 2018, Woodstock, NY
+
+case study of CityLight in Jinan and Beijing where we divide the                            [14] Martin Treiber, Ansgar Hennecke, and Dirk Helbing. 2000. Congested traffic
+dataset into halves horizontally, vertically, and into quarters and learn                         states in empirical observations and microscopic simulations. Physical review E
+the universal policy for easch subgroup respectively. As shown in                                 62, 2 (2000), 1805.
+Figure 7, as the number of sub-regions increases, the performance of
+the overall traffic signal control system declines. This phenomenon                         [15] Pravin Varaiya. 2013. The max-pressure controller for arbitrary networks of
+implies that while different regions of the city vary in terms of road                            signalized intersections. In Advances in dynamic network modeling in complex
+network density, characteristics, and traffic patterns, our universal                             transportation systems. Springer, 27­66.
+policy can learn their commonalities in traffic signal control by
+effectively aligning their representations.                                                 [16] Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones,
+                                                                                                  Aidan N Gomez, Lukasz Kaiser, and Illia Polosukhin. 2017. Attention is all you
+6 Conclusion                                                                                      need. Advances in neural information processing systems 30 (2017).
+
+In this work, we propose CityLight to learn a city-scale universal traf-                    [17] Maonan Wang, Xi Xiong, Yuheng Kan, Chengcheng Xu, and Man-On Pun. 2024.
+fic signal control policy that achieves coordination. By consistently                             UniTSA: A universal reinforcement learning framework for V2X traffic signal
+representing and aggregating neighbor influence out of intricate                                  control. IEEE Transactions on Vehicular Technology (2024).
+traffic flow relations and implicit competitive relationships among
+neighbors, CityLight learns a shared policy that can effectively in-                        [18] Hua Wei, Nan Xu, Huichu Zhang, Guanjie Zheng, Xinshi Zang, Chacha Chen,
+corporate neighborhood information for city-scale heterogeneous                                   Weinan Zhang, Yanmin Zhu, Kai Xu, and Zhenhui Li. 2019. Colight: Learning
+intersections. The great performance gain on five datasets that scale                             network-level cooperation for traffic signal control. In Proceedings of the 28th
+to the ten thousand intersections validates the effectiveness of City-                            ACM international conference on information and knowledge management. 1913­
+Light. Further generalizability tests and case studies validate the                               1922.
+wide applicability potentials of CityLight, underscoring its contri-
+bution to boosting coordination and enhancing traffic efficiency in                         [19] Libing Wu, Min Wang, Dan Wu, and Jia Wu. 2021. Dynstgat: Dynamic spatial-
+city-scale traffic management.                                                                    temporal graph attention network for traffic signal control. In Proceedings of the
+                                                                                                  30th ACM international conference on information & knowledge management.
+References                                                                                        2150­2159.
+
+ [1] Tanzina Afrin and Nita Yodo. 2020. A survey of road traffic congestion measures        [20] Na Wu, Dewei Li, and Yugeng Xi. 2018. Distributed weighted balanced control
+      towards a sustainable and resilient transportation system. Sustainability 12, 11            of traffic signals for urban traffic congestion. IEEE transactions on intelligent
+      (2020), 4660.                                                                               transportation systems 20, 10 (2018), 3710­3720.
+
+ [2] Chacha Chen, Hua Wei, Nan Xu, Guanjie Zheng, Ming Yang, Yuanhao Xiong,                 [21] Qiang Wu, Mingyuan Li, Jun Shen, Linyuan Lü, Bo Du, and Ke Zhang. 2023.
+      Kai Xu, and Zhenhui Li. 2020. Toward a thousand lights: Decentralized deep                  Transformerlight: A novel sequence modeling based traffic signaling mechanism
+      reinforcement learning for large-scale traffic signal control. In Proceedings of the        via gated transformer. In Proceedings of the 29th ACM SIGKDD Conference on
+      AAAI conference on artificial intelligence, Vol. 34. 3414­3421.                             Knowledge Discovery and Data Mining. 2639­2647.
+
+ [3] Steven I Chien, Kitae Kim, and Janice Daniel. 2006. Cost and Benefit analy-            [22] Qiang Wu, Liang Zhang, Jun Shen, Linyuan Lü, Bo Du, and Jianqing Wu. 2021.
+      sis for optimized signal timing-case study: New Jersey route 23. Institute of               Efficient pressure: Improving efficiency for signalized intersections. arXiv preprint
+      Transportation Engineers. ITE Journal 76, 10 (2006), 37.                                    arXiv:2112.02336 (2021).
+
+ [4] Seung-Bae Cools, Carlos Gershenson, and Bart D'Hooghe. 2013. Self-organizing           [23] Bingyu Xu, Yaowei Wang, Zhaozhi Wang, Huizhu Jia, and Zongqing Lu. 2021.
+      traffic lights: A realistic simulation. Advances in applied self-organizing systems         Hierarchically and cooperatively learning traffic signal control. In Proceedings of
+      (2013), 45­55.                                                                              the AAAI conference on artificial intelligence, Vol. 35. 669­677.
+
+ [5] Maxim Friesen, Tian Tan, Jürgen Jasperneite, and Jie Wang. 2022. Multi-Agent           [24] Yaodong Yang, Rui Luo, Minne Li, Ming Zhou, Weinan Zhang, and Jun Wang.
+      Deep Reinforcement Learning For Real-World Traffic Signal Controls-A Case                   2018. Mean field multi-agent reinforcement learning. In International conference
+      Study. In 2022 IEEE 20th International Conference on Industrial Informatics                 on machine learning. PMLR, 5571­5580.
+      (INDIN). IEEE, 162­169.
+                                                                                            [25] Chao Yu, Akash Velu, Eugene Vinitsky, Jiaxuan Gao, Yu Wang, Alexandre Bayen,
+ [6] Haoyuan Jiang, Ziyue Li, Zhishuai Li, Lei Bai, Hangyu Mao, Wolfgang Ketter,                  and Yi Wu. 2022. The surprising effectiveness of ppo in cooperative multi-agent
+      and Rui Zhao. 2024. A general scenario-agnostic reinforcement learning for traffic          games. Advances in Neural Information Processing Systems 35 (2022), 24611­
+      signal control. IEEE Transactions on Intelligent Transportation Systems (2024).             24624.
+
+ [7] Arne Kesting, Martin Treiber, and Dirk Helbing. 2007. General lane-changing            [26] Fudan Yu, Wenxuan Ao, Huan Yan, Guozhen Zhang, Wei Wu, and Yong Li. 2022.
+      model MOBIL for car-following models. Transportation Research Record 1999,                  Spatio-temporal vehicle trajectory recovery on road network based on traffic
+      1 (2007), 86­94.                                                                            camera video data. In Proceedings of the 28th ACM SIGKDD Conference on
+                                                                                                  Knowledge Discovery and Data Mining. 4413­4421.
+ [8] Peter Koonce et al. 2008. Traffic signal timing manual. Technical Report. United
+      States. Federal Highway Administration.                                               [27] Fudan Yu, Huan Yan, Rui Chen, Guozhen Zhang, Yu Liu, Meng Chen, and Yong
+                                                                                                  Li. 2023. City-scale vehicle trajectory data from traffic camera videos. Scientific
+ [9] Siqi Lai, Zhao Xu, Weijia Zhang, Hao Liu, and Hui Xiong. 2023. Large language                data 10, 1 (2023), 711.
+      models as traffic signal control agents: Capacity and opportunity. arXiv preprint
+      arXiv:2312.16044 (2023).                                                              [28] Xinshi Zang, Huaxiu Yao, Guanjie Zheng, Nan Xu, Kai Xu, and Zhenhui Li. 2020.
+                                                                                                  Metalight: Value-based meta-reinforcement learning for traffic signal control. In
+[10] Enming Liang, Zicheng Su, Chilin Fang, and Renxin Zhong. 2022. Oam: An                       Proceedings of the AAAI conference on artificial intelligence, Vol. 34. 1153­1160.
+      option-action reinforcement learning framework for universal multi-intersection
+      control. In Proceedings of the AAAI Conference on Artificial Intelligence, Vol. 36.   [29] Jun Zhang, Wenxuan Ao, Junbo Yan, Can Rong, Depeng Jin, Wei Wu, and Yong
+      4550­4558.                                                                                  Li. 2024. MOSS: A Large-scale Open Microscopic Traffic Simulation System.
+                                                                                                  arXiv:2405.12520 [cs.DC]
+[11] Francisco J Martinez, Chai Keong Toh, Juan-Carlos Cano, Carlos T Calafate, and
+      Pietro Manzoni. 2011. A survey and comparative study of simulators for vehicular      [30] Liang Zhang, Qiang Wu, Jun Shen, Linyuan Lü, Bo Du, and Jianqing Wu. 2022.
+      ad hoc networks (VANETs). Wireless Communications and Mobile Computing                      Expression might be enough: Representing pressure and demand for reinforcement
+      11, 7 (2011), 813­828.                                                                      learning based traffic signal control. In International Conference on Machine
+                                                                                                  Learning. PMLR, 26645­26654.
+[12] Afshin Oroojlooy, Mohammadreza Nazari, Davood Hajinezhad, and Jorge Silva.
+      2020. Attendlight: Universal attention-based reinforcement learning model for         [31] Yingying Zhang, CHEN Xumei, Xiao Zhang, SONG Guohua, HAO Yanzhao,
+      traffic signal control. Advances in Neural Information Processing Systems 33                and YU Lei. 2009. Assessing effect of traffic signal control strategies on vehicle
+      (2020), 4079­4090.                                                                          emissions. Journal of Transportation Systems Engineering and Information
+                                                                                                  Technology 9, 1 (2009), 150­155.
+[13] Roger P Roess, Elena S Prassas, and William R McShane. 2004. Traffic engineer-
+      ing. Pearson/Prentice Hall.                                                           [32] Guanjie Zheng, Yuanhao Xiong, Xinshi Zang, Jie Feng, Hua Wei, Huichu Zhang,
+                                                                                                  Yong Li, Kai Xu, and Zhenhui Li. 2019. Learning phase competition for traffic
+                                                                                                  signal control. In Proceedings of the 28th ACM international conference on
+                                                                                                  information and knowledge management. 1963­1972.
+Conference acronym 'XX, June 03­05, 2018, Woodstock, NY                                                                                 Trovato et al.
+
+A Theoretical Analyses                                                       Having
+
+In our method, we adopt the full parameter-sharing framework,                                                                         
+MAPPO, to generate a universally applicable policy for heteroge-
+neous intersections with intricate between-intersection interactions.                          V{1,..., } =         V{+1,...,+ } =                  (18)
+Through our experiments, we found that such full parameter-sharing
+training is effective across different intersection configurations and                                                                   ,
+the entire city, with superiority over assigning each configuration one
+parameter-sharing policy network and assigning each sub-region one                                                                        +
+parameter-sharing policy network. Here we present some theoretical
+analyses of how to explain such a phenomenon.                                                                                         
+
+                                                                             we can obtain
+
+                                                                                         V{1,..., } -   V{+1,...,+ }  V{1,..., } -                  (19)
+
+                                                                             by summing up Eq. (17) over  = 1, ..., .
+
+                                                                             Traffic signal control for large-scale intersections is a relatively
+
+                                                                             uniform task where the common goal is to maximize the overall
+
+                                                                             traffic efficiency and there isn't mutual conflict and competence
+
+   PROPOSITION 1 (FULL PARAMETER SHARING IN TSC). When                       among intersections. Therefore, we may infer that some similarities
+controlling traffic signals in  intersections with  individual
+agents, full parameter sharing among all agents may be the op-               exist for agents in traffic signal control. Considering the similarities
+timal parameter-sharing strategy.
+                                                                             among agents, the optimal policy with global parameter sharing, i.e.,
+                                                                             ¯, may approximate individual optimal policies, i.e.,  , as:
+
+   Considering an arbitrary grouping strategy that divides the                                              -                - ,                    (20)
+agents into  groups, where the policy and state value function of
+group  is denoted as  and   (), respectively. We have:                                                            ¯        
+
+                                                                                                          
+
+                                                                             which holds for  with the constants
+
+                                                                                                               0     .                              (21)
+
+                ( )  =  E                  (,     )  +        (  )  .  (6)   Combining Equ (13) (19) (20), we can obtain that when:
+
+                              (  | )                     
+
+                                                                                                                       1
+                                                                                                                        ,
+The global state value function is the sum of all local state value                                                 -                               (22)
+
+                                                                                                                       
+
+functions as:                                                                we have
+
+                                           
+
+                     V{1,..., } () =                 ( ) .             (7)                              V{+1,...,+ }  V{¯+,...,¯+ },                (23)
+
+                                               
+                                                   
+
+                                           
+
+We eliminate () for short in the following analyses.                         indicating that the policy learned by full parameter-sharing among
+
+   Considering a learning algorithm that approximates the optimal            all agents outperforms policies learned locally within each group.
+policy  with + regarding a given state value function ^ , where
+                                                                             B Training Curves
+                           = ^                                         (8)
+                                                                             We visualized the training curve of both our CityLight and the state-
+The algorithm's capability of approximation is denoted as:                   of-the-art baselines in Fig. 8. From the figure, we can see that all of
+                                                                             the methods reach convergence. Parameter-sharing methods have
+                     ^ -   ^+  ^ - ,                                   (9)   a quicker convergence speed. CityLight not only has a relatively
+                                                                             high convergence speed but also exhibits a stable and consistent
+which holds for  with the constants                                          superiority over all state-of-the-art methods.
+
+                             0     .                                   (10)
+
+When the parameters are globally shared among all agents, the
+
+learned policy
+
+                          ¯+ = ¯+1 = ... = ¯+                          (11)
+
+and the optimal policy                                                                   3500
+
+               ¯ = ¯1 = ... = ¯ =  V{,..., }                           (12)
+
+satisfies                                                                    Throughput  3000
+                                                                                         2500
+           V{¯,...,¯ } -   V{¯+,...,¯+ }  V{¯,...,¯ } - , (13)                           2000                                    citylight
+                                                                                                                                 colight
+where                                                                                                0                           advanced_colight
+                                                                                                                                 advanced_mplight
+                                                                                                                                 frap
+                                                                                                                                 efficient_mplight
+           V{¯,...,¯ } =              V{¯+,...,¯+ } =                  (14)                                                      mplight
+                                                                                                                                 GESA
+                              ¯                                 ¯+ .
+
+                                                              
+
+When the parameters are locally shared among agents within each
+
+group, the learned policies
+
+                              +1,  ...,                                (15)                             200         400          600         800
+
+                                         +
+
+and optimal policies                                                                                         Number of Episodes
+
+                              =                                        (16)  Figure 8: Training curve comparisons. Since the rewards of
+                                                                             different methods are not uniform, we visualize the distribution
+                                                                             of the throughput metric as the number of episodes increases.
+
+satisfy
+
+                         -       +                   -  .              (17)
+
+                     
+
+                       
+

@@ -1,0 +1,1118 @@
+                                                                                                                                                                                                                                                                1
+
+                                        Scalable Multi-Objective Optimization for Robust
+                                        Traffic Signal Control in Uncertain Environments
+
+                                                            Weian Guo, Wuzhao Li, Zhiou Zhang, Lun Zhang, Li Li and Dongyang Li
+
+arXiv:2409.13388v1 [cs.NE] 20 Sep 2024     Abstract--Intelligent traffic signal control is essential to mod-          dynamic and unpredictable traffic patterns, multiple conflict-
+                                        ern urban management, with important impacts on economic                      ing optimization objectives, and stochastic elements--present
+                                        efficiency, environmental sustainability, and quality of daily life.          significant challenges. Effective traffic signal optimization is
+                                        However, in current decades, it continues to pose significant                 essential to improving traffic flow, reducing congestion, and
+                                        challenges in managing large-scale traffic networks, coordinating             lowering greenhouse gas emissions [1], [2]. Traffic signal
+                                        intersections, and ensuring robustness under uncertain traf-                  control is inherently a multi-objective optimization problem
+                                        fic conditions. This paper presents a scalable multi-objective                involving objectives that often conflict with each other. The
+                                        optimization approach for robust traffic signal control in dy-                challenges caused by expanding scale of urban traffic net-
+                                        namic and uncertain urban environments. A multi-objective                     works necessitates optimization techniques capable of effi-
+                                        optimization model is proposed in this paper, which incorporates              ciently and effectively managing large-scale problems. The
+                                        stochastic variables and probabilistic traffic patterns to capture            interdependency among different intersections, combined with
+                                        traffic flow dynamics and uncertainty. We propose an algorithm                varying travel demands, increases the fluctuations of traffic
+                                        named Adaptive Hybrid Multi-Objective Optimization Algorithm                  flow and affects overall traffic dynamics. Furthermore, external
+                                        (AHMOA), which addresses the uncertainties of city traffic,                   variables such as meteorological conditions and unforeseen
+                                        including network-wide signal coordination, fluctuating patterns,             circumstances provide additional levels of unpredictability and
+                                        and environmental impacts. AHMOA simultaneously optimizes                     intricacy to traffic flow [3], [4].
+                                        multiple objectives, such as average delay, network stability, and
+                                        system robustness, while adapting to unpredictable changes in                    Current research focuses on real-time traffic signal adjust-
+                                        traffic. The algorithm combines evolutionary strategies with an               ments for dynamic scenarios, considering the interconnections
+                                        adaptive mechanism to balance exploration and exploitation, and               among large-scale urban intersections and the stability of the
+                                        incorporates a memory-based evaluation mechanism to leverage                  traffic system. However, frequent strategy switching can im-
+                                        historical traffic data. Simulations are conducted in different               pact the overall stability of urban traffic. Therefore, it is crucial
+                                        cities including Manhattan, Paris, Sa~o Paulo, and Istanbul. The              to develop robust multi-objective optimization strategies for
+                                        experimental results demonstrate that AHMOA consistently out-                 large-scale urban traffic networks to handle the dynamic and
+                                        performs several state-of-the-art algorithms and the algorithm is             stochastic nature of traffic flow and maintain stable traffic
+                                        competent to provide scalable, robust Pareto optimal solutions for            conditions. To address these needs, we conduct comprehensive
+                                        managing complex traffic systems under uncertain environments.                work in both scenario modeling and algorithm design.
+
+                                           Index Terms--Intelligent traffic signal control, Multi-objective              Firstly, in modeling traffic signal scenarios, we incorporate
+                                        optimization, Uncertainty, Urban traffic management, Robust-                  random factors such as weather, holidays, and emergency
+                                        ness, Complex traffic system                                                  events that influence traffic flow to varying degrees. To provide
+                                                                                                                      a comprehensive perspective for a city, we consider thousands
+                                                                  I. INTRODUCTION                                     of intersections and the effects of vehicle flow among ad-
+                                                                                                                      jacent intersections. Therefore, we frame the modeling as a
+                                           Intelligent traffic systems are one of the most critical chal-             large-scale multi-objective optimization problem with inherent
+                                        lenges faced by modern cities, impacting economic efficiency,                 uncertainties. Our research addresses a range of complex
+                                        environmental sustainability, and overall quality of life. The in-            urban scenarios, including grid-based structures (e.g., Manhat-
+                                        herent complexities of urban traffic systems--characterized by                tan), radial-concentric layouts (e.g., Paris), rapidly expanding
+                                                                                                                      metropolises (e.g., Sa~o Paulo), and complex multi-nodal envi-
+                                           This work is supported by the National Natural Science Foundation of       ronments (e.g., Istanbul). By considering these diverse urban
+                                        China under Grant Number 62273263, 72171172 and 71771176; Shanghai            topologies, we aim to create a robust and adaptable solution
+                                        Municipal Science and Technology Major Project (2022-5-YB-09); Natural        capable of handling the multifaceted nature of urban traffic
+                                        Science Foundation of Shanghai under Grant Number 23ZR1465400. (Corre-        management.
+                                        sponding author: Li Li). Thanks for Mr. Wanli CAI for his helps in providing
+                                        experiment environments to run and debug the algorithms.                         Secondly, for the algorithm design, we propose the Adap-
+                                                                                                                      tive Hybrid Multi-Objective Optimization Algorithm (AH-
+                                           Weian GUO and Dongyang LI are with the Sino-German                         MOA), which integrates multiple evolutionary strategies and
+                                        College of Applied Sciences, Tongji University, Shanghai, China.              adaptively adjusts their usage probabilities based on their
+                                        Email:{guoweian@tongji.edu.cn; lidongyang0412@163.com}. Wuzhao                success rates during the optimization process. AHMOA is
+                                        LI is with the Yongjia College, Wenzhou Polytechnic, Wenzhou, Zhejiang,       a comprehensive multi-objective optimization algorithm de-
+                                        China. Email:{lwzhao055@wzpt.edu.cn}. Zhiou ZHANG is with the                 signed for urban traffic signal control. It employs an adaptive
+                                        School of Computer Science and Engineering, University of New South
+                                        Wales, Sydney, Australia. Email:{zhiou.zhang98@gmail.com}. Lun ZHANG
+                                        is with the Department of Transportation, Tongji University, Shanghai,
+                                        China. Email:{lun zhang@tongji.edu.cn}. Li LI is with the Department of
+                                        Electrics and Information Engineering, Tongji University, Shanghai, China.
+                                        Email:{lili@tongji.edu.cn}.
+                                                                      2
+
+multi-strategy mechanism to dynamically balance exploration           systems. Early systems, such as those described by Webster
+and exploitation, thereby efficiently navigating the large-scale      [6] and Robertson [7], relied on historical traffic data to set
+search space of urban traffic signal control problems. To             signal timings. These fixed-time controllers, while simple and
+enhance robustness, AHMOA incorporates a memory-based                 reliable, lacked the robustness and flexibility to respond to
+evaluation mechanism that accounts for historical traffic pat-        traffic fluctuations, leading to inefficiencies in dynamic traffic
+terns and variations. This mechanism improves the stability           conditions. In response, actuated controllers are developed,
+and reliability of solutions by considering past traffic data,        adjusting signal timings based on real-time sensor feedback
+making the optimization process more robust to stochastic             [8]. However, these systems still struggled with optimality
+fluctuations and external disruptions.                                and adaptability, particularly in complex urban environments
+                                                                      [9]. To address these limitations, adaptive traffic signal control
+   This approach aims to provide a more stable and reliable so-       (ATSC) systems have been developed, leveraging real-time
+lution for urban traffic management by effectively addressing         traffic data to dynamically adjust signal timings, thereby
+the inherent complexities and dynamic nature of urban traffic         significantly enhancing traffic flow and reducing delays [10].
+systems. The main contributions of this work are as follows:          Despite their advantages, early ATSC systems faced challenges
+                                                                      in handling the complexity and variability of modern urban
+   · Proposal of a robust multi-objective optimization model          traffic, especially in large-scale networks.
+      that simultaneously optimizes average delay, network
+      stability, and system robustness, addressing uncertainties      B. Optimization Techniques in Traffic Signal Control
+      in traffic environments and ensuring stable performance
+      under varying conditions.                                          Recent advancements have integrated sophisticated opti-
+                                                                      mization algorithms to enhance the adaptability and efficiency
+   · Development of a large-scale, adaptive multi-objective           of traffic control systems.
+      optimization algorithm (AHMOA) for traffic signal con-
+      trol, capable of managing extensive urban networks and             1) Multi-Objective Optimization: Multi-objective optimiza-
+      effectively responding to dynamic traffic patterns and          tion has been widely adopted to balance conflicting objec-
+      unexpected changes in traffic conditions.                       tives such as minimizing delays, reducing fuel consumption,
+                                                                      maximizing throughput and many others. The corresponding
+   · Validation and demonstration of the algorithm's versatil-        algorithms are competent to provide diverse Pareto-optimal
+      ity through comprehensive simulations in four distinctly        solutions to address the traffic signal problems [11]. Tan et al.
+      different urban settings (Manhattan, Paris, Sa~o Paulo,         [12] and Lin et al. [13] demonstrated the integration of real-
+      and Istanbul), showcasing its effectiveness across diverse      time data into these models for dynamic optimization in urban
+      city layouts and its ability to coordinate traffic signals      environments, showcasing significant potential for real-time
+      in large urban areas while accounting for intersection          traffic management. However, these methods often require
+      dependencies.                                                   extensive computational resources and may not scale well in
+                                                                      large scale applications and dynamic traffic environments. To
+   The remainder of this paper is organized as follows: Sec-          address this, Gao et al. [14] explored metaheuristic approaches,
+tion II provides a comprehensive review of related work,              including the Jaya algorithm, harmony search (HS), and water
+highlighting recent advancements in traffic signal control and        cycle algorithm (WCA), demonstrating their effectiveness in
+identifying current research gaps. In Section III, we present         handling complex, large-scale traffic optimization problems.
+a detailed formulation of the problem and introduce our               Despite their advantages, the scalability and real-time appli-
+proposed optimization framework. Section IV elucidates the            cation of these methods remain areas for further research.
+methodology of our novel Adaptive Hybrid Multi-Objective
+Optimization Algorithm (AHMOA), detailing its key com-                   2) Machine Learning and Reinforcement Learning: Ma-
+ponents and operational mechanisms. Extensive experimental            chine learning techniques, particularly reinforcement learning
+results and comparative analyses are presented in Section V,          (RL), have shown significant promise in developing more
+demonstrating the efficacy of our approach across diverse             adaptive and intelligent traffic signal control systems. Deep
+urban environments. Finally, Section VI concludes the paper           reinforcement learning (DRL) approaches, such as those pro-
+with a summary of our key findings, discusses the broader             posed by Gao et al. [15] and Wei et al. [16], have demonstrated
+implications of our work, and outlines promising directions           substantial improvements by learning optimal policies from
+for future research in this domain.                                   traffic data. These methods, however, often face challenges re-
+                                                                      lated to the high-dimensional state and action spaces in traffic
+                         II. RELATED WORK                             control scenarios. To mitigate these issues, researchers have
+                                                                      integrated advanced sensing technologies and deep learning
+   Traffic signal control is a critical aspect of urban traffic man-  models. For instance, Shabestary and Abdulhai [10] used GPS
+agement aimed at optimizing traffic flow, reducing congestion,        traces from connected vehicles, employing Deep Q-Networks
+and enhancing overall efficiency [5]. This section reviews the        (DQN) for processing and optimizing signal timings. Ma
+evolution of traffic signal control methods, focusing on the          et al. [17] and Yang et al. [18] further advanced this field
+developments in optimization algorithms, machine learning             by combining computer vision techniques with reinforcement
+and emerging technologies.                                            learning, highlighting the potential for improved adaptability
+                                                                      and efficiency. Research by Gu et al. [19] and Chiou [20]
+A. Traditional and Adaptive Traffic Signal Control
+
+   The evolution of traffic signal control has seen a transi-
+tion from traditional fixed-time controllers to more adaptive
+                                                                  3
+
+focused on developing traffic control systems that can adapt      integration of IoT and computer vision technologies requires
+to changing conditions and recover from disruptions.              substantial investment in infrastructure and faces challenges
+                                                                  related to data integration and processing capabilities.
+C. Network-Wide and Multi-Agent Approaches
+                                                                  E. Summary of Related Work
+   The complexity of urban traffic networks has necessitated
+the development of network-wide and multi-agent approaches           While significant advancements have been made in traffic
+to traffic signal control.                                        signal control through the integration of optimization algo-
+                                                                  rithms, machine learning techniques, and emerging technolo-
+   1) Network-Wide Optimization: Network-wide optimiza-           gies, several limitations remain. Traditional and adaptive traffic
+tion methods consider interactions between intersections, using   control systems often struggle to handle the complexity and
+predictive models to adapt signal timings dynamically. Wang       variability of large-scale urban traffic, particularly in dy-
+et al. [21] and Yao et al. [22] leveraged real-time data to       namic and uncertain environments. Optimization-based meth-
+optimize traffic flow across entire networks, addressing issues   ods, though effective in achieving diverse Pareto solutions,
+related to large-scale coordination and dynamic traffic con-      frequently face scalability challenges and require extensive
+ditions. Zhu et al. [23] employed game-theoretic approaches       computational resources, limiting their real-time application
+to manage network-wide traffic, demonstrating the potential       in large-scale scenarios. Furthermore, machine learning ap-
+of such methods in coordinating multiple bottlenecks. These       proaches, such as reinforcement learning, encounter difficul-
+approaches, while effective, often require robust data com-       ties in managing high-dimensional state and action spaces,
+munication infrastructures and face challenges in scalability     leading to suboptimal results in large traffic networks. The
+and real-time implementation. Future research should focus        integration of IoT and connected vehicle data shows promise
+on developing more efficient algorithms and improving the         but introduces issues related to data privacy, cybersecurity, and
+scalability of these methods.                                     infrastructure costs.
+
+   2) Multi-Agent Systems: Multi-agent systems and graph-
+based methods have been explored to capture the spatial
+relationships within traffic networks and enable decentralized
+control. Wang et al. [24] and Devailly et al. [25] demonstrated
+the effectiveness of multi-agent deep reinforcement learning
+and graph-convolutional networks in achieving coordinated
+traffic management. Jiang et al. [26] applied graph theory
+to decompose complex traffic networks for more efficient
+optimization, highlighting the potential of these approaches
+in managing large-scale urban traffic. However, the decentral-
+ized nature of multi-agent systems can lead to challenges in
+coordination and consistency across agents. Addressing these
+challenges through improved communication protocols and
+coordination algorithms is an area for future exploration.
+
+D. Emerging Technologies and Future Directions                    Fig. 1: An example of a local area in a large-scale traffic
+                                                                  network
+   The integration of emerging technologies such as the Inter-
+net of Things, connected vehicles, and smart cities infrastruc-      In large-scale traffic networks, the flow of vehicles between
+ture offers new opportunities for traffic signal control.         intersections exhibits both direct and indirect propagation. As
+                                                                  shown in Fig. 1, the impact of traffic flow at an intersection
+   1) Connected Vehicle Technologies: Connected vehicle           radiates outward, with its intensity decreasing from high to low
+technologies facilitate precise and coordinated traffic manage-   (as indicated by the gradient from red to green). Congestion
+ment strategies by enabling communication between vehicles        or relief at point A will directly impact the traffic flow at
+and infrastructure. Research by Emami et al. [27] and Feng        the next intersection, point B, and indirectly influence the
+et al. [28] highlighted the potential of integrating connected    traffic at point F. This effect cascades through the network,
+vehicle data into traffic signal optimization, improving real-    potentially affecting more distant intersections such as point
+time responsiveness and overall system efficiency. These tech-    E. Moreover, traffic flow propagation is influenced by multiple
+nologies, however, raise concerns regarding data privacy and      factors. For instance, the flow at point C is impacted by a
+the need for robust cybersecurity measures.                       combination of flows from both points A and D. As a result,
+                                                                  designing an algorithm for controlling traffic signals at an
+   2) IoT and Computer Vision: IoT devices provide real-time      isolated intersection without considering the entire network
+traffic data, enhancing adaptive and predictive capabilities of   may lead to sub-optimal outcomes, where improvements at
+traffic control systems. Studies by Ferguson et al. [29] and      one point come at the expense of others. In addition, external
+Hasan et al. [30] demonstrated the effectiveness of IoT in traf-  factors such as time of day and weather can further complicate
+fic management. Additionally, Chu et al. [31] explored the use
+of computer vision techniques for real-time image processing
+at intersections, integrating these methods with reinforcement
+learning for enhanced traffic control. While promising, the
+                                                                                                                                  4
+
+signal control in different regions of the network. Traditional     others, which will be detailed in the subsequent simulation
+methods, which rely solely on local or even single-intersection     experiments. Let i  [0, 1] represent the red light ratio for
+traffic data to design traffic signal control strategies, fail to   intersection i, where i = 1, 2, . . . , N , and N is the total
+holistically account for the overall traffic conditions across      number of intersections in the network. In our research, the
+the city. Frequent switching of such strategies can lead to         value of N reaches the scale of several thousand. The decision
+instability in the traffic signal network. Therefore, in the        vector is defined as shown in (1).
+face of uncertain environments, it is of great significance to
+develop robust large-scale traffic signal control strategies that                         = [1, 2, . . . , N ]                    (1)
+can effectively manage the entire urban road network.
+                                                                    Therefore, the decision variables in the proposed optimization
+   This study addresses these limitations by proposing the          model are the red light ratios () for each intersection in the
+Adaptive Hybrid Multi-Objective Optimization Algorithm              network, represented as a vector of length equal to the number
+(AHMOA), which combines multiple optimization strategies            of intersections. The traffic control problem is formulated as a
+to balance exploration and exploitation while adapting dynami-      multi-objective optimization task. The detailed objectives are
+cally to the problem's landscape. AHMOA is designed to scale        provided as follows.
+effectively in large-scale urban traffic networks by incorporat-
+ing memory-based evaluation, which reduces computational            B. Mathematical Formulation for Objectives
+overhead, and by leveraging adaptive strategy selection to
+optimize traffic flow in real-time. In addition, by considering        In this paper, we consider average delay and traffic network
+robustness as a key objective, AHMOA provides solutions             flow as the primary objectives for the multi-objective opti-
+that maintain performance across varying traffic conditions,        mization problem, which can be mathematically expressed as
+enhancing both scalability and stability in dynamic environ-        follows.
+ments.
+                                                                       1) Average Delay: The first objective function f1() rep-
+  III. PROBLEM FORMULATION AND SYSTEM MODELING                      resents the expected average vehicle delay in the network:
+
+   In this section, we establish a robust large-scale multi-                                 1T N           Di(t, i)
+objective model for urban traffic signal optimization.                           f1() = E T                                       (2)
+
+A. Traffic Environment                                                                       t=1 i=1
+
+   In this model, cycle lengths (C) represent the total duration    where T is the total number of simulation time segments, and
+of a traffic signal cycle, including green, yellow, and red         Di(t, i) is the delay at intersection i at time t, calculated
+phases, directly affecting the delay time at each intersection      using a modified Webster's formula:
+and the overall traffic flow efficiency. Saturation flow rates
+(SR) denote the maximum rate at which vehicles can pass                Di(t, i)     =    Ci(1 - gi/Ci)2  +        xi(t)2          (3)
+through an intersection under ideal conditions, used to calcu-                           2(1 - ixi(t))      2si(t)(1 - xi(t))
+late the intersection's capacity and influence delay and queue
+length computations. Traffic volumes (V ) indicate the number       where:
+of vehicles passing through an intersection over a specified
+period, essential for evaluating the load on each intersection      · Ci is the cycle length for intersection i
+and affecting both delay and network stability calculations.
+Adjacency matrices (AM ) represent the connectivity between         · gi is the effective green time, where gi = (1 - i)Ci
+intersections, modeling the relationships and dependencies                       vi,t
+between different intersections, thereby impacting the overall      ·  xi(t)  =  si (t)  is the degree of saturation (traffic intensity)
+network stability assessment. Intersection types (IT ) refer to
+specific configurations of intersections, such as crossroads or     · si(t) is the saturation flow rate, adjusted for dynamic
+T-junctions, influencing traffic flow patterns and considered
+when evaluating network stability and optimizing signal tim-           conditions such as weather
+ings.
+                                                                    · vi,t is the volume of vehicles at intersection i at time t
+   This model incorporates average delay, network stability,
+and robustness into the optimization process. Additionally, it      This objective aims to reduce the overall waiting time
+considers various city-specific traffic patterns and accounts for
+uncertainties, such as weather changes and emergent events,         experienced by vehicles in the network. The modified Web-
+in traffic conditions. In this paper, we consider a whole city
+or a large district, resulting in the number of intersections       ster's formula accounts for both uniform and random delays,
+exceeding thousands. Therefore, we do not focus on the
+control of lanes and traffic directions at a microscopic level but  capturing the impact of red light ratios on waiting times and
+rather study the traffic flow rates at intersections. The types of
+intersections considered include crossroads, T-junctions, and       queue lengths.
+
+                                                                    2) Network Stability: Network stability is crucial for main-
+
+                                                                    taining smooth and predictable traffic flow, which helps in
+
+                                                                    reducing congestion and improving overall traffic efficiency.
+
+                                                                    Therefore, in this paper, the second objective function f2()
+
+                                                                    aims to maximize network stability, which reflects the consis-
+
+                                                                    tency and predictability of traffic flow across the network:
+
+                                                                                         TN
+
+                                                                       f2() = E              |vi,t - vi+1,t| + |vi,t - vi,t+1|
+
+                                                                                    t=1 i=1
+
+                                                                                    · 1 + |i - i+1| · AMi,i+1 · ITi               (4)
+
+                                                                    where vi,t is the vehicle count at intersection i at time
+                                                                    t, AMi,i+1 is the adjacency matrix element indicating if
+                                                                                                             5
+
+intersections i and i + 1 are connected, and ITi represents          This approach allows us to find solutions that perform well
+the type of intersection i.                                          across various time intervals in a whole day.
+
+   This objective captures the interdependencies between dif-           2) Dynamic Weather Simulation: We introduce a time-
+ferent intersections and the effect of traffic flow variations on    dependent weather factor (t) to simulate changing environ-
+network stability. By minimizing the differences in vehicle          mental conditions throughout the day:
+counts between adjacent intersections (|vi,t - vi+1,t|) and
+between consecutive time intervals (|vi,t -vi,t+1|), and consid-     si(t) = si,base · (t)                   (8)
+ering the variations in red light ratios (|i - i+1|), we ensure
+that traffic signals are coordinated to maintain a balanced and      where (t) = 0.8 + 0.4 sin(2t/T ). This factor affects the
+stable traffic network. The inclusion of AMi,i+1 allows the          saturation flow rate, reflecting the impact of weather on traffic
+model to account for the connectivity between intersections,         conditions. This equation simulates the periodic changes in
+while ITi helps to weigh the impact of different intersection        weather conditions throughout the day. Specifically, (t) is a
+types on traffic flow and stability. This coordination is essential  time-varying factor that adjusts the saturation flow rate si(t).
+for mitigating the impact of sudden changes in traffic flow and      The sine function sin(2t/T ) models the cyclical nature of
+ensuring that traffic signal strategies are robust and adaptable     daily weather patterns. The baseline value is set at 0.8 with
+to dynamic traffic conditions.                                       a fluctuation range of 0.4, meaning the weather factor ranges
+                                                                     between 0.4 and 1.2, reflecting the extent of weather impact
+   3) Robust Objective: To account for uncertainties in traffic      on the saturation flow rate.
+patterns and environmental conditions, we employ a compre-
+hensive robust evaluation approach. To enhance the robustness                                IV. METHODOLOGY
+of our solutions, we incorporate a stability score as an addi-
+tional measure. This score is calculated for each solution and is       The main challenges of the model come from addressing the
+used in the Pareto front selection process. The stability score is   multi-objective optimization while considering the large scale
+defined in (5), which can be considered as the third objective.      of the problem and its inherent uncertainties. To address these
+                                                                     issues, it is essential to design an algorithm that is adequately
+           1M                1   N                         (5)       suitable for exploring the search space. Therefore, we propose
+R() =                     N -1                                       a novel approach named the Adaptive Hybrid Multi-Objective
+                                    (fjh() - fj())2                  Optimization Algorithm (AHMOA). This algorithm employs
+          M                                                          an adaptive hybrid multi-strategy scheme, which leverages the
+           j=1                   h=1                                 strengths of different algorithms to perform efficient explo-
+                                                                     ration and exploitation in the high-dimensional decision space.
+where M is the number of objective functions, N is the               To address the robustness issue, we incorporate robustness
+number of hours considered, fjh() is the value of the j-th           indicators as one of the optimization objectives. The details
+                                                                     are provided as follows.
+objective function for hour h, and fj() is the mean value of
+the j-th objective function across all hours, calculated by (6).
+
+                      1          N
+           fj() = N
+                                      fjh()                (6)
+
+                                 h=1
+
+R measures the average standard deviation of each objective
+
+function's performance across different hours of the day. A          A. Memory-Based Evaluation Calculation
+
+lower value of R indicates a more stable and robust solution,
+
+as it represents traffic control strategies that are more robust        We introduce a memory mechanism in the algorithm design
+                                                                     to store and utilize historical traffic data, thereby enhancing
+to varying traffic conditions throughout the day.                    the robustness and stability of the algorithm. The memory
+                                                                     matrix M is computed from historical vehicle counts V . Let
+   In summary, by integrating three objectives, namely f1, f2,       Vi,t be the vehicle count at intersection i at time t for the
+and R, into a unified optimization model, we develop traffic         current evaluation. The memory matrix M is then defined
+                                                                     as the average of the past H historical vehicle counts. The
+signal strategies that not only minimize delays and enhance          elements of M are given by (9).
+
+stability but also demonstrate robustness against unpredictable
+
+traffic and environmental factors. This approach leads to a
+
+reliable and efficient urban traffic management system, capable
+
+of adapting to the dynamic nature of modern city traffic.            1H
+
+C. Evaluating Uncertainty Considerations                             Mi,t = H       Vi,t,h                   (9)
+
+                                                                               h=1
+
+To incorporate multiple uncertainties to ensure the solutions        where Mi,t is the averaged vehicle count at intersection i at
+                                                                     time t, Vi,t,h is the vehicle count at intersection i at time
+are robust to varying traffic conditions, we consider two            t during the h-th historical evaluation, H is the number of
+                                                                     historical evaluations considered. In the objectives (2) and (4),
+aspects in the modeling.                                             the vehicle count Vi,t is replaced with Mi,t to incorporate
+                                                                     the memory-based evaluation mechanism. The memory matrix
+1) Multiple Evaluations: In practice of this paper, each             M plays a critical role by incorporating past vehicle counts
+                                                                     into the current evaluation, helping to mitigate the impact of
+solution is evaluated ne times under different conditions. The       dynamic and uncertain traffic conditions.
+
+final objective values are calculated as the expected values
+
+over these evaluations:
+
+f¯k ()  =  E[fk()]        =  1    ne          k  {1, 2}    (7)
+                             ne
+                                     fkj (),
+
+                                 j=1
+                                                                                                                              6
+
+B. Adaptive Offspring Generation                                   Algorithm 1 Adaptive Hybrid Strategy to Generate Offspring
+
+   Offspring are generated using an adaptive hybrid strategy       1: Input: Strategy probabilities p, population P , learning
+that combines Genetic Algorithm (GA), Differential Evolution
+(DE), Particle Swarm Optimization (PSO), and Local Search               rate 
+(LS). Strategy probabilities are updated based on their success
+rates in generating better solutions. This adaptive mechanism      2: Initialize S = [0, 0, 0, 0] and T = [0, 0, 0, 0]
+allows the algorithm to dynamically balance exploration and
+exploitation, enhancing its ability to navigate the complex,       3: for each individual i in population P do
+multi-objective landscape of traffic signal optimization.
+                                                                   4: Select a strategy s using roulette wheel selection based
+   Let pold be the vector of probabilities for each strategy
+before updating, and Rsucc be the vector of success rates               on probabilities p
+for each strategy. The updated strategy probabilities pnew are
+calculated by (10).                                                5: According to s, use GA or DE or PSO, or LS to
+
+                                                                         generate offspring oi
+                                                                   6: Evaluate if the offspring oi generated by strategy s
+
+                                                                        improves over its parent pi
+
+                                                                   7: if oi improves over pi then
+
+                                                                   8:   S[s] = S[s] + 1
+
+              pnew = (1 - )pold + Rsucc                            9: end if
+
+                                                          (10)     10: T[s] = T[s] + 1
+
+where  is the learning rate. The old probabilities and success     11: Add offspring oi to the offspring population O
+rates are defined by (11) and (12).
+                                                                   12: end for
+
+                                                                   13:  Calculate   Rsucc[s] =  S[s]  for  each  strategy  s
+                                                                                                T[s]
+              pold = [pGolAd , poDlEd , pPolSdO, pLolSd]
+                                                          (11)     14: Update strategy probabilities p by (10)
+
+              Rsucc = [RGA, RDE, RPSO, RLS]                        15: Normalize p so that p = 1
+
+                                                          (12)     16: Return: Offspring population O, updated strategy proba-
+
+where piold represents the old probability for strategy i and           bilities p
+Ri represents the success rate for strategy i. Initially, pold =
+[0.25, 0.25, 0.25, 0.25] and Rsucc = [0, 0, 0, 0]. The success     least one. The first front represents the Pareto optimal set,
+rate for each strategy Ri is calculated by (13).                   consisting of individuals that are not dominated by any others.
+                                                                   After sorting, the crowding distance for each individual is
+              Ri  =  nsiucc                               (13)     calculated to ensure diversity. The crowding distance measures
+                     ntotal                                        how close a solution is to its neighbors in the objective space,
+                                                                   based on Euclidean distance in each objective dimension. This
+where nisucc is the number of offspring generated by strategy i    encourages maintaining diversity by favoring solutions in less
+that improve upon their parent solutions, and ntotal is the total  crowded regions.
+
+number of offspring generated.                                        During selection, individuals are chosen from the sorted
+                                                                   fronts in order, starting with the first, until the population size
+This approach ensures that strategies that generate more           limit is reached. If the last front exceeds the limit, individuals
+                                                                   from that front are selected based on their crowding distances.
+successful offspring have higher probabilities in future gen-      This ensures a well-distributed and diverse population, helping
+                                                                   the algorithm converge effectively towards the Pareto optimal
+erations, allowing the algorithm to dynamically adapt to the       front.
+
+problem's landscape. The Genetic Algorithm (GA) utilizes           D. Summary of Proposed Algorithm
+
+Simulated Binary Crossover (SBX) and polynomial mutation              The AHMOA algorithm effectively integrates memory-
+                                                                   based evaluation, adaptive hybrid strategies, and robust ob-
+to generate new solutions, where the crossover operation           jective evaluation to address the challenges of urban traffic
+                                                                   management. By considering multiple objectives and incorpo-
+combines two parent solutions based on a distribution index        rating robustness into the optimization process, the proposed
+                                                                   method provides a reliable and efficient solution for optimizing
+and a random value, and the mutation introduces small adjust-      traffic signal timings in dynamic urban environments. This
+                                                                   comprehensive approach allows our algorithm to effectively
+ments to enhance diversity. Differential Evolution (DE) creates    navigate the complex, multi-objective landscape of traffic
+                                                                   signal optimization while maintaining robustness in the face of
+offspring through differential mutation and binomial crossover,    dynamic and uncertain traffic conditions. The detail pseudo-
+                                                                   codes are given in Algorithm 2.
+using randomly selected individuals and a differential weight
+                                                                   E. Computational Complexity and Scalability
+to generate variability. Particle Swarm Optimization (PSO)
+                                                                      The computational complexity of the algorithm consists
+updates particle velocities based on personal and global best      of two main parts: evaluating the objective functions and
+
+positions, employing inertia weight, cognitive and social coef-
+
+ficients, and random values to guide particles towards optimal
+
+solutions. Local Search fine-tunes solutions by applying small
+
+perturbations, exploring the neighborhood of each solution
+
+to enhance local exploitation. The pseudo-codes are given in
+
+Algorithm 1.
+
+C. Offspring Selection
+
+   The combined parent and offspring populations are evalu-
+ated using a non-dominated sorting approach to form Pareto
+fronts. In this method, individuals are sorted into different
+fronts based on dominance. One individual dominates another
+if it is no worse in all objectives and strictly better in at
+                                                                     7
+
+Algorithm 2 AHMOA Traffic Optimization Algorithm                     handling high-dimensional optimization challenges and opti-
+                                                                     mizing traffic signal timings effectively.
+ 1: Input:
+                                                                            V. EXPERIMENTAL RESULTS AND DISCUSSION
+       · C: Cycle lengths for each intersection.
+       · SR: Saturation flow rates for each intersection.               In this section, we introduce traffic simulation models and
+       · V: Traffic volumes for each intersection.                   design models tailored to specific city patterns. Based on
+       · AM: Adjacency matrix indicating connectivity be-            these models, we compare the performance of the proposed
+                                                                     algorithm with several other evolutionary algorithms. The
+          tween intersections.                                       experimental results are analyzed and explained within the
+       · IT: Types of intersections.                                 context of various traffic scenarios.
+
+ 2: Initialize population P with random red light ratios i           A. Traffic Simulation Model
+     for each intersection; Initialize strategy probabilities p for
+     GA, DE, PSO, and LS                                                In the experiments, we employ an intersection-based model
+                                                                     to simulate traffic flow dynamics. The Traffic Data Generator
+ 3: for each generation gen from 1 to maxGen do                      simulates traffic conditions for thousands of intersections over
+ 4: for each individual i in population P do                         a 24-hour period. Each intersection is assigned a random cycle
+ 5: Evaluate objectives (Average Delay, Network Stabil-              time from a predefined set of cycle times: 60, 90, 120 seconds.
+                                                                     This reflects the traffic light cycle duration at each intersection.
+           ity, Robustness) for individual i using historical data   A base saturation flow rate, representing the maximum number
+           M                                                         of vehicles per hour that can pass through an intersection when
+ 6: end for                                                          the traffic light is green, is set between 800 and 2400 vehicles
+ 7: Generate offspring using adaptive hybrid strategy by             per hour for each intersection, varying by intersection type,
+        Algorithm 1.                                                 collector and arterial respectively. During morning peak hours
+ 8: Combine parent and offspring populations                         and evening peak hours, the flow is increased by a factor of
+ 9: Perform non-dominated sorting to form Pareto fronts              1.5, adjusted by a random fluctuation between 0.9 and 1.3
+10: Calculate crowding distances for each individual                 times the base saturation flow. During off-peak hours, the
+11: Select individuals based on fronts and crowding dis-             flow is a random value between 50% and 100% of the base
+        tances until population size is restored                     saturation flow, reflecting typical traffic variability during less
+12: Update strategy success rates Rsucc and strategy prob-           busy times. During lunch hours, the flow is increased by a
+        abilities p                                                  factor of 1.1, adjusted by a random fluctuation between 0.8
+13: end for                                                          and 1.2 times the base saturation flow. During midnight hours,
+14: Return:                                                          the flow is decreased to 50% of the base saturation flow.
+
+       · i: Red light ratios of all intersections in each Pareto
+          solution.
+
+       · PS: Pareto solutions' objectives of average delay,
+          network stability, and robustness.
+
+generating/selecting offspring.                                      B. City-Specific Adaptations
+
+   For each generation, the complexity of evaluating the ob-            To validate the effectiveness of our proposed algorithm
+jective functions depends on the number of intersections (N )        across diverse urban environments, we recognize that each
+and time steps (T ), resulting in O(N T ). With E evaluations        city has distinct traffic patterns and infrastructure character-
+per solution for robustness, the total complexity becomes            istics. Our adaptation strategy considers network topology,
+O(EN T ) per generation. For offspring generation, AHMOA             intersection-based model parameters, dynamic traffic demand,
+uses an adaptive hybrid strategy, dynamically applying GA,           environmental factors, and unique intersection characteristics.
+DE, PSO, or LS. The complexity per individual is O(N ) for           By incorporating these city-specific adaptations, our model
+GA, DE, and PSO, while LS may increase it to O(N 2). Thus,           provides more realistic and effective traffic management so-
+for a population size P , the offspring generation complexity        lutions across diverse urban environments. Four cities are
+is about O(P N ). The selection process uses non-dominated           inovled in the simulations, which are Manhanttan, Istanbul,
+sorting, which has a complexity of O(P 2M ), where M                 Paris and Sa~o Paulo. These differences highlight the unique
+is the number of objectives, plus O(P log P ) for crowding           challenges and strategies required in traffic planning and
+distance calculation. The total complexity per generation is         management for each city, underscoring the importance of
+O(P N + P 2M + P log P ).                                            tailored approaches in urban traffic optimization. The features
+                                                                     of the four cities are summarized in Table I. The related figures
+   AHMOA scales well for large urban traffic networks due            are presented in Fig. 2.
+to its adaptive nature. As N and P grow, the algorithm
+dynamically adjusts strategy probabilities, efficiently balancing       Given the large-scale traffic network in this paper, a three-
+exploration and exploitation. Memory-based evaluations fur-          dimensional force-directed layout is used for visualization,
+ther enhance robustness by leveraging historical data without        which ensures a uniform layout of intersection nodes, mak-
+significant computational overhead. Therefore, in large urban        ing it easier to visualize connections and identify clusters
+networks with thousands of intersections and dynamic traffic         of closely connected nodes. In the figures, nodes represent
+patterns, AHMOA remains a scalable solution, capable of              intersections, with colors indicating road types: green for
+                                                                                                                                  8
+
+local roads, orange for collector roads, and red for arterial           4) Sa~o Paulo: Sa~o Paulo's traffic network, shown in Fig.
+roads. Node size reflects average traffic flow, with larger nodes    2d, is characterized by a less uniform street layout, featuring a
+indicating higher volumes. Blue edges represent connections          mix of wide avenues and local streets. The simulation model
+between intersections, with edge thickness corresponding to          includes 30 major roads and 50 secondary roads, categorized
+average saturation flow, and thicker lines indicate higher           into local, collector, and arterial types, including high-capacity
+saturation.                                                          road connections. The city's traffic network presents a complex
+                                                                     and irregular mesh structure, influenced by diverse terrain
+   1) Manhattan: Manhattan's traffic network, presented in           and uneven urban development. Sa~o Paulo experiences severe
+Fig. 2a, is characterized by a rigid grid system with 12             congestion, especially during extended peak hours (6-10 AM
+north-south avenues and 220 east-west streets. The roads are         and 4-9 PM). Traffic patterns account for extended peak hours,
+categorized into local, collector, and arterial types, with major    weekend variations, and the impact of seasonal weather. The
+arterials like 5th Avenue, 8th Avenue, 14th Street, and 23rd         irregular mesh network of Sa~o Paulo can adapt flexibly to
+Street playing crucial roles in traffic flow. This regular and       terrain and urban growth, dispersing traffic flow and potentially
+symmetrical grid-like structure reflects the city's typical square   reducing congestion in specific areas. However, the complexity
+block design. Manhattan's traffic patterns include distinct          of the network increases the difficulty of traffic management
+morning (7-9 AM) and evening (5-7 PM) peaks, with a notable          and optimization, potentially leading to local bottlenecks and
+increase in activity during lunchtime. The city also experiences     congestion if not systematically planned.
+high pedestrian activity, which influences traffic flow. The grid
+structure offers several advantages, such as facilitating even       (a) Manhattan Traffic Network  (b) Istanbul Traffic Network
+distribution of traffic flow, reducing congestion, and simpli-
+fying traffic signal control and optimization. However, during       (c) Paris Traffic Network      (d) Sa~o Paulo Traffic Network
+peak hours, intersections can become bottlenecks, leading to
+congestion at multiple points.                                       Fig. 2: Comparison of different urban networks
+
+   2) Istanbul: Istanbul's traffic network, given in Fig. 2d, is     C. Experimental Results
+uniquely positioned, spanning two continents, and is char-
+acterized by a mix of ancient, narrow streets and modern,               In the experiments, the AHMOA algorithm is designed
+wide boulevards. The simulation model includes 40 major              to optimize large-scale urban traffic systems with multiple
+roads, categorized into local, collector, and arterial types,        objectives. The population size is set to 120, and the algorithm
+incorporating key bridges such as the Bosphorus Bridge and           runs for a maximum of 50 generations. It optimizes three
+Fatih Sultan Mehmet Bridge, along with numerous secondary            objectives, evaluating each solution five times to account
+roads. The network shows a complex and irregular pattern with        for uncertainties such as weather and traffic conditions, with
+multiple centers, indicative of the city's historical street layout  simulations covering a full 24-hour period. In the experimental
+and varied terrain. Istanbul experiences significant congestion      comparison, we used three peer algorithms: MOEA/D [32],
+during both morning (7-10 AM) and evening (4-8 PM) peak              NSGA3 [33], and NSDE3. In NSDE3, the genetic algorithm
+hours. The city's hilly terrain and seasonal traffic fluctuations    in NSGA3 is replaced with a differential evolution algorithm.
+are incorporated into the model. The multi-centered traffic          The results are presented and compared as follows.
+network of Istanbul helps in dispersing traffic flow, potentially
+reducing congestion in specific areas. However, the irregular           1) Experiments on Manhattan Traffic Network: For the
+network increases the complexity of traffic management, mak-         Manhattan scenario, we aggregate the solutions obtained by
+ing it challenging to implement uniform traffic signal control
+optimization.
+
+   3) Paris: Paris features a combination of wide boulevards
+and narrow streets, with a series of ring roads (pe´riphe´riques).
+The figure is presented in Fig. 2c. The city's traffic network is
+simulated with 20 major roads, categorized into local, collec-
+tor, and arterial types, incorporating ring road connections.
+Paris exhibits a distinctive ring-radial structure, expanding
+from the center outwards, mirroring the city's radial avenues
+extending from central points like the Arc de Triomphe. The
+city experiences multiple traffic peaks throughout the day, with
+primary peak hours from 7-9 AM and 5-7 PM. Significant
+tourist activity in central areas also impacts traffic patterns,
+with reduced activity on weekends. The radial structure of
+Paris aids in distributing traffic across multiple directions, pre-
+venting congestion in any single direction, and facilitates both
+centralized and decentralized traffic management. However,
+during peak periods, this structure can lead to bottlenecks in
+central areas, particularly at key junctions where the ring and
+radial lines intersect.
+                                                                                                                               9
+
+                             TABLE I: City-Specific Simulation Characteristics
+
+              City                   Network Topology                  Peak Hours                  Traffic Patterns
+
+           Manhattan      Grid system with avenues and streets      7-9 AM, 5-7 PM   High pedestrian activity, lunchtime peak
+            Istanbul   Complex network with bridges and tunnels     7-10 AM, 4-8 PM   Extended peaks, tourist season impact
+              Paris                                                 7-9 AM, 5-7 PM     Multiple daily peaks, tourist activity
+           Sa~o Paulo        Radial-concentric with ring roads      6-10 AM, 4-9 PM    Extended peaks, weekend variations
+                          Mix of wide avenues and local streets
+
+AHMOA, MOEA/D, NSGA3, and NSDE3, and through dom-                   the presence of more red, orange, and green areas suggests that
+inating rules, identified the global Pareto optimal solutions,      their performance is still suboptimal compared to AHMOA,
+which are presented in Table II. The data in the table have         with higher delays in several parts of the network.
+been processed in logarithmic form to facilitate comparison
+of the values. As shown in the table, all 17 global Pareto             2) Experiments on Istanbul Traffic Network: In the Istanbul
+optimal solutions are obtained by the AHMOA algorithm,              scenario, we set 30 arterial roads and 50 collectors. The
+further demonstrating the superiority of the proposed method.       peak traffic periods, from 7 AM to 10 AM and 4 PM to 8
+                                                                    PM, increase flow by 20-30%. The adjacency matrix defines
+TABLE II: Global Pareto Solutions for Manhattan                     the network's connectivity, including bridges and tunnels.
+                                                                    Network visualization highlights traffic intensity through node
+Algorithm  Log(Objective 1)  Log(Objective 2)  Log(Objective 3)     sizes and saturation flow through edge widths, with arterial,
+ AHMOA                                                              collector, and local roads shown in distinct colors. The global
+                 8.0416            7.9853            -8.1186        Pareto solutions obtained by the four algorithms are shown in
+                 8.0418            7.9851            -7.8175        Table III. From this table, we observe that the global Pareto
+                 8.0418            7.9852                           solutions are obtained by only two algorithms: MOEA/D and
+                 8.0419            7.9848              -Inf         our proposed AHMOA, both yielding a similar number of fea-
+                 8.0420            7.9849            -7.8175        sible solutions. By comparing the data, we find that MOEA/D
+                 8.0421            7.9846            -8.1186        tends to generate solutions with lower delays, while AHMOA
+                 8.0421            7.9850            -7.5165        provides better solutions in terms of network stability and
+                 8.0422            7.9846                           robustness. On the other hand, NSGA3 and NSDE3 fail to
+                 8.0424            7.9843              -Inf         obtain any global Pareto solutions in this scenario.
+                 8.0424            7.9844            -8.1186
+                 8.0427            7.9841            -7.6414           In the performance comparison of average delay, we se-
+                 8.0427            7.9843            -8.1186        lected one Pareto solution from each of the four algorithms
+                 8.0429            7.9842            -7.8175        for visualization. As shown in Fig. 4, we can observe that the
+                 8.0431            7.9840            -8.1186        pre-optimization average delay displayed in Fig. 4a contains
+                 8.0435            7.9841            -8.1186        large red areas indicating high delays. In terms of delay
+                 8.0438            7.9839            -8.1186        performance, the MOEA/D algorithm achieves slightly more
+                 8.0440            7.9840                           prominent blue regions (shown in Fig. 4d), while AHMOA
+                                                       -Inf         exhibits relatively suboptimal delay (shown in Fig. 4e). This
+                                                     -7.6414        is consistent with the data in Table III, indicating that, from the
+                                                                    perspective of average delay alone, MOEA/D is superior. How-
+                                                       -Inf         ever, AHMOA excels in network stability and the robustness
+                                                                    of traffic signal control strategies across different scenarios.
+   To provide a clearer performance comparison, we present          In NSGA3 and NSDE3 (shown in Fig. 4b and Fig. 4c), more
+Fig. 3, where we have selected a solution from the Pareto front     pronounced green or red areas appear, indicating that average
+of each algorithm for scenario-based visualization, reflecting      delays remain high in certain regions.
+the average delay during 24 hours. Fig. 3a illustrates the
+average delay at each intersection over a 24-hour period               3) Experiments on Paris Traffic Network: The results of
+before optimization. In the optimization simulation, we de-         the four algorithms are compared to obtain the global Pareto
+signed 22 arterial roads (marked as small circles) and 120          solutions shown in Table IV. Due to the large scale of
+collectors (marked as small black squares), resulting in a          the solutions, the final data in the table are logarithmically
+total of 2,640 intersections. However, for ease of visualization    processed, keeping only four decimal places after the loga-
+and layout, the figures display these intersections in a grid       rithmic transformation. Identical solutions are removed, and
+of size 88x30. In the figure, the color gradient from red           the Pareto fronts are reconstructed to create Table IV. The
+to blue represents delay values ranging from high to low.           same processing method is applied in the following text.
+In the Baseline scenario, there is a significant presence of        The performance of the four algorithms--MOEA/D, NSGA3,
+red areas, indicating high average delays in the Manhattan          NSDE3, and AHMOA--has been compared to generate the
+area without optimization. The performance of the AHMOA             global Pareto solutions, as presented in Table IV. While all
+algorithm is shown in Fig. 3e, where it is evident that the entire  algorithms except NSGA3 demonstrate the ability to obtain
+region is predominantly blue, reflecting minimal delays and         non-dominated solutions, AHMOA stands out by generating
+demonstrating the effectiveness of the AHMOA algorithm. The         the largest number of global Pareto-optimal solutions. This
+performance of MOEA/D is displayed in Fig. 3d, where the            highlights its strong performance in discovering a broader
+region is also mostly blue, but there are more scattered orange
+and green areas compared to AHMOA, indicating relatively
+higher delays in some locations. Finally, Fig. 3b and Fig. 3c
+show the performance of the NSGA and NSDE algorithms, re-
+spectively. While these algorithms achieve some optimization,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                    10
+
+       (a) Baseline                                                                                          (b) NSGA-III                                                                                                (c) NSDE                                                                                              (d) MOEA/D                                                                                               (e) AHMOA
+
+                   Fig. 3: Comparison of Algorithm Performances on Average Intersection Delay in Manhattan City
+
+Average Intersection Delay                                                                               Average Intersection Delay                                                                               Average Intersection Delay                                                                               Average Intersection Delay                                                                               Average Intersection Delay
+
+5                               28                                                                                                                                                                            80                                                                                                     80                                                                                                        120                                                                                                       80
+                                                                                                          5                                                                                                       5                                                                                                                                                                                                                  5
+                                                                                                                                                                                                                                                                                                                           5
+                                                                                                                                                                                                              70                                                                                                                                                                                                                                                                                                                         70
+10                                                                                                       10                                                                                                       10                              70                                                                       10                              100                                                                      10
+                                                                                                     26
+                                                                                                         15                              60                                                                       15                                                                                                       15                                                                                                       15                              60
+15                                                                                                                                                                                                                                                                                                                     60
+                                                                                                                                                                                                                                                                                                                                                                                                                                80
+                                                                                                     24                                                                                                           20                                                                                                       20
+20                                                                                                                                                                                                                                                                                                                     50
+
+                                                                                                                                                                                                                  25
+
+                                                                                                                                                                                                                                                                                                                       40
+                                                                                                                                                                                                                  30
+North-South Direction
+                                                                         North-South Direction
+                                                                                                                                                   North-South Direction
+                                                                                                                                                                                                                                North-South Direction
+                                                                                                                                                                                                                                                                                                      North-South Direction
+25                              22                                                                       20                                                                                                                                                                                                                25                                                                                                       20
+                                                                                                                                                                                                              50                                                                                                                                                                                                                60                                                                                                       50
+30
+                                                                                                     20  25                                                                                                                                                                                                                30                                                                                                       25
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         40
+35                                                                                                                                                                                                            40
+                                                                                                         30                                                                                                                                                                                                                                                                                                                         30
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         30
+                                                                                                         35                              30                                                                       35                              30                                                                       35                              40
+                                                                                                                                                                                                                                                                                                                                                                                                                                    35
+
+                                                                                                     18  40                                                                                                       40                                                                                                       40                                                                                                       40                              20
+40                                                                                                                                                                                                            20                                                                                                       20                                                                                                       20
+
+45                                                                                                       45                                                                                                       45                                                                                                       45                                                                                                       45
+                                                                                                     16                                                                                                                                                                                                                                                                                                                                                                                                                                  10
+
+                                                                                                                                         10                                                                                                       10
+
+50                                                                                                       50                                                                                                       50                                                                                                       50                                                                                                       50
+
+    5  10  15  20  25       30                                                                               5  10  15  20  25       30                                                                               5  10  15  20  25       30                                                                               5  10  15  20  25       30                                                                               5  10  15  20  25       30
+
+       East-West Direction                                                                                      East-West Direction                                                                                      East-West Direction                                                                                      East-West Direction                                                                                      East-West Direction
+
+       Arterial Collector                                                                                       Arterial Collector                                                                                       Arterial Collector                                                                                       Arterial Collector                                                                                       Arterial Collector
+
+       (a) Baseline                                                                                          (b) NSGA-III                                                                                                (c) NSDE                                                                                              (d) MOEA/D                                                                                               (e) AHMOA
+
+                            Fig. 4: Comparison of Algorithm Performances on Average Intersection Delay in Istanbul City
+
+range of optimal solutions across diverse objectives.                                                                                                                                                                            compared to AHMOA, with higher delays persisting in certain
+   In the Paris scenario, to offer a clearer comparison of                                                                                                                                                                       parts of the network. The contrasting results clearly demon-
+                                                                                                                                                                                                                                 strate AHMOA's superior ability to optimize traffic flow and
+performance, we present Fig. 5, where a solution from the                                                                                                                                                                        minimize delays across the network, particularly in complex
+Pareto front of each algorithm has been selected for visual-                                                                                                                                                                     urban settings like Paris.
+ization, illustrating the average delay over a 24-hour period.
+Fig. 5a displays the average delay at each intersection before                                                                                                                                                                      4) Experiments on Sa~o Paulo Traffic Network: In the Sa~o
+optimization, showing the baseline conditions. In the opti-                                                                                                                                                                      Paulo scenario, we used 30 arterial roads and 50 collec-
+mization simulations, we modeled 20 arterial roads and 60                                                                                                                                                                        tors. The global Pareto solutions are still obtained by the
+collector roads, resulting in a total of 1,200 intersections. The                                                                                                                                                                MOEA/D and AHMOA algorithms (shown in Table V), with
+baseline scenario reveals significant red areas throughout the                                                                                                                                                                   AHMOA achieving significantly more global Pareto solutions
+Paris region, indicating high average delays in the absence                                                                                                                                                                      than MOEA/D. While the difference in average delay is
+of optimization. Fig. 3e illustrates the performance of the                                                                                                                                                                      minimal, AHMOA demonstrates superior network stability and
+AHMOA algorithm, where the majority of the region is                                                                                                                                                                             robustness. NSGA3 and NSDE3, in comparison to the other
+represented in blue, signifying minimal delays. This highlights                                                                                                                                                                  four algorithms, did not obtain any global Pareto solutions.
+the effectiveness of AHMOA in drastically reducing delays. In
+comparison to the other algorithms, the dominance of blue in                                                                                                                                                                        As shown in Fig. 6, in the Sa~o Paulo scenario, the Pareto
+AHMOA's performance visualization further underscores its                                                                                                                                                                        solutions obtained by AHMOA exhibit a more prominent
+superiority in the Paris scenario. The performances of NSGA,                                                                                                                                                                     blue coloration overall (shown in Fig. 6e), indicating that
+NSDE, and MOEA/D are shown in Fig. 3b, Fig. 3c, and                                                                                                                                                                              this algorithm is more capable of achieving lower average
+Fig. 3d, respectively. While these algorithms achieve some                                                                                                                                                                       delays. MOEA/D follows closely, as seen in Fig. 6d, with
+level of optimization, the presence of more red, orange, and                                                                                                                                                                     a significant amount of blue regions, although there is also a
+green areas reflects their relatively suboptimal performance                                                                                                                                                                     noticeable presence of cyan, suggesting that some local areas
+                                                                                                                                                                                                                                 still experience relatively higher average delays. In Fig. 6b and
+                                                                                                                                                                                                                                                                                                                                                                                                                                                       11
+
+Average Intersection Delay                                                                            Average Intersection Delay                                                                            Average Intersection Delay                                                                            Average Intersection Delay                                                                            Average Intersection Delay
+
+                                                                                                  26                                                                                                    80                                                                                                    70                                                                                                    70                                                                                                    160
+10                                                                                                    10                                                                                                                                                                                                          10
+                                                                                                                                                                                                            10                                                                                                                                                                                                          10
+                                                                                                  24                                                                                                    70                                                                                                    60                                                                                                    60                                                                                                    140
+20
+                                                                                                      20                             60                                                                     20                                                                                                    20                                                                                                                                                                                                      120
+                                                                                                  22                                                                                                                                                                                                          50                                                                                                    50  20
+
+30                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        100
+                                                                                                  20
+North-South Direction                                                                                                                                                                                                                                                                                                                                                                                                   30
+                                                                               North-South Direction                                                                                                                                                                                                                                                                                                                                                                                                                      80
+                                                                                                                                                               North-South Direction
+                                                                                                                                                                                                                                               North-South Direction
+                                                                                                                                                                                                                                                                                                                               North-South Direction
+                                                                                                                                                                                                        50  30                             40                                                                     30                             40
+                                                                                                      30
+40                             18                                                                                                                                                                                                                                                                             30                                                                                                    30  40                             60
+                                                                                                                                                                                                        40  40                                                                                                    40
+
+                                                                                                      40                                                                                                                                                                                                                                                                                                            20
+                                                                                                                                                                                                        30                                                                                                        50
+
+                                                                                                  16                                                                                                    20                                                                                                    20                                                                                                    10                                                                                                    40
+50                                                                                                    50                                                                                                    50                                                                                                                                                                                                          50
+
+                                                                                                                                                                                                        10                                                                                                                                                                                                                                                                                                                20
+
+                                                                                                                                                                                                                                           10
+
+                               14
+
+60                                                                                                    60                                                                                                    60                                                                                                    60                                                                                                    60
+
+    5      10  15          20                                                                             5  10  15              20                                                                             5             10  15   20                                                                             5  10  15              20                                                                             5  10  15              20
+
+    East-West Direction                                                                                   East-West Direction                                                                                   East-West Direction                                                                                   East-West Direction                                                                                   East-West Direction
+
+       Arterial Collector                                                                                    Arterial Collector                                                                                    Arterial Collector                                                                                    Arterial Collector                                                                                    Arterial Collector
+
+    (a) Baseline                                                                                          (b) NSGA-III                                                                                          (c) NSDE                                                                                              (d) MOEA/D                                                                                            (e) AHMOA
+
+                           Fig. 5: Comparison of Algorithm Performances on Average Intersection Delay in Paris City
+
+    TABLE III: Global Pareto Solutions for Istanbul                                                                                                                                                                               Fig. 6c, there are noticeably more cyan, yellow, and even red
+                                                                                                                                                                                                                                  regions, indicating that the solutions obtained by NSGA3 and
+Algorithm      Log(Objective 1)                                                                       Log(Objective 2)                                                                                      Log(Objective 3)      NSDE3 show a greater disparity when applied to Sa~o Paulo's
+ MOEAD                                                                                                                                                                                                                            scenario.
+                     8.1696                                                                                 7.8863                                                                                                -7.8175
+ AHMOA               8.1703                                                                                 7.8859                                                                                                -7.8175            5) Performance Comparison Summary: The experimental
+                     8.1711                                                                                 7.8857                                                                                                -7.4196         results across all scenarios--Manhattan, Istanbul, Paris, and
+                     8.1712                                                                                 7.8858                                                                                                -7.5165         Sa~o Paulo--clearly demonstrate the superiority of the AH-
+                     8.1714                                                                                 7.8855                                                                                                -7.8175         MOA algorithm compared to its peers (MOEA/D, NSGA3,
+                     8.1718                                                                                 7.8857                                                                                                -8.1186         and NSDE3). In every test case, AHMOA consistently iden-
+                     8.1720                                                                                 7.8846                                                                                                -7.6414         tifies more global Pareto optimal solutions, reflecting its ro-
+                     8.1727                                                                                 7.8847                                                                                                -7.8175         bustness in addressing large-scale, multi-objective traffic opti-
+                     8.1728                                                                                 7.8843                                                                                                -7.8175         mization problems. In the Manhattan and Sa~o Paulo scenarios,
+                     8.1729                                                                                 7.8850                                                                                                                AHMOA not only outperforms on the global Pareto front but
+                     8.1732                                                                                 7.8842                                                                                                  -Inf          also achieves lower average delays across most intersections,
+                     8.1738                                                                                 7.8842                                                                                                -7.4196         demonstrating its effectiveness at minimizing traffic conges-
+                     8.1740                                                                                 7.8841                                                                                                -7.5165         tion. In Istanbul and Paris, while MOEA/D performs well
+                     8.1741                                                                                 7.8835                                                                                                -7.3404         in certain aspects, AHMOA excels in network stability and
+                     8.1747                                                                                 7.8835                                                                                                -7.6414         robustness, providing a more diverse and well-distributed set
+                     8.1750                                                                                 7.8828                                                                                                -7.8175         of solutions.
+                     8.1757                                                                                 7.8830                                                                                                -7.5165
+                     8.1801                                                                                 7.8824                                                                                                -7.6414            Therefore, we can conclude that AHMOA's ability to bal-
+                     8.1802                                                                                 7.8825                                                                                                -7.1643         ance multiple objectives while maintaining robustness under
+                     8.1803                                                                                 7.8824                                                                                                -7.2155         dynamic traffic conditions makes it the most comprehensive
+                                                                                                                                                                                                                  -7.3404         and effective algorithm across all tested traffic networks. The
+                     8.1813                                                                                 7.8642                                                                                                                consistent performance of AHMOA in reducing delays, opti-
+                     8.1818                                                                                 7.8635                                                                                                -7.6414         mizing traffic flow, and providing stable solutions underscores
+                     8.1820                                                                                 7.8636                                                                                                -7.4196         its suitability for large-scale urban traffic systems.
+                     8.1822                                                                                 7.8633                                                                                                -8.1186
+                     8.1822                                                                                 7.8634                                                                                                -7.6414                     VI. CONCLUSIONS AND FUTURE WORK
+                     8.1825                                                                                 7.8627                                                                                                -8.1186
+                     8.1825                                                                                 7.8635                                                                                                -7.4196            This paper introduces a novel large-scale multi-objective
+                     8.1826                                                                                 7.8631                                                                                                                optimization approach for robust traffic signal control in
+                     8.1828                                                                                 7.8625                                                                                                  -Inf          uncertain urban environments, representing a significant ad-
+                     8.1829                                                                                 7.8628                                                                                                  -Inf          vancement in urban traffic management. The proposed algo-
+                     8.1830                                                                                 7.8626                                                                                                -7.4196         rithm effectively addresses the complexities of modern urban
+                     8.1830                                                                                 7.8630                                                                                                -7.5165         traffic networks, successfully balancing multiple conflicting
+                     8.1831                                                                                 7.8630                                                                                                -7.8175         objectives while maintaining system stability under unpre-
+                     8.1833                                                                                 7.8624                                                                                                -8.1186         dictable traffic conditions. The robustness and versatility of the
+                     8.1833                                                                                 7.8628                                                                                                  -Inf
+                     8.1835                                                                                 7.8625                                                                                                -7.8175
+                     8.1836                                                                                 7.8623                                                                                                  -Inf
+                     8.1837                                                                                 7.8623                                                                                                -8.1186
+                     8.1837                                                                                 7.8624                                                                                                -7.3404
+                     8.1839                                                                                 7.8622                                                                                                -7.6414
+                     8.1841                                                                                 7.8621                                                                                                  -Inf
+                     8.1841                                                                                 7.8622                                                                                                -7.4196
+                                                                                                                                                                                                                  -7.5165
+                                                                                                                                                                                                                    -Inf
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                     12
+
+Average Intersection Delay                                                                               Average Intersection Delay                                                                               Average Intersection Delay                                                                               Average Intersection Delay                                                                                Average Intersection Delay
+
+                                                                                                    30   5                               80                                                                        5                                                                                                                                                                                                            110                                                                                                       140
+5                                                                                                                                                                                                                                                                                                                      80   5                                                                                                         5
+
+10                              28                                                                       10                                                                                                       10                                                                                                                                                                                                            100                                                                                                       120
+                                                                                                                                                                                                              70                                                                                                       70                                                                                                            10
+                                                                                                                                                                                                                                                                                                                           10
+15                                                                                                       15                                                                                                       15                                                                                                                                                                                                            90   15
+                                                                                                     26                                                                                                       60                                                                                                       60                                                                                                                                                                                                                 100
+                                                                                                                                                                                                                                                                                                                           15
+20                                                                                                       20                                                                                                       20                                                                                                                                                                                                            80   20
+                                                                                                     24
+                                                                                                                                                                                                              50                                                                                                       50                                                                                                                                                                                                                 80
+25                                                                                                       25                                                                                                       25                                                                                                                                                                                                                 25
+North-South Direction                                                                                                                                                                                                                                                                                                      20                              70
+                                                                         North-South Direction
+                                                                                                                                                   North-South Direction                                                                                                                                                   25                              60
+                                                                                                                                                                                                                                North-South Direction
+                                                                                                                                                                                                                                                                                                          North-South Direction
+30                              22                                                                       30                              40                                                                       30                                40                                                                                                                                                                          50   30
+                                                                                                                                                                                                                                                                                                                           30
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                     60
+
+35                                                                                                       35                                                                                                       35                                                                                                                                                                                                            40   35
+                                                                                                     20                                                                                                       30                                                                                                       30  35                                                                                                                                                                                                             40
+
+40                                                                                                       40                                                                                                       40                                                                                                                                                                                                            30   40
+                                                                                                     18                                                                                                       20                                                                                                       20  40
+
+45                                                                                                       45                                                                                                       45                                                                                                                                                                                                            20   45                              20
+
+                                                                                                                                                                                                                                                                                                                           45
+                                                                                                                                                                                                                                                                                                                                                                                                                                10
+
+                                                                                                                                         10                                                                                                         10
+
+50                              16                                                                       50                                                                                                       50                                                                                                       50                                                                                                        50
+
+    5  10  15  20  25       30                                                                               5  10  15  20  25       30                                                                               5  10         15  20  25  30                                                                             5  10  15  20  25       30                                                                                5  10  15  20  25       30
+
+       East-West Direction                                                                                      East-West Direction                                                                                      East-West Direction                                                                                      East-West Direction                                                                                       East-West Direction
+
+       Arterial Collector                                                                                       Arterial Collector                                                                                       Arterial Collector                                                                                       Arterial Collector                                                                                        Arterial Collector
+
+       (a) Baseline                                                                                          (b) NSGA-III                                                                                                (c) NSDE                                                                                              (d) MOEA/D                                                                                                (e) AHMOA
+
+                   Fig. 6: Comparison of Algorithm Performances on Average Intersection Delay in Sa~o Paulo City
+
+                                                                                                                                                                                                                                        TABLE V: Global Pareto Solutions Sorted by Algorithm for
+                                                                                                                                                                                                                                        Sa~o Paulo
+
+           TABLE IV: Global Pareto Solutions for Paris                                                                                                                                                                                      Algorithm                                                                      Log(Objective 1)            Log(Objective 2)                                                                     Log(Objective 3)
+                                                                                                                                                                                                                                              MOEA
+Algorithm          Log(Objective 1)                                                                          Log(Objective 2)                                                                                     Log(Objective 3)                                                                                               7.9549                      8.0187                                                                                 -Inf
+MOEA/D                                                                                                                                                                                                                                       AHMOA                                                                               7.9551                      8.0183                                                                               -7.3404
+  NSDE3                  8.0487                                                                                    7.7730                                                                                               -8.4196                                                                                                  7.9552                      8.0183                                                                               -8.1186
+                         8.0498                                                                                    7.7721                                                                                               -8.1186                                                                                                  7.9555                      8.0182                                                                               -7.5165
+ AHMOA                   8.0503                                                                                    7.7713                                                                                               -8.1186                                                                                                  7.9556                      8.0177                                                                               -7.4196
+                         8.0504                                                                                    7.7718                                                                                               -8.4196                                                                                                  7.9559                      8.0146
+                         8.0505                                                                                    7.7706                                                                                               -8.1186                                                                                                  7.9565                      8.0145                                                                                 -Inf
+                         8.0529                                                                                    7.7703                                                                                               -8.4196                                                                                                  7.9569                      8.0141                                                                               -7.5165
+                         8.0534                                                                                    7.7696                                                                                               -8.1186                                                                                                  7.9574                      8.0141                                                                               -7.6414
+                         8.0619                                                                                    7.7660                                                                                               -8.1186                                                                                                  7.9575                      8.0140                                                                               -7.8175
+                         8.0620                                                                                    7.7660                                                                                               -8.4196                                                                                                  7.9577                      8.0140                                                                               -7.4196
+                                                                                                                                                                                                                                                                                                                                 7.9580                      8.0138                                                                               -7.5165
+                         8.0460                                                                                    7.7720                                                                                               -7.4654                                                                                                  7.9583                      8.0137                                                                               -7.6414
+                         8.0478                                                                                    7.7715                                                                                               -7.6414                                                                                                  7.9583                      8.0138                                                                               -7.5165
+                         8.0480                                                                                    7.7684                                                                                               -7.9425
+                         8.0512                                                                                    7.7679                                                                                               -7.7206                                                                                                  7.9584                      7.9978                                                                                 -Inf
+                         8.0536                                                                                    7.7701                                                                                               -8.4196                                                                                                  7.9585                      7.9995
+                         8.0537                                                                                    7.7681                                                                                               -7.8175                                                                                                  7.9586                      7.9993                                                                               -7.3404
+                         8.0542                                                                                    7.7668                                                                                               -8.1186                                                                                                  7.9586                      7.9994                                                                               -8.1186
+                         8.0550                                                                                    7.7656                                                                                               -7.9425                                                                                                  7.9590                      7.9993                                                                               -7.5165
+                         8.0560                                                                                    7.7691                                                                                                                                                                                                        7.9591                      7.9976                                                                               -7.6414
+                         8.0599                                                                                    7.7650                                                                                                 -Inf                                                                                                   7.9592                      7.9975                                                                               -7.6414
+                         8.0611                                                                                    7.7645                                                                                               -7.5745                                                                                                  7.9593                      7.9975                                                                               -7.2735
+                         8.0613                                                                                    7.7662                                                                                               -7.8175                                                                                                  7.9594                      7.9973                                                                               -7.6414
+                         8.0617                                                                                    7.7640                                                                                               -8.1186                                                                                                  7.9597                      7.9972                                                                               -7.8175
+                                                                                                                                                                                                                        -7.9425                                                                                                  7.9600                      7.9967                                                                               -8.1186
+                         8.0652                                                                                    7.7587                                                                                                                                                                                                        7.9601                      7.9967                                                                               -7.8175
+                         8.0652                                                                                    7.7588                                                                                               -7.5745                                                                                                  7.9601                      7.9968                                                                               -7.5165
+                         8.0655                                                                                    7.7553                                                                                               -7.7206                                                                                                  7.9603                      7.9965                                                                               -7.6414
+                         8.0658                                                                                    7.7547                                                                                               -7.8175                                                                                                  7.9603                      7.9966                                                                               -7.8175
+                         8.0665                                                                                    7.7540                                                                                               -7.6414                                                                                                  7.9606                      7.9965                                                                               -7.4196
+                         8.0666                                                                                    7.7543                                                                                               -7.3782                                                                                                  7.9608                      7.9965                                                                               -7.8175
+                         8.0670                                                                                    7.7544                                                                                               -7.5165                                                                                                  7.9609                      7.9964                                                                               -7.6414
+                         8.0670                                                                                    7.7549                                                                                               -7.7206                                                                                                  7.9615                      7.9963
+                         8.0671                                                                                    7.7540                                                                                               -8.4196                                                                                                  7.9615                      7.9964                                                                                 -Inf
+                         8.0674                                                                                    7.7544                                                                                               -7.8175                                                                                                  7.9616                      7.9962                                                                               -8.1186
+                         8.0684                                                                                    7.7539                                                                                               -7.9425                                                                                                  7.9617                      7.9963                                                                               -7.4196
+                         8.0686                                                                                    7.7533                                                                                               -7.7206                                                                                                  7.9622                      7.9962
+                         8.0688                                                                                    7.7532                                                                                               -7.9425                                                                                                                                                                                                                     -Inf
+                         8.0689                                                                                    7.7532                                                                                               -7.4654                                                                                                                                                                                                                   -7.6414
+                         8.0701                                                                                    7.7531                                                                                               -7.9425                                                                                                                                                                                                                   -8.1186
+                         8.0704                                                                                    7.7531                                                                                               -7.4654                                                                                                                                                                                                                   -7.8175
+                         8.0707                                                                                    7.7529                                                                                               -7.7206
+                         8.0708                                                                                    7.7531                                                                                               -7.8175         approach have been validated through comprehensive simula-
+                         8.0712                                                                                    7.7527                                                                                               -7.9425         tions in four major cities--Manhattan, Paris, Sa~o Paulo, and
+                         8.0713                                                                                    7.7528                                                                                               -7.7206         Istanbul--each of which presents distinct challenges in net-
+                         8.0715                                                                                    7.7528                                                                                               -7.8175         work topology, traffic dynamics, and operational uncertainties.
+                         8.0723                                                                                    7.7546                                                                                               -7.9425         Despite these variations, the algorithm consistently delivered
+                         8.0724                                                                                    7.7530                                                                                               -8.1186         reliable performance across all scenarios, demonstrating its
+                                                                                                                                                                                                                                        potential to transform traffic management strategies in diverse
+                                                                                                                                                                                                                          -Inf          urban contexts globally.
+                                                                                  13
+
+   A key strength of our method is its scalability to large-                      [11] J. Jin and X. Ma, "A multi-objective agent-based control approach with
+scale, city-wide networks. By efficiently managing thousands                            application in intelligent traffic signal system," IEEE Transactions on
+of intersections, the algorithm optimizes critical factors such as                      Intelligent Transportation Systems, vol. 20, no. 10, pp. 3900­3912, Oct
+minimizing travel time, maximizing throughput, and ensuring                             2019.
+network stability. Its ability to adapt to different urban layouts
+and rapidly changing traffic conditions further underscores                       [12] C. Tan, Y. Cao, X. Ban, and K. Tang, "Connected vehicle data-
+its position as a cutting-edge solution for intelligent traffic                         driven fixed-time traffic signal control considering cyclic time-dependent
+management. Additionally, this work fills a critical gap in                             vehicle arrivals based on cumulative flow diagram," IEEE Transactions
+current traffic control systems by incorporating robust per-                            on Intelligent Transportation Systems, Feb 13 2024.
+formance measures that ensure reliability under uncertainty.
+This is particularly important in real-world applications, where                  [13] H. Lin, Y. Han, W. Cai, and B. Jin, "Traffic signal optimization based on
+traffic conditions can shift unpredictably. Our algorithm's                             fuzzy control and differential evolution algorithm," IEEE Transactions
+adaptive coordination of traffic signals leads to significant                           on Intelligent Transportation Systems, vol. 24, no. 8, pp. 8555­8566,
+improvements in overall traffic flow and congestion reduction,                          Aug 2023.
+even in the most challenging environments.
+                                                                                  [14] K. Gao, Y. Zhang, A. Sadollah, A. Lentzakis, and R. Su, "Jaya, harmony
+   The practical implications of this research are far-reaching.                        search and water cycle algorithms for solving large-scale real-life urban
+The proposed algorithm provides city planners and traffic                               traffic light scheduling problem," Swarm and Evolutionary Computation,
+engineers with a powerful tool for advancing smart city initia-                         vol. 37, pp. 58­72, Dec 2017.
+tives and promoting sustainable urban mobility. Its ability to
+handle large-scale networks, optimize multiple objectives, and                    [15] H. Gao, X. Wang et al., "An information fusion approach to intelligent
+maintain robustness in uncertain conditions places this work at                         traffic signal control using the joint methods of multiagent reinforcement
+the forefront of intelligent urban management systems. Future                           learning and artificial intelligence of things," IEEE Transactions on
+research can build upon this work by focusing on real-time                              Intelligent Transportation Systems, vol. 23, no. 7, pp. 9335­9348, 2021.
+implementation and testing in live urban settings, integration
+with emerging technologies such as connected vehicles and                         [16] H. Wei, G. Zheng, H. Yao, and Z. Li, "Intellilight: A reinforcement
+IoT, and refining the algorithm to address the unique chal-                             learning approach for intelligent traffic light control," Proceedings of the
+lenges posed by emerging megacities. As urban populations                               24th ACM SIGKDD International Conference on Knowledge Discovery
+grow and infrastructure becomes increasingly complex, the                               & Data Mining, pp. 2496­2505, 2019.
+need for adaptive and robust traffic management systems be-
+comes critical. This study represents a significant step toward                   [17] D. Ma, B. Zhou, X. Song, and H. Dai, "A deep reinforcement learning
+meeting these demands, contributing to the development of                               approach to traffic signal control with temporal traffic pattern mining,"
+more efficient, sustainable, and livable cities.                                        IEEE Transactions on Intelligent Transportation Systems, vol. 23, no. 8,
+                                                                                        pp. 11 789­11 800, Aug 2022.
+                             REFERENCES
+                                                                                  [18] T. Yang and W. Fan, "Enhancing robustness of deep reinforcement learn-
+ [1] M. Papageorgiou, C. Diakaki, V. Dinopoulou, A. Kotsialos, and Y. Wang,             ing based adaptive traffic signal controllers in mixed traffic environments
+      "Review of road traffic control strategies," Proceedings of the IEEE,             through data fusion and multi-discrete actions," IEEE Transactions on
+      vol. 91, no. 12, pp. 2043­2067, 2003.                                             Intelligent Transportation Systems, May 23 2024.
+
+ [2] X. Li and D. Sun, "Efficient stochastic model predictive control for urban   [19] H. Gu, S. Wang, X. Ma, D. Jia, G. Mao, E. G. Lim, and C. P. R.
+      traffic management," IEEE Transactions on Intelligent Transportation              Wong, "Large-scale traffic signal control using constrained network
+      Systems, vol. 15, no. 2, pp. 728­737, 2014.                                       partition and adaptive deep reinforcement learning," IEEE Transactions
+                                                                                        on Intelligent Transportation Systems, April 3 2024.
+ [3] W. Ma, L. Wan, C. Yu, L. Zou, and J. Zheng, "Multi-objective opti-
+      mization of traffic signals based on vehicle trajectory data at isolated    [20] S.-W. Chiou, "A cooperative agent-based traffic signal control for vehic-
+      intersections," Transportation Research Part C: Emerging Technologies,            ular networks under stochastic flow," IEEE Transactions on Vehicular
+      vol. 120, p. 102821, 2020.                                                        Technology, vol. 72, no. 10, pp. 12 592­12 601, Oct 2023.
+
+ [4] S. S. S. M. Qadri, M. A. Go¨kc¸e, and E. O¨ ner, "State-of-art review of     [21] H. Wang, M. Zhu, W. Hong, C. Wang, W. Li, G. Tao, and Y. Wang,
+      traffic signal control methods: challenges and opportunities," European           "Network-wide traffic signal control using bilinear system modeling and
+      Transport Research Review, vol. 12, no. 1, 2020.                                  adaptive optimization," IEEE Transactions on Intelligent Transportation
+                                                                                        Systems, vol. 24, no. 1, pp. 79­91, Jan 2023.
+ [5] P. W. Shaikh, M. El-Abd, M. Khanafer, and K. Gao, "A review on
+      swarm intelligence and evolutionary algorithms for solving the traffic      [22] Z. Yao, L. Shen, R. Liu, Y. Jiang, and X. Yang, "A dynamic predictive
+      signal control problem," IEEE Transactions on Intelligent Transportation          traffic signal control framework in a cross-sectional vehicle infrastructure
+      Systems, vol. 23, no. 1, pp. 48­63, Jan 2022.                                     integration environment," IEEE Transactions on Intelligent Transporta-
+                                                                                        tion Systems, vol. 21, no. 4, pp. 1455­1466, 2020.
+ [6] F. V. Webster, "Traffic signal settings," Road Research Technical Paper
+      No. 39, Road Research Laboratory, HMSO, London, 1958.                       [23] Y. Zhu, Z. He, and G. Li, "A bi-hierarchical game-theoretic approach
+                                                                                        for network-wide traffic signal control using trip-based data," IEEE
+ [7] D. I. Robertson, "Transyt: A traffic network study tool," RRL Road                 Transactions on Intelligent Transportation Systems, vol. 23, no. 9, pp.
+      Research Laboratory, Tech. Rep., 1969.                                            15 408­15 419, Sep 2022.
+
+ [8] R. P. Roess, E. S. Prassas, and W. R. McShane, Traffic Engineering.          [24] Z. Wang, H. Zhu, M. He, Y. Zhou, X. Luo, and N. Zhang, "Gan and
+      Pearson Higher Ed, 2011.                                                          multi-agent drl based decentralized traffic light signal control," IEEE
+                                                                                        Transactions on Vehicular Technology, vol. 71, no. 2, pp. 1333­1348,
+ [9] X. Wang, Z. Jerome, Z. Wang, C. Zhang, S. Shen, V. V. Kumar,                       Feb 2022.
+      F. Bai, P. Krajewski, D. Deneau, A. Jawad, R. Jones, G. Piotrowicz, and
+      H. X. Liu, "Traffic light optimization with low penetration rate vehicle    [25] F.-X. Devailly, D. Larocque, and L. Charlin, "Ig-rl: Inductive graph
+      trajectory data," Nature Communications, vol. 15, no. 1, 2024.                    reinforcement learning for massive-scale traffic signal control," IEEE
+                                                                                        Transactions on Intelligent Transportation Systems, vol. 23, no. 7, pp.
+[10] S. M. A. Shabestary and B. Abdulhai, "Adaptive traffic signal control              7496­7507, Jul 2022.
+      with deep reinforcement learning and high dimensional sensory inputs:
+      Case study and comprehensive sensitivity analyses," IEEE Transactions       [26] S. Jiang, Y. Huang, M. Jafari, and M. Jalayer, "A distributed multi-agent
+      on Intelligent Transportation Systems, vol. 23, no. 11, pp. 20 021­20 034,        reinforcement learning with graph decomposition approach for large-
+      2022.                                                                             scale adaptive traffic signal control," IEEE Transactions on Intelligent
+                                                                                        Transportation Systems, vol. 23, no. 9, pp. 14 689­14 701, Sep 2022.
+
+                                                                                  [27] A. Emami, M. Sarvi, and S. A. Bagloee, "Network-wide traffic state
+                                                                                        estimation and rolling horizon-based signal control optimization in
+                                                                                        a connected vehicle environment," IEEE Transactions on Intelligent
+                                                                                        Transportation Systems, vol. 23, no. 6, pp. 5840­5858, Jun 2022.
+
+                                                                                  [28] Y. Feng, S. E. Huang, W. Wong, Q. A. Chen, Z. M. Mao, and H. X. Liu,
+                                                                                        "On the cybersecurity of traffic signal control system with connected
+                                                                                        vehicles," IEEE Transactions on Intelligent Transportation Systems,
+                                                                                        vol. 23, no. 9, pp. 16 267­16 279, Sep 2022.
+
+                                                                                  [29] B. Ferguson, S. Zahidi, and D. Bong, "Iot-enabled smart cities: A
+                                                                                        review," IEEE Internet of Things Journal, vol. 7, no. 11, pp. 10 264­
+                                                                                        10 273, 2020.
+
+                                                                                  [30] M. M. Hasan, P. K. Paul, and M. M. Rahman, "Iot-based traffic
+                                                                                        management system: A case study of dhaka city," Internet of Things,
+                                                                                        vol. 14, p. 100399, 2021.
+                                                                                      14
+
+[31] K.-F. Chu, A. Y. S. Lam, and V. O. K. Li, "Traffic signal control using                                         Li LI received the B.S. and M.S. degrees in
+      end-to-end off-policy deep reinforcement learning," IEEE Transactions                                          electrical automation from Shengyang Agriculture
+      on Intelligent Transportation Systems, vol. 23, no. 7, pp. 7184­7195,                                          University, Shengyang, China, in 1996 and 1999,
+      Jul 2022.                                                                                                      respectively, and the Ph.D. degree in mechatronics
+                                                                                                                     engineering from the Shenyang Institute of Automa-
+[32] Q. Zhang and H. Li, "Moea/d: A multiobjective evolutionary algorithm                                            tion, Chinese Academy of Science, Shenyang, in
+      based on decomposition," IEEE Transactions on Evolutionary Compu-                                              2003. She joined Tongji University, Shanghai, China,
+      tation, vol. 11, no. 6, pp. 712­731, 2007.                                                                     in 2003, where she is currently a professor of control
+                                                                                                                     science and engineering. She has over 50 publica-
+[33] K. Deb and H. Jain, "An evolutionary many-objective optimization                                                tions, including 4 books, over 30 journal papers,
+      algorithm using reference-point-based nondominated sorting approach,                                           and 2 book chapters. Her current research interests
+      part i: Solving problems with box constraints," IEEE Transactions on            include production planning and scheduling, computational intelligence, data-
+      Evolutionary Computation, vol. 18, no. 4, pp. 577­601, 2014.                    driven modeling and optimization, semiconductor manufacturing, and energy
+                                                                                      systems.
+
+                               Weian GUO received the M.Eng. degree in naviga-
+                               tion, guidance, and control from Northeastern Uni-
+                               versity, Shenyang, China, in 2009, and the doctor of
+                               engineering degree from Tongji University, Shang-
+                               hai, China, in 2014. From 2011 to 2013, he was
+                               sponsored by China Scholarship Council to carry
+                               on his research at the Social Robotics Laboratory,
+                               National University of Singapore. He is currently an
+                               associate Professor with the Sino-German College
+                               of Applied Science, Tongji University. His interests
+                               include computational intelligence, optimization, ar-
+tificial intelligence, and control theory.
+
+Wuzhao LI received the Ph.D. degree in Control                                        Dongyang Li received the M.S. and Ph.D degrees in
+Science and Engineering from Tongji University,                                       school of electronics and information engineering,
+Shanghai, China. In 2022, he was a Professor with                                     Tongji University, Shanghai, China, in 2017 and
+the Wenzhou Polytechnic, China. He has authored                                       2022, respectively. From 2019 to 2021, he was
+or coauthored more than 20 papers in international                                    sponsored by China Scholarship Council to carry on
+SCI journals. His research interests include machine                                  his research at Georgia Institute of Technology. He
+learning, Multi-Objective optimization and robust                                     is now an engineer with the Sino-German College
+control.                                                                              of Applied Science, Tongji University; His research
+                                                                                      interest includes computational intelligence, deep
+Zhiou ZHANG received bachelor degree in ve-                                           learning and their applications.
+hicle service engineering from Tongji University,
+Shanghai, China. In 2024, he is a postgraduate
+of information technology with University of New
+South Wales, Sydney, Australia. His research inter-
+ests include data management, vehicle vision and
+control system optimization.
+
+Lun ZHANG received the B.S. and Ph.D degrees
+in computer communications, transportation infor-
+mation engineering and control, Tongji University,
+Shanghai, China, in 1992 and 2005, respectively.
+He is currently a professor with School of Trans-
+portation, Tongji University. His interests include
+intelligent transportation, computational intelligence,
+and deep learning.
+

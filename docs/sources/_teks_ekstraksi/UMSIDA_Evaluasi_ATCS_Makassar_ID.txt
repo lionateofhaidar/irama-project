@@ -1,0 +1,169 @@
+                                                                                              UNIVERSITAS
+                                                                                       MUHAMMADIYAH
+
+                                                                                                  SIDOARJO
+
+EVALUASI PENERAPAN AREA TRAFFIC
+CONTROL SYSTEM (ATCS) DI SIMPANG
+
+   EMPAT JL. PADJONGA DG NGALLE
+              KOTA MAKASSAR
+
+                                        Oleh:
+
+                              Nico Cahya Pradana,
+
+                                  Atik Wahyuni
+
+                                    Teknik Sipil
+
+                  Universitas Muhammadiyah Sidoarjo
+
+                                 Agustus, 2025
+                  Pendahuluan
+
+Kota Makassar menghadapi permasalahan kemacetan lalu lintas,
+             terutama di simpang Jl. Padjonga Dg Ngalle.
+
+ Kemacetan disebabkan oleh volume kendaraan yang tinggi dan
+
+          kondisi geometri jalan yang kurang mendukung.
+
+  Untuk mengatasi masalah tersebut, Dinas Perhubungan Kota
+                  Makassar menerapkan sistem ATCS.
+
+ATCS diharapkan dapat mengoptimalkan pengaturan lalu lintas,
+      mengurangi tundaan, dan memperbaiki kinerja simpang.
+
+                                                                                                                                                                                                                       2
+               Rumusan Masalah
+
+   Berapa volume kendaraan pada simpang empat Jl. Padjonga
+   Dg Ngalle Kota Makassar pada masing-masing jam puncak?
+
+Bagaimana keadaan kondisi geometrik jalan pada simpang empat
+                 Jl. Padjonga Dg Ngalle Kota Makassar?
+
+ Bagaimana kinerja simpang empat Jl. Padjonga Dg Ngalle Kota
+     Makassar sebelum dan sesudah pemasangan alat ATCS?
+
+      Apakah ada pengaruh pada simpang empat Jl. Padjonga
+    Dg Ngalle Kota Makassar setelah pemasangan alat ATCS?
+
+                                                                                                                                                                                                                        3
+                      Metode
+
+               Metode yang digunakan mencakup studi literatur dan
+                  pengumpulan data sekunder dari instansi terkait.
+
+ Pengamatan dilakukan pada hari kerja dan hari libur, masing-masing saat
+      pagi (07.00­10.00), siang (12.00­15.00), dan sore (17.00­20.00).
+     Data yang dikumpulkan meliputi volume kendaraan, geometri jalan,
+                              sinyal lalu lintas, dan tipe fase.
+     Pengolahan data dilakukan menggunakan metode MKJI 1997 untuk
+         menghitung kapasitas, tundaan, derajat kejenuhan, dan LOS.
+
+Evaluasi dilakukan dengan pendekatan before­after untuk membandingkan
+                   kinerja simpang sebelum dan sesudah ATCS.
+
+                                                                                                                                                                                                                      4
+       Hasil
+
+Volume Kendaraan Hari Kerja  Volume Kendaraan Hari Libur
+
+Pagi   7.416 smp/jam         Pagi   6.755 smp/jam
+
+Siang  7.682 smp/jam         Siang  8.022 smp/jam
+
+Sore   7.825 smp/jam         Sore   7.109 smp/jam
+
+                                                          5
+Hasil
+
+                                                                                                                             6
+            Hasil
+
+Hari Kerja         Hari Libur
+
+                               7
+                  Pembahasan
+
+Penerapan sistem ATCS berhasil menurunkan tundaan rata-rata lalu lintas,
+hal ini menunjukkan bahwa ATCS mampu merespons kepadatan lalu lintas
+
+           secara lebih fleksibel dibanding sistem sinyal waktu tetap.
+
+   Nilai DS rata-rata sebelum dan sesudah ATCS berada di kisaran ±1,1,
+  menunjukkan tidak terjadi perubahan signifikan pada tingkat kejenuhan
+
+                                            simpang.
+   LOS mengalami peningkatan karena siklus waktu sinyal menjadi lebih
+
+                     proporsional terhadap beban tiap pendekat
+
+    Beberapa pendekat masih mengalami tundaan karena keterbatasan
+  geometrik jalan dan aktivitas samping jalan (seperti parkir liar dan PKL)
+
+                                                                                                                                                                                                                      8
+        Temuan Penting Penelitian
+
+   Penerapan ATCS terbukti mampu menyesuaikan waktu sinyal dengan
+                   lebih adaptif terhadap kondisi lalu lintas aktual.
+
+ Nilai tundaan setelah pemasangan ATCS menunjukkan penurunan pada
+sebagian besar waktu puncak, meskipun begitu tingkat pelayanan simpang
+
+            (LOS) secara keseluruhan masih berada pada kategori F
+
+Sistem pengaturan sinyal berbasis ATCS lebih responsif terhadap fluktuasi
+                  volume lalu lintas dibanding sistem waktu tetap
+
+   Volume kendaraan pada jam puncak tetap tinggi, menunjukkan bahwa
+ perbaikan kinerja simpang bukan disebabkan oleh penurunan lalu lintas,
+
+                             melainkan oleh efisiensi sistem.
+
+                                                                                                                                                                                                                      9
+              Manfaat Penelitian
+
+Sebagai bahan evaluasi teknis bagi instansi terkait dalam menilai efektivitas
+                            sistem ATCS yang telah dipasang.
+
+    Memberikan gambaran perubahan kinerja simpang akibat penerapan
+                 sistem ATCS berbasis deteksi lalu lintas real-time.
+
+ Menjadi dasar perencanaan pengembangan sistem lalu lintas adaptif pada
+                       simpang lain dengan karakteristik serupa.
+
+Menunjukkan perlunya dukungan non-teknis, seperti pengawasan lalu lintas,
+   penertiban hambatan samping, dan sosialisasi disiplin pengguna jalan.
+
+                                                                                                                                                                                                                      10
+                       Referensi
+
+1) MKJI. Mkji 1997. Dep Pekerj umum, "Manual Kapasitas Jalan Indones. Published online 1997:1-573.
+2) Wibowo A, Lestari DP. Analisis Perbandingan Kinerja Simpang Sebelum dan Sesudah Implementasi ATCS. J Smart
+
+   Transp. 2022;4(1):30-38.
+3) Yuliana E, Prasetyo B. Kajian Efektivitas Sistem ATCS Terhadap Tingkat Kemacetan di Wilayah Perkotaan. J Ris
+
+   Transp dan Lalu Lintas. 2024;3(1):10-17.
+4) Iin Irawati, Lila Anggraini, Sri Wanto. Analisis Tingkat Layanan Kinerja Simpang Bersinyal pada Kawasan Komersial.
+
+   J Civ Eng Build Transp. 2024;8(1):129-137. doi:10.31289/jcebt.v8i1.11564
+5) Lamanepa AM, Tanan B. Pengaruh Hambatan Samping Terhadap Kinerja Ruas Jalan Perintis Kemerdekaan (
+
+   Studi Kasus Depan Pintu 1 Unhas ). 2025;7(1):74-85.
+6) Geometrik P, Raya J, Djerau MY, Kuswara KM. TRAFFIC STUDY ON H . R KOROH ROAD CITY OF KUPANG BASED ON
+
+   HIGHWAY GEOMETRIC. Published online 2024.
+7) Sari RF, Nugroho AP. Penerapan Area Traffic Control System (ATCS) dalam Mengurangi Delay di Persimpangan
+
+   Kota Semarang. J Tek Sipil dan Perenc. 2023;11(2):55-64.
+8) HASYIM H, ROHANI R, MASITA M. Evaluasi Kinerja Simpang Bersinyal Sebelum Dan Sesudah Pemasangan
+
+   Intelligent Traffic Control System (Itcs) (Studi Kasus: Simpang Bersinyal Dasan Cermen Kota Mataram). Ganec
+   Swara. 2024;18(1):269. doi:10.35327/gara.v18i1.758
+
+                                                                                                                                                                                                                               11
+

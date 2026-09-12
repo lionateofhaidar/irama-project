@@ -1,0 +1,657 @@
+                                                                                                             SALINAN
+
+                             GUBERNUR PROVINSI DAERAH KHUSUS
+                                              IBUKOTA JAKARTA
+
+                       PERATURAN GUBERNUR PROVINSI DAERAH KHUSUS
+                                                   IBUKOTA JAKARTA
+
+                                                NOMOR 25 TAHUN 2017
+
+                                                           TENTANG
+
+   PENGENDALIAN LALU LINTAS DENGAN PEMBATASAN KENDARAAN BERMOTOR
+                          MELALUI SISTEM JALAN BERBAYAR ELEKTRONIK
+
+                               DENGAN RAHMAT TUHAN YANG MAHA ESA
+
+                 GUBERNUR PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA,
+
+Menimbang : a. bahwa berdasarkan Peraturan Gubernur Nomor 149 Tahun 2016
+                               telah diatur mengenai pengendalian lalu lintas jalan berbayar
+                               elektronik;
+
+                          b. bahwa dalam rangka efektivitas dan akuntabilitas serta
+                               percepatan pelaksanaan jalan berbayar elektronik Peraturan
+                               Gubernur sebagaimana dimaksud dalam huruf a perlu dilakukan
+                               penyempurnaan dan penyesuaian;
+
+                          c. bahwa berdasarkan pertimbangan sebagaimana dimaksud dalam
+                               huruf a dan huruf b serta untuk melaksanakan ketentuan Pasal
+                               78 ayat (2) huruf c dan ayat (3) Peraturan Daerah Nomor 5 Tahun
+                               2014 tentang Transportasi, perlu menetapkan Peraturan Gubernur
+                               tentang Pengendalian Lalu Lintas Dengan Pembatasan Kendaraan
+                               Bermotor Melalui Sistem Jalan Berbayar Elektronik;
+
+Mengingat : 1. Undang-Undang Nomor 36 Tahun 1999 tentang Telekomunikasi;
+                          2. Undang-Undang Nomor 29 Tahun 2007 tentang Pemerintahan
+                                Provinsi Daerah Khusus Ibukota Jakarta sebagai. Ibukota Negara
+                               Kesatuan Republik Indonesia;
+                          3. Undang-Undang Nomor 12 Tahun 2011 tentang Pembentukan
+                                Peraturan Perundang-undangan;
+                          4. Undang-Undang Nomor 23 Tahun 2014 tentang Pemerintahan
+                                Daerah sebagaimana telah beberapa kali diubah terakhir dengan
+                                Undang-Undang Nomor 9 Tahun 2015;
+                          5. Peraturan Pemerintah Nomor 52 Tahun 2000 tentang Penyelenggaraan
+                                Telekomunikasi;
+                           6.· Peraturan Pemerintah Nomor 53 Tahun 2000 tentang Penggunaan
+                                Spektrum Frekuensi Radio dan Orbit Satelit; ·
+
+                           7. Peraturan Pemerintah Nomor 23 Tahun 2005 tentang
+                                Pengelolaan Keuangan Badan Layanan Umum sebagaimana telah
+                                diubah dengan Peraturan Pemerintah Nomor 74 Tahun 2012;
+
+                           8. Peraturan Menteri Dalam Negeri Nomor 61 Tahun 2007 tentang
+                                Pedoman Teknis Pengelolaan Keuangan Badan Layanan. Umum
+                                Daerah;
+
+                          9. Peraturan Menteri Komunikasi dan Informatika Nomor 18 Tahun
+                                2014 tentang Sertifikasi Alat dan Perangkat Telekomunikasi;
+
+                        10. Peraturan Menteri Komunikasi dan Informatika Nomor 5 Tahun
+                               2015 tentang Register Nama Domain Instansi Penyelenggara
+                               Negara;
+
+                      ·11. Peraturan Menteri Komunikasi dan Informatika Nomor 34 Tahun
+                               2012 tentang Persyaratan Teknis Alat dan Perangkat Telekomunikasi
+                               Jarak Dekat (Short Range Device);
+
+                        12. Peraturan Daerah Nomor 1 Tahun 2012 tentang Rencana Tata
+                               Ruang Wilayah 2030;
+
+                       13. Peraturan Daerah Nomor 5 Tahun 2014 tentang Transportasi;
+
+                                                    MEMUTUSKAN :
+
+Menetapkan PERATURAN GUBERNUR TENTANG PENGENDALIAN LALU LINTAS
+                         DENGAN PEMBATASAN KENDARAAN BERMOTOR MELALUI SISTEM
+                         JALAN BERBAYAR ELEKTRONIK.
+
+                                                                        'BAB I
+
+                                                             KETENTUAN UMUM
+
+                                                                       Pasal 1
+
+                        Dalam Peraturan Gubernur ini yang dimaksud dengan :
+
+                        1. Daerah adalah Provinsi Daerah Khusus Ibukota Jakarta.
+
+                        2. Pemerintah Daerah adalah Gubernur dan Perangkat Daerah
+                             sebagai unsur penyelenggara Pemerintahan Daerah.
+
+                        3. Gubernur adalah Kepala Daerah Provinsi Daerah Khusus Ibukota
+                            ·Jakarta.
+
+                       4. Dinas Perhubungan adalah Dinas Perhubungan Provinsi Daerah
+                             Khusus Ibukota Jakarta.
+5. Unit Pengelola Sistem Jalan Berbayar Elektronik yang selanjutnya
+
+     disebut Unit Pengelola adalah Unit Pengelola Sistem Jalan
+     Berbayar Elektronik Provinsi Daerah Khusus Ibukota Jakarta
+     yang menerapkan pola pengelolaan keuangan badan layanan
+     umum daerah.
+
+6. Satuan Kerja Perangkat Daerah yang selanjutnya disingkat SKPD
+
+     adalah Satuan Kerja Perangkat Daerah Provin.si Daerah Khusus
+     Ibukota Jakarta.
+
+7. Unit Kerja Perangkat Daerah yang selanjutnya disingkat UKPD
+
+adalah unit kerja atau sub ordinat SKPD.  ·
+
+8. Jalan Berbayar Elektronik adalah penerapan jalan secara
+
+     elektronik pada kawasan dan/atau ruas jalan tertentu bagi
+     kendaraan yang melewatinya.
+
+9. Lalu Lintas adalah gerak sarana angkutan orang dan/atau barang
+     di ruang lalu lintas.
+
+10. Lalu Lintas dan· Angkutan Jalan adalah satu kesatuan sistem
+       yang terdiri atas lalu lintas, angkutan jalan, jaringan lalu lintas
+       dan angkutan jalan, prasa,rana lalu lintas dan angkutan jalan,
+       kelancaran, pengemudi, pengguna jalan dan pengelolaannya.
+
+11. Kendaraan adalah suatu sarana angkut di jalan yang terdiri atas
+       kendaraan bermotor dan kendaraan tidak bermotor.
+
+· 12. Kendaraan Bermotor adalah setiap kendaraan yang digerakkan
+
+        oleh peralatan mekanik berupa mesin selain kendaraan yang
+        berjalan di atas rel.
+
+ 13. · Mobil Penumpang adalah kendaraan bermotor angkutan orang
+        yang memiliki tempat duduk paling banyak 8 (delapan) orang,
+        termasuk untuk pengemudi atau yang beratnya tidak lebih dari
+       3.500 (tiga ribu lima ratus) kilogram.
+
+14. Mobil Bus adalah kendaraan bermotor angkutan orang yang
+       memiliki tempat duduk lebjh dari 8 (delapan) orang, termasuk
+       untuk pengemudi atau yang beratnya lebih dari 3.500 (tiga ribu
+       lima ratus) kilogram.
+
+15. Mobil Barang adalah kendaraan bermotor yang dirancang
+       sebagian atau seluruhnya untuk mengangkut barang.
+
+16. Kendaraan Bermotor Umum adalah setiap kendaraan bermotor
+       yang digunakan untuk angkutan barang dan/atau orang dengan
+       dipungut bayaran.
+
+17. Kendaraan Dinas adalah kendaraan bermotor roda empat atau
+       lebih angkutan darat milik negara/daerah yang digunakan untuk
+       angkutan perorangan dan/atau barang yang telah ditetapkan
+       dengan keputusan pejabat yang berwenang untuk digunakan
+       dalam rangka pelaksanaan tugas pejabat negara, Aparatur Sipil
+       Negara, Anggota Tentara Nasional Indonesia dan Anggota Polisi
+      Republik Indonesia.
+ 18. Kendaraan Ambulans adalah kendaraan bermotor yang digunakan
+        untuk gawat darurat medis khusus orang sakit atau cedera yang
+        digunakan untuk membawa orang sakit atau cedera ke tempat
+        lain guna mendapatkan perawatan.
+
+19. Kendaraan Jena7ah adalah kendaraan bermotor yang digunakan
+        untuk tujuan hanya untuk mengangkut orang meninggal dari
+       suatu tempat ke tempat lainnya.
+
+20. Kendaraan Pemadam Kebakaran adalah kendaraan bermotor
+       yang merupakan kendaraan gawat darurat untuk melakukan
+       pemadaman kebakaran atau keadaan darurat lainnya.
+
+21. Badan Usaha Pelaksana adalah badan usaha yang berbentuk
+       perseroan terbatas yang didirikan oleh badan usaha pemenang
+       lelang untuk melaksanakan. pembangunan sistem untuk Kawasan
+       Pengendalian Lalu Lintas Jalan Berbayar.
+
+22. Kontrak Berbasis Kinerja adalah kontrak yang mengintegrasikan
+       tahapan perencanaan, konstruksi dan pemeliharaan dan
+       pembayarannya dilakukan atas ketersediaan pelayanan yang
+       sesuai dengan persyaratan yang ditentukan oleh Unit Pengelola.
+
+                                                BAB II
+
+                                   MAKSUD DAN TUJUAN
+
+                                               Pasal 2
+
+ Peraturan Gubernur ini dimaksudkan sebagai dasar hukum
+ pelaksanaan pengendalian lalu lintas jalan dengan pembatasan
+kendaraan bermotor melalui Sistem Jalan Berbayar Elektronik.
+
+                                               Pasal 3
+
+Peraturan Gubernur ini bertujuan -untuk kepastian hukum dalam
+pelaksanaan pengendalian lafu lintas jalan dengan melakukan
+pembatasan kendaraan bermotor pada ruas dan waktu tertentu
+melalui Sistem Jalan Berbayar Elektronik.
+
+                                              BAB III
+
+                                        KELEMBAGAAN
+
+                                              Pasal 4
+
+(1) Pelaksanaan pengendalian lalu lintas jalan dengan pembatasan
+     kendaraan bermotor melalui Sistem Jalan Berbayar Elektronik
+     serta pelaksanaan sistem operasional diselenggarakan oleh Unit
+     Pengelola sesuai dengan ketentu.an peraturan perundang-undangan.
+  (2) Unit Pengelola sebagaimana dimaksud pada ayat (1) merupakan
+        unit pelaksana teknis di bawah Dinas Perhubungan.
+
+                                                 Pasal 5
+
+  (1) Dalam pelaksanaan pengendalian lalu lintas jalan sebagaimana
+       dimaksud dalam Pasal 4 Kepala Unit Pengelola bertanggung
+       jawab kepada Kepala Dina Perhubungan.
+
+  (2) Kepala Unit Pengelola sebagaimana dimaksud pada ayat (1)
+       mengembangkan koordinasi dan kerja sama dengan SKPD, UKPD
+       dan/ atau instansi pemerintah/swasta dalam rangka memperlancar
+       pelaksanaan pengendalian lalu lintas jalan dengan pembatasan
+       kendaraan bermotor melalui Sistem Jalan Berbayar Elektronik
+       serta pelaksanaan sistem operasional.
+
+                                                BAB IV
+
+      RUAS JALAN, KORIDOR ATAU KAWASAN, OBYEK, TARIF DAN
+                      WAKTU JALAN BERBAYAR ELEKTRONIK
+
+                                          Bagian Kesatu
+
+                           Ruas Jalan, Koridor atau Kawasan
+
+                                               Pasal 6
+
+ (1) Ruas Jalan, koridor atau kawasan pengendalian lalu lintas jalan
+      dengan pembatasan kendaraan bermotor melalui Sistem Jalan
+      Berbayar Elektronik, ditetapkan berdasarkan kriteria paling
+      sedikit sebagai berikut :
+
+      a. memiliki 2 (dua) jalur jalan dimana masing-masing jalur
+         memiliki 2 (dua) lajur;
+
+      b. tersedia jaringan dan pelayanan angkutan umum massal
+         dalam trayek yang sesuai dengan standar pelayanan minimal
+         dan ketentuan peraturan .perundang-undangan;
+
+     c. memiliki perbandingan volume lalu lintas kendaraan bermotor
+         dengan kapasitas jalan pada salah satu jalur jalan sama
+         dengan atau lebih besar dari 0,9 (nol koma sembilan) pada jam
+         puncak; dan/atau
+
+     d.hanya dapat dilalui kendaraan bermotor dengan kecepatan
+         rata-rata pada jam puncak sama dengan atau kurang dari 10
+         km/jam (sepuluh kilometer per jam).
+
+(2) Selain memenuhi kriteria sebagaimana dimaksud pada ayat (1),
+     pemberlakuan pengendalian lalu lintas jalan dengan pembatasan
+     kendaraan bermotor melalui Sistem Jalan Berbayar Elektronik
+     harus memperhatikan kualitas lingkungan.
+                                                 Pasal 7
+
+   (1) Ruas jalan, koridor atau kawasan sebagaimana dimaksud dalam
+        Pasal 6 ayat (1), meliputi :
+        a. Jalan Sisingamangaraja;
+        b. Jalan Jend. Sudirman;
+        c. Jalan Moh. Husni Thamrin;
+       d. Jalan Medan Merdeka Barat;
+       e. Jalan Majapahit;
+       f. Jalan Gajah Mada;
+       g. Jalan Hayam Wuruk;
+       h.Jalan Jend. Gatot Subroto; dan
+       i. Jalan HR. Rasuna Said.
+
+ (2) Ruas jalan, koridor atau kawasan sebagaimana dimaksud pada
+       ayat (1) dapat disesuaikan dan/atau dikembangkan pada ruas
+       Jalan/kawasan lainnya yang ditetapkan dengan Peraturan Gubernur.
+
+ (3) Ruas jalan, koridor atau kawasan sebagaimana dimaksud pada
+      ayat (1) dilaksanakan secara bertahap berdasarkan kajian oleh
+      Dinas Perhubungan.
+
+                                          Bagian Kedua
+
+                                                Objek
+
+                                               Pasal 8
+
+(1) Kendaraan bermotor yang diperbolehkan melewati ruas jalan,
+      koridor atau kawasan sebagaimana dimaksud dalam Pasal 7
+      terdiri atas :
+
+      a. mobil penumpang;
+     b. mobil bus;
+     c. mobil barang;
+     d. kendaraan bermotor umum;
+     e. kendaraan dinas;
+     f. kendaraan ambulans dan/ atau kendaraan jenazah; dan
+     g. kendaraan pemadam kebakaran.
+
+(2) Kendaraan bermotor selain sebagaimana dimaksud pada ayat (1)
+     dilarang melewati ruas jalan, koridor atau kawasan sebagaimana
+     dimaksud dalam Pasal 7.
+  (3) Kendaraan bermotor sebagaimana dimaksud pada ayat (1) wajib
+        memiliki ketersediaan saldo yang akan dipungut secara otomatis
+        melalui transaksi elektronik ketika melintasi ruas jalan, koridor
+        atau kawasan sebagaimana dimaksud dalam Pasal 7.
+
+  (4) Kendaraan bermotor sebagaimana dimaksud pada ayat (1)
+       dikenakan tarif layanan.
+
+                                           Bagian Ketiga
+
+                                           Tarif Layanan
+
+                                                Pasal 9
+
+ Tarif layanan sebagaimana dimaksud dalam Pasal 8 ayat (4) merupakan
+ imbalan atas barang dan/ atau jasa layanan yang diberikan.
+
+                                               Pasal 10
+
+ (1) Prinsip penetapan tarif layanan sebagaimana dimaksud dalam
+      Pasal 9, memperhatikan hal sebagai berikut :
+      a. keadilan dengan memperhitungkan jarak perjalanan dan kondisi
+          arus lalu lintas; ·
+      b. efektivitas pengendalian lalu lintas;
+      c. dapat menutup biaya penyelenggaraan;
+      d. kontinuitas dan pengembangan layanan; dan
+      e. kebijakan daerah.
+
+(2) Efektivitas pengendalian lalu lintas sebagaimana dimaksud pada
+      ayat (1) huruf b diukur berclasarkan peringkat kecepatan rata-rata
+      perjalanan.
+
+(3) Biaya penyelenggaraan sebagaimana dimaksud pada ayat (1)
+     huruf c meliputi biaya operasional dan biaya non operasional.
+
+                                             Pasal 11
+
+(1) Penerapan tarif layanan sebagaimana dimaksud dalam Pasal 10
+     bersifat dinamis dan bervariasi.
+
+(2) Tarif layanan sebagaimana dimaksud pada ayat (1) disesuaikan
+     berdasarkan :
+
+     a. kepadatan lalu lintas dan kecepatan kendaraan di lapangan;
+     b. koridor/segmen/waktu; dan
+     c. klasifikasi dan jenis kendaraan.
+                                                Pasal 12
+
+  Ketentuan lebih lanjut mengenai tarif layanan sebagaimana dimaksud
+  dalam Pasal 11 akan diatur cWlam Peraturan Gubernur.
+
+                                          Bagian Keempat
+
+                               Waktu Pembatasan Lalu Lintas
+
+                                                Pasal 13
+
+  (1) Pengendalian lalu lintas dalam Kawasan Lalu Lintas Jalan
+       Berbayar Elektronik sebagaimana dimaksud dalam Pasal 7 ayat (1)
+       dan ayat (2) dilaksanakan dengan jadwal sebagai berikut :
+
+       a. pukul 07.00 s.d Pukul 20.00 WIB; dan
+
+       b. tidak diberlakukan pada 1-yari Sabtu, Minggu dan Libur Nasional.
+
+ (2) Pelaksanaan jadwal pengendalian lalu lintas dalam Kawasan Lalu
+       Lintas Jalan· Berbayar Elektronik dapat tidak diberlakukan
+       apabila terdapat kejadian tertentu (force majeure) yang ditetapkan
+      oleh Gubernur.
+
+ (3) Jadwal pemberlakuan/pelaksanaan kawasan pengendalian lalu
+      lintas jalan berbayar elektronik sebagaimana dimaksud pada ayat (1)
+      huruf a dan huruf b dapat ditinjau ulang/dievaluasi oleh Dinas
+      Perhubungan dan ditetapkan melalui Peraturan Gubernur.
+
+                                                BAB V
+
+ PERSYARATAN TEKNIS PERANGKAT PENGENDALIAN LALU ·LINTAS
+ JALAN DENGAN PEMBATASAN KENDARAAN BERMOTOR MELALUI
+
+                     SISTEM JALAN BERBAYAR ELEKTRONIK
+
+                                              Pasal 14
+
+Perangkat pengendalian lalu lintas dengan pembatasan kendaraan
+bermotor melalui Sistem Jalan Berbayar Elektronik harus
+menggunakan perangkat yang ,sudah disertifikasi oleh ketnenterian
+teknis yang membidangi urusan komunikasi dan informatika.
+
+                                             Pasal 15
+
+Selain memenuhi ketentuan sebagaimana dimaksud dalam. Pasal 14,
+perangkat pengendalian lalu lintas dengan pembatasan kendaraan
+bermotor melalui Sistem Jalan Berbayar Elektronik paling sedikit
+harus memenuhi kriteria sebagai berikut :
+   a. telah digunakan dalam pengendalian lalu lintas melalui Sistem
+       Jalan Berbayar Elektronik pada ruas jalan, koridor atau kawasan
+       area perkotaan di dunia;
+
+   b. memiliki kemampuan yang dapat mengakomodir kebijakan
+      transportasi di Daerah dalam rangka penegakan hukum lalu lintas
+      oleh Kepolisian Republik Indonesia;
+
+   c. memiliki kemampuan untuk diterapkan dengan kondisi serta
+      karakteristik lalu lintas jalan di Daerah; dan
+
+  d. memiliki kemampuan untuk diintegrasikan dengan berbagai
+      kebijakan transportasi di Daerah.
+
+                                                Pasal 16
+
+  Dalam rangka pelaksanaan pemilihan perangkat pengendalian lalu
+  lintas dengan pembatasan kendaraan bermotor melalui Sistem Jalan
+  Berbayar Elektronik sebagaimana dimaksud dalam Pasal 14 dan Pasal 15,
+  Kepala Dinas Perhubungan menetapkan jenis dan spesifikasi perangkat.
+
+                                                BAB VI
+
+           PELAKSANAAN PEMBATASAN LALU LINTAS BERBAYAR
+
+                                               Pasal 17
+
+ Metode pembayaran dalam pengendalian lalu lintas jalan dengan
+ pembatasan kendaraan bermotor melalui Sistem Jalan Berbayar
+ Elektronik dilaksanakan berdasarkan prinsip prabayar.
+
+                                               $AB VII
+
+     PELAKSANAAN PEMBANGUNAN KAWASAN JALAN BERBAYAR
+                                          ELEKTRONIK
+
+                                         Bagian Kesatu
+
+             Pelaksanaan Pembangunan Sistem dan Kerja Sama
+
+                                              Pasal 18
+
+(1) Pelaksanaan pembangunan sistem pengendalian lalu lintas jalan
+     dengan pembatasan kendaraan bermotor melalui sistem Jalan
+    Berbayar Elektronik dilaksanakan oleh Unit Pengelola.
+
+(2) Dalam rangka pelaksanaan pembangunan sistem sebagaimana
+    dimaksud pada ayat (1) Unit Pengelola dapat bekerja sama
+    dengan badan usaha.
+                                         10
+
+                                                 Pasal 19
+  (1) Kerja sama dengan badan usaha sebagaimana dimaksud dalam
+
+        Pasal 18 ayat (2) dilaksanakan melalui proses pengadaan barang
+        dan/atau jasa.
+
+  (2) Metode proses pengadaan barang dan/atau jasa sebagaimana
+       dimaksud pada ayat (1) adalah pelelangan umum.
+
+  (3) Pelelahgan umum sebagaimana dimaksud pada ayat (2) dilaksanakan
+       oleh Unit Pengelola.
+
+ (4) Ketentuan lebih lanjut mengenai pengadaan barang dan/atau
+       jasa sebagaimana dimaksud pada ayat (3) ditetapkan oleh Kepala
+       Unit Pengelola dan disetujui oleh Gubernur.
+
+                                               Pasal 20
+
+ (1) Badan Usaha Pelaksana akan melakukan pembangunan sistem
+       pengendalian lalu lintas jalan dengan pembatasan kendaraan
+       bermotor melalui Sistem Jalan Berbayar Elektronik dengan
+       Sistem Kontrak Berbasis Kinerja.
+
+ (2) Proses pembayaran kepada Badan Usaha_ Pelaksana dilaksanakan
+       berdasarkan dolcumen kontrak dengan dana yang bersumber dari
+      hasil pendapatan Unit Pengelola.
+
+ (3) Proses pembangunan sistem pengendalian lalu lintas jalan
+      dengan pembatasan kendaraan bermotor melalui Sistem Jalan
+      Berbayar Elektronik dilaksanakan dalam jangka waktu yang
+      disepakati dalam dokumen kontrak.
+
+                                              BAB VIII
+
+                                           KEUANGAN
+
+                                              Pasal 21
+
+Pendapatan Unit Pengelola sebagaimana dimaksud dalam Pasal 20
+ayat (2) dapat bersumber dari :
+a. tarif layanan;
+b. hasil kerja sama dengan pihak lain;
+c. hibah;
+d. Anggaran Pendapatan dan Belanja Daerah;
+e. Anggaran Pendapatan dan Belanja Negara; dan
+f. lain-lain pendapatan Unit Pengelola yang sah.
+                                                Pasal 22
+
+   (1) Seluruh Pendapatan Unit Pengelola sebagaimana dimaksud dalam
+        Pasal 21 huruf a, huruf b, huruf c dan huruf f kecuali yang
+        berasal dari hibah terikat, dapat dikelola langsung untuk
+        membiayai pengeluaran Unit Pengelola sesuai Rencana Bisnis
+        Anggaran (RBA).
+
+  (2) Biaya Unit Pengelola merupakan biaya operasional dan biaya non
+       operasional.
+
+  (3) Biaya Unit Pengelola sebagaimana dimaksud pada ayat (2),
+       dialokasikan untuk membiayai program peningkatan pelayanan,
+       kegiatan pelayanan dan kegiatan pendukung pelayanan.
+
+  (4) Pembiayaan program dan kegiatan sebagaimana dimaksud pada
+       ayat (3) dialokasikan sesuai dengan kelompok, jenis, program
+       dan kegiatan.
+
+ (5) Apabila terdapat surplus anggaran Unit Pengelola, dapat
+       digunakan dalam tahun berikutnya kecuali atas permintaan
+       Gubernur disetorkan seba'gian atau seluruhnya ke kas daerah
+      dengan mempertirn.bangkan posisi likuiditas Unit Pengelola.
+
+                                               BAB IX
+
+                    MONITORING, EVALUASI DAN PELAPORAN
+
+                                              Pasal 23
+
+(1) Monitoring dan evaluasi dilakukan secara periodik dalam rangka
+      efektivitas penyelenggaraan sistem pengendalian lalu lintas jalan
+      dengan pembatasan kendaraan bermotor melalui Sistem Jalan
+     Berbayar Elektronik.
+
+(2) Monitoring dan evaluasi sebagaimana dimaksud pada ayat (1)
+     dilakukan oleh Unit Pengelola, Dinas Perhubungan dan Biro
+     Perekonomian.
+
+(3) Dalam pelaksanaan monitoring dan evaluasi sebagaimana
+     dimaksud pada ayat (2) harus mempertimbangkan hal sebagai
+     berikut :
+     a. kinerja lalu lintas ruas jalan, koridor atau kawasan;
+     b. jumlah kendaraan yang melintas;
+     c. perbandingan volume lalu lintas kendaraan bermotor dengan
+        kapasitas jalan;
+     d. kecepatan rata-rata harian;
+    e. waktu pelaksanaan; dan
+    f. dampak sosial dan ekonomi.
+                                         12
+
+   (4) Kegiatan monitoring dan evaluasi sebagaimana dimaksud pada
+        ayat (1) terdiri atas :
+        a. mengawasi dan mengendalikan terhadap kegiatan penyelenggaraan
+            penerapan jalan berbayar elektronik;
+        b. menata pusat sistem yang dikelola oleh Unit Pengelola; dan
+        c. melakukan pengendalian dan penertiban terhadap kepatuhan
+           masyarakat dalam m'elaksanakan ketentuan Peraturan
+           Gubernur ini.
+
+  (5) Dalam melakukan penertiban sebagaimana dimaksud pada ayat (4)
+        huruf c Unit Pengelola berkoordinasi dengan instansi/pihak
+        terkait lainnya.
+
+                                                Pasal 24
+
+  Ruas jalan, koridor atau kawasan sebagaimana dimaksud pada Pasal 7
+  ayat (1) dievaluasi secara berkala dan dapat ditinjau ulang
+  peruntukannya oleh Dinas Perhubungan.
+
+                                               Pal 25
+
+  (1) Pengawasan terhadap penyelenggaraan Sistem Pengendalian Lalu
+       Lintas Jalan dengan pembatasan kendaraan bermotor melalui
+       Sistem Jalan Berbayar Elektronik dilaksanakan oleh Dewan
+       Pengawas.
+
+ (2) Dewan Pengawas sebagaimana dimaksud pada ayat (1) terdiri
+       atas :
+      a. unsur masyarakat;
+      b. unsur Pemerintah Daerah;
+      c. unsur lembaga asosiasi profesi transportasi;
+      d. unsur perguruan tinggi;
+      e. usur lembaga swadaya masyarakat; dan
+      f. unsur instansi terkait.
+
+(3) Susunan keanggotaan Dewan Pengawas sebagaimana dimaksud
+     pada ayat (2) ditetapkan dengan Keputusan Gubernur.
+
+                                              Pasal 26
+
+Hasil monitoring, evaluasi dan pengawasan sebagaimana dimaksud
+dalam Pasal 23, Pasal 24 dan Pasal 25 dilaporkan oleh Kepala Dinas
+Perhubungan kepada Gubernur melalui Sekretaris Daerah.
+
+                                               BAB X
+
+                                  SANKSI ADMINISTRASI
+
+                                             Pasal 27
+(1 Kendaraan Bermotor yang melanggar ketentuan sebagaimana
+
+    dimaksud dalam Pasal 7 ayat (1) dan Pasal 8 ayat (1) dikenakan
+    sanksi administratif rnaksimal yang dilaksanakan sesuai dengan
+    ketentuan peraturan perundang-undangan di bidang lalu lintas
+    dan angkutan jalan.
+                                                                   13
+
+                            (2) Pemilik kendaraan bermotor yang melanggar ketentuan sebagaimana
+                                  dimaksud dalam Pasal 8 'ayat (3) akan dikenakan sanksi
+                                  pembayaran denda administratif sesuai dengan ketentuan
+                                  peraturan perundang-undangan
+
+                                                                            BAB XI
+                                                                KETENTUAN PENUTUP
+
+                                                                           Pasal 28
+
+                           Pada saat Peraturan Gubernur ini mulai berlaku, Peraturan
+                           Gubernur Nomor 149 Tahun 2016 tentang Pengendalian Lalu Lintas
+                           Jalan Berbayar Elektronik (Berita Daerah Provinsi Daerah Khusus
+                           Ibukota Jakarta Tahun 2016 Nomor 61016), dicabut dan dinyatakan
+                           tidak berlaku.
+
+                                                                           Pasal 29
+
+                           Peraturan Gubernur ini mulai berlaku pada tanggal diundangkan.
+
+                           Agar setiap orang mengetahuinya, memerintahkan pengundangan
+                           Peraturan Gubernur ini dengan penempatannya dalam Berita
+                           Daerah Provinsi Daerah Khusus Ibukota Jakarta.
+
+                                                                    Ditetapkan di Jakarta
+                                                                    pada tanggal 6 Maret 2017
+
+                                                                    GUBERNUR PROVINSI DAERAH KHUSUS
+                                                                                     IBUKOTA JAKARTA,
+
+                                                                                                  ttd
+
+                                                                                   BASUKI T. PURNAMA
+
+Diundangkan di Jakarta
+pada tanggal 10 Maret 2017
+
+SEKRETARIS DAERAH PROVINSI DAERAH KHUSUS
+                         IBUKOTA JAKARTA,
+
+                                       ttd
+
+                               SAEFULLAH
+
+BERITA DAERAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA
+TAHUN 2017 NOMOR 61011
+
+               Salinan sesuai dengan aslinya
+  KEPALA BIRO HUKUM SEKRETARIAT DAERAH
+PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA,
+
+                       YA AN YUHANAH
+               NIP 196508241994032003
+

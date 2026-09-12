@@ -1,0 +1,893 @@
+                                          Efektivitas Pengawasan Lalu Lintas...
+
+EFEKTIVITAS PENGAWASAN LALU LINTAS MELALUI SURABAYA INTELLIGENT
+
+                       TRANSPORT SYSTEM (SITS) DI KOTA SURABAYA
+
+                                            Delia Fahriana Sahira
+  S1 Ilmu Administrasi Negara, Fakultas Ilmu Sosial dan Hukum, Universitas Negeri Surabaya
+
+                                        delia.18093@mhs.unesa.ac.id
+
+                                                 Suci Megawati
+  S1 Ilmu Administrasi Negara, Fakultas Ilmu Sosial dan Hukum, Universitas Negeri Surabaya
+
+                                          sucimegawati@unesa.ac.id
+
+                                                 Abstrak
+
+  Pemanfaatan teknologi dalam pemerintah atau E-Government telah diterapkan demi mendukung proses
+  pelayanan kepada masyarakat. Kota Surabaya merupakan kota yang melopori penerapan e-government
+  sejak tahun 2002. Dengan dikeluarkannya Peraturan Walikota Surabaya Nomor 5 Tahun 2013 tentang
+  Pedoman Pemanfaatan Teknologi Informasi dan Komunikasi dalam Penyelenggaraan Pemerintah
+  Daerah maka Dinas Perhubungan Kota Surabaya membuat sistem yang bertujuan untuk meningkatkan
+  keamanan, mengurangi kemacetan, memantau lalu lintas dengan membuat Surabaya Intelligent
+  Transport System (SITS). Peneliti melakukan penelitian mengenai SITS karena masih banyaknya
+  kamacetan yang terjadi di jalanan Kota Surabaya sehingga tujuan dari penelitian ini adalah
+  mendeskripsikan efektivitas pengawasan lalu lintas melalui Surabaya Intelligent Transport System
+  (SITS) di Kota Surabaya. Penelitian ini merupakan penelitian deskriptif pendekatan kualitatif yang
+  berfokus pada menjelaskan apakah program tersebut sudah efektif sesuai dengan tujuan yang telah
+  ditetapkan. Teori yang digunakan pada penelitian ini yaitu teori efektivitas menurut Gibson yang
+  memiliki 5 (lima) indikator yaitu produksi, efisiensi, kepuasan, keadaptasian dan pengembangan.
+  Teknik pengumpulan data yang digunakan yaitu melalui wawancara mendalam, observasi partisipan
+  dan dokumentasi sedangkan teknik analisis data menggunakan model interaktif menurut Miles dan
+  Huberman yaitu pengumpulan data, reduksi data, penyajian data dan penarikan kesimpulan. Hasil dari
+  penelitian ini menunjukkan bahwa pelaksanaan SITS pada indikator produksi sudah cukup optimal,
+  indikator efisiensi SITS cukup efisien dalam mengurai kemacetan, indikator kepuasan SITS sudah
+  cukup memenuhi kriteria kepuasan, indikator adaptasi cukup baik namun masih kurangnya sosialisasi,
+  indikator pengembangan cukup baik dan terbantu dengan adanya aplikasi. Maka peneliti menyarankan
+  untuk fokus dalam sosialisasi dan perbaikan performa aplikasi.
+  Kata Kunci: Efektivitas, Pengawasan, Kemacetan, SITS Kota Surabaya
+
+                                                Abstract
+
+  The use of technology in government or E-Government has been applied to support the service process
+  to the community. Surabaya is a city that has pioneered the implementation of e-government since
+  2002. With the issuance of Surabaya Mayor Regulation Number 5 of 2013 concerning Guidelines for
+  the Utilization of Information and Communication Technology in the Implementation of Local
+  Government, the Surabaya City Transportation Service creates a system that aims to improve security,
+  reduce congestion, monitor traffic by creating Surabaya Intelligent Transport System (SITS). The
+  reason for doing research on SITS because there are still many traffic jams on the streets of Surabaya.
+  The purpose of this study is to describe the effectiveness of traffic control through the Surabaya
+  Intelligent Transport System (SITS) in Surabaya. This study is a descriptive qualitative approach that
+  focuses on explaining whether the program has been effective in accordance with the objectives that
+  have been set. The theory used in this research is the theory of effectiveness according to Gibson which
+  has 5 (five) indicators, namely production, efficiency, satisfaction, adaptability and development. The
+  data collection techniques used are through deep interviews, participant observation and documentation,
+  while the data analysis techniques use an interactive model according to Miles and Huberman, namely
+  data collection, data reduction, data presentation and drawing conclusions. The results of this study
+  indicate that the implementation of SITS on the production indicators is quite optimal, the efficiency
+  indicators of SITS are quite efficient in breaking down congestion, the satisfaction indicators of SITS
+  are sufficient to meet the satisfaction criteria, the adaptation indicators are quite good but there is still a
+  lack of socialization, the development indicators are quite good and helped by the existence of
+  application. So, the researchers suggest to focus on socializing and improving application performance.
+  Keywords: Effectiveness, supervision, traffic jam, SITS Surabaya City
+
+                                                               895
+Publika. Volume 10 Nomor 3, Tahun 2022, 895-908
+
+PENDAHULUAN                                                            lebih baik untuk memenuhi berbagai macam
+                                                                       kebutuhan masyarakat dalam meningkatkan kualitas
+      Sebuah negara tidak akan terlepas dari pengaruh                  pelayanan.
+globalisasi terlebih pada masa modern seperti saat ini.
+Globalisasi adalah proses global atau mendunia yang                          Perkembangan e-government mulai diterapkan
+ditandai dengan adanya peningkatan pada sector                         di Indonesia sejak tahun 2003 dengan penetapan
+ekonomi. Kemajuan teknologi dan informasi modern                       Instruksi Presiden No. 3 Tahun 2003 tentang
+yang dirasakan saat ini merupakan bentuk dari                          Kebijakan dan Strategi Nasional Pengembangan E-
+pengaruh globalisasi yang semakin meluas.                              Government. Pada kebijakan tersebut menjelaskan
+Perkembangan teknologi telah dimanfaatkan pada                         tujuan dari implementasi electronic government yaitu
+berbagai sektor seperti transportasi, kesehatan,                       untuk memberikan perubahan pada sistem manajemen
+pendidikan, perdagangan, pariwisata, dan lain-lain.                    di sektor publik yang dahulu bersifat tradisional
+Hal ini menunjukkan bahwa keberadaan teknologi                         menjadi lebih modern, sehingga dapat mempersingkat
+adalah hal yang penting (Oktariyanda & Rahaju,                         alur dalam pengambilan keputusan yang dilakukan
+2018). Pengaruh pada perkembangan teknologi saat                       oleh sektor publik (Eprilianto dkk, 2020)
+ini dapat dimanfaatkan oleh pemerintah. Pengaruh
+tersebut memberikan dampak baik demi                                         Hal ini menjadi peluang bagi pemerintah untuk
+meningkatkan performa pemerintahan dalam bentuk                        mulai menggunakan serta memanfaatkan teknologi
+teknologi informasi (Seyselis & Pradana, 2021).                        informasi dalam volume yang besar secara tepat dan
+Teknologi diterapkan dalam proses pemerintahan                         akurat sehingga dapat memberikan informasi yang
+dalam rangka mengikuti perubahan dan                                   efisiensi, efektif, transparan dan akuntabilitas. Saat
+perkembangan zaman yang menjadi kewajiban dalam                        ini, hampir seluruh Organisasi Pemerintah Daerah
+pemenuhan kebutuhan masyarakat yang semakin                            (OPD) di Indonesia telah menciptakan inovasi yang
+dinamis. Penerapan dari teknologi informasi                            berbasis sistem infomasi bahkan pengawasan sesuai
+membutuhkan tahapan yang dimulai perencanaan,                          dengan bidang masing-masing.
+pelaksanaan, hingga pengawasan kegiatan-kegiatan
+pembangunan yang dilaksanakan pada berbagai                                  Kota Surabaya adalah kota yang mempelopori
+bidang (Fanida & Karuniawati, 2016).                                   penerapan e-government sejak tahun 2002 dengan
+                                                                       menciptakan berbagai inovasi berbasis digital yang
+      Pelayanan yang diberikan oleh pemerintah atau                    menunjang pelayanan publik. Dengan dikeluarkannya
+birokrasi yang dirasa lamban dan kaku mulai dapat                      Peraturan Walikota Surabaya Nomor 5 Tahun 2013
+diatasi dengan adanya bantuan perkembangan                             tentang Pedoman Pemanfaatan Teknologi Informasi
+teknologi modern. Salah satu solusi untuk mengatasi                    dan Komunikasi dalam Penyelenggaraan Pemerintah
+kurang efektif dan efisiennya sebuah birokrasi adalah                  Daerah maka OPD yang berada di Kota Surabaya
+dengan menerapkan teknologi sebagai alat bantu                         mulai bergerak dalam menciptakan teknologi
+dalam memberikan pelayanan. Pemanfaatan teknologi                      informasi khususnya Dinas Perhubungan Surabaya
+dalam bidang pemerintahan sering disebut Electronic                    dalam mengatasi masalah lalu lintas dan kemacetan.
+Government (E-Gov) yang mulai diterapkan oleh
+berbagai negara dalam mendukung proses pelayanan                             Kota-kota besar dengan padatnya penduduk dan
+masyarakat atau kepegawaian.                                           persebaran penduduk yang tidak merata sering
+                                                                       mengalami dan memunculkan masalah yang lebih
+      E-government merupakan salah satu bentuk dari                    kompleks seperti kesenjangan social, kesenjangan
+perkembangan di bidang administrasi publik yang                        ekonomi antar penduduk, pengangguran dan
+memanfaatkan teknologi informasi dan komunikasi                        kemiskinan. Dengan banyaknya penduduk membuat
+pada bidang pemerintahan sebagai instrumen dalam                       pemukiman menjadi sempit dan berdesak-desakan
+memenuhi kebutuhan masyarakat atau pelayanan                           sehingga menyebabkan kemacetan di ruas-ruas jalan
+publik dengan secara efektif dan efisien (Ramadhan                     besar. Kemacatean adalah kondisi jalan raya yang
+dkk, 2020). Secara fungsinya, e-government dapat                       tidak berjalan secara normal yang disebabkan oleh
+meningkatkan komunikasi dan hubungan antar                             tersendat atau berhentinya lalu lintas akibat jumlah
+pemerintah dengan masyarakat atau dengan pihak-                        kendaraan atau kondisi tertentu lainnya (Haqie dkk,
+pihak lain. Tujuan dari penerapan e-government                         2020). Kemacetan merupakan permasalahan lalu
+menurut Indrajit (2016) yaitu untuk memperbaiki                        lintas yang sering terjadi di Kota Surabaya.
+kinerja pemerintah, namun tujuan akhirnya menuju                       Kemacetan tersebut terjadi karena volume kendaraan
+pada memberikan pelayanan secara cepat, murah dan                      yang sudah melebihi kapasitas jalan sehingga kondisi
+                                                                       jalan raya menjadi terhambat dan membuat perjalanan
+                                                                  896  tidak nyaman.
+                               Efektivitas Pengawasan Lalu Lintas...
+
+Kota Surabaya merupakan salah satu dari lima                  masyarakat yang mengeluhkan kemacetan di Kota
+                                                              Surabaya khususnya pada jam berangkat atau pulang
+kota besar di dunia yang paling macet versi Castrol           kerja dan sekolah dikarenakan akan berimbas pada
+                                                              jumlah volume kendaraan yang akan menyebabkan
+Magnatec Stop-Start Index yang diungkapkan Koran              kemacetan. Banyak yang mengeluhkan bahwa jumlah
+                                                              kendaraan semakin bertambah namun jalanan di
+Sindo pada 5 Februari 2015. Kemacetan di Kota                 Surabaya semakin sempit bahkan masih terdapat
+                                                              parkir liar atau Pedagang Kaki Lima (PKL) yang
+Surabaya membuat semakin maraknya terjadi                     berada dipinggir jalan.
+
+pelanggaran lalu lintas dengan tidak mematuhi                       Dinas Perhubungan Kota Surabaya tetap
+                                                              konsisten berupaya memberikan kontribusi dalam
+peraturan lalu lintas yang terdapat di Jalanan Kota           memberikan gagasan untuk memanfaatkan teknologi
+                                                              informasi melalui ide-ide cerdas untuk manajemen
+Surabaya. Tingginya angka pelanggaran lalu lintas             dan rekayasa lalu lintas (Arifiyananta & Fanida,
+                                                              2015). Upaya yang dilakukan oleh Dinas
+tersebut didasari oleh data dari pihak Polrestabes Kota       Perhubungan Kota Surabaya untuk memantau lalu
+                                                              lintas dan mengurangi kemacetan dengan membuat
+Surabaya tentang hasil operasi zebra pada tahun 2015          Surabaya Intelligent Transport System (SITS). SITS
+                                                              adalah penggabungan antar sistem informasi dan
+hingga tahun 2017 yang terus mengalami                        teknologi komunikasi dengan prasarana transportasi,
+                                                              kendaraan dan pengguna jalan atau dengan kata lain
+peningkatan.                                                  sistem pemantau situasi lalu lintas di Kota Surabaya
+                                                              melalui kamera CCTV. SITS juga berfungsi untuk
+    Tabel 1. Hasil Operasi Zebra                              mengatur lampu lalu lintas yang memiliki tujuan
+                                                              utama yaitu meningkatkan kelancaran lalu linta
+              Tahun 2015-2017                                 meningkatkan keamanan lalu lintas, menjaga
+                                                              kelestarian lingkungan, memberikan keamanan dan
+NO  Tahun     Roda   Roda         Total                       mengubah perilaku mengemudi.
+              Empat  Dua
+                                                                    SITS didukung dengan adanya Adaptive Traffic
+1.  2015 726 5.457                6.183                       Control System (ATCS) sebagai upaya modernisasi
+                                                              CCTV yang ada di Kota Surabaya. ATCS merupakan
+2.  2016 947 10.209 11.156                                    system yang dapat mendeteksi kepadatan lalu lintas,
+                                                              jumlah kendaraan yang berhenti akibat lampu merah
+3.  2017 839 16.398 17.237                                    dan otomatis berganti menjadi lampu hijau untuk
+                                                              mengurangi jumlah kemacetan dijalan tersebut.
+    Sumber: Polrestabes Kota Surabaya                         Dalam pemanfaatan ATCS ini terdapat sensor deteksi
+                                                              (traffic cam) yang dapat membaca/menghitung
+Berdasarkan data diatas, dapat disimpulkan                    volume kendaraan setiap hari pada setiap simpang
+                                                              (Firmanda, 2019). Selain itu, terdapat komponen lain
+bahwa jumlah kendaraan yang melakukan                         dalam ATCS yaitu SCATS (Sydney Coordinated
+                                                              Adaptive Traffic System) yaitu aplikasi khusus
+pelanggaran lalu lintas di jalanan Kota Surabaya              petugas yang dapat menganalisis dan mengevaluasi
+                                                              penyebab kemacetan. Saat ini data traffic tidak hanya
+mengalami peningkatan pada setiap tahunnya.                   digunakan sebagai mengatur lalu lintas tetapi juga
+                                                              dapat digunakan sebagai informasi publik dan sumber
+Dengan adanya data diatas, dapat diperkirakan bahwa           data optimalisasi transportasi yang dibantu juga oleh
+                                                              pihak kepolisian (Pamudi & Suryani, 2018).
+kondisi jalan raya di Kota Surabaya bisa
+                                                                    Perkembangan dari ATCS dimulai pada tahun
+dikategorikan sangat mengkhawatirkan sehingga                 2010 yang telah terpasang kamera di 40
+                                                              persimpangan di Kota Surabaya. Selanjutnya, pada
+dapat menyebabkan kemacetan dimana-mana dan                   tahun yang sama, Dinas Perhubungan mulai
+                                                              menciptakan SITS yang didukung sistem ATCS.
+semakin banyaknya angka pelanggaran lalu lintas.              Dinas Perhubungan mengkaji dengan melakukan
+
+Berbagai upaya telah dilakukan dengan melakukan
+
+rekayasa untuk mengurangi kepadatan dan kemacetan
+
+yang terjadi disejumlah jalanan di Kota Surabaya.
+
+Berbagai kebijakan, aturan dan program telah
+
+dilaksanakan dalam rangka agar lalu lintas lebih
+
+tertib, aman dan kondusif namun masih banyaknya
+
+pengguna jalan yang melanggar sehingga
+
+menyebabkan tingginya angka pelanggaran lalu lintas.
+
+Berdasarkan penelitian oleh Rozari & Wibowo
+
+(2015) mengenai aspek-aspek yang menyebabkan
+
+kemacetan lalu lintas di jalan utama Kota Surabaya
+
+adalah kurangnya petugas lalu lintas yang mengawas
+
+atau mengatur jalan di Kota Surabaya karena dengan
+
+tidak adanya petugas maka pengendara bisa
+
+melanggar rambu lalu lintas, kurangnya kendali
+
+lampu lalu lintas dipersimpangan yang dapat
+
+membuat kemacetan di sisi jalan, banyaknya
+
+kendaraan parkir sembarangan di tepi jalan khususnya
+
+mobil meskipun telah diberi rambu, kurang perhatian
+
+disektor angkutan umum yang kerap kali menjadi
+
+penyebab kemacetan karena mengangkut dan
+
+menurunkan penumpang dengan cara berhenti secara
+
+tiba tiba. Berdasarkan berita yang dikutip oleh E100
+
+oleh Suara Surabaya melalui facebook, banyak
+
+                                                         897
+                Publika. Volume 10 Nomor 3, Tahun 2022, 895-908
+
+penelitian demi meningkatkan ATCS dan mulai
+
+dilakukan pembangunan pusat ruang kendali. Pada
+
+tahun 2021 masih dilakukan penambahan kamera
+
+secara bertahap. Pada saat ini sudah terdapat 137
+
+persimpangan yang telah dipasang kamera CCTV
+
+SITS (Sumber: SITS Kota Surabaya)
+
+Tabel 2. Perkembangan Instalasi Kamera SITS
+
+          Tahun Total CCTV Terpasang
+
+          2019  612
+
+          2017  108
+
+          2015  58
+
+           Sumber: SITS Kota Surabaya
+
+Berdasarkan tabel diatas menunjukkan bahwa
+
+adanya peningkatan dalam pemasangan CCTV dari
+
+tahun ke tahun. Hal itu ditunjukkan pada tahun 2019
+
+telah terpasang 612 unit CCTV. Namun sebelumnya,            Gambar 2. Halaman Depan Aplikasi SITS CCTV
+                                                                     Sumber: Aplikasi SITS CCTV Surabaya
+pada tahun 2017 hanya terpasang 107 unit CCTV dan
+                                                                  Berdasarkan gambar diatas menunjukkan jalan
+tahun 2015 terpasang 58 unit CCTV.                          atau persimpangan yang dapat dipantau melalui
+                                                            aplikasi SITS Kota Surabaya. Sampai saat ini sudah
+Jenis kamera yang digunakan pada SITS ini                   terdapat 104 titik jalanan Kota Surabaya yang dapat
+                                                            diakses melalui aplikasi SITS CCTV.
+terdapat 4 jenis yaitu PTZ (Pan-Tilt-Zoom), Panuvo,
+                                                                  Berdasarkan informasi yang diberikan oleh
+Fix, dan FR. Kamera ini memiliki keunggulan dan             Kepala Dinas Perhubungan Kota Surabaya, Irvan
+                                                            Wahyudrajad melalui surabaya.go.id mengungkapkan
+kegunaan berbeda-beda sehingga kamera-kamera                data dari Satlantas Polrestabes Kota Surabaya, sejak
+                                                            penerapan awal SITS jumlah kecelakaan maupun
+tersebut dipasang sesuai dengan kebutuhan dan               kerugian akibat pelanggaran mengalami penurunan
+                                                            disetiap tahunnya. Kerjasama yang dilakukan antara
+kondisi jalanan yang ada di Kota Surabaya. Oleh             Dinas Perhubungan khususnya Tim SITS Kota
+                                                            Surabaya dan pihak kepolisian dalam melakukan
+karena itu, SITS ini menjadi andalan bagi petugas dan       pengawasan lalu lintas melalui CCTV ini adalah
+                                                            adanya petugas yang standby di Kantor SITS Kota
+masyarakat dalam memantau kondisi lalu lintas Kota          Surabaya dengan ikut memantau keadaan jalan raya.
+
+Surabaya.                                                         Beberapa keuntungan yang diberikan dari
+                                                            penerapan SITS adalah jarak waktu tempuh kepadatan
+Surabaya Intelligent Transport System (SITS) ini            kendaraan mengalami penurunan dari sebelumnya
+                                                            sebesar 20-23 persen (%), waktu tunggu lebih efisien
+juga dapat dipantau melalui handphone dengan                di persimpangan karena pemakaian sensor ATCS
+                                                            lebih adaptif sehingga penyesuaian lama lampu lalu
+mengunduh aplikasi SITS CCTV yang dapat                     lintas dengan volume kendaraan, sumber daya
+                                                            manusia dan beban kerja lebih efektif karena petugas
+diunggah melalui Google Play Store (Good News               dapat mengontrol melalui control room dengan
+                                                            bantuan ATCS dan CCTV yang telah terpasang di
+From Indonesia, 2018). Aplikasi ini dapat                   persimpangan (Florence, 2018).
+
+memudahkan masyakarat khususnya pengendara                        Manfaat dari diterapkannya program SITS
+                                                            adalah lebih membantu dalam memantau lalu lintas
+kendaraan bermotor dalam memantau kondisi jalan             transportasi di Kota Surabaya. Hal ini dikarenakan
+                                                            petugas dapat mengontrol semua traffic light dengan
+yang akan dilewati. Pengguna cukup membuka                  mengubah durasi sesuai dengan volume kendaraan di
+                                                            SITS. Apabila dibandingkan dengan sebelum adanya
+aplikasi tersebut dan dapat memilih titik yang akan
+
+dilihat.
+
+Gambar 1. Logo Aplikasi SITS CCTV
+    Sumber: Dokumen Peneliti, 2022
+
+                                                       898
+Efektivitas Pengawasan Lalu Lintas...
+
+SITS, petugas harus melakukan patroli ke lapangan             sesuai dengan harapan atau tujuan dari tindakan
+dengan mengatur durasi traffic light sehingga waktu           tersebut. Sedangkan menurut Mahmudi dalam buku
+yang ditunjukkan tidak secara real time (Tribun Jatim,        Manajemen Kinerja Sektor Publik menjelaskan
+2018) Dengan adanya SITS, pergerakan lalu lintas              bahwa efektivitas berkaitan dengan output dan tujuan.
+dapat dipantau setiap harinya oleh petugas. Selain itu,       Semakin besar partisipasi dari output terhadap
+permasalahan lainnya yang terjadi seperti kebakaran,          pencapaian tujuan maka semakin efektif organisasi,
+tindak kekerasan dijalan, kecelakaan dapat dengan             program, atau kegiatan tersebut.
+mudah diketahui secara cepat oleh pihak terkait
+seperti anggota kepolisian, dinas perhubungan dan                   Ukuran efektivitas yaitu sebuah patokan akan
+masyarakat umum. Sasaran utama dari program SITS              terwujudnya sasaran serta tujuan yang hendak diraih.
+ini adalah masyarakat khususnya pengendara                    Selain itu, memperlihatkan tingkat seberapa jauh
+kendaraan bermotor. Program SITS ini dapat                    organisasi, program atau kegiatan menjalankan
+mengubah perilaku berkendara karena merasa diawasi            fungsi-fungsinya secara maksimum. (Setiawan &
+sehingga lebih berhati-hati dalam berkendara dan              Rahaju, 2021)
+tidak melanggar lalu lintas. Namun kenyataannya,
+masih banyak masyarakat yang tidak paham maksud                     Efektivitas Pengawasan Lalu Lintas Melalui
+dari rambu penunjuk "area diawasi oleh CCTV"                  Surabaya Intelligent Transport System (SITS) adalah
+disepanjang lampu lalu lintas yang ada di Kota                sebuah ukuran yang diharapkan bisa didapat dari
+Surabaya. Hal ini ditunjukkan dengan masih                    menerapkan sistem tersebut dengan memanfaatkan
+banyaknya pelanggar lalu lintas seperti menerobos             sumber daya yang tersedia. Maka didalam penelitian
+zebra cross.                                                  ini peneliti menggunakan teori efektivitas menurut
+                                                              (Gibson dkk., 2000:34) yang terdapat 5 (lima)
+      Permasalahan yang dihadapi oleh Dinas                   indikator yaitu:
+Perhubungan Kota Surabaya khususnya Tim SITS                  1. Produksi (Production), mennggambarkan
+Kota Surabaya adalah masih adanya kamera yang
+mengalami gangguan sehingga diperlukan investigasi                kompetensi organisasi untuk menghasilkan jumlah
+kelapangan guna untuk mengecek keadaan kamera                     dan mutu dari output yang dibutuhkan lingkungan.
+tersebut. Selain itu, permasalahan yang lainnya adalah
+kendala jaringan yang dirasa lambat sehingga                  2. Efisiensi (Efficiency), didefinisikan sebagai
+mempersulit petugas dalam memantau kondisi jalan                  perbandingan antara output dengan input.
+raya
+                                                              3. Kepuasan (Satifaction), ukuran yang serupa untuk
+      Berdasarkan pemaparan diatas, maka penelitian               menunjukkan tingkat dimana organisasi
+ini memiliki tujuan untuk mengetahui bagaimana                    memenuhi kebutuhan lingkungannya.
+efektivitas pengawasan lalu lintas melalui SITS di
+Kota Surabaya dengan lokus penelitian yaitu Kantor            4. Keadaptasian (Adaptiveness), tingkat dimana
+Surabaya Intelligent Traffic System (SITS) di Kota                organisasi dapat memenuhi dan benar-benar
+Surabaya dengan informan-informan yang                            responsif terhadap perubahan lingkungan baik
+mengetahui bagaimana penerapan SITS di Kota                       internal dan eksternal.
+Surabaya. Penelitian ini memiliki manfaat yang dapat
+digunakan sebagai refrensi mengenai efektivitas dari          5. Pengembangan (Development), kemampuan
+SITS dan dapat digunakan sebagai bahan masukan                    organisasi untuk meningkatkan kapasitasnya
+kepada pihak terkait dalam meningkatkan efektivitas               dalam menghadapi tuntutan lingkungan.
+dari penerapan SITS di Kota Surabaya.
+                                                              METODE
+      Efektivitas merupakan faktor penting dalam                    Jenis penelitian yang digunakan dalam penelitian
+organisasi dimana menjadi tolok ukur kinerja di
+organisasi dan sebagai bahan evaluasi selama proses           ini adalah deskriptif dengan pendekatan kualitatif yang
+pelaksanaan untuk mencapai tujuan yang telah                  bertujuan untuk memberikan penjelasan mengenai
+ditargetkan. Karena apabila pemanfaatan sumber daya           Surabaya Intelligent Traffic System (SITS) dan
+serta proses yang telah digunakan selama pelaksanaan          mengetahui bagaimana efektivitas dari SITS.
+menghasilkan hasil yang maksimal sehingga dapat               Penelitian kualitatif adalah suatu pendekatan yang
+mencapai sasaran, tujuan dan manfaat maka bisa                dapat disebut dengan pendekatan investigatif. Artinya,
+disebut proses atau cara tersebut efektif.                    penelitian dilakukan dengan cara melalui
+                                                              pengumpulan data-data secara langsung dengan
+      Menurut Dunn (2003:429) efektivitas berkaitan           interaksi tatap muka dengan narasumber di lokasi
+dengan hasil dari suatu alternatif yang digunakan             penelitian (Megawati dkk, 2020).
+
+                                                                    Fokus penelitian ini menggunakan teori
+                                                              efektivitas menurut (Gibson dkk, 2000:34) yang
+
+                                                         899
+Publika. Volume 10 Nomor 3, Tahun 2022, 895-908
+
+terdapat 5 (lima) indikator. Adapun indikator tersebut                 Pengawasan Lalu Lintas Melalui Surabaya Intelligent
+adalah :                                                               Transport System (SITS) Di Kota Surabaya dengan
+ 1. Produksi (Production)                                              menggunakan 5 (lima) indikator menurut (Gibson
+ 2. Efisiensi (Efficiency)                                             dkk., 2000:34) yaitu sebagai berikut:
+ 3. Kepuasan (Satifaction)                                             1. Produksi (Production)
+ 4. Keadaptasian (Adaptiveness)
+ 5. Pengembangan (Development)                                               Produksi adalah kesanggupan organisasi dalam
+                                                                       membuat atau mewujudkan sesuatu dengan tujuan
+      Teknik pengumpulan data dilakukan melalui                        memenuhi kebutuhan lingkungan. Pengukuran
+wawancara mendalam, observasi partisipan dan                           produktivitas dapat dilakukan dengan memasukkan
+dokumentasi. Sedangkan teknik penentuan informan                       seberapa besar pelayanan publik mempunyai hasil
+menggunakan purposive sampling, yaitu informan                         sesuai dengan tujuan sebagai satu indikator
+dipilih berdasarkan yang sangat mengetahui dan                         kemampuan kerja yang penting. Indikator produksi
+memahami terkait dengan permasalahan yang diteliti                     dapat dilihat melalui perolehan atau realisasi program
+yaitu Koordinator SITS Kota Surabaya yang dilakukan                    dari kegiatan pemerintah yang dilaksanakan setiap
+wawancara dan observasi di Kantor SITS Kota                            tahunnya (Ashari dkk, 2010).
+Surabaya kemudian untuk informan bagi pengguna
+layanan digunakan teknik accidental sampling dari                            Dalam hal ini, kriteria dalam produksi
+beberapa masyarakat. Didalam penelitian ini peneliti                   ditunjukkan melalui kemampuan SITS Kota Surabaya
+telah menggali informasi melalui lima orang                            dalam memproduksi jumlah dan mutu sesuai dengan
+masyarakat. Peneliti juga turut serta dalam memantau                   kebutuhan dan permintaan lingkungan.
+lalu lintas melalui monitor yang tersedia di Kantor                    Menindaklanjuti hal tersebut, berdasarkan hasil
+SITS Kota Surabaya dan informan menjelaskan                            wawancara dengan Koordinator SITS Kota Surabaya
+mengenai teknis pemantauan dan kendala yang baru                       memaparkan bahwa pemasangan titik kamera
+dialami.                                                               dilakukan sesuai dengan kebutuhan jalanan khususnya
+                                                                       di persimpangan dan sejak dipasangnya CCTV SITS
+      Sumber data meggunakan data primer dan data                      sangat membantu dalam mengawasi lalu lintas di Kota
+sekunder. Data primer diperoleh dengan wawancara                       Surabaya dan angka kemacetan menjadi berkurang.
+mendalam kepada pihak terkait dan masyarakat.                          Hal ini dikemukakan oleh Ibu Harnum Aida
+Sedangkan data sekunder diperoleh melalui berbagai                     (Koordinator SITS Kota Surabaya) sebagai berikut:
+sumber seperti media massa, sumber data tertulis atau
+dokumen sebagai penunjang dan memperkuat data                                   "Pemasangan dari titik-titik tersebut
+utama. Sumber tertulis dan dokumen yang digunakan                               dilakukan guna untuk membantu kami
+dalam penelitian ini yaitu jurnal mengenai penerapan                            (petugas) dalam mengawasi pengendara
+e-government, rencana dan program Dinas                                         dalam kegunaannya juga berbeda dalam
+Perhubungan dalam mengatasi kemacetan di Kota                                   setiap kamera yang dipasang. Keberadaan
+Surabaya, studi mengenai Surabaya Intelligent                                   SITS ini sangat membantu sehingga
+Transport System (SITS) dalam meningkatkan kualitas                             kemacetan menjadi berkurang. Tidak hanya
+pelayanan di Kota Surabaya dan sumber dari media                                memantau kemacetan saja, tetapi juga bisa
+massa oleh surabaya.go.id dan jatimtribun.com dengan                            menjangkau tindak kriminalitas dan
+tahun terbit dari tahun 2015 hingga tahun 2020.                                 kecelakaan. Tentunya kegunaan SITS ini
+                                                                                bisa digunakan dibanyak aspek"
+      Teknik analisis data menggunakan model                                    (wawancara pada tanggal 28 Desember
+interaktif menurut Miles dan Huberman (dalam                                    2021)
+Sugiyono, 2013:246) yang terdiri dari pengumpulan                            Dalam mengawasi dan memantau lalu lintas,
+data, reduksi data, penyajian data dan penarikan                       SITS memiliki kamera yang digunakan sesuai dengan
+kesimpulan. Lokasi penelitian ini dilaksanakan di                      kebutuhan. SITS memiliki 4 jenis kamera yaitu (1)
+Kantor Surabaya Intelligent Transport System (SITS)                    Kamera PTZ (Pan-Tilt-Zoom) yang dapat memantau
+di Jalan Raya Nginden, Baratajaya, Kecamatan                           seluruh di area lampu lalu lintas dengan cara berputar
+Gubeng, Kota Surabaya.                                                 90 derajat dan kemampuan zoom 20x. (2) Kamera
+                                                                       Panovu, kamera ini memiliki view cembung yang
+HASIL DAN PEMBAHASAN                                                   dipasang ditengah persimpangan dan dapat
+      Berdasarkan hasil penelitian yang telah                          memperlihatkan keseluruhan area dipersimpangan (3)
+                                                                       Kamera Fix, yang diletakkan dikaki simpang dengan
+didapatkan oleh peneliti, maka selanjutnya akan                        menyorot satu view persimpangan. Biasanya kamera
+dilakukan pembahasan mengenai Efektivitas                              ini dipasang di persimpangan kecil. (4) Kamera FR
+                                                                       (Face Recognition), dikembangkan melalui aplikasi
+                                                                  900
+Efektivitas Pengawasan Lalu Lintas...
+
+yang dapat mengenali wajah yang akan bekerjasama             dengan rachma (mahasiswa, pengendara motor)
+dengan Kominfo. Namun, untuk saat ini kamera                 sebagai berikut :
+tersebut hanya digunakan sebagai keamanan saja.
+                                                                      "Menurut saya, upaya yang dilakukan oleh
+      Saat ini, SITS memiliki kurang lebih 600 unit                   pihak terkait sangat bagus. Dengan
+kamera yang tersebar diseluruh Kota Surabaya dengan                   penyebaran CCTV diberbagi titik di
+fokus pada persimpangan karena sering terjadi                         Surabaya membuat pengendara motor lebih
+kemacetan. Ditahun 2021, sudah terpasang di 137                       diawasi dan dapat menghindari daerah
+persimpangan, satu persimpangan dipasang oleh                         mana saja yang macet." (wawancara pada
+beberapa kamera dengan jenis dan kegunaan yang                        tanggal 17 Januari 2022)
+berbeda tergantung pada kondisi persimpangan.                      Pelaksanaan dari program SITS di Kota Surabaya
+Meskipun fokus pada persimpangan, SITS juga                  apabila dikaitkan dengan indikator produksi sudah
+memasang kamera di U-Turn (putar balik), jalan raya          dapat dikatakan sangat memenuhi kriteria tersebut
+yang sering terjadi kemacetan. Kebutuhan jumlah              yang ditandai dengan penyediaan kamera, penyebaran
+kamera yang digunakan untuk SITS dapat dilihat               kamera dan usaha yang dilakukan Tim SITS Kota
+melalui seringnya persimpangan atau jalan raya yang          Surabaya dalam mencapai tujuannya.
+yang terjadinya macet. Tidak hanya pada                      2. Efisiensi (Efficiency)
+persimpangan atau jalan raya yang sering terjadi                   Efisiensi adalah jumlah usaha yang diberikan
+macet, kamera juga dipasang pada flyover dan                 untuk menghasilkan keluaran yang sesuai dengan
+underpass.                                                   tujuan. Efisiensi yang merupakan persamaan dari
+                                                             objektivitas ekonomi sehingga hubungan antara
+      Dalam proses produksi yang dilakukan oleh Tim          efektivitas dan usaha pada umumnya diukur dari
+SITS Kota Surabaya melibatkan antara lain yaitu;             ongkos moneter (Dunn, 2003:430). Efisiensi berkaitan
+koordinator SITS dengan memiliki peran sebagai               dengan pengelolaan sumber daya secara optimal dalam
+pengawas dan pengarah baik pada produksi kamera,             pelaksanaan kebijakan (Ismariana & Prabawati, 2020).
+alat penunjang lainnya, patroli CCTV yang memiliki           Dalam efisiensi, sumber daya menjadi faktor penting
+peran sebagai petugas lapangan yang memantau                 dalam menghasilkan tujuan dari kebijakan. Sumber
+keadaan CCTV di jalan raya dan melakukan perbaikan           daya tersebut mencangkup staff yang memiliki
+apabila mengalami kendala, petugas server IT dalam           keahlian sesuai dengan kebijakan, wewenang, fasilitas
+produksi pada SITS berperan sebagai maintenance dan          yang digunakan, sumber daya yang turut berkontribusi
+setting sistem yang dapat menghubungkan antara               serta pengelolaan keuangan terhadap sarana dan
+kamera, sistem pada monitor dan juga aplikasi. Selain        prasarana yang dibutuhkan (Nurrohmi & Rosdiana,
+itu, produksi pada SITS Kota Surabaya juga                   2013).
+melibatkan pihak kepolisian yang berperan sebagai                  Dalam melaksanakan pengawasan dan
+pelaksana dalam tilang elektronik di Kota Surabaya           pemantauan kondisi lalu lintas, SITS membutuhkan
+dan juga bekerjasama dengan stakeholders yang                sumber daya manusia sesuai dengan kualifikasi yang
+berperan sebagai penyedia kamera dan sistem                  tepat. Dinas Perhubungan memiliki petugas IT yang
+pendukung lainnya.                                           memiliki tugas pokok untuk setting dan maintenance
+                                                             sistem yang sedang berjalan. Selain itu juga terdapat
+      Selain itu, SITS Kota Surabaya juga bekerjasama        petugas patroli CCTV yang melakukan perbaikan dan
+dengan Kepolisian Daerah Jawa Timur (Polda Jatim)            pengawasan kamera di jalan raya. Saat ini, SITS
+yaitu dalam penyediaan CCTV yang digunakan untuk             memiliki 18 operator dengan melakukan training
+tilang elektroktik (E-TLE) dan Speed Camera. Pada            terlebih dahulu. Hal ini disampaikan langsung oleh
+tahun 2017 sampai saat ini sudah terdapat 53 unit            Koordinator SITS Kota Surabaya Ibu Harnum Aida
+CCTV dan yang aktif secara bertahap kurang lebih 20-         sebagai berikut:
+30 unit. Fasilitas dan perangkat (kamera, website,                    "Yang pasti melakukan training untuk
+aplikasi, dan lain-lain) dibuat oleh Dinas Perhubungan                sistem yang ada disini, dengan
+Kota Surabaya namun untuk eksekusi dan penindakan                     pertimbangan paham komputer, IT dan
+jalur hukum berada dibawah naungan pihak                              paham mengenai transportasi. Operator
+kepolisian.                                                           disini juga mayoritas laki-laki" (wawancara
+                                                                      pada tanggal 28 Desember 2021)
+      Upaya penyebaran titik pasang kamera CCTV                    Berdasarkan informasi yang diberikan oleh
+yang dilakukan oleh Dinas Perhubungan khususnya              Koordinator SITS Kota Surabaya bahwa operator telah
+Tim SITS Kota Surabaya juga dirasakan oleh                   mempunyai keahlian yang sudah sesuai dengan
+masyarakat khususnya pengendara kendaraan                    bidangnya sehingga dengan mudah untuk menjalankan
+bermotor. Hal ini disampaikan melalui wawancara
+
+                                                        901
+Publika. Volume 10 Nomor 3, Tahun 2022, 895-908
+
+sistem yang ada di SITS. Operator tersebut dibagi                            langsung memastikan melalui pantauan CCTV
+menjadi 5 koridor dengan pembagian koridor tersebut                          dengan mengidentifikasikan penyebab kemacetan
+sesuai dengan wilayah masing-masing yaitu Surabaya                           tersebut seperti naiknya volume kendaraan,
+Barat, Surabaya Timur, Surabaya Selatan, Surabaya                            adanya parkir sembarangan, mobil mogok atau
+Utara dan Surabaya Pusat.                                                    kecelakaan.
+                                                                       (3) Setelah itu, operator melakukan eksekusi
+      Pemantauan CCTV dan lampu lalu lintas                                  menggunakan aplikasi SCATS (Sydney
+dilakukan secara berkala dengan petugas yang telah                           Coordinated Adaptive Traffic System). Aplikasi
+dibagi menjadi 2 shift (pagi dan siang) untuk                                tersebut diadopsi dari Jerman yang digunakan
+pemantauan lampu lalu lintas terdapat 3 shift (pagi,                         khusus Tim SITS Kota Surabaya yang diadopsi
+siang dan malam) sesuai dengan prioritas koridor                             dari Australia gunanya untuk mengontrol
+masing-masing. Tanggapan yang diberikan oleh                                 (mengatur durasi) lampu lalu lintas. Operator bisa
+petugas apabila ada CCTV dan lalu lintas yang                                melakukan intervensi lampu hijau lebih lama
+mengalami masalah dan lampu lintas yang tidak nyala                          khususnya pada persimpangan atau jalan yang
+adalah dengan mengidentifikasi terlebih dahulu                               mengalami kemacetan.
+kendala yang menjadi penyebab permasalahan
+tersebut. Kendala teknis yang dirasa cukup sulit untuk                             Gambar 3. Tampilan Aplikasi SCATS
+diselesaikan maka petugas akan terjun langsung                                            Sumber: SITS Kota Surabaya
+ketempat tersebut. Hal ini juga disampaikan oleh
+Koordinator SITS Kota Surabaya yang menceritakan                       (4) Apabila eksekusi tersebut tidak berjalan, maka
+mengenai kondisi lampu lalu lintas yang mati di Jalan                        Tim SITS Kota Surabaya melakukan Taruna
+Ir. Soekarno (Merr) dengan penyebab LC (Local                                (perintah) via HT kepada Command Center 112
+Control) yang jatuh dikarenakan oleh angin kencang,                          dengan menginfokan adanya kemacetan dijalan
+sebagai berikut:                                                             tertentu dengan menjelaskan penyebabnya.
+
+         "Untuk CCTV yang mati itu sehari bisa 10                      (5) Pihak Command Center 112 meneruskan perintah
+         sampai 20 unit CCTV, namun tindakan                                 adanya kepadatan kepada petugas yang ada di
+         yang dilakukan adalah tergantung petugas                            lapangan dengan tujuan agar dapat dipantau
+         karena memiliki prioritas dengan koridor                            secara langsung penyebab kemacetan.
+         masing-masing. Untuk permasalahan                                   Pelaksanaan mengurai kemacetan dengan SITS
+         lampu lalu lintas, sekitar beberapa hari
+         yang lalu di Jalan Ir. Soekarno (Merr) LC                     memerlukan durasi yang lebih singkat. Alur dan waktu
+         punya SITS itu jatuh akibat angin kencang.                    yang digunakan dalam terkait permasalahan dan
+         Langsung kami menghubungi teman-teman                         kelnacaran lalu lintas dapat diselesaikan dalam
+         patroli untuk terjun ketempat LC tersebut                     hitungan menit saja. Efisiensi waktu yang digunakan
+         di Jalan Merr. Kalau LC nya mati, lampu                       sebanyak 20-23 % (persen) yang langsung diterima
+         merah di Jalan Merr itu otomatis mati, pada                   oleh system ATCS pada lampu traffic light sehingga
+         hari itu Jalan Merr macet total sehingga                      cukup melakukan intervensi pada Control Room.
+         membutuhkan petugas untuk terjun ke jalan
+         demi mengatur kemacetan" (wawancara                                 Selain itu, Tim SITS Kota Surabaya selalu
+         pada tanggal 28 Desember 2021)                                mendengarkan Radio Suara Surabaya karena selalu
+      Selain itu, dalam melakukan pengawasan lalu                      update dengan kondisi jalan raya di Kota Surabaya.
+lintas Tim SITS Kota Surabaya per-awal tahun 2021                      Komunikasi yang dilakukan melalui pesan yang
+dibantu oleh pihak kepolisian yang standby dengan                      dikirim kepada petugas mengenai lokasi yang terjadi
+jumlah satu orang setiap shift-nya. Alur yang                          kemacetan atau lampu lintas yang mati sehingga
+dilaksanakan dalam mengetahui kemacetan hingga bisa                    petugas dapat langsung eksekusi. Hal ini membuktikan
+menguraikan kemacetan tersebut melalui berbagai
+tahap sesuai dengan SOP (Standard Operating
+Procedure. Alur ini dijelaskan langsung oleh
+Koordinator SITS Kota Surabaya Ibu Harnum Aida
+sebagai berikut :
+(1) Operator membuka Google Maps pada jam-jam
+      tertentu yang sering terjadi kemacetan dilokasi
+      koridor utama,
+(2) Setelah melihat Google Maps dan menunjukkan
+      adanya kemacetan di jalan tertentu, operator
+
+                                                                  902
+                                  Efektivitas Pengawasan Lalu Lintas...
+
+tidak hanya pihak kepolisian saja yang membantu                  secara langsung oleh petugas. Eh, ternyata
+                                                                 sudah ada himbauan dari petugas akhirnya
+namun dari OPD di Kota Surabaya dan pihak lain juga              saya pilih jalan pulang lain. Saya akui
+                                                                 petugas memberikan informasi secara cepat
+ikut andil dalam mengurai kemacetan di Kota                      sehingga dapat membantu saya" (wawancara
+                                                                 pada tanggal 18 Januari 2022)
+Surabaya sehingga lebih efisien.                                Berdasarkan informasi yang diberikan oleh Ibu
+                                                          Intan menunjukkan bahwa Tim SITS Kota Surabaya
+Sumber dana yang digunakan SITS Kota                      telah memberikan informasi dengan cepat sehingga
+                                                          dapat membantu pengguna jalan agar menghindari
+Surabaya berasal dari APBD Kota Surabaya. Dana ini        jalanan yang terpantau macet. Hal itu juga tertera
+                                                          dalam akun Instagram @sits_dishubsurabaya yang
+direalisasikan untuk penyediaan CCTV, pembuatan           ditandai dengan petugas selalu memberikan himbauan
+                                                          secara langsung baik itu kemacetan, perbaikan jalan,
+aplikasi, dan lain-lain. Realisasi penggunaan dana telah  perbaikan marka, penutupan jalan, pantauan cuaca, dan
+                                                          lain-lain.
+digunakan dengan tepat sehingga input dan output
+                                                               Gambar 4. Informasi Kemacetan di Instagram
+dapat dikatakan efisien.                                        Sumber: Akun Instagram @sits_dishubsurabaya
+
+3. Kepuasan (Satisfaction)                                4. Keadaptasian (Adaptiveness)
+                                                                Adaptasi merupakan ukuran dari bagaimana
+Kepuasan dalam menilai efektivitas dilihat dari
+                                                          organisasi dapat melakukan penyesuaian diri dengan
+seberapa jauh organisasi memenuhi kebutuhan               lingkungannya. Hal ini ditunjukkan dengan seberapa
+                                                          jauh organisasi dapat menjawab dari perubahan
+masyarakat yang dilayani (Rumegang dkk, 2021).            lingkungan baik internal maupun eksternal dalam
+                                                          memberikan pelayanan (Ashari dkk., 2010).
+Kepuasan dapat diukur melalui tingkat kepuasan
+                                                                Dalam hal ini, adaptasi dilihat dari kemampuan
+layanan yang dirasakan oleh masyarakat terhadap           Dinas Perhubungan Kota Surabaya khususnya Tim
+                                                          SITS dalam menanggapi perubahan dan perkembangan
+program yang dibuat.                                      yang berhubungan dengan tuntutan kebutuhan
+                                                          masyarakat. Hal tersebut juga dijelaskan oleh
+Dalam memberikan pelayanan kepada                         Koordinator SITS Kota Surabaya bahwa sebelum
+                                                          adanya SITS jalanan di Kota Surabaya hanya dipantau
+masyarakat Tim SITS Kota Surabaya memberikan              melalui Google Maps saja dan mengandalkan petugas
+                                                          yang berada di lokasi untuk mengurai kemacetan.
+respons time selama 45 menit untuk lampu lalu lintas      Namun untuk saat ini perkembangan yang diberikan
+                                                          oleh Tim SITS Kota Surabaya dalam menanggapi
+yang trouble dengan petugas sesuai dengan koridor         kebutuhan masyarakat sudah sangat baik ditandai
+                                                          dengan banyaknya kamera yang sudah tersebar di Kota
+masing-masing. Selain itu, petugas juga dapat             Surabaya, pemantauan kondisi jalan raya sudah lebih
+                                                          detail, sudah terdapat setting lalu lintas untuk
+menerima saran dan kritik melalui akun sosial media
+
+atau aplikasi "Wargaku" yang dimiliki oleh Pemerintah
+
+Kota Surabaya. Sebagaimana respon yang ditunjukkan
+
+oleh masyarakat terkait adanya SITS dijelaskan oleh
+
+Ibu Harnum selaku Koordinator SITS Kota Surabaya
+
+sebagai berikut:
+
+"Untuk responnya bisa kita lihat dari
+
+perubahan yang signifikan dari kurangnya
+
+kemacetan di Surabaya karena pengendara
+
+sudah mulai mengetahui dan memantau
+
+melalui aplikasi sosial media baik itu
+
+Instagram, facebook atau aplikasi.
+
+Sekarang juga banyak masyarakat yang
+
+mengenai kondisi jalan raya melalui akun
+
+sosial media. Respon lain yang diberikan
+
+itu sekarang sudah banyak yang patuh dan
+
+taat apalagi melihat rambu adanya CCTV
+
+di lampu merah sehingga lebih patuh dan
+
+taat" (wawancara pada tanggal 28
+
+Desember 2021)
+
+Kepuasan pelayanan yang diberikan oleh Tim
+
+SITS Kota Surabaya ditandai dengan informasi yang
+
+diberikan oleh Bu Intan (Pekerja, Pengguna Mobil)
+
+mengenai tindakan cepat petugas dalam memberikan
+
+informasi mengenai kondisi jalan yang dilakukan oleh
+
+petugas           melalui   akun  Instagram
+
+@sits_dishubsurabaya. Informasi tersebut dijelaskan
+
+sebagai berikut:
+
+"Saya biasanya berangkat dan pulang kerja
+
+melewati jalan sekitar tengah kota, tapi kata
+
+teman-teman ada pohon tumbang di Jalan
+
+Menur, saya langsung liat dari Instagram
+
+siapa tahu sudah diberikan pemberitahuan
+
+                                               903
+Publika. Volume 10 Nomor 3, Tahun 2022, 895-908
+
+mengurangi angka kemacetan. Pemaparan yang                hanya dapat digunakan pada akses jaringan yang lancar
+diberikan oleh Koordinator SITS Kota Surabaya Ibu         dan hanya dapat digunakan bagi pengguna android
+Harnum Aida sebagai berikut:                              saja.
+
+         "Sebelum ada CCTV kami hanya bisa                     Gambar 5. Pemantauan melalui aplikasi SITS CCTV
+         melihat kemacetan via google maps                                Sumber: Aplikasi SITS CCTV Surabaya
+         sedangkan kita semua tahu bahwa google
+         maps kan tidak selalu real time ya, karena             Berdasarkan gambar diatas menunjukkan bahwa
+         digoogle maps jalan ramai terkena parkir di      adanya aplikasi yang dapat digunakan sebagai
+         pinggir jalan yang bisa saja itu parkir orang    pemantauan jalan bagi pengguna jalan yang dapat
+         jum'atan atau hanya parkir depan toko            diakses secara bebas. Pemantauan tersebut tidak hanya
+         yang digoogle maps ditandai dengan warna         di persimpangan namun juga terdapat di tempat
+         merah. Setelah ada CCTV kami bisa                lainnya seperti pada gambar yaitu di Underpass Satelit.
+         mengidentifikasi lebih detail dan tahu pasti
+         penyebab kemacetan itu apa, langsung                   Selain itu, berdasarkan informasi yang didapatkan
+         kami memberitahukan ke teman-teman               melalui wawancara dengan Koordinator SITS Kota
+         patroli atau Command Center 112 untuk            Surabaya dalam penyediaan CCTV dilakukan secara
+         memerintahkan pengendara untuk jangan            bertahap dari tahun ke tahunnya. Dulu, CCTV yang
+         melewati jalan ini" (wawancara pada              dimiliki tidak memiliki banyak fitur dan jenis sehingga
+         tanggal 28 Desember 2021)                        pemasangan pada persimpangan hanya menggunakan
+      Dalam memenuhi kebutuhan masyarakat, Tim            satu jenis CCTV saja. Apabila dibandingkan dengan
+SITS Kota Surabaya juga memberikan pelayanan              sekarang, SITS Kota Surabaya sudah memiliki 4 jenis
+apabila ada masyarakat yang ingin meminta rekaman         kamera dengan kegunaannya masing-masing.
+CCTV dari SITS Kota Surabaya dengan syarat                Informasi tersebut dijelaskan sebagai berikut :
+pemohon harus mendapatkan pendampingan dari pihak
+kepolisian dengan tujuan mengurangi adanya                         "Dulu itu kalau bisa dibilang CCTV hanya
+pemalsuan data atau tindakan yang tidak diinginkan                 sekedar nempel saja yang kegunaannya
+lainnya. Selain itu, SITS Kota Surabaya juga membuka               untuk keamanan. Namun untuk saat ini
+kesempatan bagi pelajar untuk mengunjungi kantor                   secara bertahap sudah memiliki banyak
+SITS yang memiliki fasilitas layar monitor pemantauan              jenis dan fitur untuk digunakan sehingga
+jalan raya di Kota Surabaya.                                       sangat memudahkan kami juga"
+      Dengan adanya pengawasan melalui SITS                        (wawancara pada tanggal 28 Desember
+inimenunjukkan bahwa perkembangan teknologi yang                   2021)
+diterapkan oleh Dinas Perhubungan Kota Surabaya                 Dalam penyediaan CCTV dan lampu lalu lintas,
+berkembang dengan pesat. Oleh karena itu, Dinas           SITS Kota Surabaya juga bekerjasama dengan
+Perhubungan Kota Surabaya khususnya tim SITS telah        stakeholders guna menunjang dalam fasilitas yang
+melakukan penyesuaian diri sehingga dapat                 dibutuhkan dalam melakukan pengawasan dan
+menanggapi perubahan lingkungan yang ada.                 pemantauan. Hal ini menunjukkan bahwa SITS Kota
+5. Pengembangan (Development)                             Surabaya telah berupaya untuk melakukan
+      Pengembangan merupakan tanggungjawab                pengembangan.
+organisasi dalam usaha memberikan potensinya dalam
+rangka mempertahankan hidup dan berkembang.               PENUTUP
+Pengembangan memiliki tujuan untuk menciptakan            Simpulan
+produk berdasarkan temuan-temuan percobaan di
+lapangan (Tampongangoy dkk, 2017).                              Berdasarkan penjelasan diatas yang telah ditulis
+      Dalam melakukan pengembangannya, SITS Kota          maka peneliti dapat menyimpulkan bahwa efektivitas
+Surabaya melakukan upaya guna masyarakat juga turut       pengawasan lalu lintas melalui Surabaya Intelligent
+dalam memantau keadaan jalan raya khususnya jalan         Kota Surabaya (SITS) dapat dilihat dengan
+raya yang akan dilewati ke tempat tujuan. SITS Kota       menggunakan lima indikator yaitu produksi, efisiensi,
+Surabaya menyediakan aplikasi yang bernama "SITS          kepuasan, keadaptasian dan pengembangan. Dalam
+CCTV" yang dapat diakses secara bebas melalui
+handphone. Keunggulan dari aplikasi ini adalah sudah
+terdapat 104 titik jalan yang dapat dipantau secara real
+time, aplikasi ini mudah digunakan tanpa login bagi
+pengguna dan tidak berbayar. Namun aplikasi ini
+
+904
+Efektivitas Pengawasan Lalu Lintas...
+
+penelitian yang dilakukan oleh peneliti, SITS Kota     Saran
+Surabaya telah memiliki kurang lebih 600 unit kamera         Berdasarkan pemaparan peneliti mengenai
+yang dibagi menjadi 4 jenis kamera sesuai dengan
+fungsinya. Kamera tersebut telah tersebar diseluruh    simpulan diatas, maka peneliti berupaya untuk
+jalanan Kota Surabaya. Namun dalam penelitian ini      memberikan saran yang dapat digunakan sebagai
+juga ditemukan masalah yang dihadapi oleh SITS Kota    alternatif serta masukan dalam membantu dan
+Surabaya yaitu masih banyaknya kamera yang mati,       menyempurnakan dalam pengawasan dan pemantauan
+gangguan sinyal pada aplikasi dan adanya gangguan      lalu lintas di Kota Surabaya. Berikut saran yang dapat
+akibat cuaca sehingga menyebabkan petugas harus        peneliti berikan, antara lain:
+datang ke lokasi untuk mengidentifikasi langsung.      1. Agar pelaksanaan dalam pengawasan yang
+
+      Dari hasil penelitian dapat disimpulkan bahwa,         dilakukan oleh SITS Kota Surabaya dapat
+indikator produksi dinilai cukup optimal dalam               berjalan dengan lancar maka diperlukan
+memproduksi jumlah dan mutu untuk memenuhi                   koordinasi antar pihak khususnya untuk petugas
+kebutuhan lingkungan. Hal ini ditunjukkan dengan             patroli CCTV demi meningkatkan kualitas dalam
+SITS Kota Surabaya menyediakan berbagai jenis                pengawasan lalu lintas.
+CCTV yang telah tersebar di Kota Surabaya.             2. Dari segi indikator keadaptasian, perlu
+                                                             melakukan sosialisasi kepada masyarakat
+      Pada indikator efisiensi, sumber daya telah            mengenai adanya sosial media dan aplikasi yang
+digunakan dengan baik. Hal ini ditunjukkan dengan            dapat memantau keadaan lalu lintas sehingga
+sumber daya manusia yang sesuai dengan kompetensi            masyarakat lebih mudah atau pengguna jalan
+sebagai operator yang mengawasi dan memantau                 dalam memantau lalu lintas.
+jalanan di Kota Surabaya dan sumber daya anggaran      3. Dari segi indikator pengembangan, perlu adanya
+yang berasal dari APBD yang dimanfaatkan sebagai             pengembangan pada aplikasi SITS CCTV
+penyediaan CCTV dan fasilitas lainnya. Sehingga dari         Surabaya khususnya bagi masyarakat yang bukan
+sisi sumber daya manusia, anggaran dan waktu dapat           pengguna android sehingga semua kalangan
+dikatakan sangat efisien.                                    masyarakat dapat mengakses dengan mudah.
+                                                       4. Pelaksanaan dari pengawasan lalu lintas melalui
+      Pada indikator kepuasan, SITS Kota Surabaya            SITS Kota Surabaya harus dilaksanakan di
+telah memenuhi kebutuhan masyarakat dengan                   seluruh jalanan Kota Surabaya agar setiap
+memberikan informasi terkait kemacetan yang terjadi          masyarakat atau kelompok sasaran merasakan
+secara real time. Kepuasan masyarakat tersebut               manfaat yang diberikan sesuai dengan tujuan
+ditunjukkan dengan adanya tertariknya masyarakat             dilaksanakannya program.
+dalam memantau keadaan lalu lintas melalui sosial      5. Memberikan informasi mengenai kendala yang
+media.                                                       dialami dalam pengawasan, baik itu kendala pada
+                                                             kamera CCTV maupun aplikasi yang tidak bisa
+      Pada indikator keadaptasian, SITS Kota Surabaya        digunakan untuk sementara waktu.
+telah mampu menghadapi perubahan dan perkembang
+untuk kebutuhan masyarakat. Hal ini ditunjukkan dari   Ucapan Terima Kasih
+keadaan sebelum dan sesudah adanya SITS Kota           Peneliti menuturkan banyak terima kasih kepada pihak
+Surabaya. Namun, dalam hal sosialisai dirasa masih     yang membantu dalam proses penulisan artikel ilmiah
+kurang karena masih adanya masyarakat yang belum       sehingga dapat terselesaikan, antara lain:
+mengetahui adanya aplikasi dan cenderung               1. Seluruh dosen Program Studi S1 Ilmu
+meremehkan CCTV yang telah terpasang.
+                                                            Administrasi Negara Universitas Negeri Surabaya.
+      Pada indikator pengembangan, SITS Kota           2. Ibu Dr. Suci Megawati, S.IP., M.Si sebagai dosen
+Surabaya telah mengembangkan aplikasi SITS CCTV
+Kota Surabaya agar memudahkan masyarakat dalam              pembimbing.
+memantau jalan raya. Pengembangan dalam                3. Ibu Indah Prabawati, S.Sos., M.Si sebagai dosen
+penyediaan CCTV juga dibantu oleh stakeholders.
+                                                            penguji.
+      Berdasarkan kesimpulan diatas, pengawasan lalu   4. Bapak Badrudin Kurniawan, S.AP., M.AP sebagai
+lintas melalui Surabaya Intelligent Kota Surabaya
+(SITS) dapat dikatakan cukup efektif. Petugas SITS          dosen penguji
+Kota Surabaya telah menjalankan tugasnya dengan        5. Ibu Harnum Aida selaku Koordiantor SITS Kota
+baik dan sesuai dengan SOP yang berlaku.
+Berkurangnya angka kemacetan di Kota Surabaya dan           Surabaya dan Tim Petugas SITS Kota Surabaya
+respon postif dari masyarakat terkait dengan adanya         sebagai narasumber.
+pengawasan ini.
+
+905
+                Publika. Volume 10 Nomor 3, Tahun 2022, 895-908
+
+6. Keluarga dan teman-teman terdekat yang                        ka/article/view/35605/31666.
+     memberikan dukungan dalam penyelesaian
+     penulisan artikel ilmiah.                                   Megawati, S., Niswah, F., & Oktariyanda, T. A. 2020.
+                                                                        Collaborative Governance as Handling Efforts of
+DAFTAR PUSTAKA                                                          Pandemic Covid-19 in Surabaya City. 473(April),
+                                                                        312­316.
+Arifiyananta, R. D., & Fanida, E. H. 2015. Strategi Dinas               https://doi.org/10.2991/assehr.k.201014.067.
+
+Perhubungan Kota Surabaya Untuk Mengurangi                       Nurrohmi, T. A., & Rosdiana, W. 2013. Evaluasi
+                                                                        Pelaksanaan Kurikulum 2013 Di Kelas IV B UPT
+Kemacetan Jalan Raya Kota Surabaya. Jurnal                              SD Negeri 144 Gresik Kecamatan Driyorejo
+                                                                        Kabupaten Gresik. PUBLIKA : Jurnal Administrasi
+Mahasiswa,                        7.                                    Publik Unesa, 9(1), 1­12.
+
+http://jurnalmahasiswa.unesa.ac.id/index.php/publi
+
+ka/article/download/11930/11042.
+
+Ashari, M., Lengkong, F. D. ., & Dengo, S. 2010.                 Oktariyanda, T. A., & Rahaju, T. 2018. E-government
+       Efektivitas Pelayanan Kesehatan Di Rumah Sakit                   strategy of Surabaya city government through e-rt /
+       Umum Daerah Waisai Kabupaten Raja Ampat                          rw to improve the quality of public service. Journal
+       Provinsi Papua Barat. 7(103), 8-15.                              of Physics: Conference Series, 953(1).
+                                                                        https://doi.org/10.1088/1742-6596/953/1/012161.
+Eprilianto, D. F., Pradana, G. W., & Sari, Y. E. K. 2020.
+       Digital Inovasi Sektor Publik: Efektivitas                Pamudi, P., & Suryani, E. 2018. Penerapan Sistem
+       Kolaborasi Dalam Implementasi Inovasi Dega                       Dinamik dalam Intelligent Transport Systems (ITS)
+       Digital. Jurnal EL-RIYASAH, 10(2), 127.                          untuk Meningkatkan Efektifitas, Efisiensi dan
+       https://doi.org/10.24014/jel.v10i2.8909.                         Safety (Study Kasus Dinas Perhubungan Kota
+                                                                        Surabaya). Jurnal INFORM, 3(1), 19­25.
+Fanida, Eva Hany & Karuniawati, R. D. 2016. Efektivitas                 https://doi.org/10.25139/ojsinf.v3i1.57
+       Sistem Electronic Musyawarah Rencana
+       Pembangunan (E-Musrenbang) Di Kecamatan                   Ramadhan, R., Arifianti, R., & Riswanda, R. 2020.
+       Tambaksari Kota Surabaya. PUBLIKA : Jurnal                       Implementasi E-Government Di Kota Tangerang
+       Administrasi Publik Unesa, 4(4), 1­11.                           Menjadi Smart City (Studi Kasus Aplikasi
+                                                                        Tangerang Live). Responsive, 2(3), 89.
+Firmanda, D. 2019. Efektivitas Surabaya Intelligent                     https://doi.org/10.24198/responsive.v2i3.26083.
+       Transport System Untuk Meningkatkan Kualitas
+       Pelayanan Dinas Perhubungan Kota Surabaya. 1­             Rozari, A. De, & Wibowo, Y. H. 2015. Faktor-faktor
+       44.
+                                                                 Yang Menyebabkan Kemacetan Lalu Lintas di
+
+Florence, S. 2018. Inovasi Pelayanan Publik (Studi               Jalan Utama Kota Surabaya. Jurnal Penelitian
+       tentang Surabaya Intelligent Transport System
+       dalam Meningkatkan Kualitas Pelayanan Publik di           Administrasi  Publik,         1(1),            1­5.
+       Dinas Perhubungan Kota Surabaya). Kebijakan
+       Dan Manajemen Publik, 6(2), 1­8.                          https://doi.org/10.1007/s13398-014-0173-7.2.
+
+Gibson, Ivancevich, & Donnelly. 2000. Organisasi:                Rumegang, G., Kaawoan, J. E., & Sumampouw, I. 2021.
+       Perilaku, Struktur, Proses. Jakarta: Erlangga.                   Efektivitas Musrembang Dalam Perencanaan
+                                                                        Pembangunan Infrastuktur di Desa Ambia
+Good News From Indonesia. 2018. Pantau Kemacetan                        Kecamatan Essang Selatan Kabupaten Talaud.
+       dari Aplikasi SITS CCTV Surabaya.                                Governance, 1(2), 1­11.
+       https://www.goodnewsfromindonesia.id/2018/12/2
+       9/pantau-kemacetan-dari-aplikasi-sits-cctv-               Setiawan, H. R., & Rahaju, T. 2021. Evaluasi Sistem
+       surabaya.                                                        Zonasi Penerimaan Peserta Didik Baru (PPDB)
+                                                                        Tingkat Smp Di Kota Surabaya. PUBLIKA : Jurnal
+                                                                        Administrasi Publik Unesa. 9(4), 491­502.
+
+Haqie, Z. A., Nadiah, R. E., & Ariyani, O. P. 2020.              Seyselis, M., & Pradana, G. W. 2021. Efektivitas Sistem
+       Inovasi Pelayanan Publik Suroboyo Bis Di Kota
+       Surabaya. JPSI (Journal of Public Sector                  Electronic Monitoring Dan Evaluasi (E-Monev) Di
+       Innovations), 5(1), 23­30.
+                                                                 Badan Perencanaan Pembangunan Kota Surabaya.
+Indrajit, R. E. 2016. Konsep Dan Strategi Electronic
+       Government. Electronic Government, 84.                    Publika,      9(1),                  37­48.
+       Https://Www.Academia.edu/30100450/Electronic_
+       Government.                                               https://doi.org/10.26740/publika.v9n1.p37-48.
+
+Ismariana, I., & Prabawati, I. 2020. Evaluasi Program            Sugiyono. 2013. Metode Penelitian Kuantitatif,
+       Pemberian Permakanan Bagi Penyandang                             Kualitatif, R&D. Bandung: Alfabeta.
+       Disabilitas Miskin Di Kelurahan Tembok Dukuh
+       Kecamatan Bubutan Kota Surabaya. PUBLIKA :                Tampongangoy, D. L., Karauwan, N. M., & Laloma, A.
+       Jurnal Administrasi Publik Unesa, 8(4), 1-13.                    2017. Efektivitas Pelaksanaan Program
+       https://jurnalmahasiswa.unesa.ac.id/index.php/publi              Pengembangan UKM Di Dinas Koperasi dan
+                                                                        Usaha Mikro , Kecil dan Menengah Kota Manado.
+                                                                        Jurnal Administrasi Publik, 3(46), 1­11.
+
+                                                                 Tribun Jatim. 2018. 5 Keunggulan SITS Milik Dishub
+
+                                                            906
+       Efektivitas Pengawasan Lalu Lintas...
+
+Surabaya, Bisa Pantau Lalu Lintas hingga Cuaca
+
+Lewat  Smartphone!
+
+https://jatim.tribunnews.com/2018/12/13/5-
+
+keunggulan-sits-milik-dishub-kota-surabaya-bisa-
+
+pantau-lalu-lintas-hingga-cuaca-lewat-smartphone.
+
+William N. Dunn. 2003. Pengantar Analisis Kebijakan
+       Pulblik. Yogyakarta: Gadjah Mada University
+       Press.
+
+                                                     907
+Publika. Volume 10 Nomor 3, Tahun 2022, 895-908
+                             908
+

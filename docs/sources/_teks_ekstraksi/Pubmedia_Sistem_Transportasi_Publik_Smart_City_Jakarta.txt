@@ -1,0 +1,340 @@
+                         Journal of Electrical Engineering Vol: 1, No 4, 2025, Page: 1-10
+
+Narrative Review: Sistem Transportasi Publik Di Smart
+City Jakarta Untuk Mengurangi Kemacetan
+
+Ananda Claudia Herdiana
+Universitas Siliwangi
+
+Abstrak: Pemerintah Kota Jakarta telah mengimplementasikan berbagai inovasi dalam moda transportasi publik untuk
+menarik minat masyarakat serta mengurangi kemacetan dan polusi udara. Jurnal ini membahas bagaimana sistem Smart
+Mobility pada transportasi umum yang mencakup Kereta Komuter Line (KRL), Bus Rapid Transit (BRT), Mass Rapid
+Transit (MRT), dan Light Rail Transit (LRT). Melalui integrasi moda transportasi, sistem pembayaran cashless, dan
+informasi real-time, Jakarta berhasil meningkatkan efisiensi perjalanan dan kenyamanan pengguna. Data dari TomTom
+menunjukkan penurunan signifikan dalam persentase kemacetan, dari 61% pada tahun 2017 menjadi 34% pada tahun
+2021. Selain itu, Jakarta meraih penghargaan Sustainable Transport Award (STA) pada tahun 2021, menandakan
+keberhasilan dalam menciptakan sistem transportasi yang berkelanjutan. Meskipun demikian, penerapan Smart Mobility
+juga menghadapi tantangan, seperti ketergantungan pada teknologi, biaya implementasi yang tinggi, dan rute yang tidak
+dapat di jangkau. Penelitian ini memberikan wawasan tentang kelebihan dan kekurangan sistem Smart Mobility serta
+implikasinya bagi masa depan transportasi publik di Jakarta.
+
+Kata Kunci: Kota Jakarta, Smart Mobility, Transportasi
+
+DOI: https://doi.org/                       Abstract: The Jakarta City Government has implemented various innovations in
+10.47134/jte.v1i4.3402                      public transportation modes to attract public interest and reduce traffic
+*Correspondence: Ananda Claudia             congestion and air pollution. This journal discusses the application of Smart
+Herdiana                                    Mobility systems, which include the Commuter Line (KRL), Bus Rapid Transit
+Email: 247002111008@student.unsil.ac.id     (BRT), Mass Rapid Transit (MRT), and Light Rail Transit (LRT). Through the
+                                            integration of transportation modes, cashless payment systems, and real-time
+Received: 08-12-2024                        information, Jakarta has successfully improved travel efficiency and user
+Accepted: 16-12-2024                        comfort. Data from TomTom indicates a significant decrease in traffic congestion,
+Published: 31-01-2025                       from 61% in 2017 to 34% in 2021. Additionally, Jakarta received the Sustainable
+                                            Transport Award (STA) in 2021, signifying success in creating a sustainable
+Copyright: © 2024 by the authors.           transportation system. However, the implementation of Smart Mobility also
+Submitted for open access publication       faces challenges such as dependence on technology, high implementation costs,
+under the terms and conditions of the       and data privacy issues. This research provides insights into the advantages and
+Creative Commons Attribution (CC BY)        disadvantages of Smart Mobility systems and their implications for the future of
+license                                     public transportation in Jakarta.
+(http://creativecommons.org/licenses/by/
+4.0/).                                      Keywords: Jakarta City, Smart Mobility, Transportation
+
+https://journal.pubmedia.id/index.php/jte/
+Journal of Electrical Engineering Vol: 1, No 4, 2025  2 of 7
+
+Pendahuluan
+
+         Meskipun Indonesia merupakan negara berkembang, negara ini masih mengalami
+perubahan teknologi yang pesat dari tahun ke tahun. Ada banyak diskusi tentang kota
+pintar dalam beberapa tahun terakhir. Kota pintar adalah tempat di mana jaringan dan
+layanan menjadi lebih efisien melalui penggunaan solusi digital untuk kepentingan
+penduduk dan bisnis mereka (Septanto, 2022). Tentunya agar suatu kota bisa disebut smart
+city, harus memenuhi beberapa indikator pencapaian smart city, yaitu:
+a) smart living,
+b) smart environment,
+c) Smart governance,
+d) Smart economic,
+e) Smart mobility,
+f) Smart people.
+
+         Menurut IMD (Institut Manajemen dan Pembangunan), Jakarta menempati
+peringkat 103 dari 142 kota di seluruh dunia yang disurvei dalam IMD Smart City Index
+2024. Menariknya, Jakarta juga masuk dalam daftar 9 besar kota pintar di Asia Tenggara
+dengan peringkat ke-5 (Agni, et al., 2021). Ini merupakan keberhasilan yang sangat baik
+bagi Indonesia. Namun, tantangan terbesar di balik kesuksesan Jakarta adalah kemacetan
+lalu lintas dan polusi udara saat ini. Dari perspektif mobilitas cerdas, kedua permasalahan
+ini memperkenalkan sistem pengelolaan dan pelayanan lalu lintas yang inovatif atau
+berbasis teknologi agar lebih efektif dan efisien sehingga memungkinkan masyarakat untuk
+beralih ke angkutan umum. Kota pintar harus mengelola sistem transportasinya dengan
+baik sesuai standar indikator kota pintar ISO 37122.
+
+         Smart Mobility merupakan konsep pembangunan perkotaan sebagai bagian dari
+Smart City Concept, yaitu konsep pengembangan transportasi berbasis teknologi informasi
+dan komunikasi yang bertujuan untuk mewujudkan pelayanan angkutan umum yang
+mudah, aman, nyaman, cepat dan terjangkau. Teknologi informasi dapat tersedia bagi
+masyarakat. ISO 37122, khususnya Pasal 19, menyatakan bahwa mobilitas cerdas adalah
+elemen kunci kota pintar untuk mencegah masalah seperti kemacetan dan polusi udara
+yang disebabkan oleh transportasi yang tidak dikelola dengan baik. Komponen mobilitas
+cerdas berfungsi untuk meningkatkan infrastruktur transportasi dan memfasilitasi akses
+masyarakat terhadap transportasi umum. Hal ini akan meningkatkan manajemen lalu lintas
+dan meningkatkan minat masyarakat untuk menggunakan transportasi umum (Ayumi,
+2023).
+
+         Meskipun jumlah penduduk meningkat secara signifikan setiap tahunnya, terdapat
+banyak kendala dalam mewujudkan mobilitas cerdas karena infrastruktur yang tidak
+memadai. Untuk memenuhi kebutuhan mobilitas sehari-hari, pemerintah perlu
+memperkenalkan inovasi untuk mengurangi polusi udara dan kemacetan. Salah satu
+kemungkinannya adalah membangun tata kelola kota yang baik dan sistem transportasi
+yang efisien dengan menerapkan aspek mobilitas cerdas. Berikut beberapa indikator dan
+penjelasan mengenai mobilitas cerdas berdasarkan temuan penelitian sebelumnya.
+
+https://journal.pubmedia.id/index.php/jte/
+Journal of Electrical Engineering Vol: 1, No 4, 2025  3 of 7
+
+1. Aksesibilitas dan Konekvitas
+     a. Akses ke stasiun/halte mudah.
+     b. Peralihan antar moda transportasi cukup mudah.
+     c. Transportasi online seperti Gojek dan Grabbike selalu tersedia di sekitar
+         stasiun/halte.
+     d. Ongkos/biaya terjangkau
+     e. Armada berangkat tepat waktu
+     f. Frekuensi kedatangan cukup sering
+
+2. ICT (Information and Communication Technology)
+     a. Informasi rute dan jadwal keberangkatan dan kedatangan dapat dipantau melalui
+         aplikasi.
+     b. Pembelian tiket dan kartu pembayaran cukup mudah dan dapat dibeli di
+         minimarket.
+     c. Sustainability
+         Bahan bakar yang digunakan oleh Bus berbasis Smart City adalah bahan bakar
+         ramah lingkungan.
+
+3. Keamanan dan Kebersihan
+    a. Kenyamanan penumpang
+    b. Kebersihan
+    c. Keamanan
+    Inisiatif tersebut meliputi Mass Rapid Transit (MRT), Light Rail Transit (LRT), dan
+
+peningkatan fasilitas TransJakarta. Tujuan dari penelitian ini adalah untuk menganalisis
+status perkembangan sistem transportasi Jakarta sebagai bagian dari inisiatif kota pintar
+saat ini (Septanto, 2022).
+
+Metode Penelitian
+
+         Metode penelitian yang penulis gunakan adalah studi literatur, studi ini bertujuan
+untuk mengumpulkan dan menganalisis informasi yang telah dibuat oleh jurnal yang telah
+ada. Sumber informasi diperoleh dari berbagai jurnal ilmiah yang membahas topik-topik
+terkait smart city, smart mobility, dan sistem transportasi di kota Jakarta. Dalam proses ini,
+penulis melakukan analisis mendalam terhadap data dan temuan yang ada, serta
+menyusun deskripsi mengenai situasi dan tantangan yang dihadapi oleh kota Jakarta dalam
+menerapkan konsep-konsep tersebut. Kesimpulan dari gabungan berbagai informasi ini
+kemudian disusun menjadi sebuah jurnal yang disajikan dalam tulisan ini.
+
+Hasil dan Pembahasan
+
+         Berdasarkan tinjauan berbagai literatur, Pemerintah Kota Metropolitan Jakarta
+menerapkan berbagai inovasi untuk merangsang minat masyarakat terhadap transportasi
+umum, dengan tujuan mengurangi kemacetan dan polusi udara.
+
+https://journal.pubmedia.id/index.php/jte/
+Journal of Electrical Engineering Vol: 1, No 4, 2025             4 of 7
+
+Sistem transportasi publik di smart city Jakarta
+
+     Moda transportasi umum di Jakarta yang menerapkan sistem Smart
+Mobility mencakup Kereta Komuter Line (KRL), Bus Rapid Transit (BRT), Mass Rapid
+Transit (MRT), dan Light Rail Transit (LRT) (Margaretha & Nugroho, 2023). Semua moda ini
+menggunakan teknologi canggih yang mengintegrasikan tiga aspek utama: teknologi
+elektronik, komputer, dan telekomunikasi. Masing-masing moda memiliki sistem
+operasional yang unik, berikut adalah beberapa inovasi yang diterapkan:
+
+a) Integrasi Moda Transportasi
+
+Pemerintah Jakarta menerapkan Sistem Integrasi Moda Transportasi untuk
+
+mengurangi jumlah mobilitas. Ini dilakukan dengan menghubungkan stasiun MRT,
+
+LRT, dan KRL dengan terminal BRT. Dengan cara ini, penumpang dapat dengan
+
+mudah berpindah antar moda transportasi tanpa kesulitan, sehingga meningkatkan
+
+efisiensi perjalanan
+
+b) Pembayaran Cashless
+
+            Sistem pembayaran cashless atau menggunakan smart card telah
+
+diperkenalkan,          di mana kartu elektronik dikeluarkan oleh bank-bank di
+
+Indonesia dan dompet                        digital yang terintegrasi dengan aplikasi. Ini tidak hanya
+
+memudahkan penumpang dalam melakukan pembayaran tetapi juga mempercepat
+
+arus mobilisasi penumpang, mengurangi waktu tunggu di terminal.
+
+c) Informasi Real Time
+
+Jakarta telah mengimplementasikan sistem informasi real-time untuk transportasi
+
+umum seperti BRT dan MRT. Informasi ini dapat diakses melalui aplikasi masing-
+
+masing moda transportasi, mempermudah penumpang dalam merencanakan
+
+perjalanan mereka dan meningkatkan kesadaran akan penggunaan transportasi
+
+umum berteknologi tinggi (Qurratulayni, et al., 2022).
+
+Dengan penerapan sistem Smart Mobility ini, Jakarta berhasil menurunkan persentase
+
+kemacetan. Menurut data dari TomTom, pada 2017, kemacetan mencapai 61%,
+
+menempatkan Jakarta di peringkat ke-4 kota termacet di dunia. Namun, pada tahun-tahun
+
+berikutnya, terjadi penurunan signifikan:
+
+ 2018: 53% (peringkat ke-7)
+
+ 2019: 53% (konstan)
+
+ 2020: 36% (peringkat ke-31)
+
+ 2021: 34% (peringkat ke-46)
+
+Data ini menunjukkan bahwa inovasi dalam transportasi publik telah memberikan
+
+dampak positif dalam mengatasi masalah kemacetan di Ibu Kota. Penting untuk
+
+mempertahankan momentum ini agar persentase kemacetan terus menurun di tahun-tahun
+
+mendatang.
+
+https://journal.pubmedia.id/index.php/jte/
+Journal of Electrical Engineering Vol: 1, No 4, 2025  5 of 7
+
+Penghargaan Internasional
+         Pada tahun 2021, Jakarta menjadi kota pertama di Asia Tenggara yang
+
+meraih Sustainable Transport Award (STA). Penghargaan ini diberikan dalam konferensi
+transport internasional sebagai pengakuan atas upaya pemerintah dalam mengintegrasikan
+moda transportasi dan menciptakan sistem yang lebih ramah lingkungan.
+
+                    Gambar 1. persentase penurunan kemacetan di kota Jakarta
+
+Penghargaan Internasional
+         Pada tahun 2021, Jakarta menjadi kota pertama di Asia Tenggara yang
+
+meraih Sustainable Transport Award (STA). Penghargaan ini diberikan dalam konferensi
+transport internasional sebagai pengakuan atas upaya pemerintah dalam mengintegrasikan
+moda transportasi dan menciptakan sistem yang lebih ramah lingkungan (Qurratulayni, et
+al., 2022).
+
+Kekurangan dan kelebihan penerapan sistem smart mobility
+     Sistem smart mobility mempunyai kelebihan dan kekurangan yang tentunya perlu di
+
+pertimbangkan. Berikut merupakan kelebihan dari penerapan smart mobility, yaitu :
+a. Mengurangi kemacetan
+
+         Smart dapat mengurangi kemacetan dengan mengoptimalkan jumlah mobilitas dan
+meningkatkan fasilitas pada moda transportasi sehingga masyarakat akan lebih tertarik
+menggunakan transportasi umum dan mengurangi jumlah mobilitas.
+b. Meningkatkan keselamatan
+
+         Dengan mengurangi jumlah mobilitas, tingkat kecelakaan lalu lintas akan menurun.
+c. Efisiensi waktu
+
+         Dengan mengoptimalkan rute perjalanan menggunakan transportasi umum, hal
+tersebut dapat mengurangi waktu tempuh karena dengan menggunakan transportasi
+umum penumpang tidak akan mengalami kemacetan sehingga waktu yang ditempuh
+dapat lebih singkat.
+Sistem smart mobility pada transportasi umum juga memiliki kekurangan, antara lain :
+a) Biaya Impelentasi yang Tinggi
+
+https://journal.pubmedia.id/index.php/jte/
+Journal of Electrical Engineering Vol: 1, No 4, 2025  6 of 7
+
+         Untuk mengembangkan suatu sistem tentunya perlu biaya yang tinggi yang
+     mungkin menjadi pertimbangan bagi pemerintah dan juga masyarakat indonesia.
+b) Terbatasnya rute transportasi
+
+         Transportasi umum seperti KRL, MRT, LRT, dan BRT memiliki keterbatasan dalam
+     jangkauan rute, karena tidak semua daerah di Indonesia terjangkau oleh transportasi
+     tersebut.
+c) Merugikan para pekerja transportasi umum
+
+         Jika suau saat nanti jangkauan KRL, MRT, LRT dan BRT telah luas, tentunya dapat
+     merugikan para pekerja transportasi umum lainnya seperti ojek online, taksi, angkot
+     dan lain - lain.
+
+Kesimpulan
+         Kota Jakarta ditetapkan menjadi smartcity setelah diakui oleh IMD(Institute
+
+Management and Development) pada tahun 2024, namun dibalik itu masalah kemacetan tetap
+menjadi topik hangat di kota Jakarta, untuk mengatasi masalah tersebut smart mobility
+adalah pilihan yang tepat, Smart mobility merupakan konsep yang berkaitan dengan
+pengembangan kota dalam konteks kota pintar, yang berfokus pada transportasi berbasis
+teknologi informasi dan komunikasi. Tujuan dari smart mobility adalah untuk
+meningkatkan layanan transportasi publik agar lebih mudah, aman, nyaman, cepat, dan
+terjangkau bagi masyarakat. Melalui penerapan teknologi informasi, diharapkan pelayanan
+transportasi dapat diakses dengan lebih efisien, memberikan kenyamanan dan keamanan
+bagi pengguna, serta mengurangi biaya yang dikeluarkan.Konsep ini mencakup berbagai
+aspek, termasuk pengurangan mobilitas yang tidak perlu, kebebasan bergerak, dan waktu
+tempuh yang lebih singkat. Smart mobility juga mendorong interaksi cerdas antara warga
+dan lingkungan perkotaan mereka. Dengan demikian, smart mobility menjadi elemen kunci
+dalam menciptakan kota pintar yang berkelanjutan dan responsif terhadap kebutuhan
+masyarakat. Dengan menggunakan berbagai indikator dari sistem smart mobility kota
+jakarta berhasil mengurangi persentasi kemacetan dari 61% menjasi 36 % pada tahun 2020,
+dengan penurunan tersebut diharapkan tingkat kemacetan di kota jakarta dapat berkurang
+setiap tahunnya.
+
+Referensi
+Margaretha, A. M., & Nugroho, A. A. (2023). Transportasi Publik Terintegrasi: Optimalisasi
+
+         Implementasi Smart Mobility di DKI Jakarta. Journal Of Public Policy and Applied
+         Administration, 45-56.
+
+Septanto, H. (2022). Pentingnya implementasi smart mobility sebuah sistem transportasi
+         modern pada smart city. In Prosiding Seminar SeNTIK (Vol. 6, No. 1, pp. 99-104).
+
+Agni, S. N., Djomiy, M. I., Fernando, R., & Apriono, C. (2021). Evaluasi penerapan smart
+         mobility di jakarta. Jurnal Nasional Teknik Elektro Dan Teknologi Informasi. https://doi.
+         org/10.22146/jnteti. v10i3, 1730.
+
+https://journal.pubmedia.id/index.php/jte/
+Journal of Electrical Engineering Vol: 1, No 4, 2025  7 of 7
+
+Sangaji, M. S. J., Noor, P. Z. P., & Navasari, S. (2021). Analisis Kebijakan Jakarta Smart City
+         Menuju Masyarakat Madani. Journal of Government Insight, 1(2), 62-75.
+
+Firmansyah, Y. (2019). Penerapan Konsep Jakarta Smart City Terhadap Peningkatan
+         Pelayanan Publik Provinsi Dki Jakarta Periode 2014-2017. Public Administration
+         Journal, 3(2).
+
+Ayumi, V. (2023). Jakarta Smart City: Development of a Smart Mobility Prediction Model
+         Using GHMM-ARIMA. JSAI (Journal Scientific and Applied Informatics), 6(1), 77-82.
+
+Sofa, Amira. (2023, September 26). Bagaimana Jakarta Menerapkan Smart Mobility?.
+         Jakarta Smart City. https://smartcity.jakarta.go.id/id/blog/bagaimana-jakarta-
+         menerapkan-smart-mobility/
+
+Haryanti, T., Kurniawan, I. A., & Prasetyo, E. (2024). Peran Transportasi Berbasis MRT
+         dalam Mendukung Mobilitas Cerdas Kota Jakarta. Jurnal Ilmiah Wahana
+         Pendidikan, 10(5), 888-898.
+
+Utomo, C. E. W., & Hariadi, M. (2016). Strategi pembangunan smart city dan tantangannya
+         bagi masyarakat kota.
+
+Bagus, I. (2022). Pengembangan Smart Traffic Light Berbasis IOT Dengan Mobile Backend
+         As A Service Sebagai Wujud Smart City Bidang Transportasi. Jurnal Portal Data, 2(10).
+
+Kaledi, S., Dewanti, D., & Herwangi, Y. (2019). Strategi Pengembangan Smart Mobility
+         berbasis Transportasi Publik di Kota Yogyakarta (Studi Kasus: Transjogja). Region:
+         Jurnal Pembangunan Wilayah dan Perencanaan Partisipatif, 14(1), 113-123.
+
+Barunea, P. P., Anastasya, M. P., & Wahyuni, O. S. (2023). Evaluasi Jakarta Kini (Jaki) Dalam
+         Mewujudkan Jakarta Smart City (Kajian Pemanfaatan Layanan JakWifi). Journal of
+         Social Contemplativa, 1(1), 31-44.
+
+Qurrotulayni, N., Purba, D. C., & Tarina, D. D. Y. (2022). Analisis Peran Smart Mobility Di
+         Jakarta Dalam Mewujudkan Kota Dan Komunitas Yang Berkelanjutan. JOUR
+
+https://journal.pubmedia.id/index.php/jte/
+

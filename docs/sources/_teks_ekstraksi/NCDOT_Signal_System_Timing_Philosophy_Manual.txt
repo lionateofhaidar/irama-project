@@ -1,0 +1,2257 @@
+SIGNAL SYSTEM TIMING
+ PHILOSOPHY MANUAL
+
+                VERSION 2.0
+                 FEBRUARY 1, 2017
+A. DOCUMENT INFORMATION
+
+Author:                               NCDOT COST Section
+File name:                            2017-02-01 NCDOT Signal Timing Philosophy Manual.pdf
+Document Name:                        Signal System Timing Philosophy Manual
+Version Number:                       2.0
+Issue Date:                           February 1, 2017
+Users:
+Document process owner:               NCDOT COST Section
+File Location:
+
+B. DISTRIBUTION MATRIX
+
+Copy No.          Recipient                  Copy             E-mail Address
+MASTER
+ORIGINAL
+
+C. TABLE OF APPROVAL / ACCEPTANCE
+
+Responsibility          Name                 Role                 Signature
+
+Author(s):              Contributors         Document Originator
+
+Reviewer:               NCDOT COST Section,  Quality Control
+                        Kimley-Horn
+
+D. REVISION GRID
+
+Revision    Date              Updated by     Purpose of Revision
+Number
+                                             Draft Annotated Outline of document
+1.0         12/25/2015                       Incorporate technical content
+
+2.0         2/1/2017
+Acknowledgments
+
+The following list acknowledges internal contributors and consultants who provided the technical content of this manual.
+
+          Project Manager
+          Jennifer Portanova, PE, NCDOT
+          In coordination with Kimley-Horn and Associates, Inc.
+
+          Individual Contributors
+          Tom Agnew, NCDOT
+          Chang Baek, NCDOT
+          Mohamed Deen, NCDOT
+          Michael Johnson, NCDOT
+          Joe Lohr, NCDOT
+          NCDOT, Traffic Engineering Staff, Divisions 1 ­ 14
+          Spencer Ip, AECOM
+          Sreekanth Nandagiri, PE, AECOM
+          Andrew Klinksiek, PE, HNTB
+          Natasha Simmons, PE, HNTB
+          Kevin Baumann, PE, Kimley-Horn
+          Stacie Phillips, PE, Kimley-Horn
+          Belayneh Mekuria, PE, Mekuria Engineering
+          Steve Haynie, PE, RS&H
+          Dean Harris, PE, Stantec
+          Regina Muncey, PE, Stantec
+
+RESOURCES AND LINKS
+
+      Improving Traffic Signal Management and Operations: A Basic Service Model
+          http://ops.fhwa.dot.gov/publications/fhwahop09055/fhwa_hop_09_055.pdf
+
+      2012 National Traffic Signal Report Card http://www.ite.org/reportcard/TechnicalReport.pdf
+      Traffic Signal Manual http://www.signaltiming.com/The_Signal_Timing_Manual_08082008.pdf
+      NCHRP 409: Traffic Signal Retiming Practices in the US
+
+          http://onlinepubs.trb.org/onlinepubs/nchrp/nchrp_syn_409.pdf
+      NCDOT ITS and Signals Design Manual
+
+          https://connect.ncdot.gov/resources/safety/its%20and%20signals%20resources/its%20and%20signals%20unit%20
+          design%20manual.pdf
+      MUTCD http://mutcd.fhwa.dot.gov/
+      NCHRP 3-90 "Operation of Traffic Signal Systems in Oversaturated Conditions"
+          https://www.nap.edu/catalog/22290/operation-of-traffic-signal-systems-in-oversaturated-conditions-volume-1-
+          practitioner-guidance
+      NCHRP Report 812 "Signal Timing Manual Second Edition"
+          http://onlinepubs.trb.org/onlinepubs/nchrp/nchrp_rpt_812.pdf (144.171.11.50)
+      FHWA-SA-13-027 (July 2013) Signalized Intersections: Informational Guide
+          http://safety.fhwa.dot.gov/intersection/conventional/signalized/fhwasa13027/
+
+NCDOT Signal System Timing Philosophy Manual  Aknowledgments and References
+Introduction
+
+The North Carolina Department of Transportation (NCDOT)
+manages a wide range of transportation resources, including
+pedestrian and bike facilities; arterial, freeway, and interstate
+routes; passenger rail; and ferry operations. Signalized
+arterial routes play a significant role in the performance of
+this comprehensive transportation network. These
+connections integrate the long distance modes on rail and
+freeways with more precise destinations. Some of these
+arterial networks are managed through centralized signal
+systems that span signalized intersections on multiple
+corridors, but an even greater number is managed by
+interconnected coordinated signal systems located on a
+single corridor.
+
+Studies have shown that improving traffic signal coordination
+
+plans is one of the most cost effective uses of transportation
+
+funds, with a consistent benefit-cost ratio of 40:1. Efficiently
+
+coordinating a set of traffic signals within a system with well-
+
+designed coordination plans can reduce travel time delays,
+
+crashes, fuel consumption, and emissions. North Carolina is
+
+fortunate to have a talented pool of expertise both within the
+
+Department and in the private sector that can continually           FIGURE 1. SIGNAL SYSTEM TIMING PROCESS
+optimize these corridors with effective coordination plans. Signal
+
+system timing work in North Carolina has given each of these
+
+professionals unique experiences and skill sets geared towards two high-level goals:
+
+ Balancing and minimizing congestion
+ Promoting smooth flow along a corridor
+
+NCDOT is developing this document as a single repository of signal system timing knowledge integrated with the vision and
+program objectives of the Department. It is envisioned that this will promote information sharing and best practices to
+support consistent delivery of signal timing projects within the state. This documentation of procedures and guidelines is
+intended to help professionals, in both the public and private sectors, to accomplish the following objectives:
+
+      Design appropriately to the prevailing conditions
+      Provide versatile solutions that can accommodate a range of conditions
+      Prioritize competing objectives for the corridor
+
+The development of this manual is intended to be a collaborative effort facilitated by NCDOT's Central Office System Timing
+(COST) Section within Transportation Mobility and Safety. The goal is to continue to involve a wide range of experts from
+across the state and from across both the public and private sector. There are multiple ways to approach signal system
+timing, and this document will capture the most appropriate methods that address the identified operational objectives for
+North Carolina. The Department sees this collaborative approach as a successful means to achieving the vision for
+coordinated signal systems: To minimize stops and delays, within the context of safe operation.
+
+The elements in this manual serve a vast array of purposes, from guiding scope development to providing technical
+guidance. Each of the elements are presented as standalone guidance documents or tools and are grouped into the four
+categories present in Figure 1.
+
+NCDOT Signal System Timing Philosophy Manual                                          Introduction
+Catalog
+
+The Philosophy Manual is a collection of guidelines and tools that comprise the catalog outlined below. This catalog of
+documents is a living library of tools that will be continually revised by the signal timing community as strategies change
+and new technologies are introduced. They are categorized to streamline user access.
+
+Program Management
+
+ Corridor Selection Process
+ Performance Goals
+ Data Needs and Applications
+
+Ti m i n g
+
+ Signal Timing Project Process
+ Context of a Corridor
+ Establishing Operational Objectives
+ Field Visit Protocol
+ Data Collection
+ Final Report Recommendations
+ "High Priority Ped" Tool for Coordinated Phases (Oasis Software)
+ Alternative Timing Plans
+
+As s e s s m e n t
+
+ Standard Practice for Performing Travel Time Runs
+ Cost Benefit Analysis
+
+Monitoring
+
+ Roles and Responsibilities
+ Impacts on a Corridor
+
+Strategic Planning / Long Term Topics
+
+In addition to the topics identified in the catalog, other topics have been identified for long range strategic planning efforts
+
+and will be integrated into future sections of this manual.
+
+      Continuous Data Options
+                o High Resolution Controller Data (HRCD)
+                o Bluetooth
+                o 3rd Party Probe Data
+                o WI-FI
+                o Dedicated Short Range Communications (DSRC)
+                o System Detectors for Annual Performance Analysis
+
+      Historical Documentation
+      Integrated Corridor Management (ICM)
+      Diverging Diamond Interchange (DDI)
+      Emissions Data
+
+NCDOT Signal System Timing Philosophy Manual                       Catalog
+Catalog
+
+UNDER DEVELOPMENT / FUTURE DOCUMENTATION
+
+      Connected and Automated Vehicles (CAV)
+      PEF Evaluation Process
+      Left Turn Phase Reservice
+
+SUPPORTING DOCUMENTS
+
+      Scope of Services ­ Retiming of Existing Closed Loop Signals FY 2017
+
+NCDOT Signal System Timing Philosophy Manual                                Catalog
+PROGRAM MANAGEMENT
+Corridor Selection Process
+
+GOAL
+
+The COST (Central Office Signal Timing) group seeks to select corridors for signal system timing projects that maximize
+NCDOT's return on investment (ROI). Obtaining this goal will be an evolving process and the COST group will work through
+several iterations as it moves towards a more refined ROI approach to selecting corridors.
+
+NCDOT is investigating performance metrics and data sources that enable more accurate assessments of a corridor's
+performance. The chosen performance metrics are closely tied to the value and accuracy of the available data. This
+identification and evaluation approach will be iterative as NCDOT works through a few alternative approaches.
+
+CURRENT PROCESS
+
+Currently, the COST group issues timing projects on a three-year cycle. A system can be timed with greater frequency in
+response to citizen complaints, new developments on the corridor, or known changes in traffic patterns that have degraded
+the performance of the corridor.
+
+Challenges
+
+One observation of the current process is that some of the identified corridors selected for a timing project have limited
+potential to benefit from a new timing plan. The comprehensive scope of a signal system timing project includes evaluation,
+design, and implementation. Often the evaluation phase determines that the performance issues with the corridor are not
+related to the existing timing plan and that capacity or geometric improvements would provide a bigger impact. In addition,
+the evaluation phase is based on travel time runs for the collection of "before" data. Travel time runs only provide data for
+a single day of traffic conditions, creating a small sample size of traffic data. The challenges can be easily summarized in two
+needs:
+
+          Evaluation Approach: NCDOT is working through several pilot projects and parallel assessment efforts to evaluate
+          additional corridor performance metrics. Each of these efforts are focused on defining an approach that supports
+          the ability to provide continuous corridor performance statistics and the identification of corridors that will yield
+          the highest ROI with respect to newly implemented signal timing.
+
+          Data Sources: NCDOT is currently investigating additional data sources that can provide larger data sets to support
+          the assessment and continuous monitoring of a corridor's performance. These data sources are described in more
+          detail within the Continuous Data Options document.
+
+CORRIDOR CATEGORIZATION
+
+In order to optimize the use of resources, the COST Section works closely with Division staff to categorize corridors that
+include coordinated signal systems. NCDOT has initiated a process that will place corridors into one of three categories that
+include typical corridors, critical corridors, and non-critical corridors. Analysis for each corridor will be managed as defined
+below:
+
+          Typical Corridors: Typical corridors experience "normal" growth in traffic patterns and assessments at three year
+          intervals are frequent enough to respond to changes in traffic volumes and traffic patterns. This category will
+          include approximately 80% of the coordinated systems currently in place in North Carolina.
+
+          Critical Corridors: These corridors will be assessed more frequently at an interval of approximately every 18
+          months. The existing traffic conditions or projected conditions due to planned development in the vicinity of the
+          corridor create the need for these evaluations to occur more frequently than the typical 3-year time frame. If the
+
+NCDOT Signal System Timing Philosophy Manual  Corridor Selection Process
+Program Management                                                    Page 1
+Corridor Selection Process
+
+          need for a revised coordination plan is determined before the 3-year cycle has lapsed, funding could be alternated
+          between the COST Section and Division funding sources.
+
+          Non-critical Corridors: These corridors are projected to experience very slow growth in traffic volumes and
+          minimal changes in traffic patterns. They require less frequent assessments and can be evaluated at intervals of
+          possibly 5 to 6 years instead of the typical 3-year interval.
+
+The initial designation of corridors will be established based on available data and the knowledge of the Division and COST
+section of the corridor's history. A baseline will be established and evaluated as additional data is available. Designations for
+a corridor can be modified and the process for designating and comparing against baseline values will be refined as the
+process moves forward.
+
+Existing systems can require revised coordination plans in response to a range of needs. These include a change in traffic
+patterns, increases in volumes, and complaints from the public. If a corridor is selected as needing analysis and retiming,
+these needs and the anticipated outcomes should be documented. In response to the quantity of systems that require
+analysis, the COST section will supplement staffing resources using engineering consultants.
+
+Each year the corridors selected for retiming will be prioritized by the Division based on their needs. Projects will be
+completed based on available funding from a variety of funding sources, including Safety, Maintenance and/or
+Construction. Projects may be completed in the following fiscal year if funding is limited.
+
+NEXT STEPS
+
+Each of the current investigative efforts are coordinated to support corridor selection based on the ROI. NCDOT is
+investigating potential alternatives for accessing before and after performance data. The Department also is looking at what
+metrics should be evaluated with respect to the operational objectives identified for a corridor. All of these efforts are
+anticipated to evolve into a process that allows the NCDOT to select projects that yield the highest return on investment
+with respect to the implementation of new signal timing plans.
+
+NCDOT Signal System Timing Philosophy Manual  Corridor Selection Process
+Program Management                                                    Page 2
+Performance Goals
+
+CURRENT APPROACH
+
+The COST Section currently is evaluated on a measured improvement of before and after conditions as calculated through
+Tru-Traffic travel time runs. The metrics are presented in Table 1. These values are defined based on a national report for
+statistics to measure the benefit of signal system timing work: NCHRP 409: Traffic Signal Retiming Practices in the US
+(http://onlinepubs.trb.org/onlinepubs/nchrp/nchrp_syn_409.pdf).
+
+TABLE 1. PERFORMANCE GOALS
+
+New Corridors                                 40% Reduction in Travel Times
+Retimed Corridors                             20% Reduction in Travel Times
+
+This approach to measuring the outcome presents a few challenges. NCDOT's current process for selecting signal system
+timing projects is not based on an assessment of the corridor's performance, or the "before" conditions (see "Corridor
+Selection Process" document in this manual). Therefore, once a project has been identified and the corridor assessed, it is
+feasible to determine that minimal or no improvements can be realized through signal system retiming. To offset this, the
+COST Section is evaluated on an average of all the corridors that are retimed within a year.
+
+Additional challenges associated with using travel time reduction as a performance goal include:
+
+      Not effective measures for all operational objectives, like special events, incident management, or ramp queuing
+          on interstate.
+
+      Difficult to perform in saturated conditions, which account for >20% of the projects
+      Does not address non-arterial situations
+      Small sample size with the number of runs
+      Difficult to get runs when there are short timing plans
+      Easy to manipulate to achieve higher travel time savings
+      No standard for how runs are done (i.e. beginning of queue, back of queue, etc.)
+      Does not consider volume
+      Requires a lot of manpower time to conduct
+
+This current system prohibits the same measure of effectiveness to be applied to a single corridor. For this reason, PEFs are
+not held accountable to the same threshold of percent improvement.
+
+FUTURE UPDATES
+
+In alignment with the corridor selection process, NCDOT is looking to identify corridors that will yield the highest return on
+investment in response to the implementation of new signal system timing plans. In addition, the identification of
+operational objectives associated with each corridor selected will be critical to marrying the measure of effectiveness with
+the defined goals of the signal system timing project.
+
+Future developments in continuous data access, such as high resolution data or probe data, and centralized software for
+constant monitoring also may expand the realm of achievable performance goals. Additionally, NCDOT is looking to
+establish performance goals that relate more directly to emissions and fuel consumption.
+
+The results of redefined performance goals will feed into how private engineering firms (PEFs) are evaluated.
+
+NCDOT Signal System Timing Philosophy Manual                                 Performance Goals
+Program Management
+Data Needs and Applications
+
+                                              This document defines the signal system timing data needs and the
+                                              corresponding applications. The data is grouped into three categories that align
+                                              with the signal system timing process.
+
+                                              TIMING ­ Designing of signal system timing plans. Data needs: turning
+                                              movement counts, design speed, geometry, and other field collected data
+                                              (saturation flow rate, lane utilization, distances between the intersections, loss
+                                              time, mid-block access, surrounding land-use patterns).
+
+                                              ASSESSMENT ­ Evaluation of the quality of the timing effort by comparing
+                                              before and after data of the corridor. Data needs: travel times, split monitor,
+                                              volume and occupancy, delay on side streets, cycle length (observation)
+
+                                                     MONITORING ­ Evaluation of the system, over time, to determine at what point
+                                                     "tweaking" of the system is no longer sufficient and a dedicated timing effort is
+needed. There currently is no criterion in place defining the threshold point for timing. Data needs: travel times, split
+monitor (determine efficiency of the timing plans splits), vehicle speeds (to compare to design speed), and system detector
+data (Volume and Occupancy).
+
+Data Source Data Produced Used for                        Advantages                       Disadvantages/Limitations
+
+Traffic Counts Traffic Volumes Timing                     Current source of data for Only 1 typical day of data (normally
+
+               Turning                                    retiming                         excludes Mondays, Fridays, rainy days
+
+               Movement                                   Required for capacity            & incidents) Only a snap shot in time
+
+               Counts,                                    analysis
+
+               Classifications
+
+Travel Time    Travel times,                  Timing      Known method                     Labor intensive
+
+Runs           Delay, Stops, LOS, Assessment              Could be used for                Limited data points
+
+(Tru-Traffic)  speed, etc.                                monitoring                       Does not include traffic volumes
+
+                                                          Current source of data for
+
+                                                          assessment
+
+Controller and Split Monitor                  Assessment  Can be collected with            Labor intensive (without remote
+
+System         Gap-outs/Max-out Monitoring                current equipment                access)
+
+Detectors      Through volumes                            Collected on a limited           Currently used informally for
+
+               & occupancy                                basis to establish baseline assessment
+
+                                                          for monitoring                   Doesn't account for side street
+
+                                                          Helps with determining           volumes
+
+                                                          the # of timing plans            Data aggregated in intervals of
+
+                                                          needed, and event                specified sampling periods (typically
+
+                                                          scheduling                       15min intervals)
+
+Blue-tooth     Travel times                   Assessment  More data points than            Do not own devices
+
+               Speeds                         Monitoring  travel runs                      Could be used for ICM assessment
+
+                                                          Not as labor intensive           Not currently used, investigating
+
+                                                          Possible use for ICM*
+
+High-Resolution Arrival on green Assessment               Time-stamped data                Would require changing performance
+
+Data           Gap outs                       Monitoring  Correlates speed, time,          measure to "arrival on green" vs.
+
+               Cycle failures                             volume                           travel time
+
+               Volume &                                   Some of the data may be Can be expensive
+
+               Occupancy                                  useful for design                Not currently used
+
+Vehicle Probe Speed                           Monitoring (?) May have a use with sub- Lower probes on low volume roads
+
+data                                                      TMC codes on high volume Not currently being used in this way
+
+                                                          arterials                        Not currently used, investigating
+
+                                                          Possible use for ICM*
+
+*Integrated Corridor Management (ICM) Assessment may include the evaluation of both arterial and interstate traffic.
+
+ Value of having interstate traffic diverted to arterials versus being slowed or stopped due to an incident
+
+ Efficiency of the arterial when traffic is diverted due to an incident on the interstate
+
+NCDOT Signal System Timing Philosophy Manual                                                                Data Needs and Applications
+Program Management
+TIMING
+Project Process
+
+NCDOT Signal System Timing Philosophy Manual  Project Process
+Timing
+Context of a Corridor
+
+Identification of a corridor's context provides the background needed to select the appropriate operational objectives. It is
+encouraged that stakeholders discuss the various characteristics, conditions, and preferences that define a corridor's
+context to foster a consistent understanding of the existing conditions.
+
+Characteristics & Conditions                        Design Considerations
+Grid or arterial
+Number of lanes                                     Consider cross-coordination for grid network.
+Two-way or one-way streets
+On-street parking                                   The number of lanes can impact the lane usage. More lanes often
+Closely spaced intersections                        balance the distribution or traffic more equally.
+
+Land use (retail, office, residential, etc.)        Offset considerations only apply to two-way streets.
+
+Regional location                                   Can drastically reduce free flow speed.
+
+Interstate performance will take priority over the  Want to minimize drivers stopping at consecutive closely spaced
+arterial.                                           intersections.
+Railroad preemption will take priority over the
+corridor.                                           Long queues can block upstream intersections.
+Undersaturated, saturated, or oversaturated
+Traffic balanced or directional                     Determines which time-of-day plans may be necessary based on
+Unnecessary delay during light traffic or at night  varying traffic impacts of different land uses (e.g., factory shift
+Pedestrian/bicyclist activity                       schedules for industrial areas, holiday schedules for retail areas,
+                                                    or school schedules).
+Transit considerations
+                                                    Different considerations for coastal or mountainous regions.
+Input from the Division
+Citizen Complaints                                  Different considerations for urban or rural areas.
+
+                                                    Different considerations for municipalities.
+
+                                                    Consideration for freeway ramps along the corridor to determine
+                                                    if queues on the ramps can potentially back-up and impact the
+                                                    freeway.
+
+                                                    Consideration for side street delay amount during recovery of the
+                                                    corridor after the railroad preemption has ended.
+
+                                                    Can impact the operational objective chosen.
+
+                                                    Consider if traffic has peak period fluctuations that could affect
+                                                    the time of day plans and give priority to the heavier direction.
+
+                                                    Consider removing coordination from corridor and allowing to
+                                                    operate in free run conditions.
+
+                                                    Consideration for bicycle lanes as well as crosswalk splits. Heavier
+                                                    pedestrian and bike traffic can also impact free flow speeds on
+                                                    the corridor.
+
+                                                    Consider the number of stops along the corridor and whether
+                                                    there is signal pre-emption. Transit stops that do not include their
+                                                    own pull-out can impact the free flow travel speed.
+
+                                                    Considers the different Division goals.
+
+                                                    Can impact the goals or operational objectives.
+
+NCDOT Signal System Timing Philosophy Manual        Context of a Corridor
+Timing
+Establishing Operational Objectives
+
+Each stakeholder involved in delivering the signal system timing plan should be involved in the identification of the
+operational objectives. Identification of the appropriate operational objectives helps to address the specific needs of the
+corridor as opposed to a blanket approach to implementing signal system timing plans. Once the objectives have been
+identified, subsequent strategies and tactics can be identified for the signal timing plan development to accomplish the
+noted operational objective(s) chosen for the corridor.
+
+IDENTIFY OPERATIONAL OBJECTIVES
+
+Operational Objectives: short term quantitative performance goals that align with the
+Department's vision.
+
+An assessment of the congestion conditions on the corridor can influence the selection of operational objectives. A corridor
+can perform in undersaturated, saturated, and oversaturated conditions at different times of the day, but the prevailing
+conditions during the peak period, or the time of day that warrants a revised signal system timing plan, should take
+precedence while selecting. Figure 1 is intended to provide the user some guidance on which operational objectives are
+most appropriate based on the saturation condition for a corridor.
+
+The Division will work with the designer, and others as warranted, to identify the needs of a corridor. These needs can be
+attributed to many driving factors such as citizen complaints or visual observations of the corridor performance. The needs
+are not necessarily apples-to-apples to the defined operational objectives, but identifying these needs during the meeting
+with the Division can support the identification of the desired operational objectives.
+
+Table 1 presents a list of operational objectives and ways the objectives are most commonly used.
+
+TABLE 1. OPERATIONAL OBJECTIVES
+
+Operational Objective       Ways Operational Objectives Are Used
+Improve Efficiency of Free  Modify an undersaturated individual traffic signal's timing parameters to minimize delay.
+Run Ops
+Regulate Speeds/Traffic     Restrain vehicles to a desired speed. Examples: Set the progression speed at or below the
+Calming                     speed limit. Set offsets to cause planned stops restraining buildup of platoon speeds.
+Minimize Cycle Failures     Modify to avoid vehicles not being served due to inadvertent gap-outs.
+Improve Travel              Modification such that the average after travel time run is faster than the average before
+Times/Minimize Delay        travel time run from one end of the corridor to the other end of the corridor.
+Maximize Throughput         Modification to allow the maximum number of vehicles to traverse the corridor.
+Improve Progression         Minimize number of stops.
+Improve Safety              Modify corridor/network to reduce vehicle on vehicle, or vehicle on pedestrian/bicycle
+                            accidents.
+Reduce Citizen Complaints   Address issues raised by the public or politicians.
+Reduce Congestion           Minimize the accumulation of vehicles in a specific area, or to minimize the time length of
+                            the accumulation.
+Minimize Environmental      Maximize fuel economy, minimize fuel consumption, or minimize pollution (carbon
+Impacts                     monoxide, mono-nitrogen oxides, and volatile organic compounds) emissions.
+
+NCDOT Signal System Timing Philosophy Manual  Establishing Operational Objectives
+Timing                                                                           Page 1
+Establishing Operational Objectives
+
+Operational Objective  Ways Operational Objectives Are Used
+Manage Planned Events
+                       Develop signal system timing plans to accommodate planned events such as concerts and
+Manage Unplanned       sports events.
+Incidents
+                       Develop signal system timing plans that can accommodate anticipated oversaturated
+Queue Management       traffic caused by an incident within the corridor/network or nearby. Example: Given an
+                       arterial that parallels an Interstate, develop a signal system timing plan for the arterial
+                       that accommodates traffic diverting from an accident on the Interstate.
+
+                       Modifications to avoid left turn bay spillovers into the through lanes or vehicle queues
+                       between closely spaced intersections that reduce the effective green of the through
+                       movement.
+
+NCDOT Signal System Timing Philosophy Manual  Establishing Operational Objectives
+Timing                                                                           Page 2
+Establishing Operational Objectives
+
+FIGURE 1. SELECTION OF OBJECTIVES, STRATEGIES, AND TACTICS  Establishing Operational Objectives
+                                                                                               Page 3
+NCDOT Signal System Timing Philosophy Manual
+Timing
+Establishing Operational Objectives
+
+IDENTIFY STRATEGIES
+
+Strategy: a high-level method or plan of action to achieve one or more objectives
+
+Refer to Figure 1 to select strategies that correspond with identified operational objectives. Table 2 presents descriptions of
+the strategies listed in Figure 1 and the associated actions.
+
+TABLE 2. STRATEGIES
+
+Strategies              Action Plan
+
+Meter Traffic Entering  Develop a timing plan (cycle length, splits, offsets, phase order) for an oversaturated
+Storage Areas           corridor/network that restricts vehicles entering a short turn bay or short link between
+                        closely spaced intersections and queue the vehicles where there is adequate storage.
+
+Manage Queues           Develop a timing plan for an oversaturated corridor/network that avoids turn bay spillback
+                        into through lanes, approach spillback to upstream intersections, and through lane queues
+                        blocking entry into turn bays.
+
+Traffic Responsive      Develop and threshold settings to automatically change signal system timing plans based on
+Operation               traffic volume, occupancy and directionality.
+
+Integrated Corridor     Develop a group of signal system timing plans for manual implementation.
+Management
+
+Flush Plan              Develop a signal system timing plan designed to maximize vehicle throughput for a preferred
+                        movement or direction.
+
+Provide Left-turn       Modify a corridor/network that facilitates either 1) a high volume side-street left movement
+Progression             becoming a platoon that travels along a corridor with a minimum of stops/delays at
+                        intersections, or 2) minimum delay for left turning vehicles from a platoon with a high
+                        proportion of left-turning vehicles to achieve the objective of managing planned events
+
+Progress Certain Side   Modify the network to allow vehicle platoons to travel along a the side street(s) with a
+Streets                 minimum of stops/delays at intersections to achieve the objective of managing planned
+                        events.
+
+Reduce Emissions        Develop a timing plan with the primary goal of minimizing tailpipe emissions to achieve the
+                        objective of minimizing environmental impacts.
+
+Reduce Fuel             Develop a timing plan with the primary goal of minimizing fuel consumption to achieve the
+Consumption             objective of minimizing environmental impacts.
+
+Reduce Stops            Develop a timing plan for a saturated or oversaturated corridor/network to minimize the
+                        number of stops on the mainline or for the entire network.
+
+Increase Percent Arrival Develop a timing plan for a saturated or oversaturated corridor/network that minimizes
+
+on Green                mainline vehicle platoons arriving at intersections on red indication.
+
+Balance Queues          Develop a timing plan for a saturated or oversaturated corridor/network so that the queues
+                        on all approaches are generally the same length with the aim of equitably distributing queues
+                        and sharing delay.
+
+NCDOT Signal System Timing Philosophy Manual  Establishing Operational Objectives
+Timing                                                                           Page 4
+Establishing Operational Objectives
+
+Strategies               Action Plan
+Optimize Mainline
+Progression              Develop a timing plan for an undersaturated or saturated corridor/network that allows
+                         vehicle platoons to travel along a corridor in the primary direction of traffic flow with a
+Bi-directional           minimum of stops/delays at intersections.
+Progression
+                         Develop a timing plan for an undersaturated or saturated corridor that allows vehicle
+Transit Progression      platoons to travel along a corridor in both directions with a minimum of stops/delays at
+                         intersections.
+Pedestrian Progression
+                         Use of equipment, software and/or timing plans that allow busses priority travel along a
+Bicycle progression      corridor with a minimum of stops/delays at intersections.
+
+Maximize Mainline        Develop a timing plan that allow pedestrians to walk at 3.5 feet per second along the
+Capacity                 corridor/network with a minimum of waiting at the intersections.
+Reduce Vehicle Delays
+                         Use of equipment or development of timing plans that allow bicyclists to ride along the
+Reduce Transit Delay     corridor/network at an average bicycle speed with a minimum of delay at the intersections.
+
+Reduce Pedestrian        Develop a timing plan for an undersaturated or saturated corridor that provides as much
+Delay                    green time as possible to the mainline through movements.
+Reduce Bike Delay
+                         Develop a timing plan for an undersaturated or saturated corridor/network to minimize the
+Reduce Max Outs (free    amount of time vehicles are stopped or traveling below the speed limit.
+run)
+Reduce Cycle and Split   Use of equipment, software and/or timing plans that allow busses to minimize the amount of
+Failures                 time they are stopped or traveling below the speed limit.
+Reduce Progression
+("cut through traffic")  Use of equipment or development of timing plans on a corridor/network to minimize
+Fine-tune Individual     pedestrian wait times at intersections.
+Signal Parameters
+                         Use of equipment or development of timing plans on a corridor/network that minimize
+                         bicyclists' wait times at intersections.
+
+                         Provide adequate Max Green values for individual traffic signals during undersaturated
+                         actuated-uncoordinated operation.
+
+                         Develop a timing plan for an undersaturated corridor/network to ensure all vehicles are
+                         served each cycle.
+
+                         Develop a timing plan for an undersaturated corridor/network that limits vehicle platoon
+                         progression speed to the speed limit or below.
+
+                         Modify individual traffic signal timing parameters such as Min Green, gap/extension, Max
+                         Green.
+
+NCDOT Signal System Timing Philosophy Manual  Establishing Operational Objectives
+Timing                                                                           Page 5
+Establishing Operational Objectives
+
+IDENTIFY TACTICS
+
+Tactic: an action implemented as one or more specific tasks to achieve a result (strategy). One
+or more tactics may be available to achieve a specific strategy.
+
+Refer to Figure 1 to select tactics that correspond with identified strategies. Each tactic also has a rating on a scale of  to
+, with  being the most effective tactic for achieving the corresponding strategy. Table 3 presents descriptions of the
+tactics listed in Figure 1.
+
+TABLE 3. TACTICS
+
+Tactics                   Actions
+
+Optimize Cycle Lengths Chosen to best achieve the desired strategy such as minimum corridor or network delay.
+
+Long Cycle Length         Chosen that is longer than optimized to best achieve the desired strategy such as maximum
+                          arterial throughput of vehicles along a corridor.
+
+Short Cycle Length        Chosen that is shorter than optimized to best achieve the desired strategy such as limiting
+                          the traffic into a short link (metering traffic).
+
+Half/Double Cycle         Allows phases to be serviced twice as often as the majority of the other intersections in the
+Length                    coordinated system.
+
+Alternate Cycles Length   A coordinated system that neither matches the system's common cycle length, half cycle, or
+                          double cycle. Example: a cycle length that is a 1.5 multiple of the coordinated system's
+                          common cycle length.
+
+Resonant Cycle Length     Allows bi-directional progression through evenly spaced intersections on a coordinated
+                          arterial.
+
+Determine Phase           Changing the order of left turn phases (compared with the opposing thru phase) to best
+Sequence                  accommodate platoons of traffic traveling through the intersection along a corridor.
+
+         Lead-Lead Left-  This most commonly used phase sequence has both left turn phases displaying left arrows
+         Turn Phase       before the respective opposing thru movement phase displays a green ball.
+         Sequence.        Example: Phase 1 (westbound left) leads Phase 2 (eastbound thru), and Phase 5 (eastbound
+                          left) leads Phase 6 (westbound thru) on the major roadway.
+
+         Lag-Lag Left-    This phase sequence has both left turn phases displaying left arrows after the respective
+         Turn Phase       opposing thru movement phase displays a green ball. This is the opposite of Lead-Lead and
+         Sequence.        can be useful at an interchange or a pair of closely spaced intersections. Example: Phase 1
+                          (westbound left) lags Phase 2 (eastbound thru), and Phase 5 (eastbound left) lags Phase 6
+                          (westbound thru) on the major roadway.
+
+         Lead-Lag Left-   This phase sequence has one left turn phase display its arrow before the opposing through
+         Turn Phase       movement phase displays a green ball, while the other left turn phase displays its arrow after
+         Sequence         its opposing through movement phase displays a green ball. The Lead-Lag sequence is usually
+                          used to accommodate through movement progression along the major roadway. Example:
+                          Phase 1 (westbound left) leads Phase 2 (eastbound thru), and Phase 5 (eastbound left) lags
+                          Phase 6 (westbound thru) on the major roadway.
+
+NCDOT Signal System Timing Philosophy Manual  Establishing Operational Objectives
+Timing                                                                           Page 6
+Establishing Operational Objectives
+
+Tactics               Actions
+Phase Reservice
+                      A controller function that allows a left turn phase to operate before and after its opposing
+Optimize Offsets      through phase. Example: Use phase reservice for a left turn phase where the average queue
+Optimize Max Green    exceeds the turn bay length.
+Time
+                      Time relationships between traffic signals (offsets) in a network to best achieve the desired
+Adjust Max and        strategy such as maximum arterial bandwidth (green band)
+Extension Times
+Optimize Gap Time     A phase green time chosen for actuated-uncoordinated operation that provides enough time
+Optimize Ped/Walk     to serve the average traffic demand plus the majority of fluctuations above average traffic. A
+Time                  general rule-of-thumb is the phase's traffic volume divided by the sum of the critical
+                      movements' volumes multiplied by an assumed cycle length multiplied by 1.25 or 1.5. See
+Minimize Number of    Critical Movement Analysis/Quick Estimation Method in Chapter 10 of the HCM 2000 for
+Transitions           more detail.
+
+Minimize Duration of  Adjust max green and extension during actuated-uncoordinated operation to minimize green
+Transitions           time for movement for light traffic. Extension is also known as passage time, vehicle
+                      intervals, gap, passage gap and unit extension.
+Determine Permissive
+Mode                  Adjust the gap time so that cycle failures do not occur due to long vehicle start up times.
+                      Example: Trucks require more time to start moving from a stop than other vehicles.
+
+                      The Ped/Walk time is usually 7 seconds but may be reduced to a minimum of 4 seconds for
+                      intersections with low pedestrian volumes, or it may need to be increased to 10 seconds, 15
+                      seconds or higher at intersections with high pedestrian volumes, in school zones or in areas
+                      with elderly pedestrians. Note: A change in Walk time may affect the calculation of the
+                      flashing don't walk (FDW) time. Reference the current version of the MUTCD and consult
+                      with NCDOT prior to modifying the Ped/Walk time.
+
+                      Develop a signal timing plan that minimizes the potential number of transitions that can
+                      occur. Minimizing the number of transitions allows the corridor to perform the defined signal
+                      timing plan for longer periods and avoids the time spent in transition. Transitions can
+                      introduce the most ineffective period of signal timing on a corridor.
+
+                      Transition is the process of entering into a coordinated timing plan or changing between two
+                      plans. Timing plans that are flexible enough to accommodate traffic fluctuations can operate
+                      longer during the day, thus minimizing transitions between timing plans. Minimizing the
+                      actual transition time is determined by the controller's specified transition method.
+                      Controllers generally have several methods for transitioning. The fastest method may be
+                      determined by reading the controller manual, talking with a signal technician familiar with
+                      the specific type of controller, or through experimentation.
+
+                      Periods in the cycle that designate when the next phase that is allowed to be served. Auto ­
+                      periods calculated automatically; Open ­ periods open for all phases when the coordinated
+                      phase ends; Manual ­ periods for all phases entered manually.
+
+NCDOT Signal System Timing Philosophy Manual  Establishing Operational Objectives
+Timing                                                                           Page 7
+Establishing Operational Objectives
+
+DETERMINE THE SATURATION CONDITION OF THE CORRIDOR
+
+Determining whether a corridor has undersaturated, saturated, or oversaturated traffic conditions is a combination of
+observing the context and evaluating the operational performance.
+
+Table 4 includes field observations that should be considered.
+
+TABLE 4. FIELD SYMPTOMS
+
+"Symptoms" in the Field (Traffic)             Description
+Cycle failure
+Residual queues                                Traffic queued at the beginning of green does not clear in one cycle
+Turn Bay Spillback                             Queues that continue to build each cycle due to cycle failures
+Blocking                                       Queues from a turn bay spilling back into a through lane
+Approach Spillback                             Through movement queues blocking entrance to turn bays
+Starvation                                     Queue from one intersection extends to an upstream intersection
+                                               Demand from an upstream intersection cannot reach downstream
+Intersection Blocking                          intersection to use available capacity
+                                               Traffic on one approach queues through an intersection blocking traffic
+                                               from another approach
+
+Degree of Saturation
+
+Undersaturated Traffic Conditions
+Undersaturated conditions is the `under capacity' of the network and intersections. Volume-to-capacity (v/c) ratios are less
+than 0.85.
+
+Conditions typically are stable and relatively predictable, but can have the occasional cycle failure of movements.
+Additionally, the presence of congestion may not indicate that a corridor or individual signal is oversaturated. The corridor
+or signal may be undersaturated and the congestion could be the result of poor signal system timing parameters such as an
+excessively long cycle length, insufficient split, or bad offsets.
+
+Saturated Traffic Conditions
+Saturated conditions are when the network and intersection are `at capacity.' There is a clear balance of green time versus
+queue buildup.
+
+Oversaturated Traffic Conditions
+Oversaturated conditions are `exceeding capacity' along the network or intersections. V/C ratio is greater than 1.0.
+
+Conditions are unstable with excessive delays and expected queue buildup. The severity and impacts of the oversaturation
+also are critical to note when developing timing plans to mitigate it. For example, oversaturation at an interchange between
+an arterial and freeway that causes ramp traffic to spillback from the arterial onto the freeway should be treated differently
+from oversaturation on one approach to an intersection with ample queue storage available.
+
+NCDOT Signal System Timing Philosophy Manual  Establishing Operational Objectives
+Timing                                                                           Page 8
+Establishing Operational Objectives
+
+Considerations for Oversaturation
+
+It is important to define the corridor including the scale of the impacts of oversaturation. The following items should be
+considered and noted prior to retiming the signal system.
+
+      The number of affected intersection movements/ approaches
+      The number of affected intersections
+      The number of affected routes
+      The direction(s) of travel
+      Duration and time periods of oversaturation
+      Frequency of oversaturation (recurrent or intermittent)
+
+Additionally, certain scenarios are likely to impact or drive the oversaturation of the corridor. The following potential causal
+factors also should be noted.
+
+      Planned special events
+      Anomalous events
+
+                o Crashes
+                o Weather
+                o Work zones
+      Conflicting modes of travel
+      Traffic signal system operations
+      Geometrics
+      Traffic demand
+
+NCDOT Signal System Timing Philosophy Manual  Establishing Operational Objectives
+Timing                                                                           Page 9
+Field Visit Protocol
+
+When performing field visits for signal system timing work, everyone should follow protocol specified in the project scope.
+Additional best practices are listed below.
+
+      Coordination
+                o Contact the Division prior to any field visit. If the signal is part of a construction project, coordinate with
+                     the contractor through the resident engineer.
+
+      Safety (Elements covered in the safety guidelines include: safety vest, moving traffic, multiple people, etc.)
+                o Follow all safety guidelines as outlined in the:
+                            North Carolina Department of Transportation (NCDOT) Standard Specifications for Roads and
+                                Structures (2012 version).
+                            NCDOT Workplace Safety Manual, specially SOP#11B-87 and 11B-881.
+                            NCDOT Safety Policy and Procedure Manual (framework for the NCDOT Occupational Safety and
+                                Health (OSH))2.
+                            2009 version of the Manual of Uniformed Traffic Control Devices (MUTCD)3.
+
+      Fieldwork
+                o Reference all relevant notes from Division meetings.
+                o Document any timing changes in the log book in the cabinet.
+                o Do not upload signal timing plans after hours when technicians are not available.
+
+1 https://connect.ncdot.gov/resources/documents/workplace%20safety%20manual.pdf
+2 https://connect.ncdot.gov/resources/Documents/Safety%20Policy%20and%20Procedure%20Manual.pdf
+3 http://mutcd.fhwa.dot.gov/
+
+NCDOT Signal System Timing Philosophy Manual                                                    Field Visit Protocol
+Timing
+Data Collection
+
+Prior to the initial field visit, it is important to assemble certain key documents to aid in data collection. Once in the field,
+most notes are made on the existing documentation, while others may be noted as necessary within accompanying notes.
+
+There is a certain amount of data collection that can occur before performing the initial field visit. This includes assembling
+the following, as appropriate for the corridor.
+
+      Google Maps
+      Signal Plans
+      Existing Timing Plans
+      COST Database
+      Traffic Counts
+      Split Monitor Data (in lieu of traffic counts)
+      System Detectors Volumes
+      Contact Traffic Generators
+      Citizen Complaints
+
+During the initial field visit, the data assembled above should be referenced and integrated with the following field data
+collection that also is most appropriate for the corridor.
+
+      Upload controller data if communication cannot be established remotely
+      Field Observations
+
+                o Verify critical intersections
+                o Observe traffic patterns to identify any "surprises" that may not have been identified in the traffic data
+                o Verify intersection configuration matches signal design plans
+                o Verify the distance between intersections
+                o Identify mid-block access
+                o Verify Signal Plans have been implemented and match existing conditions
+                o Identify any equipment or communication issues that need addressing in the field before design
+      Identify Controlling Intersections
+      Identify lane utilization
+      Determine which intersections to count
+                o Identify turning movement counts
+      Stop Watch Timing (in lieu of traffic counts)
+      Measure Speed (needed for Synchro)
+      Measure Saturation Flow (needed for Synchro)
+      Meet with Division personnel (training or technical issues)
+
+NCDOT Signal System Timing Philosophy Manual  Data Collection
+Timing
+Final Report Recommendations
+
+As part of the final report, there often is a recommendations section that can be easily extracted for sharing with other
+individuals and operating units. The recommendations may include feedback on items that are affecting the corridor and
+signal timing performance such as geometric changes, broken loops, equipment failures, or even the need for additional
+timing plans. The documentation for the recommendations should be organized as follows.
+
+      Recommendations should be documented in paragraph form.
+      The recommendations section of the report should include a checklist with added details as needed (i.e. develop
+
+          standard check list form to be used with report, with room to add extra details/explanations).
+
+INTERNAL COMMUNICATION
+
+Once received, the recommendations should be extracted and shared with the following NCDOT individuals, as appropriate.
+
+      Regional Traffic Engineer
+      Units within Mobility and Safety
+
+                o Signals & ITS
+                o Congestion Management
+                o Safety
+      Division Personnel beyond Traffic Services/Division Traffic Engineer (DTE)/Deputy Division Traffic Engineer (DDTE)
+
+CONSIDERATION FACTORS
+
+Table 1 provides examples of additional recommendations beyond signal system timing improvements. For ease in
+consideration and sharing with others, they are grouped into specific categories.
+
+TABLE 1. SECONDARY RECOMMENDATIONS FOR IMPROVED CORRIDOR OPERATIONS
+
+     Category                              Recommendation Factors for Consideration
+Geometrics
+                Add lanes
+Signals         Extend lanes
+                Other type of widening (radius, taper, etc.)
+Communication   Revise pavement markings
+Needs           Update pavement markings (repaint faded PM, add arrows, etc.)
+                Islands (add/delete, Right-In-Right-Out (RIRO), etc.)
+                Yield (revise/add/delete)
+                Sight distance
+                Lane continuity
+                Heads (add/revise/delete/upgrade)
+                Flashing Yellow Arrows (FYAs)
+                Pedestrian (heads, crossings, etc.)
+                Loops (System, Calling (presence/upstream), Queue, Force-Off, etc.)
+                System detectors assigned
+                Sight distance
+                Is working
+                Fiber Optic
+                Wireless
+                Phone Drop
+
+NCDOT Signal System Timing Philosophy Manual  Final Report Recommendations
+Timing                                                                      Page 1
+Final Report Recommendations
+
+     Category                                  Recommendation Factors for Consideration
+Phasing
+                    Lead-lag
+Maintenance         Add/delete/revise current phasing
+                    Split side-street (add/delete/revise)
+Additional Timing   Identify potential/actual yellow-trap situation
+Plans Needed        Revise protected to Protected-Permissive, or vice versa
+(i.e. not           Revise permissive to Protected-Permissive/Protected
+funded/in scope)    Correct street coordinated (i.e. main vs. side, equal volumes, traffic patterns changed, etc.)
+Signs               Pre-timed vs. actuated
+                    Alternative Cycle Length (Required Electrical Detail modification)
+                    Controller functions
+                    Loops (system, et al)
+                    Detector cards
+                    Wiring
+                    Poles (wood, metal, guys, etc.)
+                    Sight distance (i.e. tree trimming needs)
+                    Weekend
+                    School
+                    Holiday
+                    Hurricane
+                    Incident Management
+                    Shift Work
+                    Lane Control
+                    Signal Ahead
+                    Regulatory
+                    Pedestrian
+
+NCDOT Signal System Timing Philosophy Manual  Final Report Recommendations
+Timing                                                                      Page 2
+"High Priority Ped" Tool For Coordinated Phases
+
+OASIS SOFTWARE
+
+The "High Priority Ped" tool in the Oasis software package works differently on coordinated phases. Pedestrian clearance
+times that exceed splits cannot be implemented for coordinated phases the way they can for a minor phase. With current
+Oasis functionality, it is understood that coordinated phases will have enough time to cover the ped times. This document
+explains a work-around solution for situations where main street ped clearance times are very high. The solution is to force
+the signal into free run any time the ped phases in question are active.
+
+PROCESS
+
+The "High Priority Ped" work-around solution consists of the following steps:
+      The coordination plan uses an alternate timing page with the values for "Don't Walk 1" set to zero. "Walk 1" times
+          remain the same. This will prevent the "Bad Split on Phase X" outcome.
+      Inputs 63 and 64 are programmed as "Timing Page = 1" and "Coordination Plan = free".
+      A logic step is programmed to activate inputs 63 and 64 when either ped walk or ped FDW is active. This step will
+          tell the signal to go into free run and switch to timing page 1, which has the correct "Don't Walk 1" times. (This
+          logic step must be enabled on the Phase Control page.)
+      If you are using an alternate sequence, that sequence must be scheduled by time of day to run concurrently with
+          the coordination plan. This will prevent the signal from switching sequence pages when input 64 (Coordination =
+          free) is active.
+      Additionally, on page D-2 (General Communications Configuration), "Comm Fail Return to TOD" must be set to
+          zero. If it is not set to zero, the controller will ignore the input to go into free run and generate a "Bad Split" error
+          when the timing page switches.
+
+Sample Programming
+
+For this example it is assumed that both phases 2 and 6 have extremely high ped clearance times.
+
+                                            FIGURE 1. OASIS PHASE CONTROL PAGE
+
+                                                  FIGURE 2. OASIS INPUTS PAGE
+
+NCDOT Signal System Timing Philosophy Manual  "High Priority Ped" Tool for Coordinated Phases
+Timing                                                                                          Page 1
+"High Priority Ped" Tool For Coordinated Phases
+
+OASIS SOFTWARE
+
+                                                   FIGURE 3. OASIS LOGIC PAGE
+
+For an example schedule, consider Plan 1 and assume that it is using Sequence Page 2. That sequence would have to be
+scheduled to start and end at the same time as the coord plan. See event 16 in
+Figure 4:
+
+                                     FIGURE 4. OASIS SEQUENCE PAGE 2 (SEE EVENT 16)
+Event 44 also requires programming, as shown in Figure 5:
+
+NCDOT Signal System Timing Philosophy Manual  "High Priority Ped" Tool for Coordinated Phases
+Timing                                                                                          Page 2
+"High Priority Ped" Tool For Coordinated Phases
+
+OASIS SOFTWARE
+
+                                     FIGURE 5. OASIS SEQUENCE PAGE 2 (SEE EVENT 44)
+
+Coordination
+
+It is important to alert the Division to implementation of the "High Priority Ped" process.
+
+NCDOT Signal System Timing Philosophy Manual  "High Priority Ped" Tool for Coordinated Phases
+Timing                                                                                          Page 3
+Alternative Timing Plans
+
+Alternative timing plans can be developed for planned or unplanned incidents or major construction projects. This section
+addresses guidelines for the following types of alternative timing plans:
+
+      Incident Management Plans
+      Hurricane Evacuation Plans
+      Temporary Timing Plans
+      Special Event Timing Plans
+
+INCIDENT MANAGEMENT PLANS
+
+When a crash or other unplanned incident occurs on the interstate or an access controlled facility, development of signal
+system timing plans should be considered to account for traffic detours onto surface streets. These timing plans should
+account for worst case scenario during the peak hour operations. These timing plans are to be developed in conjunction
+with the regular non-incident management timing plans.
+
+Corridor Parameters
+
+Document a profile of the corridor's incident management process.
+
+      Stakeholders ­ List of agencies involved and contact information.
+      Routes
+
+                o Specific locations of the incidents
+                o Details of the detour route
+                o Laneage on the detour route (surface street)
+                o Number of signals included
+      Incident Information
+                o Locations ­ Identify locations of frequent incidents
+                o Scope of Impact ­ Identify the interchanges and intersections impacted
+                o Durations ­ Identify the typical clearance time
+      Communications Infrastructure
+                o Isolated signals
+                o Available communication
+                o Type (dial-up/wireless)
+
+Develop Timing Plans
+
+      Cycle Lengths
+                o Standard ­ Incidents are typical and the responses are predictable
+                o Non-Standard ­ Incidents are not typical and the responses may be worst case scenario
+                o Maximum green band on the detour route
+                o Minimum splits for the side streets and the left turn phases
+
+      Triggers
+                o Develop thresholds ­ Identify measure for activating the incident management plan (examples include:
+                     average travel speeds, incident confirmed)
+
+      Define the Activation Protocol
+                o Confirm the owner of the signal system.
+                o Confirm who will have access for activating incident management timing plans.
+                o Standardize incident management timing plan numbers
+                            Numbering would be in the 50's (i.e. Plan 51 through Plan 59
+
+NCDOT Signal System Timing Philosophy Manual  Alternative Timing Plans
+Timing                                                             Page 1
+Alternative Timing Plans
+
+      Validation
+                o Field test the incident management plan during an off-peak period.
+                o Follow-up after first implementation to evaluate plan.
+
+HURRICANE EVACUATION PLANS
+
+The development of hurricane evacuation plans follows the same process as incident management timing plans.
+
+TEMPORARY TIMING PLANS
+
+Phasing of construction projects often can introduce multiple traffic patterns to a corridor. Not only does the final corridor
+warrant a new signal system timing plan, but the variations on the traffic patterns also can require the need for temporary
+timing plans to mitigate impacts on traffic. It is important however that the amount of effort expended to develop and
+implement the temporary timing plans are proportional to the duration of the impacts.
+
+SPECIAL EVENT TIMING PLANS
+
+Signal system timing plans for special events can resemble incident management flush plans, or they can be customized.
+Examples of special events include:
+
+      Holidays
+      Football games
+      Major concert or arena events
+      U.S. Open
+
+NCDOT Signal System Timing Philosophy Manual  Alternative Timing Plans
+Timing                                                             Page 2
+ASSESSMENT
+Standard Practice for Performing Travel Time Runs
+
+This document present the NCDOT Standard Practice for performing Tru-Traffic Travel Time Runs for the evaluation of
+traffic signal system timing. This standard practice has been incorporated and referenced in the scopes for projects being
+initiated for 2017.
+
+SOFTWARE REQUIREMENTS
+
+      Tru-Traffic Version 10 with a GPS receiver is the only acceptable data collection method for this Standard Practice.
+
+STUDY PERIOD
+
+      Typically, the study period for travel runs are the peak traffic periods by direction.
+      Possible peak traffic periods may include:
+
+                o Weekday peak traffic periods (i.e. AM, PM, Noon, etc.)
+                o School start/end or class change
+                o Seasonal traffic
+                o Special events
+                o Holidays
+                o Incident management scenarios (i.e. detour routes, hurricane evacuations, etc.)
+      The study period(s) will be defined by the Department.
+
+DATA COLLECTION STANDARDS
+
+      Travel time runs should be representative of typical trips through the system. Runs skewed by bus stops, trains,
+          crashes, turning traffic, or other obstructions should be discarded.
+
+      Runs should not be performed during the following conditions, (unless the study period has been specifically
+          defined for that condition):
+                o Lane closure or active work zone
+                o Adverse weather (rain, snow, etc.)
+                o On a Monday or Friday
+                o During special events
+
+      Tru-Traffic must be synced with the appropriate timing plan before beginning run (See Sync Clocks).
+      Driving style should be the "floating car" method where the driver "floats" with the traffic by attempting to safely
+
+          pass as many vehicles as passed the test vehicle.
+
+NUMBER OF RUNS
+
+      Six (6) or more travel runs per direction should be completed for each study period. An exception to this minimum
+          may be granted by the Department.
+
+      Multiple days may be required to complete the minimum number of runs, depending on the length of the corridor.
+      Attempt to spread runs so that they are performed in a variety of positions in the queue.
+
+SYNC CLOCKS
+
+      Sync Tru-Traffic file to timing plan at the beginning of red of the coordinated phase when there's a call on the
+          subsequent phase.
+
+      Watch one cycle to confirm that the file is synced correctly with the timing plan before beginning travel run.
+
+NCDOT Signal System Timing Philosophy Manual  Standard Practice for Performing Travel Time Runs
+Assessment                                                                                          Page 1
+Standard Practice for Performing Travel Time Runs
+
+REPORTING
+
+      Generate reports (Travel Time, Delay, Stops, Speed and LOS) that show the current operational status of the signal
+          system
+
+      Tru-Traffic Travel Time & Delay Report that includes:
+                o Reports
+                            Cumulative Travel Time (CTT)
+                            Cumulative Delay (CD)
+                            Cumulative Stopped Delay (CStopD)
+                            Cumulative Actual Average Speed (CAS)
+                            Cumulative Number of Stops in Run (CStops)
+                            Levels of Service Delay (LOSDelay)
+                            Cumulative Urban Street LOS (CSpeedLOS)
+
+                o Cumulative summaries for each separate direction of coordination and a cumulative summary of both
+                     directions together (i.e. "Cumulative Summary of all runs, either direction through the artery") for
+                     each/all of the timing plans
+
+                o All trip logs used to generate the reports
+
+NCDOT Signal System Timing Philosophy Manual  Standard Practice for Performing Travel Time Runs
+Assessment                                                                                          Page 2
+Cost Benefit Analysis
+
+NCDOT requires "before" and "after" analyses to measure traffic operational enhancements associated with traffic signal
+system retiming initiatives. This analysis is normally performed using:
+
+      Model projections from an approved computer-based traffic modeling software such as Synchro Plus SimTraffic,
+          and
+
+      Field measured travel time studies from approved GPS software that will generate a Travel Time & Delay Report
+          such as Tru-Traffic.
+
+The benefits associated with a traffic signal system retiming initiative are typically expressed as travel time savings through
+reductions in overall system travel time, stops, and delay measurements. These improvements are best evaluated using the
+Travel Time and Delay Report developed from the travel time study data in Tru-Traffic. In addition to travel time savings,
+the traffic signal system retiming initiative is expected to yield environmental benefits such as reduced emissions (NOx, HC,
+and CO) and fuel usage. When required as part of an analysis, these environmental benefits are best measured in the
+SimTraffic simulation software.
+
+While travel time savings and adverse environmental reductions are good indicators of the success of the signal system
+retiming initiative, it is often useful to translate these benefits into monetary savings expressed as part of a cost benefit
+analysis. To ensure all traffic signal systems retiming initiatives performed for NCDOT are evaluated equally, the
+methodology herein should be followed to determine the expected benefit cost savings when such an analysis is required
+as part of a traffic signal system retiming initiative.
+
+DATA ACQUISITION AND EVALUATION
+
+When retiming a traffic signal system, the Engineer is required to collect a wide variety of field data to develop their new
+timing plans as well as to prepare a "before" and "after" analysis of the system operation. Field data includes, but is not
+limited to, intersection schematics such a lane configurations and distances between traffic signals; field observations such
+as posted speed limits; volume data including 24-hour tube counts and 12-hour turning movement counts; existing traffic
+signal system timing and coordination data as programmed in the field; and travel time and delay data. As part of the
+existing traffic signal system timing and coordination data, cycle lengths, splits, offsets, sequencing, and time-of-day/day-of-
+week patterns must be extracted from each local controller during the initial field investigation.
+
+Following field data collection, the Engineer will analyze "before" traffic operational measures and develop new traffic
+signal system timing plans which will be used for the "after" analysis of the system operations. The new traffic signal system
+timing plans are to be submitted to NCDOT for review and approval. Following review and approval by NCDOT, the Engineer
+will implement the new traffic signal system timing plans in the field. During implementation, the Engineer will make cycle
+length, split, and offset adjustments to fine-tune the new traffic signal system timing plans based on field observations of
+system operations. Following this fine-tuning of the plans, the Engineer will revise all traffic modeling projections and travel
+time study databases to reflect actual timing values now operating in the field. This step is critical to ensuring accurate
+representation of the improvements attained in the cost benefit analyses.
+
+At the completion of field implementation and fine-tuning of the traffic signal system timing plans, the Engineer will
+evaluate the cost benefit achieved by the retiming initiative when required. To perform the cost benefit, the Engineer will
+calculate the annual cost benefit resulting from travel time savings and from environmental savings. The total annual cost
+benefit for the traffic signal system retiming initiative will be the sum of these two savings. The following pages provide
+detailed information on the required data collection parameters for a cost benefit analysis. They include cost benefit factors
+and annual cost benefit formulas for the analysis along with those parameters specific to the travel time savings and the
+environmental savings.
+
+ANNUAL COST BENEFIT ANALYSIS FOR TRAVEL TIME SAVINGS
+
+NCDOT Signal System Timing Philosophy Manual          Cost Benefit Analysis
+Assessment                                                             Page 1
+Cost Benefit Analysis
+
+The Engineer will calculate an annual cost benefit for travel time savings. The travel time savings benefit is comprised of a
+reduced delay savings and a reduction in stops savings. The following process should be followed to calculate these two
+components.
+
+Step 1: Peak Hour Volumes ­ Peak Hour Volumes should be calculated as the sum of the main corridor's approaching
+movements (Eastbound and Westbound OR Northbound and Southbound).
+
+FIGURE 1. SAMPLE SIGNAL SYSTEM LAYOUT
+
+For example, to calculate the peak hour volumes for the above illustrated traffic signal system, confirm which corridor the
+travel time study was completed along. For this example, assume a travel time study was completed during the peak hours
+along 1st Street between Intersection 1 and Intersection 4. Because Intersection 5 was not included in the travel time study,
+its peak hour volumes will not be considered in the annual cost benefit calculation. Use the cumulative eastbound and
+westbound volumes along 1st Street at Intersection 1, 2, 3, and 4 to determine the system's peak hour volumes as shown in
+Table 1.
+
+NCDOT Signal System Timing Philosophy Manual  Cost Benefit Analysis
+Assessment                                                     Page 2
+Cost Benefit Analysis
+
+TABLE 1. TURNING MOVEMENT COUNTS
+
+Turning Movement Count - AM PEAK
+60 Minute Volume Data
+
+Int  NBL NBT NBR SBL                          SBT SBR EBL EBT EBR WBL WBT          WBR
+ #                                                                                  40
+                                                                                    15
+1 41 118 53 44 119 34 63 225 60 54 150                                              10
+                                                                                    39
+2 14 19 27                                    8 16 3  4 262 22 16 270
+                                                                                   2522
+3    5  4  7 10 4                             5       4 301 7 14 286
+                                                                                   WBR
+4 85 52 6 13 5 52 204 142 77 7 250                                                  57
+                                                                                    19
+                                                      Peak Hour TOTAL - AM Peak     14
+                                                                                    14
+Turning Movement Count - NOON PEAK
+60 Minute Volume Data                                                              2408
+
+Int  NBL NBT NBR SBL                          SBT SBR EBL EBT EBR WBL WBT          WBR
+ #                                                                                  39
+                                                                                    13
+1 78 119 67 73 178 37 43 154 43 61 141                                               4
+                                                                                    48
+2 15 14 25 9 16 9 11 257 16 23 296
+                                                                                   3381
+3    6  16 17 11 6 18 11 295 11 20 300                                             8311
+
+4 91 42 6 15 9 54 108 218 105 10 181
+
+                                                      Peak Hour TOTAL - NOON Peak
+
+Turning Movement Count - PM PEAK
+60 Minute Volume Data
+
+Int  NBL NBT NBR SBL                          SBT SBR EBL EBT EBR WBL WBT
+ #
+
+1 67 232 93 55 277 74 87 251 37 95 237
+
+2 24 29 33 8 23 16 2 379 18 22 381
+
+3    4  8 12 13 9                             7       6 387 21 19 403
+
+4 111 54 5 38 2 91 173 368 184 9 198
+
+                                                      Peak Hour TOTAL - PM Peak
+
+                                              Sum of Peak Hour TOTALS - All Peaks
+
+Step 2: Travel Time Savings ­ The change in Travel Delay (seconds/veh) and Cumulative Stops (stops/veh) from "before" to
+"after" should be calculated by Tru-Traffic and presented in tabular form. Table 2 is an example of a typical Travel Time &
+Delay Report generated by Tru-Traffic. The highlighted values are required for the Annual Cost Benefit Analysis and will be
+used for the example system.
+
+NCDOT Signal System Timing Philosophy Manual                                       Cost Benefit Analysis
+Assessment                                                                                          Page 3
+Cost Benefit Analysis
+
+TABLE 2. TRU-TRAFFIC TRAVEL TIME & DELAY REPORT
+
+                     Cumulative Summary of all runs, either direction through artery
+
+44 Before-type runs, collected Tuesday 9/17/2013 to Tuesday 9/17/2013, over day(s) Tue, with starting times during 7:02:04 AM to 5:49:14 PM
+44 After-type runs, collected Thursday 10/3/2013 to Thursday 10/3/2013, over day(s) Thu, with starting times during 6:59:41 AM to 5:59:39 PM
+
+                                       CTT CD CStopD CBS1T CStops DperInt LOSDelay CUFFC
+
+                                              to End of Artery
+
+Average Before (n=44) 140 38                  26   28           1.2   7.6   A    0.0
+
+Std Dev Before (n=44)  35 40                  36   34           0.9   8.1   1    0.0
+
+Average After (n=44)   113 9                  10   11           0.6   1.8   A    0.0
+
+Std Dev After (n=44)   17 21                  13   13           0.7   4.2   0    0.0
+
+Difference             -27 -29                -17  -16          -0.5  -5.8  0    0.0
+
+Std Dev Difference     39 45                  38   37           1.1   9.1   1    0.0
+
+% Difference           -20% -76% -63% -59% -45.1% -76.5%                    N/A  N/D
+
+Step 3: Evaluation Parameters ­ The following parameters should be used for conversion of travel time savings to a
+monetary value.
+
+          A. Cost of Delay ­ The cost of delay, also referred to as wasted person-time, is the value of the time lost in travel
+                delay. For consistency on all traffic signal system retiming projects, the Engineer should use values found in
+                the North Carolina Statewide Median Hourly Wage for All Occupations for the project year (or closest reported
+                year), as reported by the United States Department of Labor's Bureau of Labor Statistics at:
+
+                http://www.bls.gov/oes/current/oes_nc.htm
+
+                In 2015, the cost of delay is $15.91 per hour and is the value that will be used for the example system.
+
+          B. Cost per Stop ­ The cost per stop is the assumed cost of fuel, oil, tires, general maintenance, and vehicle
+                depreciation as determined by calculations in AASHTO's Manual on Road User Benefit Analysis. This value is
+                currently $0.014 per stop and is the value that will be used for the example system.
+
+          C. Analysis Days per Year ­ In the cost benefit analysis, 250 days per year represents the number of typical
+                weekdays in a year. This is derived from 365/366 days per year less weekends and holidays. This factor is
+                important as Travel Time Savings reported from the Travel Time Study only represent conditions for the
+                weekday peaks.
+
+Step 4: Annual Cost Benefit Formula for Travel Time Savings ­ Using the calculated peak hour volumes, highlighted travel
+time savings data, and conversion parameters, calculate the monetary travel time savings as follows.
+
+          A. Annual Cost Benefit of Reduced Delay
+
+                                        [Sum of Peak Hour Volumes (vehicles) *
+                    Change in Travel Delay (seconds / vehicle) * (1 hour / 3600 seconds)] *
+
+                          Cost of Delay ($ / hour) * Analysis Days per Year (days / year)
+
+NCDOT Signal System Timing Philosophy Manual                                     Cost Benefit Analysis
+Assessment                                                                                        Page 4
+Cost Benefit Analysis
+
+                For the example system, the Annual Cost Benefit of Reduced Delay is:
+
+                                [8,311 veh * 29 sec/veh* (1 hr/3600 sec)] * $15.91/hr *250 days/yr = $266,293
+
+          B. Annual Cost Benefit of Fewer Stops
+
+                                       [Sum of Peak Hour Volumes (vehicles) *
+              Change Cumulative Stops (stops / vehicle)] * Cost per Stop ($ / stop) * Analysis
+
+                                                 Days per Year (days / year)
+
+For the example system, the Annual Cost Benefit of Fewer Stops is:
+                [8,311 veh * 0.5 stops / veh] * $0.014 / stop * 250 days / yr = $14,544
+
+TOTAL ANNUAL COST BENEFIT
+
+To determine the Total Annual Cost Benefit for the traffic signal system retiming initiative, the Engineer will add all annual
+cost benefits from both, travel time and environmental savings.
+
+For the example system, the Total Annual Cost Benefit is:
+
+Annual Cost Benefits from Travel Time Savings:
+
+ Annual Benefit of Reduced Delay -                         $266,293
+ Annual Benefit of Fewer Stops -                           $14,533
+
+                                                           Annual Cost Benefits from Travel Time Savings - $280,837
+
+NCDOT Signal System Timing Philosophy Manual                                                                   Cost Benefit Analysis
+Assessment                                                                                                                      Page 5
+MONITORING
+Roles and Responsibilities
+
+Maintenance of the state's inventory of coordinated systems will be balanced between the Division staff and the COST
+Section. Division staff are the owners and maintainers of the systems on a daily basis. The COST Section, with support from
+private engineering firms, will provide support and guidance on the evaluation and prioritization of the corridors.
+
+DIVISION STAFF
+
+The Division is the primary owner and operator of the coordinated signal systems. They also are the primary contact the
+public in regards to the performance of the systems. Each Division provides input into prioritizing the corridors for analysis
+and retiming.
+
+      Owners
+      Operations of the signal system
+      Maintenance of the signal system
+
+                o Includes individual intersection equipment and communications infrastructure
+      Input and feedback to coordination and prioritization of corridors
+      Documentation in field diaries when system is modified
+      Be available during technician's data download in case signal goes into flash mode
+      Note any activity in field notebooks every time the system is touched
+      Monitoring (pull in section about data collection)
+      Handle citizen's complaints
+
+COST SECTION
+
+The COST Section is tasked with facilitating NCDOT's vision within the state of North Carolina. This includes five regions with
+326 closed loop systems and 54 time based systems for a total of 2,360 signalized intersections. The following
+responsibilities have been defined for the COST Section:
+
+ Current Responsibilities
+          o Maintain an inventory of all coordinated signal systems and their coordination plans
+          o Oversight and development of coordination plans
+          o Coordination for analysis and prioritization of corridor projects
+          o Documentation in field diaries when system is modified
+          o Oversee the implementation of new approaches to managing coordinated systems (e.g. high resolution
+                data, centralized system)
+          o Reviewing final coordination plan with Division after implementation
+          o Notification to the Division within 24-48 hours of being on site of a coordinated system
+          o Coordinate with Division for scheduling data downloads so technicians can be available if signal goes into
+                flash mode.
+          o Note any activity in field notebooks every time the system is touched
+          o Assist field personnel in addressing system timing complaints.
+
+ Future Goals
+          o Coordinate traffic signal coordination across jurisdictional boundaries
+          o Establish a consistent approach to signal timing for the signal systems in NC
+          o Investigate the feasibility of requiring professional engineering seals on coordination plans
+          o Implement policies or procedures that minimize undocumented field adjustments
+          o Technician training on the implementation of coordination plans
+          o Establish consistency for signal system timing practices between all engineers and technicians
+          o Improve the integration of coordination plans for emergencies, incidents, special events, and during
+                roadwork
+
+NCDOT Signal System Timing Philosophy Manual  Roles and Responsibilities
+Monitoring                                                           Page 1
+Roles and Responsibilities
+
+                o Establish metrics and means for communicating the Program Benefits to agency management, policy
+                     makers, elected officials, and the public
+                            Travel times savings and reports online
+                            Project oriented - Report outlining thought process and meeting with division to explain
+                            Future ­ communication to the public
+
+PRIVATE ENGINEERING FIRMS (PEFS)
+
+PEFs are tasked with providing additional staff to support the COST Section's workload. PEFs will work closely with the COST
+Section while corridors are assigned and projects are established. Once a project is initiated, the PEF will work closely with
+the Division with continuous coordination with the COST Section.
+
+      Develop and implement coordination plans
+      Work with COST Section and Division to define operational objectives
+      Documentation in field diaries when system is modified
+      Reviewing final coordination plan with Division after implementation
+      Notification to the Division within 24-48 hours of being on site of a coordinated system
+      Coordinate with Division for scheduling data downloads so technicians can be available if signal goes into flash
+
+          mode.
+      Note any activity in field notebooks every time the system is touched
+
+NCDOT Signal System Timing Philosophy Manual  Roles and Responsibilities
+Monitoring                                                           Page 2
+Impacts on a Corridor
+
+The timing of signals along a corridor could be affected by a number of impacts. These impacts can be either quick or span
+over a few months to years. Examples of impacts include road work, construction projects, or new development along the
+corridor. Each of the impacts affect motorists by changing the traffic patterns from time-to-time and possibly without
+warning. There is no timing pattern the morotists can rely on until the project has been completed.
+
+ROADWAY WORK AND TEMPORARY TRAFFIC PATTERNS
+
+Road work typically includes short quick turn-arounds. The work performed includes maintenance activities, temporary
+geometric changes, and utility work. The timing should be adjusted to accommodate back flow or changes in available
+lanes.
+
+CONSTRUCTION PROJECTS
+
+During construction projects, changes to signal timing could provide temporary relief due to traffic shifts. Also, additional
+coordination with roadway or congestion management groups would benefit from notification of how timing may be
+impacted or timing plans may need to be revised during traffic pattern changes throughout the construction project.
+However, there are some construction projects that are so short in time duration that there may not be any impacts;
+otherwise the timing should be adjusted.
+
+NEW DEVELOPMENTS ON A CORRIDOR
+
+New developments can impact the performance on a corridor. Developers can be held accountable for geometric
+improvements, including additional turn lanes or the installation of a new traffic signal, to accommodate additional demand
+their development may introduce on the corridor. Table 1 provides a summary of the roles and responsibilities of NCDOT
+and the Developer.
+
+Additional guidelines will be developed to refine the roles and responsibilities and to integrate the concept of signal system
+timing into developer mitigation strategies.
+
+TABLE 1. ROLES AND RESPONSIBILITIES
+
+                            Developer                                       NCDOT Divisions
+
+ Develop final coordinated signal system timing       Hold developers accountable for funding signal
+ Fund signal system timing work for entire affected       system timing work for the entire corridor affected
+                                                          by new developments
+     corridor, not only one signal
+                                                      If necessary, help developer hire a firm that is
+                                                          prequalified by the COST section for timing work, or
+                                                          help coordinate for the central office to do the work
+
+                                                      Include coordinated signal system timing for a
+                                                          corridor in project cost estimates
+
+                                                      Include traffic engineers in design meetings from the
+                                                          beginning of the project
+
+                                                      Include the re-cost of timing signals within the
+                                                          Contract, providing additional Division control
+
+NCDOT Signal System Timing Philosophy Manual         Impacts on a Corridor
+Monitoring
+STRATEGIC PLANNING / LONG TERM TOPICS
+Continuous Data Options
+
+The North Carolina Department of Transportation (NCDOT) operates and maintains much of the traffic signals in the state
+of North Carolina. Currently NCDOT uses travel time runs using GPS devices and Tru-Traffic software to compute and
+compare performance measures such as travel time, stops, and delay. The performance should be traceable to operational
+objectives. NCDOT has signal performance objectives they are moving to incorporate into the evaluation of corridor's
+performance.
+
+It is beneficial for NCDOT to regularly review new options for measuring system performance as newer technologies can
+demonstrate their ability to monitor and continuously evaluate a corridor's performance. Assessments of newer technology
+options allow the Department to compare the value of the current process against the accuracy, availability, and
+applicability of other data collection and analysis approaches. Several states are currently examining some of these
+methods for performance measures evaluation including: high resolution controller data (HRCD), Bluetooth, probe data,
+and Wi-Fi. NCDOT has performed initial assessments on probe data and Bluetooth.
+
+HIGH RESOLUTION CONTROLLER DATA (HRCD)
+
+"A high-resolution data system for an intersection captures the location (lane), speed, and turn movement of every vehicle
+as it approaches and departs an intersection, together with the signal phase. The data is available in real time and archived.
+Real-time data is used to implement traffic-responsive signal control, including adaptive signal control. Archived data is used
+to obtain intersection, corridor, and network performance, and to evaluate and design better control strategies."1
+
+High Resolution Data in North Carolina
+
+NCDOT is interested in exploring the use of high resolution data for traffic management and will continue to investigate
+potential uses and implementations. To fully recognize the benefits of the data, the Department has identified certain
+infrastructure investments that will be required.
+
+NCDOT signal equipment currently collects high resolution data, but the current processing and storage of the data
+packages and bundles the data into less granular detail. Revising the current data management would require additional
+infrastructure for processing and storing larger volumes of data. NCDOT aims to conduct a pilot project that will assess
+specific infrastructure solutions required to support high resolution data. Once this equipment is in place, the Department
+then can assess how high resolution data can benefit North Carolina.
+
+BLUETOOTH
+
+Bluetooth sensors operate as "active" devices, searching several times per second for a Bluetooth enabled device with
+which to pair. The sensors can detect the devices as a vehicle passes by and provide point-to-point travel time information
+specific to the device detected. The Bluetooth reader system records a time stamp for each media access control (MAC)
+match. The data logs typically have numerous MAC addresses due to the frequent searches and large zone in which a MAC
+address may be read.2 Travel times are determined by comparing the MAC addresses recorded at successive sensors along
+a roadway and comparing the timestamps at each point. Keep in mind the detection range for Bluetooth sensors is
+approximately 328 feet3; if NCDOT decides to use this technology, the devices will need to spaced accordingly in order to
+obtain accurate information.
+
+1 High-res traffic data provides planners with the big picture, ITS International, 2015
+(http://www.itsinternational.com/categories/detection-monitoring-machine-vision/features/high-res-traffic-data-provides-
+planners-with-the-big-picture/)
+2 http://utcm.tamu.edu/publications/final_reports/Puckett_09-00-17.pdf
+3 http://www.ops.fhwa.dot.gov/publications/fhwahop13028/ch2.htm
+
+NCDOT Signal System Timing Philosophy Manual  Continuous Data Options
+Strategic Planning                                                  Page 1
+Continuous Data Options
+
+Bluetooth enabled devices are now ubiquitous and include hand held mobile devices, headsets, navigation devices or even
+the actual vehicles, as this technology is factory installed in more vehicles. For this reason, the data collection via Bluetooth
+is more easily implementable and can provide an agency with a non-intrusive alternative.
+
+Bluetooth in North Carolina
+
+Bluetooth data collection method is new for NCDOT. Currently, NCDOT does not own any Bluetooth reader devices so the
+cost of applying this methodology could potentially be higher. Benefits of using Bluetooth for a corridor include access to a
+larger quantity of data points and the data collection effort is less labor intensive than performing travel time runs. NCDOT
+has completed their first pilot study to assess the capabilities and potential applicability on other corridors.
+
+3RD PARTY PROBE DATA
+
+Performance measures using vehicle probe data is another rapidly developing technology. This data is collected by third
+party vendors that process and package the data for specific roadway links. Until recently, probe data was primarily used
+for freeways and was not considered to be accurate or reliable data source for arterial performance. Improvements in the
+technology include an increase in the capture rate of probe data and an ability to package the data into smaller roadway
+segments. These advances are making the use of probe data a more feasible alternative for evaluating arterial performance.
+
+NCDOT's Closed Loop System Retiming projects for 2017 all will have probe data collected for them. These additional data
+points will provide the ability to compare before and after conditions as measured by both the travel time runs and the
+available probe data.
+
+Probe Data in North Carolina
+
+Probe data collection for designing, assessing, or monitoring a corridor has not been done in NC. NCDOT is beginning to
+look at ways to incorporate this type of data collection into their projects. Recently, the NCDOT Safety Unit performed a
+comparison of probe data received from NCDOT's third-party vendor and travel time runs along three specific corridors.
+Based on this analysis, NCDOT determined that the probe data demonstrated an acceptable level of accuracy.
+
+WI-FI
+
+Wi-Fi data collection has a very similar protocol to Bluetooth data collection, and in some cases, work with Bluetooth versus
+independently.
+
+Wi-Fi sensors operate in "passive" mode, waiting for mobile devices to search for wi-fi networks and collecting the device's
+MAC address in the process. The rate at which mobile devices search for wi-fi networks varies based on the manufacturer,
+but is roughly every 30 seconds, providing more data points. Depending on the range of the wi-fi sensor and the speed of a
+vehicle, it is possible that a vehicle could pass in and out of the range of the sensor without being recorded.
+
+One benefit of Wi-Fi data collection over Bluetooth data collection is that nearly all vehicles will contain one or more wi-fi
+enabled devices and users are more likely to leave wi-fi "on" than to leave Bluetooth in "discoverable" mode, so the
+number of vehicles detected tends to be much higher using Wi-Fi than Bluetooth.
+
+Wi-Fi in North Carolina
+
+Like Bluetooth, NCDOT does not use Wi-Fi for data collection currently. There would be a huge learning curve within the
+Department. Also, NCDOT does not own any Wi-Fi devices that could be placed along the corridor, which could potentially
+increase the cost of using this method.
+
+NCDOT Signal System Timing Philosophy Manual  Continuous Data Options
+Strategic Planning                                                  Page 2
+Continuous Data Options
+
+DEDICATED SHORT RANGE COMMUNICATIONS (DSRC)
+
+Connected vehicle technology uses dedicated short range communication (DSRC) to communicate from vehicle-to-vehicle
+(V2V) or vehicle-to-infrastructure (V2I). This technology still is in its infancy, however there are vast changes every day
+regarding the technology. DSRC could be capable of transmissions up to 3280 feet;4 however, DSRC communication needs
+line-of-sight to support accurate data transfers.
+
+The USDOT's plan is requesting to have the DSRC transceiver ID to randomly reassign every five-minutes to protect privacy.
+To locate matching ID's within a corridor, a vehicle would have to pass by at least two devices within this five-minute span.
+To mitigate this five-minute window challenge, devices would need to be spaced closer together.
+
+It is theorized that "...if the average travel time between transceivers is 3 minutes, a match rate of about 40 percent could
+be expected. Another theory is "if the system is designed to base calculations on vehicles'' spot speed measurement
+instead of segment travel times", it could provide a near 100 percent detection rate.12 As the penetration rate of DSRC
+technology improves, this technology could provide the largest sample size for calculating performance measures with a
+high level of accuracy.
+
+4 http://www.ops.fhwa.dot.gov/publications/fhwahop13028/ch2.htm  Continuous Data Options
+                                                                                       Page 3
+NCDOT Signal System Timing Philosophy Manual
+Strategic Planning
+Continuous Data Options
+
+SYSTEM DETECTORS FOR ANNUAL PERFORMANCE ANALYSIS
+
+Extraction of system detector data can be used to evaluate the performance of corridor. NCDOT does not have system
+detectors on all corridors, but they can still provide valuable data where they are in place. Figure 1 provides the process for
+using system detector data to evaluate the performance of a corridor.
+If this system is prone to
+experience a variation in
+volumes due to seasonal
+demands, the data set should
+be extracted and saved to the
+system file more frequently.
+Similarly, if traffic volumes
+fluctuate between the
+weekdays and weekend
+traffic demands, data
+extraction also can be
+considered. The frequency
+and timing for the data
+collection should be managed
+in response to the
+performance characteristics
+of the corridor.
+
+                                     FIGURE 1. USE OF SYSTEM DETECTORS FOR ANALYSIS
+
+NCDOT Signal System Timing Philosophy Manual  Continuous Data Options
+Strategic Planning                                                  Page 4
+Historical Documentation
+
+In 2009, NCDOT launched a program to optimize the timing of signal systems in the state every three years. To date, many
+of the signal systems have been optimized at least twice since the start of the program. "Before and after" data has been
+collected each time the systems are re-timed to determine the overall travel time savings (benefit) of the optimization
+effort. The NCDOT COST group maintains a database of signal systems with system timing histories and signals by inventory
+ID number. Using this database NCDOT can determine when a system was last timed, who timed it, the number of signals,
+and the communication type.
+
+The COST Section is partnering with the Safety Unit to perform some analysis using existing historical data for corridors that
+have been retimed multiple times. This spreadsheet is forming the foundation for how historical data can be more
+consistently maintained to provide both the history of a specific corridor and the overall recognized benefits of the
+corridors that have been retimed statewide.
+
+NCDOT Signal System Timing Philosophy Manual  Historical Documentation
+Strategic Planning
+Integrated Corridor Management (ICM)
+
+Integrated Corridor Management (ICM) combines two fundamental concepts: active management and integration. Active
+management involves monitoring and assessing the performance of the system and dynamically implementing actions in
+response to fluctuations in demand. In an ICM corridor, all individual facilities must be actively managed so that operational
+approaches can be altered in real-time in response to an event anywhere on the system.
+
+Integration requires actively managing assets in a unified way so that actions can be taken to benefit the corridor as a
+whole, not just a particular piece of it. Integration occurs along three dimensions:
+
+      Institutional Integration ­ Involves coordination and collaboration between various agencies and jurisdictions (i.e.,
+          transportation network owners) in support of ICM, including the distribution of specific operational responsibilities
+          and the sharing of control functions in a manner that transcends institutional boundaries.
+
+      Operational Integration ­ Involves the implementation of multi-agency transportation management strategies,
+          often in real-time, that promote information sharing and coordinated operations across the various transportation
+          networks in the corridor and facilitate management of the total capacity and demand of the corridor.
+
+      Technical Integration ­ Provides the means (e.g., communication links between agencies, system interfaces, and
+          the associated standards) by which information, system operations, and control functions can be effectively shared
+          and distributed among networks and their respective transportation management systems, and by which the
+          impacts of operational decisions can be immediately viewed and evaluated by the affected agencies. Cannot be
+          accomplished without institutional and operational integration.
+
+NC has approached ICM in 2 different ways to date. The Central Office System Timing (COST) group has led the
+development of a rural ICM project on the I-40 and I-26 corridors in the Asheville area. Signal Systems were timed, re-
+timed, and expanded to incorporate a detour for an incident on I-26 west. This concept was coordinated with both Division
+13 and 14 and implemented remotely in real time.
+
+The second ICM project is under development. Division 10 and 12 are committed to documenting ICM processes using the
+I-85 corridor in Gaston and Mecklenburg Counties as an example. This project could be used a pilot project and details
+applied to other ICM projects around the State. Freeway and arterial integration is a statewide goal and will be addressed
+along the I-85 / US 74 corridor for this project ­ the first of its kind in North Carolina. The I-85 study area will begin east of
+Billy Graham Parkway (Exit 33) and extend west of US 74 (Exit 10).
+
+Next steps are to develop ICM triggers, response plans, performance measures, DMS sign locations, SOPs, signal timing
+diversion plans, and data collection to support before/after assessment.
+
+INTEGRATED CORRIDOR MANAGEMENT (ICM) IN THE METROLINA REGION
+
+The NCDOT has begun the process of developing an Integrated Corridor Management (ICM) plan for a section of I-85 in
+Mecklenburg and Gaston Counties, NC. The goal of the ICM plan is to actively manage the transportation corridor to reduce
+congestion, and improve network performance and reliability. A diverse stakeholder group is meeting to work through the
+details of TIM, signal system timing, additional ITS infrastructure and other challenges.
+
+NCDOT Signal System Timing Philosophy Manual  Integrated Corridor Management (ICM)
+Strategic Planning
+Diverging Diamond Interchange (DDI)
+
+Timing signals at or near a diverging diamond interchange (DDI) presents some unique challenges. The traffic signals at the
+DDI crossovers do not have a "minor" movement but rather alternate between the two directions of mainline traffic.
+Because of this, it can be difficult to provide two-way progression through the interchange. Depending on the design of the
+signals at the DDI, the two intersections may run on one controller or on two separate controllers. If the signals operate on
+a single controller, a ring offset may be used to define the relationship between the intersection. If two controllers are
+used, this relationship is defined with an offset just as it would be with traditional timing. In that case, it is also important to
+note which direction serves as the offset reference point. Currently, NCDOT uses two controllers for most DDI timing
+projects. NCDOT is deploying DDI's more frequently, but the Department does not have a current standard practice related
+to 1 versus 2 controllers.
+
+Another unique characteristic of signal system timing within a DDI is related to the clearance intervals. The crossover
+intersections tend to be very compact, creating a short distance for a vehicle to travel to clear the opposing through
+movement. However, the distance between the crossover and the downstream left or right turn movements tends to be
+much longer. When these movements are signalized, the additional time to clear these movements must be accounted for
+in the signal design. One way to account for this distance is to provide a very long red clearance interval. However, this can
+result in a loss of efficiency for the signal. Another option to design clearance intervals at the DDI crossover intersections is
+to provide an overlap to begin the opposing through after a short red interval but hold the conflicting left or right turn
+movement from the ramp for an additional interval. Currently, NCDOT has not adopted a standard, but commonly uses a
+dummy phase to hold conflicting movement. The signal system timing plans must properly account for this time.
+
+One of the key factors in developing appropriate timing plans at DDI signals is the travel time between the crossover
+signals. This time may be difficult to determine prior to construction of the DDI because speeds on the bridge tend to be
+much lower than the design speed due to the curvature of the road. Once the average travel time between the crossovers
+is determined, setting the cycle length as a multiple of this time has been found to be a useful rule of thumb for these
+signals.
+
+Because the DDI crossovers tend to be very closely spaced, keeping the space between the signals clear is a key objective
+when developing the timing plans. With this in mind, and because DDI signals tend to operate with two or three phases, a
+low cycle length is generally the best option. Sometimes running the DDI signals at half of the cycle length of other signals
+on a corridor will enable corridor progression while also optimizing the DDI operations. In some cases, it is also possible to
+run one crossover signal at half of the cycle length of the other to progress both a left turn movement from a ramp as well
+as a through movement along the mainline at the downstream crossover.
+
+Because roadway geometry and vehicle speeds are so critical to developing signal system timing plans at a DDI,
+microsimulation modeling of a signal system timing plan prior to implementation could be a very helpful assessment
+approach for NCDOT to consider. It currently is not NCDOT's practice to use microsimulation, but the Department does
+understand the value of this assessment tool for corridors that include a DDI.
+
+NCDOT Signal System Timing Philosophy Manual  Diverging Diamond Interchange (DDI)
+Strategic Planning
+Emissons Data
+
+Collecting and interpreting emissions data to assess signal systems timing work is a long-term objective of NCDOT.
+Currently, this data is not used for specific analysis of signal timing performance, but the Department has identified
+emissions data as future performance metric for signal system timing.
+Establishing a standard process for equating emissions to dollars will allow NCDOT to analyze the return-on-investment
+calculation of implementing signal system timing with regard to air quality. NCDOT has conducted this analysis on a few
+projects, but guidelines for the data analysis have not yet been adopted.
+
+POTENTIAL APPLICATIONS OF EMISSIONS DATA
+
+Environmental benefits can be predicted using the SimTraffic simulation software for a "before" and "after" analysis, as
+shown in the sample outputs in Figure 1.
+
+FIGURE 1. SAMPLE SIMTRAFFIC "BEFORE" AND "AFTER" RESULTS
+Calculations for the assessment of environmental impacts could include:
+
+      Annual Cost Benefit of Reduced HC Emissions
+      Annual Cost Benefit of Reduced CO Emissions
+      Annual Cost Benefit of Reduced NOx Emissions
+      Annual Cost Benefit of Reduced Fuel Usage
+
+NCDOT Signal System Timing Philosophy Manual  Emissions Data
+Strategic Planning
+SUPPORTING DOCUMENTS
+                    NCDOT Central Office System Timing (COST) Section
+
+                               Scope of Services
+
+              Retiming of Existing Closed Loop Signals FY 2017
+
+For each of the Projects listed in the Attachment, the Firm shall provide professional engineering
+services necessary for evaluating the current operation of the Existing Closed Loop Signal
+Systems (CLS) to develop improved signal timing plans, implement and fine-tune the new plans,
+and evaluate the final operational benefits associated with work performed on the project. The
+signal timing plans shall be designed to address all possible traffic needs along the study
+corridor, including but not limited to:
+
+      Weekday peak/non-peak traffic periods (i.e. AM, PM, Noon, Off-Peak, etc.);
+      School/Universities start/end and/or class change peak traffic periods;
+      Seasonal traffic patterns;
+      Pre-scheduled holiday(s) traffic patterns;
+      Incident management traffic patterns (i.e. detour routes, hurricane evacuations, etc.); and
+      Other special events traffic patterns.
+
+All work performed under this proposal will be performed under the direct charge of a North
+Carolina licensed Professional Engineer.
+
+Task 1: Provide Cost Estimate
+
+Submit a detailed Cost Estimate to be reviewed and approved by State Traffic Engineer's Staff
+Engineer, Dr. Joseph Hummer. Dr. Hummer will advise if negotiations are needed between the
+Firm and the COST Section. If necessary, the Firm may need to revise the cost estimate and
+resubmit to Dr. Hummer after negotiations. Once COST Section and Dr. Hummer both approve
+the Cost Estimate, Dr. Hummer will issue a Notice to Proceed (NTP). The Firm will not be
+allowed to begin re-timing effort until the date of the NTP.
+
+Prior to completing a cost estimate, the Firm shall discuss with the Division to ascertain their
+specific timing plan needs. Any information collected from the Division must be provided to the
+COST Reviewing Engineer prior to submitting a cost estimate. After NTP, minor adjustments to
+the number of timing plans may be made without affecting the scope, schedule and budget for
+the projects.
+
+Task 2: Kick Off Meeting
+
+The Firm and the COST Section reviewing Engineer shall meet with Division and /or
+Municipality and Regional Traffic Engineer's representatives to discuss the scope of the projects
+in detail, and any additional pertinent information/recommendations before developing new
+timing plans.
+The Firm is required to provide the Division prior notification anytime field work is being
+performed on the project.
+
+                                                                                                                               1
+                                                                                  SOW FY 2017 Signal Retiming Projects
+
+Task 3: Field Data Collection
+
+The Firm shall:
+ Provide 13-hour turning movement/directional counts, for the total number of locations
+
+    identified as critical intersections as agreed upon by the COST Section and/or Division.
+    NOTE: Existing count data may be used if count data is 3 years old or less and includes a
+    3% per year adjustment factor. Existing count data may be found at:
+    https://connect.ncdot.gov/resources/safety/Pages/Volume-Class.aspx
+    http://www.ncdot.org/doh/preconstruct/traffic/safety/TSI/turning.html
+ Field review signalized locations to verify:
+    o Existing geometrics and signal phasing
+    o Distance and speed limits between intersections
+    o All equipment status is in necessary working order: detectors, communication,
+
+         controllers, etc.
+    o Verify programming matches the most recent traffic signal Plan of Record (POR) and
+
+         note discrepancies
+         NOTE: Revisions to existing traffic signal POR beyond field notes and red-lining of the
+         plans are not included in this scope of services. However, any
+         recommendations/suggestions for improvements to traffic safety and efficiency are
+         requested to be included in the Final Report.
+ Note issues that will need to be addressed prior to the implementation and report these issues
+    to the Division. Inform the Regional Traffic Engineer (RTE) of any critical safety issues
+    observed in the field. Issues that should be reported to the Division may be:
+    o loops not detecting vehicles
+    o signal heads rotated or displays out
+    o communication issues with local controllers
+    o controller screen blank
+    o pedestrian push buttons that don't work
+    o etc.
+
+Task 4: Evaluation of Existing Traffic Signal System Operations
+
+The Firm shall:
+ Create a Translink32 Database so that the Master asset designation is listed in standard order
+
+    of Master Asset Number (preceded by 2 digit Division number), System Name @ Division,
+    County, City (ex: MS ­ 0310312 ­ US 17 (Ocean Hwy) @ Division 3, Brunswick Co,
+    Leland)
+ Upload the existing System data from the field
+ Discuss operational objectives with the Division
+ Perform "Before Runs" using Tru-Traffic software in accordance with the Standard Practice
+    for Travel Time Runs for Evaluation of Signal Timing Plans.
+ Perform work in accordance with recognized professional engineering practices
+
+                                                                                                                               2
+                                                                                  SOW FY 2017 Signal Retiming Projects
+
+    NOTE: any existing files and/or information provided by the Department (including, but not
+    limited to: signal plans, SYNCHRO files, timing schedules, Tru-Traffic files, etc.) shall be
+    checked for accuracy by the Firm.
+
+Task 4A: Data Review with Division 10 (Division 10 Projects Only)
+
+The Firm shall meet with the Division after data collection and traffic operations review but prior
+to beginning any signal timing design to discuss and establish consensus on design approach.
+
+Task 5: Develop Traffic Signal System Timing Plans
+
+The Firm shall:
+ Ensure intersection geometric and phasing data in Tru-Traffic and SYNCHRO 9.0 match.
+ Develop SYNCHRO network model for existing conditions. Interpolation of traffic counts is
+
+    acceptable for non-critical intersections when count data is not available.
+ Develop time-of-day schedules
+ Update/develop Translink32 database
+ Update/develop Master Graphics:
+
+    o All new graphics should use photogrammetry and/or signal design plans as a minimum
+         standard
+
+    o Internal Translink32 default graphics will not be acceptable
+    o All graphics shall have a resolution of 1280 pixel x 768 pixel in order for entire graphics
+
+         screen to be viewed on a laptop without requiring scrolling
+    o Intersections and detectors shall be labeled
+ Ensure all System Detectors are assigned and the detector data is logging in field
+ Coordinate the number of timing plans with the Division and COST Section.
+
+Task 6: Preliminary Submittal
+
+The Firm shall:
+ Submit electronic preliminary timing plan report and supporting documentation to the COST
+
+    Reviewing Engineer for review, using the DOT File Transfer System (FTS), including:
+    o TransLink32 Databases
+    o Synchro
+    o Tru-Traffic
+    o Traffic Counts
+ Use the following report format:
+
+    Section 1 - Executive Summary
+    Section 2 - Study Area
+
+         o Intersections and a map
+         o Existing signal system zones
+         o Special signal timing requirements (pedestrian phases, FYAs, railroad preemption,
+
+             etc.)
+
+                                                                                                                               3
+                                                                                  SOW FY 2017 Signal Retiming Projects
+
+         o Facility Type
+         o Purpose of Route
+    Section 3 - Turning Movement Counts
+         o Map and location of existing and new counts
+         o Methodology of developing volumes for intersections without turning movement
+
+             counts
+         o Identify Traffic Flow Characteristics
+         o Table showing counts, who did them, date and peak periods counted
+    Section 4 - Existing Timing Plans
+         o Existing TOD Schedule
+         o Discrepancies between Translink32 & signal plans
+         o Discrepancies between signal plan and current conditions
+         o Day and time of "Before" travel time runs
+         o Refer back to Translink32 database
+    Section 5 ­ Field Observations of Corridor
+         o Observations from "Before" travel time runs ­ including any issues related to
+
+             deficiencies/safety issues with geometrics/pavement marking/signal heads, etc.
+         o Summary of Division concerns
+         o Citizen complaints
+    Section 6 - Proposed Timing Plans
+         o Identify Performance Measures
+         o Define Prioritization
+         o Define Operational Objectives
+         o Changes to Zones
+         o Identify Critical Intersections
+         o Cycle lengths for each plan
+         o Special timing (half cycle, uncoordinated intersections, lead/lag, etc.)
+     Section 7 - Proposed TOD/DOW Schedule
+     Section 8 - Proposed Implementation Schedule
+     Section 9 - Appendices
+         o Traffic routing methodology and results (If explanation is needed)
+         o Additional information
+         o Hard Copies (if requested)
+ Allow three (3) weeks for review, comments, and preliminary approval process to be
+    completed by the COST Section
+ Wait to implement until all review comments have been addressed and the preliminary
+    submittals have been approved by the COST Section
+ Receive initial project ratings after preliminary review approval is completed.
+
+Task 7: Field Implementation & Fine-Tuning of New Timing Plans
+
+The Firm shall:
+ Implement timing plans in accordance with the COST Section's requirements
+ Ensure all TOD scheduled events are operational in both the Master and local controller(s)
+ Observe new traffic operations at the intersections and along corridors and drive the system
+
+    with Tru-Traffic synced with the system time
+
+                                                                                                                               4
+                                                                                  SOW FY 2017 Signal Retiming Projects
+
+ Fine-tune traffic as necessary. (For estimating purposes, on complex projects this task may
+    be limited to an agreed upon maximum number of days.)
+
+Task 8: Evaluation of Traffic Signal System Operations
+
+The Firm shall:
+ Perform "After Runs" using Tru-Traffic software in accordance with the Standard Practice
+
+    for Travel Time Runs for Evaluation of Signal Timing Plans.
+
+Task 9: Final Submittal & Final Report
+
+The Firm shall:
+ Submit Final Report, timing plans, and all supporting documentation to the COST Reviewing
+
+    Engineer a minimum of one (1) month in advance of the deadline of the project to provide
+    adequate time for to review, evaluate, and approve (see Schedule below).
+    o One (1) electronic copy to COST Reviewing Engineer
+    o One (1) electronic copy to the Division
+    o All SYNCHRO, Tru-Traffic Reports and data, Translink32 database files (cleaning up the
+
+         schedule, removing unused timing plans, etc.), traffic counts, and any other pertinent
+         information.
+ Prepare a Final Report using the following format:
+
+    Section 1 - Executive Summary
+    Section 2 - Study Area
+
+         o Intersections and a Map
+         o Final signal system zones with any changes
+         o Special signal timing requirements (noteworthy changes or special programing to
+
+             note for future)
+    Section 3 - Turning Movement Counts
+
+         o Summary and refer back to Preliminary submittal
+    Section 4 - Implemented Timing Plans
+
+         o Date Implemented
+         o Cycle lengths for each plan
+         o Special programming changed because of field conditions
+    Section 5 - Implemented TOD/DOW Schedule
+    Section 6 - Travel Time Run Comparison
+         o Dates and Times of "Before" and "After" runs
+         o Tables summarizing "Before" and "After" run results
+    Section 7 - Recommendations
+         o Separate the signal operations comments from the remaining comments
+         o Classify recommendations by their added benefit to operation or safety (i.e. high,
+
+             medium, or low)
+    Section 8 - Appendices
+
+         o Additional information
+         o Hard Copies (if requested)
+
+                                                                                                                               5
+                                                                                  SOW FY 2017 Signal Retiming Projects
+
+ Notify COST Section if System re-timing effort does not provide an improvement/benefit to
+    the current System operations. COST Section, Division, and Firm will meet to discuss result
+    and agree on further actions and/or recommendations. If agreement between COST Section
+    and Firm is that improvement/benefit to the System operations cannot be accomplished
+    through the System re-timing effort then written justification should be included in the Final
+    Report.
+
+ Email Section 7 - Recommendations to Jennifer Portanova once the Final Report has been
+    accepted by the COST Reviewing Engineer.
+
+ Receive final project ratings after Final Report and accompanying documents are received
+    and approved.
+
+Task 10: Meet with Division Personnel
+
+The Firm shall meet with Division and Regional Traffic Engineer's personnel for up to 1/2
+business days to review and explain all work done.
+
+Work Standards
+
+The Firm will prepare plans in accordance with current edition of the following, if applicable:
+ Traffic Systems Operations' Project Special Provisions - (Special Provisions for the
+
+    Preparation of Coordinated Traffic Signal System Timing Plans ­ Version 2011.1)
+ NCDOT Traffic Management and Signal Systems Unit Design Manual
+ The Manual on Uniform Traffic Control Devices (MUTCD), 2003 Edition.
+ North Carolina Supplement to the MUTCD
+ Plan preparation and CADD conventions, customary practices and formats of the NCDOT
+
+    ITS and Signals Unit
+
+The Firm shall be responsible for responding to any operational issues related to the final signal
+timing plans for up to one (1) month after final signal timing plans have been reviewed and
+approved without additional cost to the Department.
+
+Invoices
+
+The Firm shall:
+ Include Summary of Progress and a Percent Completion on all Invoice submittals
+ Expect remittance of the Final Invoice after the Post implementation Observation Period has
+
+    ended.
+ Submit invoices to Dr. Hummer for payment.
+
+                                                                                                                               6
+                                                                                  SOW FY 2017 Signal Retiming Projects
+
+Schedule
+The Firm shall commence work in conjunction with receiving the Notice to Proceed (NTP) from
+the Dr. Hummer and complete project by September 30, 2017 or sooner.
+Reasonable extensions of time for unforeseen delays may be allowed as agreed to by mutual
+consent by and between the Firm and the COST Section.
+Reference
+
+Regional Traffic Engineers - https://apps.ncdot.gov/dot/directory/authenticated/UnitPage.aspx?id=9685
+Traffic Count Information
+https://connect.ncdot.gov/resources/safety/TrafficSafetyResources/Price%20List%20-%202015-2018.pdf
+https://connect.ncdot.gov/resources/safety/Pages/Traffic-Data.aspx
+
+Version 2017.1
+
+                                                                                                                               7
+

@@ -1,0 +1,122 @@
+Next-Generation Traffic Incident Management:
+(NextGen TIM Tech) for Saving Lives
+
+Emergency Vehicle Preemption (EVP)
+
+                                                                       Photo Credit: Enforcement Engineering, Inc.
+
+Emergency vehicle operation is a dangerous part of the job for public safety agencies, such as police, fire, and emergency medical services.
+Signalized intersections are particularly dangerous, and they require responders to slow or stop and proceed cautiously when facing a red
+signal. Emergency vehicle preemption (EVP) changes the traffic signal indication to green for an approaching emergency response vehicle,
+while promptly displaying a red signal to drivers who may cross the emergency vehicle's path. This interruption of the normal traffic signal
+operation enhances safety and reduces response time for an approaching emergency response vehicle.
+
+The concept of EVP has existed for several decades and is generally implemented in one of two ways: vehicle based and system based.
+Vehicle-based systems rely on transmitter equipment mounted in the responder vehicle that communicates with receiver equipment at each
+signalized intersection. Upon receiving a visual, audible, or wireless signal that an emergency vehicle in response mode is approaching, the
+individual signal controller at the intersection preempts the timing plan and gives preference to the appropriate intersection approach
+(see figure 1).
+
+Although the vehicle-based approach is still widely used, system-based approaches are quickly becoming a focus of attention. By taking
+advantage of newer, modern technologies, system-based traffic
+signal preemption is more reliable, more cost effective, and
+less cumbersome to manage. Automated vehicle location (AVL)
+technology, computer-aided dispatch (CAD), and centralized traffic
+signal system control using advanced traffic management systems
+(ATMS) allow agencies to implement signal preemption without
+dedicated hardware installed in the field (see figure 2).
+
+Through CAD integration, the ATMS may know when dispatchers
+
+assign response vehicles to high-priority emergency calls and provide
+
+preferred response routes. The AVL pinpoints the real-time location    Figure 1. Illustration. Maricopa Association of Governments
+                           of responding vehicles, and preemption       vehicle-based emergency vehicle preemption solutions.
+                                       requests are transmitted to       (Photo Credit: Maricopa Association of Governments.)
+                                              traffic signals using a
+
+central traffic control system with communication to the traffic signal.
+
+System-based EVP allows the response vehicle to select any route to the emergency
+   scene. Rather than define the route and trigger EVP at equipped signalized
+      intersections along the way, the system-based approach may easily be scaled
+         for an entire network. The Global Positioning System-based technology uses
+            geofences around the signalized intersection to detect the approaching
+              emergency vehicle and send a request to change or keep the signal
+                phase green. The real-time speed and distance of the responding
+                 vehicle are factored into triggering the signal and the duration of
+                   the preemption.
+
+                                                                       Although both vehicle and system approaches are proven, the
+                                                                       latter has advantages when it comes to cost, reliability, scalability,
+                                                                        and ease of management. Managing EVP across jurisdictions is
+                                                                        possible with both systems with planning and coordination.
+
+                                                                       Figure 2. Photo. Image of first responder vehicle. (Photo
+
+                                                                       Credits: Enforcement Engineering, Inc. and Getty Images.)               1
+IMPLEMENTATION AND BENEFITS
+
+Coordinated planning, policies, and involvement from agencies responsible for traffic signal  Joseph Tebo
+and public safety are key to a successful EVP program. Beyond the equipment or systems        FHWA Office of Operations
+required to establish the EVP, agency policy and user training are necessary. Performance     202­981­3117
+management and reporting are also relevant parts of implementation to monitor activations,    joseph.tebo@dot.gov
+quantify benefits, and justify the program.                                                   Paul Jodoin
+                                                                                              FHWA Office of Operations
+St. Paul, MN, experienced a 71 percent reduction in emergency vehicle crashes                 202­366­5465
+after deploying EVP.1                                                                         paul.jodoin@dot.gov
+                                                                                              James Austrich
+The Virginia Tech Transportation Institute determined that the average duration of a          FHWA Office of Operations
+preemption was 25 seconds and that effects on side streets were usually cleared within        202­366­0731
+one cycle.2                                                                                   james.austrich@dot.gov
+                                                                                              For more information, visit the
+Response times decreased by 14 to 23 percent, or a total of 70 seconds, on average, in a      FHWA EDC7 Next-Generation TIM
+Denver, CO, EVP evaluation at six intersections.3                                             Web Page.
+                                                                                              Publication No.
+The Plano, TX, Fire Department                                                                FHWA-HOP-24-019
+experienced 7 crashes at signalized
+intersections from 1981 to 1983, and                                                          Except for the statutes and regulations cited, the
+just 4 intersection crashes in the more                                                       contents of this document do not have the force and
+than 20 years following implementation                                                        effect of law and are not meant to bind the States
+of EVP.4                                                                                      or the public in any way. This document is intended
+                                                                                              only to provide information regarding existing
+Average delay per intersection before                                                         requirements under the law or agency policies.
+EVP was 7 seconds, and 1 second
+after implementation.5                                                                                                              2
+
+The system-based arrangement installed   Figure 3. Illustration. System-based arrangement
+in San Jose, CA, was approximately       of emergency vehicle preemption. (Photo Credits:
+$8 million less than the hardware-based  Enforcement Engineering, Inc. and Getty Images.)
+alternative for fewer intersections
+(see figure 3).6
+
+CONCLUSION
+
+Although the concept of EVP is not new, advances in traffic signal and vehicle location
+technologies have paved the way for innovation. Cost-effective implementation coupled
+with fewer operational challenges and reduced maintenance costs make EVP worthy of a
+new look.
+
+RESOURCES
+
+1 Fire Chief, Department of Fire and Safety Services, St. Paul, MN. 1977.
+ Emergency Vehicle Accident Study.
+
+2 McHale, G.M. and J. Collura. 2003. Improving Emergency Vehicle Traffic Signal Priority
+ System Assessment Methodologies. Paper presented at the 82nd Annual Meeting of the
+ Transportation Research Board, Washington, DC.
+
+3 City of Denver Department of Safety. 1978. Time Study on the Effectiveness of the
+ Opticom Traffic Control System. Report prepared for the City of Denver by the Denver
+ Department of Safety, FHWA Report No. D-ORTS/78.5.
+
+4 FHWA. 2006. Traffic Signal Preemption for Emergency Vehicles: A Cross-Cutting Study.
+ FHWA-JPO-05-010.
+
+5 Nguyen, H. 2023. Central EVP. Presented at the 2023 Intelligent Transportation System
+ (ITS) Northern California Luncheon.
+
+6 Saville, R., and H. Nguyen. 2018. "Expanding the Capabilities of Your Traffic Signal
+ Management System by Centralizing Emergency Vehicle Preemption Management."
+ Presented at the 2018 ITSA Annual Meeting.
+

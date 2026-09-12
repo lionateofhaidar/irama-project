@@ -1,0 +1,2105 @@
+arXiv:2210.10453v1 [eess.SY] 19 Oct 2022       Two-layer adaptive signal control framework for large-scale
+                                          dynamically-congested networks: Combining efficient Max-Pressure
+
+                                                                    with Perimeter Control
+
+                                                          Dimitrios Tsitsokasa, Anastasios Kouvelasb, Nikolas Geroliminisa,
+
+                                                      aUrban Transport Systems Laboratory, School of Architecture, Civil and Environmental
+                                                                             Engineering, EPFL, CH-1015 Lausanne, Switzerland
+
+                                                      bInstitute for Transport Planning and Systems, Department of Civil, Environmental and
+                                                                    Geomatic Engineering, ETH Zurich, CH-8093 Zurich, Switzerland
+
+                                          Abstract
+
+                                              Traffic-responsive signal control has received considerable research attention, as a cost-effective
+                                          and easy-to-implement network management strategy, bearing high potential to improve perfor-
+                                          mance in heavily congested networks with time-dependent traffic characteristics. Max Pressure
+                                          (MP) distributed controller gained significant popularity due to its theoretically proven ability
+                                          of queue stabilization and throughput maximization under specific assumptions. However, its
+                                          effectiveness is questionable under over-saturated conditions and queue spill-backs, while network-
+                                          wide implementation is often practically limited due to high instrumentation cost that increases
+                                          with the number of controlled intersections. Perimeter control (PC) based on the concept of
+                                          Macroscopic Fundamental Diagram (MFD) is a state-of-the-art aggregated control strategy that
+                                          regulates exchange flows between homogeneously congested regions, with the objective of main-
+                                          taining maximum regional travel production and prevent over-saturation. However, homogeneity
+                                          assumption is hardly realistic under congested conditions, thus compromising PC efficiency. In this
+                                          paper, the effectiveness of network-wide parallel application of PC and MP strategies embedded
+                                          in a two-layer control framework is assessed in a mesoscopic simulation environment. With
+                                          the aim of reducing implementation cost of network-wide MP without significantly sacrificing
+                                          performance gains, we evaluate partial MP deployment to subsets of nodes, indicated as critical
+                                          by a node classification algorithm that we propose, based on node traffic characteristics. A
+                                          modified version of Store-and-forward dynamic traffic paradigm incorporating finite queue and
+                                          spill-back consideration is used to test different configurations of the two-layer framework, as
+                                          well as of each layer individually, for a real large-scale network in moderate and highly congested
+                                          scenarios. Results show that: (i) combined control of MP and PC outperforms separate MP
+                                          and PC applications in both demand scenarios tested; (ii) MP control in reduced critical node
+                                          sets selected by the proposed strategy leads to similar or even better performance compared to
+                                          full-network implementation, thus allowing for significant cost reduction; iii) the proposed control
+                                          schemes improve system performance even under demand fluctuations of up to 20% of mean.
+
+                                          Keywords: adaptive signal control, max pressure, back pressure, perimeter control,
+                                          Store-and-Forward, macroscopic fundamental diagram (MFD)
+
+                                              Corresponding author. Tel.: +41-21-69-32481; Fax: +41-21-69-35060.
+                                               Email addresses: dimitrios.tsitsokas@epfl.ch (Dimitrios Tsitsokas), kouvelas@ethz.ch (Anastasios
+                                          Kouvelas), nikolas.geroliminis@epfl.ch (Nikolas Geroliminis)
+
+                                          Preprint submitted to Transportation Research Part C: Emerging Technologies  October 20, 2022
+1. Introduction
+
+    Traffic-responsive signal control systems have been the focus of numerous research studies, as
+a low-cost, easy-to-implement tool for dynamic flow management under rapid and/or random
+changes in traffic conditions. In contrast to static (fixed-time) signal control plans, which function
+according to a pre-determined, time-periodic schedule designed to serve a specific demand scenario,
+traffic-responsive signals dynamically update green/red times of competing streams in order to
+actively adjust to the prevailing traffic states. Consequently, they carry higher potential of
+increasing system operating capacity than fixed-time control, by making more efficient road
+space use, and by preventing excessive demand from causing instability and gridlocks. However,
+designing such systems in an optimal, cost-effective and practically applicable way is challenging,
+due to the high complexity and uncertainty involved in describing, modeling and predicting traffic
+network dynamics and driver decisions.
+
+    Various traffic-responsive signal control systems with different architectures and control
+algorithms have been proposed in the literature and implemented in the field. Among distributed
+controllers, Max Pressure (MP) (Varaiya, 2013a,b) which applies to independent intersections,
+has gained significant popularity due to its theoretically proven abilities of queue stabilization
+and throughput maximization, under specific assumptions. Multiple variations of the original
+algorithm have been proposed and tested, showing promising results. However, its effectiveness
+in network-scale control in over-saturated conditions is still uncertain, while traffic monitoring
+equipment requirements cause implementation cost to excessively increase in case of network-wide
+control. On the other hand, among centralized approaches, perimeter control (PC) based on the
+concept of the Macroscopic Fundamental Diagram (MFD), has been effective in improving traffic
+performance of single or multiple neighborhood-sized, homogeneously congested regions. PC
+consists of regulating inter-regional incoming and outgoing flows by adjusting green light duration
+of the respective approaches at the intersections located on the network perimeter or at the
+boundaries between regions. The objective is to maintain maximum travel production within the
+protected regions, according to the specific MFD law that associates regional vehicle accumulation
+and travel production. However, traffic homogeneity often decreases while congestion starts
+building, especially at the boundaries between regions where gating can cause queue formation,
+and as a result, PC effectiveness may drop. Besides, PC control logic is mostly effective in cases
+of high travel demand, where vehicle accumulation typically goes beyond critical, while it is less
+effective in cases of lower demand, even though local congestion pockets can still form.
+
+    While both of these control strategies have been extensively studied in an independent
+implementation framework, little is known about the effectiveness of their parallel/combined
+use in large-scale networks. Also, MP effect at the network level has not been investigated in
+detail for high demand conditions. Motivation to combine both strategies in a single control
+framework derives from their potentially complementing natures, which can act beneficially for
+the network. On one hand, MP acts on a local level and can prevent or delay the formation of
+local gridlocks deriving from highly imbalanced queues, which constitute heterogeneity sources
+that cannot be addressed by region-scale PC. On the other hand, PC can benefit from increased
+homogeneity owed to MP effects, while it can act on the region-scale against over-saturation, by
+maintaining vehicle accumulation - and consequently travel production - close to critical. Hence,
+PC impedes region-extended gridlocks that occur in over-saturated states, which might render
+MP ineffective. However, MP and PC might also have conflicting goals, as for example MP might
+
+                                                             2
+provide longer green time for high demand arterial roads towards attractive destinations, while
+PC might try to decrease inflow to these attractive regions, in order to keep accumulation close to
+critical which maximizes trip endings. Moreover, one other question regarding MP network-wide
+implementation is about optimal number and topology of controlled nodes, with regard to the
+ratio of traffic benefit over implementation cost. Despite the relatively high MP instrumentation
+requirement per controlled intersection, network-wide MP control typically assumes control of
+all network intersections. Reducing the number of controlled nodes can lead to significant cost
+reduction, and, to the best of our knowledge, no studies of partial MP application to network
+node subsets exist yet in the literature.
+
+    In this work, we investigate the effectiveness of a two-layer adaptive signal control framework
+for network-wide application, combining centralized MFD-based perimeter control with Max
+Pressure distributed control. PC is implemented via a Proportional-Integral (PI) regulator, which
+adjusts the green time of inter-regional approaches on the boundaries of homogeneously congested
+regions. MP regulator is installed to isolated intersections across the entire network. A method of
+identifying intersections that are potentially critical for MP control, based on specific node traffic
+characteristics, is proposed. Several scenarios of different MP node layouts are created based on
+this method, both for single MP control and as part of the two-layer controller, in combination
+with PC. The effects that MP might have in the PC control design parameters (such as critical
+accumulation of maximum network throughput) are also investigated. A modified version of
+the Store-and-Forward paradigm (see Aboudolas et al. (2009)), with elements of the S-Model
+(see Lin et al. (2011)) is used to emulate traffic for different control scenarios. Its modified
+mathematical structure enables proper modeling of spill-backs and finite capacity queues, while
+it allows dynamic updates of traffic signal settings Simulation tests are performed for a real
+large-scale network of more than 1500 links and 900 nodes for two demand scenarios, leading
+to moderate and high congestion in the fixed-time control case, respectively. The two control
+strategies are applied both independently and in parallel, as embedded in a two-layer framework.
+Results are compared to the benchmark case of fixed-time control. Regarding MP configuration,
+full-network implementation to all eligible nodes is compared to partial implementation to subsets
+of nodes selected both randomly and through the proposed selection algorithm, for different
+network penetration rates. A detailed analysis of the network behavior for all above scenarios is
+performed and performance of different control configurations and demand cases is discussed.
+
+    The contributions of this work are the following: we assess the combined application of Max
+Pressure with perimeter control through mesoscopic simulation for a large-scale network; we test
+partial MP implementations to subsets of network noes; we develop and assess a node classification
+algorithm based on actual traffic characteristics to assist identification of more critical nodes
+for MP control; we show through sensitivity analysis that MP node schemes generated by the
+proposed method are not sensitive to small demand fluctuations; finally we gain valuable insights
+regarding the design and behavior of combined application of PC and MP for different-scale
+demand scenarios.
+
+    The rest of the paper is structured as follows. At first, a review of the most relevant PC
+and MP studies is done in order to justify the motivation and expected contributions of this
+work. The theoretical framework of MP and PC control is introduced, together with the required
+notation explanation. The relations transforming the controller outputs to adjusted traffic signal
+plans are described for both control strategies and characteristics of the traffic simulation model
+are briefly discussed. Furthermore, the experiment setup is described and the methodological
+framework of node classification and selection is discussed. Simulation results and analysis follow,
+
+                                                             3
+together with an analysis of the system's behaviour for the different scenarios, compared to the
+fixed-time control case. Finally, the paper is concluded by summarizing the main findings and
+discussing possible future research.
+
+2. Background
+
+    Several types of traffic-responsive signal control systems have been proposed and applied in the
+field, following different optimization methods, as well as modeling and control approaches. Some
+of the most commonly used are SCOOT Hunt et al. (1981), OPAC Gartner (1983), PRODYN
+Henry et al. (1984), SCATS Lowrie (1990), UTOPIA Mauro and Di Taranto (1990), and the
+more recent ones RHODES Mirchandani and Head (2001) and TUC Diakaki et al. (2002).
+These systems employ a centralized control logic, in the sense that traffic information from the
+entire controlled region is required to be transferred to a central processing unit, where the
+respective control algorithm will process it and determine the control actions that need to be
+taken, which must be communicated back to every single intersection. This architecture, although
+it constitutes the state-of-the-art in the field of adaptive signal control due to higher number
+of degrees of freedom, is characterized by low applicability. This is due to its requirements in
+communication and computing infrastructure, which imposes a high installation, maintenance
+and operational cost. Also they provide relatively low scalability, in the sense that gradual
+installation or expansion of existing system to cover a larger region is challenging. Another
+implementation difficulty relates to the exponential complexity optimization algorithms that
+many of these systems employ, which prohibits network-wide, real-time central application due to
+computational cost. On the contrary, decentralized approaches, based on local control of isolated
+or coupled intersections, have significantly lower infrastructure requirements and algorithmic
+complexity, increased scalability, and yet high potential to improve network performance in
+dynamically-changing traffic conditions, even by starting from local scale. An overview of the
+different aspects of centralized and decentralized control strategies is found in Chow et al. (2020),
+while simulation experiments on such strategies are performed by Manolis et al. (2018). A detailed
+review of existing research in decentralized adaptive signal control can be found in Noaeen et al.
+(2021).
+
+    Max Pressure (MP) is probably the most popular decentralized, distributed feedback-based
+controller (also known as Back Pressure) proposed for isolated traffic intersections. Its function
+is based on a simple algorithm that adapts the right-of-way assignment between competing ap-
+proaches in real time, according to feedback information of queues forming around the intersection
+(upstream and downstream), in a periodic cyclic process. In the core of MP lies a pressure
+component, which quantifies the actual queue difference between upstream and downstream links
+of every phase, and determines phase activation or green time assignment during the following time
+slot. Initially proposed for packet scheduling in wireless communication networks by Tassiulas and
+Ephremides (1990), MP was formulated as a signalized intersection controller through the works
+of Varaiya (2013a), Varaiya (2013b) Wongpiromsarn et al. (2012), Zhang et al. (2012) and was
+theoretically proven by Varaiya (2013a) to stabilize queues and maximize network throughput for a
+controllable demand, based on specific assumptions, such as point-queues with unlimited capacity
+and separate queues for all approaches. The theoretical stability proof, despite the constraining
+assumptions on which is was based, together with the element of independence from any demand
+knowledge, and the decentralized and scalable layout, render MP a promising control strategy,
+especially for signalized networks facing unstable, excessive or dynamically variable congestion.
+
+                                                             4
+These traits have motivated a vast amount of research works focusing on MP controller, which
+generated numerous enhanced and/or improved versions, some of which are listed here. Gregoire
+et al. (2014b) and Kouvelas et al. (2014) introduced normalized queues in the pressure calculation,
+thus implicitly taking into account link size and spill-back probability, while taking into account
+queue capacity, which was considered infinite in the initial MP of Varaiya (2013a). Gregoire et al.
+(2014a) presented an MP version with unknown turn ratios but existing loop detectors for all
+directions at the exit line. Xiao et al. (2015b) and Xiao et al. (2015a) proposed extended MP
+versions able to address bounded queue length estimation errors and incorporate on-line turn
+ratio estimation, as well as dynamically update control settings over space according to demand.
+Le et al. (2015) applied a strict cyclic phase policy, in contrast to phase activation based on
+pressure which can induce long waiting time to some drivers, and provided stability proof, which
+applied also for non-biased turn ratios. Zaidi et al. (2015) integrated rerouting of vehicles in MP
+algorithms. Li and Jabari (2019) proposed a position weighted back pressure control, on the
+basis of macroscopic traffic flow theory, and integrated spatial distribution of vehicle queues in
+pressure calculation. Wu et al. (2017) proposed a delay-based version of MP controller in order to
+increase equity of waiting time among drivers around the intersection. In Mercader et al. (2020),
+pressure is calculated by using travel time estimation instead of queue length, in an attempt
+of relaxing the need for expensive queue measuring equipment, and findings are supported by
+simulation and real field experiments. Levin et al. (2020) propose an alternative signal cycle
+structure with maximum cycle length. However, even though many of the above works provide
+stability and throughput maximization proofs, they usually refer to moderate and feasible demand
+sets, while MP performance in highly congested networks is questionable. Unstable behaviour in
+such conditions can be attributed to the latency of local controllers, in general, in reacting to the
+rapid forming of congestion, given the lack of knowledge about traffic conditions upstream and
+out of the proximity of the controlled intersection. Also, in the case of MP, there is little area
+for improvement if most (or all) controlled queues are saturated, in which case control tends to
+approximate the fixed-time plan.
+
+    Perimeter control (PC), on the other hand, is an aggregated, centralized approach that has
+been gaining momentum over the last decade, mainly due to significantly reducing complexity in
+network-wide congestion control. The strategy, also known as gating, is based on the principle
+of regulating vehicle flows withing a defined, high-demand region (e.g. city center), in order to
+prevent high congestion, which can lead to gridlocks, delays and service rate decline. Exchange
+flow regulation happens via dynamical adjustment of the corresponding green times at the
+intersections located on the regional boundaries (perimeters). Daganzo (2007) described a
+theoretical model of adaptive control at an aggregate level, applicable to cities partitioned in
+neighborhood-size reservoirs. The work discussed the benefits of an inflow-withholding policy
+to prevent gridlock forming, showing how travel performance can increase for the entire peak
+period, even for vehicles that are forced to wait before entering the protected region. This
+policy was based on the hypothesis of a demand-insensitive, uni-modal relationship between
+vehicle accumulation (or density) and travel production (or space-mean circulating flow), that
+became later known as the Macroscopic (or Network) Fundamental Diagram (MFD or NFD).
+MFD concept, firstly introduced by Godfrey (1969), was theoretically founded and described by
+Daganzo (2007), and was empirically validated with real data for the city of Yokohama, Japan,
+by Geroliminis and Daganzo (2008). Similar studies focusing on multi-modality and critical
+accumulations based on real traffic data are performed by Paipuri et al. (2021) and Loder et al.
+(2019). Well-shaped low-scatter MFD is observed for homogeneously congested, compact regions
+
+                                                             5
+(with low link-flow variance) with relatively low scatter, which constitutes an elegant, dynamic
+modeling and control tool, that can serve as a basis for simplified, aggregated, network-scale,
+adaptive flow control schemes. Numerous researchers focused on the concept of MFD producing
+significant contributions regarding its existence preconditions, characteristics, shape, hysteretic
+behavior (Buisson and Ladier (2009), Ji et al. (2010), Mazloumian et al. (2010), Geroliminis and
+Sun (2011), Gayah and Daganzo (2011), Mahmassani et al. (2013)), and many more incorporated
+MFD theory in developing aggregated models for dynamic traffic-responsive urban network
+control for congestion mitigation (some recent works are Yildirimoglu et al. (2018), Mariotte et al.
+(2017), Mariotte and Leclercq (2019), Laval et al. (2017), Batista et al. (2021)). Bi-modal MFDs
+are utilized in Geroliminis et al. (2014), Loder et al. (2017), Haitao et al. (2019), Paipuri and
+Leclercq (2020), Paipuri et al. (2021). MFD application to ride-sourcing systems in multi-modal
+networks is proposed by Wei et al. (2020) and Beojone and Geroliminis (2021). Modeling and
+dynamic control of taxi operations based on MFD is described in Ramezani and Nourinejad
+(2018).Network partitioning research for the purposes of MFD-based control was also intensified
+(Ji and Geroliminis (2012), Saeedmanesh and Geroliminis (2016), Ambu¨hl et al. (2019)). For an
+overview of MFD research with respect to traffic modeling, the reader could refer to Johari et al.
+(2021).
+
+    Perimeter control specifically was intensively studied on the basis of MFD modeling, and a
+large number of MFD-based PC schemes have been proposed, analyzed and evaluated in the
+recent years, utilizing different modeling and control methods and focusing on different control
+aspects. Proportional-Integral (PI) feedback regulator for single- and multi-regional networks is
+implemented in Keyvan-Ekbatani et al. (2012), Keyvan-Ekbatani et al. (2015), Aboudolas and
+Geroliminis (2013), Ingole et al. (2020), optimal MPC is implemented in Geroliminis et al. (2012),
+Haddad (2017a), Haddad (2017b) with boundary queue consideration, while route guidance
+is incorporated in PC schemes in Yildirimoglu et al. (2015), Sirmatel and Geroliminis (2017).
+Stability analysis is done in Haddad and Geroliminis (2012), Sirmatel and Geroliminis (2021),
+integrated PC with freeway ramp metering is proposed in Haddad et al. (2013), robust control
+is implemented in Ampountolas et al. (2017), Mohajerpoor et al. (2020), adaptive control is
+implemented in Kouvelas et al. (2017), Haddad and Zheng (2020), Haddad and Mirkin (2020),
+demand boundary conditions are considered in Zhong et al. (2018), bi-modal MFD is proposed in
+Geroliminis et al. (2014), cordon queues impact is assessed in Ni and Cassidy (2020), remaining
+travel distance dynamics are integrated in MFD modeling and control in Sirmatel et al. (2021),
+while data-based model-free PC implementations are proposed in Ren et al. (2020), Chen et al.
+(2022), Zhou et al. (2016). However, despite the impressive amount of literature and the promising
+results in terms of network-wide traffic performance, there are still certain concerns regarding
+MFD-based PC practical application. One is the requirement for homogeneous congestion
+distribution, which is not common in real congested networks and can even be endogenously
+compromised, by the PC gating strategy, that tends to create local queues on the boundaries
+between clusters, which are themselves source of heterogeneity and compromise PC effectiveness.
+Similarly, PC can have little to no effect in cases of low to medium demand patterns that yet lead
+to heterogeneous traffic distribution, where gridlocks appear in specific parts/paths of a seemingly
+uncongested network, creating spill-backs and local congestion pockets, and causing delays.
+
+    Based on the above, developing multi-layer control polices comprising of both local and
+aggregated strategies, seem an intuitive way of achieving network control with multiple objectives.
+Various multi-layer hierarchical control structures involving perimeter control in the upper layer
+have been proposed, often with a lower layer focusing on reducing heterogeneity in local scale.
+
+                                                             6
+Ramezani et al. (2015) propose a two-layer feedback controller, where MPC is utilized to solve the
+optimal PC problem in the higher layer, while a feedback homogeneity controller is embedded in
+the lower lever, which acts as PC in a subregional level, aiming at decreasing heterogeneity within
+regions. Similarly, Zhou et al. (2016) propose a two-layer framework where demand-balance
+problem between homogeneous subnetworks is treated via MFD-based PC in the higher layer,
+and a more detailed traffic model is embedded in the lower layer for optimizing all signals within
+each subnetwork, with both layers based on MPC optimal control formulations. Based on the
+same concept, Fu et al. (2017) propose a three-layer hierarchical control strategy, also including
+a stability analysis top layer. In all these works, hierarchical communication schemes between
+layers are required for exchange of information between controllers, which results in increased
+infrastructure requirements. Furthermore, MPC optimal control formulations increase complexity
+and computational cost, and performance is affected by the accuracy and fine-tuning of the
+utilized models.
+
+    Adopting a concept similar to the one of hierarchical schemes, we design and evaluate a two-
+layer network control framework consisting of: (i) a PC strategy based on a Proportional-Integral
+(PI) feedback controller, which manages exchange flows between homogeneously congested regions
+by adapting the traffic signal plans of intersections on their boundaries; and (ii) independent
+MP controllers acting on signalized intersections in the interior of the regions, balancing queues
+in their proximity, at a local scale. Very few studies have examined the behaviour of networks
+with parallel application of PC and other types of local controllers, and to our knowledge, none
+includes MP. Yang et al. (2017) proposed an MPC-based controller incorporating two objectives of
+network-wide and intersection-scale delay minimization, by formulating and linearizing a complex
+multi-objective optimal control problem, applied in a connected vehicle environment. However,
+apart from the increased complexity, model-dependent accuracy and requirement of detailed
+demand information of MPC, local delay minimization was focused only on intersections on
+the perimeter of the protected region, while the coupled control scheme is centralized, meaning
+that communication infrastructure to central controller is required, in contrast to MP which
+is decentralized. Keyvan-Ekbatani et al. (2019) examine the effects of combining PC with two
+different local adaptive controllers, a volume-based strategy and a simplified SCATS strategy.
+Performance results showed significant improvement in the cases of combined PC and local
+traffic-responsive control strategies. However, due to the size of the test network, only a small
+number of intersections were available for the local controllers and no investigation of the spatial
+control layout was held. Also MP was not tested as local controller.
+
+    In this work, we propose a node selection algorithm to be used for identifying subsets of
+network signalized intersections that are more critical for MP control, based on variance and mean
+of normalized queues and spill-back occurrence of adjacent links. To the best of our knowledge, no
+existing research investigates partial MP application to node subsets. We evaluate and compare
+several scenarios of independent and combined application of PC and MP, with different MP node
+layouts and network penetration rates, for a real large-scale network, where traffic is modeled
+with a modified Store-and-Forward dynamic mesoscopic model. All control scenarios are tested
+for two trip demand settings, leading to moderate and high network congestion under fixed-time
+control settings.
+
+3. Methodology
+
+    A schematic representation of the proposed two-layer controller is shown in figure 1. In the
+upper layer, perimeter control is applied in an aggregated scale between a set of homogeneously
+
+                                                             7
+              Regional Perimeter Control
+
+               Distributed Max-Pressure
+                          Control
+
+Adjusted      Multi-region Urban Traffic  Real-time
+signal plans             System           Traffic data
+
+              Demand  Performance
+
+                                   Figure 1: Schematic description of the two-layer controller.
+
+congested regions. At the end of every control cycle, the controller, based on inputs of aggregated
+regional vehicle accumulation, specifies the target inter-regional exchange flows for the next cycle,
+which are translated into the respective inter-regional green times between every pair of adjacent
+regions. The controller-specified interregional green times are then translated to exact green times
+per approach, for all PC controlled intersections, located on the boundaries between regions, by
+taking into account the actual boundary queues. In the lower layer, distributed control based on
+Max Pressure regulator is applied to a set of eligible intersections, in the interior of the regions.
+This set can contain all or a fraction of signalized intersections of the region, with the exception
+of those used for PC (if PC is applied in parallel). MP controllers do not communicate with each
+other or with any central control unit, but operate independently based on queue measurements
+directly upstream and downstream the controlled intersections, by adjusting green times of the
+approaches accordingly, at the end of every control cycle. The control layers do not exchange
+information, however their combined effect is indirectly considered by both controllers through
+the real-time traffic measurements that they receive as inputs. The mathematical formulations of
+both controllers are described in the following subsections, followed by a brief description of the
+utilized traffic model and traffic simulation process.
+
+3.1. Max-Pressure Control
+3.1.1. Review of Max-Pressure feedback controller
+
+    Max-Pressure feedback-based control algorithm was initially formulated for traffic signal control
+by independently by Wongpiromsarn et al. (2012) and Varaiya (2013a,b), who theoretically proved
+its stability and throughput maximization properties, though under restrictive assumptions. It is a
+distributed and scalable control strategy, in the sense that its operation requires no communication
+with the rest of the network infrastructure and, therefore, it can be introduced to any signalized
+
+                                                             8
+intersection at any time, without necessitating any readjustment of existing controllers elsewhere.
+
+In other words, gradual installation to network is theoretically possible. Moreover, it does not
+
+require any knowledge of the actual or expected traffic demand, in contrast to Model-Predictive
+
+Control (MPC) approaches, which simplifies practical implementation. The MP version applied in
+
+this work only requires real-time queue measurements of the links around controlled intersection
+
+and turning ratios of all alternative approaches that traverse the intersection. Both can be
+
+measured or estimated with proper instrumentation. Several modified versions of the original
+
+control algorithm have been introduced and tested by simulation experiments. The present
+
+version is similar to the one described in Kouvelas et al. (2014). The detailed description of MP
+
+algorithm together with the necessary notation is given below.
+
+The traffic network is represented as a directed graph (N, Z) consisting of a set links z  Z
+
+and a set of nodes n  N . At any signalized intersection n, In and On denote the set of incoming
+and outgoing links, respectively. The cycle time Cn and offset - which enables coordination with
+the neighboring intersections - are pre-defined (or calculated online by a different algorithm) and
+
+not modified by MP. Intersection n is controlled on the basis of a pre-timed signal plan (including
+
+the fixed total lost time Ln), which defines the sequence, configuration and initial timing of a
+fixed number of phases that belong to set Fn. During activation of each phase j  Fn, a set of
+non-conflicting approaches vj (i.e. connections between pairs of incoming-outgoing links of node
+n) get right-of-way (green light) simultaneously. The saturation flow of every link z, denoted as
+
+Sz, refers to the maximum possible flow that can be transferred to downstream links, depending
+on link and intersection geometry. The turning ratio of an approach between links i - w, where
+
+i  In, w  On is denoted as i,w and refers to the fraction of the outflow of upstream link i that
+will move to downstream link w. The present version of MP assumes that turning ratios are
+
+known to the controller. However, it has been shown that control effectiveness is not deteriorated
+
+if turning ratios are estimated (see Le et al. (2015)). By definition, the following relation stands
+
+for every node n,
+
+                                  gn,j(Kc) + Ln = (or ) Cn            (1)
+
+                             jFn
+
+where kc = 1, 2, . . . is the discrete-time control interval index, and gn,j(kc) denotes the green time
+duration of phase j of node n at control interval kc. The inequality may apply in cases where
+long all-red phases are imposed for any reason (e.g. gating).
+
+The version of MP controller employed in this work assumes that phase sequencing is given as
+
+input (e.g. from pre-timed scheduling) and does not change during the control. Consequently,
+
+during every cycle, all phases will be activated for a minimum time in the same ordered sequence.
+
+As a result, the following constraint also applies for every node n,
+
+                             gn,j(kc)  gn,j,min, j  Fn                (2)
+
+where, gn,j,min is the minimum green time required for phase j of node n, which often matches the
+required amount of time for the respective pedestrian movements. The control variables of this
+problem, denoted as gn,j(kc), represent the duration of the effective green of every stage j  Fn of
+all controlled intersections n  N . Assuming that real-time measurements or estimates of the
+queue lengths (states) and turning ratios of all controlled intersections are available, the pressure
+pz(kc) of every incoming link z  In of node n, at the end of control cycle kc, is computed as
+
+                   pz(kc) =  xz(kc) -       z,w xw (kc )  Sz, z  In   (3)
+
+                                  cz   wOn  cw
+
+                                       9
+In equation (3), xz(kc) denotes the average number of vehicles that are present (moving or
+queuing) in link z during control cycle kc and cz denotes the storage capacity (maximum number
+of vehicles) of link z. Queue normalization by the link storage capacity aims at considering the
+link size, so that pressure of a smaller link is higher than that of a larger one with the same
+number of vehicles in it. In other words, pressure takes into account the likelihood of link queues
+- upstream and downstream - to spill-back in the following cycle. Pressures of all incoming links
+are calculated at the end of every cycle based on the latest queue measurements, which constitute
+the state feedback variables and are collected through proper instrumentation. Then, pressures
+are used by the controller for the signal settings update. It should be noted that the above
+formulation assumes that flow transfer is always possible between z and all w  On. Otherwise,
+the second term of equation 3 refers only to downstream links for which flow transfer is allowed
+from z (z,w > 0). In different MP versions, xz may refer to the instantaneous or the maximum
+observed queue length at the end of the control cycle. In this work, a preliminary analysis showed
+that mean queue length values generate better results and this way was adopted. By looking at
+the two terms, one can notice that, essentially, pressure depicts occupancy difference between
+upstream and downstream links. Therefore, higher pressure indicates higher potential in traffic
+production, i.e. significant volume waiting to be served and enough available space in downstream
+links to receive it. Low or close to zero pressure indicates lower need for right-of-way time, due
+either to small queue upstream, or to lack of space downstream (links close to capacity). We
+should note that negative pressures are meaningless, so constraint pz(k)  0 must always hold.
+
+    Based on equation 3 pressure is calculated for all incoming links z  In of node n. Then, the
+pressure corresponding to every stage j at control cycle kc is defined as the sum of the pressures
+of all incoming links that receive right-of-way in stage j, as follows.
+
+                                        
+
+                                        
+
+         Pn,j(kc) = max 0, pz(kc) , j  Fn         (4)
+
+                       zvj              
+
+This metric is then used as weight for the distribution of the total available green time between
+the competing stages of the intersection.
+
+    After pressure values Pn,j are available for every phase j  Fn of intersection n, the total
+amount of effective green time Gn, calculated as
+
+         Gn = Cn - Ln = gn,j, n  N                (5)
+
+                        jFn
+
+is distributed to the phases of node n in proportion to pressure values. In equation (5), gn,j
+denotes the green time assigned to phase j by static fixed-time analysis, using any of the standard
+
+algorithms. It holds that gn,j  gn,j,min, j  Fn.
+    There are several different approaches that have been proposed regarding green time calculation,
+
+some of which also include phase activation based on pressures. In this version, since phases
+
+are activated in a strictly defined and non-changing order with a guaranteed minimum green
+
+time, green duration, g~n,j(k), is assigned to phases proportionately to the computed pressures, as
+
+follows               Pj (kc )
+                      iFn Pi(kc
+         g~n,j(kc) =             )  Gn  ,  j  Fn  (6)
+
+Eq. (6) provides the raw green times calculated according to MP controller. However, these
+
+values cannot be applied directly to the intersection signal plan, because it must first be guaranteed
+
+                        10
+that they comply with a set of necessary constraints. Therefore, an additional step is added in
+the signal update process, whose objective is to translate MP outputs of eq. (6) to practically
+applicable green times Gi,j. This is done by solving online, for every control cycle kc, the following
+optimization problem (similar to Diakaki et al. (2002) but in this case two additional constraints
+are added):
+
+minimize         (g~n,j - Gn,j)2
+     Gn,j
+            jFn
+
+subject to       Gn,j + Ln = Cn
+
+            jFn
+
+            Gn,j  gn,j,min, j  Fn   (7)
+
+            |Gn,j - Gpn,j |  gnR,j
+            Gn,j  Z+
+
+            j  Fn
+
+    According to the above formulation, the applicable green times for every phase Gn,j, j  Fn,
+should be as close to the non-feasible regulator-defined greens g~n,j as possible, while satisfying
+a set of constraints. The first constraint states that eq. (1) must always hold, therefore the
+
+sum of the updated feasible green times plus the total lost time Ln should be equal to cycle Cn.
+The second constraint ensures that all phases get a predefined minimum green duration gn,j,min.
+In order to avoid potential instability of the system due to large changes in the signal timing
+
+happening too fast, we impose a threshold to maximum absolute change of every phase duration
+between consecutive cycles. This is expressed in the third constraint, where Gpn,j denotes the
+applied green times of the previous cycle and gnR,j is the maximum allowed change of the duration
+of phase j between consecutive cycles. Finally, feasible green times must belong to the positive
+
+integers set. This type of integer quadratic-programming problem can easily be solved by any
+
+commercial solver fast enough to allow online solution for every control cycle. The solution of
+
+this optimization problem, i.e. variables Gn,j, j  Fn, are the new feasible phase duration for
+node n which will be applied in the next control cycle. The above process is repeated at the end
+
+of the cycle for every controlled intersection, regardless of what is happening to the rest of the
+
+network. The controller only requires real-time queue information of the adjacent intersections
+
+and respective turning ratios and the algorithm is executed once per cycle.
+
+3.1.2. Developing a critical node selection framework for Max-Pressure control
+    While there has been significant research interest in finding more efficient or less infrastructure-
+
+dependent versions of MP controller as part of network-scale signal control systems, little attention
+has been directed towards defining the optimal number, relative location and traffic characteristics
+of the intersections that are included in the MP control scheme. In most case studies in literature,
+either all eligible intersections or only those across important arterial roads are controlled. However,
+given the high requirements in monitoring equipment that increase proportionately to the number
+of controlled intersections, it is interesting to investigate how the impact of the control scheme is
+affected in the following cases: if only a fraction of the eligible intersections are controlled; whether
+some nodes are more critical than others in the sense of MP control for the same fraction; and
+what are the characteristics that would allow us to identify them. In an effort to reply to these
+research questions, we develop a node selection methodology based on current network traffic
+characteristics, by using principles of traffic engineering combined with an optimization approach.
+
+            11
+We test several different schemes of MP control, where different fractions of eligible nodes are
+included in the MP control node set. The controlled nodes are chosen both by the proposed
+method and randomly, for comparison reasons, and are tested in independent MP schemes as
+well as combined with specific PC strategies. In this section, the proposed node selection process
+for MP nodes is described.
+
+    By analyzing the mechanism of the MP controller, we can infer that the process of green time
+re-assignment among competing phases/approaches is intuitively more beneficial in cases where
+queues of the competing approaches differ significantly from each other during the day, and thus,
+there are important pressure differences that can be balanced by the controller. This makes more
+sense if we think of an intersection where all approaches constantly have similar queues. In such
+case, pressures of phases would be relatively constant in time and therefore the controller would
+assign almost unchanged green time to all phases, similar to what the fixed-time control plan
+would do. In such cases, MP benefits are negligible. Thus, variance of queues of all approaches
+of an intersection, both incoming and outgoing, is one variable of interest in assessing node
+criticality. Furthermore, the mean normalized queue of the same approaches during peak period,
+or in other words the amount of traffic that the node serves with respect to its capacity, are also
+good indicators, since the impact of a poor or efficient signal plan is intensified if controlled node
+serves vehicles close to capacity. A node that gets congested in the FTC scenario, in the sense
+that some or all of its approaches reach jam densities and spill-backs occur upstream, might see
+higher improvement with MP control, which would affect higher number of trips, compared to
+a moderately congested node, where spill-backs do not occur. The charging level of each node
+can be estimated by the average queue over capacity ratio of all node approaches. Finally, the
+duration of the spill-back occurrence also seems important. For instance, a node might 'see' very
+high queues for only a short time, which can lead to a medium time-mean average approach
+queue and the same can happen for a node with medium to high queues that persist for a longer
+time period. In the former, spill-backs can occur for a short time while the node is relatively
+empty the rest of the time, while in the latter, spill-backs may not occur but short delays are
+affecting more drivers for longer time, therefore MP controller may create higher benefit for this
+node. To differentiate between the two node cases, we can count, for every node, the time during
+which at least one of the node approaches reaches jam density and spill-backs occur. Through
+this thinking process, we identify three quantities that should be taken into account in order to
+accurately assess the overall node significance for MP control.
+
+    Therefore, we define a set of three node assessment criteria, which we linearly combine into
+a kind of node (dis)utility function, whose coefficients can be determined through a suitable
+calibration process. In this work, a simple grid-search was performed, which is described in the
+following subsection. Given traffic information of the current network situation (e.g. FTC), a
+peak-period P is defined, based on the observed network state, as a set of time steps TP . The
+selection process can be described, step by step, as follows:
+
+· For every node n that is eligible to receive MP controller, the following three quantities
+  are estimated: The first, denoted as m1n, represents the average node congestion level, as
+  the mean over time of the mean occupancy (queue normalized over link capacity) of all
+
+  incoming links z  In of node n, during peak period P . It is equal to
+
+mn1 =   1      1  xz (i)  (8)
+       TP
+           In iTP zIn cz
+
+           12
+where i is the simulation time-step index, TP is the set of time-step indices corresponding
+to the peak period P and TP is the size of set TP . The second, denoted as m2n, represents
+the mean over time of the variance of link occupancy of all incoming links z  In of node n
+
+during peak-period P , computed by
+
+                m2n =     1        var(Xzn(i))                         (9)
+                         TP
+                              iTP
+
+where Xzn(i) = {xz(i)/cz|z  In} is the set of normalized queues of all incoming links z
+of node n at time step i. The third quantity, denoted as Ncn, represents the fraction of
+the peak period P , during which node n is considered `congested'. In this analysis, we
+
+assume that a node is `congested' during control cycle k if the average queue of at least one
+
+incoming link z  In of node n during k is higher than a preset threshold percentage p of
+its storage capacity, as shown by binary function Cn(k) below.
+
+Cn(k) =  1, if    1    ktnc          xz (i)    p  cz ,  for any z  In  (10)
+                  tcn  i=(k-1)tcn+1
+
+         0, else
+
+                  Ncn =  tcn       Cn(k),                              (11)
+                         TP
+                              kP
+
+In equation 10, tcn denotes the control cycle size in number of simulation time-steps, i.e.
+tcn = Cn/t, where Cn denotes the control cycle duration of node n and t the simulation
+time-step duration. In equation 11, the ratio TP /tcn is the number of control cycles that
+constitute peak period P . In other words, Ncn represents (in the scale of 0 to 1) the fraction
+of the peak period P during which, at least one incoming link is congested and causes
+
+queue spill-back. In the current analysis, we set p = 80%, since this is shown to significantly
+
+increase the probability for spill-back occurrence (see Geroliminis and Skabardonis (2011)).
+
+· Then, the level of importance of each node n regarding MP control is estimated as a linear
+  combination of the the above variables, denoted as Rn, as follows:
+
+                  Rn = m1n + mn2 + Ncn                                 (12)
+
+Quantity Rn is then used as a base to rank nodes and drive the selection of the most critical
+ones. The coefficients in equation 12 act as weights for the importance of every criterion
+and their values can be calibrated based on a trial and evaluation grid test, as described
+below.
+
+· Finally, based on a target network penetration rate for MP control (i.e. percentage of
+  eligible network nodes to receive MP controller), nodes are selected in sequence of increasing
+  Rn, until the target number is reached.
+
+    An important step of the above process is finding proper values for the parameters , , 
+of classification function R (equation 12), which serve as weights of node variables m1, m2
+and Nc that indicate node importance. Since the relative importance of these variables is not
+
+                         13
+straightforward, a trial-and-evaluation test is performed. More specifically, enumeration upon
+a grid of values of , ,  with subsequent MP simulation is performed. The combination of
+values leading to minimum total travel time for the same node penetration rate is then found and
+selected for all experiments.
+
+3.2. Perimeter Control
+
+3.2.1. Proportional-Integral regulator for MFD-based gating
+
+The concept of gating in perimeter control strategies for single- or multi-region systems
+
+consists of controlling vehicle inflows in the perimeter or the boundaries of the protected regions,
+
+in order to prevent vehicle accumulation to rise excessively in their interior and lead to congestion
+
+phenomena, such as lower speeds, delays and gridlocks. Flow control can be applied by means
+
+of real-time adaptive traffic signals on the perimeter or the boundaries between regions, where
+
+green time of the respective approaches is periodically adjusted, based on a control law that
+
+takes into account the actual traffic state of the region. State information can be provided in
+
+real-time by loop detectors installed properly in the interior of the region, or by other types of
+
+traffic measuring equipment.
+
+The concept of MFD enables the development of reliable feedback control strategies that
+
+assess the network state based only on measurements of vehicle accumulation in the system,
+
+which is associated to a specific travel production/service rate. Driven by the characteristics
+
+of the MFD curve, PC strategies can manipulate perimeter inflows during peak-hours so that
+
+vehicular accumulation in high-demand regions is maintained close to critical - for which travel
+
+production is maximum - and does not reach higher values belonging to the congested regime of
+
+the MFD. When accumulation tends to increase above this level, the allowed perimeter inflow is
+
+reduced by means of decreased green time for the approaches on the perimeter leading to the
+
+interior of the region. For large scale heterogeneously congested networks, proper clustering into
+
+homogeneous regions) that demonstrate a low-scatter MFD is required.
+
+Several approaches for MFD-based perimeter control have been proposed and successfully
+
+tested, for single and multi-region systems, and different types of control laws are employed. In
+
+many studies, model-predictive control (MPC) schemes are employed for PC implementation,
+
+where dynamic aggregated traffic models are used to predict upcoming traffic states, based on
+
+which, an optimal control problem is solved for the prediction horizon and control variables are
+
+defined. However, in this work we consider no traffic states prediction, as we follow a simpler,
+
+less computationally expensive approach, where the system is controlled in real-time through a
+
+classical multivariable Proportional-Integral (PI) feedback regulator (see Kouvelas et al. (2017)),
+
+as follows:
+
+             u(kc) = u(kc - 1) - KP [n(kc) - n(kc - 1)] - KI [n(kc) - n^]  (13)
+
+In the above, u(kc) denotes the vector of control variables uij for control interval kc, which, in
+this work, represent the average green times corresponding to the controlled approaches between
+adjacent regions i and j (heading from i to j), as well as to the external perimeter approaches of
+every region (if external gates exist), denoted as uii; n is the state vector of aggregated regional
+accumulations ni; n^ is the vector of regional accumulation set-points n^i; and KP , KI are the
+proportional and integral gain matrices, respectively. If equation 13 is written in analytical
+form instead of matrix form, a system of equations will be produced. Every equation specifies
+the average green time, for the next control interval, for all nodes in specific direction between
+pairs of adjacent regions (e.g. uij and uji for adjacent regions i, j  N ), while the last N
+equations refer to the average green time of all external approaches of each region. The control
+
+                              14
+goal is to maintain accumulation close to critical in all controlled regions, in case of excessive
+demand, and impede reaching the congested regime of the MFD, where travel production drops
+significantly. Therefore, the set-points are decided based on the regional MFDs. The number of
+controlled regions and the respective MFD shapes depend on the network partitioning to a set of
+homogeneously congested regions N , which can involve real or simulated traffic data. In order
+to be functional, the PI regulator requires as inputs the real-time regional accumulations, the
+set-points, as well as the proportional and integral gain matrices. Regional accumulations are
+supposed to be provided by loop detectors or other measuring equipment, properly distributed
+in the network. In this work we assume perfect knowledge of regional accumulations, that are
+averaged over the control interval.
+
+    The PI controller is activated at the end of every control interval and only when real-
+time regional accumulations are within specific intervals, in the proximity of the specified
+set-point, i.e. activated when ni  ni,start and deactivated when ni  ni,stop, for i  N and
+typically ni,stop < ni,start. This is important as early activation of the PI regulator (i.e. for low
+accumulation) can lead to signal settings aiming at increasing congestion in the controlled areas,
+so that production gets closer to critical, which is the target. However, such a policy can accelerate
+congestion and compromise the system performance. From equation 13, the average green time
+uij(kc) of all controlled approaches on the border between regions i and j with direction from i
+to j is calculated. Based on this average value, the exact green time for every specific intersection
+is calculated according to the process described in the following subsection. After deactivation of
+the controller, the FTC signal plan for all PC intersections is gradually restored.
+
+    Benefits of PC are more obvious in cases of high travel demand with highly directional flows
+towards the protected regions, that are usually areas of increased activity levels (e.g. city center).
+In such cases, the congestion-prone regions are kept close to capacity while queues are forming in
+the adjacent regions, due to PC. Usually, the adjacent regions are considered less probable to get
+highly congested and the PC-related queues do not cause significant performance degradation.
+However, multi-reservoir systems with multiple sources of congestion are more challenging to
+control with a multi-region PC scheme, as it may be the case that several neighboring regions
+can get congested at the same time and flow regulation between them is not straightforward. In
+such cases, the system optimal performance might come from a PC scheme where one region
+is `sacrificed' and gets congested so that another more critical one is protected. In other words,
+finding the right values for the proportional and internal gain matrices is not trivial and depends
+on the actual traffic distribution patterns. In this work, since the focus is on the combination of
+PC and MP schemes, we calibrate KP and KI intuitively, based on a trial-and-error simulation
+process, in order to achieve some minimum performance improvement.
+
+3.2.2. Green time calculation for PC intersections
+    After average green time uij for all PC controlled approaches between adjacent regions i and j
+
+(from i to j) is defined from equation 13, it is used as base to define the exact new green duration
+for the respective phases containing the approaches leading from region i to j. However, since
+not all intersections serve the same demand, green time assignment is more efficient if decision
+takes into account current queue lengths of the respective approaches. In other words, assignment
+should aim at providing longer green to approaches having larger queues, while ascertaining that
+the mean green of all approaches is as close as possible to the value defined by the PI controller, in
+an effort to balance queues in the boundaries between regions. Moreover, new greens are subject
+to a set of constraints, similar to the ones imposed in the case of MP signal update process,
+
+                                                            15
+i.e. maximum allowed change between consecutive cycles, minimum and maximum green phase
+duration, constant cycle duration and integer green integrals.
+
+    Hence, for every uij that is specified by the PI controller, an optimization problem is solved
+for determining the exact green duration of the primary and secondary phases, denoted as p
+and s, respectively, of all controlled intersections with direction from i to j. Primary phase
+p includes approaches with direction from i to j and secondary phase(s) s include approaches
+of the same intersection but in the vertical (parallel to the boundary between regions) or the
+opposite direction (from j to i), depending on the traffic characteristics of the nodes. The sum of
+available green of primary and secondary phase remains constant, in other words, the green time
+that is removed from the primary phase goes to the secondary phase(s), while duration of any
+other phases of the node remains unchanged. Assuming that the set of controlled nodes in the
+direction from i to j is denoted as Mij, m is the node index, Gm,p is the final green of the primary
+phase, Gm,s is the final green of the secondary phase, Gm,t is the sum of available green time for
+primary and secondary phases and Qm,p and Qm,s are the sum of the average observed queues of
+all incoming links belonging to the primary and secondary phases during the last control interval,
+respectively, the following optimization problem is formulated:
+
+minimize          Qm,p(Gm,p - uij)2 +        Qm,s(Gm,s - (Gm,t - uij))2
+
+Gm,p ,Gm,s  mMij                       mMij
+
+subject to  Gm,p + Gm,s = Gm,t
+            Gm,i  gm,i,min, for i  {p, s}
+            |Gm,i - Gpm,i|  gmR,i                                        (14)
+            Gm,i  Z+
+            i  {p, s} , m  Mij
+
+    In the above, we seek to minimize the weighted sum of the squared differences between the
+indicated by the PI controller green and the finally assigned green for all controlled intersections
+m  Mij of the approach i-j, where average queue lengths are used as weights. The first constraint
+is about maintaining cycle duration, i.e. ensuring that the sum of primary and secondary phases
+remains constant; the second dictates that minimum green gmR,i is assigned to all primary and
+secondary phases; the third ensures that maximum absolute change between new green Gm,i
+and green of the previous control interval Gmp ,i is below the preset threshold of gmR,i; and the
+forth dictates that green time intervals are integer. The new control plans take effect, for every
+intersection, after the end of their ongoing cycle.
+
+    Regarding the gating of the approaches at the external perimeter of the regions, in the cases
+where no signal plan exists on the entry node, the control variable uii is translated to adjustment
+of the saturation flow of the entry links, i.e. the maximum allowed inflow from external virtual
+queues to entry links is adjusted accordingly. The constraints of minimum saturation flow and
+maximum absolute change of saturation flow between consecutive control intervals are also applied.
+However, in the case of external PC, no optimization problem is solved, but control variables uii
+are adjusted accordingly, in order to satisfy the constraints. The same settings are applied to all
+nodes of the external perimeter of every region.
+
+                  16
+3.3. Traffic simulation details
+
+3.3.1. Modified Store-and-Forward traffic model
+
+    The effectiveness of the various control scenarios is assessed through simulation experiments
+performed by a modified version of the mesoscopic, queue-based Store-and-Forward (SaF) paradigm
+(see Aboudolas et al. (2009)), with enhanced structural properties derived by S-Model (see Lin
+et al. (2011)). The exact version of the traffic model used in this work is described in details in
+Tsitsokas et al. (2021) and detailed presentation of its mathematical formulation is omitted here.
+However, in order to facilitate understanding of this work, a brief qualitative description of the
+model properties is provided in this section.
+
+    In accordance with the notation of MP mathematical description, the model monitors the
+state of the network, represented as a directed graph (N, Z), by updating the number of vehicles
+(or `queue') inside every link z  Z, denoted as xz(k), according to a time-discretized, flow
+conservation equation. Vehicle flow is generated in the network according to a dynamic Origin-
+Destination demand matrix while routing of the flow is performed via turn ratios received as
+inputs. Queues are updated at every time-step. Link inflows include the sum of transit flows
+coming from all upstream links plus the newly generated demand of the link. Outflows consist of
+the sum of transit flows towards all downstream links plus trip endings inside the link. Backwards
+propagation of congestion is properly modeled, by replacing the initial assumption of point-queues
+in SaF by utilizing a more accurate link outflow representation. More specifically, the model
+assumes zero transfer flow for next time-step if the receiving link is already congested (receiving
+queue at the current time step is close to capacity). Therefore, in case of gridlock downstream,
+upstream queue is growing and spill-backs can occur, since no outflow is recorded. Therefore
+congestion propagation is properly captured by the traffic model. The regional accumulations
+ni that appear as elements of vector n in equation 13, in real applications is measured through
+appropriate instrumentation of the network. However, in this work where perfect knowledge
+of real-time traffic is assumed, ni(k) is simply the sum of link accumulations xz(k) of all links
+assigned to region i at time step k, i.e. ni(k) = zi xz(k), i  N .
+
+    The inherent inaccuracy in estimating travel time and real queue length of links, owed to the
+dimensionless nature of the initial SaF version has been decreased by integrating the structure of
+S-Model (Lin et al. (2011)), where every link queue xz consists of two distinct queues, mz and
+wz, representing vehicle flows moving and waiting at the intersection at the end of each link,
+respectively. Transit flow vehicles that enter a new link firstly join the moving part of the link,
+where they are assumed to move with free flow speed. They transfer to the queuing part after a
+number of time steps, which is determined by the position of the queue tail at the moment when
+they entered the link. Moreover, traffic signal settings are properly taken into account. A binary
+function dictates whether an approach of an intersection gets green light at every time-step,
+according to the most recent signal plan. If an approach gets red light at any time step, this
+function will set the current outflow of this approach to zero for this time-step, regardless of the
+state of the queues upstream or downstream.
+
+    By iteratively updating all state variables according to the mathematical relations of the
+model for a number of time-steps, we get a complete traffic simulation for the specific demand
+scenario. By knowing the queues of every link of the network at every discrete time-step (state
+variables xzz  Z), we can calculate the total travel time of all vehicles as
+
+        K                 K
+
+V HT =          xz(k)T +          xV Q,z(k)T  (15)
+
+        k=1 zZ            k=1 zZ
+
+                17
+where the first term represents the total time spent inside the network and the second represents
+the time spent waiting in virtual queues, i.e. upstream network links that serve as origins. In
+equation 15, xV Q,z(k) denotes the virtual queue of link z, T denotes the time-step duration and
+KT is the total simulation time.
+
+3.3.2. Dynamic turn ratio update
+
+    The modified version of SaF model that is used as traffic simulator in this work, requires
+knowledge of turn ratios between every pair of incoming-outgoing links for all network intersections.
+These values determine how traffic is distributed in the different parts of network, according
+to the considered origin-destination scenario, and drive the generation of congestion pockets,
+since they express aggregated driver decisions regarding route selection. It has been shown that
+adaptive routing decreases the scatter and the hysteresis of MFD as it avoids the development
+of local gridlocks (Daganzo et al. (2011), Mahmassani et al. (2013)). In order to realistically
+model traffic distribution in the scope of assessing different control schemes, in this work, turn
+ratios are estimated and dynamically updated in regular intervals during simulation, on the basis
+of time-wise shortest path calculation. This is done in order to account for potential rerouting
+effects, since in reality drivers might react to the enforced control policies by adjusting their
+route in real time, based on the observed traffic conditions that can be associated to the applied
+control policy. This process assumes that drivers know or can accurately estimate the average
+speed of all roads that are included in their alternative paths, and thus select the fastest one
+among them. Once the final time-wise shortest path is determined for every origin-destination
+pair of the considered demand matrix, the amount of traffic transferring between all feasible
+connections of incoming-outgoing links of all network nodes, for a specific future time-horizon,
+can be counted and turn ratios can be estimated. The process is repeated in regular intervals
+and turn ratios are recalculated, while accounting for the evolving traffic conditions. Although
+an equilibrium analysis for path assignment would be a more appropriate approach, it would
+considerably increase modeling complexity and simulation computational cost, while exceeding
+the scope of this paper, therefore the simpler shortest path approach was adopted.
+
+    The process of turn ratio recalculation is presented in Algorithm 1. Firstly, for a time window
+of calculation Tw, preceding the process, mean speed is estimated for every network link z  Z
+based on link outflow and queue values, according to the following relation:
+
+vz(t) = min vff,  jTw(t-1) uz(j)Lz   vmin  (16)
+                   jTw(t-1) xz(j)
+
+where t is the time interval index for the turn ratio calculation, vff is the free flow speed, Tw(t) is
+the set of simulation time step indices corresponding to time interval t, Lz is the length of link
+z, and uz(j) and xz(j) denote the outflow and accumulation of link z at simulation time step j,
+respectively. Since our objective here is to estimate the time to cross a link, a lower threshold
+vmin is imposed for the cases of gridlocks, for computational reasons, so that no link have infinite
+traversing time. When mean link speed is calculated for all links, algorithm 1 is called to estimate
+the new turn rates. Inputs include the origin-destination demand matrix, the simulated inflows to
+origin links during the previous calculation interval, the ongoing trips from previous calculation
+interval (in the format of origin-destination demand), as well as link length and mean speed
+vectors.
+
+    Firstly, if there are ongoing trips, they are added to the origin-destination demand matrix
+and ongoing trip stack is initialized. Traversing times for all links are calculated from speed and
+
+                  18
+link lengths. Afterwards, for every origin-destination pair of the demand matrix, the shortest
+path is calculated by using traversing time as link cost function. If the path's estimated trip
+duration is longer than the calculation interval Tw, the trip is split and a new trip is added
+to the stack of the ongoing trips, where as origin link is set the link where path is split while
+destination is the original trip destination. The traffic volume of this path as well as the time
+already spent in the split link are stored in the stack as well. For the path that is estimated to
+be traversed entirely in the next interval, connection counters between consecutive links of the
+shortest path are updated with the respective vehicle volume corresponding to this trip. Trip
+volume is estimated by the simulated traffic volume that entered the network at the origin links
+(outflow of virtual queues) during the previous interval Tw, which is split to different destinations
+in proportion with the demand of the original origin-destination matrix. The use of simulated
+inflow instead of the nominal demand improves the accuracy of the turn ratio calculations by
+taking into consideration potential delays in trip starting, for example due to external perimeter
+control or spill-back of queues up to entry links. When all trips of the matrix have been counted,
+turn ratios for all approaches between upstream and downstream links are estimated by dividing
+the counted volume of each approach by the total volume of each upstream link. In cases where no
+vehicles are assigned to an approach, all approaches receive the same turn ratio. At the end, the
+algorithm returns to the simulator the updated turn rates and a stack of ongoing trips. Dynamic
+turn ratios determined in this way can reflect possible path adjustments due to congestion-related
+low speeds. Therefore, the impact of the control schemes under evaluation in terms of traffic
+distribution in the network is directly taken into account.
+
+4. Implementation to a large-scale network via simulation
+
+    The proposed adaptive signal control schemes are evaluated using the mesoscopic urban traffic
+model and settings discussed in subsection 3.3, which was coded from scratch and executed in
+Matlab R2020a, while optimization problems 7 and 14 are solved by Gurobi 9.1.2 solver called
+from Matlab via Yalmip toolbox (L¨ofberg, 2004). Real-life large-scale signalized traffic network
+of Barcelona city center is used as case study and Fixed-Time Control (FTC) settings with no
+adaptive element, are used as benchmark case. The network model and FTC plans are provided
+by Aimsun. Both MP and PC schemes are applied separately, as well as in combination, for two
+different demand scenarios that create moderate and high levels of congestion in the FTC case,
+respectively. All MP cases are tested in full-network implementation and in node subsets for
+different penetration rates, selected by the proposed algorithm as well as randomly, for comparison.
+Detailed description of the network, the simulation settings and the performed experiments are
+provided in this section.
+
+4.1. Case study
+
+    The traffic network utilised in this study is a replica of Barcelona city center, in Spain, as
+shown in Figure 2a. It consists of 1570 links and 933 nodes, out of which 565 represent signalized
+intersections with fixed-length signal control cycles ranging from 90 to 100 sec. Links have from
+2 to 5 lanes. All control schemes are tested in two different demand scenarios, one leading to
+moderate and one to high congestion in FTC settings. For the purpose of PC implementation, the
+network is partitioned into three regions of similar traffic distribution, according to the clustering
+method described in Saeedmanesh and Geroliminis (2016). The resulting regions are displayed in
+different colors in figure 2b, with region 1 shown in blue, region 2 in orange and region 3 in green.
+
+                                                            19
+Algorithm 1: Turn ratio dynamic adjustment for modified SaF model
+
+    Data: origin-destination pairs OD, inflows of origin links u, ongoing trips o-d stack ODs,
+             ongoing trips flows stack us, time window Tw, speed vector v, link length vector L,
+             previous turn ratios 
+
+  Result: updated turn ratios , ongoing trip o-d pairs ODs and flow us stacks
+1 Initialize connection counters: cn(z, w) = 0, z  In, w  On, n  N
+2 Merge ongoing trips stacks ODs,us with OD,u, respectively
+3 Initialize stacks ODs = 0, us = 0
+4 Calculate link traversing time t = L ÷ v
+
+5 Create directed graph G with link cost function t
+
+6 for all (o, d)  OD do
+
+7 if u(o, d) > 0 then
+
+8       find shortest path p from o to d in G
+
+9       if duration of p > Tw then
+
+10      split p up to link where duration is < Tw
+
+11      store remaining trip in o-d stack ODs with the path link after the split as o
+
+              and same d and volume stack us
+
+12      end
+
+13      for every pair z - w of consecutive links in p do
+
+14      update respective connection counter: cn(z, w) = cn(z, w) + u(o, d)
+
+15      end
+
+16 end
+
+17 end
+
+18 for all n  N do
+
+19 for all {(z, w)|z  In, w  On} do
+
+20      if jOn cn(z, j) > 0 then
+
+21      Calculate turn ratios: (z, w) =         cn(z,w)
+                                               jOn cn(z,j)
+
+22      else
+
+23      keep same turn ratios or set them all equal (if no previous value)
+
+24      end
+
+25 end
+
+26 end
+
+27 return , ODs, us
+
+In the same figure, the controlled intersections used for gating through PC are displayed, with
+different annotation, based on the approach that they control: triangle for 1 to 2 approaches,
+circle for 3 to 2 approaches, square for 2 to 1 approaches and rhombus for 2 to 3 approaches.
+Figure 2c schematically represents the perimeter and boundary flow control variables uij, which
+denote the average green time of all approaches in the direction from i to j, while uii denotes the
+equivalent time for all external approaches of region i. All nodes on the external perimeter of all
+three regions are controlled. This partitioning leads to 4 state and 7 control variables, which are
+depicted in figure 2c. By running a simulation experiment for the FTC case for both demands
+scenarios, we obtain MFD curves for each of the three regions, which are shown in figure 4.
+
+    The dynamic profile of total generated demand, for both demand scenarios, consist of a
+
+                                         20
+15-minute warm-up period followed by a 2-hour constant peak demand, for a total simulation
+period of 6 hours, which is representative of the morning-peak. Medium demand includes 251k
+trips generating at 88 origin links and heading towards 104 destination links, whereas high demand
+scenario includes 316k trips, from 123 origins to 130 destinations. Figure 3 graphically describes
+the spatial distribution of demand for both scenarios: (a) to (c) refer to medium demand while
+(d) to (f) refer to high demand. The distribution of trips between regions, resulting from suitable
+clustering process as described below, is presented in the first graph of each row (a and d). Each
+bar corresponds to the total demand originating from each origin region, each represented by
+different color, while horizontal axis indicates destination region. Second graph of each row (b
+and c) presents the spatial distribution and density of origin points, represented by dots on
+the network map. Dot color indicates demand volume per origin point, as described by the
+respective colorbar. Similarly, third graph of each row (c and f) represents the same information
+for destination points. Apart from difference in total number of trips, the two demand scenarios
+lead to different traffic patterns, since high demand scenario has a clear directional profile, with
+trips mainly originating from the periphery (regions 1 and 3) and heading towards the center
+(region 2), whereas medium demand shows more diverse trip distribution between regions, with
+
+(a)                                    (b)
+
+       
+
+         
+
+                 
+                                     
+
+                                                                        (c)
+Figure 2: (a) Map of the studied network of Barcelona city center; (b) Model of Barcelona network as a directed
+graph with annotation of nodes used for PC; (c) schematic representation of controlled approaches for perimeter
+and boundary flow control, with green time per approach as control variable.
+
+                                                            21
+more intraregional trips in all regions, plus a less intense directional pattern towards the city
+center (region 2). The objective of using different demand scenarios is to test the efficiency of the
+proposed control schemes under different traffic conditions. It should be noted, that no demand
+information is required by the controllers, which only receive real-time queue measurements
+and/or turn ratios as inputs. Accuracy and configuration of traffic measurements is not taken
+into account in this work and all necessary information to controllers is provided directly from
+the simulator (perfect knowledge assumed).
+
+(a)       (b)       (c)
+
+(d)       (e)       (f )
+
+Figure 3: Description of the two demand scenarios in peak period: medium (a)-(c) and high (d)-(f). (a) and (d):
+aggregated trip distribution between regions; (b) and (e): trip origin density; (c) and (f): trip destination density.
+
+     (a)       (b)
+
+Figure 4: Production MFDs for the onload of congestion in the case of FTC: (a) MFD of entire network; (b)
+MFDs per region after partitioning.
+
+          22
+4.2. Control scenarios
+    The case of fixed-time, static signal control, labelled as 'FTC', is used as benchmark for all
+
+tested control schemes. The network performance improvement owed to traffic responsive control
+schemes based on single MP, single PC and on their combination in a hierarchical framework is
+calculated with reference to FTC, which is consider as the current network state. Firstly, MP is
+evaluated as single control strategy (no PC applied simultaneously). With the aim of investigating
+the performance of MP in relation to the number and location of the controlled nodes, we test
+the following scenarios:
+
+    · MP control of all eligible network nodes. All signalized nodes receive MP controller.
+
+    · MP control of fraction of network nodes, selected randomly. For each penetration rate
+       of 5%, 10%, 15%, 20%, 25%, 10 randomly created MP node sets are evaluated through
+       simulation.
+
+    · MP control of fraction of network nodes, selected by the proposed algorithm. For the same
+       penetration rates as above, MP node sets are created according to decreasing values of
+       R, after suitable parameter calibration. FTC simulation results are used for calculating
+       variables mn1 , mn2 and Ncn, and thus quantity R.
+
+    Afterwards, MFD-based PC based on the PI controller described in subsection 3.2.1, is applied
+first as a single control scheme and then in combination with distributed MP control, integrated
+in a two-layer framework. Similar to the case of single MP, the MP layer of the combined scheme
+is tested for several controlled node layouts, in various penetration rates, as well as in full network
+implementation (100 % eligible nodes). The following scenarios are evaluated:
+
+    · Single PC for 3-region system
+
+    · PC for 3-region system combined with MP control to all eligible network nodes
+
+    · PC for 3-region system combined with MP control to fractions of eligible network nodes,
+       selected randomly. For each penetration rate of 5%, 10%, 15%, 20%, 25%, 10 sets of randomly
+       selected eligible nodes are formed (same as in single MP scenarios). MP control is evaluated
+       in parallel with PC scheme.
+
+    · PC for 3-region system combined with MP control to fractions of eligible network nodes,
+       selected by the proposed algorithm. For the same penetration rates as above, MP node sets
+       are created according to decreasing values of R, after suitable parameter calibration. FTC
+       simulation results are used for calculating variables m1n, mn2 and Ncn, and thus quantity R.
+
+4.3. Experiment settings
+    The control scenarios under evaluation are simulated for a 6-hour time period for medium
+
+demand, and for a 8-hour period for high demand, representative of typical morning peak. High
+demand required longer simulation time to unload and completely empty the network, due to
+high number of trips. Simulation time step is set to 1 second. Free-flow speed of vehicles in the
+moving part of links, vff is set to 25 km/h and average vehicle length for capacity calculations is
+set to 5 meters. The time window for turn ratio update is 15 minutes.
+
+                                                            23
+    MP regulator is active for all controlled intersections during the entire simulation time and
+signal plans are updated at the end of every cycle, based on traffic information collected during
+the last cycle. Only phases lasting longer than 7 seconds in the pre-timed scheduling are eligible
+for change by the regulator and minimum green time allowed per phase gn,j,min is also 7 seconds.
+Maximum allowed fluctuation of green time between consecutive cycles, gnR,j is set to 5 seconds,
+for all MP modified phases, to avoid instabilities (similar to Kouvelas et al. (2017)). Inputs for
+MP regulator are link queues of incoming and outgoing links, as well as estimated turn ratios for
+all approaches of controlled nodes. For our experiments, this information is provided directed by
+the simulator, thus assuming that the controller receives perfect real-time traffic information.
+
+    Regarding PC implementation and based on the network partitioning in 3 regions described
+above, the PI controller of equation 13 regulates 7 control variables uij, which represent the
+average green time of all controlled intersections in the approaches between adjacent regions
+1-2, 3-2, 2-1, 3-1, as well as those of the external perimeter of each regions 1, 2 and 3 (see
+figure 2c), using 3 state variables, i.e. the regional accumulations ni, i = 1, 2, 3. Therefore, u
+is a 7x1 vector, n and n^ are 3x1 vectors, while proportional and internal gain matrices KP
+and KI are of dimensions 7x3. Four first rows refer to boundary approaches in the order
+they are listed above and three last rows refer to external perimeter approaches of regions 1
+to 3. Similar to MP, for inter-regional approaches, minimum green time per phase gm,i,min is
+set to 7 sec and maximum allowed absolute change between consecutive cycles is gmR,i is set
+to 5 seconds. For the external perimeter gating, where no signal plan is available and con-
+troller regulates saturation flow of entry links, the constraint of allowing at least 15% of the
+initial saturation flow holds. Due to different directional patterns of the two demand scenar-
+ios, PI parameters differ slightly. For the medium demand scenario, setpoint accumulation
+for the three regions are n^1 = 10000, n^2 = 12000, n^3 = 6800 veh, proportional gain matrix is
+KP = [15, -10, 0; 0, -5, 10; -15, 10, 0; 0, 5, -10; -20, 0, 0; 0, -20, 0; 0, 0, -20] and integral gain ma-
+trix is KI = KP ×10, ni,start = n^i, ni,stop = 0.85 n^i, for every region i = 1, 2, 3. For the high demand
+scenario, accumulation setpoint is n^1 = 4500, n^2 = 9200, n^3 = 8000 veh, proportional gain matrix is
+KP = [18.5, -2.1, 0; 0, -3.3, 6.8; -13.3, 5.6, 0; 0, 4.6, -3.5; -16.4, 0, 0; 0, -9.8, 0; 0, 0, -10.5] and in-
+tegral gain matrix is KI = [18, -69, 0; 0, -69, 62; -44, 24, 0; 0, 1, -40; -54, 0, 0; 0, -30, 0; 0, 0, -51],
+ni,start = 0.99 n^i and ni,stop = 0.93 n^i, for every region i = 1, 2, 3. In all cases, activation of the
+PI controller happens when at ni  ni,start for at least 2 regions i = 1, 2, 3, while deactivation
+happens when ni < ni,stop for all 3 regions. PC application requires inputs of aggregated regional
+accumulations ni for all regions i = 1, 2, 3 for the PI controller, while for the phase of applicable
+green time calculation (optimization problem 14), queue measurements for all approaches of
+primary and secondary phases of PC intersections, Qm,p and Qm,s respectively, are required,
+together with the latest applied signal plan. Similar to MP case, all required real-time traffic
+information are considered given and accurate and for the scope of this work are collected directly
+from the simulator. The process is repeated every 90 seconds.
+
+5. Results
+
+5.1. Single Max Pressure
+
+    Results of simulation experiments concerning single Max Pressure schemes are presented in
+this section. The case of full-network MP implementation, i.e. MP regulator assigned to all
+eligible nodes, is compared to the FTC case (no adaptive control) as well as to different scenarios
+of partial MP implementation, in different fractions of network nodes, selected both randomly and
+
+                                                            24
+(a)      (b)  (c)
+
+(d)      (e)  (f )
+
+(g)      (h)  (i)
+
+Figure 5: Visualization of the MP node selection process for the case of medium demand, according to the proposed
+method. Each row refers to different penetration rate (5%, 10% and 15%, from top to bottom). First and second
+column graphs show relations between selection variables m2 - m1 and m2 - Nc, respectively, for all network nodes,
+for the benchmark case of FTC. Blue dots represent the selected nodes for MP control. Third column figures
+show the plan of the studied network, partitioned in 3 regions, with the spatial distribution of the selected MP
+intersections shown as red dots.
+
+by the methodology described in section 3.1.2. For the process of node selection, the considered
+peak-period is 2-hour long (starting from 0.5 and ending at 2.5 h) and consists of TP = 80 control
+cycles of 90 seconds. FTC case is simulated and results are used for the calculation of m1, m2
+and Nc. After performing a trial-evaluation test as described in section 3.1.2 for the medium
+demand scenario, the best performing values are  = 0.6,  = -1.8 and  = -1, and selection is
+done starting from nodes with lowest R. In this way, the algorithm prioritizes selection of nodes
+with relatively high queue length variance and spill-back occurrence during peak time but with
+moderate mean queue lengths. In figure 5 the node selection process for the case of medium
+demand is pictured for penetration rates 15%, 20% and 25%, where dots represent all network
+signalized nodes. First column graphs (a, d, and g) show the relation between m1 and m2, while
+second column graphs (b, e and h) show the relation between Nc and m2, all calculated based
+on simulation results of FTC case. Blue dots represent nodes that are selected to receive MP
+controller according to the proposed algorithm. Third column graphs (c, f and i) visualize the
+
+     25
+Figure 6: Comparison of Total Travel Time improvement, with respect to FTC scenario, of single Max Pressure
+application, for medium demand scenario. Boxplots refer to 10 randomly created MP node sets for every penetration
+rate, red triangles refer to node selection based on the proposed method and yellow dot represents the full-network
+implementation.
+
+spatial distribution of the selected MP nodes, depicted as red dots.
+    The performance of single MP network control for the medium demand scenario, for different
+
+fractions of MP controlled nodes, as well as for the standard full network implementation
+(penetration rate of 100%), is shown in figure 6. On the vertical axis the percentile improvement
+of total travel time (vehicle-hours travelled or VHT) with respect to FTC scenario is shown. Each
+boxplot refers to 10 cases of random selection of MP controlled intersections, corresponding to
+the respective penetration rate. The case of 100% rate refers to full MP network implementation.
+Red triangles represent scenarios where controlled nodes are selected according to the method
+described in section 3.1.2. Firstly, we observe that for the case of medium demand, almost all
+MP scenarios lead to improved total travel time, even those with randomly selected MP nodes.
+However, most cases of node selection made by the proposed method significantly outperform
+random assignment. In fact, we notice that the higher the number of controlled nodes, the
+larger the difference between random and targeted selection performance. These observations
+indicate that the proposed selection process is successful in identifying critical intersections for
+MP control. Interestingly, the case of installing MP regulator to all network nodes leads to smaller
+improvement than those including only a fraction of controlled nodes according to the proposed
+algorithm. More specifically, with only 10% of critical nodes the system travel time improves by
+14.5% and with 25% of critical nodes, it improves by 18.8%, while in the case of controlling all
+nodes, it improves only by 10.6%. This remark indicates not only significant cost reduction can
+be achieved by reducing the number of controlled nodes through the proposed selection process,
+but also system performance can be increased. However, this behaviour is observed for moderate
+demand, where the network does not reach highly congested states in the FTC case.
+
+    A different behaviour is observed in the case of high travel demand, both in the node selection
+pattern and in the corresponding network performance. Firstly, we observed that using the
+
+                                                            26
+(a)      (b)  (c)
+
+(d)      (e)  (f )
+
+(g)      (h)  (i)
+
+Figure 7: Visualization of the MP node selection process for the case of high demand, according to the proposed
+method. Each row refers to different penetration rate (5%, 10% and 15%, from top to bottom). First and second
+column graphs show relations between selection variables m2 - m1 and m2 - Nc, respectively, for all network nodes,
+for the benchmark case of FTC. Blue dots represent the selected nodes for MP control. Third column figures
+show the plan of the studied network, partitioned in 3 regions, with the spatial distribution of the selected MP
+intersections.
+
+same values for parameters , ,  as in moderate demand case and following the same selection
+pattern leads to poor system performance, very similar to the one of random selection. Therefore,
+parameter optimization is done again, by performing a new trial-evaluation test, specifically for
+the high demand scenario. The new values found are  = -0.72,  = -0.4,  = -0.2. In this
+case, we observe a change of sign in , which directs the selection towards nodes with high mean
+queues (m1) while high queue variance (m2) and spill-back duration (Nv) are given lower weights.
+In other words, in this case, the best found selection pattern prioritizes nodes with high mean
+queues. However, as we can see in figure 7 which is made based on FTC results of the high
+demand scenario, there is correlation between m1, m2 and Nc. For instance, in the high demand
+scenario, a significant number of nodes experience complete gridlock (m1 values close to 1), which
+corresponds to zero queue variance (m2) and maximum gridlock duration (Nc equal or close to
+1). As figure 7 shows, the selection process in this case prioritizes highly congested/gridlocked
+nodes for MP selection and, as we will see, leads to significant performance gains. Node selection
+
+     27
+Figure 8: Comparison of Total Travel Time improvement, with respect to FTC scenario, for single Max Pressure
+application for high demand scenario. Boxplots refer to 10 randomly created MP node sets for every penetration
+rate, red triangles refer to node selection based on the proposed method and yellow dot represents the full-network
+implementation.
+
+is visualized for penetration rates of 5%, 10% and 15%, in the same format as in figure 5 for
+medium demand.
+
+    Regarding system performance of single MP in high demand scenario, for which the network
+reaches more congested states in the FTC case, results show relatively smaller improvement with
+respect to FTC than in the case of medium demand. This can be seen in figure 8, where percentile
+performance improvement with respect to FTC is shown on the vertical axis, for different MP
+node penetration rates. Again, boxplots refer to 10 cases of randomly selected node sets for MP
+control per penetration rate. Firstly, it is interesting that case of full-network MP control (yellow
+dot) leads to practically zero improvement compared to FTC. However, smaller MP penetration
+rates in best case result in improvement between 3% and 7%. The effectiveness of node selection
+method seems to drop, even with re-optimized parameters of function R, since we observe a few
+random sets performing better than the ones of the proposed method. Performance of targeted
+selection is always better than the median of the random set though, and in the case of 15%, for
+which parameter optimization was performed, performance is significantly better than random
+cases. Based on these remarks, we can infer that partial MP implementation, except for being
+less costly, can also lead to improved performance, especially in highly congested networks with
+single MP control, which implies that significant spatial correlation exist between performance
+of MP controlled nodes that can act detrimentally to system performance. In other words,
+even if performance generally improves in the proximity of a controlled intersection, adding MP
+controllers to all network intersections does not necessarily mean that system performance will
+globally improve as a result. Hence, optimizing spatial node distribution for MP control requires
+further investigation.
+
+    In the scope of investigating in detail the effectiveness of partial MP control in targeted node
+sets, for both demand scenarios, we plot cumulative distribution functions of selection variable
+
+                                                            28
+Figure 9: Cumulative distribution functions for the changes in node selection criteria m1, m2, Nc after MP control
+implementation for medium demand scenario. Start superscript refers to the FTC case. Blue lines correspond to
+MP nodes and red lines to the rest. Each row represents a different MP node penetration rate (15%, 20% and
+25%).
+
+m1, m2 and Nc changes, after implementing MP control, with respect to their values in FTC, for
+three MP node sets selected by the proposed method (15%, 20% and 25%), for medium demand
+case in figure 9 and for high demand case in figure 10. Blue lines correspond to MP node sets
+while red lines to the remaining nodes, where FTC applies. First, second and third column figures
+show changes in values of m1, m2 and Nc, respectively, where m1, m2 and Nc refer to the FTC
+case, before MP control application. In medium demand, it is evident from second column graphs
+of figure 9 that queue variance m2 was decreased for 80% to 90% of nodes that received MP
+controller according to the proposed algorithm, for penetration rates of 15% to 25%, while for
+the remaining nodes, it was reduces for half and increased for the other half. Also, reduction to
+the non-MP nodes was smaller than the one to MP nodes. Moreover, spill-back duration during
+peak time nc was also decreased in the majority of selected MP nodes in all three cases shown,
+though mean queue length was mostly increased. The increase in mean queue length in cases
+of both MP and non-MP nodes is justified, as a result of more efficient road space use that is
+achieved due to MP control, leading to more vehicles entering the network at the same time and
+increasing node occupancy. Different pattern of improvement is observed in the case of high
+demand as shown in figure 10, where we observe a significant decrease in spill-back occurrence
+
+                                                            29
+Figure 10: Cumulative distribution functions for the changes in node selection criteria m1, m2, Nc after MP
+control implementation for high demand scenario. Start superscript refers to the FTC case. Blue lines correspond
+to to MP nodes and red lines to the rest. Each row represents a different MP node penetration rate (15%, 20%
+and 25%).
+
+Nc in almost all MP nodes (blue curve in third column graphs), and a decrease in mean queue
+length m1, while no significant difference can be seen between MP and non-MP nodes in terms of
+queue variance m2. This behaviour can be explained with reference to the node selection pattern
+of the high demand case, where MP is assigned by priority to capacitated nodes with very high
+queues, where by definition variance is very low and spill-back occurrence very high. Therefore,
+in both cases selected MP nodes are improved with respect to either spill-back occurrence and
+either queue variance or queue length, in moderate and high congestion scenarios, respectively.
+
+5.2. Two-layer framework: Perimeter control combined with Max Pressure
+    Results of the two-layer framework combining PC with MP schemes are discussed in this
+
+section. Simulation results in terms of performance improvement with respect to FTC case
+are shown in figure 11, where (a) refers to medium and (b) to high demand. The case of 0%
+penetration rate (square) corresponds to typical PC application without any MP control (for
+comparison), while the remaining cases refer to combined control of PC and MP in different node
+penetration rates. Again, boxplots aggregate results of 10 scenarios of random MP node selection
+of the corresponding penetration rate, combined with the same PC scheme. Triangles refer to the
+
+                                                            30
+(a)      (b)
+
+Figure 11: Comparison of Total Travel Time improvement, with respect to FTC scenario, for single PC and
+combined PC plus MP implementation, for (a) medium, and (b) high demand. Graphs show the performance for
+different MP node penetration rates (0% is single PC) for the two-layer PC+MP framework. Boxplots refer to 10
+random MP node selections per rate while yellow triangles refer to node selection based on the proposed method.
+
+combined scheme where MP nodes are selected according to the proposed methodology, while
+the case of 100% (dot) refers to the combined scheme with MP installed in all nodes. Selection
+of MP nodes is based on FTC results and is done with the same parameter values , ,  as in
+single MP, for every demand scenario respectively, while PI controller parameters are the same
+for all cases of the same demand scenario.
+
+    For medium demand, we observe that single PC does not lead to considerable improvement
+with respect to FTC (only 0.5%). This is not surprising, since there is not enough demand to
+drive the network to heavily congested states, where PC would get activated for longer and would
+have a higher impact, and production MFD does not drop significantly for FTC case, as we will
+see also in figure 12 below. However, in all combined scheme cases, we observe significant travel
+time improvement with respect to the FTC case. Especially in the cases of 5% and 20% MP
+nodes selected by the proposed method, performance is slightly higher than the best performing
+single MP scheme of the respective penetration rate. Moreover, similar to the single MP cases, we
+observe that the proposed node selection algorithm leads to higher performance gains compared
+to random selection for most cases. The highest improvement for the two-layer controller, which
+is about 17.7% , is recorded for the case of 20% MP nodes, while both 100% and 5% penetration
+rates achieve about 17.2%. Therefore, in multiple cases, as in 5%, 20% and 100%, adding PC on
+top of MP increases network performance from 3% to 7% with respect to single MP.
+
+    For high demand, results of the combined scheme are more promising than single MP, as we
+can see in figure figure 11(b). While single MP application, as well as single PC, only improve
+traffic performance by around 8% compared to FTC in the best case, the two-layer framework
+manages to improve up to 15%, in the case of 25% MP nodes selected by the proposed algorithm,
+and up to 17% in the case of full-network MP implementation. Therefore, in high demand
+scenario, PC strategy can be significantly enhanced by the additional distributed MP layer, even
+with only a fraction of properly selected, controlled MP nodes, which leads to performance very
+similar to the one of 100% controlled nodes, but with only 25% of the respective cost. Detailed
+performance of all evaluated controlled schemes can be found in Table 1.
+
+     31
+Table 1: Total travel time for all control scenarios, for medium and high demand, in vehicle hours travelled (VHT).
+Under VHT, the percentile change of VHT with respect to FTC case is shown. For random MP node selection,
+the median VHT of 10 random node set replications is reported.
+
+                             Medium demand                  High demand
+
+MP node selection  Targeted         Random     Targeted         Random
+
+Control scenario   VHT VHT(%) VHT VHT(%) VHT VHT(%) VHT VHT(%)
+FTC
+MP 5%              221400 -      -          -  484000 -      -           -
+MP 10%
+MP 15%             195580 -11.7  212743 -3.9   464390 -4.1   472394 -2.4
+MP 20%
+MP 25%             189250 -14.5  207173 -6.4   471680 -2.5   479732 -0.9
+MP 100%
+PC                 187860 -15.1  204558 -7.6   447360 -7.6   476813 -1.5
+PC + MP 5%
+PC + MP 10%        185940 -16.0  207777 -6.2   465280 -3.9   476145 -1.6
+PC + MP 15%
+PC + MP 20%        179850 -18.8  209726 -5.3   467480 -3.4   480113 -0.8
+PC + MP 25%
+PC + MP 100%       197960 -10.6  -          -  483000 -0.2   -           -
+
+                   220380 -0.5   -          -  447000 -7.6   -           -
+
+                   183000 -17.3  214725 -3.0   438540 -9.4   445948 -7.9
+
+                   190070 -14.2  212544 -4.0   441060 -8.9   451741 -6.7
+
+                   196190 -11.4  204242 -7.8   422550 -12.7  442860 -8.5
+
+                   182230 -17.7  205216 -7.3   411510 -15.0  440004 -9.1
+
+                   184650 -16.6  207452 -6.3   408430 -15.6  441069 -8.9
+
+                   183220 -17.2  -          -  405300 -16.3  -           -
+
+    Figure 12 depicts simulation results of the benchmark case of FTC, single MP case for all
+eligible nodes (`MP 100%'), single MP controlling 20% of nodes selected according to the proposed
+method (`MP 20%'), and the combined PC with MP to 20% of selected nodes (`PC+MP 20%'),
+all for the case of medium demand. In 12(a) MFDs of accumulation versus production are shown
+for the four cases. We notice that all scenarios involving MP significantly increase the maximum
+production, compared to the FTC case, and therefore, increase both critical and maximum
+observed vehicle accumulation. This remark indicates that MP strategy can increase system
+serving capacity in conditions of moderate congestion, and by balancing queues around controlled
+nodes, it leads to better road space utilization. As a result it allows a higher number of vehicles
+to be in the system at the same time, which was not possible in FTC due to local gridlocks that
+were forcing excess demand to stay in virtual queues. This is evident in (b), where total network
+accumulation of all scenarios is higher than in FTC, as well as in (c), where total virtual queues
+are remarkably lower. Moreover, by comparing `MP 20%' and `PC+MP 20%' MFD curves in (a),
+we see that the latter leads to slightly lower maximum accumulation and, thus, smaller capacity
+drop and hysteresis loop in the unloading part. In this case, combined PC+MP performs slightly
+better than MP by approximately 2%. However, the opposite is observed in the respective cases
+of 25% MP nodes, which is probably due to traffic correlation among additional MP controlled
+nodes. We should note here that some change of MFD curve in presence of MP is to be expected,
+especially with respect to critical accumulation, and this should be considered in the process
+of parameter tuning for PC. Another interesting remark is that, between the two single MP
+scenarios, `MP 100%' results in higher increase in system serving capacity, but on the other
+side, it introduces more vehicles in the network and thus, reaches higher congestion levels and
+capacity drop in peak time than FTC. Or, production rises significantly, but also drops during
+peak, causing some delays and heterogeneity non-existent in FTC, as shown by the unloading
+part of the MFD curves. This effect can explain why MP installed in all nodes performs worse
+
+                                                            32
+(a)  (b)
+
+(c)  (d)
+
+Figure 12: Simulation results for medium demand scenario. Comparison between FTC, MP to all network nodes
+(100%), MP to only 20% nodes selected by the proposed method, and combined PC with MP to 20% selected nodes.
+Figures refer to the entire network: (a) MFD of accumulation vs. production; (b) time-series of accumulation; (c)
+time-series of total virtual queue; (d) time-series of cumulative trip endings.
+
+than partial installation to 20% of nodes, and is closely related to the shape of MFD and how fast
+production drops when network enters the congested regime. However, in this case, minimum
+recorded production is not much lower than the one in FTC, while capacity increase is significant,
+thus, despite the importance of the production drop in MP 100% case, VHT savings compared to
+FTC are still significant. This effect is less intense in the `MP 20%' and `PC+MP 20%', where
+a slightly lower maximum production is recorded, but lower maximum congestion and capacity
+drop are observed as well. For medium demand, the highest delay savings are achieved for the
+case of PC + MP 25%.
+
+    Similarly, figure 13 shows simulation results of four, best-performing control scenarios, for
+the high demand scenario. FTC case is compared to the case of single MP with full-network
+control (`MP 100%'), the case of single PC, and the case of combined PC with distributed MP in
+subset of 25% of eligible nodes, selected according to the proposed method. Regarding single
+MP scheme, a behaviour similar to medium demand case is also observed for the high demand,
+although in the latter, capacity increase is relatively smaller compared to FTC (about 6.5%), while
+production drop in peak time is significantly higher (around 27%), which can be due to reaching
+more congested state by allowing more vehicles inside the network at the same time, as we can see
+
+                                                            33
+(a)  (b)
+
+(c)  (d)
+
+Figure 13: Simulation results for high demand scenario. Comparison between FTC, single PC, single MP in 100%
+of nodes and combined PC with MP in 25% of nodes selected by the proposed method. Figures refer to the entire
+network: (a) MFD of accumulation vs. production; (b) time-series of accumulation; (c) time-series of total virtual
+queue; (d) time-series of cumulative trip endings
+
+in 13b. Overall, MP 100% case performs almost similar to FTC in terms of VHT but significant
+differences are observed between MFD curves. However, smaller hysteresis is recorder during
+network unloading in the case of MP 100%, thus reducing the damage made by the production
+drop. Interestingly this effect is eliminated in the case of the two-layer framework, where PC plays
+an important role in prohibiting the system from reaching highly congested states. Therefore, in
+the combined case of `PC + MP 25%', the network reaches slightly higher production in peak
+period compared to single PC case, which drops with a smaller rate as accumulation increases
+above critical, due to MP control. Also, PC impedes the excessive increase of vehicle accumulation
+in the system and prevents highly hysteretic behaviour owed to heterogeneity. Among the four
+cases shown, the combined framework leads to shorter total travel time, reduced by almost 15%
+with respect to FTC, when single PC achieves a decrease of around 7.5%. In short, adding a MP
+layer significantly improves single PC performance, while properly selected MP nodes allow for a
+smaller network penetration rate that leads to comparable performance as in full-network MP
+implementation.
+
+    Figure 14 depicts the impact of two well-performing control schemes, in terms of link throughput
+and link total time spent difference with respect to FTC scenario, for medium demand scenario,
+
+                                                            34
+(a)      (b)
+
+(c)      (d)
+
+Figure 14: Difference of cumulative link throughput and cumulative time spent with respect to FTC, in medium
+demand scenario, at the end of simulation (6:00 h): (a)-(b) Case MP in 20% critical nodes; (c)-(d) Case MP in
+20% critical nodes combined with PC. Dots and triangles represent MP and PC node locations, respectively.
+
+for the case of single MP in 20% of nodes selected by the proposed method (see a and b), and
+for the case of the combined control of PC and MP in 20% of nodes, selected in the same way
+(see c and d). All four graphs show the network map where each link's color corresponds to
+a range of values, as displayed on the bar on the right. Links appear slightly thicker when
+values approach or overpass bar limits. Graphs a and c depict the difference in link cumulative
+throughput with respect to FTC case, for each of the above control cases, respectively. Similarly,
+graphs b and d depict the difference in cumulative time spent per link, with respect to FTC case.
+Green dots denote MP controlled nodes while red triangles denote PC nodes. The black lines
+represent the approximate boundaries of central region 2. From graphs a and c, we observe a
+similar pattern of traffic redistribution, where intense blue links indicate significant cumulative
+throughput reduction in the case of responsive control compared to FTC, while yellow links
+indicate the opposite. We notice that cumulative throughput is reduced along several links that
+are also connected, but it is increased in the majority of network links, as warmer colors (green
+and yellow) indicate. However, around most MP nodes, we see at least one or several incoming or
+ongoing links, where throughput is overall higher, at least to one direction, which means that a
+higher number of vehicles left those links sooner than FTC case. This observation supports the
+idea that throughput is mostly increased around MP nodes. Nevertheless, a throughput decrease
+can also result from rerouting of vehicles due to change in congestion distribution around the
+network. Interestingly, we do not observe significant increase in cumulative total time spent in
+links where cumulative throughput is lower (by comparing left and right figures of each row),
+which indicates that throughput drop is related to rerouting rather than congestion increase. In
+
+     35
+(a)  (b)
+
+(c)  (d)
+
+Figure 15: Difference of cumulative link throughput and cumulative time spent with respect to FTC in high
+demand scenario at the end of the simulation (6:00 h): (a)-(b) Case single PC; (c)-(d) Case PC combined with
+MP in 25% of selected nodes. Dots and triangles represent MP and PC node locations, respectively.
+
+fact, control scheme of single MP in 20% of critical nodes achieves 16% lower VHT than FTC,
+while combined PC + MP in 20% critical nodes achieves 17.7% lower VHT. This reduction is
+not particularly obvious in graphs b and d, since a large amount of this time gain comes from
+decreasing the time spent in virtual queues, which are not shown in these figures.
+
+    The same type of information is shown in figure 15, but for the cases of single PC (see a and b)
+and combined PC with MP in 25% of critical nodes selected by the proposed method, both for the
+high demand scenario. In a we observe significant increase in cumulative throughput along two
+main arterial roads in the interior of central region 2, which, for this demand scenario, attracts
+the majority of trips, while decrease is observed almost exclusively upstream or in the proximity
+of PC nodes (triangles), which is an expected effect of PC. However, throughput appears slightly
+higher in the majority of links also in peripheral regions, which is related to congestion drop,
+as shown in graph b, where most network links experience drop in cumulative time spent with
+respect to FTC case, with the exception of some links upstream PC nodes, which receive the
+queues that form due to gating. Performance appears even better for the combined scheme, as
+we see in c, where cumulative throughput is increased in most links (in green and yellow), and
+around the majority of MP nodes (dots). Alternatively, the decrease in cumulative time spent is
+obvious in most network links, as we see from graph d, where increase is recorded mostly around
+the boundaries with region 2. The improvement in VHT compared to FTC case is 7.6% for single
+PC case (a and b), while for the combined case PC + MP 25% (c and d) reaches 15.6 %.
+
+    In order to examine the sensitivity of the proposed MP node selection process, in terms of
+performance, against fluctuations of spatial traffic distribution, a set of additional simulation
+experiments are performed. Specifically, for two well-performing cases of single MP and combined
+MP-PC schemes with MP nodes selected through the proposed method, simulation tests are
+
+                                                            36
+performed, where instead of the mean demand value, for every origin-destination pair, a new
+value is considered generated by a stochastic process. More specifically, for the case of single MP
+with 25% controlled nodes selected by the proposed method, based on the results of FTC scenario
+of the medium demand, 20 new demand matrices are generated, by replacing mean demand
+of every origin-destination pair, by a random draw from normal distribution, with mean equal
+to the initial value and standard deviation that corresponds to 5, 10, 15 and 20% of the mean.
+The specific control scheme that was designed based on the mean demand, is tested for the 20
+stochastically generated demand matrices for each of the aforementioned standard deviation cases,
+and performance is compared to the one of FTC case. Results are shown in figure 16 (a) to (d),
+where each graph refers to a different standard deviation level of demand. Boxplots represent the
+distribution of total recorder travel time of FTC and MP-25% scenarios for the same 20 modified
+demand matrices. We observe that MP-25% case on average outperforms FTC for all standard
+deviation levels (median of MP-25% is always less than median of FTC), although improvement
+decreases as deviation from mean increases. The same experiments are performed also for the
+combined MP-PC scheme with 25% MP nodes selected by the proposed method, for the high
+demand scenario and results are shown in figure 16 (e) to (h). Again, we observe that PC+MP
+25% outperforms FTC for almost all standard deviation levels, but improvement decreases with
+the deviation from the mean. This result indicates that the node selection process that is based
+on mean OD values is not highly sensitive to demand fluctuations of up to 20% from the mean.
+
+6. Discussion
+
+    The paper investigates the potential benefits of a two-layer signal control framework, combining
+centralized, aggregated perimeter control strategy, with partial and efficient distributed control,
+in critical intersections, based on the Max Pressure feedback controller. Cost-effective schemes of
+improved performance for network-wide MP control are produced by decreasing the number of
+controlled nodes, via selecting only nodes considered critical for MP implementation. A critical
+node identification method based on actual traffic characteristics is introduced and assessed.
+Simulation experiments performed with a modified version of Store-and-Forward model evaluate
+the effectiveness of PC and MP control schemes, both independently and combined in a two-layer
+framework. Spill-back effect and potential rerouting of drivers due to control-induced alteration
+of congestion patterns is taken into account. Regarding MP control, several scenarios are tested,
+including in the control scheme either subsets or the entire network node set. Subsets are selected
+both by the proposed method and randomly, for comparison. A sensitivity analysis of the
+best performing control schemes is done with respect to demand fluctuations. All scenarios are
+tested for two base origin-destination demand matrices, creating medium and high congestion,
+respectively.
+
+    Analysis of simulation results provide interesting insights about single and combined imple-
+mentation of MP and PC, as well as regarding partial/selective MP schemes. Single MP control
+proves more effective in moderate congestion conditions rather than in oversaturated states, while
+partial application to subsets of critical nodes, properly selected by the proposed algorithm, can
+result to similar or even better performance than full-network implementation. Therefore, not
+only application cost can be drastically reduced, but control effectiveness can increase as well.
+Furthermore, partial MP implementation to critical nodes is shown to increase link throughput
+in the proximity of controlled nodes and balance surrounding queues, while spill-back occurrence
+of surrounding links is also reduced, for both demand scenarios. Also, significant production
+
+                                                            37
+capacity increase is observed in single MP application, though it can lead to increased link density
+(probably due to better road space use leading to less local gridlocks that keep vehicles in virtual
+queues) and thus increased congestion followed by production drop. Yet, recovery of the network
+can be smoother with smaller hysteresis shown by MFD curves.
+
+    The proposed node selection method seems effective in identifying critical node sets for MP
+control, since it outperforms random selection for all network penetration rates in the medium
+demand. Even though its effectiveness drops in the high demand for the single MP scheme,
+it remains effective in all combined schemes of PC and MP. However, it should be noted that
+the proposed selection method involves a parameter optimization step that resulted in different
+values for the medium and high demand, which indicates that the relative importance of the
+selection criteria can vary between moderate and highly congested conditions. Nevertheless, the
+proposed selection variables (m1, m2, Nc) seem to play an important role as indicators of node
+importance with respect to MP, while further research can help unravel the mechanism that
+relates selection variable importance to demand patterns, and thus determine optimal parameter
+values in a universal way by dropping parameter optimization requirement. Overall, it seems
+that significant correlation exists between controlled nodes, which affect each other in a way not
+necessarily beneficial for the system, since performance gains can decrease for penetration rates
+above 25% and can even drop to zero in 100% in highly congested scenarios. This phenomenon
+highlights the importance of partial MP implementation, especially in increased congestion, and
+the importance of spatial distribution of controlled nodes, which the proposed selection method
+tries to unravel.
+
+    Regarding the two-layer combined scheme of PC and MP, results are promising in most tested
+cases, especially in the high demand scenario, where in our case study, adding MP in only 25% of
+properly selected nodes leads to doubling the performance gains of single PC compared to FTC
+case, from 7.5% to more than 15%. Moreover, almost the same performance gain is achieved in
+the case of full-network MP implementation, proving the proposed selection method effective
+and, as a result, reducing implementation cost to one fourth, compared to full-network scheme.
+Furthermore, PC protects high-demand regions from reaching saturated states, and therefore
+from capacity drop, which seems to also increase MP efficiency, given that single MP shows
+zero improvement for full network implementation in high demand scenario, while combined
+MP with PC achieves twice the gain of single PC. Moreover, the node schemes generated by
+the proposed selection method do not appear sensitive to small demand fluctuations that alter
+traffic distribution in the network, and can still lead to performance improvement even if demand
+deviates up to 20% from its mean value, which was used to generate the node scheme. However,
+as expected, improvement gains decrease as fluctuation increases.
+
+    Future research can focus on including public transport priority polices both in MP and in PC
+intersections in the two-layer controller. Also, dynamic activation of subset of MP controlled nodes
+in real-time from a centralized approach would be an interesting research direction, especially with
+the arrival of connected and automated vehicles, where required traffic information will be provided
+to MP controller through vehicle-to-infrastructure communication and MP implementation cost
+related to node instrumentation will be zero, thus any node could be an MP node. On-line
+readjustment of PC parameters to address possible MFD alteration due to MP effects, as well
+as PC implementation through optimal MPC instead of PI regulator could prove even more
+beneficial, while robust control schemes that can address demand and input data noise in saturated
+conditions could be another interesting direction. Finally, system reaction under sudden incidents
+causing link or intersection closure, in presence of adaptive control based on PC and MP would
+
+                                                            38
+be another relative topic to explore.
+                                                            39
+(a)      (b)
+
+(c)      (d)
+
+(e)      (f )
+
+(g)      (h)
+
+Figure 16: Sensitivity analysis of the two best performing control schemes under demand fluctuations: (a) to (d)
+refer to the medium demand case, and FTC is compared to single MP in 25% of nodes selected by the proposed
+strategy; (e) to (h) refer to high demand case, and FTC is compared to combined scheme of PC and MP in 25% of
+selected intersections. Boxplots correspond to 20 different OD matrices where each OD pair is a random variable
+with normal distribution, with standard deviation equal to 5, 10, 15 and 20% of the mean, respectively.
+
+     40
+Acknowledgement
+
+    This work is partially funded by Dit4Tram "Distributed Intelligence & Technology for Traffic &
+Mobility Management" project from the European Union's Horizon 2020 research and innovation
+program under Grant Agreement 953783.
+
+CRediT author statement
+
+    Dimitrios Tsitsokas: Conceptualization, Methodology, Investigation, Validation, Software,
+Writing - original draft, Writing - review & editing. Anastasios Kouvelas: Conceptualization,
+Methodology, Investigation, Validation, Supervision, Writing - review & editing. Nikolas
+Geroliminis: Conceptualization, Methodology, Investigation, Validation, Writing - review &
+editing, Supervision, Project administration, Funding acquisition.
+
+References
+
+Aboudolas, K., Geroliminis, N., 2013. Perimeter and boundary flow control in multi-reservoir
+   heterogeneous networks. Transportation Research Part B: Methodological 55, 265­281.
+
+Aboudolas, K., Papageorgiou, M., Kosmatopoulos, E., 2009. Store-and-forward based methods
+   for the signal control problem in large-scale congested urban road networks. Transportation
+   Research Part C: Emerging Technologies 17 (2), 163­174.
+
+Ambu¨hl, L., Loder, A., Zheng, N., Axhausen, K. W., Menendez, M., 2019. Approximative network
+   partitioning for mfds from stationary sensor data. Transportation Research Record 2673 (6),
+   94­103.
+
+Ampountolas, K., Zheng, N., Geroliminis, N., 2017. Macroscopic modelling and robust control of
+   bi-modal multi-region urban road networks. Transportation Research Part B: Methodological
+  104, 616­637.
+
+Batista, S., Seppecher, M., Leclercq, L., 2021. Identification and characterizing of the prevailing
+   paths on a urban network for mfd-based applications. Transportation Research Part C: Emerging
+   Technologies 127, 102953.
+
+Beojone, C. V., Geroliminis, N., 2021. On the inefficiency of ride-sourcing services towards urban
+   congestion. Transportation research part C: emerging technologies 124, 102890.
+
+Buisson, C., Ladier, C., 2009. Exploring the impact of homogeneity of traffic measurements on
+   the existence of macroscopic fundamental diagrams. Transportation Research Record 2124 (1),
+  127­136.
+
+Chen, C., Huang, Y., Lam, W., Pan, T., Hsu, S., Sumalee, A., Zhong, R., 2022. Data efficient
+   reinforcement learning and adaptive optimal perimeter control of network traffic dynamics.
+   Transportation Research Part C: Emerging Technologies 142, 103759.
+
+Chow, A. H., Sha, R., Li, S., 2020. Centralised and decentralised signal timing optimisation
+   approaches for network traffic control. Transportation Research Part C: Emerging Technologies
+  113, 108­123.
+
+                                                            41
+Daganzo, C. F., 2007. Urban gridlock: Macroscopic modeling and mitigation approaches. Trans-
+  portation Research Part B: Methodological 41 (1), 49­62.
+
+Daganzo, C. F., Gayah, V. V., Gonzales, E. J., 2011. Macroscopic relations of urban traffic
+  variables: Bifurcations, multivaluedness and instability. Transportation Research Part B:
+  Methodological 45 (1), 278­288.
+
+Diakaki, C., Papageorgiou, M., Aboudolas, K., 2002. A multivariable regulator approach to
+  traffic-responsive network-wide signal control. Control Engineering Practice 10 (2), 183­195.
+
+Fu, H., Liu, N., Hu, G., 2017. Hierarchical perimeter control with guaranteed stability for
+  dynamically coupled heterogeneous urban traffic. Transportation Research Part C: Emerging
+  Technologies 83, 18­38.
+
+Gartner, N. H., 1983. OPAC: A demand-responsive strategy for traffic signal control. No. 906.
+
+Gayah, V. V., Daganzo, C. F., 2011. Clockwise hysteresis loops in the macroscopic fundamental
+  diagram: an effect of network instability. Transportation Research Part B: Methodological
+  45 (4), 643­655.
+
+Geroliminis, N., Daganzo, C. F., 2008. Existence of urban-scale macroscopic fundamental diagrams:
+  Some experimental findings. Transportation Research Part B: Methodological 42 (9), 759­770.
+
+Geroliminis, N., Haddad, J., Ramezani, M., 2012. Optimal perimeter control for two urban regions
+  with macroscopic fundamental diagrams: A model predictive approach. IEEE Transactions on
+  Intelligent Transportation Systems 14 (1), 348­359.
+
+Geroliminis, N., Skabardonis, A., 2011. Identification and analysis of queue spillovers in city street
+  networks. IEEE Transactions on Intelligent Transportation Systems 12 (4), 1107­1115.
+
+Geroliminis, N., Sun, J., 2011. Properties of a well-defined macroscopic fundamental diagram for
+  urban traffic. Transportation Research Part B: Methodological 45 (3), 605­617.
+
+Geroliminis, N., Zheng, N., Ampountolas, K., 2014. A three-dimensional macroscopic fundamental
+  diagram for mixed bi-modal urban networks. Transportation Research Part C: Emerging
+  Technologies 42, 168­181.
+
+Godfrey, J., 1969. The mechanism of a road network. Traffic Engineering & Control 8 (8).
+
+Gregoire, J., Frazzoli, E., de La Fortelle, A., Wongpiromsarn, T., 2014a. Back-pressure traffic
+  signal control with unknown routing rates. IFAC Proceedings Volumes 47 (3), 11332­11337.
+
+Gregoire, J., Qian, X., Frazzoli, E., De La Fortelle, A., Wongpiromsarn, T., 2014b. Capacity-aware
+  backpressure traffic signal control. IEEE Transactions on Control of Network Systems 2 (2),
+  164­173.
+
+Haddad, J., 2017a. Optimal coupled and decoupled perimeter control in one-region cities. Control
+  Engineering Practice 61, 134­148.
+
+Haddad, J., 2017b. Optimal perimeter control synthesis for two urban regions with aggregate
+  boundary queue dynamics. Transportation Research Part B: Methodological 96, 1­25.
+
+                                                            42
+Haddad, J., Geroliminis, N., 2012. On the stability of traffic perimeter control in two-region urban
+  cities. Transportation Research Part B: Methodological 46 (9), 1159­1176.
+
+Haddad, J., Mirkin, B., 2020. Resilient perimeter control of macroscopic fundamental diagram
+  networks under cyberattacks. Transportation research part B: methodological 132, 44­59.
+
+Haddad, J., Ramezani, M., Geroliminis, N., 2013. Cooperative traffic control of a mixed network
+  with two urban regions and a freeway. Transportation Research Part B: Methodological 54,
+  17­36.
+
+Haddad, J., Zheng, Z., 2020. Adaptive perimeter control for multi-region accumulation-based
+  models with state delays. Transportation Research Part B: Methodological 137, 133­153.
+
+Haitao, H., Yang, K., Liang, H., Menendez, M., Guler, S. I., 2019. Providing public transport
+  priority in the perimeter of urban networks: A bimodal strategy. Transportation Research Part
+  C: Emerging Technologies 107, 171­192.
+
+Henry, J.-J., Farges, J. L., Tuffal, J., 1984. The prodyn real time traffic algorithm. In: Control in
+  Transportation Systems. Elsevier, pp. 305­310.
+
+Hunt, P., Robertson, D., Bretherton, R., Winton, R., 1981. Scoot-a traffic responsive method of
+  coordinating signals. Tech. rep.
+
+Ingole, D., Mariotte, G., Leclercq, L., 2020. Perimeter gating control and citywide dynamic user
+  equilibrium: A macroscopic modeling framework. Transportation research part C: emerging
+  technologies 111, 22­49.
+
+Ji, Y., Daamen, W., Hoogendoorn, S., Lanser, S., Qian, X., 2010. Macroscopic fundamental
+  diagram: investigating its shape using simulation data. In: 89th Annual Meeting Transportation
+  Research Board, Washington DC. Mira Digital Publishing, pp. 1­12.
+
+Ji, Y., Geroliminis, N., 2012. On the spatial partitioning of urban transportation networks.
+  Transportation Research Part B: Methodological 46 (10), 1639­1656.
+
+Johari, M., Keyvan-Ekbatani, M., Leclercq, L., Ngoduy, D., Mahmassani, H. S., 2021. Macro-
+  scopic network-level traffic models: Bridging fifty years of development toward the next era.
+  Transportation Research Part C: Emerging Technologies 131, 103334.
+
+Keyvan-Ekbatani, M., Gao, X., Gayah, V. V., Knoop, V. L., 2019. Traffic-responsive signals
+  combined with perimeter control: investigating the benefits. Transportmetrica B: Transport
+  Dynamics 7 (1), 1402­1425.
+
+Keyvan-Ekbatani, M., Kouvelas, A., Papamichail, I., Papageorgiou, M., 2012. Exploiting the
+  fundamental diagram of urban networks for feedback-based gating. Transportation Research
+  Part B: Methodological 46 (10), 1393­1403.
+
+Keyvan-Ekbatani, M., Papageorgiou, M., Knoop, V. L., 2015. Controller design for gating traffic
+  control in presence of time-delay in urban road networks. Transportation Research Procedia 7,
+  651­668.
+
+                                                            43
+Kouvelas, A., Lioris, J., Fayazi, S. A., Varaiya, P., 2014. Maximum pressure controller for
+  stabilizing queues in signalized arterial networks. Transportation Research Record 2421 (1),
+  133­141.
+
+Kouvelas, A., Saeedmanesh, M., Geroliminis, N., 2017. Enhancing model-based feedback perime-
+  ter control with data-driven online adaptive optimization. Transportation Research Part B:
+  Methodological 96, 26­45.
+
+Laval, J. A., Leclercq, L., Chiabaut, N., 2017. Minimal parameter formulations of the dynamic user
+  equilibrium using macroscopic urban models: Freeway vs city streets revisited. Transportation
+  research procedia 23, 517­530.
+
+Le, T., Kova´cs, P., Walton, N., Vu, H. L., Andrew, L. L., Hoogendoorn, S. S., 2015. Decentralized
+  signal control for urban road networks. Transportation Research Part C: Emerging Technologies
+  58, 431­450.
+
+Levin, M. W., Hu, J., Odell, M., 2020. Max-pressure signal control with cyclical phase structure.
+  Transportation Research Part C: Emerging Technologies 120, 102828.
+
+Li, L., Jabari, S. E., 2019. Position weighted backpressure intersection control for urban networks.
+  Transportation Research Part B: Methodological 128, 435­461.
+
+Lin, S., De Schutter, B., Xi, Y., Hellendoorn, H., 2011. Fast model predictive control for urban
+  road networks via milp. IEEE Transactions on Intelligent Transportation Systems 12 (3),
+  846­856.
+
+Loder, A., Ambu¨hl, L., Menendez, M., Axhausen, K. W., 2017. Empirics of multi-modal traffic
+  networks­using the 3d macroscopic fundamental diagram. Transportation Research Part C:
+  Emerging Technologies 82, 88­101.
+
+Loder, A., Ambu¨hl, L., Menendez, M., Axhausen, K. W., 2019. Understanding traffic capacity of
+  urban networks. Scientific reports 9 (1), 1­10.
+
+Lo¨fberg, J., 2004. Yalmip : A toolbox for modeling and optimization in matlab. In: In Proceedings
+  of the CACSD Conference. Taipei, Taiwan.
+
+Lowrie, P., 1990. Scats, sydney co-ordinated adaptive traffic system: A traffic responsive method
+  of controlling urban traffic.
+
+Mahmassani, H. S., Saberi, M., Zockaie, A., 2013. Urban network gridlock: Theory, characteristics,
+  and dynamics. Procedia-Social and Behavioral Sciences 80, 79­98.
+
+Manolis, D., Pappa, T., Diakaki, C., Papamichail, I., Papageorgiou, M., 2018. Centralised versus
+  decentralised signal control of large-scale urban road networks in real time: a simulation study.
+  IET Intelligent Transport Systems 12 (8), 891­900.
+
+Mariotte, G., Leclercq, L., 2019. Flow exchanges in multi-reservoir systems with spillbacks.
+  Transportation Research Part B: Methodological 122, 327­349.
+
+                                                            44
+Mariotte, G., Leclercq, L., Laval, J. A., 2017. Macroscopic urban dynamics: Analytical and
+  numerical comparisons of existing models. Transportation Research Part B: Methodological
+  101, 245­267.
+
+Mauro, V., Di Taranto, C., 1990. Utopia. IFAC Proceedings Volumes 23 (2), 245­252.
+
+Mazloumian, A., Geroliminis, N., Helbing, D., 2010. The spatial variability of vehicle densities
+  as determinant of urban network capacity. Philosophical Transactions of the Royal Society A:
+  Mathematical, Physical and Engineering Sciences 368 (1928), 4627­4647.
+
+Mercader, P., Uwayid, W., Haddad, J., 2020. Max-pressure traffic controller based on travel
+  times: An experimental analysis. Transportation Research Part C: Emerging Technologies 110,
+  275­290.
+
+Mirchandani, P., Head, L., 2001. A real-time traffic signal control system: architecture, algorithms,
+  and analysis. Transportation Research Part C: Emerging Technologies 9 (6), 415­432.
+
+Mohajerpoor, R., Saberi, M., Vu, H. L., Garoni, T. M., Ramezani, M., 2020. H robust perimeter
+  flow control in urban networks with partial information feedback. Transportation Research
+  Part B: Methodological 137, 47­73.
+
+Ni, W., Cassidy, M., 2020. City-wide traffic control: modeling impacts of cordon queues. Trans-
+  portation research part C: emerging technologies 113, 164­175.
+
+Noaeen, M., Mohajerpoor, R., Far, B. H., Ramezani, M., 2021. Real-time decentralized traffic
+  signal control for congested urban networks considering queue spillbacks. Transportation
+  research part C: emerging technologies 133, 103407.
+
+Paipuri, M., Barmpounakis, E., Geroliminis, N., Leclercq, L., 2021. Empirical observations of
+  multi-modal network-level models: Insights from the pneuma experiment. Transportation
+  Research Part C: Emerging Technologies 131, 103300.
+
+Paipuri, M., Leclercq, L., 2020. Bi-modal macroscopic traffic dynamics in a single region. Trans-
+  portation research part B: methodological 133, 257­290.
+
+Ramezani, M., Haddad, J., Geroliminis, N., 2015. Dynamics of heterogeneity in urban net-
+  works: aggregated traffic modeling and hierarchical control. Transportation Research Part B:
+  Methodological 74, 1­19.
+
+Ramezani, M., Nourinejad, M., 2018. Dynamic modeling and control of taxi services in large-
+  scale urban networks: A macroscopic approach. Transportation Research Part C: Emerging
+  Technologies 94, 203­219.
+
+Ren, Y., Hou, Z., Sirmatel, I. I., Geroliminis, N., 2020. Data driven model free adaptive iterative
+  learning perimeter control for large-scale urban road networks. Transportation Research Part
+  C: Emerging Technologies 115, 102618.
+
+Saeedmanesh, M., Geroliminis, N., 2016. Clustering of heterogeneous networks with directional
+  flows based on "snake" similarities. Transportation Research Part B: Methodological 91, 250­
+  269.
+
+                                                            45
+Sirmatel, I. I., Geroliminis, N., 2017. Economic model predictive control of large-scale urban road
+  networks via perimeter control and regional route guidance. IEEE Transactions on Intelligent
+  Transportation Systems 19 (4), 1112­1121.
+
+Sirmatel, I. I., Geroliminis, N., 2021. Stabilization of city-scale road traffic networks via macroscopic
+  fundamental diagram-based model predictive perimeter control. Control Engineering Practice
+  109, 104750.
+
+Sirmatel, I. I., Tsitsokas, D., Kouvelas, A., Geroliminis, N., 2021. Modeling, estimation, and control
+  in large-scale urban road networks with remaining travel distance dynamics. Transportation
+  Research Part C: Emerging Technologies 128, 103157.
+
+Tassiulas, L., Ephremides, A., 1990. Stability properties of constrained queueing systems and
+  scheduling policies for maximum throughput in multihop radio networks. In: 29th IEEE
+  Conference on Decision and Control. IEEE, pp. 2130­2132.
+
+Tsitsokas, D., Kouvelas, A., Geroliminis, N., 2021. Modeling and optimization of dedicated bus
+  lanes space allocation in large networks with dynamic congestion. Transportation Research
+  Part C: Emerging Technologies 127, 103082.
+
+Varaiya, P., 2013a. Max pressure control of a network of signalized intersections. Transportation
+  Research Part C: Emerging Technologies 36, 177­195.
+
+Varaiya, P., 2013b. The max-pressure controller for arbitrary networks of signalized intersections.
+  In: Advances in Dynamic Network Modeling in Complex Transportation Systems. Springer, pp.
+  27­66.
+
+Wei, B., Saberi, M., Zhang, F., Liu, W., Waller, S. T., 2020. Modeling and managing ridesharing in
+  a multi-modal network with an aggregate traffic representation: A doubly dynamical approach.
+  Transportation Research Part C: Emerging Technologies 117, 102670.
+
+Wongpiromsarn, T., Uthaicharoenpong, T., Wang, Y., Frazzoli, E., Wang, D., 2012. Distributed
+  traffic signal control for maximum network throughput. In: 2012 15th international IEEE
+  conference on intelligent transportation systems. IEEE, pp. 588­595.
+
+Wu, J., Ghosal, D., Zhang, M., Chuah, C.-N., 2017. Delay-based traffic signal control for
+  throughput optimality and fairness at an isolated intersection. IEEE Transactions on Vehicular
+  Technology 67 (2), 896­909.
+
+Xiao, N., Frazzoli, E., Li, Y., Luo, Y., Wang, Y., Wang, D., 2015a. Further study on extended
+  back-pressure traffic signal control algorithm. In: 2015 54th IEEE Conference on Decision and
+  Control (CDC). IEEE, pp. 2169­2174.
+
+Xiao, N., Frazzoli, E., Luo, Y., Li, Y., Wang, Y., Wang, D., 2015b. Throughput optimality of
+  extended back-pressure traffic signal control algorithm. In: 2015 23rd Mediterranean Conference
+  on Control and Automation (MED). IEEE, pp. 1059­1064.
+
+Yang, K., Zheng, N., Menendez, M., 2017. Multi-scale perimeter control approach in a connected-
+  vehicle environment. Transportation research procedia 23, 101­120.
+
+                                                            46
+Yildirimoglu, M., Ramezani, M., Geroliminis, N., 2015. Equilibrium analysis and route guidance
+  in large-scale networks with mfd dynamics. Transportation Research Procedia 9, 185­204.
+
+Yildirimoglu, M., Sirmatel, I. I., Geroliminis, N., 2018. Hierarchical control of heterogeneous large-
+  scale urban road networks via path assignment and regional route guidance. Transportation
+  Research Part B: Methodological 118, 106­123.
+
+Zaidi, A. A., Kulcsa´r, B., Wymeersch, H., 2015. Traffic-adaptive signal control and vehicle routing
+  using a decentralized back-pressure method. In: 2015 European Control Conference (ECC).
+  IEEE, pp. 3029­3034.
+
+Zhang, R., Li, Z., Feng, C., Jiang, S., 2012. Traffic routing guidance algorithm based on
+  backpressure with a trade-off between user satisfaction and traffic load. In: 2012 IEEE Vehicular
+  Technology Conference (VTC Fall). IEEE, pp. 1­5.
+
+Zhong, R., Huang, Y., Chen, C., Lam, W., Xu, D., Sumalee, A., 2018. Boundary conditions and
+  behavior of the macroscopic fundamental diagram based network traffic dynamics: A control
+  systems perspective. Transportation Research Part B: Methodological 111, 327­355.
+
+Zhou, Z., De Schutter, B., Lin, S., Xi, Y., 2016. Two-level hierarchical model-based predictive
+  control for large-scale urban traffic networks. IEEE Transactions on Control Systems Technology
+  25 (2), 496­508.
+
+                                                            47
+

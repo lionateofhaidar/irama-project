@@ -1,0 +1,25 @@
+# rahasia & lingkungan
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+# node
+node_modules/
+dist/
+.next/
+# data besar / hasil simulasi
+sim/output/
+*.log
+# OS/IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+# unduhan mentah yang tidak dipublikasikan
+docs/sources/**/raw_*.html

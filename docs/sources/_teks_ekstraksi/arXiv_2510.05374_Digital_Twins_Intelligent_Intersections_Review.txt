@@ -1,0 +1,1963 @@
+arXiv:2510.05374v1 [eess.SY] 6 Oct 2025         DIGITAL TWINS FOR INTELLIGENT INTERSECTIONS:
+                                                                  A LITERATURE REVIEW
+
+                                                                                       Alben Rome Bagabaldo, Jürgen Hackl
+                                                                                Department of Civil and Environmental Engineering
+
+                                                                                                   Princeton University
+                                                                                                Princeton, NJ, USA 08544
+                                                                                          {alben, hackl}@princeton.edu
+
+                                                                                             ABSTRACT
+
+                                                    Intelligent intersections play a pivotal role in urban mobility, demanding innovative solutions such
+                                                    as digital twins to enhance safety and efficiency. This literature review investigates the integration
+                                                    and application of digital twins for intelligent intersections, a critical area within smart urban traffic
+                                                    systems. The review systematically categorizes existing research into five key thematic areas: (i)
+                                                    Digital Twin Architectures and Frameworks; (ii) Data Processing and Simulation Techniques; (iii)
+                                                   Artificial Intelligence and Machine Learning for Adaptive Traffic Control; (iv) Safety and Protection
+                                                    of Vulnerable Road Users; and (v) Scaling from Localized Intersections to Citywide Traffic Networks.
+                                                    Each theme is explored comprehensively, highlighting significant advancements, current challenges,
+                                                    and critical insights. The findings reveal that multi-layered digital twin architectures incorporating
+                                                    real-time data fusion and AI-driven decision-making enhances traffic efficiency and safety. Advanced
+                                                    simulation techniques combined with sophisticated AI/ML algorithms demonstrate notable improve-
+                                                    ments in real-time responsiveness and predictive accuracy for traffic management. Additionally, the
+                                                    integration of digital twins has shown substantial promise in safeguarding vulnerable road users
+                                                    through proactive and adaptive safety strategies. Despite these advancements, key challenges persist,
+                                                    including interoperability of diverse data sources, scalability of digital twins for extensive traffic net-
+                                                   works, and managing uncertainty within dynamic urban environments. Addressing these challenges
+                                                   will be essential for the future development and deployment of intelligent, adaptive, and sustainable
+                                                    intersection management systems.
+
+                                         Keywords digital twins · traffic management · artificial intelligence · safety · smart infrastructure · intersections ·
+                                         review
+
+                                         1 Introduction
+
+                                         Road infrastructure plays a foundational role in modern society by connecting communities, driving economic growth,
+                                         and supporting access to essential services. In the United States alone, public roads span approximately 4.19 million
+                                         miles (FHWA, 2023) and include over 15.8 million intersections (Streetsblog USA, 2022), with 255 million drivers
+                                         undertaking around 227 billion driving trips daily and spending an average of 60.2 minutes on the road (Steinbach and
+                                         Tefft, 2023). Despite their ubiquity, intersections account for a disproportionate share of traffic incidents, responsible
+                                         for over 40% of crashes (Azimi et al., 2014; Namazi et al., 2019; Choi, 2010) and 27% of traffic fatalities (NCSA,
+                                         2024). High rates of intersection-related crashes stem from factors such as driver errors, poor visibility, and adverse
+                                         weather conditions, while pedestrians face an even greater risk, with pedestrian fatalities rising by 75% since 2010
+                                         (Smart Growth America, 2024). In 2023, fatal and severe traffic crashes in the U.S. resulted in $1.85 trillion in total
+                                         losses, including $460 billion in direct economic costs and $1.4 trillion in quality-of-life impacts (TRIP, 2024).
+
+                                         There are many attempts to address these underlying issues for traffic intersections, including modernization of signal
+                                         systems and geometric improvements (Chandler et al., 2013). Among these, digital twin (DT) technology has emerged
+                                         as particularly promising (Tao et al., 2019). A digital twin represents a virtual counterpart of a physical system or
+                                         process, continuously updated through real-time sensor data, simulations, and algorithms (Fu et al., 2025). The concept
+Digital Twins for Intelligent Intersections: A Literature Review
+
+of digital twins was first introduced in 2003 within Michael Grieves's Product Lifecycle Management framework at
+University of Michigan (Grieves, 2014). Subsequent adoption of the term by NASA in "Digital Twin Paradigm for
+Future NASA and U.S. Air Force Vehicles" (Glaessgen and Stargel, 2012) further spurred interest in this area. Since
+then, digital twins have provided a powerful framework to address challenges, such as reducing crash risk, improving
+pedestrian safety, mitigating driver errors, and adapting to adverse weather conditions, by leveraging real-time sensor
+data, advanced simulation tools, and machine learning algorithms.
+
+Virtual models that mirror physical intersections allow stakeholders to predict traffic behavior, identify hazards, and
+implement adaptive traffic control strategies (Abdelrahman et al., 2025; NCSA, 2024). Moreover, this innovation
+has the potential to significantly improve safety for vulnerable road users (VRUs), such as pedestrians, cyclists, and
+micromobility device users (Townsend et al., 2023). By offering a dynamic, data-driven approach to analyze and
+optimize intersection performance, digital twins can transform urban traffic systems to be safer, more efficient, and
+more sustainable (Xu et al., 2025a).
+
+2 Methodology
+
+This section outlines our structured, multi-stage review process, modeled after best practices in systematic literature
+reviews, to assemble and analyze research on digital twins for intelligent intersections. We organized papers into five
+themes mentioned in Section 1-Introduction.
+
+Parallel to the developments in digital twins, the significant growth of scholarly literature has driven the development
+of innovative approaches to synthesizing research findings. Recent studies have shown that although academics are
+reading more articles than ever before, the average time spent per article has decreased, indicating a shift toward
+more superficial engagement with the literature (Tenopir et al., 2015). To manage this increasing information load,
+LLMs have emerged as valuable tools to automate and expedite systematic literature reviews. For instance, LLMs can
+efficiently perform tasks such as title and abstract screening and preliminary data synthesis, thereby reducing the human
+workload and enhancing the comprehensiveness of reviews (Dennstädt et al., 2024; Luo et al., 2024). Despite concerns
+regarding potential hallucinations and the need for human oversight (Chelli et al., 2024; Khraisha et al., 2024), the
+integration of LLMs represents a significant methodological advancement. In our work, we leverage these capabilities
+to systematically integrate insights on digital twin applications in intelligent intersections.
+
+2.1 Literature Search and Screening
+
+We queried ScienceDirect using broad terms: "digital twins," "intelligent intersections," and "transportation" for
+publications from January 2015 to May 2025 and selecting only papers that are Open Access. Following database
+retrieval, all full texts were processed for automated summarization using Gemini 2.0 Pro, which ingests complete
+PDFs and outputs structured summaries under a schema capturing scope, methods, intersection relevance, and thematic
+signals.
+
+Each summary was screened by asking the LLM prompt: "Is this paper relevant to digital twins for traffic intersections?"
+with rationale. Outputs were then manually reviewed. Papers without relevance to cross roads or intersections or
+focused outside transportation were excluded. To enhance thematic depth, we manually inspected references from
+all included papers. Works presenting foundational frameworks or significant empirical advances were incorporated
+through a snowballing process, which extended the corpus beyond database searches to include both seminal and
+emergent contributions. This snowballing process includes those papers that were identified from the supplementary
+thematic search described in subsection 2.2.
+
+During the search, we initially identified 544 papers, this number includes the papers identified in the snowballing
+process. After applying LLM-based filtering and skimming through the content, this number was reduced to 85 unique
+articles, which were included in this review. As shown in Figure 1, the distribution of papers by publication year reveals
+a clear upward trend. From 2019 to 2022, between 1 and 6 relevant studies were identified annually (1 in 2019, 5 in
+2020, 2 in 2021, and 8 in 2022). A remarkable increase begins in 2023 with 26 papers, followed by a further rise to 34
+papers in 2024. Although the literature search was cut off in May 2025, 11 papers were already identified for that year,
+indicating that 2025 is on pace for continued substantial contributions. This trend highlights the increasing significance
+and rapid development of this research domain.
+
+2.2 Thematic Classification and Keyword-Augmented Searches
+
+All these relevant papers were manually classified into the aforementioned themes. We assigned each paper to the theme
+reflecting its primary contribution. Many papers overlapped themes, and were documented accordingly. To ensure
+
+                                                                      2
+Digital Twins for Intelligent Intersections: A Literature Review
+
+comprehensive coverage, we also conducted theme-specific supplementary searches using refined keyword strings or
+keywords shown in Table 1.
+
+       Table 1: Themes, additional keywords used, and number of unique papers considered.
+
+Theme                                              Keywords                                                Final No. of Papers
+
+Digital Twin Architectures and Frameworks          digital twins architecture, interoperability, digital   18
+
+                                                   twin design
+
+Data Processing and Simulation Techniques          data fusion, sensor integration, simulation             19
+
+AI/ML in Traffic Control                           reinforcement learning traffic, AI signal control,      23
+
+                                                   multi-agent control, deep learning
+
+Safety and Protection of Vulnerable Road Users pedestrian digital twin, vulnerable road user safety,       15
+
+                                                   agent-based safety simulation, ethics in traffic AI
+
+Scaling to Citywide Traffic Networks               urban scale digital twins, distributed control, smart-  35
+
+                                                   city infrastructure, IoT-enabled twins
+
+This process led to the inclusion of additional papers with distinct relevance to each theme. We organized the papers
+into theme-specific folders and used Gemini 2.0 Pro to generate initial syntheses for each category. Several studies
+contributed to more than one theme, reflecting the interdisciplinary and interconnected nature of digital twin research in
+transportation. The number of papers associated with each theme is as follows: 18, 19, 23, 15, and 35, respectively as
+shown in Table 1. The synthesis prompts guided the extraction of shared findings, key technical advancements, current
+limitations, and emerging research directions. These LLM-generated summaries served as thematic scaffolding, which
+we subsequently refined through manual review, writing, and editing into the coherent narrative sections presented in
+this paper.
+
+                                            40
+                                                                                            34
+
+                          Number of Papers  30
+                                                                                    26
+
+                                            20
+
+                                                                                                11
+
+                                            10                  8
+
+                                                   5
+
+                                                1     2
+
+                                            0
+                                                   2019 2020 2021 2022 2023 2024 2025
+
+                                                      Publication Year
+
+                                            Figure 1: Number of papers by publication year.
+
+3 Digital Twin Architectures and Frameworks
+
+The concepts of architectures and frameworks are important in structuring and implementing effective digital twins. A
+digital twin architecture defines the structured organization of components and their relationships within a digital twin
+system. This architecture is essential for enabling interoperability and data exchange with both the physical system
+and external applications (Cavalieri and Gambadoro, 2023). Frameworks, on the other hand, constitute the conceptual
+and architectural foundation that supports the integration of heterogeneous data sources, computational infrastructures,
+and analytical models. They offer standardized practices that enhance interoperability and scalability across a range of
+applications (Nativi et al., 2021).
+
+To address the question, "What architectural and interoperability frameworks are necessary to develop scalable,
+modular, and interoperable digital twins for intelligent intersections?", we conducted a thorough search and filtering
+process and identified 18 scholarly articles specifically focused on digital twin architectures and frameworks relevant to
+
+                                                                      3
+Digital Twins for Intelligent Intersections: A Literature Review
+
+the topic. These selected studies offer valuable insights into current practices and innovations in the field. The search
+parameters and inclusion criteria are detailed in Section 2 ­ Methodology.
+
+This section surveys the architectural foundations and enabling technologies driving digital twins for intelligent
+intersections. The discussion is organized into two subsections: Architectures, which covers real-time synchronization
+mechanisms, data-driven and optimization-centric systems, AI-enhanced structures, and domain-specific configurations;
+and Frameworks and Enabling Technologies, which explores supporting computational methods, interoperability
+protocols, and deployment strategies that facilitate scalable and adaptive digital twin implementations. Together, these
+approaches illustrate the diverse, multi-layered, and rapidly evolving ecosystem of digital twin solutions for traffic
+management and intersection intelligence.
+
+3.1 Architectures
+
+Recent advancements in digital twin architectures showcase diverse system designs that integrate real-time sensing,
+communication protocols, and simulation tools to support intelligent intersections. A zero calibration, satellite ground
+mapping architecture is presented in literature, which fuses hierarchical spatiotemporal video analysis, on-the-fly
+3D bounding box estimation, and deep convolutional neural networks (CNNs) to support real-time environment
+modeling (Rezaei et al., 2023). Likewise, a continuously synchronized framework is adopted, combining live traffic
+feeds, vehicle-to-everything (V2X) protocols such as Dedicated Short-Range Communications (DSRC) (Kenney, 2011),
+Wireless Access in Vehicular Environments (WAVE) (Jiang and Zhu, 2019), and Cellular V2X (C-V2X) over 5G New
+Radio (the fifth generation cellular standard), along with a Simulation of Urban MObility (SUMO)-based microscopic
+simulator (Lopez et al., 2018) via the Traffic Control Interface (TraCI) API (Wegener et al., 2008) (Kusic´ et al., 2023).
+
+Hardware-in-the-Loop (HIL) simulation and mixed reality virtual layers further refine control logic (Wágner et al.,
+2023), while another work integrates roadside units (RSUs), millimeter-wave (mmWave) radar, Light Detection and
+Ranging (LiDAR), weather stations, and edge computing microservices into a cloud native co-simulation platform (An
+et al., 2023). Co-simulation refers to the coordinated execution of two or more simulation tools, often running in parallel
+and exchanging data in real time, to realistically represent complex, multi-domain systems such as traffic flow and
+vehicle behavior (Yilmaz-Niewerth et al., 2024).
+
+An intelligent digital twin system is outlined, featuring integrated sensor data, a Remote Dictionary Server (Redis)
+database backbone (Redis Labs, 2025), and Kalman-filtered prediction modules. This architecture enables client-side
+visualization while avoiding reliance on direct simulation engines, supporting a lightweight forecasting layer (Liu
+et al., 2024a). Redis is a high-performance, open-source, in-memory NoSQL data structure store that can be used as a
+database, cache, and message broker.
+
+Data-driven and optimization-centric architecture emphasize model accuracy, robustness to missing data, and automated
+decision-making. A digital twin is presented that leverages Gaussian mixture clustering, expectation­maximization
+(EM) algorithms, regression analysis, and singular value decomposition (SVD) for iterative engine-performance
+indexing (Taghavi and Perera, 2024). Meanwhile, a temporal neighboring interpolation and missing data imputation
+routines to reconstruct sparse traffic volumes in connected corridors is also introduced (Saroj et al., 2023). In the
+rail domain, a method is presented that automatically generates track geometry from airborne LiDAR point clouds
+using Industry Foundation Classes (IFC)-based parametric assemblies and mesh-based reconstruction. The dataset
+also includes challenging scenarios such as where a railway line crosses a road, demonstrating the system's ability
+to handle complex geometries (Ariyachandra and Brilakis, 2023). Meanwhile, an architecture is structured around a
+monitoring and visualization dashboard that feeds an Optimal Level Crossing (OLC) optimization model, supported by
+a physical-to-virtual data layer that ensures safe rail crossing sequences (Djordjevic´ et al., 2024).
+
+Certain literature also focuses on layered AI and generative frameworks, coupling foundational models with feedback
+loops. A three-layer digital twin is synthesized, comprising an AI core, bidirectional physical-to-virtual and virtual-
+to-physical channels for sensor ingestion and actuator commands, and RL agents for adaptive control (Kreuzer et al.,
+2024). Building on this, a GenAI-enabled large-flow model is introduced that unifies Generative Adversarial Networks
+(GANs), Variational Autoencoders (VAEs), transformers, diffusion models, and foundation models for adaptive urban
+flow simulation (Huang et al., 2025). Another approach integrates graph neural networks (GNNs) and spatial­temporal
+graph attention networks (STGATs) to blend static infrastructure features with dynamic traffic states, driving preventive
+maintenance assessments rather than continuous clustering or optimization routines (Lu et al., 2025). On the other hand,
+a pipeline style architectural framework is proposed, centered on context-aware segmentation of LIDAR point clouds,
+3D meshing, semantic labeling, and asset management integration, prioritizing geometric fidelity over deep generative
+reasoning (Davletshina et al., 2024).
+
+Domain specific communication and representation frameworks further diversify digital twin architectures. A dual
+vehicle digital twin system (head and assistant) is implemented using V2X reservation intervals and Operational
+
+                                                                      4
+Digital Twins for Intelligent Intersections: A Literature Review
+
+Design Domain (ODD) constraints (Du et al., 2024). Another implementation embeds SPaT/MAP protocols within a
+PLC-based control and HIL simulation environment, augmented by mixed-reality visualization (Wágner et al., 2023). A
+complementary cloud-native digital twin architecture integrates edge computing, multi-modal sensing, and open service
+APIs to manage distributed sensor arrays in support of vehicle-infrastructure cooperative intelligent driving (An et al.,
+2023). Finally, a scan-to-graph pipeline converts segmented point clouds through lane polynomial fitting and Frenet
+transformations into a graph representation, offering a graph-centric perspective on highway digital twins (Pan et al.,
+2024).
+Many surveyed studies adopt a multilayer architecture, where layer refers to a distinct functional component within
+the system's design, each responsible for specific tasks. The architecture can be divided into five key layers: (i) the
+data acquisition layer, which ingests heterogeneous sensor streams such as video, LiDAR, radar, loop detectors, and
+weather stations (Rezaei et al., 2023; Kusic´ et al., 2023; Pan et al., 2024); (ii) the communication layer, which leverages
+V2X protocols (DSRC/WAVE, C-V2X), 5G New Radio, Message Queuing Telemetry Transport (MQTT), and edge
+microservices for low-latency data transfer (Wágner et al., 2023; Du et al., 2024; Aguiar et al., 2022); (iii) the processing
+layer, which employs simulation engines such as SUMO (Kusic´ et al., 2023) and HIL setups (Wágner et al., 2023),
+clustering and optimization algorithms including Gaussian Mixture Models(GMMs) and EM (Taghavi and Perera,
+2024) and Optimal Level Crossing optimization (Djordjevic´ et al., 2024), AI modules such as GNNs and STGATs (Lu
+et al., 2025), GANs and VAEs (Huang et al., 2025), and RL agents for adaptive control (Kreuzer et al., 2024); (iv)
+the modeling layer, which integrates physics-based solvers, foundation-model reasoning, and parametric assemblies
+like IFC and mesh-based reconstruction to support predictive analytics and maintenance planning (Liu et al., 2024a);
+and (v) the visualization layer, which delivers web dashboards, Building Information Modeling (BIM) interfaces, and
+mixed-reality environments for user interaction and asset management (Sabato et al., 2023; An et al., 2023; Wágner
+et al., 2023). This multilayered architecture is shown in the Figure 2.
+
+Figure 2: Layered digital twin architecture for intelligent intersections, shown left to right: (i) Data Acquisition Layer
+ingests heterogeneous real-time inputs (e.g., video, LiDAR, radar, loop detectors, weather stations); (ii) Communication
+Layer ensures low-latency, reliable transfer via technologies such as DSRC/WAVE, C-V2X, 5G NR, MQTT, and
+edge microservices; (iii) Processing Layer performs simulation, AI inference, data fusion and optimization (e.g.,
+SUMO, GMM & EM, GNNs, generative models); (iv) Modeling Layer constructs predictive and physics-informed
+representations including foundation models, mesh reconstruction, and parametric assemblies; and (v) Visualization
+Layer supports operator interaction and asset management through web dashboards, BIM viewers, and mixed-reality
+interfaces. The directional flow highlights how raw sensing progresses through communication and computation into
+actionable models and user-facing insights.
+
+3.2 Frameworks and Enabling Technologies
+The diverse architectures presented in the literature are enabled by frameworks that coordinate interactions between
+layers, components, and technologies. These frameworks typically incorporate specific computational, communication,
+and coordination technologies.
+
+                                                                      5
+Digital Twins for Intelligent Intersections: A Literature Review
+
+A key enabler across these frameworks is the integration of AI/ML techniques. These are often employed not only
+for data analysis and imputation, such as GMMs, expectation­maximization, and GNNs, but also for real-time
+decision-making and predictive control. For instance, clustering and regression techniques are used to generate
+robust engine performance indices in maritime digital twins through GMMs, EM algorithms, and singular value
+decomposition (Taghavi and Perera, 2024). In the urban traffic domain, generative AI models unify GANs, VAEs, and
+transformers to simulate adaptive traffic flow under varying city conditions, offering a scalable and sustainable approach
+to mobility forecasting (Huang et al., 2025). AI-enhanced digital twin architectures for smart intersections also employ
+RL and context-aware control mechanisms to coordinate infrastructure and vehicle behavior in real time (Wágner et al.,
+2023). In support of road asset maintenance, STGATs and GNNs are integrated to fuse infrastructure features and traffic
+states for condition prediction and preventive maintenance (Lu et al., 2025). Finally, deep learning and context-aware
+segmentation pipelines are applied to point cloud data to automate the geometric modeling of road assets, prioritizing
+meshing accuracy and semantic labeling over generative simulation (Davletshina et al., 2024).
+
+Edge computing and cloud-native deployment strategies are also central to many frameworks. These enable distributed
+processing of sensor data and the scalability needed for citywide deployments. Technologies such as Docker containers,
+MQTT protocols (a lightweight, publish-subscribe network protocol designed for connecting remote devices with
+resource constraints or limited network bandwidth), and microservice-based architectures support modularity, fault
+tolerance, and efficient data handling. For instance, one system utilizes edge computing microservices and multi-modal
+sensing to manage distributed data (An et al., 2023) , while another one integrates a Redis database and Kalman
+filter-based forecasting to enable lightweight, real-time traffic predictions (Liu et al., 2024a). Similarly, the MobiWise
+architecture provides a microservice-based, IoT-leveraged framework for eco-routing decisions using MQTT and
+containerized services (Aguiar et al., 2022). Another foundational element is the use of standardized data formats and
+interoperability protocols. Tools like SUMO and the TraCI API are used to ensure consistent simulation and control
+integration, as demonstrated in real-time traffic synchronization frameworks (Kusic´ et al., 2023).
+
+Visualization frameworks play a pivotal role in enabling interaction with digital twins. These range from web dashboards
+to immersive mixed-reality interfaces and BIM-integrated viewers. Systems such as BIM-integrated visualization for
+smart intersections offer intuitive interfaces for real-time monitoring, coordination, and decision-making (Sabato et al.,
+2023).
+
+Beyond conventional architectural and control-oriented perspectives, recent work has also introduced the concept of
+"Fused Twins," which refers to digital twins that are embedded within their physical environments through situated
+analytics. These twins integrate the physical, data, analytical, virtual, and connection environments into in-situ overlays,
+enabling real-world objects to be augmented with digital layers for enhanced context-awareness. This approach
+encourages embodied interfaces, such as AR/VR overlays that are spatially grounded in the physical world, and calls
+for empirical studies evaluating cognitive benefits such as reduced mental workload in real deployments (Grübel et al.,
+2022). In transportation, a related survey of digital twin applications for autonomous driving proposed a test framework
+based on V2X communication for real-time simulation, but underscored the lack of clear definitions and real-world
+validation in current digital twin-based testbeds (Niaz et al., 2021).
+
+4 Data Processing and Simulation Techniques
+
+Effective digital twins for intelligent intersections rely on two interconnected pillars: (i) robust data processing pipelines
+and (ii) high fidelity simulation platforms. Data processing pipelines must integrate and fuse heterogeneous sensor
+streams, such as loop detectors, LiDAR and radar scanners, and connected vehicle broadcasts, through data ingestion,
+cleaning, and fusion steps. Standardizing and combining these diverse inputs in real time enables big data analytics to
+forecast traffic conditions and support traffic demand management (Torre-Bastida et al., 2018). Simulation techniques
+span microscopic traffic models (e.g., SUMO (Lopez et al., 2018)), dynamic traffic assignment (Wang et al., 2018), and
+co-simulation frameworks that integrate autonomous vehicle (AV) simulators (e.g., CARLA (Dosovitskiy et al., 2017))
+with traffic flow models (Varga et al., 2023; Yilmaz-Niewerth et al., 2024). These platforms also support calibration and
+validation of virtual sensor models and AI-driven synthetic data generation for enhanced digital twin realism.
+
+This section synthesizes 19 key studies that explore data processing and simulation strategies essential for developing
+digital twins for intelligent intersections, with a focus on addressing the question: "What data fusion strategies and
+uncertainty modeling approaches can enhance the reliability, accuracy, and real-time decision-making capabilities
+of digital twins?" Table C.1 (in the appendices) contrasts chosen digital twin works based on their data fusion or
+processing approaches and corresponding simulation environments.
+
+The remainder of this section is organized into two subsections. Real-Time Data Fusion and Integration focuses on
+heterogeneous data fusion methods, including techniques for combining sensor inputs such as loop detectors, LiDAR,
+radar, and connected vehicle broadcasts. It also highlights structured fusion frameworks, missing data restoration, and
+
+                                                                      6
+Digital Twins for Intelligent Intersections: A Literature Review
+
+predictive modules that support proactive traffic management. Simulation Platforms examines digital twin environments,
+emphasizing co-simulation, calibration and validation of virtual sensor models, and AI-driven synthetic data generation.
+
+4.1 Real-time Data Integration and Heterogeneous Data Fusion
+
+Digital twins for intelligent intersections rely on a diverse range of data sources to faithfully replicate real-world
+dynamics and support decision-making in real time. These sources include structured data from loop detectors, LiDAR
+and radar sensors, GPS traces from connected vehicles, traffic signal states, and simulation logs from platforms such
+as SUMO and CARLA (Kusic´ et al., 2023; Yilmaz-Niewerth et al., 2024; Aguiar et al., 2022). Unstructured and
+semi-structured data, such as textual incident reports, GIS metadata, and social movement patterns, are increasingly
+fused with sensor inputs to capture contextual and behavioral dimensions of urban mobility (Katsumbe et al., 2024;
+Villanueva-Merino et al., 2024). Additionally, high fidelity perception data, such as annotated images, point clouds,
+and acoustic signals, enhance simulation realism and feed machine learning models for predictive analytics (Lv et al.,
+2022a; Bamminger et al., 2023; Yadav and Agarwal, 2025). Examples of data collection and ingestion include the
+low-latency integration of heterogeneous sources such as loop detectors, radar, and floating car data into unified twin
+environments (Kusic´ et al., 2023), while real-time energy analytics and eco-routing rely on dynamic script-driven
+updates within simulation platforms like SUMO (Angelina et al., 2024; Aguiar et al., 2022). These data streams
+typically undergo preprocessing steps such as cleaning, normalization, and transformation to enable downstream tasks
+like forecasting and decision support. Despite the richness of these inputs, missing or incomplete data remains a
+persistent challenge. Sensor outages, transmission delays, or coverage gaps can degrade the performance of digital
+twins by introducing uncertainty into traffic flow predictions and safety assessments. To address this, recent studies
+have applied techniques such as k-means clustering and temporal-neighbor interpolation to restore missing traffic
+volume counts with measurable improvements in output fidelity (Saroj et al., 2023). Structured fusion frameworks
+and forecasting models also play a critical role in mitigating data sparsity by inferring plausible values and enabling
+proactive system responses (Louati, 2025a; Hassani et al., 2024).
+
+As outlined in the preceding section, a foundational pillar of digital twins for intelligent intersections is the integration
+and fusion of heterogeneous data streams in real time. Systems continuously ingest roadside sensor and vehicle data into
+unified, low-latency twin environments (Kusic´ et al., 2023; Aguiar et al., 2022). Data gaps in traffic volume counts can
+be characterized and imputed (e.g., through k-means clustering of loss patterns and temporal-neighbor interpolation)
+to maintain application performance (Saroj et al., 2023). Energy analytics integrated with SUMO via Python scripts
+enable estimation of consumption under varying scenarios (Angelina et al., 2024). Pavement management twins merge
+heterogeneous logs using spatiotemporal graph attention networks for condition prediction (Lu et al., 2025). Event
+detection can be performed in a lightweight, online manner by combining PCA with DBSCAN to identify accidents
+from GPS traces (Papadopoulos et al., 2024). In parallel, Logistics 4.0 applications employ connected tracking and
+tracing devices to provide real-time, end-to-end visibility (Helo and Thai, 2024).
+
+Structured fusion frameworks further support decision-making. Common strategies, like complementary, redundant,
+and cooperative fusion, operate at the signal/raw, feature/intermediate, and decision levels, often organized under
+established taxonomies such as the Joint Directors of Laboratories (JDL), Luo­Kay, or Dasarathy models (White,
+1991; Hassani et al., 2024). Beyond sensor streams, unstructured text can be mined via natural language processing
+(NLP) methods (e.g., Word2Vec) to extract salient system elements and relationships for urban and transport modeling,
+subsequently informing quantitative indicators (Katsumbe et al., 2024). Visual fusion in transportation twins leverages
+memory-augmented modules to segment evolving scenes, particularly in self-driving contexts (Lv et al., 2022a).
+Cross-domain pipelines unify IoT inputs, multi-objective optimization outputs, and microservice architectures, often
+coupled to simulation twins, to address data sparsity (Aguiar et al., 2022). Hybrid approaches pair statistical tools with
+machine learning methods (e.g., PCA with DBSCAN for online event detection and ARIMA/ANN for forecasting
+safety and energy trends) to synthesize diverse indicators into coherent insights (Papadopoulos et al., 2024; Louati,
+2025a).
+
+4.2 Simulation Platforms
+
+Intersection twins often require concurrent traffic and AV simulations. Digital twins of intersections increasingly
+depend on co-simulation frameworks that synchronize traffic flow models with AV simulators to test control, sensing,
+and coordination strategies. For example, CARLA and SUMO are linked in lock step co-simulation by exchanging
+vehicle state vectors at each time step to analyze AV performance under mixed traffic conditions (Yilmaz-Niewerth
+et al., 2024). To scale corridor-level traffic studies, mesoscopic dynamic traffic assignment (DTA) engines run in
+tandem with microscopic SUMO routines, allowing efficient signal-timing evaluation across large urban networks
+(Kuraksin et al., 2020). For energy-aware modeling, detailed consumption profiles are scripted into SUMO using
+fine-grained variables (Angelina et al., 2024). Specialized testbeds like CupCarbon support ambient noise stress
+
+                                                                      7
+Digital Twins for Intelligent Intersections: A Literature Review
+
+testing, employing least squares­predicted acoustic signals and multi-criteria asynchronous classifiers to simulate smart
+accident management (Yadav and Agarwal, 2025). Digital twins for eco-routing leverage real-time IoT loops within
+the MobiWise framework, feeding sensor data into microscopic simulators for continual optimization (Aguiar et al.,
+2022). To ensure perceptual realism, high fidelity sensor models (LiDAR, radar, camera) are validated in multi-body
+simulation platforms based on experimental benchmarks (Bamminger et al., 2023). Meanwhile, simulation performance
+tuning is explored through downscaling strategies that introduce mesoscopic traffic simulation to offload non-critical
+traffic dynamics from microscopic AV simulators, improving computation time by up to 500% (Varga et al., 2023).
+Communication standards are also integrated: a co-simulation testbed coupling SUMO, Veins, and OMNeT++ validates
+SPaT/MAP V2X protocols between traffic lights and vehicles to support intersection control in connected environments
+(Wágner et al., 2023). Even path-following control laws are tested through co-simulation environments like CarSim and
+MATLAB/Simulink; for instance, the Pure Pursuit algorithm has been optimized using proportional-derivative (PD)
+error corrections to reduce overshoot on high-curvature segments (Cao et al., 2025).
+
+High fidelity perception within twins requires rigorous calibration and validation. Building on the need for accurate
+simulation of intersection dynamics, advanced perception modeling ensures that digital twins can faithfully represent
+real-world conditions. High-resolution perception models are calibrated using field-recorded data and simulation
+platforms such as CarMaker, where tools like Scenario Record,Replay,Rearrange (RRR) enable injection of real
+scenarios; this is combined with Mixture Density Networks to close the sim-to-reality gap by over 30%(Bamminger
+et al., 2023). Memory-augmented segmentation networks allow digital twins to self-tune visual fidelity by aligning
+outputs with ground-truth image sequences, dynamically adapting to environmental changes(Lv et al., 2022a). Pavement
+twins further exploit STGATs to harmonize predicted road states with sensor observations in highway infrastructure
+management (Lu et al., 2025). Urban-scale pedestrian flow models are refined using social simulation kernels that
+blend GIS datasets with movement patterns of local populations, enabling inclusive digital twin testing for age-friendly
+infrastructure (Villanueva-Merino et al., 2024). In acoustics, asynchronous sound recordings from field deployments
+are used to validate smart accident detection models driven by multi-criteria classifiers embedded within CupCarbon
+simulators (Yadav and Agarwal, 2025).
+
+5 Artificial Intelligence and Machine Learning in Traffic Control
+
+Leveraging digital twin architectures and continuous data assimilation discussed in Sections 3 and 4, we can see how
+AI/ML further empower these twins to improve traffic control. By integrating AI/ML algorithms, these digital replicas,
+which serve as virtual mirrors of physical systems, are empowered to simulate and intelligently analyze and predict
+evolving traffic conditions.
+
+In the context of intelligent intersections, a digital twin uses live data from vehicles, traffic signals, and sensors to
+dynamically map the real world into a virtual environment, ingesting multiple sources such as vehicle counts, speeds,
+signal states, and V2X messages (Lv et al., 2022b; Mi et al., 2024). This integration enables enhanced visualization,
+adaptive decision-making, and optimized performance in real time, allowing operators or autonomous controllers to
+react swiftly to fluctuations in demand. Within the virtual model, scenarios can be tested and optimized continuously;
+for example, signal timing strategies or lane configurations can be tested before deployment, and the digital twin can
+predict queue buildups or spillovers to enable preventive adjustments to signals or traveler information systems.
+
+Traditional traffic control relies on fixed-time or rule-based plans that cannot adjust to real-time fluctuations. In contrast,
+AI-powered adaptive systems digest streaming data from multiple sources and make split-second decisions to optimize
+flow, reduce congestion, and improve safety (Aulia et al., 2024). Techniques such as RL and neural network­based
+prediction enable controllers to learn optimal responses (e.g., when to extend a green light or trigger an alert) from
+experience and data rather than static programs, addressing the complexity of urban traffic where patterns change hourly
+and incidents require immediate response (Lai et al., 2024; Yao et al., 2023).
+
+This section addresses the question, "How can AI/ML methods, such as RL and DL, enhance adaptive traffic control
+within digital twins?" This synthesis covers 23 recent studies and is structured into four subsections: Traditional
+ML Methods for Traffic Control, which discusses early AI applications such as random forests, SVMs, and time
+series models for forecasting and classification; RL and Multi-Agent Coordination, which explores adaptive signal
+control using RL agents and collaborative strategies for network-level optimization; Deep Learning for Prediction,
+Perception, and Control, which highlights CNNs, GNNs, and hybrid models for spatio-temporal forecasting and
+incident detection; and AI/ML-Driven Edge-to-Cloud Architectures and Immersive Decision Interfaces, which presents
+emerging paradigms including distributed inference, quantum-accelerated optimization, explainable AI, and immersive
+stakeholder engagement.
+
+                                                                      8
+Digital Twins for Intelligent Intersections: A Literature Review
+
+5.1 Traditional ML Methods for Traffic Control
+
+AI/ML models embedded in digital twins learn from historical and real-time data to refine predictions and control
+policies, while the digital twin provides a realistic environment linking decisions to simulated outcomes (Lai et al.,
+2024; Yao et al., 2023). Regression and classification algorithms provide foundational analysis of traffic dynamics; for
+example, regression-based simulators capture complex spatiotemporal dependencies and support what-if exploration for
+policy and congestion estimation (Mostafi et al., 2022). Linear regression has been shown to yield accurate volume
+estimates on low volume roadways when appropriate explanatory variables are used (Yeboah et al., 2023). Classification
+models including random forests and support vector machines (SVM) are known to be useful in classifying traffic
+states and detecting anomalies, while time series forecasting models like autoregressive integrated moving average
+(ARIMA) model forecast short-term flows, accident hot spots, and energy consumption, as demonstrated in sustainable
+management frameworks (Nautiyal et al., 2025; Louati, 2025b). Together, digital twins and AI/ML enable proactive
+adaptation by sensing contextual changes at intersections (e.g., sudden influxes or emergency vehicles) and dynamically
+adjusting signal phases or traveler advisories (Liu et al., 2023). These capabilities are further strengthened by ongoing
+advances in AI/ML algorithms, significantly enhancing traffic management.
+
+5.2 Reinforcement Learning and Multi-Agent Coordination
+
+As part of proactive traffic management, RL (Sutton and Barto, 2018) has emerged as a leading AI approach for
+adaptive traffic signal control. In an RL setup, traffic signal controllers are considered agents that monitor various traffic
+conditions, including queue lengths, waiting times, and current signal phases, enabling them to execute actions such as
+adjusting the signal lights. This agent-environment interaction aims to maximize a predefined reward, often tied to
+performance metrics like minimizing vehicular delays and improving overall traffic throughput (Mousavi et al., 2017;
+Wei et al., 2021). Over time, the RL agent "learns" an optimal or near-optimal policy by trying different actions and
+receiving feedback in the form of reward signals. This approach enables self-optimization that can adjust to complex
+traffic patterns without being explicitly programmed for every scenario (Aslani et al., 2017). Reward functions in the
+literature often reflect traffic performance metrics, such as vehicle waiting time, queue length, or throughput(Egea
+et al., 2020). For example, if long queues form on one approach, the RL agent might learn to extend the green light
+to dissipate the queue, as this yields a higher cumulative reward due to reduced delays. Based on this, the agent is
+trained using a simulation and over many simulation cycles, the agent refines its timing decisions to optimally respond
+to demand fluctuations. Studies have demonstrated that RL controllers can outperform pre-timed or actuated controllers
+by reacting more adaptively to incidents and daily traffic variations (Lai et al., 2024).
+
+In early implementations, simple RL algorithms like Q-learning were used to adjust a single intersection's lights,
+showing significant reductions in delay and stops. More recently, deep RL methods have been applied, where deep
+neural networks approximate the optimal policy or value function. This approach allows handling larger state spaces
+(for example, using camera images or data from multiple intersections). Robust RL policies trained in digital twin
+environments adapt to disruptions like lane closures or incidents, enhancing urban grid resilience and informing future
+resilience models (Bubicz et al., 2023). Overall, RL provides a flexible and powerful toolkit for adaptive signal control,
+though its field deployment requires robust simulation training (often using digital twins) and careful attention to safety
+and fairness (Louati, 2025b).
+
+At the network level, MARL strategies are being pursued. One study optimized signals across a city grid by coor-
+dinating agents at each intersection, leading to smoother traffic progression. Another innovative paradigm, dubbed
+"democratizing traffic control," trained multiple RL agents, each with a different objective (e.g., minimizing travel time
+or emissions), and then had them collectively vote on the final signal plan in real time (Korecki et al., 2024).
+
+MARL extends RL by coordinating agents at intersections via shared rewards or messages to optimize total travel
+time or balanced queues (Louati, 2025b). Cooperative adaptable lanes dynamically reallocate lanes using multiple
+RL agents, cutting average waiting times by almost 50% compared to static allocations (Dubey et al., 2024). Agents
+with distinct objectives vote on signal plans, balancing travel time, emissions, and safety in a participatory MARL
+framework (Korecki et al., 2024).
+
+5.3 Deep Learning for Prediction, Perception, and Control
+
+Deep learning significantly contributes to adaptive traffic management, particularly by capturing complex spatial and
+temporal traffic patterns using CNNs, recurrent neural networks (RNNs), and GNNs (Ju et al., 2024; Jiang and Luo,
+2022).
+
+Deep learning methods (LeCun et al., 2015), excel at capturing complex spatial and temporal patterns in traffic
+data (Scarselli et al., 2009). Hybrid models integrating YOLOv4 (Bochkovskiy et al., 2020) detection with LSTM layers
+
+                                                                      9
+Digital Twins for Intelligent Intersections: A Literature Review
+
+predict time incremental flows, enabling preemptive signal adjustments with higher accuracy (Shepelev et al., 2023).
+Spatial­temporal GNNs encode road networks as graphs, preserving topology for superior flow prediction and control
+recommendations (Li et al., 2023). Generative spatial AI, such as foundation-based Large Flow Models, fills missing
+traffic data and forecasts multimodal urban dynamics within digital twins, improving data fidelity (Huang et al., 2025).
+Cooperative perception fuses camera and LiDAR data across connected autonomous vehicles and infrastructure via
+CNN or graph-based models, enhancing object detection and trajectory forecasts for incident-aware control (Yu et al.,
+2022). Meanwhile, 3D-Net uses monocular cameras to detect and track road users in 3D, rapidly flagging incidents for
+downstream control adjustments (Rezaei et al., 2023). DL-driven predictions feed into adaptive loops, such as dynamic
+green extensions or diversion alerts, closing the feedback loop in the digital twin framework (Liu et al., 2023).
+
+5.4 AI/ML-Driven Edge-to-Cloud Architectures and Immersive Decision Interfaces
+
+AI/ML-enabled digital twins leverage an edge­fog­cloud continuum to satisfy strict latency and compute requirements
+for continuous model updates and real-time inference (Al-Dulaimy et al., 2024). Complementary Narrow-Band
+IoT­linked digital twins employ lightweight ML models at the network edge to maintain energy efficient, scalable
+sensor fusion for large-scale deployments (Dangana et al., 2024). Meanwhile, economic­environmental frameworks
+automatically partition AI workloads to allocate preprocessing, inference, and training tasks between edge nodes and
+cloud servers, to optimize throughput, cost, and carbon footprint (Liu et al., 2024b). Emerging quantum computing
+techniques promise to accelerate combinatorial optimization subroutines in AI traffic signal controllers, enabling
+sustainable, circular transport strategies (Jami and Haleem, 2025). Although originally developed for maritime
+operations, systems-driven methods integrate explainable AI modules within digital twins to generate operator-centric
+recommendations, validate safety constraints, and support human-in-the-loop tuning prior to field deployment (Zhang
+et al., 2025). Finally, gamified VR dashboards and metaverse interfaces harness interactive ML visualizations to engage
+planners and the public to allow immersive exploration, scenario analysis, and participatory tuning of twin-based control
+strategies (Reynoso Vanderhorst et al., 2024).
+
+6 Safety and Protection of Vulnerable Road Users
+
+Building on the previous section's discussion of how AI/ML integrated with digital twins can enhance traffic control,
+this section answers the question, "What methodologies enable a digital twin to detect, predict, and mitigate risks for
+vulnerable road users?"
+
+Vulnerable road users (VRUs), such as pedestrians and cyclists, face disproportionate risks with the highest crash rates
+per distance traveled and rising fatality trends in some regions (Tengilimoglu et al., 2023). Enhancing digital twin
+models to better capture human behavior is critical, as it can reveal potential risks and enable proactive interventions
+to prevent crashes. For example, a recent work demonstrates how generative spatial AI can complete and predict
+flow data for pedestrians and vehicles alike, offering a powerful tool for pre-crash scenario analysis and VRU risk
+assessment (Huang et al., 2025) . At a higher architectural level, a layered IoT­edge­cloud framework can support
+low-latency, distributed sensing and analytics for VRU protection in digital twins(Al-Dulaimy et al., 2024).
+
+In total, this section reviews 15 papers that are related to vulnerable road user protection within digital twins. The
+discussion is organized into three subsections: Sensing, Modeling, and Predictive Analytics, which addresses data
+acquisition methods and AI/ML-based pedestrian behavior prediction; Behavioral and Infrastructure Simulations,
+which examines simulation frameworks for VRU behavior and infrastructural interventions; and Ethical, Privacy, and
+Systems Perspectives, which explores privacy concerns, bias mitigation, and system-level governance for safe and
+equitable digital twin deployments.
+
+6.1 Sensing, Modeling, and Predictive Analytics
+
+Modern sensing techniques provide rich data on both road users and the surrounding environment. For example,
+unmanned aerial vehicles (UAVs) equipped with photogrammetry can rapidly survey intersections and generate detailed
+3D models, identifying hazards such as foliage obstructing sight lines (Congress et al., 2021). On-vehicle multimodal
+sensor suites, combined with infrastructure-mounted sensors, ensure robust detection of pedestrians and cyclists by
+compensating for the limitations of any single sensor modality. A complementary approach is found in the zero
+calibration 3D object recognition system which uses only monocular cameras and GPS information to estimate 3D
+bounding boxes and trajectories for vehicles, cyclists, and pedestrians in real time (Rezaei et al., 2023). On the
+other hand, emergency vehicles with edge computing sensors to detect blind spot obstacles, including VRUs, at the
+vehicle perimeter, providing millisecond scale alerts to drivers (Mukhopadhyay et al., 2024) . The deployment of
+roadside sensor networks, comprising of cameras, LiDAR, millimeter-wave radar, and weather stations, for cooperative
+
+                                                                     10
+Digital Twins for Intelligent Intersections: A Literature Review
+
+intelligent driving has been shown to form the backbone of intelligent intersections by enabling global scene sensing
+and collaborative VRU detection in digital twin environments (An et al., 2023).
+
+Machine learning models learn pedestrian crossing behaviors or cyclist speed profiles from data, improving the
+prediction of potential conflict points. In vehicle-to-digital-twin systems, real-time AI-driven analytics can flag
+anomalous behavior (e.g., a pedestrian jaywalking) and assess collision risks. Notably, while camera-only systems
+detect less than 30% of potential pedestrian collisions, fused sensor systems (integrating cameras, LiDAR, and radar)
+can prevent over 90% of them (Tengilimoglu et al., 2023). Furthermore, these predictive capabilities are also extended
+by enabling flow completion in unobserved locations and forecasting the evolution of VRU movements under different
+infrastructure scenarios (Huang et al., 2025) . Acoustic signal-based detection systems further augment these digital
+twins, a multi-criterion asynchronous classifier is used to detect accident hot spots and provide early alerts for VRUs,
+outperforming traditional fixed detector methods in accuracy and responsiveness (Yadav and Agarwal, 2025).
+
+6.2 Behavioral and Infrastructure Simulations
+
+Several methodologies have been proposed to capture and predict VRU behavior within traffic digital twins. One
+approach integrates continuous real-time calibration of microscopic simulators, such as SUMO, with live sensor data,
+enabling digital twins to dynamically adapt to changing traffic conditions and pedestrian movements (Kusic´ et al.,
+2023). Another methodology uses agent-based pedestrian network digital twins, which focus on discrete network
+graphs to simulate individual pedestrian rerouting behaviors, effectively capturing the stochastic nature of route choice
+(Jabbari et al., 2023). MARL has also been used to dynamically reallocate lane widths and right-of-way permissions,
+significantly reducing queue lengths and enhancing safety in mixed traffic scenarios (Dubey et al., 2024). Meanwhile,
+probabilistic pedestrian crossing models combined with Monte Carlo simulations provide insights into pedestrian risk
+behaviors under dynamic traffic conditions, emphasizing critical safety thresholds related to vehicle proximity and
+traffic signal phases (Bagabaldo and Hackl, 2025). Additionally, infrastructure simulations underscore the importance
+of modeling interactions between autonomous vehicle-centric infrastructure changes and VRU movements to ensure
+safety in mixed traffic environments (Tengilimoglu et al., 2023).
+
+Digital twins also incorporate detailed road infrastructure attributes, ranging from intersection geometries to signal
+phasing and crosswalk types. Simulation frameworks can test modifications, such as converting an unsignalized
+crosswalk to a signalized one or adding a pedestrian refuge island, while remote sensing and GIS-based methods
+(e.g., high-resolution 3D digital surface models from UAV surveys) simulate drivers' and pedestrians' sight lines
+(Congress et al., 2021). Combining spatial crash models (e.g., Geographically Weighted Poisson Regression, which is a
+spatial regression model for count processes wiht local variation, with macroscopic statistical models (e.g., Negative
+Binomial) within a digital twin architecture improves hot spot identification accuracy by over 10% relative to single
+model approaches (Rua et al., 2024).
+
+6.3 Ethical, Privacy, and Systems Perspectives
+
+Eventually, human behavior in traffic is influenced by social, cultural, and ethical factors. Methodologies incorpo-
+rating expert knowledge and human factors are vital, ensuring that digital twins respect privacy, avoid algorithmic
+discrimination, and support socially acceptable interventions. Delphi studies, which is a structured, iterative survey
+technique that uses multiple rounds of anonymized questionnaires and controlled feedback among a panel of experts, and
+multi-stakeholder workshops have identified key concerns such as privacy, bias, and safety when introducing AI-driven
+technologies (Stahl et al., 2023). The ethical and privacy implications of pervasive VRU sensing are highlighted,
+especially the need for robust anonymization and informed consent when aggregating individual movement data (Fadhel
+et al., 2024). GeoAI frameworks further emphasize values-driven co-design, ensuring that digital twin interventions
+align with community values and equitable access goals (Mortaheb and Jankowski, 2023).
+
+7 Scaling from Localized Intersections to Citywide Traffic Networks
+
+In the previous sections, we established the key components of an ideal digital twins for intelligent intersection. It is
+worth noting, however, that many existing digital twin implementations have primarily focused on localized or single
+intersections (Kampourakis et al., 2023; Wang et al., 2024). Extending these applications to encompass entire citywide
+traffic networks remains a significant challenge (Kusic´ et al., 2023) and requires tackling issues related to computational
+efficiency, distributed control, and secure data communication. This section presents a synthesis of 35 papers on digital
+twin applications in smart infrastructure, with a focus on scaling from localized intersections to citywide traffic networks.
+The discussion is organized into three subsections: Digital Twin Applications Across Smart and Urban Infrastructure,
+which examines foundational concepts from CPS, Industry 4.0, and urban computing, as well as the integration of
+
+                                                                     11
+Digital Twins for Intelligent Intersections: A Literature Review
+
+AI, IoT, and spatial data models; Control and Communication Frameworks for Scalability, which explores distributed
+control architectures, semantic interoperability, and secure communication protocols such as V2X and blockchain; and
+Challenges in Scaling Digital Twin Applications, which highlights key computational, organizational, and technological
+hurdles and identifies promising strategies such as lightweight models, parallel intelligence, and secure wireless systems
+for enabling large-scale deployment.
+
+7.1 Digital Twin Applications Across Smart and Urban Infrastructure
+
+Example smart infrastructure digital twin use cases, from traffic control to smart mobility planning are presented
+in Table D.1 in the appendices. Related literature also provides a comprehensive overview of digital twin concepts
+within CPS and Industry 4.0 environments. For instance, a systematic review of wireless security testbeds in CPS
+establishes the groundwork for understanding the convergence of physical and digital realms (Kampourakis et al., 2023).
+Complementary investigations into urban computing and building information modeling for transportation infrastructure
+emphasize the integration of digital models with physical structures, a critical prerequisite for scalable digital twin
+applications (Alshuwaikhat et al., 2022; Pirdavani et al., 2023). Research on digital twin applications in Industry 4.0
+and intelligent highway infrastructure further demonstrates the potential benefits of digital replication in complex
+urban environments (Wang et al., 2024; Javaid et al., 2023). Moreover, studies on blockchain, IoT, and AI in logistics
+emphasize the importance of secure, distributed data management (Idrissi et al., 2024). Foundational paradigms for
+digital twins adoption in the construction sector underscore its transformative potential beyond transportation (Moshood
+et al., 2024). Localized digital twin implementations aimed at urban inclusivity have also emerged, showcasing
+modular approaches for age-friendly environments (Villanueva-Merino et al., 2024). A systematic review highlights the
+integration of AI within digital twin systems across various domains (Kreuzer et al., 2024).
+
+Additional studies expand upon urban digital twin implementations by focusing on efficient traffic data collection
+and computational processing. Research on traffic organization and safety highlights the necessity for effective data
+collection (Pugachev et al., 2020). Advances in generative spatial AI for sustainable smart cities and pioneering
+large flow models for urban digital twin frameworks (Huang et al., 2025) offer promising methods for processing
+and simulating complex urban flows. Analyses of Geo CPS with a focus on spatial challenges further illustrate
+opportunities and constraints in geospatial data integration (Yan and Sakairi, 2019). Comprehensive methodologies for
+fusing heterogeneous urban data sources have also been reviewed (Fadhel et al., 2024). Investigations into sustainable
+integration of digital twin in road infrastructure (Ulrich et al., 2023) and the impact of connected corridor volume
+data imputations on digital twin performance (Saroj et al., 2023) directly address challenges related to data imputation
+and real-time performance, while studies on wireless network digital twins for smart railways (Guan et al., 2024)
+and methods for lightweighting digital twin information models (Jin et al., 2024) provide practical approaches to
+reducing computational loads. Dedicated investigations into lightweighting processes for digital twin information
+models demonstrate strategies for efficient data handling in smart city services.
+
+7.2 Control and Communication Frameworks for Scalability
+
+A significant portion of the literature focuses on the control and communication frameworks essential for digital twin
+scalability. Insights into evaluating performance of measurement equipment in automated traffic control systems (Safi-
+ullin et al., 2020) and the design of multi-level traffic management systems (Kerimov et al., 2020) contribute valuable
+perspectives on distributed control architectures. High performance computing platforms have also been leveraged for
+distributed route computations in traffic flow models (Silva et al., 2025). Agent-based digital twin architectures have
+been demonstrated in logistics applications to integrate multiple stakeholders and assets (Xu et al., 2025b). Semantic
+interoperability frameworks aligning BIM and IoT sensor data models have been proposed to ensure consistent data
+exchange across digital twin and BIM systems (Okonta et al., 2024). Further studies on organizational tensions in
+Industry 4.0 reveal managerial and structural challenges for integrating digital twin systems (Dieste et al., 2022).
+Testing range principles for intelligent transportation technologies (Zhankaziev et al., 2020) and bibliometric analyses
+quantifying the evolution of IoT within smart infrastructure (Stan et al., 2024) highlight the need for robust and scalable
+data infrastructures. Investigations into roadside sensor network deployments (An et al., 2023) and GeoAI applications
+for re-imagining smart cities (Mortaheb and Jankowski, 2023) further stress the importance of distributed sensing
+frameworks. Advanced V2X communication and digital twin integration for traffic light systems (Wágner et al., 2023)
+illustrate secure, low-latency data exchange, while technological visions for Meta Smart Twin Cities emphasize the
+convergence of metaverse and digital twin paradigms (Mogaji, 2023). Exploratory studies have investigated quan-
+tum computing to optimize large-scale digital twin simulations and circular economy models, pointing to significant
+performance gains for complex urban networks (Jami and Haleem, 2025). Meanwhile, non-fungible token (NFT)
+mechanisms have been proposed to provide secure provenance and asset management for distributed digital twin
+ecosystems (Davies et al., 2024). NFT is a cryptographically unique, indivisible, irreplaceable and verifiable token
+implemented via blockchain smart-contract protocols that enables the creation, ownership, transfer and verification
+
+                                                                     12
+Digital Twins for Intelligent Intersections: A Literature Review
+
+of unique digital (or physical) assets (Valeonti et al., 2021). Democratized control approaches involving multiple
+stakeholders and learning-based controllers in voting-based signal management have also been proposed (Korecki et al.,
+2024). Finally, the synergistic interplay between AI and digital twins in environmental planning (Bibri et al., 2024) and
+interdisciplinary approaches such as parallel intelligence (Zhao et al., 2023) suggest integrative strategies to overcome
+challenges in both computation and control.
+
+7.3 Challenges in Scaling Digital Twin Applications
+
+Scaling digital twins applications from localized intersections to citywide networks presents several critical challenges.
+Efficient processing of vast urban datasets is essential for real-time simulation and control; however, integrating complex
+3D models with continuous sensor feeds remains computationally intensive (Pirdavani et al., 2023). Although approaches
+such as lightweight digital twin models (Jin et al., 2024) and advanced generative spatial AI frameworks (Huang et al.,
+2025) have been proposed to mitigate computational demands, these challenges persist. Moreover, managing digital
+twins across extensive geographical areas requires the development of distributed control architectures capable of
+coordinating data from numerous intersections and road segments. While multi-level system models (Kerimov et al.,
+2020) and performance evaluation methodologies (Safiullin et al., 2020) provide promising strategies, they also highlight
+the complexities inherent in resolving managerial and structural issues.
+
+Additionally, for citywide applications, ensuring secure and reliable data communication is paramount. Models based
+on blockchain, IoT, and AI in logistics (Idrissi et al., 2024) and advanced V2X communication systems (Wágner et al.,
+2023) are essential for maintaining data integrity and protecting against cyber threats across distributed networks.
+Organizational challenges in Industry 4.0 implementations further complicate integration efforts, as described in studies
+on structural and managerial tensions (Dieste et al., 2022).
+
+The literature indicates that several key technological advancements are necessary to overcome these challenges.
+Enhanced computational algorithms and lightweight digital twin models are critical; the development of efficient
+algorithms, leveraging approaches such as generative spatial AI (Huang et al., 2025) and parallel intelligence (Zhao
+et al., 2023), can significantly improve computational efficiency, while techniques for reducing the data footprint
+of digital twin information models (Jin et al., 2024) help maintain essential detail without overwhelming system
+resources. Equally important is the need for robust distributed control and hierarchical management frameworks.
+Distributed, multi-level control architectures (Kerimov et al., 2020) that integrate localized controllers with central
+supervisory systems offer flexibility and resilience, yet the successful implementation of such systems also requires
+addressing inherent organizational tensions (Dieste et al., 2022). Furthermore, establishing secure and reliable data
+communication protocols is critical. The adoption of next generation wireless technologies, including 5G/6G and V2X
+protocols (Wágner et al., 2023; Gallego-Madrid et al., 2023), combined with blockchain-based solutions and robust
+encryption methods (Idrissi et al., 2024), is essential to ensure low-latency and secure data exchange across widespread,
+distributed networks.
+
+8 Discussion
+
+Our comprehensive literature review reveals a rapidly advancing landscape in the application of digital twins for trans-
+portation that supports intelligent intersections. The research landscape, categorized into five key themes, demonstrates
+significant progress in developing sophisticated architectures, leveraging advanced data processing and simulation,
+integrating AI/ML for adaptive control, safety and protection of VRUs, and scaling localized intersection to network-
+level for cities. However, this review also illuminates critical gaps and unchallenged assumptions that temper the
+current optimism. This discussion synthesizes these findings, offers a critical perspective on the prevailing research
+trajectory, and outlines a path forward for developing digital twins that are not merely efficient, but fundamentally safe
+and human-centric.
+
+8.1 The Simulation-Reality Gap: From Virtual Models to True Digital Twins
+
+A recurring theme throughout the reviewed literature is the heavy reliance on simulation. While simulators like SUMO
+and co-simulation platforms coupling traffic and vehicle models (e.g., CARLA) are invaluable for initial development
+and testing, a significant portion of the reviewed literature treats the "digital twin" as a sophisticated, yet one-way,
+simulation. Data flows from the physical world (or a proxy for it) into the model, which then runs scenarios and
+proposes optimizations. This falls short of the true digital twin paradigm and may just fall into what is called a "digital
+shadow," which is a virtual representation that automatically mirrors real-time data from a physical system, but lacks
+the ability to influence or control it (Kritzinger et al., 2018).
+
+                                                                     13
+Digital Twins for Intelligent Intersections: A Literature Review
+
+The essence of a digital twin, as envisioned by Grieves (2014) and NASA (Glaessgen and Stargel, 2012), lies in its
+continuous, bidirectional synchronization with its physical counterpart. The digital model should not only reflect the
+state of the physical intersection but also be capable of actuating changes whose effects are then measured and fed
+back into the model, closing the loop. Most studies, however, stop at the simulation stage, presenting performance
+improvements in a virtual environment without grappling with the complexities of real-world deployment and feedback
+or separately training AI/ML models for traffic control which later on applied but does not affect traffic in real time.
+Without this feedback loop, the digital model risks becoming a "digital shadow," reflecting a reality that has already
+passed and making decisions based on potentially stale or idealized data. This one-way data flow fails to account for
+the inherent uncertainty and unpredictability of the physical world, from sensor noise and communication latency to
+unexpected human behavior.
+
+To fully realize the transformative potential of digital twins for intelligent intersections, we must move beyond simulation
+and passive monitoring toward real-time, closed-loop systems that can actively implement, test, and adapt control
+strategies in the physical world. This shift from virtual analysis to actionable intervention is essential to ensure that
+digital twins are not just analytical tools but operational systems that improve safety, efficiency, and responsiveness on
+the ground.
+
+8.2 The Human Blind Spot: Prioritizing Pedestrians and Vulnerable Road Users
+
+Our review reveals a pronounced vehicular-centric bias in the current body of research. The primary metrics for success
+are almost universally tied to traffic flow: reducing vehicle delay, minimizing queue lengths, and increasing throughput.
+While these are important goals, they often overshadow the most critical function of an intersection, which is to ensure
+the safety of all users, especially the most vulnerable.
+
+VRUs, such as pedestrians, cyclists, and micromobility users, are frequently treated as an afterthought or are modeled
+with simplistic assumptions. While vehicles adhere to predictable kinematic models, pedestrians and cyclists exhibit
+complex, stochastic behaviors influenced by social cues, perceived risk, and environmental context. The review shows
+a dearth of research integrating fine-grained, agent-based models of pedestrian behavior into digital twins. Most
+models either ignore pedestrians or use coarse, aggregated flow approximations. This is a critical oversight. An
+intersection that is highly efficient for cars but terrifying or dangerous for a child, an elderly person, or a person with a
+disability has failed in its fundamental civic duty. Thus, agencies like USDOT have initiatives and funding dedicated
+to safer roads, including the Safe Streets and Roads for All (SS4A) competitive grant program (USDOT, 2025) and
+the U.S. DOT Research, Development, and Technology Strategic Plan for Fiscal Years 2022­2026, which outlines
+the Department's research priorities, objectives, and strategies for improving transportation safety, equity, climate
+resilience, and innovation (USDOT, 2022). We envision that a true digital twin balances traffic flow efficiency with
+pedestrian safety, going beyond mere automation to support more holistic and inclusive mobility solutions. Our focus
+on safety-first digital twins seeks to rebalance these priorities, ensuring that VRU protection is a primary objective
+function, not a secondary constraint.
+
+8.3 The Ethics of Surveillance, Bias, and Accountability in Digital Twins
+
+As digital twins evolve from passive simulations to active, decision-making systems embedded in urban infrastructure,
+their ethical implications demand careful scrutiny. Despite increasing sophistication in data-driven control algorithms
+and sensor-rich environments, the reviewed literature rarely interrogates the full spectrum of ethical concerns surrounding
+their real-world deployment.
+
+First, there are serious privacy concerns. Digital twins for intelligent intersections often rely on high-resolution sensor
+data, such as video feeds, LiDAR, and mobile device signals, to capture real-time traffic dynamics. While essential
+for accurate modeling and control, such data streams can inadvertently capture personally identifiable information,
+especially of pedestrians and cyclists. Without strong safeguards, such as robust anonymization protocols, secure data
+handling, and transparent data governance, these systems risk enabling mass surveillance, eroding public trust and
+infringing on privacy rights.
+
+Second, algorithmic bias poses a critical risk. Models trained on biased datasets due to under-representation of certain
+populations, skewed spatial sampling, or historical inequities, can reinforce and even amplify systemic disparities.
+For example, optimization focused primarily on vehicle throughput in affluent areas may deprioritize pedestrian
+safety or service levels in underserved neighborhoods. Ensuring fairness requires embedding ethical frameworks and
+fairness-aware learning mechanisms into model design and training pipelines from the outset.
+
+Third, reliability and misuse must be addressed. A system as powerful as a digital twin can be exploited, either inten-
+tionally or unintentionally, by its human operators, or manipulated through cyber-physical vulnerabilities. Safeguards
+
+                                                                     14
+Digital Twins for Intelligent Intersections: A Literature Review
+
+must be implemented to prevent tampering, adversarial input manipulation, or human misuse of override functions.
+Moreover, the digital twin must be resilient against failures in the physical system or unexpected real-world events, and
+should be designed to fail safely, with clearly defined human-in-the-loop override protocols. Ensuring reliability is not
+just a matter of technical robustness but also of institutional checks and balances.
+
+Finally, questions of transparency and accountability remain unresolved. As digital twins increasingly influence
+real-world decisions, such as modifying signal timing or prioritizing specific user flows, mechanisms for oversight
+and public communication become essential. Questions arise such as: "Who is responsible if an AI-driven decision
+results in harm?", "How can these decisions be understood and contested by non-experts?", and "What transparency
+guarantees exist to prevent misuse or unchecked authority?".
+
+These are not purely technical challenges, but socio-technical ones that demand interdisciplinary solutions across
+engineering, computer science, ethics, law, and urban governance. Addressing them requires collaboration among
+a diverse array of stakeholders, including municipal and regional governments, national regulatory agencies, urban
+planners, civil society organizations, academic institutions, private sector technology developers, and the general public,
+whose mobility, privacy, and safety are most directly affected. Ethical integrity, reliability, and resistance to misuse
+must be foundational components of any digital twin system intended for public deployment.
+
+8.4 The Challenge of Validation and Sparse Historical Data
+
+The review also raises two pragmatic yet profound questions that are largely unaddressed:
+
+       1. How can the effectiveness of a new traffic management strategy be rigorously and safely tested before live
+           deployment?
+
+       2. What happens when historical data is sparse or non-existent for a particular intersection or a rare event?
+
+Regarding the first question, a digital twin offers a revolutionary framework for validation that goes beyond pure
+simulation. We propose a multi-stage validation process: Simulation-in-the-Loop (SIL): The initial phase, where
+control logic is tested in a fully virtual environment. HIL: The control algorithms are run on the actual traffic controller
+hardware, which interacts with the simulated digital twin. Shadow Mode Deployment: This is the crucial, and often
+missing, step. The digital twin is deployed in the field, receiving live sensor data and making decisions in parallel with
+the existing intersection controller. However, its decisions are not actuated. Instead, they are logged and compared
+against the real-world outcomes. This allows for the validation of the twin's performance and safety under real-world
+conditions without any risk to the public. Phased Live Deployment: Only after passing rigorous shadow mode validation
+can the system be gradually brought online, perhaps during off-peak hours and with human oversight and safety
+overrides.
+
+Another point is the absence of training data, digital twins must incorporate methods beyond traditional supervised
+learning. For new intersections or for predicting rare but catastrophic events like near-misses or crashes, there is no `big
+data' to learn from. Here, the future lies in probabilistic models and combining physics-based models with modern AI.
+Generative AI techniques (e.g., GANs, diffusion models) can be used within the digital twin to create vast libraries of
+synthetic but realistic "edge case" scenarios to train and harden the control logic. Furthermore, principles of transfer
+learning can be applied, where a model trained on a data-rich intersection can be fine-tuned with minimal data for a new
+location.
+
+While the field has made remarkable strides in building the components of digital twins for intelligent intersections, our
+review suggests that the current trajectory is focused on computational sophistication rather than holistic, real-world
+impact. The next frontier is to bridge the simulation-reality gap, shift from a vehicle-centric to a human-centric
+paradigm, and develop robust frameworks for validation and learning under uncertainty.
+
+We can see that future research can be positioned to address these gaps, aiming to develop digital twins that are not just
+computationally powerful, but are fundamentally architected for safety, human-centricity, and real-world fidelity.
+
+9 Conclusion
+
+This review shows how digital twin technology offers a transformative framework for managing and optimizing
+intelligent intersections. By synthesizing findings across five major thematic areas, we capture the state of the art, key
+challenges, and emerging directions for research and implementation. The major takeaways are summarized as follows:
+
+       1. Digital Twin Architectures and Frameworks: Recent literature highlights the emergence of modular, mul-
+           tilayered digital twin architectures that incorporate edge computing, microservice-based platforms, and
+
+                                                                     15
+Digital Twins for Intelligent Intersections: A Literature Review
+
+          AI-enhanced components. These architectures typically include data acquisition, communication, processing,
+           modeling, and visualization layers, all coordinated through cloud native frameworks. Interoperability and
+           standardization via open APIs, microservices, and semantic models remain critical for integrating diverse
+           sensor systems and simulation tools. These advancements address the pressing need for scalable and flexible
+           digital twin systems that can evolve alongside technological innovations.
+
+       2. Data Processing and Simulation Techniques: Effective digital twins depend on robust real-time data ingestion
+           and heterogeneous fusion across multiple sensor modalities (e.g., LiDAR, radar, loop detectors). Studies
+           increasingly apply probabilistic methods (e.g., Kalman filtering, clustering, and Bayesian learning) and leverage
+          AI for imputation and anomaly detection. Simulation platforms like SUMO, CARLA, and co-simulation
+           frameworks are widely used, often augmented by synthetic data generation and AI-enhanced virtual perception
+           modules. These tools enable high fidelity testing and calibration, supporting predictive and adaptive traffic
+           management despite data gaps or uncertainty.
+
+       3. AI/ML in Traffic Control: AI/ML algorithms, particularly RL, DL, and GNNs, are at the core of adaptive traffic
+           signal control in digital twins. RL agents can learn optimal signal timings through simulation, while multi-
+           agent systems coordinate control across intersections. Deep learning models support traffic prediction, anomaly
+           detection, and perception fusion. Increasingly, these models operate within edge-to-cloud environments, allow-
+           ing real-time inference and continuous model refinement. Some implementations even explore participatory or
+           explainable AI frameworks to support fairness, transparency, and collaborative decision-making.
+
+       4. Safety and Protection of Vulnerable Road Users: Emerging approaches integrate explainable AI, social force
+           models, and agent-based simulations to model pedestrian and cyclist behaviors. VRU detection and protection
+           are enhanced via multimodal sensing (e.g., LiDAR, mmWave radar), zero calibration vision systems, and
+           real-time fusion analytics. Simulation platforms increasingly incorporate behavioral diversity and infrastructure
+          variation to evaluate how changes affect VRU risk. Ethical and privacy concerns, such as data anonymization
+           and inclusive design, are also being integrated into digital twin development, ensuring human-centric safety
+           interventions.
+
+       5. Scaling to Citywide Traffic Networks: Moving from intersection-level digital twins to citywide implementations
+           requires distributed architectures, lightweight modeling strategies, and secure, low latency communication
+           protocols. Key enablers include 5G/6G networks, blockchain-based data verification, and edge-cloud or-
+           chestration frameworks. Recent advances demonstrate the feasibility of coordinated control across corridors,
+           dynamic routing, and integration with smart infrastructure. However, significant challenges persist in terms of
+           computational efficiency, standardization, and organizational coordination. Addressing these issues will be
+           essential for realizing the full potential of digital twins in sustainable and intelligent urban mobility systems.
+
+Despite impressive technological advancements, this review reveals a critical disconnect between the growing computa-
+tional capabilities of digital twins and their deployment as safe, ethical, and human-centered systems. Four foundational
+challenges undermine the current trajectory.
+
+First, the persistence of the simulation-reality gap means many so-called digital twins remain as unidirectional
+simulations, which is referred to in literature as "digital shadows," where they are incapable of acting upon or learning
+from the physical world. Without real-time, bidirectional feedback loops and closed-loop deployment protocols, these
+systems cannot fulfill their promise of dynamic adaptation and robust control.
+
+Second, there remains a pronounced human blind spot. The vast majority of research prioritizes vehicle throughput,
+often at the expense of pedestrians, cyclists, and other vulnerable road users. True intelligence in traffic systems requires
+not just optimizing flows, but safeguarding all road users, particularly those most at risk. Rebalancing this focus is
+essential to align digital twins with broader societal goals such as equity, inclusivity, and safety.
+
+Third, the field has not adequately addressed the ethical and governance challenges posed by real-world deployment.
+As digital twins evolve from passive simulations to active decision-making systems, issues such as privacy, algorithmic
+bias, and accountability become critical. Without strong safeguards for anonymization, fairness-aware optimization,
+and transparent oversight, these systems risk becoming instruments of surveillance or unintended discrimination.
+Interdisciplinary collaboration and ethical frameworks must be embedded into both technical design and institutional
+deployment.
+
+Fourth, robust mechanisms for validation and learning in data scarce environments are still lacking. Many studies
+assume rich historical data and idealized conditions. However, the real-world deployment of digital twins demands
+rigorous testing under uncertainty, from shadow mode validation to the integration of synthetic data, transfer learning,
+and probabilistic reasoning for edge case prediction.
+
+These lead us to conclude that future research must move decisively from one-way analysis to active implementation.
+This includes embedding human-in-the-loop safeguards, developing equitable optimization objectives, and establishing
+
+                                                                     16
+Digital Twins for Intelligent Intersections: A Literature Review
+
+standards for ethical deployment. The next generation of digital twins should not merely reflect traffic conditions but
+they must actively shape safer, more inclusive, and responsive urban environments.
+
+In summary, the path forward lies in reimagining digital twins not as isolated technical constructs, but as socio-technical
+systems embedded in the lived fabric of our cities. Only by bridging the simulation-reality divide, centering human
+values, and institutionalizing ethical rigor can we realize the full potential of digital twins to transform intersections
+from bottlenecks into intelligent, inclusive, and adaptive components of future mobility systems.
+
+Declaration of Generative AI and AI-assisted technologies in the writing process
+
+During the preparation of this work, the authors used Gemini 1.5 Pro and 2.0 Pro, generative AI technologies, to
+expedite the filtering of relevant articles and sorting them across different themes, synthesizing of literature and refining
+the manuscript's language and structure. ChatGPT 4o and o4-mini-high provided editorial suggestions to enhance
+clarity, coherence, and consistency, and these AI-assisted outputs were then critically reviewed and meticulously revised
+by the authors who assume full responsibility for the intellectual content and accuracy of the final publication.
+
+Declaration of competing interest
+
+The authors declare that they have no known competing financial interests or personal relationships that could have
+appeared to influence the work reported in this paper.
+
+Acknowledgement
+
+The authors would like to thank the Princeton University School of Engineering and Applied Science (SEAS) Innovation
+Grant for funding this work.
+
+Appendix A: Acronyms and Abbreviations
+
+Table A.1 provides the list of acronyms and abbreviations used in this paper.
+
+Acronym  Term                              Brief Description
+AI/ML    Artificial Intelligence/Machine   Computational methods that perform tasks requiring human-like
+         Learning                          intelligence.
+ANN      Artificial Neural Network         ML model composed of interconnected nodes for pattern learning
+                                           and prediction.
+API      Application Programming Inter-    Interface enabling software components to communicate.
+         face
+ARIMA    Autoregressive Integrated Mov-    Time-series model for short-term forecasting.
+         ing Average
+AV       Autonomous Vehicle                Vehicle with automated perception, planning, and control.
+BIM      Building Information Modeling     Digital representation of built assets for visualization/manage-
+                                           ment.
+C -V2X   Cellular Vehicle-to-Everything    Cellular standard enabling V2X communications.
+CNN      Convolutional Neural Network      Deep learning model effective for image/video tasks.
+CPS      Cyber-Physical Systems            Integrated computational and physical processes.
+DBSCAN   Density-Based Spatial Clustering  Unsupervised clustering algorithm robust to noise.
+         of Applications with Noise
+DL       Deep Learning                     Type of machine learning that uses artificial neural networks with
+                                           multiple layers to analyze data and learn complex patterns
+DT       Digital Twin                      Virtual counterpart of a physical system with live data sync.
+DTA      Dynamic Traffic Assignment        Traffic modeling framework for route/flow evolution.
+DSRC     Dedicated Short-Range Commu-      Short-range wireless standard for vehicular comms.
+         nications
+EM       Expectation­Maximization          Iterative algorithm for latent variable parameter estimation.
+GAN      Generative Adversarial Network    Generative deep learning framework (generator vs discriminator).
+GMM      Gaussian Mixture Model            Probabilistic model representing data as a mixture of Gaussians.
+GNN      Graph Neural Network              Deep learning on graph-structured data.
+HIL      Hardware-in-the-Loop              Real-time coupling of controllers with simulated environments.
+
+                                           17
+Digital Twins for Intelligent Intersections: A Literature Review
+
+IoT       Internet of Things               Network of connected sensors/devices.
+LiDAR     Light Detection and Ranging      Active remote-sensing technology for range/3D perception.
+LLM       Large Language Model             Foundation model trained on large corpora for language tasks.
+MARL      Multi-Agent Reinforcement        RL with multiple interacting/coordinated agents.
+          Learning
+mmWave    Millimeter Wave                  High-frequency band supporting high-throughput links.
+MQTT      Message Queuing Telemetry        Lightweight publish/subscribe messaging protocol.
+          Transport
+OMNeT++   Objective Modular Network        Discrete-event simulation framework for networks.
+          Testbed in C++
+ODD       Operational Design Domain        Conditions under which an automated system is designed to oper-
+                                           ate.
+PCA       Principal Component Analysis     Dimensionality-reduction/feature extraction method.
+PD        Proportional­Derivative          Feedback control law using proportional and derivative terms.
+PLC       Programmable Logic Controller    Industrial controller used in real-time control.
+Redis     Remote Dictionary Server         In-memory data store for caching/queues/pub-sub.
+RL        Reinforcement Learning           Learning control via reward-driven interaction.
+RSU       Roadside Unit                    Fixed V2X communication node at roadside.
+SPaT/MAP  Signal Phase and Timing / MAP    V2X messages conveying signal timing and intersection geometry.
+          as intersection geometry
+STGAT     Spatio-Temporal Graph Attention  GNN variant modeling spatial-temporal dependencies with atten-
+          Network                          tion.
+SUMO      Simulation of Urban MObility     Microscopic traffic simulation platform.
+TraCI     Traffic Control Interface        API coupling SUMO with external controllers.
+UAV       Unmanned Aerial Vehicle          Aircraft without onboard human pilot.
+V2X       Vehicle-to-Everything            Communication among vehicles, infrastructure, devices, etc.
+VAE       Variational Autoencoder          Probabilistic generative model for representation learning.
+VRU       Vulnerable Road User             Non-motorists such as pedestrians and cyclists (and similar users).
+5G NR     Fifth-Generation New Radio       5G air-interface standard supporting C-V2X and low-latency links.
+
+                             Table A.1: Acronyms and Abbreviations Used in the Paper
+
+Appendix B: Comparison of Digital Twins Review Papers with Respect to Intersection Focus
+
+This appendix presents a comparative overview of existing literature reviews on digital twins, highlighting each paper's
+main contributions, the research fields they cover, and the gaps or future work they identify.
+
+          Table B.1: Comparison of Digital Twins review papers with respect to intersection focus.
+
+Title of paper               Year  Contributions                    Field(s)           Gaps / Future Work
+                             2023
+Digital Twins for cities:                   · Reviewed DT           Urban geospatial;           · No unified DT
+Analyzing the gap between    2022              definitions vs.      Smart Cities; AEC              definition
+concepts and current                           3DCM, CIM, SDI
+implementations with a                                              Smart Cities;               · Lack of generic
+specific focus on data                      · Proposed              Remote Sensing;                data integration
+integration Jeddoub et al.                     three-level          AR/VR; Immersive               framework
+(2023)                                         data-integration     Analytics
+                                               maturity model:                                  · Need for
+The Hitchhiker's Guide to                      schema, database,                                   embodied, in-situ
+Fused Twins: A Review of                       application                                         interfaces
+Access to Digital Twins In
+Situ in Smart Cities Grübel                 · Defined "Fused                                    · Evaluate cognitive
+et al. (2022)                                  Twins" combining                                    benefits in real
+                                               DT + Situated                                       deployments
+                                               Analytics
+                                                                                             Continued on next page
+                                            · Classified
+                                               emerging
+                                               prototypes and five
+                                               DT components
+
+                                           18
+Digital Twins for Intelligent Intersections: A Literature Review
+
+                                        Table B.1 ­ continued from previous page
+
+Title of paper                    Year  Contributions             Field(s)              Gaps / Future Work
+                                  2021
+City Digital Twin Potentials:     2022  · Mapped curren-          Sustainability;                · Early-stage field;
+A Review and Research             2021    t/prospective DT        Smart Cities; Urban               missing
+Agenda Shahat et al. (2021)       2025    city benefits and       management                        socioeconomic
+                                  2024    challenges                                                modules
+Exploring Digital Twin            2024
+Adaptation to the Urban                 · Proposed research                                      · Need full
+Environment: Comparison                   agenda: data                                              digital-physical
+with CIM to Avoid Silo-based              efficiency,                                               integration
+Approaches Deprêtre et al.                socio-economic                                            frameworks
+(2022)                                    integration, twin
+                                          coupling                                               · Fuzzy labels;
+Autonomous Driving Test                                                                             siloed research
+Method Based on Digital                 · Compared DT vs.         Urban planning;                   streams
+Twin: A Survey Niaz et al.                CIM via literature      City modelling;
+(2021)                                    review, practitioner    CIM/DT                         · Call for
+                                          survey and four         frameworks                        interdisciplinary,
+A comprehensive review of                 case studies                                              task-oriented
+Digital Twin technologies in                                                                        typologies
+smart cities Huzzat et al.              · Highlighted
+(2025)                                    governance and                                         · DT definition
+                                          technical                                                 ambiguity in
+AI-Powered Digital Twins and              heterogeneity                                             transport
+Internet of Things for Smart
+Cities and Sustainable                  · Surveyed DT             Autonomous                     · Need real-world
+Building Environment Alnaser              origins, CPS            driving; CPS; V2X                 validation of
+et al. (2024)                             integration,            testing                           V2X-DT testbeds
+                                          industrial practices
+Comprehensive analysis of                                                                        · Lack of standard
+digital twins in smart cities: a        · Proposed                                                  metrics and
+4200-paper bibliometric study             V2X-enabled DT                                            governance models
+El-Agamy et al. (2024)                    test framework for
+                                          connected vehicles                                     · Need
+                                                                                                    cross-domain,
+                                        · Surveyed DT             Smart Cities;                     longitudinal
+                                          enabling tech (IoT,     Digital Engineering;              deployments
+                                          ML, CPS,                Urban development
+                                          blockchain)                                            · Integration of
+                                                                                                    AI/IoT platforms
+                                        · Reviewed urban
+                                          case studies across                                    · Need
+                                          domains and                                               occupant-centric,
+                                          outlined challenges                                       resilient
+                                                                                                    architectures
+                                        · Systematic review       Smart Cities;
+                                          of 125 papers on        Sustainable                    · Limited deep
+                                          AI+IoT-driven DTs       buildings; AI; IoT                case-study insights
+                                          in buildings
+                                                                                                 · Need
+                                        · Thematic analysis:                                        governance/policy
+                                          construction, FM,                                         and metric
+                                          energy                                                    standardization
+                                          optimization,
+                                          emerging urban
+                                          tech
+
+                                        · Bibliometric            Smart Cities;
+                                          mapping of 4 220        Bibliometrics;
+                                          DT papers: trends,      Digital Twin
+                                          authors, clusters       research
+
+                                        · Detailed look at
+                                          datasets, platforms,
+                                          performance
+                                          metrics
+
+                                                       19
+Digital Twins for Intelligent Intersections: A Literature Review
+
+Appendix C: Overview of Data Processing/Fusion Techniques and Simulation Platforms in
+Selected Digital Twin Studies
+
+Table C.1 provides a comparative overview of selected digital twin studies with respect to their data processing or fusion
+techniques and the simulation platforms they employ. This compilation highlights the diversity of methodological
+approaches, including traditional statistical models, clustering algorithms, and advanced AI-driven fusion architectures.
+It also showcases the range of simulation environments used, such as SUMO, CARLA, and custom digital twin
+frameworks. The table emphasizes emerging trends in real-time analytics, co-simulation, and multi-modal data
+integration that are shaping the development of intelligent transportation systems.
+
+Table C.1: Overview of Data Processing/Fusion Techniques and Simulation Platforms in Selected Digital Twin Studies
+
+No. Reference             Year Data Processing/Fusion Techniques Simulation Platform
+
+1 Kusic´ et al. (2023)    2023 Real-time Big Data analytics; continuous SUMO
+
+                          fusion of traffic sensor streams; dynamic
+
+                          calibration via SUMO.
+
+2 Hassani et al. (2024)   2024 Complementary, redundant, and cooper- ­
+
+                          ative fusion; multi-level fusion classifica-
+
+                          tions; revised JDL model.
+
+3 Yilmaz-Niewerth et al. 2024 ­                                         Co-simulation coupling CARLA &
+
+(2024)                                                                  SUMO
+
+4 Bamminger et al. (2023) 2023 ­                                        Multi-body simulation + ML-based
+
+                                                                        virtual sensor models
+
+5 Katsumbe et al. (2024)  2024 Word2Vec-based ML text analytics for ­
+
+                          unstructured reports and GIS metadata.
+
+6 Huang et al. (2025)     2025 Generative spatial AI foundation model Urban Digital Twin framework
+
+                          (Large Flow Model) for urban digital
+
+                          twins.
+
+7 Saroj et al. (2023)     2023 K-means clustering; temporal-neighbor Real-time connected-corridor simu-
+
+                          interpolation to impute missing lation
+
+                          connected-corridor volume data.
+
+8 Kuraksin et al. (2020)  2020 Dynamic Traffic Assignment (DTA) DTALite / NEXTA
+
+                          models; ML submodels for traffic per-
+
+                          formance metrics.
+
+9 Angelina et al. (2024)  2024 Fine-grained energy consumption vari- SUMO
+
+                          ables via Python scripts for eco-driving
+
+                          assessments.
+
+10 Yadav and Agarwal (2025) 2025 Least Squares prediction; multi-criterion CupCarbon
+
+                          asynchronous classifier on acoustic sig-
+
+                          nals.
+
+11 Villanueva-Merino et al. 2024 GIS data integration; AI analytics for age- Local Digital Twin framework
+
+(2024)                    friendly urban environment planning.
+
+12 Papadopoulos et al. (2024) 2024 PCA transformation; DBSCAN cluster- ­
+
+                          ing for lightweight accident detection
+
+                          from GPS streams.
+
+13 Helo and Thai (2024)   2024 Real-time IoT tracking and tracing data ­
+
+                          integration for logistics visibility.
+
+14 Louati (2025a)         2025 ARIMA forecasting; ANN predictive ­
+
+                          modeling for traffic and safety indices.
+
+15 Lv et al. (2022a)      2022 Memory-augmented neural networks for Digital Twin simulation environment
+
+                          dynamic complex image segmentation.
+
+16 Aguiar et al. (2022)   2022 Multi-objective optimization; IoT sen- Microscopic Traffic Simulator
+
+                          sor data integration; microservice-based
+
+                          data-processing architecture.
+
+17 Lu et al. (2025)       2025 STGAT for heterogeneous spatiotempo- Digital Twin­enabled highway man-
+
+                          ral pavement-data fusion.                     agement
+
+18 Varga et al. (2023)    2023 ­                                        Co-simulation coupling SUMO &
+
+                                                                        Carla
+
+19 Wágner et al. (2023)   2023 V2X SPaT/MAP message generation and Co-simulation: SUMO, Veins &
+
+                          mixed-reality virtualization.                 OMNeT++
+
+                                                                                      Continued on next page
+
+                                        20
+Digital Twins for Intelligent Intersections: A Literature Review
+
+No. Reference             Table C.1 ­ continued from previous page     Simulation Platform
+20 Cao et al. (2025)  Year Data Processing/Fusion Techniques           CarSim & MATLAB/Simulink co-
+                      2025 Real-time error coefficient integration     simulation
+
+                                with PD control for Pure Pursuit path
+                                tracking.
+
+Appendix D: Examples of DT applications in smart infrastructure.
+
+Table D.1 presents diverse examples of DT applications in smart infrastructure, ranging from traffic management to
+smart mobility planning.
+
+                      Table D.1: Examples of DT Applications in Smart Infrastructure
+
+Domain                Example Application Integrated Technologies Reported Benefits
+
+Traffic Management    Smart corridor twin for IoT sensors; AI (cluster- Optimized congestion
+
+                      real-time flow and sig- ing, interpolation); V2X management; real-time
+
+                      nal control Safiullin et al.                     metrics
+
+                      (2020); Saroj et al. (2023)
+
+Smart Mobility Plan- Citywide mobility twin GIS, transport models; Data-driven planning;
+
+ning                  simulating multimodal mobile data; AI forecast- proactive congestion
+
+                      transit Pirdavani et al. ing                     mitigation
+
+                      (2023); Stan et al. (2024)
+
+Road Safety           Intersection safety twin Cameras, LiDAR; AI- Identification of haz-
+
+                      for simulating vehicle- based vision; traffic simu- ards; proactive safety
+
+                      pedestrian interactions lation                   measures
+
+                      Pugachev et al. (2020);
+
+                      Ulrich et al. (2023)
+
+Predictive Maintenance DT for monitoring infras- Structural sensors; IoT; Early fault detection; re-
+
+                      tructure asset health Al- machine learning       duced downtime
+
+                      shuwaikhat et al. (2022);
+
+                      Kerimov et al. (2020)
+
+Energy Optimization Integration of BIM and BIM; IoT (smart meters); Reduced energy con-
+
+                      GIS for urban energy simulation software         sumption; optimal load
+
+                      management Jin et al.                            balancing
+
+                      (2024); Huang et al.
+
+                      (2025)
+
+Communication Net- 5G network digital twin 3D GIS; AI-driven ray Enhanced signal cover-
+
+works                 for urban connectivity tracing; network teleme- age; robust, low-latency
+
+                      Guan et al. (2024); try                          connectivity
+
+                      Wágner et al. (2023)
+
+                                                    21
+Digital Twins for Intelligent Intersections: A Literature Review
+
+References
+
+FHWA. Public road length - 2021 (1) miles by functional system and federal-aid highways: National summary (table
+   hm-18), 2023. URL https://www.fhwa.dot.gov/policyinformation/statistics/2021/pdf/hm18.pdf.
+
+Streetsblog USA. SEE IT: the deadliest intersections in the united states for motorists, 2022. URL https://usa.streetsblo
+   g.org/2022/03/14/see-it-the-deadliest-intersections-in-the-united-states.
+
+Richard Steinbach and Brian C. Tefft. American Driving Survey: 2022. Research brief, AAA Foundation for Traffic
+   Safety, Washington, D.C., 2023. URL https://aaafoundation.org/wp-content/uploads/2023/09/202309_2022-AAAFT
+   S-American-Driving-Survey-Brief_v3.pdf.
+
+Reza Azimi, Gaurav Bhatia, Ragunathan Raj Rajkumar, and Priyantha Mudalige. STIP: Spatio-temporal intersection
+   protocols for autonomous vehicles. In 2014 ACM/IEEE International Conference on Cyber-Physical Systems (ICCPS),
+   pages 1­12. IEEE, 2014. ISBN 978-1-4799-4930-4 978-1-4799-4931-1. doi:10.1109/ICCPS.2014.6843706.
+
+Elnaz Namazi, Jingyue Li, and Chaoru Lu. Intelligent Intersection Management Systems Considering Au-
+   tonomous Vehicles: A Systematic Literature Review. IEEE Access, 7:91946­91965, 2019. ISSN 2169-3536.
+   doi:10.1109/ACCESS.2019.2927412.
+
+Eun-Ha Choi. Crash factors in intersection-related crashes: An on-scene perspective. NHTSA Technical Report DOT
+   HS 811 366, National Center for Statistics and Analysis, National Highway Traffic Safety Administration, U.S.
+   Department of Transportation, Washington, DC, 2010. URL https://crashstats.nhtsa.dot.gov/Api/Public/ViewPublicat
+   ion/811366.
+
+NCSA. Traffic safety facts 2022: A compilation of motor vehicle traffic crash data, 2024. URL https://crashstats.nhtsa
+   .dot.gov/Api/Public/ViewPublication/813656.pdf.
+
+Smart Growth America. Dangerous by design 2024, 2024. URL https://smartgrowthamerica.org/dangerous-by-design/.
+
+TRIP. Addressing america's traffic safety crisis: Examining the causes of increasing u.s. traffic fatalities and identifying
+   solutions to improve traffic safety, July 2024. URL https://tripnet.org/wp-content/uploads/2024/07/TRIP_Addressing
+  _Americas_Traffic_Safety_Crisis_Report_July_2024.pdf.
+
+Brian E. Chandler, Matthew Myers, Jennifer E. Atkinson, Tom Bryer, Richard Retting, Jeff Smithline, Jeff Trim, Peter
+  Wojtkiewicz, Gary B. Thomas, Steven P. Venglar, Srinivasa R. Sunkari, Brian J. Malone, and Pedram Izadpanah.
+   Signalized Intersections Informational Guide, Second Edition. Technical report, Federal Highway Administration,
+   2013. URL https://rosap.ntl.bts.gov/view/dot/42546.
+
+Fei Tao, Qinglin Qi, Lihui Wang, and A.Y.C. Nee. Digital Twins and Cyber­Physical Systems toward Smart Man-
+   ufacturing and Industry 4.0: Correlation and Comparison. Engineering, 5(4):653­661, 2019. ISSN 20958099.
+   doi:10.1016/j.eng.2019.01.014.
+
+Yongjie Fu, Mehmet K. Turkcan, Mahshid Ghasemi, Zhaobin Mo, Chengbo Zang, Abhishek Adhikari, Zoran Kostic,
+   Gil Zussman, and Xuan Di. Ai-powered cps-enabled urban transportation digital twin: Methods and applications,
+   2025. URL https://arxiv.org/abs/2501.10396.
+
+Michael W. Grieves. Digital twin: Manufacturing excellence through virtual factory replication. White paper, Michael
+  W. Grieves, LLC, 2014. URL https://theengineer.markallengroup.com/production/content/uploads/2014/12/Digital_
+  Twin_White_Paper_Dr_Grieves.pdf.
+
+Edward Glaessgen and David Stargel. The Digital Twin Paradigm for Future NASA and U.S. Air Force Vehicles. In 53rd
+  AIAA/ASME/ASCE/AHS/ASC Structures, Structural Dynamics and Materials Conference;20th AIAA/ASME/AHS
+  Adaptive Structures Conference;14th AIAA. American Institute of Aeronautics and Astronautics, 2012. ISBN
+   978-1-60086-937-2. doi:10.2514/6.2012-1818.
+
+Mahmoud Abdelrahman, Edgardo Macatulad, Binyu Lei, Matias Quintana, Clayton Miller, and Filip Biljecki. What is
+   a Digital Twin anyway? Deriving the definition for the built environment from over 15,000 scientific publications.
+  Building and Environment, 274:112748, 2025. ISSN 03601323. doi:10.1016/j.buildenv.2025.112748.
+
+Haley Townsend, Adam Gatiba, Kathy Thompson, Peiwei Wang, and Karl Wunderlich. Summary Report on Request
+   for Information (RFI): Enhancing the Safety of Vulnerable Road Users at Intersections. Technical report, U.S.
+   Department of Transportation, 2023. URL https://rosap.ntl.bts.gov/view/dot/66622.
+
+Guanhao Xu, Jianfei Chen, Zejiang Wang, Anye Zhou, Max Schrader, Joshua Bittle, and Yunli Shao. Enhancing
+   traffic safety analysis with digital twin technology: Integrating vehicle dynamics and environmental factors into
+   microscopic traffic simulation, 2025a. URL https://arxiv.org/abs/2502.09561.
+
+Carol Tenopir, Donald W. King, Lisa Christian, and Rachel Volentine. Scholarly article seeking, reading, and use: A
+   continuing evolution from print to electronic in the sciences and social sciences. Learned Publishing, 28(2):93­105,
+   2015. ISSN 0953-1513, 1741-4857. doi:10.1087/20150203.
+
+                                                                     22
+Digital Twins for Intelligent Intersections: A Literature Review
+
+Fabio Dennstädt, Johannes Zink, Paul Martin Putora, Janna Hastings, and Nikola Cihoric. Title and abstract screening
+   for literature reviews using large language models: An exploratory study in the biomedical domain. Systematic
+  Reviews, 13(1):158, 2024. ISSN 2046-4053. doi:10.1186/s13643-024-02575-4.
+
+Xufei Luo, Fengxian Chen, Di Zhu, Ling Wang, Zijun Wang, Hui Liu, Meng Lyu, Ye Wang, Qi Wang, and Yaolong
+   Chen. Potential Roles of Large Language Models in the Production of Systematic Reviews and Meta-Analyses.
+  Journal of Medical Internet Research, 26:e56780, 2024. ISSN 1438-8871. doi:10.2196/56780.
+
+Mikaël Chelli, Jules Descamps, Vincent Lavoué, Christophe Trojani, Michel Azar, Marcel Deckert, Jean-Luc Raynier,
+   Gilles Clowez, Pascal Boileau, and Caroline Ruetsch-Chelli. Hallucination Rates and Reference Accuracy of
+   ChatGPT and Bard for Systematic Reviews: Comparative Analysis. Journal of Medical Internet Research, 26:
+   e53164, 2024. ISSN 1438-8871. doi:10.2196/53164.
+
+Qusai Khraisha, Sophie Put, Johanna Kappenberg, Azza Warraitch, and Kristin Hadfield. Can large language models
+   replace humans in systematic reviews? Evaluating GPT -4's efficacy in screening and extracting data from peer-
+   reviewed and grey literature in multiple languages. Research Synthesis Methods, 15(4):616­626, 2024. ISSN
+  1759-2879, 1759-2887. doi:10.1002/jrsm.1715.
+
+Salvatore Cavalieri and Salvatore Gambadoro. Proposal of Mapping Digital Twins Definition Language to Open Platform
+   Communications Unified Architecture. Sensors, 23(4):2349, 2023. ISSN 1424-8220. doi:10.3390/s23042349.
+
+Stefano Nativi, Paolo Mazzetti, and Max Craglia. Digital Ecosystems for Developing Digital Twins of the Earth: The
+   Destination Earth Case. Remote Sensing, 13(11):2119, 2021. ISSN 2072-4292. doi:10.3390/rs13112119.
+
+Mahdi Rezaei, Mohsen Azarmi, and Farzam Mohammad Pour Mir. 3D-Net: Monocular 3D object recognition for traffic
+   monitoring. Expert Systems with Applications, 227:120253, 2023. ISSN 09574174. doi:10.1016/j.eswa.2023.120253.
+
+John B. Kenney. Dedicated Short-Range Communications (DSRC) Standards in the United States. Proceedings of the
+  IEEE, 99(7):1162­1182, 2011. ISSN 0018-9219, 1558-2256. doi:10.1109/JPROC.2011.2132790.
+
+Ruobing Jiang and Yanmin Zhu. Wireless Access in Vehicular Environment. In Xuemin Shen, Xiaodong Lin, and
+   Kuan Zhang, editors, Encyclopedia of Wireless Networks, pages 1­5. Springer International Publishing, 2019. ISBN
+   978-3-319-32903-1. doi:10.1007/978-3-319-32903-1_309-1.
+
+Pablo Alvarez Lopez, Evamarie Wiessner, Michael Behrisch, Laura Bieker-Walz, Jakob Erdmann, Yun-Pang Flotterod,
+   Robert Hilbrich, Leonhard Lucken, Johannes Rummel, and Peter Wagner. Microscopic Traffic Simulation using
+   SUMO. In 2018 21st International Conference on Intelligent Transportation Systems (ITSC), pages 2575­2582.
+   IEEE, 2018. ISBN 978-1-7281-0321-1 978-1-7281-0323-5. doi:10.1109/ITSC.2018.8569938.
+
+Axel Wegener, Michal Piórkowski, Maxim Raya, Horst Hellbrück, Stefan Fischer, and Jean-Pierre Hubaux. TraCI: An
+   interface for coupling road traffic and network simulators. In Proceedings of the 11th Communications and Networking
+  Simulation Symposium, pages 155­163. ACM, 2008. ISBN 978-1-56555-318-7. doi:10.1145/1400713.1400740.
+
+Kresimir Kusic´, René Schumann, and Edouard Ivanjko. A digital twin in transportation: Real-time synergy of traffic
+   data streams and simulation for virtualizing motorway dynamics. Advanced Engineering Informatics, 55:101858,
+   2023. ISSN 14740346. doi:10.1016/j.aei.2022.101858.
+
+Tamás Wágner, Tamás Ormándi, Tamás Tettamanti, and István Varga. SPaT/MAP V2X communication between traffic
+   light and vehicles and a realization with digital twin. Computers and Electrical Engineering, 106:108560, 2023.
+   ISSN 00457906. doi:10.1016/j.compeleceng.2022.108560.
+
+Xin An, Baigen Cai, and Linguo Chai. Roadside sensor network deployment based on vehicle-infrastructure co-
+   operative intelligent driving. International Journal of Intelligent Networks, 4:283­300, 2023. ISSN 26666030.
+   doi:10.1016/j.ijin.2023.11.002.
+
+Sefa Yilmaz-Niewerth, Riklas Häbel, and Bernhard Friedrich. Developing a comprehensive large-scale co-simulation
+   for replication of automated driving in urban traffic scenarios. Transportation Research Procedia, 78:522­529, 2024.
+   ISSN 23521465. doi:10.1016/j.trpro.2024.02.065.
+
+Redis Labs. Redis. Software (Version 7.x), 2025. URL https://redis.io. [misc; accessed 27-May-2025].
+
+Kuangda Liu, Zhuanghong Lin, and Shaoxiong Huang. Development Trends in Digital Highway Systems and
+   Processes under Intelligent Technology. Procedia Computer Science, 243:928­936, 2024a. ISSN 18770509.
+   doi:10.1016/j.procs.2024.09.111.
+
+Mahmood Taghavi and Lokukaluge P. Perera. Advanced data cluster analyses in digital twin development for
+   marine engines towards ship performance quantification. Ocean Engineering, 298:117098, 2024. ISSN 00298018.
+   doi:10.1016/j.oceaneng.2024.117098.
+
+Abhilasha J. Saroj, Somdut Roy, Angshuman Guin, and Michael Hunter. Impact of connected corridor volume data
+   imputations on digital twin performance measures. International Journal of Transportation Science and Technology,
+  12(2):476­491, 2023. ISSN 20460430. doi:10.1016/j.ijtst.2022.05.001.
+
+                                                                     23
+Digital Twins for Intelligent Intersections: A Literature Review
+
+M.R. Mahendrini Fernando Ariyachandra and Ioannis Brilakis. Leveraging railway topology to automatically generate
+   track geometric information models from airborne LiDAR data. Automation in Construction, 155:105068, 2023.
+   ISSN 09265805. doi:10.1016/j.autcon.2023.105068.
+
+Boban Djordjevic´, Evelin Krmac, Chen-Yu Lin, Oskar Fröidh, and Behzad Kordnejad. An optimisation-based digital
+   twin for automated operation of rail level crossings. Expert Systems with Applications, 239:122422, 2024. ISSN
+   09574174. doi:10.1016/j.eswa.2023.122422.
+
+Tim Kreuzer, Panagiotis Papapetrou, and Jelena Zdravkovic. Artificial intelligence in digital twins--A systematic litera-
+   ture review. Data & Knowledge Engineering, 151:102304, 2024. ISSN 0169023X. doi:10.1016/j.datak.2024.102304.
+
+Jeffrey Huang, Simon Elias Bibri, and Paul Keel. Generative spatial artificial intelligence for sustainable smart cities: A
+   pioneering large flow model for urban digital twin. Environmental Science and Ecotechnology, 24:100526, 2025.
+   ISSN 26664984. doi:10.1016/j.ese.2025.100526.
+
+Linjun Lu, d' Avigneau, Alix Marie, Yuandong Pan, Zhaojie Sun, Peihang Luo, and Ioannis Brilakis. Model-
+   ing heterogeneous spatiotemporal pavement data for condition prediction and preventive maintenance in dig-
+   ital twin-enabled highway management. Automation in Construction, 174:106134, 2025. ISSN 09265805.
+   doi:10.1016/j.autcon.2025.106134.
+
+Diana Davletshina, Varun Kumar Reja, and Ioannis Brilakis. Automating construction of road digital twin geometry
+   using context and location aware segmentation. Automation in Construction, 168:105795, 2024. ISSN 09265805.
+   doi:10.1016/j.autcon.2024.105795.
+
+Hao Du, Supeng Leng, Jianhua He, Kai Xiong, and Longyu Zhou. Digital twin empowered cooperative trajectory
+   planning of platoon vehicles for collision avoidance with unexpected obstacles. Digital Communications and
+  Networks, 10(6):1666­1676, 2024. ISSN 23528648. doi:10.1016/j.dcan.2023.06.002.
+
+Yuandong Pan, Mudan Wang, Linjun Lu, Ran Wei, Stefano Cavazzi, Matt Peck, and Ioannis Brilakis. Scan-to-graph:
+  Automatic generation and representation of highway geometric digital twins from point cloud data. Automation in
+  Construction, 166:105654, 2024. ISSN 09265805. doi:10.1016/j.autcon.2024.105654.
+
+Ana Aguiar, Paulo Fernandes, Andreia P. Guerreiro, Ricardo Tomas, Joao Agnelo, Jose Luis Santos, Filipe Araujo,
+   Margarida C. Coelho, Carlos M. Fonseca, useprefix=true d'Orey, Pedro M., Miguel Luis, and Susana Sargento.
+   MobiWise: Eco-routing decision support leveraging the Internet of Things. Sustainable Cities and Society, 87:
+  104180, 2022. ISSN 22106707. doi:10.1016/j.scs.2022.104180.
+
+Emidio Sabato, Fabrizio D'Amico, Antonino Tripodi, and Paola Tiberi. BIM & Road safety ­ Applications of digitals
+   models from in-built safety evaluations to asset management. Transportation Research Procedia, 69:815­822, 2023.
+   ISSN 23521465. doi:10.1016/j.trpro.2023.02.240.
+
+Jascha Grübel, Tyler Thrash, Leonel Aguilar, Michal Gath-Morad, Julia Chatain, Robert W. Sumner, Christoph Hölscher,
+   and Victor R. Schinazi. The Hitchhiker's Guide to Fused Twins: A Review of Access to Digital Twins In Situ in
+   Smart Cities. Remote Sensing, 14(13):3095, 2022. ISSN 2072-4292. doi:10.3390/rs14133095.
+
+Ashfaq Niaz, Muhammad Usman Shoukat, Yanbing Jia, Samiullah Khan, Fahim Niaz, and Muhammad Usama
+   Raza. Autonomous Driving Test Method Based on Digital Twin: A Survey. In 2021 International Conference on
+  Computing, Electronic and Electrical Engineering (ICE Cube), pages 1­7. IEEE, 2021. ISBN 978-1-66540-154-8.
+   doi:10.1109/ICECube53880.2021.9628341.
+
+Ana Isabel Torre-Bastida, Javier Del Ser, Ibai Laña, Maitena Ilardia, Miren Nekane Bilbao, and Sergio Campos-
+   Cordobés. Big Data for transportation and mobility: Recent advances, trends and challenges. IET Intelligent
+  Transport Systems, 12(8):742­755, 2018. ISSN 1751-956X, 1751-9578. doi:10.1049/iet-its.2018.5188.
+
+Yi Wang, W.Y. Szeto, Ke Han, and Terry L. Friesz. Dynamic traffic assignment: A review of the methodological advances
+   for environmentally sustainable road transportation applications. Transportation Research Part B: Methodological,
+  111:370­394, 2018. ISSN 0191-2615. doi:10.1016/j.trb.2018.03.011.
+
+Alexey Dosovitskiy, German Ros, Felipe Codevilla, Antonio Lopez, and Vladlen Koltun. CARLA: An open urban
+   driving simulator. In Proceedings of the 1st Annual Conference on Robot Learning, pages 1­16, 2017.
+
+Balázs Varga, Dániel Doba, and Tamás Tettamanti. Optimizing vehicle dynamics co-simulation performance by
+   introducing mesoscopic traffic simulation. Simulation Modelling Practice and Theory, 125:102739, 2023. ISSN
+  1569190X. doi:10.1016/j.simpat.2023.102739.
+
+Tatenda Hatidani Katsumbe, Arnesh Telukdarie, Megashnee Munsamy, and Christian Tshukudu. Extraction of the
+   essential elements for urban systems modelling ­ A word-to-vector approach. City and Environment Interactions, 24:
+  100166, 2024. ISSN 25902520. doi:10.1016/j.cacint.2024.100166.
+
+                                                                     24
+Digital Twins for Intelligent Intersections: A Literature Review
+
+Asel Villanueva-Merino, Silvia Urra-Uriarte, Jose Luis Izkara, Sergio Campos-Cordobes, Andoni Aranguren, and
+   Patricia Molina-Costa. Leveraging Local Digital Twins for planning age-friendly urban environments. Cities, 155:
+  105458, 2024. ISSN 02642751. doi:10.1016/j.cities.2024.105458.
+
+Zhihan Lv, Liang Qiao, Shuo Yang, Jinhua Li, Haibin Lv, and Francesco Piccialli. Memory-augmented neural networks
+   based dynamic complex image segmentation in digital twins for self-driving vehicle. Pattern Recognition, 132:
+  108956, 2022a. ISSN 00313203. doi:10.1016/j.patcog.2022.108956.
+
+Nadine Bamminger, Hexuan Li, Li Wan, Zoltan Ferenc Magosi, and Arno Eichberger. Evaluation of Perception Sensor
+   Model Performance in Simulation based on Experimental Findings. Transportation Research Procedia, 73:143­150,
+   2023. ISSN 23521465. doi:10.1016/j.trpro.2023.11.902.
+
+Rajesh Yadav and Pankaj Agarwal. Least square predicted acoustic signal based smart accidental management
+   using multi-criterion asynchronous classifier. Transportation Engineering, 19:100303, 2025. ISSN 2666691X.
+   doi:10.1016/j.treng.2025.100303.
+
+García-Cerrud Carmen Angelina, Hernández Rosales Manuel, and Flores De La Mota Idalia. Introducing fine grained
+   energy consumption variables into a public passenger transport simulation in SUMO. Procedia Computer Science,
+   232:1890­1899, 2024. ISSN 18770509. doi:10.1016/j.procs.2024.02.011.
+
+Ali Louati. Machine learning framework for sustainable traffic management and safety in AlKharj city. Sustainable
+  Futures, 9:100407, 2025a. ISSN 26661888. doi:10.1016/j.sftr.2024.100407.
+
+Sahar Hassani, Ulrike Dackermann, Mohsen Mousavi, and Jianchun Li. A systematic review of data fusion tech-
+   niques for optimized structural health monitoring. Information Fusion, 103:102136, 2024. ISSN 15662535.
+   doi:10.1016/j.inffus.2023.102136.
+
+Alexandros Papadopoulos, Athanasios Sersemis, Georgios Spanos, Antonios Lalas, Christos Liaskos, Konstantinos
+  Votis, and Dimitrios Tzovaras. Lightweight accident detection model for autonomous fleets based on GPS data.
+  Transportation Research Procedia, 78:16­23, 2024. ISSN 23521465. doi:10.1016/j.trpro.2024.02.003.
+
+Petri Helo and Vinh V. Thai. Logistics 4.0 ­ digital transformation with smart connected tracking and tracing devices.
+  International Journal of Production Economics, 275:109336, 2024. ISSN 09255273. doi:10.1016/j.ijpe.2024.109336.
+
+Franklin E. White. Data Fusion Lexicon, 1991. URL https://apps.dtic.mil/sti/citations/tr/ADA529661.
+
+Anton Kuraksin, Alexander Shemyakin, and Andrey Parshkov. Integrated assessment of traffic management efficiency
+   in real time based on DTA model. Transportation Research Procedia, 50:337­345, 2020. ISSN 23521465.
+   doi:10.1016/j.trpro.2020.10.040.
+
+Fengyun Cao, Dengtao Wu, and Yuxin Wu. Optimization of the Pure Pursuit algorithm based on real-time error.
+  Alexandria Engineering Journal, 124:603­612, 2025. ISSN 11100168. doi:10.1016/j.aej.2025.04.023.
+
+Zhihan Lv, Liang Qiao, Shuo Yang, Jinhua Li, Haibin Lv, and Francesco Piccialli. Memory-augmented neural networks
+   based dynamic complex image segmentation in digital twins for self-driving vehicle. Pattern Recognition, 132:
+  108956, 2022b. ISSN 00313203. doi:10.1016/j.patcog.2022.108956.
+
+Xiaoxin Mi, Zhen Dong, Zhipeng Cao, Bisheng Yang, Zhen Cao, Chao Zheng, Jantien Stoter, and Liangliang Nan.
+  A benchmark approach and dataset for large-scale lane mapping from MLS point clouds. International Journal of
+  Applied Earth Observation and Geoinformation, 133:104139, 2024. ISSN 15698432. doi:10.1016/j.jag.2024.104139.
+
+Udink Aulia, Iskandar Hasanuddin, Muhammad Dirhamsyah, and Nasaruddin Nasaruddin. A new CNN-BASED object
+   detection system for autonomous mobile robots based on real-world vehicle datasets. Heliyon, 10(15):e35247, 2024.
+   ISSN 24058440. doi:10.1016/j.heliyon.2024.e35247.
+
+Xiongfei Lai, Zhenyu Yang, Jiaohong Xie, and Yang Liu. Reinforcement learning in transportation re-
+   search: Frontiers and future directions. Multimodal Transportation, 3(4):100164, 2024. ISSN 27725863.
+   doi:10.1016/j.multra.2024.100164.
+
+Hui Yao, Zijin Xu, Yue Hou, Qiao Dong, Pengfei Liu, Zhoujing Ye, Xin Pei, Markus Oeser, Linbing Wang, and
+   Dawei Wang. Advanced industrial informatics towards smart, safe and sustainable roads: A state of the art.
+  Journal of Traffic and Transportation Engineering (English Edition), 10(2):143­158, 2023. ISSN 20957564.
+   doi:10.1016/j.jtte.2023.02.001.
+
+Sifatul Mostafi, Taghreed Alghamdi, and Khalid Elgazzar. RegTraffic: A Regression based Traffic Simulator for
+   Spatiotemporal Traffic Modeling, Simulation and Visualization. In 2022 International Joint Conference on Neural
+  Networks (IJCNN). IEEE, 2022. doi:10.1109/ijcnn55064.2022.9892185.
+
+Afia Serwaa Yeboah, Julius Codjoe, and Raju Thapa. Estimating Average Daily Traffic on Low-Volume Roadways in
+   Louisiana. Transportation Research Record: Journal of the Transportation Research Board, 2677(1):1732­1740,
+   2023. ISSN 0361-1981, 2169-4052. doi:10.1177/03611981221106166.
+
+                                                                     25
+Digital Twins for Intelligent Intersections: A Literature Review
+
+Kuldeep Nautiyal, Durgaprasad Gangodkar, and Manoj Diwakar. Analysis on Advancements in Adaptive Traffic Lights
+   System. Procedia Computer Science, 258:2767­2776, 2025. ISSN 18770509. doi:10.1016/j.procs.2025.04.537.
+
+Ali Louati. Machine learning framework for sustainable traffic management and safety in AlKharj city. Sustainable
+  Futures, 9:100407, 2025b. ISSN 26661888. doi:10.1016/j.sftr.2024.100407.
+
+Xinyu Liu, Jinlong Li, Jin Ma, Huiming Sun, Zhigang Xu, Tianyun Zhang, and Hongkai Yu. Deep transfer learning for
+   intelligent vehicle perception: A survey. Green Energy and Intelligent Transportation, 2(5):100125, 2023. ISSN
+   27731537. doi:10.1016/j.geits.2023.100125.
+
+Richard S. Sutton and Andrew G. Barto. Reinforcement Learning: An Introduction. MIT Press, Cambridge, MA, 2nd
+   edition, 2018. ISBN 9780262039246. URL http://incompleteideas.net/book/the-book-2nd.html.
+
+Seyed Sajad Mousavi, Michael Schukat, and Enda Howley. Traffic light control using deep policy-gradient and value-
+   function-based reinforcement learning. IET Intelligent Transport Systems, 11(7):417­423, 2017. doi:10.1049/iet-
+   its.2017.0153.
+
+Hua Wei, Guanjie Zheng, Vikash Gayah, and Zhenhui Li. Recent Advances in Reinforcement Learning for Traffic
+   Signal Control: A Survey of Models and Evaluation. ACM SIGKDD Explorations Newsletter, 22(2):12­18, 2021.
+   ISSN 1931-0145, 1931-0153. doi:10.1145/3447556.3447565.
+
+Mohammad Aslani, Mohammad Saadi Mesgari, and Marco Wiering. Adaptive traffic signal control with actor-critic
+   methods in a real-world traffic network with different traffic disruption events. Transportation Research Part C:
+  Emerging Technologies, 85:732­752, 2017. ISSN 0968-090X. doi:10.1016/j.trc.2017.09.020.
+
+Alvaro Cabrejas Egea, Shaun Howell, Maksis Knutins, and Colm Connaughton. Assessment of Reward Functions for
+   Reinforcement Learning Traffic Signal Control under Real-World Limitations. In 2020 IEEE International Conference
+   on Systems, Man, and Cybernetics (SMC), pages 965­972. IEEE, 2020. doi:10.1109/smc42975.2020.9283498.
+
+Marta Bubicz, Elisabete Arsenio, José Barateiro, and Rui Henriques. Planning for more resilient urban transport
+   systems: Lessons learned from the Covid-19 pandemic. Transportation Research Procedia, 72:3435­3442, 2023.
+   ISSN 23521465. doi:10.1016/j.trpro.2023.11.774.
+
+Marcin Korecki, Damian Dailisan, Joshua Yang, and Dirk Helbing. Democratizing traffic control in smart
+   cities. Transportation Research Part C: Emerging Technologies, 160:104511, 2024. ISSN 0968090X.
+   doi:10.1016/j.trc.2024.104511.
+
+Rohit K. Dubey, Javier Argota Sánchez­Vaquerizo, Damian Dailisan, and Dirk Helbing. Cooperative adaptable lanes
+   for safer shared space and improved mixed-traffic flow. Transportation Research Part C: Emerging Technologies,
+  166:104748, 2024. ISSN 0968090X. doi:10.1016/j.trc.2024.104748.
+
+Wei Ju, Zheng Fang, Yiyang Gu, Zequn Liu, Qingqing Long, Ziyue Qiao, Yifang Qin, Jianhao Shen, Fang Sun,
+   Zhiping Xiao, Junwei Yang, Jingyang Yuan, Yusheng Zhao, Yifan Wang, Xiao Luo, and Ming Zhang. A Compre-
+   hensive Survey on Deep Graph Representation Learning. Neural Networks, 173:106207, 2024. ISSN 0893-6080.
+   doi:10.1016/j.neunet.2024.106207.
+
+Weiwei Jiang and Jiayun Luo. Graph Neural Network for Traffic Forecasting: A Survey. Expert Systems with
+  Applications, 207:117921, 2022. ISSN 0957-4174. doi:10.1016/j.eswa.2022.117921.
+
+Yann LeCun, Yoshua Bengio, and Geoffrey Hinton. Deep learning. Nature, 521(7553):436­444, May 2015. ISSN
+   0028-0836, 1476-4687. doi:10.1038/nature14539.
+
+F. Scarselli, M. Gori, Ah Chung Tsoi, M. Hagenbuchner, and G. Monfardini. The Graph Neural Net-
+  work Model. IEEE Transactions on Neural Networks, 20(1):61­80, 2009. ISSN 1045-9227, 1941-0093.
+   doi:10.1109/TNN.2008.2005605.
+
+Alexey Bochkovskiy, Chien-Yao Wang, and Hong-Yuan Mark Liao. YOLOv4: Optimal Speed and Accuracy of Object
+   Detection, 2020.
+
+Vladimir Shepelev, Ivan Slobodin, Zlata Almetova, Dmitry Nevolin, and Andrei Shvecov. A Hybrid Traffic Forecasting
+   Model for Urban Environments Based on Convolutional and Recurrent Neural Networks. Transportation Research
+  Procedia, 68:441­446, 2023. ISSN 23521465. doi:10.1016/j.trpro.2023.02.059.
+
+Yuxi Li, Shuxuan Xie, Zhibo Wan, Haibin Lv, Houbing Song, and Zhihan Lv. Graph-powered learning methods
+   in the Internet of Things: A survey. Machine Learning with Applications, 11:100441, 2023. ISSN 26668270.
+   doi:10.1016/j.mlwa.2022.100441.
+
+Guizhen Yu, Han Li, Yunpeng Wang, Peng Chen, and Bin Zhou. A review on cooperative perception and control
+   supported infrastructure-vehicle system. Green Energy and Intelligent Transportation, 1(3):100023, 2022. ISSN
+   27731537. doi:10.1016/j.geits.2022.100023.
+
+                                                                     26
+Digital Twins for Intelligent Intersections: A Literature Review
+
+Auday Al-Dulaimy, Matthijs Jansen, Bjarne Johansson, Animesh Trivedi, Alexandru Iosup, Mohammad Ashjaei,
+  Antonino Galletta, Dragi Kimovski, Radu Prodan, Konstantinos Tserpes, George Kousiouris, Chris Giannakos, Ivona
+   Brandic, Nawfal Ali, André B. Bondi, and Alessandro V. Papadopoulos. The computing continuum: From IoT to the
+   cloud. Internet of Things, 27:101272, 2024. ISSN 25426605. doi:10.1016/j.iot.2024.101272.
+
+Muhammad Dangana, Sajjad Hussain, Shuja Ansari, Muhammad Imran, and Ahmed Zoha. A Digital Twin (DT)
+   approach to Narrow-Band Internet of Things (NB-IoT) wireless communication optimization in an industrial scenario.
+  Internet of Things, 25:101113, 2024. ISSN 25426605. doi:10.1016/j.iot.2024.101113.
+
+Jian Liu, Fangyu Liu, and Linbing Wang. Automated, economical, and environmentally-friendly asphalt mix design
+   based on machine learning and multi-objective grey wolf optimization. Journal of Traffic and Transportation
+  Engineering (English Edition), 11(3):381­405, 2024b. ISSN 20957564. doi:10.1016/j.jtte.2023.10.002.
+
+Abdur Rahman Jami and Abid Haleem. Quantum computing as an enabler for sustainable circular economy imple-
+   mentation in Industry 4.0: A study. Human Settlements and Sustainability, 1(2):103­120, 2025. ISSN 30506077.
+   doi:10.1016/j.hssust.2025.05.005.
+
+Mingyang Zhang, Ghalib Taimuri, Jinfen Zhang, Di Zhang, Xinping Yan, Pentti Kujala, and Spyros Hirdaris. Systems
+   driven intelligent decision support methods for ship collision and grounding prevention: Present status, possi-
+   ble solutions, and challenges. Reliability Engineering & System Safety, 253:110489, 2025. ISSN 09518320.
+   doi:10.1016/j.ress.2024.110489.
+
+Hamlet Reynoso Vanderhorst, David Heesom, and Komali Yenneti. Technological advancements and the vision of a
+   meta smart twin city. Technology in Society, 79:102731, 2024. ISSN 0160791X. doi:10.1016/j.techsoc.2024.102731.
+
+Oguz Tengilimoglu, Oliver Carsten, and Zia Wadud. Implications of automated vehicles for physical road environment:
+  A comprehensive review. Transportation Research Part E: Logistics and Transportation Review, 169:102989, January
+   2023. ISSN 13665545. doi:10.1016/j.tre.2022.102989.
+
+Surya Sarat Chandra Congress, Anand J. Puppala, Aritra Banerjee, and Ujwalkumar D. Patil. Identifying hazardous
+   obstructions within an intersection using unmanned aerial data analysis. International Journal of Transportation
+  Science and Technology, 10(1):34­48, March 2021. ISSN 20460430. doi:10.1016/j.ijtst.2020.05.004.
+
+Adwitiya Mukhopadhyay, Apeksha Rao, Pallavi Joshi, and Vibha Harish. Edge based Blind Spot Avoidance and
+   Speed Monitoring for Emergency Vehicles. Procedia Computer Science, 235:284­302, 2024. ISSN 18770509.
+   doi:10.1016/j.procs.2024.04.030.
+
+Mona Jabbari, Fernando Fonseca, Göran Smith, Elisa Conticelli, Simona Tondelli, Paulo Ribeiro, Zahra Ahmadi,
+   George Papageorgiou, and Rui Ramos. The Pedestrian Network Concept: A Systematic Literature Review. Journal
+   of Urban Mobility, 3:100051, 2023. ISSN 26670917. doi:10.1016/j.urbmob.2023.100051.
+
+Alben Rome Bagabaldo and Jürgen Hackl. Improving pedestrian safety at intersections using probabilistic models and
+   monte carlo simulations. In International Conference on Transportation and Development 2025, pages 252­261.
+  American Society of Civil Engineers, 2025. doi:10.1061/9780784486191.022.
+
+Erik Rua, Pedro Arias, Angeles Saavedra, and Joaquin Martinez-Sanchez. Combination of macroscopic and microscopic
+   crash prediction models with multiple modeling approaches: A highway case study. Expert Systems with Applications,
+   258:125158, 2024. ISSN 09574174. doi:10.1016/j.eswa.2024.125158.
+
+Bernd Carsten Stahl, Laurence Brooks, Tally Hatzakis, Nicole Santiago, and David Wright. Exploring ethics and human
+   rights in artificial intelligence ­ A Delphi study. Technological Forecasting and Social Change, 191:122502, June
+   2023. ISSN 00401625. doi:10.1016/j.techfore.2023.122502.
+
+Mohammed A. Fadhel, Ali M. Duhaim, Ahmed Saihood, Ahmed Sewify, Mokhaled N.A. Al-Hamadani, A.S. Albahri,
+   Laith Alzubaidi, Ashish Gupta, Sayedali Mirjalili, and Yuantong Gu. Comprehensive systematic review of information
+   fusion methods in smart cities and urban environments. Information Fusion, 107:102317, 2024. ISSN 15662535.
+   doi:10.1016/j.inffus.2024.102317.
+
+Reza Mortaheb and Piotr Jankowski. Smart city re-imagined: City planning and GeoAI in the age of big data. Journal
+   of Urban Management, 12(1):4­15, 2023. ISSN 22265856. doi:10.1016/j.jum.2022.08.001.
+
+Vyron Kampourakis, Vasileios Gkioulos, and Sokratis Katsikas. A systematic literature review on wireless se-
+   curity testbeds in the cyber-physical realm. Computers & Security, 133:103383, 2023. ISSN 01674048.
+   doi:10.1016/j.cose.2023.103383.
+
+Yue Wang, Huimin Wang, Weiming Wang, Shizhao Song, and Xin Fu. Architecture, application, and prospect of
+   digital twin for highway infrastructure. Journal of Traffic and Transportation Engineering (English Edition), page
+   S2095756424000928, 2024. ISSN 20957564. doi:10.1016/j.jtte.2024.03.003.
+
+                                                                     27
+Digital Twins for Intelligent Intersections: A Literature Review
+
+Habib M. Alshuwaikhat, Yusuf A. Aina, and Lolwah Binsaedan. Analysis of the implementation of urban computing in
+   smart cities: A framework for the transformation of Saudi cities. Heliyon, 8(10):e11138, 2022. ISSN 24058440.
+   doi:10.1016/j.heliyon.2022.e11138.
+
+Ali Pirdavani, Stephano Muzyka, Victor Vandervoort, and Sander Van Hoye. Application of building information
+   modeling (BIM) for transportation infrastructure: A scoping review. Transportation Research Procedia, 73:110­117,
+   2023. ISSN 23521465. doi:10.1016/j.trpro.2023.11.898.
+
+Mohd Javaid, Abid Haleem, and Rajiv Suman. Digital Twin applications toward Industry 4.0: A Review. Cognitive
+  Robotics, 3:71­92, 2023. ISSN 26672413. doi:10.1016/j.cogr.2023.04.003.
+
+Zineb Kamal Idrissi, Mohamed Lachgar, and Hamid Hrimech. Blockchain, IoT and AI in logistics and trans-
+   portation: A systematic review. Transport Economics and Management, 2:275­285, 2024. ISSN 29498996.
+   doi:10.1016/j.team.2024.09.002.
+
+Taofeeq D. Moshood, James Ob. Rotimi, Wajiha Shahzad, and J.A. Bamgbade. Infrastructure digital twin technology:
+  A new paradigm for future construction industry. Technology in Society, 77:102519, 2024. ISSN 0160791X.
+   doi:10.1016/j.techsoc.2024.102519.
+
+Igor Pugachev, Yrii Kulikov, and Valentin Cheglov. Features of traffic organization and traffic safety in cities.
+  Transportation Research Procedia, 50:766­772, 2020. ISSN 23521465. doi:10.1016/j.trpro.2020.10.089.
+
+Wanglin Yan and Takeo Sakairi. Geo CPS: Spatial challenges and opportunities for CPS in the geographic dimension.
+  Journal of Urban Management, 8(3):331­341, 2019. ISSN 22265856. doi:10.1016/j.jum.2019.09.005.
+
+Sandra Ulrich, Wolfgang Schildorfer, Walter Aigner, Elvira Thonhofer, and Matthias Neubauer. How can a digital twin
+   sustainably enhance integration and service quality for road authorities? Transportation Research Procedia, 72:
+   3909­3916, 2023. ISSN 23521465. doi:10.1016/j.trpro.2023.11.490.
+
+Ke Guan, Xinghai Guo, Danping He, Philipp Svoboda, Marion Berbineau, Stephen Wang, Bo Ai, Zhangdui Zhong, and
+   Markus Rupp. Key technologies for wireless network digital twin towards smart railways. High-speed Railway, 2(1):
+  1­10, 2024. ISSN 29498678. doi:10.1016/j.hspr.2024.01.004.
+
+Chengquan Jin, Yeongchan Lee, Sanghoon Lee, and Changtaek Hyun. Lightweighting Process of Digital Twin
+   Information Models for Smart City Services. KSCE Journal of Civil Engineering, 28(4):1304­1320, 2024. ISSN
+  12267988. doi:10.1007/s12205-024-2354-z.
+
+Ravil Safiullin, Vitaly Fedotov, and Alexey Marusin. Method to evaluate performance of measurement equipment in
+   automated vehicle traffic control systems. Transportation Research Procedia, 50:20­27, 2020. ISSN 23521465.
+   doi:10.1016/j.trpro.2020.10.003.
+
+Mukhtar Kerimov, Sergey Evtiukov, and Alexey Marusin. Model of multi-level system managing automated traffic
+   enforcement facilities recording traffic violations. Transportation Research Procedia, 50:242­252, 2020. ISSN
+   23521465. doi:10.1016/j.trpro.2020.10.030.
+
+Paulo Silva, Pavlína Smolková, Sofia Michailidu, Jakub Beránek, Roman Machácek, Katerina Slaninová, Jan Martinovic,
+   and Radim Cmar. High-Performance Computing for Distributed Route Computation in Traffic Flow Models. Procedia
+  Computer Science, 255:83­92, 2025. ISSN 18770509. doi:10.1016/j.procs.2025.02.263.
+
+Liming Xu, Stephen Mak, Stefan Schoepf, Michael Ostroumov, and Alexandra Brintrup. Multi-agent digital twinning
+   for collaborative logistics: Framework and implementation. Journal of Industrial Information Integration, 45:100799,
+   2025b. ISSN 2452414X. doi:10.1016/j.jii.2025.100799.
+
+Ebere Donatus Okonta, Farzad Rahimian, Vladimir Vukovic, and Sergio Rodriguez. Semantic Interoperability on IoT:
+  Aligning IFC and Smart Application Reference (SAREF) Sensor Data Models, 2024.
+
+Marcos Dieste, Philipp C. Sauer, and Guido Orzes. Organizational tensions in industry 4.0 implementation: A
+   paradox theory approach. International Journal of Production Economics, 251:108532, 2022. ISSN 09255273.
+   doi:10.1016/j.ijpe.2022.108532.
+
+Sultan Zhankaziev, Andrej Vorob'yov, and Dmitriy Morozov. Principles of creating range for testing technologies and
+   technical solutions related to intelligent transportation systems and unmanned driving. Transportation Research
+  Procedia, 50:757­765, 2020. ISSN 23521465. doi:10.1016/j.trpro.2020.10.091.
+
+Marian Stan, Adriana Dima, Dag Oivind Madsen, and Cosmin Dobrin. Quantifying impact: Bibliometric exam-
+   ination of IoT's evolution in sustainable development. Internet of Things, 28:101370, 2024. ISSN 25426605.
+   doi:10.1016/j.iot.2024.101370.
+
+Emmanuel Mogaji. Metaverse influence on transportation: A mission impossible? Transportation Research Interdisci-
+   plinary Perspectives, 22:100954, 2023. ISSN 25901982. doi:10.1016/j.trip.2023.100954.
+
+                                                                     28
+Digital Twins for Intelligent Intersections: A Literature Review
+
+Jennifer Davies, Hossein Sharifi, Andrew Lyons, Rick Forster, and Omar Khaled Shokry Mohamed Elsayed. Non-
+   fungible tokens: The missing ingredient for sustainable supply chains in the metaverse age? Transportation Research
+  Part E: Logistics and Transportation Review, 182:103412, 2024. ISSN 13665545. doi:10.1016/j.tre.2024.103412.
+
+Foteini Valeonti, Antonios Bikakis, Melissa Terras, Chris Speed, Andrew Hudson-Smith, and Konstantinos Chalkias.
+   Crypto Collectibles, Museum Funding and OpenGLAM: Challenges, Opportunities and the Potential of Non-Fungible
+  Tokens (NFTs). Applied Sciences, 11(21):9931, 2021. doi:10.3390/app11219931.
+
+Simon Elias Bibri, Jeffrey Huang, Senthil Kumar Jagatheesaperumal, and John Krogstie. The synergistic inter-
+   play of artificial intelligence and digital twin in environmentally planning sustainable smart cities: A com-
+   prehensive systematic review. Environmental Science and Ecotechnology, 20:100433, 2024. ISSN 26664984.
+   doi:10.1016/j.ese.2024.100433.
+
+Yong Zhao, Zhengqiu Zhu, Bin Chen, Sihang Qiu, Jincai Huang, Xin Lu, Weiyi Yang, Chuan Ai, Kuihua Huang, Cheng
+   He, Yucheng Jin, Zhong Liu, and Fei-Yue Wang. Toward parallel intelligence: An interdisciplinary solution for
+   complex systems. The Innovation, 4(6):100521, 2023. ISSN 26666758. doi:10.1016/j.xinn.2023.100521.
+
+Jorge Gallego-Madrid, Ramon Sanchez-Iborra, Jordi Ortiz, and Jose Santa. The role of vehicular applications in the de-
+   sign of future 6G infrastructures. ICT Express, 9(4):556­570, 2023. ISSN 24059595. doi:10.1016/j.icte.2023.03.011.
+
+Werner Kritzinger, Matthias Karner, Georg Traar, Jan Henjes, and Wilfried Sihn. Digital Twin in manufacturing:
+  A categorical literature review and classification. IFAC-Papersmisc, 51(11):1016­1022, 2018. ISSN 2405-8963.
+   doi:10.1016/j.ifacol.2018.08.474.
+
+USDOT. Safe Streets and Roads for All (SS4A) Notice of Funding Opportunity, FY 2025. https://www.transportation.g
+   ov/grants/ss4a/fy25-nofo, March 2025. [misc; accessed 2025-07-17].
+
+USDOT. Research, development, and technology strategic plan for fiscal years 2022­2026. Strategic plan, U.S.
+   Department of Transportation, 2022. URL https://www.transportation.gov/sites/dot.gov/files/2023-01/USDOT%20
+   RDT%20Strategic%20Plan%20FY22-26_010523_508.pdf. Accessed: 2025-07-17.
+
+Imane Jeddoub, Gilles-Antoine Nys, Rafika Hajji, and Roland Billen. Digital Twins for cities: Analyzing the gap
+   between concepts and current implementations with a specific focus on data integration. International Journal of
+  Applied Earth Observation and Geoinformation, 122:103440, 2023. ISSN 15698432. doi:10.1016/j.jag.2023.103440.
+
+Ehab Shahat, Chang T. Hyun, and Chunho Yeom. City Digital Twin Potentials: A Review and Research Agenda.
+  Sustainability, 13(6):3386, 2021. ISSN 2071-1050. doi:10.3390/su13063386.
+
+A. Deprêtre, F. Jacquinod, and A. Mielniczek. Exploring Digital Twin Adaptation to the Urban Environment: Compari-
+   son with CIM to Avoid Silo-based Approaches. ISPRS Annals of the Photogrammetry, Remote Sensing and Spatial
+  Information Sciences, V-4-2022:337­344, 2022. ISSN 2194-9050. doi:10.5194/isprs-annals-V-4-2022-337-2022.
+
+Annysha Huzzat, Alagan Anpalagan, Ahmed S. Khwaja, Isaac Woungang, Ali A. Alnoman, and Anju S. Pillai. A
+   comprehensive review of Digital Twin technologies in smart cities. Digital Engineering, 4:100040, 2025. ISSN
+   2950550X. doi:10.1016/j.dte.2025.100040.
+
+Aljawharah A. Alnaser, Mina Maxi, and Haytham Elmousalami. AI-Powered Digital Twins and Internet of Things
+   for Smart Cities and Sustainable Building Environment. Applied Sciences, 14(24):12056, 2024. ISSN 2076-3417.
+   doi:10.3390/app142412056.
+
+Rasha F. El-Agamy, Hanaa A. Sayed, Arwa M. Al Akhatatneh, Mansourah Aljohani, and Mostafa Elhosseini. Compre-
+   hensive analysis of digital twins in smart cities: A 4200-paper bibliometric study. Artificial Intelligence Review, 57
+  (6):154, 2024. ISSN 1573-7462. doi:10.1007/s10462-024-10781-8.
+
+                                                                     29
+

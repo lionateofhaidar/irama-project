@@ -1,0 +1,101 @@
+                                                                             Automated Traffic Signal
+                                                                 Performance Measures (ATSPMs)
+
+ATSPMs modernize traffic signal management by providing high-resolution data
+to actively manage performance and improve safety and customer service while
+cutting congestion and costs.
+
+There are more than 330,000 traffic signals operating            measurement capability exists, and agencies
+in the United States, and highway agencies typically             rely on citizen complaints to reactively detect
+retime these signals on a three- to five-year cycle at           maintenance or operational deficiencies. This lack
+a cost of approximately $4,500 per intersection. For             of active performance management compromises
+the vast majority of these signals, citizen complaints           safety and efficiency and contributes to congestion.
+are the primary measure of performance. Not                      It also institutionalizes public dissatisfaction with
+having performance data drives retiming costs up by              the operation and maintenance of signalized
+requiring software modeling to simulate performance,             intersections.
+along with detailed, manually collected traffic data.
+When agency professionals and consultants                        The Federal Highway Administration (FHWA) is
+conduct retiming projects, they perform an ad hoc                promoting automated traffic signal performance
+comparison of limited before and after travel-time               measures (ATSPMs) in the fourth round of Every Day
+data to demonstrate the effectiveness of optimization            Counts (EDC-4) as a means to improve on these
+efforts. Typically, no ongoing performance                       traditional retiming processes by providing continuous
+                                                                 performance monitoring capability. Signal retiming
+  ATSPMs make it possible to preserve the best possible traffic  efforts can be based directly on actual performance
+  signal operation, rather than replacing noticeably failing     without dependence on software modeling or
+  operation at infrequent intervals.                             expensive, manually collected data.
+
+                                                                 ATSPMs consist of a high-resolution data-logging
+                                                                 capability added to existing traffic signal
+                                                                 infrastructure and data analysis techniques. This
+                                                                 provides agency professionals with the information
+                                                                 needed to proactively identify and correct
+                                                                 deficiencies. They can then manage traffic signal
+                                                                 maintenance and operations in support of an
+                                                                 agency's safety, livability and mobility goals.
+
+                                                                 The technology is cost effective, as ATSPMs can be
+                                                                 applied to a wide range of signalized intersections
+                                                                 and use existing infrastructure to the greatest extent
+                                                                 possible. ATSPMs will also support the validation of
+                                                                 other technologies and operational strategies, such
+                                                                 as adaptive signal control and emerging connected
+                                                                 vehicle applications.
+                                                       Automated Traffic Signal
+                                           Performance Measures (ATSPMs)
+
+STATE OF THE PRACTICE                                  BENEFITS
+
+This technology is the outcome of a collaboration      ` Targeted Maintenance. ATSPMs provide the
+among FHWA, the American Association of State              actionable information needed to deliver high-
+Highway and Transportation Officials (AASHTO), state       quality service to customers, with significant cost
+departments of transportation (DOTs) and academic          savings to agencies.
+research efforts. Most recently, a Transportation
+Pooled Fund study, "Traffic Signal Systems Operations  ` Improved Operations. Active monitoring
+and Management," led by the Indiana DOT with               of signalized intersection performance lets
+participation from the FHWA, 11 state DOTs, and the        agencies address problems before they become
+City of Chicago, produced an open source software          complaints.
+option that provides a framework for continued
+innovation in data analysis techniques.                ` Increased Safety. A shift to proactive operations
+                                                           and maintenance practices can improve safety
+The collaborative development of ATSPMs has                by reducing the traffic congestion that results from
+produced a number of implementation options to             poor and outdated signal timing.
+fit a range of agency capabilities and resources.
+Approximately 26 transportation agencies at            RESOURCES
+both state and local levels are currently involved
+in implementing ATSPMs. The AASHTO Innovation          EDC-4 ATSPMs: https://www.fhwa.dot.gov/
+Initiative led by the Utah DOT has resulted in early   innovation/everydaycounts/edc_4/atspm.cfm
+implementation of the technology in 12 states and a
+community of peers ready to share implementation       Transportation Pooled Fund Study TPF-5(258)--Traffic
+experience.                                            Signal Systems Operations and Management:
+                                                       http://www.pooledfund.org/Details/Study/487
+
+                                                       Signal Performance Metrics Technical Information
+                                                       Purdue e-Pubs: http://docs.lib.purdue.edu/
+                                                       atspmw/2016/Presentations/
+
+                                                       AASHTO: http://aii.transportation.org/Pages/
+                                                       AutomatedTrafficSignalPerformanceMeasures.aspx
+
+                                                       Live Signal Performance Metrics Case Study Sites
+                                                       Las Vegas: http://challenger.nvfast.org/spm/
+                                                       Seminole County, FL: http://spm.seminolecountyfl.
+                                                       gov/signalperformancemetrics/
+                                                       Utah: http://udottraffic.utah.gov/
+                                                       signalperformancemetrics/
+
+                                                       EDC-4 Summit Breakout Session: Fall 2016
+                                                       https://www.youtube.com/watch?v=7gS2ATBVGtU
+
+For additional       Eddie Curtis                      Rick Denney
+information, please  FHWA Resource Center              FHWA Resource Center
+contact:             404-562-3920                      410-913-3339
+                     Eddie.Curtis@dot.gov              Richard.Denney@dot.gov
+
+                                                       Every Day Counts (EDC), a State-based initiative of FHWA's
+                                                       Center for Accelerating Innovation, works with State, local
+                                                       and private sector partners to encourage the adoption of
+                                                       proven technologies and innovations aimed at shortening
+                                                       and enhancing project delivery.
+
+                     www.fhwa.dot.gov/everydaycounts                                                                FHWA-16-CAI-014
+

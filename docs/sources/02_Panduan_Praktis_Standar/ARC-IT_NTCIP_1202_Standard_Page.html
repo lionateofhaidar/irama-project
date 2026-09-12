@@ -1,0 +1,239 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>NTCIP 1202 Signal Controller Objects</title>
+    <link href="/includes/architecture.css" rel="stylesheet" type="text/css">
+    <link href="/includes/commtable.css" rel="stylesheet" type="text/css">
+    <link href="/includes/modal.css" rel="stylesheet" type="text/css">
+    <link href="/includes/archnav.css" rel="stylesheet" type="text/css" media="Screen">
+    <link href="/includes/tooltip.css" rel="stylesheet" type="text/css" media="Screen">
+    <style>
+        .dropdown-content a.disabled-menu-item {
+            color: #999;
+            cursor: not-allowed;
+            opacity: 0.9;
+            pointer-events: none;
+        }
+    </style>
+    <link href = "/includes/jquery-ui-1.8.16.custom.css" rel="stylesheet" type="text/css" />
+            <script src = "/includes/jquery-1.6.4.min.js" type="text/javascript"></script>
+            <script src = "/includes/jquery.fixedtableheader-1-0-2.min.js" type="text/javascript"></script>
+            <script src = "/includes/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
+            <script type = "text/javascript" >
+            $(function(){
+               $('#tabs').tabs();
+            });
+            </script> 
+            
+</head>
+
+<body onload="window.scrollTo(0,0)">
+    <div id="container">
+        <a id="top"></a>
+        <div id="header">
+            <div id="DOTHeader">
+                <!-- dot top banner -->
+                <div id="dotTopBanner">
+
+                </div>
+                <!-- end of dot top banner -->
+            </div>
+
+            <div id="archHeader">
+                <div class="tooltip" onclick="window.location='/index.html';">
+                    <span class="tooltiptext">Architecture Reference for Cooperative and Intelligent Transportation (ARC-IT)</span>
+                </div>
+            </div>
+
+            <div id="archNav">
+                <a href="#mainContent" class="skip">Skip to content</a>
+                <!-------------Start ITS Arch Nav--------->
+                <div id="topNavITSArch">
+                    <!-- start Architecture menu item and dropdown content -->
+                    <div class="dropdown">
+                        <div class="dropbtn"><a class="topMenuLink" href="/html/architecture/architecture.html">Architecture <span class="arrowIcon">&nbsp;&nbsp;&nbsp;</span></a></div>
+                        <div class="dropdown-content">
+                            <a href="/html/servicepackages/servicepackages-areaspsort.html">Service Packages</a>
+                            <a href="/html/views/views.html">Views</a>
+                            <a class="level2" href="/html/views/enterprise.html">Enterprise</a>
+                            <a class="level2" href="/html/views/functional.html">Functional</a>
+                            <a class="level2" href="/html/views/physical.html">Physical</a>
+                            <a class="level2" href="/html/views/communications.html">Communications</a>
+                            <a href="/html/methodology/methodology.html">Methodology</a></li>
+                            <a class="level2" href="/html/methodology/archstructure.html">Architecture Structure</a>
+                            <a class="level2" href="/html/methodology/vsenterprise.html">Enterprise Viewpoint</a>
+                            <a class="level2" href="/html/methodology/vsfunctional.html">Functional Viewpoint</a>
+                            <a class="level2" href="/html/methodology/vsphysical.html">Physical Viewpoint</a>
+                            <a class="level2" href="/html/methodology/vscomm.html">Communications Viewpoint</a>
+                            <a href="/html/security/security.html">Security</a>
+                            <div class="clearboth"></div>
+                        </div>
+                    </div>
+                    <!-- end Architecture menu item and dropdown content -->
+                    <!-- start Architecture Use menu item and dropdown content -->
+                    <div class="dropdown">
+                        <div class="dropbtn"><a class="topMenuLink" href="/html/archuse/archuse.html">Architecture and Standards Use <span class="arrowIcon">&nbsp;&nbsp;&nbsp;</span></a></div>
+                        <div class="dropdown-content">
+                            <a href="/html/archuse/planning.html">ARC-IT &amp; Planning</a>
+                            <a href="/html/raguide/raguide-c2.html">Regional Architecture Definition</a>
+                            <a href="/html/raguide/raguide-c5.html">Regional Architecture Use</a>
+                            <a href="/html/archuse/projdev.html">Project Development</a>
+                            <a href="/html/standards/standardsmap.html">Standards Use</a>
+                            <div class="clearboth"></div>
+                        </div>
+                    </div>
+                    <!-- end Architecture Use menu item and dropdown content -->
+                    <!-- start Architecture Resources menu item and dropdown content -->
+                    <div class="dropdown">
+                        <div class="dropbtn"><a class="topMenuLink" href="/html/resources/resources.html">Architecture Resources <span class="arrowIcon">&nbsp;&nbsp;&nbsp;</span></a></div>
+                        <div class="dropdown-content">
+                            <a href="/html/resources/arcitdownload.html">VIEW-IT</a>
+                            <a href="/html/resources/databases.html">Databases</a>
+                            <a href="/html/resources/documents.html">Documents</a>
+                            <a href="/html/resources/tools.html">Tools</a>
+                            <a class="level2" href="/html/resources/radit.html">RAD-IT</a>
+                            <a class="level2" href="/html/resources/setit.html">SET-IT</a>
+                            <a class="disabled-menu-item" aria-disabled="true" tabindex="-1">ASQ-IT Coming soon for 9.4</a>
+                            <a href="/html/resources/shareit.htm">SHARE-IT</a>
+                            <a href="/html/resources/training.html">Training and Workshops</a>
+                            <a href="/html/resources/presentations.html">Presentations</a>
+                            <div class="clearboth"> </div>
+                        </div>
+                    </div>
+                    <!-- end Architecture Resources menu item and dropdown content -->
+                    <!-- start Architecture Terminology menu item and dropdown content -->
+                    <div class="dropdown">
+                        <div class="dropbtn"><a class="topMenuLink" href="/html/glossary/terminology.html">Architecture Terminology <span class="arrowIcon">&nbsp;&nbsp;&nbsp;</span></a></div>
+                        <div class="dropdown-content">
+                            <a href="/html/glossary/acronym-a.html">Acronyms</a>
+                            <a href="/html/glossary/glossary-a.html">Glossary</a>
+                            <div class="clearboth"> </div>
+                        </div>
+                    </div>
+                    <!-- end Architecture Terminology menu item and dropdown content -->
+                    <!-- start Contact The Architecture Team menu item and dropdown content -->
+                    <div class="dropdown">
+                        <div class="dropbtn"><a class="topMenuLink" href="/html/contactus/contactus.html ">Contact The Architecture Team </a></div>
+                    </div>
+                    <!-- Search button (placed in topNavITSArch) -->
+                    <div style="float: right; margin-right: 15px; margin-top: 4px;">
+                        <button onclick="window.open('/search.html', '_blank')" style="padding:3px 10px; font-size:13px;">
+                            Search
+                        </button>
+                    </div>
+                </div><!-- end topNavITSArch -->
+            </div><!-- end archNav -->
+            <div class="clearboth"></div>
+            <div id="breadcrumb">
+                <a href="../../../index.html">Home</a> &gt; <a href='../views/views.html'>Views</a> &gt; <a href='../views/communications.html'>Communications</a> &gt; <a href='../standards/standards.html'>Standards</a> &gt; <script type="text/javascript">document.write(document.title)</script>
+            </div>
+        </div>
+
+        <div id="mainContent">
+            <style>
+.arcit-acr { text-decoration:none; border-bottom:1px dotted #666; cursor:help; color:inherit; }
+.arcit-acr:hover { background:#fff7cc; }
+.arcit-acr abbr { text-decoration:none; border-bottom:none; }
+</style>
+
+<h1 id="pageTitle"><a class="arcit-acr" href="/html/glossary/acronym-n.html#ntcip"><abbr title="National Transportation Communications for ITS Protocol">NTCIP</abbr></a> 1202 Signal Controller Objects</h1>
+<div class="clearBoth"></div>
+<h3>Title</h3>
+<a class="arcit-acr" href="/html/glossary/acronym-n.html#ntcip"><abbr title="National Transportation Communications for ITS Protocol">NTCIP</abbr></a> Object Definitions for ASC
+<h3>Document #</h3>
+<a class="arcit-acr" href="/html/glossary/acronym-n.html#ntcip"><abbr title="National Transportation Communications for ITS Protocol">NTCIP</abbr></a> 1202
+<h3>Description</h3>
+This standard defines <a class="arcit-acr" href="/html/glossary/acronym-s.html#snmp"><abbr title="Simple Network Management Protocol">SNMP</abbr></a> objects (data elements) for a center to control a traffic signal and its interface with connected vehicles.<h3>Standard In Solutions</h3>
+<ul>
+<li><a href="../comm/solution95332.html">US: CTI NTCIP Signal Priority -  SNMPv1</a></li>
+<li><a href="../comm/solution95337.html">US: CTI NTCIP Signal Priority -  SNMPv1/TLS</a></li>
+<li><a href="../comm/solution95334.html">US: CTI NTCIP Signal Priority -  SNMPv3/TLS</a></li>
+<li><a href="../comm/solution95338.html">US: CTI NTCIP Signal Priority -  Wireless SNMPv3/TLS</a></li>
+<li><a href="../comm/solution89982.html">US: NTCIP Generic Device -  SNMPv1</a></li>
+<li><a href="../comm/solution89989.html">US: NTCIP Generic Device -  SNMPv1/TLS</a></li>
+<li><a href="../comm/solution89987.html">US: NTCIP Generic Device -  SNMPv3/TLS</a></li>
+<li><a href="../comm/solution55.html">US: NTCIP Signal Priority -  SNMPv1</a></li>
+<li><a href="../comm/solution59.html">US: NTCIP Signal Priority -  SNMPv1/TLS</a></li>
+<li><a href="../comm/solution57.html">US: NTCIP Signal Priority -  SNMPv3/TLS</a></li>
+<li><a href="../comm/solution121.html">US: NTCIP Signal System Masters -  SNMPv1</a></li>
+<li><a href="../comm/solution123.html">US: NTCIP Signal System Masters -  SNMPv1/TLS</a></li>
+<li><a href="../comm/solution122.html">US: NTCIP Signal System Masters -  SNMPv3/TLS</a></li>
+<li><a href="../comm/solution40.html">US: NTCIP Traffic Signal -  SNMPv1</a></li>
+<li><a href="../comm/solution42.html">US: NTCIP Traffic Signal -  SNMPv1/TLS</a></li>
+<li><a href="../comm/solution41.html">US: NTCIP Traffic Signal -  SNMPv3/TLS</a></li>
+<li><a href="../comm/solution94528.html">US: NTCIP Traffic Signal -  Wireless SNMPv3/TLS</a></li>
+<li><a href="../comm/solution94434.html">US: NTCIP Traffic Signal to CVRSE -  Secure Internet (ITS)</a></li>
+<li><a href="../comm/solution94421.html">US: NTCIP Traffic Signal to CVRSE -  SNMPv3/TLS</a></li>
+<li><a href="../comm/solution94439.html">US: NTCIP Traffic Signal to CVRSE - Apache Kafka</a></li>
+<li><a href="../comm/solution94444.html">US: NTCIP Traffic Signal to CVRSE - OASIS AMQP</a></li>
+<li><a href="../comm/solution94445.html">US: NTCIP Traffic Signal to CVRSE - OASIS MQTT</a></li>
+<li><a href="../comm/solution94436.html">US: NTCIP Traffic Signal to CVRSE - OMG DDS</a></li>
+</ul>
+<h3>Standard In Profiles</h3>
+<ul>
+<li><a href="../comm/profile284.html">US: CTI NTCIP Signal Priority</a></li>
+<li><a href="../comm/profile262.html">US: NTCIP Generic Device</a></li>
+<li><a href="../comm/profile62.html">US: NTCIP Signal Priority</a></li>
+<li><a href="../comm/profile61.html">US: NTCIP Signal System Masters</a></li>
+<li><a href="../comm/profile52.html">US: NTCIP Traffic Signal</a></li>
+<li><a href="../comm/profile281.html">US: NTCIP Traffic Signal to CVRSE</a></li>
+</ul>
+<h3>Standard In Standard Bundles</h3>
+<ul>
+<li>None</li>
+</ul>
+<h3>Standard applies to service packages</h3>
+<ul>
+<li>None</li>
+</ul>
+<h3>Standard applies to physical objects</h3>
+<ul>
+<li>None</li>
+</ul>
+<h3>Hyperlink to Standard</h3>
+<a href="https://www.ntcip.org/document-numbers-and-status/" target="_blank">NTCIP 1202 Signal Controller Objects</a>
+<br /><br />Hyperlinks to the standard are provided when practical, but may not be up-to-date as SDOs may change their websites without prior notice. The <a class="arcit-acr" href="/html/glossary/acronym-a.html#arc-it"><abbr title="Architecture Reference for Cooperative and Intelligent Transportation">ARC-IT</abbr></a> team will update hyperlinks with <a class="arcit-acr" href="/html/glossary/acronym-a.html#arc-it"><abbr title="Architecture Reference for Cooperative and Intelligent Transportation">ARC-IT</abbr></a> releases.
+
+        </div>
+
+        <!-- This clearing element should immediately follow the #mainContent div in order to force the #container div to contain all child floats -->
+        <br class="clearfloat" />
+
+        <div id="footer">
+            <div><br />Last Updated 07/15/2026 </div><br /> <div>The information contained on these web pages (www.arc-it.net and its sub-pages)  is in the public domain and is free from copyright restrictions except where noted.</div>
+        </div>
+        <!-- end #footer -->
+        <button id="backToTop" type="button" title="Back to top">↑ Top</button>
+    </div>
+    <!-- end #container -->
+
+    <script src="/analytics/scripts/arcit_analytics.js"></script>
+    <script>
+        (function () {
+
+            var btn = document.getElementById('backToTop');
+
+            function toggleVisibility() {
+                if (window.scrollY > 400)
+                    btn.style.display = 'block';
+                else
+                    btn.style.display = 'none';
+            }
+
+            window.addEventListener('scroll', toggleVisibility);
+
+            btn.addEventListener('click', function () {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            toggleVisibility();
+
+        })();
+    </script>
+
+</body>
+<!-- InstanceEnd -->
+</html>
+

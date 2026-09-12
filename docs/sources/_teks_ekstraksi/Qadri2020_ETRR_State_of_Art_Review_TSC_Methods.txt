@@ -1,0 +1,967 @@
+Qadri et al. European Transport Research Review  (2020) 12:55         European Transport
+https://doi.org/10.1186/s12544-020-00439-1                                Research Review
+
+REVIEW                                                                Open Access
+
+State-of-art review of traffic signal control
+methods: challenges and opportunities
+
+Syed Shah Sultan Mohiuddin Qadri* , Mahmut Ali Gökçe and Erdinç Öner
+
+Abstract
+
+Introduction: Due to the menacing increase in the number of vehicles on a daily basis, abating road congestion is
+becoming a key challenge these years. To cope-up with the prevailing traffic scenarios and to meet the ever-
+increasing demand for traffic, the urban transportation system needs effective solution methodologies. Changes
+made in the urban infrastructure will take years, sometimes may not even be feasible. For this reason, traffic signal
+timing (TST) optimization is one of the fastest and most economical ways to curtail congestion at the intersections
+and improve traffic flow in the urban network.
+
+Purpose: Researchers have been working on using a variety of approaches along with the exploitation of
+technology to improve TST. This article is intended to analyze the recent literature published between January 2015
+and January 2020 for the computational intelligence (CI) based simulation approaches and CI-based approaches for
+optimizing TST and Traffic Signal Control (TSC) systems, provide insights, research gaps and possible directions for
+future work for researchers interested in the field.
+
+Methods: In analyzing the complex dynamic behavior of traffic streams, simulation tools have a prominent place.
+Nowadays, microsimulation tools are frequently used in TST related researches. For this reason, a critical review of
+some of the widely used microsimulation packages is provided in this paper.
+
+Conclusion: Our review also shows that approximately 77% of the papers included, utilizes a microsimulation tool
+in some form. Therefore, it seems useful to include a review, categorization, and comparison of the most
+commonly used microsimulation tools for future work. We conclude by providing insights into the future of
+research in these areas.
+
+Keywords: Traffic signal timing optimization, Traffic signal control, Urban traffic, Microsimulation, Computational
+intelligence
+
+1 Introduction                                                        has detrimental effects on the health, environment,
+One of the biggest challenges for urban management                    and the state's economy.
+is managing and mitigating traffic congestion. The
+number of vehicles in the urban network increasing                      As to health, traffic congestion causes excessive fa-
+day to day basis, which results in deterioration of                   tigue, mental illnesses, and problems related to car-
+traffic conditions. Due to this increase, blockage and                diovascular systems, such as the respiratory system
+long queues of vehicles form at intersections, leading                and nervous system, resulting in a lower standard of
+commuters to lose valuable time, especially during                    life. Different pollutants are added to the environment
+rush hours. Apart from this, congestion of traffic also               through the heavy use of automobiles, which are one
+                                                                      of the main reasons for different health-related issues
+* Correspondence: syedshahsultan@gmail.com                            and ecological damages [1, 2]. Environmentally, con-
+Department of Industrial Engineering, Yaar University, Izmir, Turkey  gestion of traffic leads to increased noise and air pol-
+                                                                      lution [3, 4].
+
+        © The Author(s). 2020 Open Access This article is licensed under a Creative Commons Attribution 4.0 International License,
+        which permits use, sharing, adaptation, distribution and reproduction in any medium or format, as long as you give
+        appropriate credit to the original author(s) and the source, provide a link to the Creative Commons licence, and indicate if
+        changes were made. The images or other third party material in this article are included in the article's Creative Commons
+        licence, unless indicated otherwise in a credit line to the material. If material is not included in the article's Creative Commons
+        licence and your intended use is not permitted by statutory regulation or exceeds the permitted use, you will need to obtain
+        permission directly from the copyright holder. To view a copy of this licence, visit http://creativecommons.org/licenses/by/4.0/.
+Qadri et al. European Transport Research Review (2020) 12:55  Page 2 of 23
+
+  In terms of economy, it decelerates the transportation      with promising suggestions for future research
+rate of services and goods' merchandising, the conse-         directions.
+quences of which have to be borne by the consumers in
+terms of higher prices. Due to the aforementioned facts,      2 Research methodology
+there is always a need for an effective methodology that      This article analyzes the recent literature for the
+can tackle congestion resulting from the contemporary         simulation-optimization, and CI-based approaches for
+demand for urban traffic [5].                                 optimizing TST and TSC systems, which have been
+                                                              published from January 2015 to January 2020 in
+  One of the main purposes of signal timing settings          terms of journal papers and conference proceedings.
+is to move people safely and efficiently through an           One of the main reasons for covering the research
+intersection. Achieving this goal requires an accom-          that has been published in the most recent years is
+modation plan to different users that assign the right-       technological advancement. These publications were
+of-way. The plan should be able to adapt according            selected by meticulously browsing through databases
+to the fluctuations in demand. Many signal timing pa-         including Scopus, Web of Science, IEEE Xplore, and
+rameters affect the performance of the intersection.          Google Scholar. Keywords used to explore the data-
+These parameters include cycle length, green time,            bases were: "TST optimization", "traffic congestion
+change interval, phase sequencing, etc. These parame-         optimization", "TSC settings", "microscopic traffic
+ters are further defined under section 3.1. Regulating        simulation-based optimization (SimOpt)", "dynamic
+the timing of the traffic signals is one of the fastest       traffic management system", and "signalized urban
+and most economical ways to curtail congestion at             intersection". From the reference list of selected publi-
+the intersection and improve traffic flow in urban            cations, further publications were added, which were
+streets. Therefore it is necessary to update the timing       published in the above mentioned period. Table 1
+of the traffic signal control (TSC) system to cope with       and Table 2 lists the search parameters used in this
+the prevailing urban traffic conditions [6­8].                study and the total number of papers that we have,
+                                                              respectively.
+  Researchers have been working on the use of nu-
+merous approaches for optimizing TST. Several                   Table 2 also illustrates the fact that several studies
+good quality reviews have been written previously             with one of the key phrases, i.e. TST optimization,
+within the problem area of TST or TSC settings [9,            has seen a significant increase over the past years,
+10]. are the two most recently published survey pa-           due to the continuous advancement in technology
+pers published in the year 2015, covering different           and the increasing number of vehicles on urban traf-
+methodological areas utilized until 2014 in this              fic. In shortlisting, only the studies about TST and
+problem field [9]. reviewed the work, concentrating           TSC have been included, which are either dealing
+solely on fuzzy logic strategies whereas [10] shed            with one of the parameters or the combination of
+light on fuzzy logic as well as some of the important         them. These parameters include cycle length of the
+work of Q-learning, & neural network approaches               traffic signal, green phase timing of the traffic signal,
+used in the domain of TSC setting [5, 11, 12]. are            offset and phase sequencing of the traffic signal. Stud-
+some of the other review papers covering the appli-           ies that are related to the connected vehicles, pedes-
+cation of frequently used CI-based methodologies              trians, simulation model calibration, as well as
+for controlling the flow of traffic at the urban traffic      macroscopic and mesoscopic traffic simulation are ex-
+networks. But in terms of technological advance-              cluded from this study. Figure 1 illustrates the num-
+ment, the period from January 2015 to January 2020            ber of publications included in this study after
+is huge and significantly important. There is a               shortlisting.
+dearth of a good literature review paper that should
+cover the literature published in these years regard-           The shortlisted publications have been further
+ing TSC and TST settings.                                     classified into two categories, that are "microsimula-
+                                                              tion-based optimization models" and "computational
+  The remainder of this paper is structured as fol-           intelligence models". In the 1st category, papers in-
+lows. Section 2 describes the research methodology            tegrated any one of the microsimulation tools for
+of the paper, section 3 covers the background of the          solving the TST problem with the proposed strat-
+TST while giving the structural design of TST and a           egy, are included. Whereas, the papers in the 2nd
+review of some frequently used microsimulation                category uses some sort of an estimation function
+tools respectively. Section 4 comprises a classifica-         to evaluate potential solutions during the search
+tion of TST optimization approaches along with a              process, in the hope of finding an optimal or near-
+concise review of the related approaches. The dis-            optimal solution. Some of the papers in this cat-
+cussion and the analysis of approaches are presented          egory also employed a microsimulation tool but only
+in Section 5, whereas the last section concludes
+Qadri et al. European Transport Research Review (2020) 12:55               Page 3 of 23
+
+Table 1 Search parameters of the literature review
+
+for the demonstration of the solution approach (see              Green Time: The time duration in seconds, during
+section 4 for further detail).                                      which a given traffic movement at signalized
+                                                                    intersection proceed at a saturation flow rate
+  Microsimulation tools are frequently used in TST re-
+lated researches. Our review also shows that approxi-            Cycle Length: Time required by a signal to complete
+mately 77% of the papers included in this study utilizes a          one cycle.
+microsimulation tool. There is a wide range of microsi-
+mulation tools available and utilized for research. There-       Phase Sequence: The order of the signal phases
+fore, it is useful to include a review, categorization, and         during the signal cycle.
+comparison of the most commonly used microsimula-
+tion tools for future work.                                      Change Interval: It is also known as the clearance
+                                                                    interval. It is the interval of yellow and red signal
+3 Background on traffic signal timing                               timing between phases of traffic signals to provide
+This section sketches out the idea around which the set-            clearance at an intersection before the onset of
+tings and the evaluation of TST and the controllers re-             conflicting traffic movements.
+volve. In subsection 3.1, we describe the important
+parameters of TST. Understanding of TSC's structural             Offset: The relationship between coordinated phases
+design is provided in section 3.2. Lastly, section 3.3 pre-         in terms of time.
+sents a critical review of the most commonly used
+microsimulation tools along with their common and               The number of stopped vehicles and the delay can be
+unique features.                                              reduced by increasing the green phase timing for a par-
+                                                              ticular movement. However, an increase in the green
+3.1 Traffic signal timing parameters                          time of one traffic movement usually occurs at the ex-
+One of the main purposes of TST settings is to move           pense of increased delay and the number of stopped ve-
+people safely and efficiently through an intersection by      hicles in other movements. Therefore, a good signal
+assigning the right-of-way. Some of the TST setting pa-       timing plan is one that allocates time so that overall traf-
+rameters should be able to adapt to the fluctuations in       fic performance, e.g. average wait delay time, is
+traffic demand and some should be controlled by the           optimized.
+traffic management authority. These control parameters
+are                                                           3.2 Structural Design of Traffic Signal Control
+                                                              Traffic signal control (TSC) strategies have been classi-
+                                                              fied into fixed-time, adaptive, and actuated control strat-
+                                                              egies [5, 13, 14]. The main reason behind this
+
+Table 2 Number of papers covering the literature review keywords per year
+Qadri et al. European Transport Research Review (2020) 12:55         Page 4 of 23
+
+Fig. 1 Journal and conference papers included in this study by year
+
+classification is the type of data and the algorithms they           present data to predict the cycle length of real-time traf-
+employ to optimize traffic signal plan.                              fic conditions. These sensors are placed at every road
+                                                                     within the bounds of the signalized network. However,
+  Fixed time TSC strategies are mainly appropriate                   these strategies cannot perform as much detailed ana-
+for the traffic signals, where the flow of traffic is                lysis as the fixed time strategies, because they have to
+somewhat stable and consistent. Based on previously                  regulate traffic signal plans instantly [17].
+observed traffic data, these strategies make use of off-
+line optimization algorithms for TST and end up with                   The traffic systems, especially in urban areas, are
+predetermined cycle length, split setting plan. The                  exceptionally dynamic. Any small disturbance can
+main objective of this strategy is to achieve an overall             suddenly alter traffic volumes. So, it is more beneficial
+goal, such as minimizing average delay, maximizing                   if the system is capable of reducing traffic congestion
+the capacity of a network, etc. [15, 16] developed the               in real-time. Now in today's world, with the use of
+initial models, which laid down the foundation of                    sensor technologies and additional strategies, the col-
+fixed-time traffic control strategies by minimizing the              lection of data in real-time is no more a challenging
+average delay. As the traffic system is exceptionally                task. With the abundance of data and the use of
+dynamic in urban areas, any small disturbance in                     available computational power, instant traffic manage-
+terms of a traffic collision, construction work, etc.                ment, or prediction of traffic scenarios can be
+can suddenly alter traffic volumes and render the                    possible.
+overall performance of a predetermined traffic signal
+plan insufficient.                                                   3.3 Review of frequently used microsimulation tools
+                                                                     Although analytical models are useful in terms of
+  On the contrary to fixed-time control strategies, the              providing insights into more general system behavior,
+main aim of the adaptive control strategies is to                    simulation tools have a prominent place in analyzing
+optimize the TST plan according to the present-time                  responses of traffic systems under a variety of condi-
+traffic situations in every phase. Hence the use of                  tions. A tool like simulation is very helpful in traffic
+sensor technologies came into practice. Initial sensor               engineering to analyze the complex dynamic behavior
+technologies were capable of discerning vehicular                    of a traffic stream. Simulation can be defined as the
+presence when they cross it.                                         imitation of real-world systems or processes for con-
+                                                                     veniently acquiring the information through analogous
+  Later on, visual systems came into heavy use. The ac-              traffic flow models. These models assist in describing
+tuated control strategies also use sensors and the actu-             the physical propagation of the flow of traffic. The
+ated controller decides the cycle length based on past               use of traffic simulation models is crucial for a
+information. Whereas the adaptive strategies are the
+modified form of actuated control, which uses the
+Qadri et al. European Transport Research Review (2020) 12:55                Page 5 of 23
+
+comprehensive investigation of the urban transporta-          International Bridge connecting the US-Mexico
+tion system in a safe and suitable environment.               border cities.
+
+  As a whole, traffic simulation can be dichotomized            We categorize and compare the seven most widely
+broadly into microscopic and macroscopic approaches.          used microsimulation tools based on eleven (11)
+The microscopic simulation approach contemplates              features and present the results in Table 3. Con-
+the individual behavior of the driver along with the          cerning the graphical user interface (GUI), all of the
+interaction with other vehicles or pedestrians, whereas       above-mentioned packages are found to be equally
+the macroscopic approach considers the vehicular              user-friendly and adequate. For the lane closures
+flow as a whole. Mesoscopic is another approach,              and the modeling of work zones, TransModeler has
+which is the hybrid of the previously mentioned ap-           great advantages over AIMSUN and VISSIM. In
+proaches. AIMSUN, CORSIM, MATSim, Paramics,                   terms of the decision modeling of vehicular routing,
+SUMO, VISSIM are some of the widely used microsi-             VISSIM allows easy input of a large amount of data
+mulation packages for exploring the wide array of dy-         through Excel spreadsheets. AIMSUN, VISSIM, and
+namic problems in urban traffic. There is a large             SUMO are the simulation tools that allow the user
+number of papers included in this study dealing with          to build and control models with an application pro-
+microsimulation in some form (either evaluation or as         gramming interface (API) by an external program-
+a part of the model). Therefore authors at this stage,        ming language. The "AIMSUN Next" by AIMSUN
+consider it necessary to discuss the characteristics of       provide the toolkit for the automation of task through
+some of the most commonly used microsimulation                programming environment. Whereas, Component Ob-
+packages for the readers.                                     ject Model (COM) and Traffic Control Interface
+                                                              (TraCI) are the programming interfaces provided by
+  Ratrout and Rahman [18] evaluated the attributes            VISSIM and SUMO respectively. The availability of a
+and characteristics of various commonly used traffic          hierarchical VISSIM-COM object model makes it eas-
+simulation packages and also provided the relative            ier to code a network with VISSIM as compared to
+analysis by focusing on some special features. They           SUMO. Previously AIMSUN did not have any feature
+found VISSIM, AIMSUN, and CORSIM suitable for                 of API. One of the most prominent features of AIM-
+modeling features like arterial, freeway congestion,          SUN Next is its speed, which provides its supremacy
+and integrated network of freeways and streets, and           to all other current microscopic simulation tools. Say-
+AIMSUN, CORSIM, and PARAMICS for intelligent                  ing AIMSUN tried to overcome all of its shortcom-
+transportation systems (ITS) [19]. compared the re-           ings through AIMSUN Next would not be wrong.
+sults of TransModeler, AIMSUN, and VISSIM at an
+
+Table 3 Classification of most commonly used traffic microsimulation tools
+Qadri et al. European Transport Research Review (2020) 12:55  Page 6 of 23
+
+Fig. 2 Number of publications utilizing microsimulation tool
+
+Except for AIMSUN Next, it is recommended that the            challenging, complex, and nonlinear stochastic prob-
+modeler must have moderate knowledge about pro-               lem for engineers and researchers to solve [5]. In
+gramming on Python, C++, or VBA while using VISS              the following subsections, we review traffic signal
+IM and SUMO for modeling, otherwise, AIMSUN                   control papers in two major categories. These are
+might be the optimal one. Except for the MatSim, all          papers utilizing "microSimOpt (Microsimulation-
+of the above-mentioned microsimulation tools provide          Based Optimization) models" and "computational
+the facility for both 2D and 3D visualization.                intelligence (CI) models". Each subsection includes a
+                                                              detailed table summarizing papers belonging to that
+  Figure 2 indicates that, within the search parame-          subsection based on several carefully selected pa-
+ters used in this paper, researchers have chosen VISS         rameters. These parameters are context/objectives,
+IM and SUMO (either for evaluation or as a part of            methods and parameters employed, type of intersec-
+the model) over all other available microsimulation           tion studied, control system strategy, source of data,
+tools in their research published over the last five          micro-simulation tool used as well as additional
+years. This is a clear proof of the superiority in the        comments.
+usage of both software. The number of times these
+tools are used is also mentioned at the top of each             In section 4.1, researches on the SimOpt model
+bar.                                                          with a focus on microscopic traffic simulation are
+                                                              introduced. The analysis of papers using CI methods
+4 Categorization of methodologies for traffic                 is given in section 4.2. If one of the studies included
+signal timing settings                                        in this review can be categorized into more than
+Traffic signal control is one of the most efficient           one (sub)section, it is included in the section based
+methods for urban traffic management, providing a             on the most dominant approach.
+smoother and more secure traffic flow at every
+intersection. From the time when the simple auto-             4.1 Microsimulation-based optimization model
+matic signal controller has been introduced, the              SimOpt, in general, is regarded as a field in which
+TSC system has been going through interminable                the optimization techniques are integrated with simu-
+improvements to address the factors that cause im-            lation analysis [20]. The reason for doing this is to
+pediments in TSC. Some of these impediments are               find the best decision variable values among all pos-
+inadequate transport infrastructure, an increasing            sibilities without explicitly evaluating (simulating)
+number of vehicles, weather conditions, traffic net-          each possibility [21]. In this sub-section, papers in
+work structure, etc. Each cause is notable in itself          which a microsimulation tool is integrated with the
+and has the full potential to generate congestion at          proposed strategy for solving the TST problem and
+any time in the network. As a whole, mitigating               have been utilized as an evaluation function in an
+traffic congestion caused by these reasons is a               optimization loop are reviewed. Simulation-
+Qadri et al. European Transport Research Review (2020) 12:55  Page 7 of 23
+
+optimization for TST is important because evaluating            Araghi, et al. [22] utilized a different nature-
+the effects of minor changes in decision variables re-        inspired algorithm called the cuckoo search algorithm
+garding TST can be assessed accurately through                for the first time to tune the parameters of intelli-
+microsimulation without actual implementation. For            gent controller optimally. The Intelligent controllers
+understanding the concept; the proposed strategy/al-          implemented in this study were a Neural Network
+gorithm asks the microsimulation model of the net-            (NN) and an Adaptive Neuro-Fuzzy Inference System
+work to evaluate the current solution and the results         (ANFIS). The fuzzy logic-based control system devel-
+from each simulation run are fed back to the pro-             oped by Jin, et al. [23] was capable of providing traf-
+posed algorithm until some stopping criterion(a). Re-         fic light indication during real-time operations after
+searchers have used numerous approaches of CI                 receiving the messages from the signal controller
+methods along with traffic simulation tools in the            hardware. The signal control and optimization tool-
+domain of TSC. These approaches include but not               boxes were integrated into the software embedded in
+limited to machine learning approaches, fuzzy logic,          the controller's device. In [24] Araghi et al. assessed
+and computational strategies such as Evolutionary             the performance of three meta-heuristic algorithms,
+Computation (EC), Swarm Intelligence (SI), and other          which were Simulated Annealing (SA), GA, and the
+population based-metaheuristic algorithms.                    CS on a complex advanced interval type-2 adaptive
+                                                              neuro-fuzzy inference system (IT2ANFIS) based traf-
+  Optimization of TST is a complex problem yet                fic signal controller. Mileti et al. [25] compared the
+cost-effective to mitigate traffic congestion and to          effectiveness of two different approaches used in pre-
+smooth the vehicular traffic flow. This optimization          mature traffic light control systems through six dif-
+problem has been widely addressed in the context              ferent scenarios of microsimulation models using
+of stochastic equilibrium network design with differ-         real-time data. The first method used in the com-
+ent approaches like deterministic and heuristic               parison was operated by fixed values for vehicle ar-
+methods. Due to the presence of a large number of             rival time and queue length ranges, while the second
+local optimum points in the convoluted solution               was based on fuzzy logic and, therefore it was more
+space of the problem, deterministic approaches like           adaptive.
+gradient-based methods are not effective. On the
+other hand, despite the nonconvex nature of the               4.1.2 Metaheuristics based approaches
+problem, heuristic approaches like the Genetic Algo-          Reference numbers [29­34] employ meta-heuristic
+rithm (GA), Particle Swarm Optimization (PSO) are             methods for optimization along with a micro-
+quite successful in the exploration of the search             simulation tool. Among the meta-heuristics imple-
+space. However, they may spend a comparatively                mentations, population-based methods were mostly
+long time in finding the global optimum solution. In          employed, where PSO, ACO, and GA are the most
+the next subsections, categorization, and evaluation          heavily utilized methods. In addition to some com-
+of recent literature on simulation-optimization based         mon objectives that are mentioned in the previous
+TST approaches are given.                                     sub(section), Elgarej et al. [32, 33] came up with a
+                                                              different objective of finding the shortest effective
+  The detailed analysis of the researches published           green time.
+over the past five years is included in Appendix 1.
+Below the categorization and evaluation of relevant             Gökçe et al. [29], Dabiri and Abbas [30], Panovski
+recent literature based on SimOpt. approaches are             and Zaharia [31], Chuo et al. [35] utilized PSO for
+presented.                                                    the fulfillment of their objectives. Among them, [29]
+                                                              is the only study that has been carried out for the
+4.1.1 Artificial intelligence-based approaches                signalized roundabout containing 28 signal heads,
+The papers [22­28] are employed a type of artificial          whereas [30, 31] worked on optimizing the arterial
+learning algorithm for solving the TST problem.               traffic signals having three intersections and the is-
+Among these studies, Neural Networks, Adaptive                sues related with traffic flow management in the
+Neuro-Fuzzy Inference System, Q-Learning, fuzzy               urban areas respectively. Jintamuttha, et al. [33] pro-
+logic, and Deep Reinforcement learning are the                posed a finite-interval model to achieve the objective
+adapted machine learning algorithms. Different objec-         regarding TST. A different swarm-based algorithm,
+tives have been used in these studies including               Bat algorithm, was utilized to relax the computa-
+minimization of average delay [22, 27], total travel          tional complexity. Chuo et al. [35] developed a
+time [24, 25], average queue length [26], optimization        multiple-intersection TST system. PSO with the small
+of TST plan [23], and maximization of the flow rate           adjustment was employed for the consistency of the
+[28].                                                         results.
+Qadri et al. European Transport Research Review (2020) 12:55  Page 8 of 23
+
+4.1.3 Multi-objective based approaches                        problems rather than operational, due to the difficul-
+Nguyen et al. [36], Hatri and Boumhidi [37], Zheng            ties involved in solving them for large instances in an
+et al. [38] are the only papers that employ a multi-          acceptable amount of time. Based on a dynamic pro-
+objective simulation-optimization approach. Although          gramming approach with NEMA configuration, the
+a relevant approach, there seems to be a research             real-time signal control algorithm was formulated by
+void in implementing multi-objective SimOpt for the           Chen et al. [41]. Dakic et al. [43] also proposed two
+TST problem.                                                  signal control algorithms based on the backpressure
+                                                              model to maximize throughput through an urban
+  Nguyen et al. [36] integrated a local search (LS)           traffic network. These two models were initialized
+algorithm with the iterations of NSGA-II in a way             and modified backpressure. Results revealed that the
+that the output of LS was becoming the next gener-            proposed algorithms outperformed the fixed time and
+ation's parents in their study. Results of the pro-           actuated control strategies
+posed NSGA-II-LS were compared with NSGA-II
+and multi-objective differential evolutionary algo-             To deal with the reliable TSC problem, Chen
+rithms and found that the proposed algorithm was              et al. [45] presented an approach in which the
+better than the other two approaches and good                 higher-order distributional information that was de-
+simulation results were achievable in the early phase         rived from a stochastic microscopic simulator was
+of the optimization procedure. To balance the                 used. The TSC problem was based on a linear com-
+equity and efficiency of traffic flow in the urban            bination of the expectation of total travel time and
+network Zheng et al. [38] presented a bi-objective            its standard deviation. For enhancing the computa-
+stochastic SimOpt approach. Two types of surrogate            tional efficiency of the algorithm, the analytical ap-
+models were also used to capture the mapping rela-            proximation of the simulated metrics was combined
+tionship between decision variables and objectives.           with the simulated data. According to the authors,
+VISSIM was used to model the case study network               such kinds of approaches can be utilized to inform
+and the results demonstrated that the proposed                the design and operation of the transportation
+model outperformed three other counterparts in-               system.
+cluding NSGA- II.
+                                                              4.2 Computational intelligence based models
+4.1.4 Bi-level programming based approaches                   The researches, which incorporates the CI-based ap-
+There are only two studies [39, 40] that employed a           proaches, are analyzed in this section. Papers in this
+bi-level programming approach, where signal settings          section, use some sort of an estimation function to
+are determined by the upper and lower level                   evaluate potential solutions during the search
+optimization tasks. With an objective function of             process, in the hope of finding an optimal or near-
+maximizing the weighted trip, Hajbabaie and Beneko-           optimal solution. Some of the papers also utilize
+hal in [39] formulated a program to optimize TST              microsimulation tools. But the usage of microsimula-
+and system optimal traffic assignment simultaneously.         tion tools here is not for the development of the
+By relaxing network loading and traffic assignment            proposed solution but rather to demonstrate possible
+constraints, the study also proposed a framework for          or potential benefits of the proposed solution. In this
+the calculation of the upper-bound value of the ob-           category, the approaches like fuzzy models, neural
+jective function.                                             networks, machine learning algorithms, evolutionary
+                                                              computation (EC), swarm intelligence (SI), and other
+  To obtain the optimal TST setting, Li et al. [40]           population-based metaheuristic algorithms are dis-
+designed a framework in such a way that the settings          cussed. Similar to Appendix 1, Appendix 2 presents a
+of traffic signals were determined by the upper level.        detailed analysis of work in this field under the same
+The upper level was intended to minimize the aver-            categories.
+age travel time of drivers, whereas the task for
+achieving the network's equilibrium was attained by             One of the strategies to optimize the traffic in
+the lower level through the settings provided by the          urban areas is the use of ITS, which implements the
+upper level.                                                  CI method to facilitate problem-solving that previ-
+                                                              ously seemed very difficult. CI is a collection of
+4.1.5 Miscellaneous approaches                                "intelligence" methods, including evolutionary com-
+References [41­48] employ a mathematical                      puting, fuzzy logic, and artificial neural networks with
+optimization method along with micro-simulation.              a claim of being the successor of Artificial
+The methods employed range from dynamic program-              Intelligence [49]. Moreover, CI can also capitalize on
+ming to backpressure to optimal control. These ap-            other approaches, like swarm intelligence and
+proaches are more likely to be useful for design phase        reinforcement learning, etc.
+Qadri et al. European Transport Research Review (2020) 12:55  Page 9 of 23
+
+  The inspiration for both EC and SI algorithms often         for multiple intersections. In the developed scheme, each
+comes from nature, like biological evolution. Classical       intersection was managed by an autonomous agent.
+ECs, encompass evolution strategies, evolutionary pro-
+gramming, GA, and genetic programming (GP). They                Vidhate et al. [56] and Genders et al. [57] modeled
+all are metaheuristic optimization techniques for find-       TSC using the RL algorithm based on real-time traf-
+ing the optimal or near-optimal solutions to the non-         fic data whereas Liang et al. [58] proposed a deep RL
+linear complex problem within an acceptable time              model to decide the TST and to control the cycle
+limit. They imitate natural processes, such as natural        length of traffic signal based on the data collected
+evolution under the principle of fit or adapted to the        through different sensors. Ozan et al. [61] presented
+environmental condition best, well known as the               a modified RL algorithm that was based on Q-
+phenomenon of the survival of the fittest [49]. The           Learning. The algorithm was further combined with
+origin of SI algorithms is from the behaviors of some         Transfyt-7F for finding the optimal TST of the coor-
+social living beings such as birds, ants, and fishes          dinated network. The proposed approach was better
+[50]. The main strength of SI based research mainly           than other RL based algorithms because of its ability
+depends on two families of algorithm namely ant col-          to produce a sub-environment in each learning event.
+ony optimization and particle swarm optimization.             The similarity in terms of size was kept constant
+They all are very successful in various kinds of              among the new and the original environment using
+optimization problems.                                        the best solution obtained from the previous learning
+                                                              event.
+  One of the motivations behind the development of
+EC was the growing demand for robust automated                  A decentralized TSC strategy based on the data
+problem solvers in the second half of the twentieth           collected from sensors was introduced by Bemas
+century, which should apply to a wide range of prob-          et al. [59]. A neuroevolution strategy was used to im-
+lems without the need for much tailoring, along with          prove the coupling configuration of the introduced
+satisfactory performance [51]. Montana et al. [52]            NN and SUMO was employed for the extensive
+presented one of the initial works through an evolu-          microsimulation based investigation of the proposed
+tionary approach for intelligent TSC. A hybrid ap-            model.
+proach of GA and strongly typed GP [53] was
+employed to optimize fixed cycle signal timings. On           4.2.2 Metaheuristics based approaches
+the comparison, of both the strategies for three small        Metaheuristic approaches are one of the widely imple-
+different network settings, it was found that in all          mented by researchers in the optimization of TSC strat-
+the cases, GP's performance was better than that of           egies. References [62­75] implemented metaheuristic
+GA. These were some details of the preeminent early           algorithms such as SI, SA, GA, Bee colony, memetic al-
+work that came into the category of CI-based                  gorithm, PSO, differential evolution, HS, etc. Our ana-
+optimization for TST. The detailed summaries of the           lysis shows that the population-based algorithms are the
+work that fits with our literature search parameters          most widely used metaheuristic algorithms in optimizing
+are given in Appendix 2. This table reflects the di-          TSC strategies.
+versity of TST optimization in terms of solution
+methodology and lists the details of recently pub-              Li et al. [62] presented a hybrid solution algorithm
+lished research.                                              for arterial TST optimization based on SA and GA.
+                                                              Gao et al. [63] and Gao et al. [72] considered the
+  Below the categorization and evaluation of relevant re-     scheduling of urban traffic light as the model-based
+cent literature are presented based on CI methods             optimization problem. To solve this problem, the
+utilized.                                                     discrete harmony search algorithm was employed in
+                                                              [63], whereas, five metaheuristics were implemented
+4.2.1 Artificial intelligence-based approaches                in [72]. Bie et al. [64], Guo et al. [71] and Tan et al.
+A variety of different AI-based methods [54­61] were          [65] developed GA to optimize the TST settings of
+used for eliminating bottlenecks or to increase the           the respective networks and objective functions. Jova-
+throughput at the signalized intersections.                   novi et al. [66] used the BC algorithm to solve TST
+                                                              of isolated intersection in an undersaturated and
+  Xiang and Chen [54] proposed a Back Propagation             oversaturated traffic conditions.
+neural network-based Grey Qualitative Reinforcement
+Learning algorithm to eliminate bottlenecks and to avoid        To control the flow of traffic, Manandhar and Joshi
+reducing traffic flow and timing plan function relation-      [68] developed a hybrid system that incorporated the
+ships. Benhamza et al. [55] used a multi-agent frame-         Statistical Multiplexing technique and PSO. Based on
+work for the development of an adaptive TST scheme            PSO Tarek et al. [67] also developed a TST control
+                                                              strategy for the signalized roundabout that was com-
+                                                              bined with the three different sub-controllers.
+Qadri et al. European Transport Research Review (2020) 12:55  Page 10 of 23
+
+4.2.3 Multi-objective based approaches                        traffic network to record the traffic dynamics and
+Due to conflict among different objectives of TST             queue spillback in real-time. In [86] a convex (quad-
+optimization, some of the research in the literature con-     ratic) programming approach was utilized to optimize
+sidered multi-objective models to optimize the TST            the pedestrian as well as vehicular TST at an isolated
+problem. References [76­78] refer to the problem of           intersection.
+TST optimization with multi-objective models.
+Optimization of traffic capacity was the common object-       4.2.5 Miscellaneous approaches
+ive among the above-mentioned studies. Other than this,       References [87­100] present miscellaneous approaches
+popular objectives were the minimization of vehicle           to optimize TST settings and TSC strategies. These
+delay, stopping time, and vehicle emission.                   approaches include stochastic programming, semi-
+                                                              analytic, stage-based sequencing, elimination pairing,
+  Yu et al. [76] employed a fuzzy compromise pro-             etc.
+gramming approach. In this approach, different weight
+coefficients were assigned to various optimization ob-          A multi-stage stochastic program for the adaptive
+jectives. These weights could be different depending          TSC system, which was based on phase clearance reli-
+on the states of the traffic flow ratio. After assigning      ability, was proposed by Ma et al. [87]. In the first
+the weights, the multi-objective function was con-            stage, a base timing plan that included the cycle
+verted to a single objective which was solved through         length and green timing of each phase was developed,
+GA. Zhao et al. [77] and Jia et al. [78] used PSO with        while in the second stage, the green splits and offsets
+some improvement for their multi-objective TST                were adapted to the current traffic conditions. Differ-
+models.                                                       ent from the existing methods, Jiao et al. [88] pro-
+                                                              posed a model that was intended to minimize average
+4.2.4 Dynamic, MILP & non-linear programming based            delay time per person, rather than the delay of vehi-
+approaches                                                    cles from traffic intersection. In the first stage, the
+References, [79­83] formulated the TST optimization           curves of the accumulative arriving and departing ve-
+problem as mixed-integer linear programming (MILP)            hicles were fitted and the delay functions of the vehi-
+whereas references [84, 85] presented as the non-linear       cles were formulated during each phase of the signal.
+programming models                                            Subsequently, the delay time of the vehicle was
+                                                              shifted to personal delay time, taking into account the
+  Countering the oversaturated condition problem of           passenger load of the vehicles. This personal delay
+TSC, He et al. [79] introduced the partial grade separ-       time was further employed as the objective function
+ation at a signalized intersection. A lane-based              and proposed a TST optimization model for attaining
+optimization model for lane configuration and TST set-        real-time signal parameters. Simoni et al. [89] intro-
+tings was formulated as MILP, which was solved by             duced a Hamilton­Jacobi formulation to model the
+branch and bound method. Mehrabipour et al. [80] also         TST over the arterial road based on the Lighthill
+modeled TST of network-level as MILP. To find the             Whitham Richards model.
+near-optimal TST parameters, a rolling horizon solution
+methodology was developed. Based on the vehicle trajec-         Keeping the focus on Network Signal Setting Design,
+tory data in urban road networks, Yan et al. [82] formu-      Memoli et al. [90] introduced scheduled
+lated a network-level multiband signal coordination           synchronization. This scheduled synchronization in-
+scheme as MILP to provide progression bands for major         cluded the scheduling of green phase timing and
+traffic streams. For optimizing TST parameters Köhler         synchronization to a single optimization problem. The
+et al. [81] presented an approach based on a cyclically       stage-based method was proposed to solve the problem,
+time-expanded network model. The model was able to            which was the extension of the synchronization method
+optimize traffic assignment problems at the same time.        and the flow model of traffic. Eriskin et al. [91] proposed
+The MILP model was for optimizing the control                 a new method, elimination pairing system, for designing
+parameters.                                                   TST at the oversaturated condition. Afdelghaffar et al.
+                                                              presented the idea of an isolated and adaptable decentra-
+  Mohebifard et al. [84] formulated the network-level         lized cycle free TST controller in [92, 93]. The
+TST optimization problem as a Mixed-Integer Non-              optimization of TST was achieved through the Nash-
+Linear Program (MINLP) which was based on the                 Bargaining game theory approach. Wu et al. [96] pre-
+Cell Transmission Model (CTM) and presented a cus-            sented a distributed TSC strategy for the traffic lights in
+tomized methodology to solve it with a tight optimal-         the network. Tang et al. [97] formulated a non-
+ity gap. Yu et al. [85] put forward a non-linear              centralized TSC paradigm to control phase timing based
+programming model for an optimal TSC setting. A               on fog computing.
+new aspect of this model was combining the double
+queue traffic flow model to the signal-controlled
+Qadri et al. European Transport Research Review (2020) 12:55  Page 11 of 23
+
+Fig. 3 Publications per year according to the category
+
+5 Discussion                                                  traffic controllers are not economically feasible and
+                                                              require a large investment for their configuration and
+5.1 Analysis of findings                                      maintenance. In terms of parameters, it has also been
+TST optimization is a difficult and complex problem to        observed that the offset in the network of intersec-
+solve. It usually involves stochasticity due to the ran-      tions has been targeted for optimization in a very
+domness of demand for flow and behavior of players.           limited number of studies.
+Realistic problems' solution space is so vast that search-
+ing for optimal or near-optimal solutions is a challenging      Figure 3 shows that the number of studies using a
+task, to say the least.                                       SimOpt model over the past 5 years is relatively
+                                                              fewer in number. Our analysis shows that the
+  Jin et al. [23], Vogel et al [26] developed a fuzzy         population-based algorithms are the most widely
+logic based traffic light controller for an isolated traf-    used metaheuristic algorithms in optimizing TSC
+fic intersection. Results were very encouraging in            strategies. In terms of approaches developed for both
+terms of congestion, travel time, etc. But according          the control strategies that are fixed time and real-
+to [31, 75] fuzzy logic and machine-learning-based
+
+Fig. 4 Research publication according to approaches
+Qadri et al. European Transport Research Review (2020) 12:55  Page 12 of 23
+
+time, the majority of the researchers preferred to            5.1.3 Real-time vs. fixed-time control
+work on fixed time controls over the real-time sys-           Our analysis finds out that, still a significant amount
+tems. Metaheuristic approaches are utilized mostly            of research is performed for fixed-time controllers, ra-
+for optimization, in 69% of studies with fixed-time           ther than real-time controllers. Among simulation-
+control strategies and 49% of studies with real-time          optimization methods, 63% of papers utilized fixed-
+control strategies. It is also quite clear that the solu-     time compared to 37% of papers utilizing real-time
+tion to the problem of optimizing TST lies in the             control. For papers in the CI category, 42% of papers
+real-time traffic control strategy that can deal with         worked on a fixed-time control problem compared to
+the fluctuation of traffic.                                   58% of papers on real-time control.
+
+  We also find out that microsimulation tools are               Furthermore, Fig. 4 epitomizes the types of ap-
+used at an increasing rate. Among the many available          proaches developed for both the control strategies
+microsimulation tools, VISSIM and SUMO have been              that are fixed time and real-time. We observe the
+used in 60% of the studies either for evaluation or as        dominance of Metaheuristic approaches in both strat-
+a part of the model published over the last five years.       egies and machine learning algorithms, especially for
+This is a clear proof of the superiority in the usage of      real-time control.
+both software.
+                                                              5.1.4 Signalized roundabouts
+5.1.1 Analytical vs simulation-optimization and CI methods    Although in many countries, roundabouts used to be
+As mentioned in section 2, 77% of studies that were           non-signalized, more and more countries are adapting
+analyzed utilized a microsimulation tool. Besides, we         signalization of roundabouts led by the UK, France,
+have also come across some papers utilizing analyt-           Sweden, and Turkey [107, 108]. United States Depart-
+ical methods. The search for 2015­2020 resulted in            ment of Transportation Federal Highway Administra-
+a total of 10 such papers [76, 84, 88, 91, 101­106]           tion discourages the use of fully signalized
+utilizing an analytical approach. Only 3 papers [84,          roundabouts but also concedes that unexpected de-
+103, 105] considered a network problem, and the               mand may require signalization [109, 110]. In any
+remaining 7 considered a single network problem.              case, one should expect a significant amount of litera-
+But the size of the realistic problems and the                ture on the signal timing of roundabouts. We have
+amount of interaction that needs to be included in            come across only two studies [29, 67] on signalized
+the model for them to be interesting, make use of             roundabouts.
+analytical methods significantly less practical (prom-
+ising) for TST problems. Analytical models are use-           5.1.5 Experimentation with realistic conditions
+ful to gain insights into the problem but getting             Testing proposed solution methods to TST is im-
+useful results is difficult for two reasons. Either the       portant to truly evaluate its effectiveness. Traffic flow
+number of interactions that need to be included in            data is complex and presents particular challenges in
+the model or the solution time required, make use             imitating. That is probably one of the reasons, why
+of these analytical models prohibitive. For these rea-        there are no well-established data sets that one could
+sons, analytical models are not included in this re-          test his/her proposed method, like the ones found,
+view paper.                                                   e.g. for scheduling problems. For this reason, testing
+                                                              with real-life data is important. From our analysis,
+5.1.2 Single vs network of intersections                      we found that about 44.4% of researches utilizing
+Traffic is a very much a flow problem. Therefore, it          simulation-optimization methods tested with real-life
+may not be enough to improve traffic at a single              data compared to about 42.2% of research utilizing
+intersection or roundabout when the next intersec-            CI methods.
+tion is blocked. Traffic conditions are very much af-
+fected by driver characteristics, roadway conditions,         5.1.6 Evaluation of solutions
+and environmental conditions. Therefore effective             Appendices 1 and 2 list the objective functions used
+TST methods should be able to solve for a network             to compare solutions in search of the best. We find
+of intersections, representing problematic areas in an        out that 61% of papers use average delay, average
+urban setting. Our analysis shows that only about             travel time, queue length, and flow rate (or some
+53.5% of simulation-optimization papers and 54.3% of          function of them) for this purpose.
+CI papers worked on some sort of network of
+intersections.                                                5.2 Implications for practice
+                                                              In this subsection, we summarize some of the implica-
+                                                              tions for practice from the analysis of findings.
+Qadri et al. European Transport Research Review (2020) 12:55  Page 13 of 23
+
+  Real-time controllers are more flexible to adapt to         for the researchers in this area would be getting these
+ever-changing requirements. We believe that fixed-            methods to the decision-makers and adapters.
+time controllers will have a less practical impact and
+therefore more research effort can be expected to               Papers studying fixed time controllers are made to set
+real-time control strategies.                                 the best possible timings for expected traffic flow. The
+                                                              rest of the studies are made to employ real-time data (ei-
+  Working with real-time control strategies, with real        ther using sensors or cameras) and react to the conges-
+data over a large network of intersections all contrib-       tion and try to mitigate the resulting problem.
+ute to already high computational requirements for
+solving TST problems. This means difficulty for ana-            Recent years have witnessed a significant increase in
+lytical approaches and increased utilization of heuris-       the advancement of prediction algorithms, computing
+tic approaches. There are studies [7, 62, 65, 69, 71,         power, and the availability of real-time data. These
+96, 97], especially under the heading of metaheuristic-       facts along with advances in the heuristic algorithms
+based approaches (subsection 4.2), that utilize heuris-       can lead to proactive models, which may now be suc-
+tics; though these applications are not enough and            cessfully developed. Proactive models can predict a
+most of them found so far, are far away from being            traffic flow problem before it happens and calculate
+extensively customized. In addition, few utilize cus-         necessary changes in the TSC system to either pre-
+tomized representations and data structures, which            vent it totally or decrease the adverse effects. These
+can be crucial in performance. Also due to the nature         proactive models may also be combined with a new
+of the traffic problem, the management of a large             area of simulation-optimization. The concept of a
+network of intersections' TST becomes important. We           digital twin has been gaining popularity for the manu-
+realize larger the network, the more difficult solution       facturing environment. By definition, "Digital twins
+or even representation of a solution is.                      integrate internet of things, AI, machine learning, and
+                                                              software analytics with spatial network graphs to cre-
+6 Conclusion, directions for future research                  ate living digital simulation models that update and
+Based on the categorization and analysis of state-of-         change as their physical counterparts change." [111].
+art for TST, the authors propose a number of direc-           With the aforementioned advances, it is possible and
+tions for future research, associated opportunities, and      interesting to apply the idea of a digital twin to an
+challenges.                                                   urban traffic model. The use of a digital twin for the
+                                                              urban traffic system within the correct framework
+  Today's urban traffic system comes under great              may enable estimating possible problems earlier and
+stress during sudden transient peak demand that               lead to an improvement in the computational power
+forms, either with or without prior information. These        almost real-time.
+events diverge from the regular traffic in important
+characteristics; like being transient, specific to a re-        The great majority of papers found on the relevant
+gion, resulting from an emergency, disaster requiring         topic singles out traffic signal timing and its effects on
+evacuation, or a large public event. Modeling and so-         usually average delay and/or emissions. An important
+lution for TST after such events is a research gap            part of heavy traffic intersections, especially in metropol-
+that must be filled.                                          itan areas are pedestrians. Except for [86, 98], pedes-
+                                                              trians and the effect of their behavior are not modeled
+  Our analysis found out that only two papers dealing         into the studies. The same goes for driver behavior. An
+with signalized roundabouts. Roundabouts have a differ-       important avenue of research would be to analyze the ef-
+ent flow dynamic compared to regular intersections.           fects of pedestrian and driver behavior on the models.
+With the increasing use of signalized roundabouts, espe-
+cially in metropolitan areas, we believe TST for signal-        There is a big increase in the number of studies
+ized roundabouts presents a particular research gap           dealing with autonomous vehicles and technologies.
+within this area.                                             To the best of the author's knowledge, all these stud-
+                                                              ies exclusively study the general area of how autono-
+  We found that still less than half of the papers on         mous vehicles, flow in traffic safely and/or efficiently
+TST optimization are performed utilizing real-life            and/or environmentally friendly, etc. However, we
+data. The lack of standardized data sets and the com-         did not come across studies that benefit from au-
+plexity of traffic flow data suggests studies tested with     tonomous vehicles and related technologies for TST
+real-life data will have more impact in the field.            optimization. A great majority of research on autono-
+                                                              mous technologies and TST are studied in rural
+  Although there are studies made using real-life data        highway environments, rather than urban. We believe
+and real-time control, there are few or almost no             there is a research opportunity to study TST in
+mention of findings and/or methods being applied or           urban settings with the heavy use of autonomous
+adapted in real life. One of the important challenges         vehicles.
+Qadri et al. European Transport Research Review (2020) 12:55  Page 14 of 23
+
+7 Appendix 1
+
+7.1 Categorization of existing literature on the SimOpt
+mode
+Qadri et al. European Transport Research Review (2020) 12:55  Page 15 of 23
+Qadri et al. European Transport Research Review (2020) 12:55  Page 16 of 23
+
+8 Appendix 2
+
+8.1 Categorization of existing literature on CI based model
+The researchers from the transportation field working
+in the area of TST are moving towards the imple-
+mentation of hybrid algorithms. The main idea be-
+hind this is to overcome flaws in one algorithm,
+especially to reduce complexity and speed up the pro-
+cesses so that they can be more useful in optimizing
+TST. Sign of addition i.e. "+" between the two differ-
+ent strategies in the "Method / Tool" column of sum-
+mary in Appendix 2 showing the hybrid of those two
+strategies, like [62, 75] presented the hybrid of SA-
+GA and TS-ABC based algorithms respectively for
+solving the problem. Additionally, the table also indi-
+cates whether the results generated from the underex-
+amined strategy is verified by any simulation means
+or not.
+Qadri et al. European Transport Research Review (2020) 12:55  Page 17 of 23
+Qadri et al. European Transport Research Review (2020) 12:55  Page 18 of 23
+Qadri et al. European Transport Research Review (2020) 12:55  Page 19 of 23
+Qadri et al. European Transport Research Review (2020) 12:55                            Page 20 of 23
+
+Abbreviations                                                                           9. Koukol, M., I, L. Z., Marek, L., & I, P. T. (2015). Fuzzy logic in traffic engineering : A
+ABC: Artificial Bee Colony Algorithm; ACO: Ant Colony Optimization;                           review on signal control. Mathematical Problems in Engineering, 2015, 1­14.
+AIMSUN: Advanced Interactive Microscopic Simulator for Urban and non-                         https://doi.org/10.1155/2015/979160.
+urban Networks; ANFIS: Adaptive Neuro-Fuzzy Inference System; BC: Bee
+Colony algorithm; CI: Computational Intelligence; CS: Cuckoo Search;                    10. Araghi, S., Khosravi, A., & Creighton, D. (2015). A review on computational
+CTM: Cell Transmission Model; CORSIM: CORridor SIMulation; Cycl. L: Cycle                     intelligence methods for controlling traffic signal timing. Expert Systems with
+Length; DE: Differential Evolution; DGA: Decentralized GA; EA: Evolutionary                   Applications, 42, 1538­1550. https://doi.org/10.1016/j.eswa.2014.09.003.
+Algorithm; EC : Evolutionary Computation; GA: Genetic Algorithm;
+GP: Genetic Programming; GUI: Graphical User Interface; HS: Harmony                     11. Yu, Q., Liu, J. G., Liu, P. H., et al. (2009). Dynamic optimization project study
+Search; IT2ANFIS: Interval Type-2 Adaptive Neuro-Fuzzy Inference System;                      between the traffic organization and the traffic signal control of urban
+ITS: Intelligent Transportation System; LS: Local Search algorithm;                           traffic. 2009 WRI World Congress Computer Science Information Engineering
+MA: Memetic Algorithm; MATSim : Multi-Agent Transport SIMulation;                             CSIE 2009, 3, 182­186. https://doi.org/10.1109/CSIE.2009.63.
+MILP: Mixed Integer Linear Programming; MODEA: Multi-Objective
+Differential Evolutionary Algorithm; MINLP: Mixed Integer Non Linear                    12. Ng, K. M., Reaz, M. B. I., Ali, M. A. M., & Chang, T. G. (2013). A brief survey on
+Programming; NN: Neural Network; NSGA: Non-dominated Sorting Genetic                          advances of control and intelligent systems methods for traffic-responsive
+Algorithm; Paramics: PARAllel MICroscopic Simulation; Phase Seq.: Phase                       control of urban networks. Teh Vjesn, 3, 555­562.
+Sequence; PSO: Particle Swarm Optimization; RL: Reinforcement Learning;
+SA: Simulated Annealing; SI: Swarm Intelligence; SPSA: Simultaneous                     13. Papageorgiou, M., Diakaki, C., Dinopoulou, V., et al. (2003). Review of road
+Perturbation Stochastic Approximation; SUMO : Simulation of Urban Mobility;                   traffic control strategies. Proceedings of the IEEE, 91, 2043­2067.
+SimOpt: SIMulation-based OPTimization; TS: Tabu Search; TSC : Traffic Signal
+Control; TST: Traffic Signal Timing; Transyt-7F: TRAffic Network StudY Tool,            14. Ribeiro, I. M., & Simões, M. D. L. D. O. (2016). The fully actuated traffic control
+version 7F; UTOPIA: Urban Traffic Optimization by Integrated Automation;                      problem solved by global optimization and complementarity. Engineering
+VISSIM: Verkehr In Städten -SIMulationsmodell                                                 Optimization, 48, 199­212. https://doi.org/10.1080/0305215X.2014.995644.
+
+Acknowledgements                                                                        15. Webster, F. V. (1958). Traffic signal setting. Road Research Laboratory
+Not Applicable.                                                                               Technical Paper /UK/, 39, 1­44.
+
+Authors' contributions                                                                  16. Miller, A. J. (1963). Settings for fixed-cycle traffic signals. The Journal of
+The authors declare that they all contributed to the research for this article,               the Operational Research Society, 14, 373­386. https://doi.org/10.2307/
+drafting the manuscript and that they approved submission.                                    3006800.
+
+Funding                                                                                 17. Küçükolu, ., Dewil, R., & Cattrysse, D. (2019). Hybrid simulated annealing
+Not Applicable.                                                                               and tabu search method for the electric travelling salesman problem with
+                                                                                              time windows and mixed charging rates. Expert Systems with Applications,
+Availability of data and materials                                                            134, 279­303. https://doi.org/10.1016/j.eswa.2019.05.037.
+Not Applicable.
+                                                                                        18. Ratrout, N. T., & Rahman, S. M. (2009). A comparative analysis of currently
+Competing interests                                                                           used microscopic and macroscopic traffic simulation software. Arabian
+The authors declare that they have no competing interests.                                    Journal for Science and Engineering, 34, 121­133.
+
+Received: 7 February 2020 Accepted: 12 August 2020                                      19. Salgado, D., Jolovic, D., Martin, P. T., & Aldrete, R. M. (2016). Traffic
+                                                                                              microsimulation models assessment­a case study of international land port
+References                                                                                    of entry. Procedia - Procedia Computer Science, 83, 441­448. https://doi.org/
+1. Litman, T. A. (2003). Transportation cost and benefit analysis: Techniques,                10.1016/j.procs.2016.04.207.
+
+      estimates and implications. Victoria: Victoria Transport Policy Institute.        20. Deng, G. (2007). Simulation-based optimization doctoral dissertation,
+2. Fyhri, A., & Marit, G. (2010). Science of the Total environment noise , sleep              University of Wisconsin-Madison.
+
+      and poor health : Modeling the relationship between road traf fi c noise          21. Carson, Y., & Maria, A. (1997). Simulation optimization: Methods and
+      and cardiovascular problems. Science of the Total Environment, 408, 4935­               applications. In S. Andradóttir, K. J. Healy, D. H. Winters, & B. L. Nelson (Eds.),
+      4942. https://doi.org/10.1016/j.scitotenv.2010.06.057.                                  Proceedings of the 1997 winter simulation conference, (pp. 118­126).
+3. Agarwal, S., & Swami, B. L. (2011). Road traffic noise , annoyance and
+      community health survey - a case study for an Indian city. Noice Heal, 13,        22. Araghi, S., Khosravi, A., & Creighton, D. (2015). Intelligent cuckoo search
+      272­277. https://doi.org/10.4103/1463-1741.82959.                                       optimized traffic signal controllers for multi-intersection network. Expert
+4. Howell, W. C., & Fu, M. C. (2006). Simulation optimization of traffic light signal         Systems with Applications, 42, 4422­4431. https://doi.org/10.1016/j.eswa.2015.
+      timings via perturbation analysis doctoral dissertation, University of Maryland.        01.063.
+5. Zhao, D., Dai, Y., & Zhang, Z. (2012). Computational intelligence in urban
+      traffic signal control: A survey. IEEE Transactions on Systems, Man, and          23. Jin, J., Ma, X., & Kosonen, I. (2017). An intelligent control system for traffic
+      Cybernetics Part C: Applications and Reviews, 42, 485­494. https://doi.org/10.          lights with simulation-based evaluation. Control Engineering Practice, 58, 24­
+      1109/TSMCC.2011.2161577.                                                                33. https://doi.org/10.1016/j.conengprac.2016.09.009.
+6. Tan, M. K., Chuo, H. S. E., Chin, R. K. Y., et al. (2017). Genetic algorithm based
+      signal optimizer for oversaturated urban signalized intersection. In 2016 IEEE    24. Araghi, S., Khosravi, A., Creighton, D., & Nahavandi, S. (2017). Influence of
+      Int Conf Consum electron ICCE-Asia 2016 5­8. https://doi.org/10.1109/ICCE-              meta-heuristic optimization on the performance of adaptive interval type2-
+      Asia.2016.7804762.                                                                      fuzzy traffic signal controllers. Expert Systems with Applications, 71, 493­503.
+7. Sabar, N. R., Kieu, L. M., Chung, E., et al. (2017). A memetic algorithm for real          https://doi.org/10.1016/j.eswa.2016.10.066.
+      world multi-intersection traffic signal optimisation problems. Engineering
+      Applications of Artificial Intelligence, 63, 45­53. https://doi.org/10.1016/j.    25. Mileti, M., Kapusta, B., & Ivanjko, E. (2018). Comparison of two approaches
+      engappai.2017.04.021.                                                                   for preemptive traffic light control. In Proc Elmar - Int Symp electron, (pp.
+8. Akcelik, R. (1981). Traffic signals: Capacity and timing analysis, (vol. 123).             57­62). https://doi.org/10.23919/ELMAR.2018.8534608.
+      Melbourne: Australian Road Research Board, ARR.
+                                                                                        26. Vogel, A., Oremovi, I., Simi, R., & Ivanjko, E. (2018). Improving traffic light
+                                                                                              control by means of fuzzy logic. In In 2018 international symposium ELMAR,
+                                                                                              (pp. 16­19).
+
+                                                                                        27. Wei, H., Zheng, G., Yao, H., & Li, Z. (2018). Intellilight: A reinforcement
+                                                                                              learning approach for intelligent traffic light control. In In proceedings of the
+                                                                                              24th ACM SIGKDD international conference on Knowledge Discovery & Data
+                                                                                              Mining, (pp. 2496­2505).
+
+                                                                                        28. Garg, D., Chli, M., & Vogiatzis, G. (2018). Deep reinforcement learning for
+                                                                                              autonomous traffic light control. In 2018 3rd IEEE international conference on
+                                                                                              intelligent transportation engineering, ICITE 2018, (pp. 214­218). https://doi.
+                                                                                              org/10.1109/ICITE.2018.8492537.
+
+                                                                                        29. Gökçe, M. A., Öner, E., & Iik, G. (2015). Traffic signal optimization with
+                                                                                              particle swarm optimization for signalized roundabouts. Simulation, 91, 456­
+                                                                                              466. https://doi.org/10.1177/0037549715581473.
+
+                                                                                        30. Dabiri, S., & Abbas, M. (2016). Arterial traffic signal optimization using
+                                                                                              particle swarm optimization in an integrated VISSIM-MATLAB simulation
+                                                                                              environment. In IEEE Conf Intell Transp Syst proceedings, ITSC, (pp. 766­771).
+                                                                                              https://doi.org/10.1109/ITSC.2016.7795641.
+Qadri et al. European Transport Research Review (2020) 12:55                              Page 21 of 23
+
+31. Panovski, D., & Zaharia, T. (2016). Simulation-based vehicular traffic lights         50. Parpinelli, R. S., & Lopes, H. S. (2011). New inspirations in swarm intelligence:
+      optimization. In In 2016 12th international conference on signal-image                    A survey. International Journal of Bio-Inspired Computer, 3, 1. https://doi.org/
+      Technology & Internet-Based Systems, (pp. 258­265). https://doi.org/10.1109/              10.1504/IJBIC.2011.038700.
+      SITIS.2016.49.
+                                                                                          51. Eiben, A. E., & Smith, J. E. (2012). Introduction to evolutionary computing
+32. Elgarej, M., Khalifa, M., & Youssfi, M. (2016). Traffic lights optimization with            genetic algorithms, (2nd ed., ). Berlin: Springer Netherlands.
+      distributed ant colony optimization based on multi-agent system.
+      International Conference Networked System, 266­279. https://doi.org/10.1007/        52. Montana, D. J., & Czerwinski, S. (1996). Evolving control laws for a network
+      978-3-642-60749-3_9.                                                                      of traffic signals. In Proceedings of the 1st annual conference on genetic
+                                                                                                programming, (pp 333­338). ISBN:0-262- 61127-9.
+33. Jintamuttha, K., Watanapa, B., & Charoenkitkarn, N. (2016). Dynamic traffic
+      light timing optimization model using bat algorithm. In In 2016 2nd                 53. Montana, D. J. (1995). Strongly typed genetic programming. Evolutionary
+      international conference on control science and systems engineering (ICCSSE),             Computation, 3, 199­230.
+      (pp. 181­185). https://doi.org/10.1109/CCSSE.2016.7784378.
+                                                                                          54. Xiang, J., & Chen, Z. (2015). Adaptive traffic signal control of bottleneck
+34. Ahmed, E. K. E., Khalifa, A. M. A., & Kheiri, A. (2018). Evolutionary                       subzone based on grey qualitative reinforcement learning algorithm. In
+      computation for static traffic light cycle optimisation. International                    international conference on pattern recognition applications and methods
+      Conference on Computer Control Electric Electron Engineering, 2018, 1­6.                  (ICPRAM), (pp. 295­301). https://doi.org/10.5220/0005269302950301.
+
+35. Chuo, H. S. E., Tan, M. K., Chong, A. C. H., et al. (2017). Evolvable traffic signal  55. Benhamza, K., & Seridi, H. (2015). Adaptive traffic signal control in multiple
+      control for intersection congestion alleviation with enhanced particle                    intersections network. Journal of Intelligent Fuzzy Systems, 28, 2557­2567.
+      swarm optimisation. Proc - 2017 IEEE. In 2nd Int Conf autom control Intell                https://doi.org/10.3233/IFS-151535.
+      Syst I2CACIS 2017 2017-Decem, (pp. 92­97). https://doi.org/10.1109/I2CACIS.
+      2017.8239039.                                                                       56. Vidhate, D. A., & Kulkarni, P. (2017). Cooperative multi-agent reinforcement
+                                                                                                learning models (CMRLM) for intelligent traffic control. In Proc - 1st Int Conf
+36. Nguyen, P. T. M., Passow, B. N., & Yang, Y. (2016). Improving anytime                       Intell Syst Inf Manag ICISIM 2017 2017-Janua, (pp. 325­331). https://doi.org/
+      behavior for traffic signal control optimization based on NSGA-II and local               10.1109/ICISIM.2017.8122193.
+      search. Proceedings of International Joint Conference on Neural Networks,
+      4611­4618. https://doi.org/10.1109/IJCNN.2016.7727804.                              57. Genders, W., & Razavi, S. (2018). Evaluating reinforcement learning state
+                                                                                                representations for adaptive traffic signal control. Procedia Computer Science,
+37. Hatri, C. E. L., & Boumhidi, J. (2016). Q-learning based intelligent multi-                 130, 26­33. https://doi.org/10.1016/j.procs.2018.04.008.
+      objective particle swarm optimization of light control for traffic urban
+      congestion management. In In 2016 4th IEEE international colloquium on              58. Liang, X., Du, X., Member, S., & Wang, G. (2019). A deep reinforcement
+      information science and technology (CiSt), (pp. 794­799). https://doi.org/10.             learning network for traffic light cycle control. IEEE Transactions on
+      1109/CIST.2016.7804996.                                                                   Vehicular Technology, 68, 1243­1253. https://doi.org/10.1109/TVT.2018.
+                                                                                                2890726.
+38. Zheng, L., Xu, C., Jin, P. J., & Ran, B. (2019). Network-wide signal timing
+      stochastic simulation optimization with environmental concerns. Applied Soft        59. Bernas, M., & Placzek, B. (2019). A neuroevolutionary approach to controlling
+      Computing - Journal, 77, 678­687. https://doi.org/10.1016/j.asoc.2019.01.046.             traffic signals based on data from sensor network. Sensors, 19, 1­24.
+                                                                                                https://doi.org/10.3390/s19081776.
+39. Hajbabaie, A., & Benekohal, R. F. (2015). A program for simultaneous
+      network signal timing optimization and traffic assignment. IEEE Transactions        60. Abdelgawad, H., Abdulhai, B., El-tantawy, S., et al. (2015). Assessment of self-
+      on Intelligent Transportation Systems, 16, 2573­2586. https://doi.org/10.1109/            learning adaptive traffic signal control on congested urban areas :
+      TITS.2015.2413360.                                                                        Independent versus coordinated perspectives. Canadian Journal of Civil
+                                                                                                Engineering, 42, 353­366. https://doi.org/10.1139/cjce-2014-0503.
+40. Li, Z., Shahidehpour, M., Bahramirad, S., & Khodaei, A. (2017). Optimizing
+      traffic signal settings in smart cities. IEEE Transactions on Smart Grid, 8,        61. Ozan, C., Baskan, O., Haldenbilen, S., & Ceylan, H. (2015). A modified
+      2382­2393. https://doi.org/10.1109/TSG.2016.2526032.                                      reinforcement learning algorithm for solving coordinated signalized
+                                                                                                networks. Transport Research Part C Emerging Technology, 54, 40­55.
+41. Chen, S., & Sun, D. J. (2016). An improved adaptive signal control method                   https://doi.org/10.1016/j.trc.2015.03.010.
+      for isolated signalized intersection based on dynamic programming. IEEE
+      Intelligent Transportation Systems Magazine, 8, 4­14.                               62. Li, Z., & Schonfeld, P. (2015). Hybrid simulated annealing and genetic
+                                                                                                algorithm for optimizing arterial signal timings under oversaturated traffic
+42. Ahmed, F., & Hawas, Y. E. (2015). An integrated real-time traffic signal                    conditions. Journal of Advanced Transportation, 49, 153­170. https://doi.org/
+      system for transit signal priority, incident detection and congestion                     10.1002/atr.1274.
+      management. Transport Research Part C Emerging Technology, 60, 52­76.
+      https://doi.org/10.1016/j.trc.2015.08.004.                                          63. Gao, K., Zhang, Y., Sadollah, A., & Su, R. (2016). Optimizing urban traffic light
+                                                                                                scheduling problem using harmony search with ensemble of local search.
+43. Dakic, I., Raton, B., & Raton, B. (2015). Backpressure traffic control algorithms           Applied Soft Computing - Journal, 48, 359­372. https://doi.org/10.1016/j.asoc.
+      in field-like signal operations. In In 2015 IEEE 18th international conference on         2016.07.029.
+      intelligent transportation systems, (pp. 137­142). https://doi.org/10.1109/ITSC.
+      2015.31.                                                                            64. Bie, Y., Cheng, S., & Liu, Z. (2017). Optimization of signal-timing parameters
+                                                                                                for the intersection with hook turns. Transport, 32, 233­241. https://doi.org/
+44. Pavleski, D., Koltovska-Nechoska, D., & Ivanjko, E. (2017). Evaluation of                   10.3846/16484142.2017.1285813.
+      adaptive traffic control system UTOPIA using microscopic simulation. Proc
+      Elmar - International Symposium of Electron, 17­20. https://doi.org/10.23919/       65. Tan, M. K., Chuo, H. S. E., Chin, R. K. Y., et al. (2017). Optimization of traffic
+      ELMAR.2017.8124425.                                                                       network signal timing using decentralized genetic algorithm. In 2017 IEEE
+                                                                                                2nd international conference on automatic control and intelligent systems,
+45. Chen, X., Osorio, C., & Santos, B. F. (2017). Simulation-based travel time                  I2CACIS 2017, (pp. 62­67).
+      reliable signal control. Transportation Science, 1­22. https://doi.org/10.1287/
+      trsc.2017.0812.                                                                     66. Jovanovi, A., & Teodorovi, D. (2017). Pre-timed control for an under-
+                                                                                                saturated and over-saturated isolated intersection: A bee Colony
+46. Baldi, S., Michailidis, I., Ntampasi, V., et al. (2019). A simulation-based traffic         optimization approach. Transportation Planning and Technology, 40, 556­576.
+      signal control for congested urban traffic networks. Transportation Science,              https://doi.org/10.1080/03081060.2017.1314498.
+      53, 6­20. https://doi.org/10.1287/trsc.2017.0754.
+                                                                                          67. Tarek, Z., Al-rahmawy, M., & Tolba, A. (2018). Fog computing for optimized
+47. Shah, S., Mohiuddin, S., Gokce, M. A., et al. (2019). Analysis of various scenarios         traffic control strategy. Journal of Intelligent Fuzzy Systems. https://doi.org/10.
+      to mitigate congestion at a signalized roundabout using microsimulation. In               3233/JIFS-18077.
+      2019 innovations in intelligent systems and applications conference (ASYU),
+      (pp. 1­6). https://doi.org/10.1109/ASYU48272.2019.8946339.                          68. Manandhar, B., & Joshi, B. (2018). Adaptive traffic light control with statistical
+                                                                                                multiplexing technique and particle swarm optimization in smart cities.
+48. Zheng, L., Xue, X., Xu, C., & Ran, B. (2019). A stochastic simulation-based                 Proceedings on 2018 IEEE 3rd International Conference Comput
+      optimization method for equitable and efficient network-wide signal timing                Communication Security ICCCS, 2018, 210­217. https://doi.org/10.1109/CCCS.
+      under uncertainties. Transport Research Part B Methodology, 122, 287­308.                 2018.8586845.
+      https://doi.org/10.1016/j.trb.2019.03.001.
+                                                                                          69. Eduardo, P., De Almeida, M., Chung, E., et al. (2017). Active control for
+49. Venayagamoorthy, G. K. (2009). A successful interdisciplinary course on                     traffic lights in regions and corridors : An approach based on
+      computational intelligence. EEE Computer Intelligence Magnet, 4, 14­23.                   evolutionary computation based on evolutionary computation.
+      https://doi.org/10.1109/MCI.2008.930983.                                                  Transport Research Procedia, 25, 1769­1780. https://doi.org/10.1016/j.
+                                                                                                trpro.2017.05.140.
+Qadri et al. European Transport Research Review (2020) 12:55                                 Page 22 of 23
+
+70. Gao, Y., Liu, Y., Hu, H., & Ge, Y. E. (2018). Signal optimization for an                 90. Memoli, S., Cantarella, G. E., de Luca, S., & Di Pace, R. (2017). Network
+      isolated intersection with illegal permissive left-turning movement.                         signal setting design with stage sequence optimisation. Transport
+      Transportation B Transport Dynamic, 0566. https://doi.org/10.1080/                           Research Part B Methodology, 100, 20­42. https://doi.org/10.1016/j.trb.
+      21680566.2018.1518734.                                                                       2017.01.013.
+
+71. Guo, J., Kong, Y., Li, Z., et al. (2019). A model and genetic algorithm for area-        91. Eriskin, E., Karahancer, S., Terzi, S., & Saltan, M. (2017). Optimization of traffic
+      wide intersection signal optimization under user equilibrium traffic.                        signal timing at oversaturated intersections using elimination pairing
+      Mathematics and Computers in Simulation, 155, 92­104. https://doi.org/10.                    system. Procedia Engineering, 187, 295­300. https://doi.org/10.1016/j.proeng.
+      1016/j.matcom.2017.12.003.                                                                   2017.04.378.
+
+72. Gao, K., Zhang, Y., Su, R., et al. (2019). Solving traffic signal scheduling             92. Abdelghaffar, H. M., Yang, H., & Rakha, H. A. (2016). Isolated traffic signal
+      problems in heterogeneous traffic network by using meta-heuristics. IEEE                     control using Nash bargaining optimization. Global Journal of Research
+      Transactions on Intelligent Transportation Systems, 20, 3272­3282.                           Engineering B Automotion Engineering, 16, 26­36. https://doi.org/10.1109/
+      https://doi.org/10.1109/TITS.2018.2873790.                                                   ITSC.2016.7795755.
+
+73. Jiao, P., Li, R., & Li, Z. (2016). Pareto front-based multi-objective real-time          93. Abdelghaffar, H. M., Yang, H., & Rakha, H. A. (2017). Developing a de-
+      traffic signal control model for intersections using particle swarm                          centralized cycle-free Nash bargaining arterial traffic signal controller.
+      optimization algorithm. Advances in Mechanical Engineering, 8, 1­15.                         5th IEEE International Conference Model Technology Intelligence Transport
+      https://doi.org/10.1177/1687814016666042.                                                    System MT-ITS 2017 - Proc, 544­549. https://doi.org/10.1109/MTITS.2017.
+                                                                                                   8005732.
+74. Zhang, Y., & Zhou, Y. (2018). Distributed coordination control of traffic
+      network flow using adaptive genetic algorithm based on cloud computing.                94. Louati, A., Elkosantini, S., Darmoul, S., & Ben Said, L. (2019). An immune
+      Journal of Network and Computer Applications, 119, 110­120. https://doi.org/                 memory inspired case-based reasoning system to control interrupted flow
+      10.1016/j.jnca.2018.07.001.                                                                  at a signalized intersection. Artificial Intelligence Review, 52, 2099­2129.
+                                                                                                   https://doi.org/10.1007/s10462-017-9604-0.
+75. Hao, W., Ma, C., Moghimi, B., et al. (2018). Robust optimization of signal
+      control parameters for unsaturated intersection based on tabu search-                  95. Grandinetti, P., Canudas-De-Wit, C., & Garin, F. (2019). Distributed optimal
+      artificial bee colony algorithm. IEEE Access, 6, 32015­32022. https://doi.org/               traffic lights design for large-scale urban networks. IEEE Transactions on
+      10.1109/ACCESS.2018.2845673.                                                                 Control Systems Technology, 27, 950­963. https://doi.org/10.1109/TCST.2018.
+                                                                                                   2807792.
+76. Yu, D., Tian, X., Xing, X., & Gao, S. (2016). Signal timing optimization based on fuzzy
+      compromise programming for isolated signalized intersection. Mathematical              96. Wu, N., Li, D., & Xi, Y. (2019). Distributed weighted balanced control of traffic
+      Problems in Engineering, 2016, 1­12. https://doi.org/10.1155/2016/1682394.                   signals for urban traffic congestion. IEEE Transactions on Intelligent
+                                                                                                   Transportation Systems, 20, 3710­3720. https://doi.org/10.1109/TITS.2018.
+77. Zhao, H., Han, G., & Niu, X. (2019). The signal control optimization of road                   2878001.
+      intersections with slow traffic based on improved PSO. Mobile Networks and
+      Applications. https://doi.org/10.1007/s11036-019-01225-7.                              97. Tang, C., Xia, S., Zhu, C., & Wei, X. (2019). Phase timing optimization for
+                                                                                                   smart traffic control based on fog computing. IEEE Access, 7, 84217­84228.
+78. Jia, H., Lin, Y., Luo, Q., et al. (2019). Multi-objective optimization of urban                https://doi.org/10.1109/ACCESS.2019.2925134.
+      road intersection signal timing based on particle swarm optimization
+      algorithm. Advances in Mechanical Engineering, 11, 1­9. https://doi.org/10.            98. Vilarinho, C., Tavares, J. P., & Rossetti, R. J. F. (2017). Intelligent traffic lights:
+      1177/1687814019842498.                                                                       Green time period negotiaton. Transport Research Procedia, 22, 325­334.
+                                                                                                   https://doi.org/10.1016/j.trpro.2017.03.039.
+79. He, Q., Kamineni, R., & Zhang, Z. (2016). Traffic signal control with partial
+      grade separation for oversaturated conditions. Transport Research Part C               99. Zhou, Z., De Schutter, B., Lin, S., & Xi, Y. (2017). Two-level hierarchical model-
+      Emerging Technology, 71, 267­283. https://doi.org/10.1016/j.trc.2016.08.001.                 based predictive control for large-scale urban traffic networks. IEEE
+                                                                                                   Transactions on Control Systems Technology, 25, 496­508. https://doi.org/10.
+80. Mehrabipour, M., & Hajbabaie, A. (2017). A cell-based distributed-                             1109/TCST.2016.2572169.
+      coordinated approach for network-level signal timing optimization.
+      Computer-Aided Civil and Infrastructure Engineerin, 32, 599­616. https://doi.          100. Zhihui, L. I., Qian, C. A. O., Yonghua, Z., et al. (2019). Krill herd
+      org/10.1111/mice.12272.                                                                      algorithm for signal optimization of cooperative control with traffic
+                                                                                                   supply and demand. IEEE Access, 7, 10776­10786. https://doi.org/10.
+81. Köhler, E., & Strehler, M. (2018). Traffic signal optimization : Combining static              1109/ACCESS.2019.2891791.
+      and dynamic models. Transportation Science, 1­21. https://doi.org/10.1287/
+      trsc.2017.0760.                                                                        101. Tong, Y., Zhao, L., Li, L., & Zhang, Y. (2015). Stochastic programming
+                                                                                                   model for oversaturated intersection signal timing. Transport Research
+82. Yan, H., He, F., Lin, X., et al. (2019). Network-level multiband signal coordination           Part C Emerging Technology, 58, 474­486. https://doi.org/10.1016/j.trc.
+      scheme based on vehicle trajectory data. Transport Research Part C Emerging                  2015.01.019.
+      Technology, 107, 266­286. https://doi.org/10.1016/j.trc.2019.08.014.
+                                                                                             102. Castillo, R. G., Clempner, J. B., & Poznyak, A. S. (2015). Solving the multi-traffic
+83. Xu, M., An, K., Vu, L. H., et al. (2019). Optimizing multi-agent based urban                   signal-control problem for a class of continuous-time markov games. In
+      traffic signal control system. Journal of Intelligent Transportation Systems, 23,            2015 12th international conference on electrical engineering, computing
+      357­369. https://doi.org/10.1080/15472450.2018.1501273.                                      science and automatic control (CCE), (pp. 1­5). https://doi.org/10.1109/ICEEE.
+                                                                                                   2015.7357932.
+84. Mohebifard, R., & Hajbabaie, A. (2019). Optimal network-level traffic signal control :
+      A benders decomposition-based solution algorithm. Transport Research Part B            103. Chen, Y., Chen, K., & Hsiung, P. (2016). Dynamic traffic light optimization and
+      Methodology, 121, 252­274. https://doi.org/10.1016/j.trb.2019.01.012.                        control system using model-predictive control method, (pp. 2366­2371). Rio
+                                                                                                   de Janeiro: 2016 IEEE 19th international conference on intelligent
+85. Yu, H., Ma, R., & Zhang, H. M. (2018). Optimal traffic signal control under                    transportation systems (ITSC).
+      dynamic user equilibrium and link constraints in a general network.
+      Transport Research Part B Methodology, 110, 302­325. https://doi.org/10.               104. Zhao, C., Chang, Y., & Zhang, P. (2018). Coordinated control model of main-
+      1016/j.trb.2018.02.009.                                                                      signal and pre-signal for intersections with dynamic waiting lanes.
+                                                                                                   Sustainability, 10, 1­14. https://doi.org/10.3390/su10082849.
+86. Yu, C., Ma, W., Han, K., & Yang, X. (2017). Optimization of vehicle and
+      pedestrian signals at isolated intersections. Transport Research Part B                105. Van De Weg, G. S., Vu, H. L., Hegyi, A., & Hoogendoorn, S. P. (2019). A
+      Methodology, 98, 135­153. https://doi.org/10.1016/j.trb.2016.12.015.                         hierarchical control framework for coordination of intersection signal
+                                                                                                   timings in all traffic regimes. IEEE Transactions on Intelligent Transportation
+87. Ma, W., An, K., & Lo, H. K. (2016). Multi-stage stochastic program to                          Systems, 20, 1815­1827. https://doi.org/10.1109/TITS.2018.2837162.
+      optimize signal timings under coordinated adaptive control. Transport
+      Research Part C Emerging Technology, 72, 342­359. https://doi.org/10.                  106. Mohajerpoor, R., Saberi, M., & Ramezani, M. (2019). Analytical
+      1016/j.trc.2016.10.002.                                                                      derivation of the optimal traffic signal timing: Minimizing delay
+                                                                                                   variability and spillback probability for undersaturated intersections.
+88. Jiao, P., Li, Z., Liu, M., et al. (2015). Real-time traffic signal optimization model          Transport Research Part B Methodology, 119, 45­68. https://doi.org/10.
+      based on average delay time per person. Advances in Mechanical                               1016/j.trb.2018.11.004.
+      Engineering, 7, 1­11. https://doi.org/10.1177/1687814015613500.
+                                                                                             107. Azhar, A. M., & Svante, B. (2011). Signal control of roundabouts. Procedia -
+89. Simoni, M. D., & Claudel, C. G. (2017). A semi-analytic approach to model                      Social and Behavioral Sciences, 16, 729­738. https://doi.org/10.1016/j.sbspro.
+      signal plans in urban corridors and its application in metaheuristic                         2011.04.492.
+      optimization. Transportation B Transport Dynamic, 0566, 1­18. https://doi.
+      org/10.1080/21680566.2017.1370397.
+Qadri et al. European Transport Research Review (2020) 12:55                         Page 23 of 23
+
+108. Akçelik, R. (2011). Roundabout metering signals: Capacity, performance and
+      timing. Procedia - Social and Behavioral Sciences, 16, 686­696. https://doi.
+      org/10.1016/j.sbspro.2011.04.488.
+
+109. Inman, V. W., & Davis, G. W. (2007). Synthesis of literature relevant to
+      roundabout signalization to provide pedestrian access Access-Board.
+
+110. Robinson, B. W., Rodegerdts, L., Scarborough, W., et al. (2000). Roundabouts:
+      An informational guide United States Fed Highw Adm, (p. 400).
+
+111. Digital twin. https://en.wikipedia.org/wiki/Digital_twin. Accessed 20 May 2020
+
+Publisher's Note
+
+Springer Nature remains neutral with regard to jurisdictional claims in
+published maps and institutional affiliations.
+

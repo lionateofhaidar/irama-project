@@ -1,0 +1,419 @@
+Full citation: Humagain, S., & Sinha, R. (2020) Routing Emergency Vehicles in Arterial Road
+Networks using Real-time Mixed Criticality Systems*, in Proceedings of the 23rd IEEE
+International Conference on Intelligent Transportation Systems (ITSC2020). Rhodes, Greece, IEEE
+Computer Society Press, pp.1-6. doi: 10.1109/ITSC45102.2020.9294390.
+
+Routing Emergency Vehicles in Arterial Road Networks using Real-time Mixed
+                                       Criticality Systems*
+
+                                      Subash Humagain and Roopak Sinha
+
+                                   School of Engineering, Computer and Mathematical Science
+                                    Auckland University of Technology, Auckland, New Zealand
+
+                                       subash.humagain@aut.ac.nz, roopak.sinha@aut.ac.nz
+
+Abstract                                                     Researchers and industry practitioners have examined the
+                                                             problem of reducing response time for EVs extensively and
+Reducing the response time of Emergency Vehicles (EVs)       have proposed or implemented different solutions. Current
+has an undoubted advantage in saving life and property.      solutions offer either used route optimization, signal
+Implementing pre-emption can aid in achieving it. EVs get    preemption or both techniques to reduce the response time
+unobstructed movement via pre-emption, usually by            of EVs [6]. Route optimization selects the fastest route for
+altering traffic signals and giving a green wave throughout  EVs within the available circumstances. Traffic pre-
+the route. This approach of absolute pre-emption effects     emption modifies traffic flow to prioritize selected vehicles
+adversely on regular traffic by imposing unnecessary         like EVs. The most widely used pre-emption technique is
+waiting. In this paper, we propose a novel emergency         altering traffic signals to halt normal traffic flow and
+vehicle pre-emption (EVP) algorithm implemented in the       provide passage to EVs [7]. Present pre-emption techniques
+Vehicular Ad-hoc Network (VANET) that can reduce the         use GPS, localized radio, acoustic or line of sight sensors
+imposed undesirable waiting time, but still ascertains EVs   to activate preemption. Emergency Vehicle Pre-emption
+meet target response time. We introduce mixed-criticality    (EVP) has aided in reducing the response time of EV and
+real-time system scheduling concept where different level    served in saving the life from fatalities. Kamalanathsharma
+of emergencies is mapped with different criticality levels   and Hancock in their study have shown that EVP can
+and assign certain success assurance level to respective     achieve savings of up to 31% in travel times compared to
+criticality. We implemented the EVP algorithm for an         the system without EVP [8]. Though the performance of
+arterial traffic network and leveraged the use of valuable   EVP in reducing EV response time is compelling, its
+information that gets transmitted via VANET to make          consequences over general traffic (unnecessary waiting
+critical decisions. The proposed algorithm can               time) cannot be overlooked.
+significantly reduce the average waiting time of regular
+traffic. It also ascertains all EVs with different level of  A Vehicular Ad-hoc Network (VANET) can aid in
+criticality meet target response time respective to their    optimizing the time of triggering and ceasing of EVP.
+assurance level.                                             VANET is the wireless ad-hoc network created by moving
+                                                             vehicles where vehicle communicate with other vehicles or
+1. INTRODUCTION                                              infrastructure using dedicated short-range communication
+                                                             standards outlined by IEEE 802.11p [9]. In VANET
+Reducing the response time of Emergency Vehicles (EVs)       roadside infrastructures like traffic controllers and vehicles
+has an enormous impact on saving life and property.          can share valuable information like speed, position, lane,
+According to a study conducted by RapidSOS in the USA,       route, and time of arrival, which are fundamental in
+every single minute of delay in response time increases      optimizing green time available for EVs. This, in turn, can
+mortality by 1% and incurs 7 billion dollars of extra        reduce the negative effects EVP may have over general
+healthcare expenses [1]. To mitigate this issue,             traffic. Several studies have implemented VANET in
+governments impose target response times for Emergency       sharing the current position of EV to determine the right
+Management Services (EMS). For instance, 90% of critical     time to trigger and cease EVP [10], [11], [8]. Unibaso et al.
+emergency calls must be responded to within 9 minutes in     used standard Cooperative Awareness Message (CAM)
+the USA [2], while in the UK 75% of such cases must be       defined by the European intelligent transportation system
+responded to within 8 minutes [3]. For Australia and New     in their traffic control algorithm to provide a green light to
+Zealand, the target is to respond to 50% of emergency calls  EVs[12]. Similarly, Walz and Behrisch also used CAM to
+within 8 and 10 minutes, respectively [4], [5]. Due to       provide a green wave to EV travelling through multiple
+increasing pedestrian population and congested road          intersections [13]. Jordan and Cetin implemented VANET
+networks it has become an increasingly difficult challenge   for efficient passage of EVs in closely spaced traffic
+for EMS to meet contractual timings.                         intersections by preempting traffic signals in a definite
+                                                             order so that existing traffic within these intersections can
+
+1
+be discharged prior to the arrival of EV [14]. In [15], a        into the EVP model can solve unsolved problems faced by
+dynamic traffic scheduling algorithm was designed that can       EMS in prioritizing EVs when two or more of them have
+fine-tune the green time allocated for emergency vehicles        conflicts passing an intersection.
+so that there is a lesser impact on normal traffic.
+                                                                 The proposed traffic control algorithm designed for EVP of
+pre-emption techniques have been studied widely for EV           multiple vehicles is constructed using a novel approach of
+routing, but EMS companies are always struggling to              mapping traffic control domain into Real-Time
+achieve the target response times. This is because almost        MixedCriticality Systems (RTMCS) task scheduling. In
+all cutting edge research and implementations of pre-            real-time systems, the accuracy of jobs being processed
+emption techniques focus on reducing the travel time of an       does not rely solely on correct functionality but also on the
+individual EV in an optimized route providing that EV with       timely completion of tasks and computations. In RTMCS,
+the highest priority. But in real-life city traffic and in case  jobs with multiple levels of criticality like mission-critical,
+of natural calamities, there can be multiple EVs servicing       non-critical and safety-critical are designated with different
+different levels of emergencies at the same time. The            timing constraints. The system is considered a failure if it
+approach of prioritizing a single EV can reduce the              cannot meet these timing values [18]. We map EV priority
+travelling time of that particular EV, but does not assist the   levels (purple, red and orange) with different levels of
+EMS in meeting the target response times for all EVs on          criticality in RTMCS and impose EVP system to ascertain
+the ground. Moroi and Takami have also pointed towards           a certain level of success
+the limitations of prioritizing single EVs in case of
+emergencies where we may require to route multiple EVs           assurance against a different level of criticality.
+at the same time [16]. In such cases, other EVs following a      The arbitration of conflicts that arise from scheduling equal
+recently prioritized EV experience more congestion.              priority EVs through the same intersection is equivalent to
+Furthermore, providing absolute priority to an individual        the well-known problem of scheduling with conflicts in
+EV serving any level of emergency increases the overall          real-time systems and can be resolved using conflicts
+waiting times for normal traffic. This problem can be            graphs. Whenever two or more EVs must pass via a single
+solved if multiple EVs serving within a particular time are      traffic intersection, they cannot be scheduled
+assigned with different levels of priority and EVP is            simultaneously if they are travelling in conflicting
+performed accordingly.                                           directions. This problem of resource sharing in real-time
+                                                                 systems is dealt through modelling a conflict graph [19].
+In this study, we propose an EVP technique for multiple          We model and utilize conflict graphs to create an optimal
+EVs with different levels of priority. We leverage the use       schedule for EVs in traffic intersections. As EV arrival at
+of VANET for transmitting critical information like current      an intersection is a random
+position, speed, the time EV takes to pass the intersection,
+and the route the EV follows in deciding when to trigger         event, this paper proposes an online scheduling algorithm.
+the EVP. Important decision parameters like speed,               The implementation of the proposed EVP in an arterial
+position and route of vehicles are easier to access using        traffic network for multiple EVs with different levels of
+VANET which is impossible from traditionally used                priorities shows promising results. We conducted multiple
+inductive loops [17]. There can be conflict in prioritizing      experiments using the microscopic traffic simulator
+EVs when they share the same route or some common                Simulation of Urban Mobility (SUMO) [20]. Simulation
+intersections within that route. This issue is solved by         results show that the waiting times and overall travel times
+assigning different levels of priorities to EVs. Assigning a     are significantly reduced when EVP is enabled, as
+different level of priorities to EVs is a common practice in     compared to traditional static traffic light control.
+EMS industry, for example, St. John's in New Zealand             Moreover, the EVP algorithm seems to also reduce waiting
+classify serious life-threatening incidents as purple, red       times for non-EV traffic when compared to absolute pre-
+and, and less serious emergencies as orange. Without             emption.
+affecting the generality of our work, we use the New
+Zealand system for illustration of concepts presented in this    2. SYSTEM MODEL
+paper.
+                                                                 A four-legged isolated traffic intersection with adaptive
+The EVP technique proposed is novel as it provides a way         traffic control system implemented in a VANET
+to arbitrate multiple EVs in an arterial road network. An        environment can be embedded into an arterial road network
+arterial road network is the backbone of any urban road that     with multiple intersections. Let us consider a four-legged
+is usually used to transport traffic from small collector        traffic intersection designed for left-hand driving as
+roads to expressways or motorways. Rather than                   illustrated in the left side of Fig. 1. It consists of four road
+implementing EVP in a single intersection, modelling and         segments from North, South, East, and West directions.
+implementing EVP for an arterial road network allows for         Each road segment is divided into two approaches so that
+real-world visualization and more efficient EV routing.          this intersection has a total of eight approaches. Every
+Performance parameters like waiting times and throughput         single approach has conflict in movement with five other
+achieved from such implementations are realistic and will        approaches and has only one non-conflicting approach. For
+be helpful for EMS to evaluate their actual performance. In
+addition, it also helps traffic engineers and transport          example, traffic from approach 2 cannot be scheduled with
+planners to anticipate the widespread effect of EVP over         traffic form approaches 3, 4, 5, 7 and 8, but it can still be
+general traffic flows rather than limiting such explorations     scheduled with traffic from approaches 1 and 6.
+to a single intersection. Moreover, adding multiple EVs
+
+2
+Fig. 1. Four-way traffic intersection and its equivalent conflict  minimized, we calculate the exact time the traffic controller
+graph                                                              needs to reserve for the EV in real time so that it can pass
+                                                                   the intersection within this time using information like
+A conflict graph is used to model concurrency in                   current speed and position transmitted by the EV. Allowing
+simultaneous operations in real-time systems and can be            a well-timed green signal for a particular intersection still
+used in traffic intersections. A traffic signal must always        cannot guarantee that the EV can meet the contractual time
+schedule non-conflicting approaches together. This can be          to reach a destination. So we have designed our system to
+analogically mapped to task scheduling in a real-time              work on an arterial road network where an EV has a source
+system which can be implemented through conflict graphs.           and a destination. The fastest route is initially assigned to
+A conflict graph with nodes N and edge E is represented as         an EV. This route contains multiple intersections and a
+ = (, ) where each approach from traffic intersection              distance to cover. The contractual target time can only be
+is a node (in ) and an edge (in    × ) is a                        ascertained if the EV maintains the maximum allowed
+connection between two conflicting approaches as depicted          speed throughout the journey. The main aim of the EV
+in the right side of Fig. 1. This approach can be generalized      traffic control algorithm installed in each traffic controller
+to any number or types of approaches. Our traffic                  is to allow the EV to maintain this speed, as much as
+scheduling algorithm schedules traffic by picking a set of         possible. We take advantage of the information beacon
+non-conflicting approaches at every instance and allowing          transmitted by EVs to maximize this possibility.
+it appropriate green time.                                         Additionally, to replicate the real-world situations, we
+                                                                   introduce multiple EVs in an arterial network at the same
+VANET provides precious data to activate efficient EVP.            time and study their routing.
+VANET is a subset of Mobile Ad-hoc Network (MANET)
+designed especially for vehicular communication. The               Assigning a different level of criticality to EVs and
+network topology of MANET changes rapidly as nodes are             implementing EVP accordingly is less disruptive to normal
+permitted to move in any direction. Routing protocols for          traffic. When EVs are serving emergencies, they travel with
+MANET are unable to provide optimum throughput for                 sirens and lights on. Current EVP systems provide a green
+complex trails created by rapid change in relative positions       signal to EVs when they identify an EV's presence through
+of moving nodes due to the high speeds of vehicles in a            GPS, localized radio, acoustic or line of sight sensors. Once
+predefined road. Therefore, VANET has become the                   the presence of EVs is confirmed, they get absolute priority
+technology of choice in such circumstances [21]. In this           throughout the route. This is more disruptive to normal
+study, we assume that all EVs are equipped with Dedicated          traffic, especially at intersections. In most cases, all EVs are
+ShortRange Communication (DSRC) devices for the                    not serving to the same levels of emergency. So instead of
+vehicle to infrastructure communication and GPS to collect         providing absolute priority at all intersections we can use a
+speed and position information. Information about the route        mixed model of EVP. In our experiment, we have assigned
+EVs follow from origin to the destination is initially set by      three levels of criticality to EVs. Our algorithm now
+the routing application installed within the vehicle. The          schedules EVs with different levels of criticality and
+communication between EVs and the road-side traffic                ascertains the times they reach the destination and if this
+controller is carried out in 5.9 GHz spectrum bandwidth for        time can be within a set response time. In doing so, the
+DSRC as standardized by IEEE 1609.4 protocol. The traffic          algorithm identifies the intersections it needs to preempt
+controller receives beacons transmitted from EVs, which            and leaves other intersection unaffected. This approach
+contain information like speed, position and route of an EV.       massively reduces the effect of EVP on normal traffic.
+Knowing the route before the activation of EVP allows the
+controller to decide which approach must be allowed to             Scheduling EVs with different levels of criticality is
+provide EVs right of way. Speed and position data allows           analogous to RTMCS. In RTMCS the calculation of
+determining exactly when to switch the current traffic             WorstCase Execution Time (WCET) depends on the
+signal phase to green or by what time the current green            criticality of the task. For example, safety-critical tasks
+phase should be extended. The current speed of EV                  have lowest WCET than mission-critical tasks, and a non-
+replicates dynamic traffic behaviour of that particular lane,      critical task has the highest WCET [22]. This aligns exactly
+and for example, a congested lane needs the controller to          with our case of multiple EVs with different levels of
+reserve a longer green time than a free lane.                      criticality. Standard response times of 8, 12 and 16 minutes
+                                                                   for high, medium and low critical cases of emergencies
+A single intersection EVP approach is insufficient.                imply medium and low criticality cases are respectively
+Calculation of exact green time required for an EV to pass         assigned response times that are 1.5 and 2 times higher than
+through an intersection is very crucial as allowing                high criticality cases. We consider these factors as
+unnecessarily extended green time negatively affects the           assurance levels ! = {", #, $, . . , %} be a set of assurance
+flow of general traffic waiting to pass through the                levels, which is defined for each EV . In this study, we
+intersection. In order to ensure that such issues are              define target travel time at any instant  as ! for an EV as
+                                                                   follows.
+
+                                                                   ! = (!/&'()  !                   (1)
+
+                                                                   Where ! is the distance between the current EV location
+                                                                   and the target location and &'( is the speed limit of the
+                                                                   particular lane. We also define current travel time for any
+
+                                                                   instant  as ! and calculated as
+
+3
+   ! = (!/)*)                                                (2)  3. IMPLEMENTATION
+
+Where )* is the current speed of EV. Also, the relative           This section illustrates the implementation of the proposed
+difference in time  is calculated as                              EVP algorithm using SUMO, OMNET++ and VEINS.
+                                                                  SUMO is a widely-used and open-source realistic
+    = ! ­ !                                                  (3)  microscopic traffic simulator. OMNET++ is a simulation
+                                                                  library designed to implement different network
+From equation. 3 if the   0 then the EV can reach its             simulations. We use VEINS as a platform to couple SUMO
+                                                                  and OMNET++ to simulate vehicular communication using
+destination within its target travel time without triggering      IEEE 802.11p. FullDuplex communication is established
+                                                                  between SUMO and OMNET++ by VEINS using
+EVP. When  > 0, it implies the route of EV is congested           Transmission Control Protocol (TCP), which helps in
+                                                                  examining how VANET implementations affect road
+and EV cannot reach the destination within its target travel      networks [23].
+
+time and hence we may need to trigger EVP immediately.            Simulation parameters in SUMO can be altered using
+                                                                  TRACI when the simulation is live. SUMO gathers prior
+The overall working of the system is depicted in Fig. 2.          information from its different components and runs the
+Consider the situation where we have three EVs, EV1, EV2          simulation continuously until it produces the result. The
+and EV3, serving at the same time with three different            parameters of the simulation cannot be altered during the
+levels of criticality. This algorithm can perform equally         course of the simulation. To access the simulation
+well for more than three EVs and more than three levels of        parameters and alter its course, we use an extension tool
+criticality.                                                      developed in Python called TRACI. Different applications
+                                                                  can communicate and control SUMO during simulation via
+Initially, all the EVs are assigned with routes. Whenever an      client-server architecture using TRACI. All the
+EV approaches an intersection, it sends information about         communicating applications are set as client and SUMO
+its route (origin and destination), current position,             acts as a server. They use TCP sockets to communicate with
+criticality level and speed to the traffic controller. The        each other using TCP/IP protocol. Client applications send
+traffic controller first checks if there is any other EV          TCP packets to SUMO requesting to alter or change
+approaching the same intersection. If there is more than one      parameters like altering traffic light logic, changing vehicle
+EV approaching the same intersection controller checks the        route, lane, destination etc. In response to the client's
+level of criticality of EV and processes the request of EV        request, SUMO alters these parameters and replies back to
+with higher priority else it processes the current request. It    the client application. TRACI also helps to establish
+then calculates the value of  and determines the                  communication between traffic simulator SUMO and the
+requirement of EVP. When pre-emption is required, the             network simulator OMNET++.
+controller calculates the reserve green time required for
+each EV to pass the intersection from the position data. If       SUMO and OMNET++ run concurrently. Each vehicle in
+the current state of the traffic light is green, it extends       SUMO is treated as a moving node in OMNET++. A
+current green time with reserve green time else it alters the     mobile node gets created once a vehicle appears in the road
+current phase and provides green phase to EV. The EVP             network and disappears when the vehicle reaches its
+algorithm is shown in Algorithm 1. Parameters like                destination. Every new node created in OMNET++ has a
+!. , !. , !. , and                                                unique MAC ID as a vehicle in SUMO has _. We
+!.  can be set as vehicle parameters SUMO                         can use information transmitted over the network and make
+and are accessible during the simulation.                         preemptive decisions and implement it by changing the
+                                                                  traffic light signal phases.
+
+   Fig. 2. System Model with multiple intersections and EVs       A. Simulation parameters
+                                                                  Realistic traffic parameters are utilized for simulation based
+                                                                  validation of the proposed solution. We conduct our
+                                                                  experiment over a section of Auckland city's arterial road
+                                                                  network and calibrate the network with vehicular data. All
+                                                                  intersections are initially modelled with static Traffic Light
+                                                                  Control (TLC) logic. Traffic saturation is set to 1800 pcu/hr
+                                                                  for every lane. Vehicles arrive randomly following the
+                                                                  Poisson distribution. To achieve variable vehicular flows in
+                                                                  a particular lane, we assign probability values for arrival
+                                                                  rates. The car-following model is set to Krauss and
+                                                                  parameter sigma is set to 0.5. For EVs vehicle class
+                                                                  () is set to "emergency". We use New Zealand-
+                                                                  based emergency codes purple, red and orange for
+                                                                  assigning high, medium and low levels of criticality to EVs,
+                                                                  respectively. Once EVP is activated TRACI controls the
+                                                                  simulation and alters traffic light phases to provide green
+                                                                  waves for EVs as required.
+
+4
+The primary aim of our algorithm is to ascertain that EVs        Fig. 3. Success percentage of EVs meeting target travel time
+with different levels of criticality reach their destinations                Fig. 4. Average waiting time of non-EVs
+within desired times. EVs are created randomly with
+randomly assigned criticality. We change the traffic
+volumes in the route of EV from low (450 pcu/hr/ln),
+medium (850 pcu/hr/ln) and high (1800 pcu/hr/ln) and for
+each setting, we perform simulations multiple times. In all
+cases, the EVs are generated randomly, assigned with
+random routes and criticality. According to an annual report
+published by St. John New Zealand, out of 546,000
+emergency calls 63.6% cases were highly critical, 23.2%
+cases were medium and the remaining 13.3% of the cases
+were low critical [4]. In our experiments as well, we have
+maintained the same proportions of the levels of criticality.
+We have considered 1% of total vehicles generated as EVs
+for a simulation time of 10,000 seconds and with longer
+duration of simulation time a lesser percentage of EVs can
+be considered. We measure the number of times EVs met
+the target travel time of 8, 12, and 20 minutes for purple,
+red and orange level of criticality respectively in terms of
+the success rate of EVP. We also measure the average
+waiting time of both non-EVs and EVs, queue length, and
+overall throughput in a system implemented with our
+algorithm and compare it with systems without pre-
+emption and absolute pre-emption (EV receives green
+phase once detected near intersection until it leaves).
+
+4. PERFORMANCE EVALUATION
+
+Our EVP implementation shows promising results when                                Fig. 5. Average waiting time of EVs
+compared to traditional systems containing either no
+preemption or absolute pre-emption. As claimed in earlier        Pre-emption affects normal traffic by increasing their
+sections, the impact of pre-emption is huge in normal            average waiting times. Absolute pre-emption incurs a very
+vehicles. The claim made by other pre-emption technique          high waiting time for non-EVs resulting in huge financial
+that has been implemented in a single intersection cannot        losses. A system without pre-emption becomes an obstacle
+justify a real-world situation where multiple EVs move           to EVs. We implemented a practical approach where EVs
+from source to the destination covering multiple                 are assigned with different level of criticality and imposed
+intersections. The cost incurred by increased waiting times      different target travel times. The EVP algorithm ascertains
+of normal vehicles when pre-emption is calculated in terms       that EVs meet these target travel times. At different traffic
+of CO2 emissions and the corresponding price of fuel used,       penetration rates, the average waiting time of non-Evs is
+which are high for the traditional settings and relatively       reduced drastically, almost comparable to the system
+lower in the proposed EVP implementation. Our                    without pre-emption. This ensures that the implementation
+experiments study five important metrics: the percentage of      of EVP algorithm can have huge perennial savings in terms
+EVs meeting their target travel time successfully, average       of fuel cost and CO2 emission. The results are depicted in
+waiting times for both EVs and non-EVs, average queue            Fig. 4. Since we used a mixed model in making decisions
+lengths at intersections and overall throughput of the           to activate pre-emption, EVs routed using EVP algorithms
+network.                                                         experienced slightly increased waiting time as compared to
+                                                                 a system with absolute pre-emption but performed
+Fig. 3 shows the percentage of success EVs achieve with          exceptionally well than the system with no pre-emption as
+the proposed EVP algorithm in low, medium and high               shown in Fig 5.
+traffic densities. Whenever an EV is lagging behind to meet
+its target travel time, pre-emption is activated, which means    Queue length for an intersection measures the efficiency of
+that success percentage is expected to be 100%. However,         any traffic control algorithm. It is measured as the average
+after taking into account traffic uncertainties as modelled in   number of vehicles waiting at an intersection. The EVP
+SUMO, the overall success percentage is lower, especially        algorithm's impact on this metric is shown in Fig. 6. The
+in peak traffic. All simulations reported here ran for 36000     experimental results show that average queue length is
+seconds, and in some cases, a longer duration of simulation      reduced up to 36% using EVP algorithm as compared to
+gives almost perfect results. Our result depicts that at higher
+traffic densities few EVs struggle to meet target response
+time but still maintain promising 96% success. Some EVs
+with a high level of criticality, miss target response time, as
+their number is very high as compared to EVs with other
+criticality levels but still maintain exuberant 95% success.
+
+5
+                                                                 REFERENCES
+
+                   Fig. 6. Queue length comparisons              [1] "Quantifying the impact of emergency response times." [Online].
+                                                                      Available: www.RapidSOS.com
+                    Fig. 7. Throughput comparison
+                                                                 [2] P. T. Pons and V. J. Markovchick, "Eight minutes or less: does the
+absolute pre-emption and still is comparable to the system            ambulance response time guideline impact trauma patient outcome?"
+with no pre-emption.                                                  The Journal of emergency medicine, vol. 23, no. 1, pp. 43­48, 2002.
+The total traffic volume an intersection can flush through is
+measured in terms of throughput. This well-known                 [3] "Ambulance quality indicators data 2019-20," 2019. [Online].
+productivity indicator is used to compare EVP, absolute               Available: https://www.england.nhs.uk/statistics/statistical-work-
+preemption and no pre-emption in Fig. 7. The results                  areas/ambulance-quality-indicators/ambulance-quality-indicators-
+illustrate that the throughput of EVP implemented system              data201920
+is high and is comparable to the system without pre-
+emption. The system with absolute pre-emption has the            [4] "Annual report 2019," 2019. [Online]. Available: https://www.stjohn.
+lowest throughput.                                                    org.nz/News--Info/Our-Performance/Annual-Report
+
+5. CONCLUSION AND FUTURE WORK                                    [5] "Nsw state emergency service annual report 2015," 2015. [Online].
+                                                                      Available: https://www.ses.nsw.gov.au/media/1225/nswses annual
+In this study, we try to solve ever-existing two problems             report 2015 16 8mb.pdf
+caused by the pre-emption of emergency vehicles (EVs).
+First, though pre-emption techniques have been studied           [6] S. Humagain, R. Sinha, E. Lai, and P. Ranjitkar, "A systematic review
+extensively, emergency management service providers                   of route optimisation and pre-emption methods for emergency
+always struggle to meet target response time. Second, a               vehicles," Transport reviews, vol. 40, no. 1, pp. 35­53, 2020.
+substantial cost of pre-emption that normal traffic has to
+handle in terms of waiting. We postulated a novel                [7] H. K. Gedawy, M. Dias, and K. Harras, "Dynamic path planning and
+emergency vehicle pre-emption (EVP) algorithm                         traffic light coordination for emergency vehicle routing," Comp. Sci.
+implemented in Vehicular adhoc network that aid to solve              Dept., Carnegie Mellon Univ., Pittsburgh, Pennsylvania, USA, 2008.
+these issues. We introduced different levels of criticality for
+different levels of emergencies and assigned a certain level     [8] R. K. Kamalanathsharma and K. L. Hancock, "Intelligent preemption
+of success assurance in terms of target travel time for these         control for emergency vehicles in urban corridors," in Proceedings
+criticality. Unlike other studies, instead of implementing            of the 91st Annual Meeting of the Transportation Research Board.
+EVP algorithm in a single intersection, we implemented it             Transport Research Board, 2012, pp. 12­0683(571).
+in an arterial traffic network. We ran exhaustive
+simulations, and the results indicate that EVP algorithm can     [9] F. Li and Y. Wang, "Routing in vehicular ad hoc networks: A survey,"
+significantly reduce the average waiting time of normal               IEEE Vehicular technology magazine, vol. 2, no. 2, pp. 12­22, 2007.
+traffic but still assures all EVs meet their target response          [10] A. Agarwal and P. Paruchuri, "V2v communication for analysis
+time. In future, we aim to implement EVP algorithm in a               of lane level dynamics for better ev traversal," in 2016 IEEE
+larger city map with realworld calibrated traffic data-set.           Intelligent Vehicles Symposium (IV). IEEE, 2016, pp. 368­375.
+Also, we intend to see the VANET parameters like message
+delay range, beacon rate and throughput optimization.            [11] V. Jayaraj et al., "Emergency vehicle signalling using vanets," in
+                                                                      2015 IEEE 17th International Conference on High Performance
+                                                                      Computing and Communications, 2015 IEEE 7th International
+                                                                      Symposium on Cyberspace Safety and Security, and 2015 IEEE 12th
+                                                                      International Conference on Embedded Software and Systems. IEEE,
+                                                                      2015, pp. 734­739.
+
+                                                                 [12] G. Unibaso, J. Del Ser, S. Gil-Lopez, and B. Molinete, "A novel
+                                                                 cam-based traffic light preemption algorithm for efficient guidance of
+
+                                                                      emergency vehicles," in 13th International IEEE Conference on
+                                                                      Intelligent Transportation Systems. IEEE, 2010, pp. 74­79.
+                                                                 [13] L. Bieker-Walz and M. Behrisch, "Modelling green waves for
+                                                                      emergency vehicles using connected traffic data," EPiC Series in
+                                                                      Computing, no. 62, pp. 1­11, 2019.
+                                                                 [14] C. A. Jordanand M. Cetin, "Signal pre-emption strategy for
+                                                                      emergency vehicles using vehicle to infrastructure communication,"
+                                                                      in Proceedings of the 94th Annual Meeting of the Transportation
+                                                                      Research Board. Transport Research Board, 2015.
+                                                                 [15] M. B. Younes and A. Boukerche, "An efficient dynamic traffic light
+                                                                      scheduling algorithm considering emergency vehicles for intelligent
+                                                                      transportation systems," Wireless Networks, vol. 24, no. 7, pp. 2451­
+                                                                      2463, 2018.
+                                                                 [16] Y. Moroi and K. Takami, "A method of securing priority-use routes
+                                                                      for emergency vehicles using inter-vehicle and vehicle-road
+                                                                      communication," in 2015 7th International Conference on New
+                                                                      Technologies, Mobility and Security (NTMS). IEEE, 2015, pp. 1­5.
+                                                                 [17] N. Maslekar, M. Boussedjra, J. Mouzna, and H. Labiod, "Vanet
+                                                                      based adaptive traffic signal control," in 2011 IEEE 73rd Vehicular
+                                                                      Technology Conference (VTC Spring). IEEE, 2011, pp. 1­5.
+                                                                 [18] R. Ernst and M. Di Natale, "Mixed criticality systems--a history of
+                                                                      misconceptions?" IEEE Design & Test, vol. 33, no. 5, pp. 65­74,
+                                                                      2016. [19] S. Irani and V. Leung, "Scheduling with conflicts, and
+                                                                      applications to traffic signal control," in SODA, vol. 96, 1996, pp.
+                                                                      85­94.
+                                                                 [20] D. Krajzewicz, G. Hertkorn, C. Rössel, and P. Wagner, "Sumo
+                                                                      (simulation of urban mobility)-an open-source traffic simulation," in
+                                                                      Proceedings of the 4th middle East Symposium on Simulation and
+                                                                      Modelling (MESM20002), 2002, pp. 183­187.
+                                                                 [21] P. Ranjan and K. K. Ahirwar, "Comparative study of vanet and manet
+                                                                      routing protocols," in Proc. of the International Conference on
+                                                                      Advanced Computing and Communication Technologies (ACCT
+                                                                      2011), 2011, pp. 517­523.
+                                                                 [22] A. Burns and R. Davis, "Mixed criticality systems-a review,"
+                                                                      Department of Computer Science, University of York, Tech. Rep, pp.
+                                                                      1­69, 2013.
+                                                                 [23] W. Arellano and I. Mahgoub, "Trafficmodeler extensions: A case for
+                                                                      rapid vanet simulation using, omnet++, sumo, and veins," in 2013
+                                                                      High Capacity Optical Networks and Emerging/Enabling
+                                                                      Technologies. IEEE, 2013, pp. 109­115.
+
+6
+

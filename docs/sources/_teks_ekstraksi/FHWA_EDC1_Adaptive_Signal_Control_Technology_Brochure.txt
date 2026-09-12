@@ -1,0 +1,112 @@
+FAQs                                                           Contact Information                                                          What are Adaptive Signal
+                                                                                                                                              Control Technologies?
+Where are adaptive signal control technologies                    For training or more information on                 ASCT
+                     most e ective?                             this Every Day Counts Initiative, please                                The variability and unpredictability of tra c demand
+                                                                                                               Adaptive Signal Control  on arterial systems often outpace the ability of local
+Adaptive signal control technologies are best suited for             To learn more about EDC, visit:                Technologies        and State agencies to update signal timings so that
+arterials that experience highly variable or unpredictable      http://www.fhwa.dot.gov/everydaycounts                                  signalized intersections operate e ciently and do not
+tra c demand for which multiple signal timing solutions                                                                                 cause congestion and delays to motorists and
+are necessary during a typical time-of-day period.                   Tra c ows smoothly through green lights.                           pedestrians. The 2007 National Tra c Signal Report
+                                                                                                                                        Card rated the Nation's tra c signal management
+      How well does adaptive signal control                         About Every Day Counts                                              and operations practices with a letter grade of "D"
+    technology improve system performance?                                                                                              and estimated that poor tra c signal timing
+                                                                Every Day Counts is designed to identify                                contributes to as much tra c congestion and more
+Many studies have shown that adaptive signal control           and deploy innovation aimed at shortening                                than 295 million vehicle-hours of delay on major
+improves average performance metrics (travel time,                                                                                      roadways alone. Conventional signal systems do not
+control delay, emissions, and fuel consumption) by                project delivery, enhancing the safety                                use pre-programmed, daily signal timing schedules
+10 percent or more. In systems with extremely outdated             of our roadways, and protecting the                                  that do not monitor system performance, nor can
+signal timing, and under saturated conditions, the                                                                                      they adjust automatically to accommodate tra c
+improvement can be 50 percent or more. Improvement                               environment.                                           patterns that are di erent from the peak periods
+might not be as dramatic in areas where tra c demand is                                                                                 during which they were designed to operate.
+stable and predictable during typical time-of-day periods,                                                                              Adaptive signal control technologies adjust when
+performance is regularly monitored, and signal timing is                                                                                green lights start and end to accommodate current
+well maintained.                                                                                                                        tra c patterns to promote smooth ow and ease
+                                                                                                                                        tra c congestion. The main bene ts of adaptive
+     How widely are these technologies used?                                                                                            signal control technology over conventional signal
+                                                                                                                                        systems are that it can:
+Adaptive signal control technologies are widely used in
+the United Kingdom, Asia, and Australia. In the United                                                                                     · Automatically adapt to unexpected changes in
+States, adaptive signal control technologies are being                                                                                       tra c conditions.
+used on less than one percent of all signalized
+intersections. The cost of hardware can be an issue, but                                                                                   · Improve travel time reliability.
+other barriers include the expertise necessary to con gure                                                                                 · Reduce congestion and fuel consumption.
+and maintain the system, a lack of active performance                                                                                      · Prolong the effectiveness of traffic signal timing.
+measurement, and myths about the bene ts of adaptive                                                                                       · Reduce the complaints that agencies receive in
+signal control technology.
+                                                                                                                                             response to outdated signal timing.
+   How do I plan to implement adaptive signal                                                                                              · Make traffic signal operations proactive by
+                  control technology?
+                                                                                                                                             monitoring and responding to gaps in
+As with any tra c operations strategy, it is essential that a                                                                                performance.
+signal operator identify performance outcomes they wish
+to achieve; determine their current needs, requirements,                                                                                Adaptive Control Software Lite (ACSLite) is a speci c
+and long-range possibilities for their system; identify and                                                                             adaptive signal control technology developed by the
+pursue regional collaboration and integration; insert into                                                                              FHWA through a public-private partnership. ACSLite
+agency plans all the resources necessary to successfully                                                                                takes advantage of typical signal system architecture
+deploy and maintain the system throughout its lifecycle;                                                                                and works with existing control, detection, and
+and monitor performance of the deployed system.                                                                                         communications con gurations to cost-e ectively
+                                                                                                                                        deliver adaptive control that is easy-to-deploy and
+  Where can I go for assistance in this planning                                                                                        produces comparable performance to traditional
+                         process?                                                                                                       adaptive systems.
+
+Contact your FHWA Division O ce, who can help you
+identify experts in planning, operation, and technical
+issues.
+        How Does It Work?                                       Why Adaptive Signal Control                            ACS Lite and Alternative Adaptive                           communications, and tra c sensors from a range of
+                                                                        Technologies?                                 Tra c Signal Control Technologies                            manufacturers, making it a cost-e ective and exible
+By receiving and processing data from sensors to                                                                                                                                   alternative.
+optimize and update signal timing settings, adaptive           · Adaptive signal control technologies deliver         ACSLite was developed to improve progression
+signal control technologies can determine when and               improved service to road users.                      and phase utilization for small scale arterial               In the United States, several adaptive systems are
+how long lights should be green. Adaptive signal                                                                      systems of 30 or fewer tra c signals, producing              available from multiple vendors. Agencies should
+control technologies help improve the quality of                    Outdated tra c signal timing currently accounts   smoother ow and fewer tra c delays. Large                    evaluate their needs, system requirements and
+service that travelers experience on our local roads                for more than 10 percent of all tra c delays.     scale adaptive signal systems can handle hundreds            operations, and maintenance capabilities through
+and highways.                                                       On average, adaptive signal control               of tra c signals, are typically fully integrated into        a system engineering process to evaluate if and
+                                                                    technologies improve travel time by more than     central systems, and operate on a second-by-                 which adaptive signal control technology will work
+The process is simple. First, tra c sensors collect data.           10 percent. In areas with particularly outdated   second basis. ACSLite makes timing updates                   best for their situation. Each system has speci c
+Next, tra c data is evaluated and signal timing                     signal timing, improvements can be 50 percent     every few minutes while large scale systems are              requirements, and each will produce improved
+improvements are developed. Finally, the adaptive                   or more.                                          capable of making timing updates every cycle.                levels of performance that are consistent with
+signal control technology implements signal timing                                                                    The Lite in ACSLite implies that it has less of a            agency commitment to management and
+updates. The process is repeated every few minutes                  Adaptive signal control technologies also react   communications and detection burden, and                     operations programs.
+to keep tra c owing smoothly. Traditional signal                    to unexpected events, such as crashes and         utilizes empirical methods that do not need to be
+retiming might only repeat this process every 3 to 5                special events. By adjusting tra c signal timing  calibrated, thereby making it less complex to                Split Cycle O set Optimization Technique (SCOOT)
+years.                                                              in real-time to re ect actual conditions on the   operate and maintain.                                        is the most widely deployed adaptive system in
+                                                                    road, travelers enjoy a more reliable trip.       Like other systems, ACSLite operates in real time,           existence. It was developed in the United Kingdom.
+The traditional signal timing process is time-consuming                                                               adjusting signal timing to accommodate changing              The Sydney Coordinated Adaptive Tra c System
+and requires substantial amounts of manually                        Studies indicate that crashes could be reduced    tra c patterns and ease tra c congestion. However,           (SCATS) was developed in Australia, and matches
+collected tra c data. Traditional time-of-day signal                by up to 15 percent through improved signal       ACSLite works with conventional control equipment,           tra c patterns to a library of signal timing plans
+timing plans do not accommodate variable and                        timing. Adaptive signal control technology can                                                                 and scales split plans over a range of cycle times.
+unpredictable tra c demands. This results in customer               reduce the intersection congestion that causes    When adaptive signal control technologies are used, overall  Another e ective system is the Real Time Hierarchical
+complaints, frustrated drivers, excess fuel consumption,            many crashes.                                                           travel times decrease.                 Optimized Distributed E ective System (RHODES),
+increased delays, and degraded safety. Customer                                                                                                                                    which uses a peer-to-peer communications
+complaints is the most frequently cited performance            · Adaptive signal control technologies solve                                                                        approach to communicate tra c volumes from
+measure in operations surveys conducted by the FHWA.             problems for signal operators.                                                                                    one intersection to another in real time. There are
+In the absence of complaints, months or years might                                                                                                                                many others in existence and in development.
+pass before ine cient tra c signal timing settings are              Performance management and acquiring the
+updated. With adaptive signal control technologies,                 information necessary to measure performance                                                                    Adaptive signal control technologies can reduce stop time at
+information is persistently collected and signal timing             are challenges facing many transportation                                                                                                  intersections.
+is updated continually.                                             agencies. Adaptive signal control technologies
+                                                                    capture a rich set of data that signal operators
+   A wide variety of adaptive signal control technologies are       can use to monitor their performance.
+           available to operate in varied environments.
+                                                                    By solving tra c problems as they occur,
+                                                                    adaptive signal control can reduce citizen
+                                                                    complaints and frustration. Adaptive signal
+                                                                    control technology is a proactive step that
+                                                                    signal operators can take to improve service.
+
+                                                               · Adaptive signal control technologies provide
+                                                                 value.
+
+                                                                    The costs of congestion and delay to road users
+                                                                    are substantial, and adaptive signal control
+                                                                    technology delivers bene ts to users that far
+                                                                    outweigh its cost.
+
+                                                                    Adaptive signal control technologies also
+                                                                    provide value directly to signal operators. By
+                                                                    extending the e ectiveness of tra c signal
+                                                                    timing plans, implementing adaptive signal
+                                                                    control technologies can yield direct savings
+                                                                    by reducing the frequency of manually
+                                                                    retiming signals.
+

@@ -1,0 +1,1435 @@
+                                            OCC-MP: A Max-Pressure framework to prioritize transit and high
+                                                                            occupancy vehicles
+
+                                                                             Tanveer Ahmeda, Hao Liub,, Vikash V. Gayaha
+
+                                         aDepartment of Civil and Environmental Engineering, The Pennsylvania State University, University Park, PA, United
+                                                                                                                         States
+
+                                                bDepartment of Civil and Environmental Engineering, Jackson State University, Jackson, MS, United States
+
+arXiv:2406.19269v2 [eess.SY] 4 Aug 2024  Abstract
+
+                                         Max-pressure (MP) is a decentralized adaptive traffic signal control approach that has been shown to maxi-
+                                         mize throughput for private vehicles. However, MP-based signal control algorithms do not differentiate the
+                                         movement of transit vehicles from private vehicles or between high and single-occupancy private vehicles.
+                                         Prioritizing the movement of transit or other high occupancy vehicles (HOVs) is vital to reduce congestion
+                                         and improve the reliability and efficiency of transit operations. This study proposes OCC-MP: a novel MP-
+                                         based algorithm that considers both vehicle queues and passenger occupancies in computing the weights
+                                         of movements. By weighing movements with higher passenger occupancies more heavily, transit and other
+                                         HOVs are implicitly provided with priority, while accounting for any negative impacts of that priority on
+                                         single occupancy vehicles. And, unlike rule-based transit signal priority (TSP) strategies, OCC-MP more
+                                         naturally also accommodates conflicting transit routes at a signalized intersection and facilitates their move-
+                                         ment, even in mixed traffic without dedicated lanes. Simulations on a grid network under varying demands
+                                         and transit configurations demonstrate the effectiveness of OCC-MP at providing TSP while simultaneously
+                                         reducing the negative impact imparted onto lower occupancy private vehicles. Furthermore, OCC-MP is
+                                         shown to have a larger stable region for demand compared to rule-based TSP strategies integrated into the
+                                         MP framework. The performance of OCC-MP is also shown to be robust to errors in passenger occupancy
+                                         information from transit vehicles and can be applied when passenger occupancies of private vehicles are
+                                         not available. Finally, OCC-MP can be applied in a partially connected vehicle (CV) environment when a
+                                         subset of vehicles is able to provide information to the signal controller, outperforming baseline methods at
+                                         low CV penetration rates.
+
+                                         Keywords: Max Pressure algorithm; Adaptive traffic signal control; Transit signal priority;
+                                         Microsimulation
+
+                                         1. Introduction
+
+                                             Adaptive Traffic Signal Control (ATSC) is an intelligent transportation system technology that aims
+                                         to optimize traffic flow by dynamically adjusting signal timings based on real-time traffic patterns. Max
+                                         Pressure (MP) is a decentralized ATSC framework that has gained popularity due to its effectiveness in im-
+                                         proving vehicle throughput at intersections. Initially developed for packet transmission scheduling in wireless
+                                         networks (Tassiulas and Ephremides, 1990), the MP concept was later extended to traffic signal control by
+                                         (Varaiya, 2013). MP-based traffic signal control algorithms operate independently at each intersection and
+                                         rely on local information from approach links upstream and downstream of the intersection. Unlike some
+                                         other ATSC approaches, MP algorithms do not require knowledge of future traffic demands, making them
+
+                                             Corresponding author
+                                              Email addresses: tpa5285@psu.edu (Tanveer Ahmed), hfl5376@psu.edu (Hao Liu), gayah@engr.psu.edu (Vikash V.
+
+                                         Gayah)
+
+                                         Preprint submitted to Elsevier  August 6, 2024
+more practical and applicable in real-world settings. MP control is based on distributing vehicles from longer
+queues to shorter queues (Levin, 2023). Specifically, the control policy assigns the right of way to the phase
+in a traffic signal that serves movements with higher level of congestion, toward downstream links that are
+more uncongested in order to maximize throughput. The level of congestion can be measures using various
+metrics such as the number of vehicles, average travel time or average delay along a link (Dixit et al., 2020;
+Kouvelas et al., 2014; Le et al., 2015; Lioris et al., 2016; Liu and Gayah, 2022, 2023; Mercader et al., 2020;
+Varaiya, 2013; Xiao et al., 2014). The most desirable property of the MP algorithm is maximum stability,
+which refers to its ability to serve a feasible set of demands if those demands can be accommodated by
+any other control strategy (Varaiya, 2013). The set of feasible demands is known more commonly as the
+stable region. Modifications to the MP in literature have reported either maximum stability or stability
+properties on a reduced stable region (Barman and Levin, 2023; Gregoire et al., 2014; Le et al., 2015; Levin
+et al., 2020; Li and Jabari, 2019; Liu and Gayah, 2022; Pumir et al., 2015; Wu et al., 2018; Xiao et al.,
+2014; Xu et al., 2022). While there have been several variations of the MP algorithm proposed since 2013,
+most treat all vehicles in a similar manner and do not distinguish between low and high occupancy vehicles
+(HOVs). However, prioritizing HOVs ­ particularly transit vehicles ­ is critical to reduce vehicular demand
+and alleviate congestion.
+
+    To that end, transit signal priority (TSP) aims to enhance the performance of public transportation
+by granting priority to transit vehicles at traffic signals. Its primary objective is to alleviate delays caused
+by traffic signals and improve the reliability, efficiency, and speed of public transportation services. TSP
+techniques can generally be classified into three categories: "active", "passive", and "adaptive". Passive
+TSP relies on pre-programmed signal timing plans to prioritize public transit vehicles at specific times
+or on designated routes, without direct communication between the transit vehicle and traffic signals. It
+is effective for fixed-route bus lines with predictable schedules (Lin et al., 2019; Stephanedes and Filippi,
+1996). In contrast, active TSP involves real-time communication between transit vehicles and traffic signals,
+allowing for dynamic adjustments to signal timing based on the vehicle's needs. Active TSP requires a two-
+way communication system, with transit vehicles sending requests to the traffic signal system, which then
+responds by adjusting signal timing through methods like green extension and red truncation (Christofa
+and Skabardonis, 2011a; Currie and Shalaby, 2008; Lin et al., 2015; Truong et al., 2019; Zeng et al., 2021).
+Most of these studies have focused on developing TSP strategies based on fixed cycle lengths or are limited
+to dedicated bus lanes. As a result, these strategies overlook the potential consequences on private vehicles
+i.e., overall traffic flow. In addition, these studies rely on rule-based approaches and optimization under
+various constraints to balance travel time of transit and private vehicles (Lee and Wang, 2022).
+
+    Adaptive-TSP systems dynamically respond to changing traffic conditions and adjust signal timings
+accordingly. These systems utilize real-time traffic information and other vehicle information ­ including
+vehicle occupancies ­ to optimize performance measures, such as minimizing delay for both vehicles and
+passengers. In many cases, the optimization objectives consider prioritizing factors like maximizing person
+capacity or minimizing person delay, schedule delay, vehicle queues and emissions rather than vehicle-based
+measures alone (Chen et al., 2023; Christofa et al., 2016, 2013; Christofa and Skabardonis, 2011b; Ding et al.,
+2015; Lee and Wang, 2022; Li et al., 2020; Ma et al., 2014; Yu et al., 2018, 2017; Zeng et al., 2015; Zhao and
+Ma, 2018; Zhao and Zhou, 2019). The computational complexity of these problems calls for formulation as
+mixed integer linear problems that are commonly solved using techniques such as dynamic programming
+(Wu and Guler, 2019; Wu et al., 2020), genetic algorithms (Ghanim and Abu-Lebdeh, 2015; Yang and Fan,
+2023), reinforcement learning (Alizadeh Shabestray and Abdulhai, 2019; Guo and Wang, 2021; Ling and
+Shalaby, 2004; Long et al., 2022). With the emergence of connected vehicle (CV) technology, researchers
+have leveraged two-way communication, precise vehicle location tracking, and passenger count information
+in TSP research (Chen et al., 2022; Hu et al., 2022, 2015; Yang et al., 2019; Yang and Fan, 2023). More
+recently, passenger occupancy-based signal timing has been developed using reinforcement learning; see e.g.,
+(Vlachogiannis et al., 2023). However, these learning-based methods rely on extensive training and are not
+generally transferable to situations that were not observed within the training process. And, as will be
+described later in this paper, the reward considered in (Vlachogiannis et al., 2023) does not appropriately
+account for downstream space availability, which could limit its effectiveness.
+
+    A recent study (Xu et al., 2022) proposed the integration of rule-based TSP into MP control. The study
+
+                                                                      2
+demonstrated that the combined MP-TSP policy outperforms fixed-time-TSP and adaptive-TSP policies in
+reducing vehicle travel times, while having the ability to serve a larger demand. However, the proposed
+policy relies on constraints that reduce the stable region or private vehicles compared to the original max
+pressure policy. Moreover, the control uses a set of rules that switch between the original control policy and
+TSP depending on the detection of buses thus, it provided unconditional priority to buses at the expense
+of other vehicles. Furthermore, the application was also limited to arterials with dedicated bus lanes, while
+most urban networks have shared lanes for transit vehicles and private automobiles.
+
+    In light of these drawbacks, this study proposes a novel occupancy-based MP policy (OCC-MP) that
+combines passenger occupancies and vehicle queues when determining signal timings. By increasing the
+weight of movements with more queued passengers in the signal timing process, transit and other HOVs
+are implicitly prioritized over private automobiles as they typically carry more passengers. The study
+also analytically proves that OCC-MP maintains the maximum stability property for isolated intersections
+without reducing the size of the stable region. A stability analysis using micro-simulation also reveals
+that the OCC-MP policy has a similar stable region to the original MP, as well as a larger stable region
+compared to rule-based MP that provides TSP. Simulation tests demonstrate that OCC-MP can provide
+priority to higher occupancy private automobiles, if occupancy information of these vehicles is available.
+Unlike previous attempts to integrate TSP with MP, the proposed strategy can also be applied to networks
+with shared bus lanes (i.e., transit vehicles and private automobiles move in the same lanes). OCC-MP can
+also be applied in a partial CV environment, both when a subset of vehicles can be detected and when a
+subset can provide occupancy information to the signal controller. The performance of OCC-MP is also
+shown to be robust to errors in passenger occupancy information from transit vehicles.
+
+    The remainder of this paper is organized as follows. The next section provides an overview of the proposed
+OCC-MP control policy. This is followed by the simulation setup used to evaluate the performance of OCC-
+MP against baseline methods. Then, the results of the experiments are presented, including a comparative
+analysis between the proposed methods and the baseline approaches. The last section concludes the paper
+by highlighting the important findings and suggesting potential directions for future research.
+
+2. Method
+
+2.1. Max Pressure
+
+    Before the MP signal control is described, some notations are provided. Consider a network made up of
+links and nodes: each link represents a directional road segment between two adjacent intersections which
+are represented by nodes. Upstream and downstream links at an intersection facilitate the movement of
+incoming and outgoing vehicles. Movement (l, m) represents the pair of links that serves vehicles from an
+upstream link l to a downstream link m. U (i) denotes the set of all upstream links at intersection i, and
+D(l) denotes the set of links downstream of link l. The proportion of traffic that turns from link l to link m
+is denoted by r(l, m). The rate vehicles are allowed to pass through an intersection from link l to m per unit
+time is represented by the saturation flow, C(l, m), which is a random but upper bounded variable. Each
+intersection serves a set of signal phases denoted by i where each signal phase serves a set of vehicular
+movements. Li contains the set of movements served by phase  at intersection i.
+
+    The MP algorithm involves three key steps;
+
+   1. Obtain the weights (w) of each movement. Weight is assigned to each movement by calculating the
+       difference between the metric value of that movement and the average value of the metric for its
+       downstream movements. This weight serves as an indicator of the level of congestion of both the
+       upstream and downstream end of a movement. Note that for isolated intersections or intersections at
+       the boundary of a network, downstream movements serving exit vehicles are not considered.
+
+   2. Calculate the pressure (P ) of each phase. The pressure of each phase is calculated by summing up the
+       weight multiplied by the associated saturation flow over all movements served by that phase. This is
+       used to determine the relative importance of each phase served by the signal.
+
+                                                                      3
+3. Determine signal timing (S) using pressure. In acyclic MP algorithms, the phase with the highest
+   pressure is activated in the next time step without regarding the sequence of phases. On the other
+   hand, in cyclic MP algorithms, the green time for each phase in the next cycle is assigned proportionally
+   based on the pressures of the respective phases in the designated phase sequence. The proposed model
+   follows the former type.
+
+2.2. Proposed OCC-MP policy
+
+    The original MP policy proposed in (Varaiya, 2013) ­ referred to in this paper as the Q-MP ­ uses the
+number of queued vehicles on each link as the metric to determine the weights of the movements. Thus, it
+treats both buses and private vehicles equally and disregards the fact that a bus can transport significantly
+more passengers compared to a single-occupancy passenger vehicle. Consequently, in the Q-MP algorithm,
+the right of way may be assigned to a movement with five single-occupancy vehicles rather than a bus
+carrying fifty passengers. In contrast, traditional rule-based TSP algorithms (including that integrated with
+MP in (Xu et al., 2022)) prioritize bus movements at an intersection regardless of the level of congestion on
+adjacent links. This means that a bus with no passengers would be given the right of way over a conflicting
+movement with many queued vehicles posing the risk of a queue spillback.
+
+    To address these limitations, the proposed algorithm (OCC-MP) considers the number of queued vehicles
+and the average occupancy of the vehicles queued on the upstream movements in order to prioritize move-
+ments involving transit or HOVs. Specifically, the weight assigned to each movement is calculated as the
+product of the difference between the upstream and downstream queue lengths and the average occupancy
+upstream (1).
+
+                                             +
+
+w(l, m) = o(l, m) x(l, m) -         x(m, n)r(m, n) = o(l, m)wq(l, m)+  (1)
+
+                             nD(m)
+
+    where o(l, m) is the average occupancy over all vehicles in the upstream movement (l, m); x(i, j) is
+the number of vehicles queued on movement (i, j), and the + symbol around the square bracket denotes
+the maximum of either 0 or the value inside the square brackets. The term in the square brackets is
+the weight of the original MP (Q-MP), wq(l, m). An additional modification is made so that movements
+with negative weights are set to 0. This arises when downstream links are more congested than upstream
+links. Ignoring negative weights is useful when a phase serves multiple movements ­ e.g., a through and
+a right turn movement ­ and the weight of one movement is negative while the other is positive. Often,
+a negative weight on a minor movement (e.g., a right turn) adversely reduces the weights of the major
+movement (e.g., the through movement). This reduces the pressure of that phase and leads to activation
+of less critical phases, reducing throughput. Such a modification has been used in prior studies and shown
+to improve network performance (Gregoire et al., 2015; Ahmed et al., 2024). This term is then multiplied
+by the average occupancy of vehicles upstream. Since all vehicles have an occupancy of at least 1 and the
+maximum passenger capacity is finite, the average occupancy on a movement is a positive and bounded
+number. Therefore, the weight calculation in the OCC-MP algorithm is essentially a scaled-up version of
+the weight defined in the Q-MP algorithm.
+
+    At each update interval, the pressure of phase  can be expressed as:
+
+P =           w(l, m) × C(l, m) × S(l, m),   i                         (2)
+
+     (l,m)Li
+
+where S(l, m) is a binary variable associated with phase  indicating whether movement (l, m) is served by
+phase .
+
+    Finally, at intersection i, the policy selects the phase with the maximum pressure in the set of all phases
+i (3). In this study, the signals are updated in the subsequent time step.
+
+                             S = arg max P                             (3)
+
+                                    i
+
+                                    4
+    The benefit of considering the average occupancy is that it allows the control policy to distinguish
+between movements that serve vehicles of higher occupancy and those that do not. Figure 1 provides a
+simple illustrative example with two one-way movements. Only private vehicles are queued in the N-S
+direction while both private vehicles and a bus are queued in the W-E direction. The W-E movement
+has 3 vehicles queued upstream and 2 vehicles downstream; thus its weight under the Q-MP policy is
+wq(W, E) = (3 - 2) = 1. The N-S movement has 5 queued vehicles on its upstream link and 2 vehicles
+downstream, hence, its weight under the Q-MP policy is wq(N, S) = (5 - 2) = 3. Therefore, Q-MP
+prioritizes the N-S movement over the W-E movement. Under the OCC-MP policy however, the W-E
+movement a weight of, w(W, E) = (20 + 2 + 2)/3(3 - 2) = 8 while the N-S movement has a weight of
+w(N, S) = wq(N, S) = (1 + 1 + 1 + 1 + 1)/5(5 - 2) = 3. Therefore, OCC-MP provides TSP by prioritizing
+the W-E movement.
+
+                                              Figure 1: Example of transit signal priority using OCC-MP.
+
+    The occupancy of the downstream vehicles is not considered when calculating the weight of the movement.
+This is because the downstream portion of the weight captures supply constraints on that link. Therefore,
+simply replacing the number of queued vehicles with the number of passengers on both upstream and
+downstream ­ as was done in (Vlachogiannis et al., 2023) ­ would mean downstream supply issues. The
+presence of downstream vehicles accounts for available storage space on the receiving links. More waiting
+passengers downstream, specifically in buses, does not necessarily mean that a link has little capacity to
+accommodate vehicles from upstream links. Therefore, only the average upstream occupancy is considered.
+In cases where there are no vehicles downstream or in isolated intersections where downstream movements
+are ignored in the weight calculation, the weight of the movements in the OCC-MP algorithm is equal to the
+number of passengers upstream. For example, in Figure 1, if there were no vehicles downstream on either
+movements, w(N, S) and w(W, E) would represent the number of queued passengers on the N-S and the
+W-E movements respectively.
+
+    Since OCC-MP requires information on vehicle occupancy, it is assumed that such information is available
+to the controller. In scenarios where private vehicle occupancies are not readily available, an average
+occupancy value is assumed. However, in a fully connected vehicle environment, it is assumed that the
+occupancy information may be readily accessible. On the contrary, many buses are currently equipped with
+automatic passenger counting (APC) systems that allow real-time information of the number of passengers
+onboard a transit vehicle. Therefore, the exact bus occupancies are assumed to be available for weight
+calculation.
+
+                                                                      5
+    Intersections where conflicting bus routes are served by different phases often receive simultaneous pri-
+ority requests. Most prior studies have used either a first-come-first-serve or model-based methods (e.g.,
+person-delay optimization, schedule-deviation minimization) to decide the sequence of phases at conflict
+intersections (Christofa et al., 2013; Head et al., 2006; Hu et al., 2016; Ma et al., 2013). These methods are
+subject to strict constraints that reduce the efficacy and increase the complexity of TSP control policies. The
+proposed OCC-MP handles conflict intersections much more efficiently without any additional constraints
+or assumptions. Specifically, if multiple buses are competing for right of way, OCC-MP selects the phase
+with the highest pressure considering the size of the queue on the link and the average occupancy of both
+buses and private vehicles. This way, OCC-MP is able to resolve conflicting bus movements at intersections
+without compromising the flow of private vehicles.
+
+2.3. Maximum stability for isolated intersections
+
+    A signal control policy is stable if the average service rate in the network is equal to the average demand,
+i.e., the average number of vehicles in the network remain bounded (Levin, 2023). Maximum stability refers
+to the property that the policy can serve a traffic demand if this demand can be accommodated by an
+admissible control strategy. This section proves the maximum stability property for the proposed OCC-MP
+for isolated intersections.
+
+    For isolated intersections, as mentioned before, all outgoing links are regarded as sink links, and the
+traffic states on those links are not considered in the pressure calculation. Therefore, only the incoming
+links for isolated intersections are considered for the rest of this section. Traffic dynamics, in terms of the
+evolution of number of vehicles, on movement (l, m) can be expressed as:
+
+           x (l, m) (t + 1) = x (l, m) (t) + d (l, m) (t) - min {C (l, m) (t) S (l, m) (t) , x (l, m) (t)}  (4)
+
+where d (l, m) (t) is the external demand for movement (l, m) at time t.
+
+Definition 1. A demand d is feasible if there exists an admissible control sequence {S(t) : t = 0, 1, 2, ...}
+
+such that
+
+                 d¯(l, m)  S¯(l, m)c(l, m), (l, m)                                                          (5)
+
+where d¯(l, m) is the average external demand of movement (l, m), S¯(l, m) is the proportion of time steps
+
+that movement (l, m) is activated, and c(l, m) is the average saturation flow for movement (l, m).
+
+    The set of demand satisfying Eq. (5), denoted by D, is called feasible demand region, and D0 is used to
+indicate the interior of D. Let S indicate the set of admissible phases at the isolated intersection and co(S)
+denote the convex hull of S, which can be expressed as:
+
+                co(S) = { eSe|e  0, e = 1}                                                                  (6)
+
+                                               Se S     e
+
+It is easy to prove that a control matrix  is in co(S) if and only if there exists an admissible control
+
+sequence {S(t) : t = 0, 1, 2, ...} such that:
+
+                 S¯(l, m) = (l, m), (l, m)                                                                  (7)
+
+    Combining Definition 1 and Eq. (7) obtains that a demand d is in the feasible region if and only if there
+exists a matrix   co(S) such that
+
+                 d¯(l, m)  (l, m)c(l, m), (l, m)                                                            (8)
+
+Definition 2. A signal control sequence {S(t) : t = 0, 1, 2, ..., T } stabilizes the queue process in the mean if
+the average queue length in the network is upper bounded, i.e.,
+
+             1T                                E(x(l, m)(t))  M, T = 1, 2, 3...                             (9)
+
+             T  t=1 l,m
+
+where M < .
+
+                                                     6
+Theorem 1 (Maximum stability). Assume the expected value of the average occupancy of a movement is
+
+independent of the queue length of that movement, the proposed OCC-MP algorithm stabilizes the queue
+process for isolated intersections if d  D0.
+
+Proof. As mentioned before, it is assumed the supply downstream of the outgoing links at isolated intersec-
+tions is infinity, so the number of vehicles on the outgoing links is always upper bounded. Therefore, only
+number of vehicles on the incoming links is considered in this proof.
+
+    Let  represent the difference in the queue length of movement (l, m) between two consecutive steps
+under the control of OCC-MP, S. Eq. (4) leads to,
+
+(l, m)(t + 1) = x(l, m)(t + 1) - x(l, m)(t) = d(l, m)(t) - min(x(l, m)(t), C(l, m)(t)S(l, m)(t)) (10)
+
+          
+    Let o(t) indicate the vector of which each element is the square root of the average occupancy of a
+movement at the isolated intersection, i.e., o(t) = { o(l, m) : (l, m)}. Then,
+
+          X(t  +  1)|2  -            X(t)|2  =             X(t))T              (t))  +            (t  +  1)|2  =  2  +    (11)
+| o(t)                     | o(t)               2( o(t)            ( o(t)               | o(t)
+
+where A  B is the Hadamard product of vectors A and B, |X|  xiX xi, |X|2  xiX(xi)2.
+    Next, it is proved that there exist k <  and  > 0 such that
+
+                                     X(t  +  1)|2  -            X(t)|2)|X(t),             k  -  |X(t)|                    (12)
+                    E{(| o(t)                         | o(t)                     o(t)}
+
+According to Eq. (10),  can be expressed as:
+
+                     = o(l, m)(t) [d(l, m)(t) - min(x(l, m)(t), C(l, m)(t)S(l, m)(t))]2                                   (13)
+
+                           l,m
+
+    Since o(l, m)(t), d(l, m)(t), and min(x(l, m)(t), C(l, m)(t)S(l, m)(t)) are all upper bounded by a con-
+stant, it is easy to see that  is upper bounded by a constant.
+
+    For simplicity, (l, m) from the expression of  is omitted in the following. Combining Eqs. (10) and (11)
+obtains,
+
+           = o(t)x(t)(d(t) - min(x(t), C(t)S(t))
+
+                  l,m
+
+               = o(t)x(t)(d(t) - C(t)S(t)) + o(t)x(t)(C(t)S(t) - min(x(t), C(t)S(t)))
+
+                  l,m                                    l,m                                                              (14)
+
+                                             
+               = 1(l, m)(t) + 2(l, m)(t)
+
+                  l,m                l,m
+
+               = 1 + 2
+
+It is easy to obtain that for each movement (l, m),
+
+                                   = 0,                          if x(l, m)(t)  C(l, m)(t)S(l, m)(t)                    (15a)
+                  2(l, m)(t)  o(l, m)(t)C2(l, m)(t) otherwise                                                           (15b)
+
+    Therefore, 2 = l,m 2 (l, m)(t) is also upper bounded by a constant.
+    Since S maximizes l,m o(t)x(t)C(t)S(t) and d(t) is in the stable region, according to Eq. (8), there
+exist a control matrix   co(S) and  > 0 such that
+
+                                                                                          
+                        E{1|X(t), o(t)}  o(t)x(t)E{(d(t) - C(t))|X(t), o(t)}
+
+                                                   l,m
+
+                                                = o(t)x(t)(d¯- c(t))                                                      (16)
+
+                                                   l,m
+
+                                                 - o(t)x(t)
+
+                                                         l,m
+
+                                                              7
+Since o(l, m) >= 1,                               
+
+                                    E{1|X(t), o(t)}  - x(t)                                    (17)
+
+                                                                  l,m
+
+    Until now, it is proved that  and 2 are upper bounded by a constant, and the conditional expectation
+of 1 is bounded by a form shown in Eq. (17). Then,
+
+                                    X(t  +  1)|2  -            X(t)|2)|X(t),  
+                     E{(| o(t)                       | o(t)                     o(t)}
+                                                                                      
+=E                   {o(t)}T  E  {(X(t   +  1)    X(t   +  1)  -  X(t)    X(t)|X(t),    o(t)}  (18)
+
+k - |X(t)|
+
+Then, taking expectation for both side and sum over t = 1, 2, 3, ..., T obtains:
+
+                     T          E  {|X(t)|}       k  +  1 E{o}T E{X(1)  X(1)}                  (19)
+                     t=1
+
+                                 T                 T
+
+    Since it is assumed that the expectation of average occupancy, E{o}, is fixed, the right-hand side of Eq.
+(19) is a constant. Eq. (19) indicates the average queue length in the network under the control of OCC-MP
+is upper bounded.
+
+    Although the maximum stability for a large network is not established for the original feasible region,
+defined by Q-MP, the simulation results in Section 4 demonstrate that the feasible region of the proposed
+OCC-MP is larger than that of a rule-based MP algorithm that provides TSP (Xu et al., 2022), which was
+proved to be stable for a smaller feasible region.
+
+3. Simulation Setup
+
+    Simulation tests in the AIMSUN micro-simulation platform were performed to evaluate the effectiveness
+of the proposed OCC-MP control strategy. AIMSUN was chosen for its ability to realistically model traffic
+dynamics, such as congestion propagation, queue spillbacks, vehicle routing, and driving behavior(Barcelo´
+and Casas, 2005).
+
+3.1. Network setup
+
+    Simulation tests were carried out on an 8x8 grid network shown in Figure 2. While real-world street
+networks may not perfectly align with a square grid pattern, many urban networks exhibit grid-like charac-
+teristics. Previous studies that have simulated grid traffic networks reported results that can be generalized
+to more realistic networks (Bayrak et al., 2023; Knoop et al., 2012; Mazloumian et al., 2010; Ortigosa et al.,
+2019; Ortigosa and Menendez, 2014). Road segments were categorized as arterials with mixed use that
+accommodate both private vehicles and buses. All road segments were assumed to have bi-directional traffic
+flow, with three travel lanes in each direction serving dedicated right, through and left movements at an
+approach (Figure 3). Each segment was 200 meters long with a saturation flow of 1800 vehicles per hour
+and a posted speed limit of 50 km/h. Within the network, all 64 intersections were signalized and consist
+of four phases, where through and right movements are served by one phase while left turning movements
+have a separate phase (Figure 3).
+
+    Private vehicle origins and destinations were strategically positioned at the 32 O-D centroids located
+along the network's perimeter. A symmetric demand pattern was adopted, in which the demand at North-
+South origin centroids was assumed to be twice the demand at East-West origin centroids. A two-hour
+peak period was simulated, consisting of gradually increasing private vehicle demand in three 30 minute
+intervals, followed by a decrease in the last 30 minutes. This was then followed by a one-hour cooldown
+period. Two demand scenarios were tested: a high demand scenario with an average of 32,256 vehicles
+entering the network and a low demand scenario with an average of 23,040 entering vehicles (Figure 4).
+To model the private vehicle routing behavior, the study utilized the stochastic c-logit route choice model
+
+                                                                      8
+                                 SB-W            SB-C
+
+               EB-N                                                    WB-N
+              EB-CN                                                    WB-CS
+              EB-SN                                                    WB-SS
+
+                                 NB-W     NB-C
+
+                           Figure 2: Network configuration.
+
+              Lane configuration Phase 1  Phase 2             Phase 3  Phase 4
+
+                           Figure 3: Lane configuration and phases.
+
+25000         High demand                              20000           Low demand
+
+20000Demand (Veh/hr)                                   16000
+                                                                               Cooldown
+15000                                                                                           Demand (Veh/hr)12000
+                                                                                                                                                                                Cooldown
+10000                                                  8000
+
+5000                                                   4000
+
+0                                                      0
+
+7.30 8.00     8.30 9.00    9.30           10.30        7.30 8.00       8.30 9.00   9.30                                                                                                   10.30
+                                           AM                                                                                                                                              AM
+       AM AM  AM     AM    AM                                 AM AM    AM     AM   AM
+
+                               Figure 4: Time varied demand.
+
+integrated within AIMSUN. This routing model aimed to replicate a stochastic user-equilibrium routing
+solution, where vehicles select routes at the beginning of a trip to minimize travel times.
+
+    The simulated network consists of ten bus routes, which include a combination of bi-directional and
+unidirectional routes as shown in Figure 2. Six of the routes operate between three pairs of O-D centroids:
+(SB-W, NB-W), (SB-C, NB-C), and (EB-N, WB-N). The remaining four routes ­ EB-CN, WB-CS, EB-SN,
+and WB-SS ­ are unidirectional, meaning that buses travel in only one direction. Within the network,
+there are seven high-occupancy routes indicated by green labels and three low-occupancy routes (marked
+with red labels) in Figure 2. The study simulates two different levels of passenger demand. In the high
+passenger demand scenario, the high occupancy routes are assigned an average occupancy of 50 passengers
+per bus, while the low occupancy routes have an average occupancy of 25 passengers per bus. In contrast,
+
+                                                                      9
+the low passenger demand scenario assumes the high occupancy routes have an average occupancy of 12
+passengers per bus, while the low occupancy routes have an average occupancy of 3 passengers per bus.
+Two levels of bus frequencies were also simulated where the headway between buses in the high frequency
+case was 2 minutes on average, while the low frequency case was simulated with an average headway of
+5 minutes between consecutive bus arrivals on each route. The network includes ten conflict intersections
+denoted by red circles in Figure 2 where buses may compete for right of way at the same time. As conflicting
+movements are served by different phases, the phase with a higher pressure while considering the average
+upstream occupancies will be served using the OCC-MP.
+
+    The performance of OCC-MP is compared with two other baseline policies. The first is the original
+Q-MP policy. The second baseline policy is an MP-based strategy that incorporates a rule-based transit
+signal priority, referred to as RB-MP. The RB-MP seeks to mimic the strategy proposed in (Xu et al.,
+2022). Specifically, it follows the MP framework to determine the weights, calculate the pressure and assign
+the right of way to the phase with the maximum pressure similar to the three steps shown in Section 2.1.
+However, the difference is that the algorithm uses a set of constraints that ensures unconditional priority
+to buses if they are detected within the queue of vehicles on a movement. To enforce this, the weight of a
+movement is increased by a sufficiently large constant, M , if a bus is detected which increases the pressure
+of the phase serving that movement. Therefore, at the end of the update interval, this phase is activated.
+However, if there are no buses present, RB-MP functions similar to Q-MP. In the case of multiple buses
+approaching an intersection on competing phases i.e., both of their movements cannot be accommodated by
+the same phase to avoid conflicts, the right of way is assigned to the phase that maximizes the pressure of
+private vehicles i.e., the phase with more queued vehicles is served. A pseudocode of the algorithm behind
+RB-MP is provided below.
+
+Algorithm 1 RB-MP pseudocode
+
+   # calculate weight of all movements at intersection i
+   if time == update interval then
+
+       for each movement (l, m)  Li do
+            wRB-MP(l, m)  x(l, m) - nD(m) x(m, n) × r(m, n)
+            if xbus(l, m) > 0 then
+                wRB-MP(l, m) += M
+            end if
+
+       end for
+       # calculate pressure of all phases
+       for each phase   i do
+
+            PRB-MP  (l,m)Li wRB-MP(l, m) × c(l, m)
+       end for
+       # activate phase with maximum pressure
+       SRB-MP  arg maxi PRB-MP
+   end if
+   return SRB-MP
+
+    To ensure consistency in the evaluation, all three MP control policies adopt a signal update interval of
+10 seconds.
+
+3.2. Scenario setup
+
+    Different scenarios were simulated to understand the benefits and potential application of the proposed
+control policy. Scenario 1 assumes the system has no knowledge of private vehicle passenger occupancy. In
+this case, an average of 1.5 persons per private vehicle, as reported in (Schrank et al., 2021), is assumed.
+However, the exact bus occupancies are assumed to be available from APC data. This scenario is further
+extended to test the resilience of the policy due to errors in the reported bus occupancies from APC. To test
+this, a random error term was added to the occupancies of buses reported to the controller after crossing
+
+                                                                     10
+every intersection. The error term was assumed to have a mean of 0 and standard deviation of % of the
+true occupancy at each intersection and additive over every intersection. Varying values of  from 0 to 40
+were tested to understand the impact of discrepancies in transmitted APC data and how it impacts the
+network performance.
+
+    Scenario 2 assumes individual vehicle occupancies are available to the signal controller, as would be pos-
+sible in a CV environment. This means that the system has complete knowledge of both private vehicle and
+bus occupancies, which is leveraged by the OCC-MP policy to dynamically calculate weights of movements
+based on their occupancy levels. Within the simulation, each private vehicle entering the network was ran-
+domly assigned an occupancy based on a probability distribution (shown in Table 1) such that the average
+private vehicle occupancy was approximately 1.5. In a fully connected environment, it is assumed that all
+vehicles are equipped with CV technology that is leveraged by the MP policies to accurately measure the
+queue lengths and (or) occupancies. However, a network may have mixed flow comprising of both connected
+and non-connected vehicles. Therefore, a partially connected environment was also considered in which the
+CV penetration rate was varied from 20% to 100% to understand how the policies perform when limited
+information is available.
+
+                                             Table 1: Probability distribution of private vehicle occupancy
+
+         Occupancy                       Probability
+
+               1                              0.7
+               2                            0.125
+               3
+               4                              0.1
+               5                             0.05
+                                            0.025
+
+    Within both scenarios, a total of 8 sub-scenarios were simulated, each representing a different combination
+of private vehicle demand, bus occupancy, and bus frequency. The private vehicle demand represents the
+overall traffic flow in the network, while the bus occupancy and frequency directly affect the bus operations
+and interactions with other vehicles. By considering both high and low occupancy levels and varying bus
+headways, the impact of different bus configurations on the performance of the policies can be analyzed.
+Table 2 contains the configuration of the sub-scenarios. Each sub-scenario was simulated with 10 different
+random seeds to account for stochasticity and ensure robust analysis.
+
+                                                               Table 2: Summary of sub-scenarios
+
+Sub-scenario Private vehicle demand  Bus passenger demand  Bus frequency
+
+1  Low                               High                  High
+                                     High                  Low
+2  Low                               Low                   High
+                                     Low                   Low
+3  Low                               High                  High
+                                     High                  Low
+4  Low                               Low                   High
+                                     Low                   Low
+5  High
+
+6  High
+
+7  High
+
+8  High
+
+                                     11
+4. Results
+
+4.1. Scenario 1: Non-connected vehicle environment
+
+    To quantify the level of congestion in the network, average network speeds under the Q-MP policy across
+the eight sub-scenarios are provided in Figure 5. The lines represent the mean value across all ten simulation
+iterations, while the shaded areas represent the confidence interval with ± one standard error of observed
+values. Sub-scenarios with similar private vehicle and bus demands but different occupancies were grouped
+together as the Q-MP does not consider vehicle occupancies. As expected, the average network speeds drop
+drastically from about 25 km/h to just under 20km/h due to the increase in private vehicle demand. A
+change in bus headway from 5 minutes to 2 minutes also results in a slight decrease in network speeds, as
+expected.
+
+                                        35                                 Sub-scenario 1,3
+                                                                           Sub-scenario 2,4
+                                                                           Sub-scenario 5,7
+Average vehicle speed under QMP (km/h)                                     Sub-scenario 6,8
+                                        30
+
+                                        25
+
+                                        20
+
+                                        15
+
+                                            0  20  40 Time (m6in0utes) 80  100 120
+
+Figure 5: Average vehicle speeds under Q-MP across sub-scenarios.
+
+4.1.1. Vehicle travel time comparison
+    First, tests were conducted for  = 0, which indicate that APC data from buses is perfectly accurate.
+
+Figure 6 presents the percentage change in vehicle travel time (VTT) of private vehicles under OCC-MP
+and RB-MP strategies, relative to the Q-MP. Standard errors across the ten simulation iterations are shown
+using whiskers. It is evident that integrating TSP using either the RB-MP or OCC-MP policies results in an
+increase in VTT of private vehicles over Q-MP. However, OCC-MP has a lower negative impact on private
+vehicles compared to RB-MP across all sub-scenarios.
+
+    It is expected that OCC-MP will behave similar to Q-MP when few buses are present; Sub-scenarios
+3, 4, 6 and 8 confirm this as the confidence intervals designated by the standard errors contain 0, which
+suggests no statistically significant difference between the performance of OCC-MP and Q-MP. Sub-scenario
+8, in which the demand for private vehicles was high and buses had a lower frequency and lower passenger
+occupancies, resulted in only 0.36% increase in private vehicle travel time. This can be attributed to the fact
+that there were fewer buses with lower occupancies in the network, leading OCC-MP to select similar phases
+to Q-MP. The maximum percentage change in VTT from OCC-MP is 2.64% and observed for Sub-scenario
+5, which has high bus frequency and passenger occupancy. In this sub-scenario, OCC-MP frequently selected
+phases to prioritize the movement of buses carrying more passengers. Note that RB-MP is not impacted
+by bus occupancies; thus, the same average VTTs were observed across pairs of sub-scenarios with the
+same vehicular demand. Overall, RB-MP resulted in statistically significant increases in VTT, ranging from
+3.50% to 25.75%. Interestingly, the best performance of RB-MP is still worse than the worst performance
+
+                                                                     12
+                                                 OCC-MP
+                                                 RB-MP
+% change in private vehicle TT over Q-MP  25
+
+                                          20
+
+                                          15
+
+                                          10
+
+                                          5
+
+                                          0
+
+                                              1          2  3  4Sub-Scenar5ios  6  7  8
+
+Figure 6: Percentage change in private vehicle travel time over Q-MP.
+
+of OCC-MP. This can be attributed to the fact that OCC-MP may select phases in which private vehicle
+queues are large, even when buses are present. The results highlight the effectiveness of the OCC-MP
+strategy in mitigating the negative impact on private vehicle travel times when compared to RB-MP. To
+further demonstrate the difference in impacts to private vehicles across the three control strategies, Figure
+7 plots the VTT of private vehicles per minute. Notice that the VTT continues to grow under the RB-MP
+policy despite the reduction in vehicle demand at the 90 minute mark. By contrast, the Q-MP and OCC-
+MP policies show VTT trends that reflect the level of vehicle demand. This finding is indicative of queue
+spillback phenomenon due to growing vehicle queues in the RB-MP policy.
+
+                                                                                       Time (minutes)
+
+                                            Figure 7: Total travel time of private vehicles (Sub-scenario 7).
+
+    Figure 8 illustrates the percent change in bus VTT under both OCC-MP and RB-MP compared to Q-MP.
+The results show that both strategies lead to a reduction in bus travel times compared to the baseline Q-MP
+strategy across all sub-scenarios, and all improvements are statistically significant. However, the magnitude
+of the improvement varies between the two strategies. As expected, RB-MP consistently outperforms OCC-
+MP and provides larger reductions in bus VTT since it provides full priority to buses. OCC-MP achieves
+an average reduction in bus VTT of 14.5% when buses have higher occupancies (Sub-Scenarios 1, 2, 5 and
+6) and 7.5% when buses are less crowded (Sub-Scenarios 3, 4, 7 and 8). This is expected as weights of bus
+movements are lower when there are fewer passengers onboard. Conversely, RB-MP shows little variation
+between the different sub-scenarios and achieves a nearly consistent average reduction of approximately 30%
+
+                                                                     13
+across all sub-scenarios.
+
+                              0
+
+                              5
+
+% change in bus TT over Q-MP  10
+
+                              15
+
+                              20
+
+                              25
+
+                              30     OCC-MP
+
+                              35     RB-MP
+
+                                  1          2  3  4Sub-Scenar5ios  6  7  8
+
+                                  Figure 8: Percentage change in bus travel time over Q-MP.
+
+4.1.2. Passenger travel time comparison
+    Figure 9 compares the passenger travel times (PTT) of both OCC-MP and RB-MP strategies against Q-
+
+MP for all sub-scenarios. The results reveal that OCC-MP yields lower total PTT compared to Q-MP in 6 out
+of 8 sub-scenarios, indicating a positive impact on overall passenger mobility. The improvements range from
+approximately 0.1% to 3.6% on average, mostly in scenarios with higher bus occupancies. Maximum benefits
+were observed in Sub-scenario 1, suggesting OCC-MP best reduces overall passenger travel times when there
+are relatively fewer private vehicles and more buses carrying more passengers. Sub-scenarios 7 and 8 saw a
+nominal increase in passenger travel times by 0.9% and 0.1% respectively over Q-MP; however, the confidence
+intervals denoted by the standard errors reveal these increases are note statistically significant. Conversely,
+RB-MP shows mixed results with some sub-scenarios exhibiting improvements and others significant negative
+effects on PTT over Q-MP. Sub-scenarios 1 and 2 show improvements of 3.5% and 2.3% respectively, which
+were similar to OCC-MP in terms of PTT improvements. However, in the other sub-scenarios, RB-MP
+results in an increase in PTT ranging from approximately 1.9% up to 21.2% in Sub-Scenario 7. Previously
+it was found that Sub-Scenario 7 also corresponds to the highest increase in VTT of private vehicles and
+lowest bus VTT improvement compared to Q-MP. This highlights the superior performance of OCC-MP in
+balancing VTT of private vehicles and buses, ultimately resulting in lower passenger travel times.
+
+4.1.3. Network stability comparison
+    Sub-section 2.3 of this paper analytically proves that OCC-MP possesses maximum stability at an isolated
+
+intersection. To compare the stability property of the three control algorithms used in this study on an urban
+network, simulation results of the average accumulation (i.e., number of vehicles in the network) over time
+across the sub-scenarios is shown in Figure 10. Vehicular demand is relatively low for the first 30 minutes
+of the simulation, where it can be observed that the average accumulation is similar for all three control
+policies. However, as the demand increases, the network experiences a higher average accumulation for
+RB-MP than Q-MP or OCC-MP. Between 60-90 minutes, the vehicular demand is highest and represents
+an unstable condition for all three control policies specifically in sub-scenarios 5-8 as the average network
+accumulation keeps growing over time.
+
+    As Q-MP has the largest stable region, Figure11 compares the difference in accumulation for OCC-MP
+and RB-MP to further investigate how the stable region differs from Q-MP for different sub-scenarios. It is
+evident that OCC-MP performs similar to Q-MP for most of the sub-scenarios as the shaded regions include
+0. The accumulation under OCC-MP is higher than Q-MP in sub-scenarios 1 and 5 between 60-120 minutes
+of the simulation. This is expected as the sudden spike in private vehicle demand leads to an increase
+
+                                                                     14
+                                        OCC-MP
+                                        RB-MP
+                                 20
+
+% change in total PTT over Q-MP  15
+
+                                 10
+
+                                 5
+
+                                 0
+
+                                 5   1          2  3  4Sub-Scenar5ios  6  7  8
+
+                                 Figure 9: Percent change in total passenger travel time over Q-MP.
+
+in accumulation while buses have priority. The other sub-scenarios are not associated with a significant
+difference over Q-MP. However, for the same private vehicle demand patterns, RB-MP has a significantly
+higher average accumulation compared to OCC-MP when buses arrive at higher frequencies as seen in Sub-
+scenarios 1, 3 and 5, 7. This suggests that the RB-MP has a smaller stable region compared to Q-MP and
+OCC-MP while OCC-MP exhibits a similar stable region as Q-MP in an urban network for private vehicles,
+even while prioritizing buses.
+
+4.1.4. Sensitivity to APC errors
+    The proposed OCC-MP policy relies on accurate bus passenger occupancy for signal updates. To assess
+
+robustness of the policy against errors in APC data, additional simulations were conducted for sub-scenarios 1
+and 3 in which incremental error terms of ±  % were introduced to the real occupancy of buses. Specifically,
+the occupancy being transmitted to the controller at each intersection was subject to this error and continued
+to accumulate until the bus exits the network.
+
+    Table 3 shows the VTT of private vehicles and buses and combined PTT as  was increased from 0
+to 40 at each intersection. The results indicate that there is relatively little variation observed across the
+network performance metrics. From Table 3a, it can be seen that the travel times of private vehicles, buses,
+and passengers in Sub-scenario 1 do not change significantly with . This suggests that OCC-MP performs
+reasonably well even when there is significant misreporting of bus occupancies, particularly for buses with
+high passenger demand. Sub-scenario 3 corresponds to a case with similar private vehicle and bus demand
+as Sub-scenario 1 but with fewer bus passengers. Therefore, it is expected that further underreporting of its
+occupancy may give it little to no priority over private vehicles and potentially result in higher travel times.
+Table 3b shows that change in  leads to slightly higher travel times than when  = 0. However, all values
+except bus travel time at  = 40 remain within one standard error of  = 0, suggesting differences are not
+statistically significant. The consistency of the results indicates that the OCC-MP policy can effectively
+adapt to and optimize travel times under potential discrepancies in the APC data.
+
+4.2. Scenario 2: Connected vehicle environment
+
+4.2.1. Fully connected environment
+    The OCC-MP strategy was evaluated by simulating private vehicles with known occupancies and variable
+
+bus occupancies to understand how the control policy impacts travel time of non-transit HOVs. Since RB-
+MP does not differentiate vehicles by occupancy, it was not included in the analysis. Figure 12 presents
+a comparison of the percent change in PTT for OCC-MP over Q-MP for vehicles with different vehicle
+occupancies; values of 1 to 5 indicate private vehicles, while 6+ refers to buses. The results reveal that
+single occupancy vehicles experience an increase in their travel times over the Q-MP. However, OCC-MP
+
+                                                                     15
+     Table 3: Summary of network performance against variance in APC data
+
+     Private vehicle        (a) Sub-scenario 1        All passengers
+                                                 Bus
+
+     Travel time  Standard  Travel time  Standard     Travel time          Standard
+     (veh-hr)     error     (veh-hr)     error        (pax-hr)             error
+0%
+10%  2298.66      12.33     37.39        0.14         5035.75              24.06
+20%  2294.46      10.74     37.21        0.13         5021.77              19.81
+30%  2295.34      11.42     37.14        0.11         5020.11              20.42
+40%  2299.86      11.13     37.09        0.08         5023.77              18.53
+     2299.46      12.22     37.32        0.14         5034.65              23.16
+
+     Private vehicle        (b) Sub-scenario 3        All passengers
+0%                                               Bus
+10%
+20%  Travel time  Standard  Travel time  Standard     Travel time          Standard
+30%  (veh-hr)     error     (veh-hr)     error        (pax-hr)             error
+40%
+     2260.89      10.06     39.79        0.1          3754.45              15.72
+     2265.1       9.93      39.88        0.1          3761.63              15.56
+     2263.54      10.54     39.81        0.09         3758.36              16.36
+     2262.01      9.98      39.81        0.12         3756.06              16.04
+     2269.44      10.8      39.93        0.1          3768.99              16.57
+
+                            16
+                                                                  Q-MP                                            2000                             Q-MP
+                                                                  OCC-MP                                                                           OCC-MP
+                             2000                                 RB-MP                                                                            RB-MP
+Accumulation in the network                                                          Accumulation in the network
+                             1500                                                                                 1500
+
+                             1000                                                                                 1000
+
+                             500                                                                                  500
+
+                             0                                                                                    0
+
+                                   0  20      40 T6im0e (min8u0tes) 100 120 140                                         0  20  40 T6im0e (min8u0tes) 100 120 140
+
+                                              (a) Sub-scenario 1                                                               (b) Sub-scenario 2
+
+                                                                  Q-MP                                            2000                             Q-MP
+                                                                  OCC-MP                                                                           OCC-MP
+                             2000                                 RB-MP                                                                            RB-MP
+Accumulation in the network                                                          Accumulation in the network
+                             1500                                                                                 1500
+
+                             1000                                                                                 1000
+
+                             500                                                                                  500
+
+                             0                                                                                    0
+                                0 20 40 60 80 100 120 140                                                            0 20 40 60 80 100 120 140
+                                                       Time (minutes)                                                                       Time (minutes)
+
+                                                 (c) Sub-scenario 3                                                                   (d) Sub-scenario 4
+
+                                      Q-MP                                                                        5000                             Q-MP
+                                      OCC-MP                                                                                                       OCC-MP
+                             5000     RB-MP                                                                                                        RB-MP
+Accumulation in the network                                                          Accumulation in the network  4000
+
+                             4000
+
+                             3000                                                                                 3000
+
+                             2000                                                                                 2000
+
+                             1000                                                                                 1000
+
+                             0                                                                                    0
+                                0 20 40 60 80 100 120 140                                                            0 20 40 60 80 100 120 140
+                                                       Time (minutes)                                                                       Time (minutes)
+
+                                              (e) Sub-scenario 5                                                               (f) Sub-scenario 6
+
+                             6000     Q-MP                                                                        5000                             Q-MP
+
+                             5000     OCC-MP                                                                                                       OCC-MP
+                                      RB-MP                                                                                                        RB-MP
+Accumulation in the network                                                          Accumulation in the network  4000
+
+                             4000                                                                                 3000
+
+                             3000                                                                                 2000
+                             2000
+                             1000                                                                                 1000
+
+                             0                                                                                    0
+                                0 20 40 60 80 100 120 140                                                            0 20 40 60 80 100 120 140
+                                                       Time (minutes)                                                                       Time (minutes)
+
+                                              (g) Sub-scenario 7                                                               (h) Sub-scenario 8
+
+Figure 10: Evolution of average accumulation in the network under different control policies for Sub-scenarios 1-8.
+
+                                                                                 17
+Difference in accumulation over Q-MP  300                                  OCC-MP             Difference in accumulation over Q-MP  120                             OCC-MP
+                                                                           RB-MP                                                                                    RB-MP
+                                                                                                                                    100
+                                      250
+
+                                      200                                                                                           80
+                                      150
+                                      100                                                                                           60
+
+                                                                                                                                    40
+
+                                      50                                                                                            20
+                                       0
+                                                                                                                                    0
+
+                                                                                                                                    20
+
+                                            0  20      40 T6im0e (min8u0tes) 100 120 140                                                 0  20  40 T6im0e (min8u0tes) 100 120 140
+
+                                                       (a) Sub-scenario 1                                                                       (b) Sub-scenario 2
+
+Difference in accumulation over Q-MP  300                                  OCC-MP             Difference in accumulation over Q-MP  120                             OCC-MP
+                                                                           RB-MP                                                                                    RB-MP
+                                                                                                                                    100
+                                      250
+
+                                      200                                                                                           80
+
+                                      150                                                                                           60
+
+                                      100                                                                                           40
+
+                                      50                                                                                            20
+
+                                      0                                                                                             0
+
+                                      50                                                                                            20
+                                           0 20 40 60 80 100 120 140
+                                                                 Time (minutes)                                                          0 20 40 60 80 100 120 140
+                                                                                                                                                               Time (minutes)
+
+                                                       (c) Sub-scenario 3                                                                       (d) Sub-scenario 4
+
+                                      1750     OCC-MP                                                                               600                             OCC-MP
+
+Difference in accumulation over Q-MP  1500     RB-MP                                          Difference in accumulation over Q-MP  500                             RB-MP
+
+                                      1250                                                                                          400
+
+                                      1000                                                                                          300
+
+                                      750                                                                                           200
+
+                                      500                                                                                           100
+
+                                      250                                                                                           0
+
+                                      0                                                                                             100
+                                                                                                                                          0 20 40 60 80 100 120 140
+                                            0 20 40 60 80 100 120 140                                                                                            Time (minutes)
+                                                                  Time (minutes)
+
+                                                       (e) Sub-scenario 5                                                                       (f) Sub-scenario 6
+
+                                      2000     OCC-MP                                                                               600                             OCC-MP
+
+Difference in accumulation over Q-MP  1750     RB-MP                                          Difference in accumulation over Q-MP  500                             RB-MP
+
+                                      1500                                                                                          400
+
+                                      1250                                                                                          300
+
+                                      1000                                                                                          200
+
+                                      750                                                                                           100
+
+                                      500
+
+                                      250                                                                                           0
+
+                                      0                                                                                             100
+
+                                            0 20 40 60 80 100 120 140                                                                    0 20 40 60 80 100 120 140
+                                                                  Time (minutes)                                                                               Time (minutes)
+
+                                                       (g) Sub-scenario 7                                                                       (h) Sub-scenario 8
+
+Figure 11: Evolution of average accumulation in the network under different control policies for sub-scenarios 1-8.
+
+                                                                                          18
+effectively prioritizes movements with higher occupancy vehicles, resulting in reduced travel times for those
+vehicles. Specifically, vehicles with an occupancy of 3 or more experience improvement in travel time in
+5 out of 6 sub-scenarios. Interestingly, sub-scenarios with low private vehicle and bus demand (2 and 4),
+exhibit lower travel time for vehicles with occupancy of 2 and more, highlighting the positive impact of
+OCC-MP. By prioritizing HOV and buses even in mixed flow conditions without dedicated bus or HOV
+lanes, OCC-MP can serve as a strategic approach to discourage single-occupancy vehicles on the roads,
+promoting more efficient and sustainable transportation options.
+
+                          5.0
+
+                          2.5
+
+% change in PTT over QMP  0.0
+
+                          2.5
+
+                          5.0
+
+                          7.5 Occupancy
+                                   1
+                          10.0     2
+                                   3
+                          12.5     4
+                                   5
+                          15.0     6+
+
+                                1        2  3  4Sub-scena5rios 6  7  8
+
+Figure 12: Percent change in passenger travel time over Q-MP by occupancy under OCC-MP.
+
+4.2.2. Partially connected environment
+    Although CV technology provides the potential to acquire detailed information from individual vehicles
+
+directly, implementation of a fully CV environment is farfetched. Therefore, the performances of the pro-
+posed OCC-MP policy and baseline methods were investigated under varying rates of CV penetration. In
+these tests, all control policies rely only on the information obtained from these CVs for measurement and
+updating the signal times. Figure 13 shows the evolution of vehicle accumulation in the network for various
+CV penetration rates. The accumulation is highest for all three control policies when information from only
+20% of the private vehicles is available. With increasing CV penetration rate, the number of queued vehicles
+in the network drops for all three policies resulting in lower congestion. Notice, however, the returns are
+diminishing with respect to CV penetration rate; i.e., the highest improvements are gained from increasing
+the penetration rate when the penetration rate is low. Note also that both Q-MP and OCC-MP have simi-
+lar performance in terms of network congestion and show consistent reduction in vehicle accumulation with
+increasing CV penetration rate, while the RB-MP strategy consistently performs the worst.
+
+    The performance of the control policies in terms of private VTT, bus VTT and total PTT is shown in
+Figure 14 for Sub-Scenario 1, which was chosen because OCC-MP demonstrated the largest improvement in
+PTT. Overall, it is observed that the increase in penetration rate of CVs improves the travel time of private
+vehicles and reduces the standard error across all policies, as more information becomes available on the
+actual queue lengths vehicle occupancy (Figure 14a). The most significant improvements are observed for an
+increase in the penetration rate from 20% to 40%. This slowly diminishes as the penetration rate is further
+increased. RB-MP consistently demonstrates inferior performance compared to both Q-MP and OCC-MP.
+At 20% penetration rate, travel times of private vehicles under Q-MP and OCC-MP are very similar, but
+Q-MP further reduces travel times with the increase in CV penetration.
+
+    From Figure 14b, it is evident that bus VTT also improves as the percentage of connected vehicles in
+the network increases. Although there is a tradeoff between private vehicle and bus travel times, increasing
+CV penetration translates to lower congestion in the network (Figure 11), which in turn improves the
+overall bus operations. Note that these improvements are nominal for both Q-MP and OCC-MP, whereas
+
+                                                                     19
+                             3500                                          Q-MP                                 3500                                              Q-MP
+                                                                                                                3000                                              OCC-MP
+Accumulation in the network  3000                                          OCC-MP  Accumulation in the network  2500                                              RB-MP
+                                                                           RB-MP                                2000
+                                                                                                                1500   25 50 Tim7e5(minut1e0s)0 125 150
+                             2500                                                                               1000                 (b) 40%.
+                                                                                                                 500
+                             2000
+                                                                                                                   00
+                             1500
+
+                             1000
+
+                             500
+
+                             00    25  50 Tim7e5(minut1e0s)0 125 150
+
+                                       (a) 20%.
+
+                             3500                                          Q-MP                                 3500                                              Q-MP
+                                                                                                                3000                                              OCC-MP
+Accumulation in the network  3000                                          OCC-MP  Accumulation in the network  2500                                              RB-MP
+                                                                           RB-MP                                2000
+                                                                                                                1500   25 50 75 100 125 150
+                             2500                                                                               1000                Time (minutes)
+                                                                                                                 500                 (d) 80%.
+                             2000
+                                                                                                                   00
+                             1500
+
+                             1000
+
+                             500
+
+                             00    25  50 75 100 125 150
+                                       Time (minutes)
+
+                                       (c) 60%.
+
+                                       Accumulation in the network  3500                                              Q-MP
+                                                                    3000                                              OCC-MP
+                                                                    2500                                              RB-MP
+                                                                    2000   25 50 75 100 125 150
+                                                                    1500                Time (minutes)
+                                                                    1000
+                                                                     500
+
+                                                                       00
+
+                                                                                   (e) 100%.
+
+                                   Figure 13: Accumulation of vehicles in the network for different CV penetration rates .
+
+larger improvements are observed for RB-MP with lower standard errors across the random seeds. Despite
+resulting in higher private vehicle and bus VTT compared to Q-MP and RB-MP policies, respectively,
+OCC-MP consistently resulted in the lowest PTT for all CV penetration rates (Figure 14c). Both the Q-MP
+and RB-MP have very similar performances in terms of PTT, with reductions that are smaller than that
+achieved by the OCC-MP. This highlights the reliability of the proposed OCC-MP policy even when only a
+subset of the vehicles is connected.
+
+5. Conclusion
+
+    Conventional MP algorithms rely only on vehicle-related metrics to update signal timings. Thus, these
+algorithms maximize vehicle throughput while overlooking the impact on transit and other HOVs. This
+study introduces an occupancy-based Max Pressure (OCC-MP) algorithm that considers both the number
+
+                                                                     20
+                                             Q-MP                                                                             46
+                                             OCC-MP
+3400                                         RB-MP                                                                            44
+3200
+Private Vehicle travel time (veh-hr)3000                                                                                      42
+                                                 Passenger travel time (pax-hr)2800
+2600                                                                                                                          40
+                                                                                                    Bus travel time (veh-hr)2400
+2200                                                                                                                          38
+
+       20                                                                                                                     36
+
+                                                                                                                              34      Q-MP
+
+                                                                                                                              32      OCC-MP
+                                                                                                                                      RB-MP
+
+           40 CV penet6r0ation rate 80       100                                                                                  20          40 CV penet6r0ation rate 80  100
+
+           (a) Private vehicle travel time.                                                                                                   (b) Bus travel time.
+
+           7000                                                                                                                       Q-MP
+           6750                                                                                                                       OCC-MP
+           6500                                                                                                                       RB-MP
+           6250
+           6000                              40 CV penet6r0ation rate 80                                                                      100
+           5750
+           5500
+           5250
+           5000
+
+                  20
+
+                                             (c) Passenger travel time.
+
+           Figure 14: Effect of CV penetration rate.
+
+of queued vehicles and the passenger occupancies within the upstream queued vehicles. The proposed policy
+theoretically guarantees maximum stability at an isolated intersection, and is shown to prioritize transit and
+HOV movement without reducing the size of the stable region compared to the original MP when applied
+on an entire network.
+
+    The performance of OCC-MP was tested against the original max pressure (Q-MP) and a rule-based MP
+algorithm that provides TSP (RB-MP). Micro-simulation tests on a grid network demonstrate that OCC-
+MP outperforms RB-MP in terms of reducing negative impacts on private vehicles while reducing bus VTT
+compared to Q-MP. Overall, OCC-MP results in lower PTT under various demand and occupancy levels.
+This is because OCC-MP not only prioritizes transit vehicles and those with higher occupancies, but also
+serves the movements with large private vehicle queues. The best performance was observed in scenarios
+with lower private vehicle demands and higher bus demands, with larger bus passenger occupancies. A
+stability analysis showed that OCC-MP has a larger stable region than the RB-MP policy and one that
+is comparable to the Q-MP policy; this suggests that OCC-MP is able to handle similar demands to Q-
+MP (and larger than RB-MP) while still providing priority to buses. The control policy also demonstrates
+nominal variation in passenger travel time from errors in APC data, highlighting the robustness of the
+algorithm. Further tests in a CV environment show that an increase in the penetration rate of CVs improve
+the overall performance of OCC-MP in reducing PTT. In a fully CV environment, OCC-MP consistently
+outperforms baseline methods in reducing the VTT of HOVs and buses making it a sustainable strategy to
+discourage single occupancy vehicles in a transportation network without the need to implement expensive
+dedicated lane facilities. Moreover, OCC-MP can be readily deployed as a conditional TSP strategy in real
+world environments yet to fully transition to CV technology with minimal additional sensing requirements,
+
+                                                                     21
+primarily relying on existing technologies such as TSP communications and APC systems. Corridors where
+buses send a TSP request are already equipped with vehicle detection technology which can be slightly
+modified to include occupancy data transmission from buses. Its universal applicability renders it useful for
+implementation on networks with or without dedicated bus rapid transit (BRT) or HOV facilities.
+
+    Although the simulations were conducted on a grid network, further research can explore the performance
+of OCC-MP in more complex urban networks. Since the applicability of the proposed OCC-MP encompasses
+mixed traffic, it may be interesting to explore its performance in networks with dedicated bus lanes or HOV
+lanes. Moreover, given the increasing emphasis on creating "complete streets" that accommodate various
+modes of transportation, future studies may consider developing MP control algorithms that consider the
+complexities of multimodal transport. It is worth noting that (Liu and Gayah, 2023) demonstrated that
+different MP algorithms may have different optimal update intervals that maximize their performance.
+Therefore, the impact of optimal time-step for signal update interval can be explored for OCC-MP.
+6. Acknowledgements
+
+    This research was supported by NSF, United States Grant CMMI-1749200.
+7. Author Contributions
+
+    The authors confirm contribution to the paper as follows: study conception and design: TA, HL, VG;
+analysis and interpretation of results: TA, HL, VG; draft manuscript preparation: TA, HL, VG. All authors
+reviewed the results and approved the final version of the manuscript.
+
+                                                                     22
+References
+
+Ahmed, T., Liu, H., Gayah, V.V., 2024. Identification of optimal locations of adaptive traffic signal control using heuristic
+   methods. International Journal of Transportation Science and Technology 13, 122­136. URL: https://www.sciencedirect.
+   com/science/article/pii/S2046043023001089, doi:https://doi.org/10.1016/j.ijtst.2023.12.003.
+
+Alizadeh Shabestray, S., Abdulhai, B., 2019. Multimodal intelligent deep (mind) traffic signal controller, in: 2019 IEEE
+   Intelligent Transportation Systems Conference (ITSC). IEEE, p. 4532­4539. doi:10.1109/ITSC.2019.8917493.
+
+Barcel´o, J., Casas, J., 2005. Dynamic network simulation with aimsun, in: Simulation Approaches in Transportation Analysis.
+   Springer, Boston, p. 57­98. doi:10.1007/0-387-24109-4_3.
+
+Barman, S., Levin, M., 2023. Throughput properties and optimal locations for limited deployment of max-pressure controls.
+   Transp Res Part C Emerg Technol 150, 104105. doi:10.1016/j.trc.2023.104105.
+
+Bayrak, M., Yu, Z., Gayah, V., 2023. A population-based incremental learning algorithm to identify optimal location of left-
+   turn restrictions in urban grid networks. Transportmetrica B: Transport Dynamics 11, 528­547. doi:10.1080/21680566.
+   2022.2102553.
+
+Chen, X., Lin, X., Li, M., He, F., 2022. Network-level control of heterogeneous automated traffic guaranteeing bus priority.
+   Transp Res Part C Emerg Technol 140, 103671. doi:10.1016/j.trc.2022.103671.
+
+Chen, Y.H., Cheng, Y., Chang, G.L., 2023. Incorporating bus delay minimization in design of signal progression for arterials
+   accommodating heavy mixed-traffic flows. J Intell Transp Syst 27, 187­216. doi:10.1080/15472450.2021.2002149.
+
+Christofa, E., Ampountolas, K., Skabardonis, A., 2016. Arterial traffic signal optimization: A person-based approach. Transp
+   Res Part C Emerg Technol 66, 27­47. doi:10.1016/j.trc.2015.11.009.
+
+Christofa, E., Papamichail, I., Skabardonis, A., 2013. Person-based traffic responsive signal control optimization. IEEE
+   Transactions on Intelligent Transportation Systems 14, 1278­1289. doi:10.1109/TITS.2013.2259623.
+
+Christofa, E., Skabardonis, A., 2011a. Traffic signal optimization with application of transit signal priority to an isolated
+   intersection. Transportation Research Record: Journal of the Transportation Research Board 2259, 192­201. doi:10.3141/
+   2259-18.
+
+Christofa, E., Skabardonis, A., 2011b. Traffic signal optimization with application of transit signal priority to an isolated
+   intersection. Transportation Research Record: Journal of the Transportation Research Board 2259, 192­201. doi:10.3141/
+   2259-18.
+
+Currie, G., Shalaby, A., 2008. Active transit signal priority for streetcars. Transportation Research Record: Journal of the
+   Transportation Research Board 2042, 41­49. doi:10.3141/2042-05.
+
+Ding, J., Yang, M., Wang, W., Xu, C., Bao, Y., 2015. Strategy for multiobjective transit signal priority with prediction
+   of bus dwell time at stops. Transportation Research Record: Journal of the Transportation Research Board 2488, 10­19.
+   doi:10.3141/2488-02.
+
+Dixit, V., Nair, D., Chand, S., Levin, M., 2020. A simple crowdsourced delay-based traffic signal control. PLoS One 15.
+   doi:10.1371/journal.pone.0230598.
+
+Ghanim, M., Abu-Lebdeh, G., 2015. Real-time dynamic transit signal priority optimization for coordinated traffic networks
+   using genetic algorithms and artificial neural networks. J Intell Transp Syst 19, 327­338. doi:10.1080/15472450.2014.936292.
+
+Gregoire, J., Frazzoli, E., Fortelle, A.L., Wongpiromsarn, T., 2014. Back-pressure traffic signal control with unknown routing
+   rates. IFAC Proceedings Volumes 47, 11332­11337. doi:10.3182/20140824-6-ZA-1003.01585.
+
+Gregoire, J., Qian, X., Frazzoli, E., Fortelle, A., Wongpiromsarn, T., 2015. Capacity-aware backpressure traffic signal control.
+   IEEE Trans Control Netw Syst 2, 164­173. doi:10.1109/TCNS.2014.2378871.
+
+Guo, G., Wang, Y., 2021. An integrated mpc and deep reinforcement learning approach to trams-priority active signal control.
+   Control Eng Pract 110, 104758. doi:10.1016/j.conengprac.2021.104758.
+
+Head, L., Gettman, D., Wei, Z., 2006. Decision model for priority control of traffic signals. Transportation Research Record:
+   Journal of the Transportation Research Board 1978, 169­177. doi:10.1177/0361198106197800121.
+
+Hu, J., Park, B., Lee, Y.J., 2015. Coordinated transit signal priority supporting transit progression under connected vehicle
+   technology. Transp Res Part C Emerg Technol 55, 393­408. doi:10.1016/j.trc.2014.12.005.
+
+Hu, J., Park, B., Lee, Y.J., 2016. Transit signal priority accommodating conflicting requests under connected vehicles technology.
+   Transp Res Part C Emerg Technol 69, 173­192. doi:10.1016/j.trc.2016.06.001.
+
+Hu, J., Zhang, Z., Feng, Y., Sun, Z., Li, X., Yang, X., 2022. Transit signal priority enabling connected and automated buses
+   to cut through traffic. IEEE Transactions on Intelligent Transportation Systems 23, 8782­8792. doi:10.1109/TITS.2021.
+   3086110.
+
+Knoop, V., Hoogendoorn, S., Lint, J., 2012. Routing strategies based on macroscopic fundamental diagram. Transportation
+   Research Record: Journal of the Transportation Research Board 2315, 1­10. doi:10.3141/2315-01.
+
+Kouvelas, A., Lioris, J., Fayazi, S., Varaiya, P., 2014. Maximum pressure controller for stabilizing queues in signalized arterial
+   networks. Transportation Research Record: Journal of the Transportation Research Board 2421, 133­141. doi:10.3141/
+   2421-15.
+
+Le, T., Kov´acs, P., Walton, N., Vu, H., Andrew, L., Hoogendoorn, S., 2015. Decentralized signal control for urban road
+   networks. Transp Res Part C Emerg Technol 58, 431­450. doi:10.1016/j.trc.2014.11.009.
+
+Lee, W., Wang, H., 2022. A person-based adaptive traffic signal control method with cooperative transit signal priority. J Adv
+   Transp URL: https://doi.org/10.1155/2022/2205292, doi:10.1155/2022/2205292.
+
+Levin, M., 2023. Max-pressure traffic signal timing: A summary of methodological and experimental results. J Transp Eng A
+   Syst 149. doi:10.1061/jtepbs.teeng-7578.
+
+Levin, M., Hu, J., Odell, M., 2020. Max-pressure signal control with cyclical phase structure. Transp Res Part C Emerg
+   Technol 120, 102828. doi:10.1016/j.trc.2020.102828.
+
+                                                                     23
+Li, J., Liu, Y., Yang, H., Chen, B., 2020. Bus priority signal control considering delays of passengers and pedestrians of adjacent
+   intersections. J Adv Transp , 1­12doi:10.1155/2020/3935795.
+
+Li, L., Jabari, S., 2019. Position weighted backpressure intersection control for urban networks. Transportation Research Part
+   B: Methodological 128, 435­461. doi:10.1016/j.trb.2019.08.005.
+
+Lin, Y., Yang, X., Zou, N., 2019. Passive transit signal priority for high transit demand: model formulation and strategy
+   selection. Transportation Letters 11, 119­129. doi:10.1080/19427867.2017.1295899.
+
+Lin, Y., Yang, X., Zou, N., Franz, M., 2015. Transit signal priority control at signalized intersections: a comprehensive review.
+   Transportation Letters 7, 168­180. doi:10.1179/1942787514Y.0000000044.
+
+Ling, K., Shalaby, A., 2004. Automated transit headway control via adaptive signal priority. J Adv Transp 38, 45­67.
+   doi:10.1002/atr.5670380105.
+
+Lioris, J., Kurzhanskiy, A., Varaiya, P., 2016. Adaptive max pressure control of network of signalized intersections. IFAC-
+   PapersOnLine 49, 19­24. doi:10.1016/j.ifacol.2016.10.366.
+
+Liu, H., Gayah, V.V., 2022. A novel max pressure algorithm based on traffic delay. Transportation Research Part C: Emerging
+   Technologies 143, 103803.
+
+Liu, H., Gayah, V.V., 2023. Total-delay-based max pressure: A max pressure algorithm considering delay equity. Transportation
+   Research Record , 03611981221147051.
+
+Long, M., Zou, X., Zhou, Y., Chung, E., 2022. Deep reinforcement learning for transit signal priority in a connected environment.
+   Transp Res Part C Emerg Technol 142, 103814. doi:10.1016/j.trc.2022.103814.
+
+Ma, W., Head, K., Feng, Y., 2014. Integrated optimization of transit priority operation at isolated intersections: A person-
+   capacity-based approach. Transp Res Part C Emerg Technol 40, 49­62. doi:10.1016/j.trc.2013.12.011.
+
+Ma, W., Liu, Y., Yang, X., 2013. A dynamic programming approach for optimal signal priority control upon multiple high-
+   frequency bus requests. J Intell Transp Syst 17, 282­293. doi:10.1080/15472450.2012.729380.
+
+Mazloumian, A., Geroliminis, N., Helbing, D., 2010. The spatial variability of vehicle densities as determinant of urban
+   network capacity. Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences 368,
+   4627­4647. doi:10.1098/rsta.2010.0099.
+
+Mercader, P., Uwayid, W., Haddad, J., 2020. Max-pressure traffic controller based on travel times: An experimental analysis.
+   Transp Res Part C Emerg Technol 110, 275­290. doi:10.1016/j.trc.2019.10.002.
+
+Ortigosa, J., Gayah, V., Menendez, M., 2019. Analysis of one-way and two-way street configurations on urban grid networks.
+   Transportmetrica B: Transport Dynamics 7, 61­81. doi:10.1080/21680566.2017.1337528.
+
+Ortigosa, J., Menendez, M., 2014. Traffic performance on quasi-grid urban structures. Cities 36, 18­27. doi:10.1016/j.cities.
+   2013.08.006.
+
+Pumir, T., Anderson, L., Triantafyllos, D., Bayen, A., 2015. Stability of modified max pressure controller with application
+   to signalized traffic networks, in: 2015 American Control Conference (ACC). IEEE, p. 1879­1886. doi:10.1109/ACC.2015.
+   7171007.
+
+Schrank, D., Eisele, B., Lomax, T., 2021. Urban mobility report .
+Stephanedes, Y., Filippi, F., 1996. Transport priority in real-time traffic control systems, in: Applications of Advanced
+
+   Technologies in Transportation Engineering: Proceedings of the Fourth International Conference on Applications of Advanced
+   Technologies in Transportation Engineering, American Society of Civil Engineers. p. 71­75.
+Tassiulas, L., Ephremides, A., 1990. Stability properties of constrained queueing systems and scheduling policies for maximum
+   throughput in multihop radio networks, in: 29th IEEE Conference on Decision and Control. IEEE, p. 2130­2132. doi:10.
+   1109/CDC.1990.204000.
+Truong, L., Currie, G., Wallace, M., Gruyter, C., An, K., 2019. Coordinated transit signal priority model considering stochastic
+   bus arrival time. IEEE Transactions on Intelligent Transportation Systems 20. doi:10.1109/TITS.2018.2844199.
+Varaiya, P., 2013. Max pressure control of a network of signalized intersections. Transp Res Part C Emerg Technol 36, 177­195.
+   doi:10.1016/j.trc.2013.08.014.
+Vlachogiannis, D.M., Wei, H., Moura, S., Macfarlane, J., 2023. Humanlight: Incentivizing ridesharing via human-centric deep
+   reinforcement learning in traffic signal control. arXiv preprint arXiv:2304.03697 .
+Wu, J., Ghosal, D., Zhang, M., Chuah, C.N., 2018. Delay-based traffic signal control for throughput optimality and fairness at
+   an isolated intersection. IEEE Trans Veh Technol 67, 896­909. doi:10.1109/TVT.2017.2760820.
+Wu, K., Guler, S., 2019. Estimating the impacts of transit signal priority on intersection operations: A moving bottleneck
+   approach. Transp Res Part C Emerg Technol 105, 346­358. doi:10.1016/j.trc.2019.06.003.
+Wu, K., Lu, M., Guler, S., 2020. Modeling and optimizing bus transit priority along an arterial: A moving bottleneck approach.
+   Transp Res Part C Emerg Technol 121, 102873. doi:10.1016/j.trc.2020.102873.
+Xiao, N., Frazzoli, E., Li, Y., Wang, Y., Wang, D., 2014. Pressure releasing policy in traffic signal control with finite queue
+   capacities, in: 53rd IEEE Conference on Decision and Control. IEEE, p. 6492­6497. doi:10.1109/CDC.2014.7040407.
+Xu, T., Barman, S., Levin, M., Chen, R., Li, T., 2022. Integrating public transit signal priority into max-pressure signal
+   control: Methodology and simulation study on a downtown network. Transp Res Part C Emerg Technol 138. doi:10.1016/
+   j.trc.2022.103614.
+Yang, K., Menendez, M., Guler, S., 2019. Implementing transit signal priority in a connected vehicle environment with and
+   without bus stops. Transportmetrica B: Transport Dynamics 7, 423­445. doi:10.1080/21680566.2018.1434019.
+Yang, T., Fan, W., 2023. Evaluation of transit signal priority at signalized intersections under connected vehicle environment.
+   Transportation Planning and Technology 46, 145­159. doi:10.1080/03081060.2023.2176308.
+Yu, Z., Gayah, V., Christofa, E., 2017. Person-based optimization of signal timing. Transportation Research Record: Journal
+   of the Transportation Research Board 2620, 31­42. doi:10.3141/2620-04.
+Yu, Z., Gayah, V., Christofa, E., 2018. Implementing phase rotation in a person-based signal timing optimization framework,
+
+                                                                     24
+   in: 2018 21st International Conference on Intelligent Transportation Systems (ITSC). IEEE, p. 20­25. doi:10.1109/ITSC.
+   2018.8569671.
+Zeng, X., Sun, X., Zhang, Y., Quadrifoglio, L., 2015. Person-based adaptive priority signal control with connected-vehicle
+   information. Transportation Research Record: Journal of the Transportation Research Board 2487, 78­87. doi:10.3141/
+   2487-07.
+Zeng, X., Zhang, Y., Jiao, J., Yin, K., 2021. Route-based transit signal priority using connected vehicle technology to promote
+   bus schedule adherence. IEEE Transactions on Intelligent Transportation Systems 22. doi:10.1109/TITS.2020.2963839.
+Zhao, J., Ma, W., 2018. Optimizing vehicle and pedestrian trade-off using signal timing in intersections with center transit
+   lanes. J Transp Eng A Syst 144. doi:10.1061/JTEPBS.0000145.
+Zhao, J., Zhou, X., 2019. Improving the operational efficiency of buses with dynamic use of exclusive bus lane at isolated
+   intersections. IEEE Transactions on Intelligent Transportation Systems 20, 642­653. doi:10.1109/TITS.2018.2819243.
+
+                                                                     25
+

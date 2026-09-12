@@ -1,0 +1,719 @@
+                                                                                                                         SALINAN
+
+                                       GUBERNUR DAERAH KHUSUS
+                                               IBUKOTA JAKARTA
+
+                                 PERATURAN GUBERNUR DAERAH KHUSUS
+                                                     IBUKOTA JAKARTA
+
+                                                 NOMOR 68 TAHUN 2021
+
+                                                            TENTANG
+
+      PENYELENGGARAAN SISTEM TRANSPORTASI TERPADU DAN TERINTEGRASI
+
+                                 DENGAN RAHMAT TUHAN YANG MAHA ESA
+
+                           GUBERNUR DAERAH KHUSUS IBUKOTA JAKARTA,
+
+Menimbang : a. bahwa untuk mendukung kebijakan peningkatan penggunaan
+                           angkutan massal melalui pengintegrasian prasarana, sarana dan
+                           sistem operasional dan pembatasan kendaraan bermotor perseorangan
+                           sebagaimana diatur dalam Pasal 11 ayat (1) dan Pasal 78 ayat (2)
+                           Peraturan Daerah Nomor 5 Tahun 2014 tentang Transportasi, perlu
+                           diselenggarakan sistem transportasi terpadu dan terintegrasi;
+
+                      b. bahwa untuk menjamin kepastian hukum penyelenggaraan sistem
+                           transportasi terpadu dan terintegrasi sebagaimana dimaksud dalam
+                           huruf a, perlu diatur dengan Peraturan Gubernur;
+
+                      c. bahwa berdasarkan pertimbangan sebagaimana dimaksud dalam
+                           huruf a dan huruf b, perlu menetapkan Peraturan Gubernur tentang
+                           Penyelenggaraan Sistem Transportasi Terpadu dan Terintegrasi;
+
+Mengingat : 1. Undang-Undang Nomor 29 Tahun 2007 tentang Pemerintahan
+                           Provinsi Daerah Khusus Ibukota Jakarta sebagai Ibukota Negara
+                           Kesatuan Republik Indonesia (Lembaran Negara Republik Indonesia
+                           Tahun 2007 Nomor 93, Tambahan Lembaran Negara Republik
+                           Indonesia Nomor 4744);
+
+                      2. Undang-Undang Nomor 23 Tahun 2014 tentang Pemerintahan
+                           Daerah (Lembaran Negara Republik Indonesia Tahun 2014 Nomor
+                           244, Tambahan Lembaran Negara Republik Indonesia Nomor 5587)
+                           sebagaimana telah beberapa kali diubah terakhir dengan Undang-
+                          Undang Nomor 11 Tahun 2020 tentang Cipta Kerja (Lembaran Negara
+                          Republik Indonesia Tahun 2020 Nomor 245, Tambahan Lembaran
+                          Negara Republik Indonesia Nomor 6573);
+
+                      3. Peraturan Menteri Dalam Negeri Nomor 80 Tahun 2015 tentang
+                          Pembentukan Produk Hukum Daerah (Berita Negara Republik
+                          Indonesia Tahun 2015 Nomor 2036) sebagaimana telah diubah
+                          dengan Peraturan Menteri Dalam Negeri Nomor 120 Tahun 2018
+                          tentang Perubahan atas Peraturan Menteri Dalam Negeri Nomor 80
+                          Tahun 2015 tentang Pembentukan Produk Hukum Daerah (Berita
+                          Negara Republik Indonesia Tahun 2019 Nomor 157);
+                                                                   2
+
+                      4. Peraturan Daerah Nomor 5 Tahun 2014 tentang Transportasi
+                           (Lembaran Daerah Provinsi Daerah Khusus Ibukota Jakarta Tahun
+                           2014 Nomor 104, Tambahan Lembaran Daerah Provinsi Daerah
+                           Khusus Ibukota Jakarta Nomor 1008);
+
+                                                       MEMUTUSKAN:
+
+Menetapkan : PERATURAN GUBERNUR TENTANG PENYELENGGARAAN SISTEM
+                      TRANSPORTASI TERPADU DAN TERINTEGRASI.
+
+                                                                           BAB I
+
+                                                               KETENTUAN UMUM
+
+                                                                         Pasal 1
+
+                      Dalam Peraturan Gubernur ini yang dimaksud dengan:
+
+                      1. Transportasi adalah keseluruhan sistem Angkutan dan Lalu Lintas.
+
+                      2. Rencana Induk Transportasi Jakarta adalah dokumen rencana
+                          pembangunan dan/atau pengembangan jaringan transportasi di
+                          Provinsi Daerah Khusus Ibukota Jakarta.
+
+                      3. Penyelenggaraan Sistem Transportasi Terpadu dan Terintegrasi yang
+                          selanjutnya disebut Sistem Jak Lingko adalah sistem terpadu yang
+                          mendukung kebijakan peningkatan penggunaan angkutan umum
+                          massal dan pembatasan kendaraan bermotor perseorangan.
+
+                     4. Interoperabilitas adalah kemampuan data untuk dibagipakaikan
+                          antar sistem elektronik yang saling berinteraksi.
+
+                     5. Interkoneksi adalah keterhubungan antar jaringan telekomunikasi
+                          dani penyelenggara jaringan telekomunikasi yang berbeda.
+
+                     6. Moda Raya Terpadu yang selanjutnya disingkat MRT adalah
+                          angkutan massal yang berbasis pada jalan rel yang memanfaatkan
+                          jalur-jalur khusus (Mass Rapid Transit).
+
+                     7. Lintas Raya Terpadu selanjutnya disingkat LRT adalah angkutan
+                          massal yang berbasis pada jalan rel atau jalur khusus dengan sistem
+                          Kereta Api Ringan (Light Rail Transit) yang beroperasi secara cepat,
+                          tepat, nyaman, aman, terjadwal dan berfrekuensi tinggi.
+
+                     8. Layanan Angkutan Transjakarta adalah layanan angkutan umum
+                          Bus Rapid Transit, Pengumpan dan Layanan Angkutan Lainnya yang
+                          dioperasikan oleh Transjakarta.
+
+                     9. Layanan Angkutan Pengumpan atau Feeder adalah angkutan umum
+                          dengan trayek yang berkelanjutan dengan trayek angkutan massal.
+
+                   10. Paket Tarif (Bundling Tariff) merupakan sejumlah tarif dani beberapa
+                          moda angkutan umum yang dipadukan menjadi satu yang
+                          diberlakukan secara keseluruhan sebagai satu satuan tarif.
+11. Provinsi Daerah Khusus Ibukota Jakarta selanjutnya disebut Provinsi
+       DKI Jakarta adalah provinsi yang mempunyai kekhususan dalam
+       penyelenggaraan pemerintahan daerah karena kedudukannya
+       sebagai Ibukota Negara Kesatuan Republik Indonesia.
+
+12. Pemerintah Provinsi Daerah Khusus Ibukota Jakarta selanjutnya
+       disebut Pemerintah Provinsi DKI Jakarta adalah Gubernur dan
+       perangkat daerah Provinsi DKI Jakarta sebagai unsur penyelenggara
+       pemerintahan Provinsi DKI Jakarta.
+
+13. Gubernur adalah Kepala Daerah Provinsi DKI Jakarta yang karena
+      jabatannya berkedudukan juga sebagai wakil Pemerintah di wilayah
+      Provinsi DKI Jakarta.
+
+14. Perangkat Daerah adalah Perangkat Daerah Provinsi DKI Jakarta.
+
+15. Dinas Perhubungan adalah Dinas Perhubungan Provinsi DKI Jakarta.
+
+16. Badan Usaha Milik Daerah yang selanjutnya disingkat BUMD adalah
+      badan usaha yang seluruh atau sebagian besar modalnya dimiliki
+      oleh Provinsi DKI Jakarta yang terdiri dani Perusahaan Umum Daerah
+      (Perumda) dan Perusahaan Perseroan Daerah (Perseroda).
+
+17. Kepala Dinas Perhubungan adalah Kepala Dinas Perhubungan Provinsi
+      DKI Jakarta.
+
+                                                    Pasal 2
+
+Ruang lingkup pengaturan Sistem Jak Lingko meliputi:
+a. perencanaan, pengelolaan dan pengembangan;
+
+b. peningkatan penggunaan angkutan massal;
+c. pembatasan kendaraan bermotor perseorangan;
+d. insentif; dan
+
+e. pemantauan dan evaluasi;
+
+                                                    Pasal 3
+
+Sistem Jak Lingko memperhatikan aspek sebagai berikut:
+a. keamanan;
+b. keselamatan;
+c. kenyamanan;
+d. keterjangkauan;
+e. kesetaraan;
+f. keteraturan; dan
+g. kehandalan.
+                                                     Pasal 4
+
+ (1) Sistem Jak Lingko memperhatikan kriteria sebagai berikut:
+       a. tingkat permintaan jasa angkutan;
+       b. kemampuan penyediaan jasa angkutan;
+       c. ketersediaan lahan;
+       d. ketersediaan jaringan lalu lintas dan angkutan;
+       e. keterpaduan intramoda angkutan;
+       f. keterpaduan antarmoda angkutan; dan
+       g. keterpaduan pemanfaatan ruang.
+
+ (2) Pemenuhan kriteria sebagaimana dimaksud pada ayat (1) menjadi
+       dasar penentuan standar pelayanan minimum di bidang perhubungan.
+
+ (3) Standar pelayanan minimum di bidang perhubungan sebagaimana
+       dimaksud pada ayat (2) diatur dengan Peraturan Gubernur.
+
+                                                     Pasal 5
+
+(1) Sistem Jak Lingko dilakukan oleh Dinas Perhubungan.
+
+(2) Selain Dinas Perhubungan, BUMD dan/atau badan usaha yang
+      berbadan hukum dapat juga menjadi penyelenggara Sistem Jak
+      Lingko.
+
+(3) Dalam hal BUMD dan/atau badan usaha yang berbadan hukum
+      menjadi penyelenggara Sistem Jak Lingko sebagaimana dimaksud
+      pada ayat (2):
+
+      a. wajib menggunakan logo Sistem Jak Lingko; dan
+
+      b. dapat melakukan pengusahaan Sistem Jak Lingko.
+
+(4) Petunjuk teknis penggunaan logo Sistem Jak Lingko sebagaimana
+      dimaksud pada ayat (3) tercantum dalam Lampiran yang merupakan
+      bagian tidak terpisahkan dani Peraturan Gubernur mi.
+
+                                                     BAB II
+
+             PERENCANAAN, PENGELOLAAN DAN PENGEMBANGAN
+
+                                                    Pasal 6
+
+Perencanaan, pengelolaan dan/atau pengembangan Sistem Jak Lingko
+mempedomani Rencana Induk Transportasi Jakarta.
+
+                                                    Pasal 7
+
+(1) Perencanaan, pengelolaan dan/atau pengembangan Sistem Jak
+     Lingko dilakukan oleh Dinas Perhubungan.
+ (2) Dokumen perencanaan sebagaimana dimaksud pada ayat (1)
+       ditetapkan dengan Keputusan Gubernur.
+
+ (3) Perencanaan, pengelolaan dan/atau pengembangan Sistem Jak
+       Lingko sebagaimana dimaksud pada ayat (1) dapat dikerjasamakan
+       dengan pihak lain.
+
+ (4) Kerja sarna dengan pihak lain sebagaimana dimaksud pada ayat (3)
+       harus memperhatikan:
+       a. pelayanan kepada masyarakat;
+       b. kebutuhan dukungan layanan;
+       c. efektivitas dan efisiensi;
+       d. analisis biaya dan manfaat; dan
+       e. kesesuaian dengan ketentuan peraturan perundang-undangan.
+
+                                                    BAB III
+
+                  PEN1NGKATAN PENGGUNAAN ANGKUTAN MASSAL
+
+                                                    Pasal 8
+
+( 1) Peningkatan penggunaan angkutan massal dilakukan melalui:
+      a. integrasi prasarana dan sarana Transportasi;
+      b. integrasi sistem operasional Transportasi; dan
+      c. penetapan Paket Tarif (Bundling Tariff).
+
+(2) Pelaksanaan integrasi sebagaimana dimaksud pada ayat (1) huruf a dan
+      huruf b dilakukan pada moda sebagai berikut:
+      a. MRT;
+      b. LRT;
+      c. Layanan Angkutan Transjakarta;
+      d. Layanan Angkutan Pengumpan atau Feeder; dan
+      e. layanan angkutan dan/atau pendukung lainnya sebagai
+            pendukung Sistem Jak Lingko.
+
+(3) Integrasi prasarana dan sarana Transportasi dan integrasi sistem
+      operasional Transportasi sebagaimana dimaksud pada ayat (1) huruf a
+      dan huruf b dilakukan oleh Dinas Perhubungan.
+
+(4) Layanan angkutan dan/atau pendukung lainnya sebagai pendukung
+     Sistem Jak Lingko sebagaimana dimaksud pada ayat (2) huruf e dapat
+     berupa:
+     a. angkutan sewa khusus;
+     b. sepeda motor yang digunakan untuk kepentingan masyarakat
+           dengan/tanpa aplikasi berbasis teknologi; dan
+       c. angkutan orang pendukung angkutan umum massal yang
+             memiliki wilayah operasional di wilayah Provinsi DKI Jakarta.
+
+                                                     Pasal 9
+
+ (1) Pembangunan, pemeliharaan, pengelolaan, dan pengembangan
+       integrasi prasarana dan sarana Transportasi sebagaimana dimaksud
+       dalam Pasal 8 ayat (1) huruf a dilakukan oleh Dinas Perhubungan
+       dan/atau Perangkat Daerah terkait.
+
+ (2) Pembangunan, pemeliharaan, pengelolaan, dan pengembangan
+       sebagaimana dimaksud pada ayat (1) dapat dilakukan BUMD
+       dan/atau badan usaha yang berbadan hukum.
+
+ (3) Dalam hal melakukan pembangunan, pemeliharaan, pengelolaan, dan
+      pengembangan prasarana dan sarana Transportasi, BUMD dan/atau
+      badan usaha yang berbadan hukum sebagaimana dimaksud pada
+      ayat (2) harus mengajukan permohonan kepada Gubernur disertai
+      kajian dan proposal.
+
+(4) Kepala Dinas Perhubungan melakukan verifikasi terhadap kajian dan
+      proposal sebagaimana dimaksud pada ayat (3) dengan melibatkan
+      Perangkat Daerah terkait.
+
+(5) Gubernur memberikan keputusan atas permohonan sebagaimana
+      dimaksud pada ayat (3).
+
+                                                   Pasal 10
+
+(1) Integrasi sistem operasional meliputi:
+
+      a. jadwal layanan;
+
+      b. rute/ trayek/ lintasan;
+
+      c. sistem pembayaran; dan
+
+      d. data dan informasi.
+
+(2) Integrasi jadwal layanan dan rute/trayek/lintasan sebagaimana
+      dimaksud pada ayat (1) huruf a dan huruf b dilakukan oleh Dinas
+      Perhubungan.
+
+(3) BUMD dan/atau badan usaha yang berbadan hukum dapat
+      menyampaikan usulan terkait integrasi jadwal layanan dan
+      rute/trayek/ lintasan sebagaimana dimaksud pada ayat (2) kepada
+      Dinas Perhubungan.
+
+(4) Integrasi sistem pembayaran sebagaimana dimaksud pada ayat (1)
+     huruf c dengan ketentuan sebagai berikut:
+
+     a. dilakukan oleh BUMD yang mendapatkan penugasan berdasarkan
+           Peraturan Gubernur dan/atau badan usaha yang berbadan
+           hukum yang bekerjasama dengan BUMD;
+
+     b. memperhatikan aspek keamanan sesuai dengan ketentuan
+           peraturan perundang-undangan; dan
+       c. memenuhi kriteria paling sedikit sebagai berikut:
+
+             1. Interoperabilitas dan Interkoneksi;
+
+             2. kemudahan perpindahan antar moda; dan
+
+             3. memiliki data dan informasi pembayaran sesuai dengan
+                 ketentuan peraturan perundang-undangan.
+
+ (5) Dinas Perhubungan, BUMD dan/atau badan usaha yang berbadan
+       hukum membangun dan/atau mengembangkan sistem integrasi data
+       dan informasi sebagaimana dimaksud pada ayat (1) huruf d.
+
+ (6) Sistem integrasi data dan informasi sebagaimana dimaksud pada
+       ayat (5) paling sedikit mampu mengelola data dan informasi terkait:
+       a. jumlah sarana siap guna operasi;
+       b. realisasi jumlah sarana siap guna operasi;
+      c. jumlah kesiapan prasarana guna operasi;
+      d. capaian kilometer masing-masing sarana operasi;
+      e. frekuensi sarana operasi;
+      f. jumlah penumpang di setiap layanan;
+      g. jumlah penumpang naik dan turun;
+      h. perpindahan penumpang antar moda;
+      i. keberadaan aktual armada operasi;
+      j. waktu tempuh;
+      k. headway;
+      1. timeschedule;
+      m. data asal dan tujuan perjalanan;
+      n. data kecelakaan dan pelanggaran;
+      o. aduan masyarakat;
+      p. sistem informasi penumpang;
+      q. perubahan rencana operasi; dan
+      r. publikasi layanan.
+
+(7) Dinas perhubungan, BUMD dan/atau badan usaha yang berbadan
+      hukum bertanggung jawab untuk menjamin kerahasiaan dan
+      keamanan data dan informasi sebagaimana dimaksud pada ayat (6).
+
+                                                  Pasal 11
+
+(1) Sistem integrasi data dan informasi sebagaimana dimaksud dalam
+     Pasal 10 ayat (5) harus terintegrasi dengan sistem informasi
+     Pemerintah Provinsi DKI Jakarta.
+ (2) Integrasi ke dalam sistem informasi Pemerintah Provinsi DKI Jakarta
+       sebagaimana dimaksud pada ayat (1) dilakukan berdasarkan
+       kesiapan sistem informasi yang dibangun dan/atau dikembangkan
+       oleh Dinas Perhubungan, BUMD dan/atau badan usaha yang
+       berbadan hukum.
+
+ (3) Tahapan integrasi sebagaimana dimaksud pada ayat (2) dilaksanakan
+       sesuai dengan ketentuan peraturan perundang-undangan.
+
+ (4) Data dan informasi yang sudah terintegrasi ke dalam sistem
+       informasi Pemerintah Provinsi DKI Jakarta sebagaimana dimaksud
+       pada ayat (2) merupakan milik Pemerintah Provinsi DKI Jakarta.
+
+ (5) Data dan informasi sebagaimana dimaksud pada ayat (4) dapat
+       diolah, dikelola, dimanfaatkan dan diakses secara online dan realtime
+       oleh pihak lain yang terkait berdasarkan persetujuan Gubernur atau
+       pejabat yang ditunjuk.
+
+                                                   Pasal 12
+
+ (1) Paket Tarif (Bundling Tariff) diberlakukan atas penggunaan 2 (dua)
+      atau lebih layanan angkutan umum massal.
+
+(2) Paket Tarif (Bundling Tariff) sebagaimana dimaksud pada ayat (1)
+      dapat berupa:
+
+      a. tarif tetap (flat);
+
+      b. tarif berdasarkan jarak;
+
+      c. tarif berdasarkan zonasi;
+
+      d. tarif berdasarkan waktu;
+
+      e. tarif berdasarkan pengguna tertentu; dan/atau
+
+      f. tarif kombinasi.
+
+(3) Tarif tetap (flat) menggunakan besaran satu tarif tertentu yang tetap.
+
+(4) Tarif berdasarkan jarak menggunakan besaran tarif tertentu yang
+      dihitung berdasarkan jarak tempuh perjalanan pengguna angkutan
+      umum.
+
+(5) Tarif berdasarkan zonasi menggunakan besaran tarif tertentu yang
+      dihitung berdasarkan pergerakan inter dan/atau intra zona/area
+      yang ditetapkan.
+
+(6) Tarif berdasarkan waktu menggunakan besaran tarif tertentu yang
+      dapat dihitung berdasarkan lamanya waktu penggunaan angkutan
+      umum, periode perjalanan tertentu, dan/atau pada waktu (jam)
+      operasional tertentu.
+
+(7) Tarif berdasarkan pengguna tertentu yakni berdasarkan masyarakat
+     tertentu pengguna angkutan umum.
+ (8) Tarif kombinasi menggunakan 2 (dua) atau lebih tarif sebagaimana
+       dimaksud pada ayat (2) huruf a, huruf b, huruf c, huruf d dan huruf e.
+
+ (9) Besaran Paket Tarif (Bundling Taff]) sebagaimana dimaksud pada
+       ayat (1) ditetapkan dengan Keputusan Gubernur.
+
+                                                     BAB IV
+
+           PEMBATASAN KENDARAAN BERMOTOR PERSEORANGAN
+
+                                                   Pasal 13
+
+(1) Pembatasan penggunaan kendaraan bermotor perseorangan meliputi:
+      a. penerapan rekayasa lalu lintas yang dibutuhkan;
+      b. penyelenggaraan sistem jalan berbayar elektronik;
+      c. pembatasan lalu lintas;
+      d. penerapan pajak kendaraan bermotor progresif khususnya untuk
+            kendaraan bermotor baru;
+      e. penyelenggaraan dan pengaturan parkir;
+      f. penerapan kendaraan masuk ke ruas jalan tertentu dan/atau
+            kawasan tertentu dengan memberlakukan plat nomor ganjil dan
+            genap;
+      g. peningkatan penggunaan kendaraan ramah lingkungan; dan
+      h. bentuk pembatasan penggunaan kendaraan bermotor perseorangan
+            lainnya.
+
+(2) Pembatasan penggunaan kendaraan bermotor perseorangan dilakukan
+      oleh Dinas Perhubungan.
+
+(3) Pembatasan penggunaan kendaraan bermotor perseorangan sebagaimana
+      dimaksud pada ayat (1) huruf b, huruf e dan huruf h dapat
+      dikerjasamakan dengan BUMD dan/atau badan usaha yang
+      berbadan hukum penyelenggara Sistem Jak Lingko sesuai dengan
+      ketentuan peraturan perundang-undangan.
+
+(4) Data dan informasi terkait pembatasan penggunaan kendaraan
+      bermotor perseorangan sebagaimana dimaksud pada ayat (1) harus
+      terintegrasi ke dalam sistem Pemerintah Provinsi DKI Jakarta.
+
+                                                    BAB V
+
+                                                  INSENTIF
+
+                                                   Pasal 14
+
+Insentif fiskal dan/atau non fiskal dapat diberikan kepada:
+
+a. BUMD dan/atau badan usaha yang berbadan hukum penyelenggara
+     Sistem Jak Lingko; dan/atau
+                                               10
+
+  b. orang perseorangan pemilik aset berupa tanah dan/atau bangunan
+       yang berada di kawasan integrasi prasarana dan sarana Sistem Jak
+       Lingko.
+
+                                                      BAB VI
+
+                        PEMANTAUAN, EVALUASI DAN PELAPORAN
+
+                                                    Pasal 15
+
+ (1) Kepala Dinas Perhubungan melakukan pemantauan dan evaluasi
+       terhadap Sistem Jak Lingko secara periodik atau sewaktu-waktu
+       apabila dibutuhkan.
+
+ (2) Pemantauan dan evaluasi Sistem Jak Lingko sebagaimana dimaksud
+       pada ayat (1) meliputi:
+       a. pemenuhan persyaratan teknis, administrasi, dan laik operasi
+             sarana;
+       b. pencapaian jumlah pengguna jasa angkutan:
+       c. jumlah frekuensi perjalanan yang dicapai;
+       d. jumlah dan kondisi prasarana dan sarana;
+       e. faktor muat pada lintas pelayanan layanan angkutan;
+      f. laporan pendapatan dan realisasi biaya operasional angkutan;
+      g. lintas pelayanan layanan angkutan;
+      h. jarak lintas dan capaian kilometer operasi layanan angkutan
+            Sistem Jak Lingko; dan
+      i. penilaian terkait standar pelayanan minimum yang ditetapkan
+            dengan Peraturan Gubernur.
+
+(3) Hasil pemantauan dan evaluasi dilaporkan kepada Gubernur setiap 3
+      (tiga) bulan sekali.
+
+(4) BUMD dan/atau badan usaha yang berbadan hukum melaporkan
+      hasil Sistem Jak Lingko setiap bulan kepada Kepala Dinas
+      Perhubungan.
+
+                                                   BAB VII
+
+                                      KETENTUAN PERALIHAN
+
+                                                   Pasal 16
+
+Integrasi prasarana, sarana dan/atau sistem operasional Transportasi
+yang telah dilakukan sebelum berlakunya Peraturan Gubernur ini, tetap
+dapat dilakukan dan harus disesuaikan dengan ketentuan dalam
+Peraturan Gubernur ini paling lambat 1 (satu) tahun terhitung sejak
+berlakunya Peraturan Gubernur mi.
+                                                                   11
+
+                                                                         BAB VIII
+                                                             KETENTUAN PENUTUP
+
+                                                                         Pasal 17
+                      Peraturan Gubernur ini mulai berlaku pada tanggal diundangkan.
+                      Agar setiap orang mengetahuinya, memerintahkan pengundangan
+                      Peraturan Gubernur ini dengan penempatannya dalam Berita Daerah
+                      Provinsi Daerah Khusus Ibukota Jakarta.
+
+                                                                             Ditetapkan di Jakarta
+                                                                             pada tanggal 26 Agustus 2021
+                                                                             GUBERNUR DAERAH KHUSUS
+
+                                                                                      IBUKOTA JAKARTA,
+                                                                                                    ttd
+
+                                                                                       ANIES BASWEDAN
+Diundangkan di Jakarta
+pada tanggal 2 September 2021
+SEKRETARIS DAERAH PROVINSI DAERAH KHUSUS
+
+                         IBUKOTA JAKARTA,
+                                       ttd
+
+                         MARULLAH MATALI
+BERITA DAERAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA
+TAHUN 2021 NOMOR 62026
+
+              Salinan sesuai dengan aslinya
+ KEPALA BIRO HUKUM SEKRETARIAT DAERAH
+PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA,
+
+      .4,
+
+                         AYAN YUHANAH
+                  IP196508 2 4 19 940320 03
+                                                          LAMPIRAN
+                                                          PERATURAN GUBERNUR DAERAH KHUSUS
+                                                          IBUKOTA JAKARTA
+                                                          NOMOR 68 TAHUN 2021
+                                                          TENTANG
+                                                          PENYELENGGARAAN SISTEM TRANSPORTASI
+                                                          TERPADU DAN TERINTEGRASI
+
+                 PETUNJUK TEKNIS PENGGUNAAN LOGO JAK LINGKO
+
+A. Logo Jak Lingko
+     1. Logo Versi Utama (Vertical)
+
+                                                                                                                               ·
+
+                                       Jak       1,2 Cm*
+
+Lingko
+
+                                    4  1,54 Cm*
+
+Keterangan:
+* : Ukuran minimal
+
+2. Logo Versi Sekunder (Horizontal)
+
+                                                          ·
+
+Jak Lingko                                                    1,8 Cm*
+                                                          ·
+
+                4                      4,3 Cm*
+
+Keterangan:
+* : Ukuran minimal
+                                                            2
+
+B. Tipografi
+
+    Tipografi menggunakan font Gilroy sebagai tipografi utama, pada kondisi
+    tidak memungkinkan menggunakan Gilroy sebagai tipografi utama, maka
+    font Muli dapat digunakan sebagai komplementer.
+
+Gilroy
+
+GILROY REGULAR
+
+AaBbCcDdEeFfGgHhIlJjKkLIMmNnOoPpQqRrSsItUuVvW-
+wXxYyZz1234567890
+
+GILROY MEDIUM
+
+AaBbCcDdEeFfGgHhliJjKkLIMmNnOoPpQqRrSsTtUuVvW-
+wXxYyZz1234567890
+
+GILROY SEMIBOLD
+
+AaBbCcDdEeFfGgHhliJjKkLIMmNnOoPpQqRrSsTtUuVvW-
+wXxYyZz1234567890
+
+GILROY BOLD
+
+Aa8bCcDdEeFfGgHhIlJjKkLIMmNnOoPpQqRrSsItUuVvW-
+wXxYyZz1234567890
+
+GILROY EXTRABOLD
+
+AaBbCcDdEeFfGgHhIlJjKkLIMmNnOoPpQqRrSsTtUuVvW-
+wXxYyZz1234567890
+
+C. Hierarki Teks
+
+     Dimaksudkan dapat menciptakan kontras yang dapat menimbulkan kesan
+     urutan dari yang terpenting sampai dengan kurang penting. Berikut adalah
+    contoh yang dapat dijadikan acuan.
+
+TEKS                                                                                ndePaL T^.·, . a the rea aaa D if  GiIo
+DAN SUB JUDUL                                                                                                             5 pt t.,pe
+                 I'e tee. Is , ese,ve-1 ter .Ptcy*.e..+1 ona huge text amount
+HEADLINE DAN   SMALL HEADLINES TO ACCOMPANY THE COPY TEXT                                                              Glltoy RecuIar
+JUDUL UTAMA                                                                                                            8 pt type ICI pt.
+
+                                                                                                                       8 ot type 9 5 pi ieading
+
+               Much more than an interesting headline                                                                  '-ledrum
+                                                                                                                       14 pi type 18 pt ea,Ing
+
+               Super Headline.                                                                                               Semit,010
+                                                                                                                       p! t'ote. 32 Lat eoclira
+
+               The biggest.                                                                                                                      ,
+                                                            3
+D. Palet Warna
+
+Jak                                                                      GRADASI VIBRANT GREEN I RE 2
+Lingko                                                                   GRADASI CARING BLUE 1 RE 2
+                                                                         GRADASI DYNAMIC TOSCA 1 RE 2
+   DYNAMIC TOSCA 2
+                                                               - DARK BLUE 2
+
+    DARK BLUE 1         DARK BLUE 2                              CARING BLUE 1       CARING BLUE 2
+C:90 M:50 Y:0 k:60   (90 M SO K:20                                                   C:80 MOYOKO
+                                                               C:80 11.20 Y:0 k:20
+
+DYNAMIC TOSCA 1      DYNAMIC TOSCA 2                                            ./1  VIBRANT GREEN 2
+C.90 M:D 'V 60 K:20  C:90 MO Y:60 K 0                                                C:40 11i0 Y:90 K:0
+                                                               VIBRANT GREEN I
+                                                               C.60 11:0 Y:90 K:0
+
+E. Area Eksklusif Logo
+
+    Area eksklusif logo untuk menjaga posisi logo Jak Lingko agar tetap bersih
+    dari elemen grafis lain di sekitarnya. Tidak dibolehkan terdapat elemen grafis
+    atau teks apapun yang mengganggu area eksklusif mi.
+
+                     Jak
+                     Lingko
+                                                            4
+
+         Jak Lingko
+
+    Keterangan:
+    Ketinggian X diperoleh dani ketinggian huruf "a" pada logotype
+
+F. Aturan Logo
+   1. Selalu berikan space/ruang di area sekitar logo.
+   2. Background menggunakan warna putih ataupun background yang
+        muda/netral jika menggunakan logo versi full color.
+   3. Jika menggunakan background warna muda/netral, dianjurkan untuk
+        menggunakan palet warna Jak Lingko sebagai warna backgroundnya, dan
+        menggunakan logo Jak Lingko versi negative (putih).
+   4. Jika peletakan logo di atas image/ gambar pastikan tone gambar dan logo
+        Jak Lingko cukup kontras, dapat juga digunakan logo Jak Lingko versi
+        negative (putih)
+   5. Dilarang meletakan logo pada warna yang tidak relevan dengan Jak Lingko.
+   6. Dilarang meletakan logo pada background yang terlalu rumit dan merusak
+        tingkat keterbacaan logo.
+   7. Proporsi logo hanya berdasarkan lebar dan tingginya, besar/kecilkan
+        proporsi logo secara bersama-sama.
+   8. Dilarang menambahkan efek lain pada logo seperti drop shadow, emboss,
+        outer glow, dll.
+
+G. Super Graphic
+    Super graphic Jak Lingko diciptakan dani garis sederhana dengan ujung-
+    ujung yang membulat dan diakhiri dengan sebuah kepala di salah satu ujung
+    akhirnya. Garis ini dapat didesain untuk mengarah kemana saja namun
+    pastikan komposisinya tetap sederhana, tidak rumit dan berbelit-belit. Serta
+    perhatikan pula vocal point utama sebagai penekanannya, jangan sampai
+    keseluruhan desain tampak datar.
+
+    1. Tampilan super graphic secara individual
+                                                            5
+    2. Sebagai Pattern dan elemen pendukung
+
+    3. Sebagai ilustrasi grafis
+
+                                                                                                                  44
+
+H. Aturan Super Graphic
+    1. Salah satu ujung super graphic selalu diakhiri dengan titik/kepala, ujung
+         lainnya selalu dibuat memudar.
+    2. Diperbolehkan untuk menggabungkan dua buah super graphic yang
+         berbeda ketebalannya maupun berbeda arah tujuan dalam sebuah
+         komposisi desain.
+    3. Dua buah ujung super graphic dapat dibuat menjadi satu titik pertemuan
+         yang sama.
+    4. Dilarang membuat arah/komposisi super graphic yang terlalu rumit dan
+         tidak memberikan kesan yang sederhana dan bebas hambatan seperti
+         konsep utama Jak Lingko.
+    5. Dilarang mengaplikasikan super graphic dengan warna di luar palet warna
+         Jak Lingko.
+                                                                        GUBERNUR DAERAH KHUSUS
+                                                                                IBUKOTA JAKARTA,
+                                                                                              ttd
+                                                                                 ANIES BASWEDAN
+

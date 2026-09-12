@@ -1,0 +1,544 @@
+Purdue University
+
+Purdue e-Pubs
+
+JTRP Data Papers
+
+11-2012
+
+Indiana Traffic Signal Hi Resolution Data Logger
+Enumerations
+
+James R. Sturdevant
+
+INDOT, jsturdevant@indot.in.gov
+
+Timothy Overman
+
+INDOT
+
+Eric Raamot
+
+Econolite Group Inc.
+
+Ray Deer
+
+Peek Traffic Corporation
+
+Dave Miller
+
+Siemens Industry, Inc.
+
+See next page for additional authors
+
+Follow this and additional works at: https://docs.lib.purdue.edu/jtrpdata
+   Part of the Civil Engineering Commons
+
+Recommended Citation
+Sturdevant, J. R., T. Overman, E. Raamot, R. Deer, D. Miller, D. M. Bullock, C. M. Day, T. M.
+Brennan, H. Li, A. Hainen, and S. M. Remias. Indiana Traffic Signal Hi Resolution Data Logger
+Enumerations. , Indiana Department of Transportation and Purdue University, West Lafayette,
+Indiana, 2012. https://doi.org/10.4231/K4RN35SH
+
+This document has been made available through Purdue e-Pubs, a service of the Purdue University Libraries. Please contact epubs@purdue.edu for
+additional information.
+Authors
+James R. Sturdevant, Timothy Overman, Eric Raamot, Ray Deer, Dave Miller, Darcy M. Bullock, Christopher
+M. Day, Thomas M. Brennan Jr., Howell Li, Alex Hainen, and Steve M. Remias
+
+                                                             This other is available at Purdue e-Pubs: https://docs.lib.purdue.edu/jtrpdata/3
+Indiana Traffic Signal Hi Resolution Data Logger Enumerations
+
+                                                 November 2012
+
+         James R. Sturdevant, Indiana Department of Transportation
+         Tim Overman, Indiana Department of Transportation
+         Eric Raamot, Econolite Group Inc.
+         Ray Deer, Peek Traffic Corporation
+         Dave Miller, Siemens Industry, Inc.
+         Darcy Bullock, Purdue University
+         Christopher Day, Purdue University
+         Tom Brennan, Purdue University
+         Howell Li, Purdue University
+         Alex Hainen, Purdue University
+         Steve Remias, Purdue University
+Abstract
+
+This document defines the enumerations used to encode events that occur on a traffic signal
+controllers with high resolution data loggers. The time resolution is to the nearest 100
+milliseconds.
+
+Background information on the development of high resolution controller data in Indiana can
+be found at
+
+         Smaglik E.J., A. Sharma, D.M. Bullock, J.R. Sturdevant, and G. Duncan, "Event-Based Data
+         Collection for Generating Actuated Controller Performance Measures," Transportation
+         Research Record, #2035, TRB, National Research Council, Washington, DC, pp.97-106,
+         2007. http://dx.doi.org/10.3141/2035-11
+
+Recent applications of high resolution data to develop traffic signal performance measures in
+Indiana can be found at:
+
+    · Outcome-Oriented Performance Measures for Management of Signalized Arterial
+         Capacity
+         http://dx.doi.org/10.3141/2192-03
+
+    · Track Clearance Performance Measures for Railroad-Preempted Intersections
+         http://dx.doi.org/10.3141/2192-06
+
+    · Reliability, Flexibility, and Environmental Impact of Alternative Objective Functions for
+         Arterial Offset Optimization
+         http://dx.doi.org/10.3141/2259-02
+
+    · Visual Education Tools to Illustrate Coordinated System Operation
+         http://dx.doi.org/10.3141/2259-06
+Event  Event Descriptor       Parameter        Description
+Code
+                              Phase # (1-16)   Set when NEMA Phase On becomes active,
+Active Phase Events:                           either upon start of green or walk interval,
+                                               whichever occurs first.
+0      Phase On
+                                               Set when either solid or flashing green
+1      Phase Begin Green      Phase # (1-16)   indication has begun. Do not set repeatedly
+                                               during flashing operation.
+2      Phase Check            Phase # (1-16)
+                                               Set when a conflicting call is registered
+3      Phase Min Complete     Phase # (1-16)   against the active phase. (Marks beginning
+                                               of MAX timing)
+4      Phase Gap Out          Phase # (1-16)
+                                               Set when phase min timer expires.
+5      Phase Max Out          Phase # (1-16)
+                                               Set when phase gaps out, but may not
+6      Phase Force Off        Phase # (1-16)   necessarily occur upon phase termination.
+                                               Event may be set multiple times within a
+7      Phase Green Termination Phase # (1-16)  single green under simultaneous gap out.
+
+8      Phase Begin Yellow                      Set when phase MAX timer expires, but
+                                               may not necessarily occur upon phase
+       Clearance                               termination due to last car passage or other
+                                               features.
+9      Phase End Yellow
+                                               Set when phase force off is applied to the
+       Clearance                               active green phase.
+
+10     Phase Begin Red        Phase # (1-16)   Set when phase green indications are
+                                               terminated into either yellow clearance or
+       Clearance                               permissive (FYA) movement.
+
+11     Phase End Red          Phase # (1-16)   Set when phase yellow indication becomes
+                                               active and clearance timer begins.
+       Clearance
+                                               Set when phase yellow indication become
+12     Phase Inactive         Phase # (1-16)   inactive.
+
+                                               Set only if phase red clearance is served.
+                                               Set when red clearance timing begins.
+
+                                               Set only if phase red clearance is served.
+                                               Set when red clearance timing concludes.
+                                               This may not necessarily coincide with
+                                               completion of the phase, especially during
+                                               clearance of trailing overlaps, red revert
+                                               timing, red rest, or delay for other ring
+                                               terminations.
+
+                                               Set when the phase is no longer active
+                                               within the ring, including completion of any
+                                               trailing overlaps or end of barrier delays for
+                                               adjacent ring termination.
+
+13-20  Phase events reserved  Phase # (1-16)
+       for future use.
+Active Pedestrian Events:
+
+21     Pedestrian Begin Walk       Phase # (1-16)  Set when walk indication becomes active.
+                                   Phase # (1-16)  Set when flashing don't walk indication
+22     Pedestrian Begin                            becomes active.
+                                   Phase # (1-16)  Set when don't walk indication becomes
+       Clearance                                   solid (non flashing) from either termination
+                                                   of ped clearance, or head illumination after
+23     Pedestrian Begin Solid                      a ped dark interval.
+                                                   Set when the pedestrian outputs are set off.
+       Don't Walk
+                                                   Set when all active phases become inactive
+24     Pedestrian Dark             Phase # (1-16)  in the ring and cross barrier phases are next
+                                   Barrier #(1-8)  to be served.
+25-30  Pedestrian events                           Set when flashing yellow arrow becomes
+       reserved for future use.                    active.
+                                                   Set when flashing yellow arrow becomes
+Barrier / Ring Events:                             inactive through either clearance of the
+                                                   permissive movement or transition into a
+31     Barrier Termination                         protected movement.
+
+32     FYA ­ Begin Permissive FYA # (1-4)
+
+33     FYA ­ End Permissive        FYA # (1-4)
+
+34-40  Barrier events reserve for
+       future use.
+Phase Control Events:
+
+41     Phase Hold Active         Phase # (1-16)  Set when phase hold is applied by the
+                                                 coordinator, preemptor, or external logic.
+42     Phase Hold Released       Phase # (1-16)  Phase does not necessarily need to be
+                                                 actively timing for this event to occur.
+43     Phase Call Registered     Phase # (1-16)
+                                                 Set when phase hold is released by the
+44     Phase Call Dropped        Phase # (1-16)  coordinator, preemptor, or external logic.
+                                                 Phase does not necessarily need to be
+45     Pedestrian Call           Phase # (1-16)  actively timing for this event to occur.
+                                 Phase # (1-16)
+       Registered                                Call to service on a phase is registered by
+                                                 vehicular demand. This event will not be
+46     Phase Omit On                             set if a recall exists on the phase.
+
+47     Phase Omit Off            Phase # (1-16)  Call to service on a phase is cleared by
+                                                 either service of the phase or removal of
+48     Pedestrian Omit On        Phase # (1-16)  call.
+
+49     Pedestrian Omit Off       Phase # (1-16)  Call to service on a phase is registered by
+                                                 pedestrian demand. This event will not be
+                                                 set if a recall exists on the phase.
+
+                                                 Set when phase omit is applied by the
+                                                 coordinator, preemptor, or other dynamic
+                                                 sources. Phase does not necessarily need
+                                                 to be actively timing for this event to occur.
+                                                 This event is not set when phase is
+                                                 removed from the active sequence or other
+                                                 configuration-level change has occurred.
+
+                                                 Set when phase omit is released by the
+                                                 coordinator, preemptor, or other dynamic
+                                                 sources. Phase does not necessarily need
+                                                 to be actively timing for this event to occur.
+                                                 This event is not set when phase is added
+                                                 from the active sequence or other
+                                                 configuration-level change has occurred.
+
+                                                 Set when ped omit is applied by the
+                                                 coordinator, preemptor, or other dynamic
+                                                 sources. Phase does not necessarily need
+                                                 to be actively timing for this event to occur.
+                                                 This event is not set when phase is
+                                                 removed from the active sequence or other
+                                                 configuration-level change has occurred.
+
+                                                 Set when ped omit is released by the
+                                                 coordinator, preemptor, or other dynamic
+                                                 sources. Phase does not necessarily need
+                                                 to be actively timing for this event to occur.
+                                                 This event is not set when phase is added
+                                                 from the active sequence or other
+                                                 configuration-level change has occurred.
+
+50-60  Phase Control Events
+       reserved for future use.
+Overlap Events:
+
+61     Overlap Begin Green     Overlap # (as number Set when overlap becomes green. Do not
+
+                               A=1 B=2, etc)         set repeatedly when overlap is flashing
+
+                                                     green. Note that overlap colors are
+
+                                                     consistent to the GYR intervals resultant
+
+                                                     from the controller programming and may
+
+                                                     not be indicative of actual signal head
+
+                                                     colors.
+
+62     Overlap Begin Trailing  Overlap # (as number Set when overlap is green and extension
+
+       Green (Extension)       A=1 B=2, etc)         timers begin timing.
+
+63     Overlap Begin Yellow    Overlap # (as number Set when overlap is in a yellow clearance
+
+                               A=1 B=2, etc)         state.
+
+                                                     Note that overlaps which drive yellow field
+                                                     indications during a dwell state may be
+                                                     reported as green or inactive. (common to
+                                                     mid-block signals)
+
+64     Overlap Begin Red       Overlap # (as number Set when overlap begins timing red
+
+       Clearance               A=1 B=2, etc)         clearance intervals.
+
+65     Overlap Off (Inactive with Overlap # (as number Set when overlap has completed all timing,
+
+       red indication)         A=1 B=2, etc)         allowing any conflicting phase next to begin
+
+                                                     service.
+
+66     Overlap Dark            Overlap # (as number  Set when overlap head is set dark (no
+                               A=1 B=2, etc)         active outputs). The end of this interval
+                                                     shall be recorded by either an overlap off
+                                                     state or other active overlap state.
+
+67     Pedestrian Overlap Begin Overlap # (as number Set when walk indication becomes active.
+
+       Walk                    A=1 B=2, etc)
+
+68     Pedestrian Overlap Begin Overlap # (as number Set when flashing don't walk indication
+
+       Clearance               A=1 B=2, etc)         becomes active.
+
+69     Pedestrian Overlap Begin Overlap # (as number Set when don't walk indication becomes
+
+       Solid Don't Walk        A=1 B=2, etc)         solid (non flashing) from either termination
+
+                                                     of ped clearance, or head illumination after
+
+                                                     a ped dark interval.
+
+70     Pedestrian Overlap Dark Overlap # (as number Set when the pedestrian outputs are set off.
+
+                               A=1 B=2, etc)
+
+71-80  Overlap events reserved Overlap # (as number
+
+       for future use.         A=1 B=2, etc)
+Detector Events:
+
+81      Detector Off              DET Channel # (1-  Detector on and off events shall be
+                                  64)                triggered post any detector delay/extension
+                                                     processing.
+82      Detector On               DET Channel # (1-
+                                  64)                Detector restored to non-failed state by
+83      Detector Restored                            either manual restoration or re-enabling via
+                                  DET Channel # (1-  continued diagnostics.
+                                  64)
+                                                     Detector failure logged upon local controller
+84      Detector Fault- Other     DET Channel # (1-  diagnostics only (not system diagnostics).
+
+                                  64)                Detector failure logged upon local controller
+                                                     diagnostics only (not system diagnostics).
+85      Detector Fault- Watchdog DET Channel # (1-
+                                                     Detector failure logged upon local controller
+        Fault                     64)                diagnostics only (not system diagnostics).
+
+86      Detector Fault- Open      DET Channel # (1-  Detector failure logged upon local controller
+                                                     diagnostics only (not system diagnostics).
+        Loop Fault                64)
+                                                     Detector failure logged upon local controller
+87      Detector Fault- Shorted DET Channel # (1-    diagnostics only (not system diagnostics).
+
+        Loop Fault                64)                Ped detector events shall be triggered post
+                                                     any detector delay/extension processing
+88      Detector Fault- Excessive DET Channel # (1-  and may be set multiple times for a single
+                                                     pedestrian call. (with future intent to
+        Change Fault              64)                eventually support ped presence and
+                                                     volume)
+89      PedDetector Off           DET Channel # (1-
+                                  16)                Detector failure logged upon local controller
+                                                     diagnostics only (not system diagnostics).
+90      PedDetector On            DET Channel # (1-
+91                                16)                Detector failure logged upon local controller
+92      Pedestrian Detector       Ped Det # (1-16)   diagnostics only (not system diagnostics).
+93-100  Failed
+        Pedestrian Detector       Ped Det # (1-16)
+        Restored
+        Detector events reserved
+        for future use.
+Preemption Events:
+
+101      Preempt Advance          Preempt # (1-10)  Set when preemption advance warning
+                                  Preempt # (1-10)  input is activated.
+         Warning Input
+                                                    Set when preemption input is activated.
+102      Preempt (Call) Input On                    (prior to preemption delay timing) May be
+                                                    set multiple times if input is intermittent
+103      Preempt Gate Down        Preempt # (1-10)  during preemption service.
+
+         Input Received                             Set when gate down input is received by the
+                                                    controller (if available).
+104      Preempt (Call) Input Off Preempt # (1-10)
+                                                    Set when preemption input is de-activated.
+105      Preempt Entry Started    Preempt # (1-10)  May be set multiple times if input is
+                                                    intermittent preemption service.
+106      Preemption Begin Track Preempt # (1-10)
+                                                    Set when preemption delay expires and
+         Clearance                                  controller begins transition timing (force off)
+                                                    to serve preemption.
+107      Preemption Begin Dwell Preempt # (1-10)
+                                                    Set when track clearance phases are green
+         Service                                    and track clearance timing begins.
+
+108      Preemption Link Active Preempt # (1-10)    Set when preemption dwell or limited
+                                                    service begins or minimum dwell timer is
+         On                                         reset due to call drop and reapplication.
+
+109      Preemption Link Active Preempt # (1-10)    Set when linked preemptor input is applied
+                                                    from active preemptor.
+         Off
+                                                    Set when linked preemptor input is dropped
+110      Preemption Max           Preempt # (1-10)  from active preemptor.
+
+         Presence Exceeded                          Set when preemption max presence timer is
+                                                    exceeded and preemption input is released
+111      Preemption Begin Exit    Preempt # (1-10)  from service.
+
+         Interval                                   Set when preemption exit interval phases
+                                                    are green and exit timing begins.
+112      TSP Check In             TSP #(1-10)
+                                                    Set when request for priority is received.
+113      TSP Adjustment to Early TSP #(1-10)
+                                                    Set when controller is adjusting active cycle
+         Green                                      to accommodate early service to TSP
+                                                    phases.
+114      TSP Adjustment to        TSP #(1-10)
+                                                    Set when controller is adjusting active cycle
+         Extend Green                               to accommodate extended service to TSP
+                                                    phases.
+115      TSP Check Out            TSP #(1-10)
+116-130                                             Set when request for priority is retracted.
+         Preemption Events
+         reserved for future use
+Coordination Events:
+
+131  Coord Pattern Change  Pattern # (0-255)  Coordination pattern that is actively running
+                                              in the controller. (Highest priority of TOD,
+132  Cycle Length Change   Seconds (0-255)    System or manual command). This event
+                                              will not be reapplied if coordination is
+133  Offset Length Change  Seconds (0-255)    temporarily suspended for preemption or
+                                              other external control.
+134  Split 1 Change        New Split Time in
+                           Seconds (0-255)    This event shall be populated upon
+                                              selection of a new coordination pattern
+                           New Split Time in  change that selects a new cycle length.
+                           Seconds (0-255)    Cycle lengths in excess of 255 shall record
+                           New Split Time in  this event with a 255 parameter, requiring
+                           Seconds (0-255)    controller database lookup for this actual
+                           New Split Time in  value.
+                           Seconds (0-255)
+                           New Split Time in  This event shall be populated upon
+                           Seconds (0-255)    selection of a new coordination pattern
+                           New Split Time in  change that selects a new cycle length.
+                           Seconds (0-255)    Offsets in excess of 255 shall record this
+                           New Split Time in  event with a 255 parameter, requiring
+                           Seconds (0-255)    controller database lookup for this actual
+                           New Split Time in  value.
+                           Seconds (0-255)
+                           New Split Time in  Split change events shall be populated
+                           Seconds (0-255)    upon selection of a new coordination
+                           New Split Time in  pattern as well as during a split change to
+                           Seconds (0-255)    an active pattern via ACS Lite or other
+                           New Split Time in  adaptive control system.
+                           Seconds (0-255)
+135  Split 2 Change        New Split Time in
+
+136  Split 3 Change
+
+137  Split 4 Change
+
+138  Split 5 Change
+
+139  Split 6 Change
+
+140  Split 7 Change
+
+141  Split 8 Change
+
+142  Split 9 Change
+
+143  Split 10 Change
+
+144  Split 11 Change
+
+145  Split 12 Change
+                                   Seconds (0-255)
+
+146      Split 13 Change           New Split Time in
+                                   Seconds (0-255)
+
+147      Split 14 Change           New Split Time in
+                                   Seconds (0-255)
+
+148      Split 15 Change           New Split Time in
+                                   Seconds (0-255)
+
+149      Split 16 Change           New Split Time in
+                                   Seconds (0-255)
+
+150      Coord cycle state change Parameter (0-6)
+
+                                   defined as:
+
+                                   0 = Free
+
+                                   1 = In Step
+
+                                   2 = Transition - Add
+
+                                   3 = Transition -
+                                   Subtract
+
+                                   4 = Transition - Dwell
+
+                                   5 = Local Zero
+
+                                   6 = Begin Pickup
+
+151      Coordinated phase yield   Phase # (1-16)
+152-170  point
+
+         Coordination events
+         reserved for future use.
+Cabinet / System Events:
+
+171      Test Input on             Test Input # (as       Cabinet test or special function input as
+                                   number A=1 B=2,        defined by the local controller.
+172      Test Input off            etc)
+                                                          See NTCIP 1202 2.4.5 for definition
+173      Unit Flash Status change  Test Input # (as
+                                   number A=1 B=2,        See NTCIP 1202 2.4.8 for definition
+174      Unit Alarm Status 1       etc)
+                                                          See NTCIP 1202 2.4.12.2 for definition
+         change                    NTCIP Flash state #
+                                   (0-255)                Special function output as defined by the
+175      Alarm Group State                                local controller.
+                                   NTCIP Alarm Status     Special function output as defined by the
+         Change                    1# (0-255)             local controller.
+
+176      Special Function Output   NTCIP Alarm Group      leading edge on (1),
+                                   State (0-255)          lagging edge (0) optional
+         on                                               Set when stop time input is applied or
+                                   Special Function #     removed, regardless of source of stop
+177      Special Function Output   (0-255)
+                                                          Set when the controller OS clock is adjusted
+         off                       Special Function #     via communications, OS command, or
+                                   (0-255)                external input.
+178      Manual control enable                            Line voltage drops between 0-89 volts AC
+                                   Manual control         for more than100 ms
+         off/on                    enable off/on # (0,1)  Line voltage applied/reapplied greater than
+                                                          98 volts AC
+179      Interval Advance off/on   Interval Advance       Placeholder for generic failure/alarm types
+                                   off/on # (0,1)         as defined by vendor.
+
+180      Stop Time Input off/on    Stop Time Input
+
+                                   Advance off/on #
+
+                                   (0,1)
+
+181      Controller Clock Updated Optional parameter:
+
+                                   Time correction in
+
+                                   Seconds (0-255)
+
+182      Power Failure Detected True (1)
+
+184      Power Restored            True (1)
+
+185      Vendor Specific Alarm     Vendor defined
+                                   parameter
+
+186-199  Cabinet/System events
+200-255  reserved for future use.
+
+         Reserved for future use.
+

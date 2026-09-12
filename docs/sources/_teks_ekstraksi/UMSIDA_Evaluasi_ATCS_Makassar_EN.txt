@@ -1,0 +1,218 @@
+                                                                                                                   Page | 1
+
+               Evaluation of Area Traffic Control System (ATCS) Implementation at
+               the Jl. Padjonga Dg Ngalle Four-Leg Intersection Makassar City
+               Evaluasi Penerapan Area Traffic Control System (ATCS) di Simpang
+               Empat Jl. Padjonga Dg Ngalle Kota Makassar
+
+                     Nico Cahya Pradana1), Atik Wahyuni *,2)
+
+                     1)Program Studi Teknik Sipil, Universitas Muhammadiyah Sidoarjo, Indonesia
+                     2)Program Studi Teknik Sipil, Universitas Muhammadiyah Sidoarjo, Indonesia
+                     *Email Penulis Korespondensi: atikwahyuni@umsida.ac.id
+
+Abstract. This study aims to evaluate the implementation of the Area Traffic Control System (ATCS) at the Jl. Padjonga Dg
+        Ngalle four-leg intersection, Makassar City, by comparing conditions before and after installation. The evaluation is
+        conducted based on the 1997 Indonesian Road Capacity Manual (MKJI), focusing on parameters such as degree of
+        saturation (DS), traffic delay, queue length, and Level of Service (LOS). Secondary data from relevant agencies were
+        utilized, covering geometric conditions, traffic flow, and signal timing during morning, midday, and evening peak
+        hours, on both weekdays and weekends. Data analysis includes calculating intersection capacity, evaluating the
+        performance of each approach, and identifying LOS changes after ATCS implementation. The results indicate that
+        ATCS implementation optimizes traffic signal control, reduces the degree of saturation and average delay on several
+        approaches, and improves LOS during certain periods. However, for some approaches, the changes are relatively
+        minor, suggesting the need for further signal timing adjustments to achieve optimal performance. This research is
+        expected to serve as a reference for local governments in developing effective and efficient urban traffic management
+        strategies.
+
+Keywords - Area Traffic Control System, Signalized Intersection Performance, Degree of Saturation, Traffic Delay, MKJI
+        1997
+
+Abstrak. Penelitian ini bertujuan untuk mengevaluasi penerapan Area Traffic Control System (ATCS) pada simpang empat
+        Jl. Padjonga Dg Ngalle, Kota Makassar, melalui analisis perbandingan kondisi sebelum dan sesudah pemasangan.
+        Kajian dilakukan menggunakan acuan Manual Kapasitas Jalan Indonesia (MKJI) 1997 dengan fokus pada parameter
+        derajat kejenuhan (DS), tundaan lalu lintas, panjang antrean, dan Level of Service (LOS). Data penelitian diperoleh
+        dari sumber sekunder instansi terkait yang meliputi kondisi geometrik simpang, arus lalu lintas, serta pengaturan
+        waktu sinyal pada jam puncak pagi, siang, dan sore, baik pada hari kerja maupun akhir pekan. Analisis data
+        dilakukan melalui perhitungan kapasitas simpang, evaluasi kinerja tiap pendekat, dan identifikasi perubahan LOS
+        setelah penerapan ATCS. Hasil penelitian menunjukkan bahwa penerapan ATCS mampu mengoptimalkan pengaturan
+        sinyal lalu lintas dengan menurunkan derajat kejenuhan dan tundaan rata-rata pada sebagian pendekat, serta
+        meningkatkan LOS pada periode tertentu. Meskipun demikian, pada beberapa pendekat perubahan yang terjadi
+        relatif kecil sehingga masih diperlukan penyesuaian konfigurasi waktu sinyal untuk mencapai kinerja yang lebih
+        optimal. Penelitian ini diharapkan dapat menjadi referensi bagi pemerintah daerah dalam pengembangan manajemen
+        lalu lintas perkotaan yang efektif dan efisien.
+
+Kata Kunci - Area Traffic Control System, Kinerja Simpang Bersinyal, Derajat Kejenuhan, Tundaan Lalu Lintas, MKJI 1997
+
+                                                       I. PENDAHULUAN
+
+             Jalan merupakan infrastruktur utama yang memegang peranan penting dalam menunjang mobilitas masyarakat,
+        distribusi barang, dan pertumbuhan ekonomi wilayah. Sebagai kota metropolitan, Makassar menghadapi
+        permasalahan lalu lintas yang cukup kompleks, terutama kemacetan di titik-titik persimpangan dengan volume
+        kendaraan tinggi. Salah satu lokasi yang kerap mengalami kepadatan adalah persimpangan Jl. Padjonga Dg Ngalle,
+        yang ditandai dengan panjang antrean kendaraan, tingginya hambatan samping, serta perilaku pengendara yang kurang
+        disiplin terhadap sinyal lalu lintas. Kondisi ini mengakibatkan penurunan kinerja simpang dan tingkat pelayanan lalu
+        lintas.
+
+             Untuk mengatasi permasalahan tersebut, Dinas Perhubungan Kota Makassar mengimplementasikan Area Traffic
+        Control System (ATCS), yakni sistem pengendalian sinyal lalu lintas yang beroperasi secara adaptif menggunakan
+        data real-time. Sistem ini memungkinkan pengaturan waktu sinyal yang responsif terhadap kondisi aktual di lapangan,
+        sehingga diharapkan mampu mengurangi tundaan dan meningkatkan kelancaran arus lalu lintas.
+
+                        Copyright © Universitas Muhammadiyah Sidoarjo. This preprint is protected by copyright held by Universitas Muhammadiyah Sidoarjo and is distributed
+                      under the Creative Commons Attribution License (CC BY). Users may share, distribute, or reproduce the work as long as the original author(s) and copyright
+
+                                                                         holder are credited, and the preprint server is cited per academic standards.
+                        Authors retain the right to publish their work in academic journals where copyright remains with them. Any use, distribution, or reproduction that does not
+
+                                                                                             comply with these terms is not permitted.
+2 | Page
+
+    Penelitian ini mengkaji kinerja simpang yang diatur menggunakan sinyal lalu lintas di Jl. Padjonga Dg Ngalle
+sebelum dan sesudah penerapan ATCS. Evaluasi dilakukan berdasarkan parameter volume lalu lintas, kondisi
+geometrik, derajat kejenuhan, panjang antrean, tundaan, dan tingkat pelayanan (Level of Service/LOS) sesuai Manual
+Kapasitas Jalan Indonesia (MKJI) 1997. Hasilnya diharapkan dapat memberikan gambaran efektivitas ATCS sebagai
+solusi penanganan kemacetan serta menjadi masukan bagi pengembangan kebijakan manajemen lalu lintas perkotaan.
+
+                                                   II. METODE
+
+    Penelitian ini menggunakan pendekatan before-after study untuk mengevaluasi kinerja simpang bersinyal di Jl.
+Padjonga Dg Ngalle Kota Makassar sebelum dan sesudah penerapan Area Traffic Control System (ATCS).Analisis
+dilakukan dengan mengacu pada Manual Kapasitas Jalan Indonesia (MKJI) 1997.
+· Lokasi dan Waktu Penelitian
+
+     Objek penelitian adalah simpang empat Jl. Padjonga Dg Ngalle. Data diperoleh dari instansi terkait selama dua
+     hari pengamatan, masing-masing satu hari pada hari kerja (weekday) dan satu hari pada akhir pekan (weekend).
+     Pengamatan dilakukan pada tiga periode jam puncak, yaitu pagi (07.00­10.00 WITA), siang (12.00­15.00
+     WITA), dan sore (17.00­20.00 WITA).
+· Pengumpulan Data
+     Data yang dikumpulkan meliputi:
+     1. Data geometri lalu lintas pada simpang empat Jl. Padjonga Dg Ngalle Kota Makassar.
+     2. Data arus lalu lintas pada simpang empat Jl. Padjonga Dg Ngalle Kota Makassar.
+     3. Data waktu sinyal untuk tiap fase pada simpang empat Jl. Padjonga Dg Ngalle Kota Makassar.
+· Pengolahan dan Analisis Data
+     Data dianalisis untuk memperoleh parameter kinerja simpang, yaitu:
+     1. Volume lalu lintas pada masing-masing pendekat.
+     2. Derajat kejenuhan (DS), panjang antrean (QL), dan tundaan (D).
+     3. Tingkat pelayanan (Level of Service/LOS).
+     Perbandingan hasil antara kondisi sebelum dan sesudah penerapan ATCS digunakan untuk menilai efektivitas
+     sistem dalam meningkatkan kinerja simpang.
+
+                                        III. HASIL DAN PEMBAHASAN
+
+ A. Kondisi Sebelum Penerapan ATCS
+    Berdasarkan hasil survei lalu lintas, simpang empat Jl. Padjonga Dg Ngalle menunjukkan volume kendaraan yang
+
+tinggi pada setiap periode jam puncak, baik pada hari kerja maupun akhir pekan. Tingginya volume lalu lintas,
+hambatan samping yang signifikan, serta perilaku pengendara yang kurang disiplin terhadap sinyal lalu lintas
+menyebabkan derajat kejenuhan (DS) pada beberapa pendekat mendekati atau melebihi 1,0. Kondisi ini
+mengindikasikan bahwa arus lalu lintas telah melampaui kapasitas simpang. Panjang antrean kendaraan tercatat cukup
+tinggi, khususnya pada pendekat dengan arus utama, yang berdampak pada meningkatnya tundaan rata-rata (delay)
+dan menurunnya tingkat pelayanan (LOS) hingga kategori E atau F pada jam sibuk.
+
+ B. Kondisi Sesudah Penerapan ATCS
+    Implentasi Area Traffic Control System (ATCS) menghasilkan pengaturan sinyal lalu lintas yang lebih adaptif
+
+terhadap kondisi aktual di lapangan. Hasil evaluasi menunjukkan adanya penurunan tundaan rata-rata pada sebagian
+besar pendekat, dengan perbaikan nilai (LOS) F pada beberapa periode waktu. Panjang antrean juga mengalami
+pengurangan, terutama pada lengan simpang dengan arus dominan. Meskipun demikian, pada jam puncak sore di hari
+kerja, DS pada pendekat tertentu masih relatif tinggi, menunjukkan bahwa kapasitas simpang masih tertekan oleh
+volume lalu lintas yang besar.
+
+ Copyright © Universitas Muhammadiyah Sidoarjo. This preprint is protected by copyright held by Universitas Muhammadiyah Sidoarjo and is distributed under the
+     Creative Commons Attribution License (CC BY). Users may share, distribute, or reproduce the work as long as the original author(s) and copyright holder are
+                                                              credited, and the preprint server is cited per academic standards.
+
+  Authors retain the right to publish their work in academic journals where copyright remains with them. Any use, distribution, or reproduction that does not comply
+                                                                                 with these terms is not permitted.
+                                                                                                            Page | 3
+
+               Tabel 1. Perbandingan Kondisi Lalu Lintas Hari Kerja Sebelum dan Sesudah Penerapan ATCS
+
+               Tabel 2. Perbandingan Kondisi Lalu Lintas Hari Libur Sebelum dan Sesudah Penerapan ATCS
+
+ C. Analisa Perbandingan
+    Perbandingan kinerja simpang antara kondisi sebelum dan sesudah penerapan ATCS menunjukkan peningkatan
+
+signifikan pada parameter tundaan, panjang antrean, dan LOS. Rata-rata tundaan menurun, panjang antrean
+berkurang, dan tingkat pelayanan meningkat satu hingga dua tingkat kategori. Peningkatan ini membuktikan bahwa
+ATCS efektif dalam mengoptimalkan pembagian waktu hijau pada tiap fase, sehingga arus lalu lintas menjadi lebih
+lancar. Namun, efektivitas ATCS sangat bergantung pada disiplin pengguna jalan dan keterbatasan kapasitas fisik
+simpang, sehingga pada kondisi lalu lintas ekstrem, perbaikan kinerja masih terbatas.
+
+                                                VI. KESIMPULAN
+
+    Berdasarkan hasil analisis, simpang empat Jl. Padjonga Dg Ngalle Kota Makassar memiliki volume lalu lintas
+yang cukup tinggi, dengan puncak tertinggi pada hari kerja mencapai 7.825 smp/jam dan pada hari libur mencapai
+8.022 smp/jam. Kondisi geometrik simpang menunjukkan variasi lebar masuk dan keluar pada masing-masing
+pendekat. Sebelum penerapan Area Traffic Control System (ATCS) pada tahun 2023, kinerja simpang berada pada
+tingkat pelayanan (LOS) F dengan tundaan rata-rata sangat tinggi di seluruh periode puncak. Setelah pemasangan
+ATCS pada tahun 2024, terjadi penurunan tundaan rata-rata pada sebagian besar waktu puncak, namun LOS secara
+keseluruhan tetap berada di kategori F. Hal ini menunjukkan bahwa meskipun ATCS memberikan dampak positif
+terhadap pengurangan tundaan, peningkatannya belum cukup signifikan untuk mengubah tingkat pelayanan simpang.
+Oleh karena itu, optimalisasi pengaturan waktu sinyal, evaluasi berkala, penyesuaian kondisi geometrik, penerapan
+rekayasa lalu lintas tambahan, serta peningkatan disiplin pengguna jalan melalui sosialisasi dan edukasi diperlukan
+untuk mencapai target kinerja yang lebih baik sesuai standar MKJI 1997.
+
+            Copyright © Universitas Muhammadiyah Sidoarjo. This preprint is protected by copyright held by Universitas Muhammadiyah Sidoarjo and is distributed
+          under the Creative Commons Attribution License (CC BY). Users may share, distribute, or reproduce the work as long as the original author(s) and copyright
+
+                                                            holder are credited, and the preprint server is cited per academic standards.
+            Authors retain the right to publish their work in academic journals where copyright remains with them. Any use, distribution, or reproduction that does not
+
+                                                                                comply with these terms is not permitted..
+4 | Page
+
+                                           UCAPAN TERIMA KASIH
+
+    Penulis mengucapkan apresiasi kepada PT Adi Joyo Kusumo serta Dinas Perhubungan Kota Makassar atas
+bantuan dalam menyediakan data dan informasi yang dibutuhkan selama penelitian. Terima kasih juga disampaikan
+kepada Program Studi Teknik Sipil, Fakultas Sains dan Teknologi, Universitas Muhammadiyah Sidoarjo, atas
+dukungan yang diberikan sepanjang proses penelitian. Penghargaan mendalam ditujukan kepada rekan kerja, teman-
+teman Teknik Sipil angkatan 2021, serta seluruh pihak yang berkontribusi, baik secara langsung maupun tidak
+langsung, sehingga penelitian ini dapat diselesaikan dengan baik.
+
+                                                   REFERENSI
+
+[1]  MKJI, "Mkji 1997," 1997.
+
+[2]  A. Wibowo and D. P. Lestari, "Analisis Perbandingan Kinerja Simpang Sebelum dan Sesudah Implementasi ATCS," J. Smart Transp.,
+
+     vol. 4, no. 1, pp. 30­38, 2022.
+
+[3]  E. Yuliana and B. Prasetyo, "Kajian Efektivitas Sistem ATCS Terhadap Tingkat Kemacetan di Wilayah Perkotaan," J. Ris. Transp. dan
+
+     Lalu Lintas, vol. 3, no. 1, pp. 10­17, 2024.
+
+[4]  Iin Irawati, Lila Anggraini, and Sri Wanto, "Analisis Tingkat Layanan Kinerja Simpang Bersinyal pada Kawasan Komersial," J. Civ.
+
+     Eng. Build. Transp., vol. 8, no. 1, pp. 129­137, 2024, doi: 10.31289/jcebt.v8i1.11564.
+
+[5]  A. M. Lamanepa and B. Tanan, "Pengaruh Hambatan Samping Terhadap Kinerja Ruas Jalan Perintis Kemerdekaan ( Studi Kasus
+
+     Depan Pintu 1 Unhas )," vol. 7, no. 1, pp. 74­85, 2025.
+
+[6]  P. Geometrik, J. Raya, M. Y. Djerau, and K. M. Kuswara, "TRAFFIC STUDY ON H . R KOROH ROAD CITY OF KUPANG
+
+     BASED ON HIGHWAY GEOMETRIC," 2024.
+
+[7]  R. F. Sari and A. P. Nugroho, "Penerapan Area Traffic Control System (ATCS) dalam Mengurangi Delay di Persimpangan Kota
+
+     Semarang," J. Tek. Sipil dan Perenc., vol. 11, no. 2, pp. 55­64, 2023.
+
+[8]  H. HASYIM, R. ROHANI, and M. MASITA, "Evaluasi Kinerja Simpang Bersinyal Sebelum Dan Sesudah Pemasangan Intelligent
+
+     Traffic Control System (Itcs) (Studi Kasus: Simpang Bersinyal Dasan Cermen Kota Mataram)," Ganec Swara, vol. 18, no. 1, p. 269,
+
+     2024, doi: 10.35327/gara.v18i1.758.
+
+     Conflict of Interest Statement:
+     The author declares that the research was conducted in the absence of any commercial or financial
+     relationships that could be construed as a potential conflict of interest.
+
+Copyright © Universitas Muhammadiyah Sidoarjo. This preprint is protected by copyright held by Universitas Muhammadiyah Sidoarjo and is distributed under the
+   Creative Commons Attribution License (CC BY). Users may share, distribute, or reproduce the work as long as the original author(s) and copyright holder are
+                                                             credited, and the preprint server is cited per academic standards.
+
+Authors retain the right to publish their work in academic journals where copyright remains with them. Any use, distribution, or reproduction that does not comply
+                                                                                with these terms is not permitted.
+

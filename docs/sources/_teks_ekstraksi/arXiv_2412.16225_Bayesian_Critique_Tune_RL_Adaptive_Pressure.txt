@@ -1,0 +1,1231 @@
+                                                                                                                                                                                                                                                                      1
+
+                                             Bayesian Critique-Tune-Based Reinforcement
+                                                   Learning with Adaptive Pressure for
+
+                                                 Multi-Intersection Traffic Signal Control
+
+                                          Wenchang Duan, Graduate Student Member, IEEE, Zhenguo Gao, Jiwan He, Graduate Student Member, IEEE,
+                                                                                              Jinguo Xian, Member, IEEE
+
+arXiv:2412.16225v2 [eess.SY] 25 Dec 2024     Abstract--Adaptive Traffic Signal Control (ATSC) system is a                   By effectively optimizing long-term returns and enabling
+                                          critical component of intelligent transportation, with the capa-               dynamic interactions with environments, RL has demonstrated
+                                          bility to significantly alleviate urban traffic congestion. Although           promising performance [16]ญ[18]. Specifically, references [19]
+                                          reinforcement learning (RL)-based methods have demonstrated                    [20] employed the independently RL agent at each intersection
+                                          promising performance in achieving ATSC, existing methods are                  to improve the scalability issues. References [21] [22] intro-
+                                          still prone to making unreasonable policies. Therefore, this paper             duced graph networks into RL, which implemented parameter
+                                          proposes a novel Bayesian Critique-Tune-Based Reinforcement                    sharing mechanisms to incorporate temporal and spatial influ-
+                                          Learning with Adaptive Pressure for multi-intersection signal                  ences from neighboring intersections. Da et al. [23] proposed
+                                          control (BCT-APLight). In BCT-APLight, the Critique-Tune (CT)                  the PromptGAT method to bridge the simulation-to-reality
+                                          framework, a two-layer Bayesian structure is designed to refine                performance gap. However, the above methods overlook the
+                                          the excessive trust of RL policies. Specifically, the Bayesian                 reasonableness of RL policies.
+                                          inference-based Critique Layer provides effective evaluations of
+                                          the credibility of policies; the Bayesian decision-based Tune Layer               To address the unreasonableness of the RL policies, much
+                                          fine-tunes policies by minimizing the posterior risks when the                 literature has focused on how to enhance the reliability of
+                                          evaluations are negative. Meanwhile, an attention-based Adaptive               the learning process [24]. Specifically, Wang et al. proposed
+                                          Pressure (AP) mechanism is designed to effectively weight the                  a cooperative double Deep Q-Network (DQN) method [25]
+                                          vehicle queues in each lane, thereby enhancing the rationality of              to improve the robustness of the learning process. Hinton et
+                                          traffic movement representation within the network. Equipped                   al. proposed a teacher-student framework [26], in which the
+                                          with the CT framework and AP mechanism, BCT-APLight                            teacher module guides the student module to avoid major
+                                          effectively enhances the reasonableness of RL policies. Extensive              errors in the learning process. And references [27], [28]
+                                          experiments conducted with a simulator across a range of                       addressed the limitation of traditional teacher-student advising
+                                          intersection layouts demonstrate that BCT-APLight is superior                  methods, which only offered advice in situating the same state
+                                          to other state-of-the-art (SOTA) methods on seven real-world                   or after having similar experiences. Furthermore, references
+                                          datasets. Specifically, BCT-APLight decreases average queue                    [29]ญ[31] introduced the A2C algorithm, allowing for the
+                                          length by 9.60% and average waiting time by 15.28%. Codes                      evaluation and adjustment of the learning process. References
+                                          are open-sourced.                                                              [32], [33] proposed the multi-objective Bayesian optimization
+                                                                                                                         to solve the model-free problem in the learning process.
+                                             Index Terms--Traffic signal control, Reinforcement learning,                However, the aforementioned methods simply focus on the
+                                          Bayesian Critique-Tune, Adaptive pressure.                                     learning process while overlooking the policy-making process,
+                                                                                                                         which often leads to excessive trust of RL policies.
+                                                                    I. INTRODUCTION
+                                                                                                                            In the ATSC system, effective traffic movement represen-
+                                          W ITH urban populations continuous growth and cities                           tation is also crucial to enhance the reasonableness of RL
+                                                   expanding, traffic congestion has become increasingly                 policies [7] [8]. To efficiently represent the traffic scenario,
+                                          severe, placing escalating pressure on the environment and                     references [34]ญ[36] developed methods to quantify complex
+                                          economy [1]ญ[3]. As a significant component of transportation                  traffic information based on the max-pressure theory. Wu
+                                          systems, ATSC system can effectively alleviate traffic conges-                 et al. [37] introduced the concept of efficient pressure to
+                                          tion [4]ญ[6]. Reinforcement learning (RL) has been extensively                 represent traffic movement, achieving notable efficiency in
+                                          explored as an efficient method in the ATSC system [7]ญ                        signal control. Zhang et al. [38] further incorporated both
+                                          [10]. However, the increasingly complex traffic demands of                     waiting and running vehicles to enhance the comprehensive-
+                                          modern cities have exceeded the capabilities of existing RL-                   ness of traffic movement representation. However, the existing
+                                          based methods [11]ญ[15], frequently leading to unreasonable                    pressure calculation methods overlook the varying influence
+                                          policies. Therefore, it is crucial to enhance the reasonableness               of multiple upstream lanes on each downstream lane. This
+                                          of RL policies.                                                                limitation may amplify the impact of low-traffic lanes while
+                                                                                                                         reducing responsiveness to high-traffic ones, thereby leading
+                                             This work was supported in part by the National Natural Science Foundation  to ineffectiveness of traffic movement representation.
+                                          of China under Grant 12001365.
+                                                                                                                            According to the aforementioned analysis, the excessive
+                                             Wencang Duan, Zhenguo Gao and Jinguo Xian are with the School of
+                                          Mathematical Sciences, Shanghai Jiao Tong University (SJTU), Shanghai
+                                          200240, China (e-mail: duanwenchang@sjtu.edu.cn, gaozheng@sjtu.edu.cn,
+                                          kih020429@sjtu.edu.cn, jgxian@sjtu.edu.cn). Correspondence to: Zhenguo
+                                          Gao.
+                                                                                                                                                                                                                                                        2
+
+(a) Urban Traffic Environment for TSC                                                  (b) Attention-Based Adaptive Pressure
+
+                                                                                   Ii                         Downstream          Linear      WWkW   k      Dot-                            Upstream-Downstream
+                                                                                  Ii'                         Lanes               Linear                Production                 Concat adaptive weights
+                                                                                                   EW SN    Information                          kk
+                                                                                                                                                           =                        Liner
+                                                                                                                                              WWWq
+                                                                                                                                                                                   Softmax
+                                                                                                   EW S N   Key                                  qq
+
+                                                                                                               Upstream
+
+                                                                                                               Lanes                                 q
+                                                                                                               Information
+                                                                                       Agenti
+                                                                                                            Query
+
+                                                                                                           Attention-Based Adaptive Pressure         Online Deep           Update     Temporal-Difference Error
+                                                                                                                                                     Q Network
+                                                                                                                                                                                     + + (+, +; ) - (, ; )
+
+                                                                                                             Upstream Lanes Feature                      MLP           Soft Update         Target Deep Q Network
+                                                                                                                Intersection Phase                   CNN Layers
+                                                                                                                   Spatial Feature                                                                                   Current
+                                                                                                                                                                                                                    Q-Value
+                                                                                        Agenti'                                                      Fullly Connected                                                of Each
+
+                                                                                                                                                                                                                      Phase
+
+                                                                                                 (c) DQN-Based Traffic Signal Control
+
+                                                                                                                                                                  Sample
+
+(d) Bayesian-Based Critique-Tune                                                                 History       Experience                                                   Tune Layer
+                                                                                                 Rewards         Replay
+Prediction Network                                                                                                 Pool                        History                                        Confidence-Based
+                                                                                                 (Time Series                                 Q-Values                                       Weighting Process of
+                                                                                                     Data)                                                                                    Current Q-Values
+                                                                                                                                                                            KDE-Based
+                                                                                                                                                                                                    Each Phase
+Predictive                                                                                                                                                             No           Prior     Posterior Distribution
+ Reward
+                                                                                                                                                                            Distribution of
+
+                                                                                                                                                                            History Q-
+
+                                                                                                                                                                                   Values
+
+                SARIMA Model                                                                               Bayesian Credible
+                                                                                                           Interval of History
+                                                                                                                                                                            Compute Posterior Risk
+                                                                                                                 Rewards
+                                                                                                                                                                              = (, )   , {  } 
+Difference
+Ordering                                                                                                                             If within Interval?
+
+Critique Layer                                                                                             Prior Distribution of                                            Minimize Posterior Risk   =  
+                                                                                                           ARIMA Parameters                                                                                                                           
+                                                                                                                                                                                                          Action
+                                                                                                                                                                       Yes
+
+Fig. 1: Architecture of BCT-APLight. The urban traffic environment for ATSC (a) offers complex traffic dynamics and an
+interactive framework for reinforcement learning (RL). Attention-based Adaptive Pressure (b) enables RL agents to effectively
+capture traffic features. This adaptive pressure, combined with traffic lane details, enhances DQN-based traffic signal control
+(c). The Bayesian-based Critique-Tune framework (d) evaluates and refines RL policies for improved decision-making.
+
+trust of RL policies and the ineffectiveness of traffic movement                                                               The contributions of this paper can be summarized as
+representation severely limit the formulation of reasonable                                                                 follows.
+policies. To address these problems, this paper proposes a
+Bayesian Critique-Tune-Based Reinforcement Learning with                                                                       ท This paper proposes a Bayesian Critique-Tune-based Re-
+Adaptive Pressure for multi-intersection signal control (BCT-                                                                     inforcement Learning with Adaptive Pressure for traffic
+APLight). The framework of the BCT-APLight is shown in                                                                            signal control. Equipped with a Critique-Tune framework,
+Fig. 1. Firstly, the Critique-Tune (CT) framework employs a                                                                       BCT-APLight achieves to refine the excessive trust of RL
+two-layer Bayesian structure to refine RL policies. Specifi-                                                                      policies.
+cally, the Bayesian inference-based Critique Layer constructs
+a Bayesian credible interval, which using historical rewards                                                                   ท An attention-based Adaptive Pressure is proposed to
+to evaluate current policies. If the evaluation is negative, the                                                                  effectively capture the traffic features. Thereby effectively
+Bayesian decision-based Tune Layer calculates the posterior                                                                       enhancing the rationality of traffic movement representa-
+risk of each phase according to the posterior probability of                                                                      tion in real time.
+Q-values. By minimizing this risk, the Tune Layer fine-tunes
+the policies. In addition, an attention-based Adaptive Pressure                                                                ท This paper conducts extensive experiments on real-world
+(AP) is designed for measuring the vehicle queues from each                                                                       traffic datasets and compare BCT-APLight with existing
+upstream to each downstream. By dynamically updating the                                                                          methods. The experimental results demonstrate that BCT-
+weight, the AP mechanism achieves effective traffic movement                                                                      APLight decreases average queue length by 9.60% and
+representation for ATSC. With the above designs, the BCT-                                                                         average waiting time by 15.28% on average compared
+APLight can effectively enhancing the reasonableness of RL                                                                        with Advanced-CoLight.
+policies.
+                                                                                                                               The rest of this paper is organized as follows. Section II
+                                                                                                                            describes the ATSC in urban intersections and models ATSC
+                                                                                                                            problem based on Markov Decision Process (MDP). Section
+                                                                                                                                          3
+
+                               (a) Illustration of AP                Definition 3 (Traffic Movement): Traffic movement is de-
+                                                                  fined as the flow of traffic crossing an intersection from one
+                              (b) Traffic signal phase            upstream lane to one downstream lane. A traffic movement,
+                                                                  such as from lane Xyi to lane Xyi , is denoted as (Xyi , Xyi ).
+Fig. 2: The traditional efficient pressure and the attention-     At an intersection where each road comprises three lanes, one
+based adaptive pressure are provided in (a). The eight traffic    downstream lane has three upstream lanes to generate traffic
+signals are illustrated in (b).                                   movements, thereby a total of nine traffic movements for one
+                                                                  road that includes three downstream lanes.
+III presents Bayesian Critique-Tune framework for RL. Sec-
+tion IV presents the RL with attention-based Adaptive Pressure       Definition 4 (Traffic Queue Length): The traffic queue length
+and its training process. Section V gives the performance of      x(Xyi ) represents the number of vehicles waiting in lane Xyi .
+the proposed method. Section VI draws conclusions.
+                                                                     Definition 5 (Traffic running vehicle number): The traffic
+  II. TRAFFIC SIGNAL CONTROL WITH REINFORCEMENT                   running vehicle number r(Xyi ) represents the number of
+             LEARNING IN URBAN INTERSECTIONS                      vehicles running in lane Xyi .
+
+   This section describes the concepts and methodology rel-          Definition 6 (Traffic Signal Phase): Each traffic signal phase
+evant to this paper. Firstly, key definitions related to ATSC     represents a set of allowed traffic movements. The sum of
+are provided in Subsection II-A. Following that, Subsection       phases in intersection Ii is denoted as Ji, and notation j is
+II-B introduces the mathematical framework of reinforcement       used to denote one of the phases. Fig. 2(b) demonstrates the
+learning for ATSC. Based on these concepts and methodology,       mostly used eight phases.
+this paper researches adaptive traffic signal control across
+multi-intersections to minimize average travel time.                 Definition 7 (Efficient pressure): The efficient pressure (EP)
+                                                                  is the difference between the average queue length on upstream
+A. ATSC Definition in Multi-Intersections                         lanes and the average queue length on downstream lanes.
+   Definition 1 (Traffic Intersection and Road): The traffic
+                                                                                         1  L                            1  M
+network can be modeled as a directed graph, where nodes                                  L                    x(lk) - M
+correspond to n number of intersections I and edges represent     pe(Xyi , Xyi )      =                                          x(mj ),  (1)
+roads. At each intersection Ii, the road network consists of
+four directions {E,W,S,N}: east (E), west (W), south (S), and                               i=k                             j=1
+north (N).
+                                                                  where lk  {Xyi }, mj  {Xyi }, L and M represent the number
+   Definition 2 (Traffic Lanes): Traffic road networks typically  of lanes of {Xyi } and {Xyi }. The schema is shown in the left
+comprise three distinct types of lanes: left-turn lef, straight-  part of Fig. 2(a).
+through str, and right-turn rig. The traffic lanes in an inter-
+section Ii can be described as the upstream lanes {Xyi } and         Definition 8 (Adaptive pressure): The attention-based adap-
+downstream lanes {Xyi }, in which X, X  {E, W, S, N }             tive pressure (AP) is the difference between the queue length
+and y, y  {lef, str, rig}. Specifically, the vehicles enter       at each upstream lane and the weighted queue length on
+the intersection Ii are denoted as the upstream lanes {Xyi },     downstream lanes.
+and the vehicles leave the intersection Ii are denoted as the
+downstream lanes {Xyi }.                                                                                      M
+
+                                                                  pe(Xyi , Xyi ) = x(lk) - jkx(mj ),                                      (2)
+
+                                                                                                              j=1
+
+                                                                  where lk  {Xyi }, mj  {Xyi }, M represents the number of
+                                                                  lanes of {Xyi }, and jk represents the weight of vehicle flow
+                                                                  of upstream lane lk on downstream lane mj. The schema is
+
+                                                                  shown in the right part of Fig. 2(a).
+
+                                                                  B. Markov property in RL-based ATSC
+
+                                                                  Due to the shared Markov property, ATSC can be effectively
+
+                                                                  characterized as a Markov process, where state transitions
+
+                                                                  depend only on the current state and are independent of
+
+                                                                  historical states. This property enables ATSC to be effec-
+
+                                                                  tively formulated as a Markov Decision Process (MDP).
+
+                                                                  In ATSC, RL provides a powerful framework for solving
+
+                                                                  ATSC problems by optimizing control policies to maximize
+
+                                                                  the expected cumulative reward, leveraging the structure of
+
+                                                                  ATSC scenarios. Therefore, at time t in intersection Ii, RL
+
+                                                                  is composed of six fundamental elements: the state space
+
+                                                                  S = {st1, ท ท ท , stn}, observation space O = {o1t , ท ท ท , otn}, ac-
+                                                                                      = {at1, ท ท ท , ant },
+                                                                  tion space A        reward function         transition probability function
+                                                                  P (sti |sit, ati),                          R(sti, ati) = {rt1, ท ท ท , rtn}, and
+
+                                                                  discount factor .
+
+                                                                  The goal of the MDP formulation in ATSC is to make global
+
+                                                                  optima policies  = {t1, ..., tn} for each intersection Ii.
+                                                                                                                                                                             4
+
+Prediction           Upstream           Downstream                          Current Q-                History        Experience                     History Q-Values
+ Network            Information         Information                                                  Rewards         Replay Pool                      of Each Phase
+                                                             Phase            Value of  Eight    = 1 , 2 ,  , 
+                                                                    obs     Each Phase  Phases                                                      () = 1( ), 2( ),  , ( )
+
+                                                                                                Not Within Interval
+
+            episoden episoden+1 episoden+2 episoden+3 ...... episoden+s
+
+                                                                                                                     KDE Algorithm
+
+                                                                                                Prior Distribution             1           -   
+                                                                                                  of Each Phase     () =              (      
+
+               Stationarize of One      Difference                                                                                               )
+            Episode History Rewards
+                                                    d              ARIMA                                                          =1
+                                                                   Model
+            Order Determination         BIC p,q                                                 Gauss Kernel-Based Likelihood Function of History Q-Values
+            of Non-Seasonal Part                                        SARIMA
+                                                                          Model                 Confidence-Based Weighted Likelihood Function of Current Q-Values
+
+                 Seasonal Period                          s
+
+                  Stationarize of s     Difference                                                                                                  
+            Episodes History Rewards
+                                                          D                                     Posterior    , {  }  ( |)                                (  |) ื ()
+
+            Order Determination BIC P,Q                                                         Distribution                                        = 1
+
+               of Seasonal Part                                                                 of Each Phase
+
+            Prior Distribution     ~ ( ,  )  ~ ( ,  )                                           Posterior Risk        =             (, )   , {  } 
+                of SARIMA           ~( , 2 , , )  ~(2, 2)                                       of Each Phase
+                Parameters
+                                  {(+1) , (+2) ,  , (+)}     random sample
+
+            Bayesian Credible Interval   95% = ({(+) }2.5%, {(+) }97.5%)                                      Minimal Posterior Risk Phase
+                   for RL Reward
+
+Predictive            If Reward within Interval?                                                                     Action
+ Reward
+
+                                                                                                Within Interval
+
+Fig. 3: Framework of Bayesian Critique-Tune for RL.
+
+These policies aim to maximize the own expected cumulative                                III. BAYESIAN CRITIQUE-TUNE FRAMEWORK FOR RL
+reward of taking a specific action ait in a given state sti over
+all future time steps, i.e., the state value function:                                     To achieve the refinement of excessive trust in RL policies,
+                                                                                        this paper designs a two-layer Bayesian structure to refine RL
+                                                                                        policies. Subsection III-A describes the overall description of
+                                                                                        structure and a prediction network. Subsection III-B provides
+            V (sti) = Eti            krti+k+1 | sti ,                       (3)         an in-depth discussion of the Critique Layer and Subsection
+                                                                                        III-C presents the Tune Layer in detail.
+                                k=0
+                                                                                        A. Prediction Network and Bayesian Critique-Tune Structure
+where ti: oit ืati  [0, 1] maps the observation of intersection
+Ii to the probability distribution of its action. The Q-value                              1) Prediction Network: In the Bayesian Critique-Tune
+                                                                                        Framework framework, an auxiliary prediction network is
+(action-value) of each intersection is defined as                                       implemented to predict the Predictive Reward r^ti+h corre-
+                                                                                        sponding to the next action.
+                                 
+                                                                                           Specifically, the original environment states, including the
+            Q(sti, ati) = Eti        krti+k+1 | sti, ati .                  (4)         vehicle queue length at each upstream and downstream lane,
+                                                                                        the number of running vehicles in each upstream and down-
+                                k=0                                                     stream lane, and the current phase of the intersection, are
+                                                                                        inputted to the prediction network. In addition, the current
+   Q-learning is an effective RL algorithm that aims to find                            Q-value Qci(ujr), shared from the DQN, is also provided as an
+the optimal action-selection policy by iteratively updating Q-                          input.
+values based on the Bellman equation [39]. The update rule
+is expressed as                                                                            This paper employs a multilayer perceptron (MLP) to
+                                                                                        construct the prediction network. Equipped with three fully
+                 Q(sti, ati)  Q(sit, ati) + ti,                             (5)         connected layers, the prediction network enables simple yet
+                                                                                        efficient supervised learning. Thereby capable of generating
+where  is the learning rate and                                                         the suitable Predictive Reward.
+
+ti =        rti  +    max    Q(sti+1,   ati+1)      -     Q(sti ,  ait)  .  (6)
+
+                      ati+1
+
+   For each intersection Ii, the RL agent calculates the ex-
+pected Q-values for eight phases. This process derives optimal
+policies to enhance traffic efficiency.
+                                                                             5
+
+   2) Bayesian Critique-Tune structure: The Bayesian                         where L is the likelihood function value of the model, and k
+                                                                             represents the number of parameters in the ARIMA model.
+Critique-Tune structure includes two layers. The Bayesian
+                                                                                In order to enhance the rationality of the credible interval,
+inference-based Critique Layer constructs a credible interval                this paper introduces the Seasonal Autoregressive Integrated
+CIBayes by utilizing historical rewards Rhi is = {r1i , r2i , ท ท ท , rTi }  Moving Average (SARIMA) model to fit the multi-episodes
+and Bayesian prior experience. This interval evaluates whether               data, with each episode regarded as the same ARIMA model
+the Predictive Reward r^ti+h falls within an acceptable range                (the detailed theoretical explanation is presented in Appendix
+based on prior knowledge. Subsequently, the Bayesian                         A). In detail, the SARIMA model combines non-seasonal
+                                                                             and seasonal components, which are the non-seasonal part
+decision-based Tune Layer is activated if the evaluation yields              ARIMA(p, d, q) and the seasonal part SARIMA(P, D, Q, s).
+a negative outcome, which meaning that r^ti+h / CIBayes. For                 The non-seasonal part of ARIMA (p, d, q) is defined as above.
+each phase, the Tune Layer computes the posterior risk Rpost                 The definitions of the seasonal part of SARIMA(P, D, Q, s)
+by integrating the posterior distribution p(Q|Qhi(ijs), Qci(ujr)) of         are as follows: P denotes the order of the seasonal autore-
+the history Q-values Qhi(ijs) = {Q1i(j), Q2i(j), ท ท ท , QiT(j)} and         gressive part, Q denotes the order of the seasonal moving
+current Q-value Qic(ujr), in which j = 1, 2, ท ท ท , 8 denoted               average part, D denotes the seasonal differencing order, and
+                                                                             s denotes the seasonal period. The optimal orders {P, D, Q}
+as each phase. Via selecting the phase with the minimal                      also determined by Eq. (9).
+
+posterior risk min Rpost, the Tune Layer ensures the updated                    Building on the above methods, the SARIMA equation for
+policy ui pdaligned with the global optima. Thereby avoid the                historical rewards in the traffic signal control context can be
+problem of excessive trust of RL policies.                                   modeled:
+
+B. Critique Layer                                                                      P (Bs)p(B)dDs rti = Q(Bs)q(B)t, (10)
+
+   The Bayesian inference-based Critique Layer is responsible                where p(B) = 1 - 1B - 2B2 - ท ท ท - pBp, P (Bs) =
+for evaluating the reasonableness of RL policies. Its judging                1 - 1Bs - 2B2s - ท ท ท - P BP s, drti = (1 - B)drti,
+process is divided into three main sections.                                 Ds rti = (1 - Bs)Drti, q(B) = 1 + 1B + 2B2 + ท ท ท + qBq,
+                                                                             Q(Bs) = 1 + 1Bs + 2B2s + ท ท ท + QBQs.
+   1) SARIMA Modeling of History Rewards: The history
+rewards Rhi is of RL are subjected to rigorous time series                      Establishing this SARIMA model enables an accurate quan-
+analysis. Thus, it can be mathematically represented using                   tity of RL policies by capturing temporal patterns of the
+a time series model. Initially, the Augmented Dickey-Fuller                  data. Achieving the effectiveness of the follow-up evaluation
+(ADF) test is employed to judge the stationarity of the history              process of the Predictive Reward.
+rewards data. If the data exhibits non-stationarity, an appropri-
+ate differencing process is applied. Typically, the expression                  2) Bayesian Prior Distribution of SARIMA Parameters:
+for a d-th order differencing is given by:                                   By integrating the prior experience of traffic data proper-
+                                                                             ties, the SARIMA model achieves effective evaluation for
+                   wti(d) = (1 - B)drti,       (7)                           the RL policies in the next step. Firstly, the determina-
+                                                                             tion of the prior distribution of unknown parameters  =
+where rti and wti(d) represent the original and differenced                  (c, 1, . . . , p, 1, . . . , q, 2) is a pivotal step for this section.
+history rewards data, B is the lag operator that defined as                  Specifically, due to the non-negativity of history rewards
+Brti = rti-1, and d denotes the differencing order.                          Rhi is, the Truncated Normal distribution TN(ตc, c2, a, b) is
+                                                                             suitable for the intercept term c. Where ตc is the mean of the
+   Due to the long-term dependence properties within a single                untruncated normal distribution, c2 is the variance of the un-
+                                                                             truncated normal distribution, a and b are the lower and upper
+episode, RL-based ATSC can be modeled using an Autore-                       bounds of the truncation interval, respectively. And due to the
+                                                                             complexity of the traffic environment, incorporating a sparsity-
+gressive Integrated Moving Average (ARIMA) model. Each                       inducing prior is essential when modeling history rewards
+                                                                             Rhi is. Therefore, the Laplace distribution Laplace(ตi , bi )
+episode's data can then be represented by the ARIMA equa-                    and Laplace distribution Laplace(ตj , bj ) are selected for
+                                                                             autoregressive coefficients i and moving average coefficients
+tion:                                                                        j, respectively. Where ตi and ตj are the means, bi and
+                                                                             bj are the scale parameters, with a smaller b indicating a
+       p                                  q                                  stronger tendency toward coefficient sparsity. Furthermore, the
+                                                                             random error term t in RL has large uncertainties, thereby
+       (1 - kBk)(1 - B)drti = (1 + jBj)t, (8)                                the Inverse Gamma distribution IGa(a2 , b2 ) is applied to
+                                                                             estimate the variance 2 of the random error term t. Where
+       k=1                                j=1                                a2 is the shape parameter and b2 is the scale parameter.
+                                                                             The heavy-tailed nature of this distribution effectively captures
+where i represents the autoregressive coefficients, j repre-                 the potential for larger variance values. Above all, the prior
+sents the moving average coefficients, t represents the random
+error term at time t and typically assumed to be white noise
+(i.e. t  N (0, 2)). Moreover, p denotes the order of the
+autoregressive (AR) part, and q denotes the order of the
+moving average (MA) part.
+
+   Subsequently, the optimal orders {p, d, q} of the ARIMA
+model need to be determined, tailored to the complexities
+inherent in RL-based ATSC. The determination process uses
+the Bayesian Information Criterion (BIC) to evaluate and
+select the model order, balancing complexity and predictive
+accuracy. The BIC formulation is given as follows:
+
+            BIC = -2 ln(L) + k ln(n),          (9)
+                                                                                                                                             6
+
+distribution can be expressed as follows:                                  C. Tune Layer
+
+                 1          c-ตc                                              The Bayesian decision-based Tune Layer is responsible for
+       p(c) = ท               c                                            fine-tuning RL policies by posterior risk when the evaluation
+                                                    ,     (11)             is negative. This layer ensures the RL policies adapt to real-
+               c      b-ตc                 a-ตc                            time traffic conditions, enhancing the reasonableness of the
+                        c   -                c                             policy-making process. The tuning process is divided into two
+                                                                           main sections.
+                    1  - |i - ตi |               ,        (12)
+       p(i) = 2bi exp         bi                                              1) The Incorporating of Q-values Information: This part
+                                                                           main involves determining the prior distribution of history
+                   1   - |j - ตj |               ,        (13)             Q-values Qhi(ijs) and constructing the Q-values {Qic(ujr), Qhi(ijs)}
+       p(j) = 2bj exp         bj                                           likelihood function. Firstly, given the high entropy inherent
+                                                                           in traffic environments, Q-values often exhibit multiple peaks
+       p(2) =  ba2    (2)-a2 -1 exp            - b2    ,  (14)             and may present a noninformative prior. For this complexity,
+                                                                           this paper employs the Kernel Density Estimation (KDE), a
+                2                                                          nonparametric Bayesian method, to estimate the probability
+                                                                           density function of history Q-values. This estimated density is
+               (a2 )                           2                           then utilized to construct the prior distribution:
+
+where  = (c, 1, . . . , p, 1, . . . , q, 2) are all the parame-                                          T        Q - Qti(j)
+                                           x2
+ters to be estimated, and (x) = 1  e-       2                                           f^(Q) = 1           K                 ,              (16)
+
+                            2                                                                     Th                   bw
+
+After obtaining the prior distribution of each parameter, the                                            t=1
+
+sample set {(1), (2), . . . , (Nt)} can be generated by random             where bw is the bandwidth parameter, K(u) is the Gauss
+
+sample. And the values set {r^t(+i)h} using each sample {(i) at            kernel,  in  which  K (u)  =  1    exp(-  u2  )
+                                                                                                           2          2
+future time t + h can be calculated by Eq. (10).
+                                                                           Concurrently, the likelihood function of Q-values can be
+
+The above process achieves effective estimation of the                     constructed, which includes two parts. Specifically, based on
+
+SARIMA parameters. Despite the high levels of uncertainty                  the Gauss kernel, the likelihood function of the history Q-
+                                                                           values Qhi(ijs) is defined as the follows:
+and instability present in history rewards data Rhi is, this
+process enables the acquisition of reliable sampled RL reward              L(Qit(j)|Q) = K            Q - Qti(j)
+values set{r^t(+i)h}.In complex traffic environments, the history                                         bw
+rewards always fail to serve as robust statistical metrics.
+
+Thereby the reasonableness of the RL policies is struggled                                            1              (Q  - Qit(j))2
+                                                                                                                         2bw2
+to evaluate by traditional methods. Conversely, by leveraging                                  =  2bw2   exp      -                       ,  (17)
+
+the prior experience, the influence of these limitations can
+
+be effectively addressed. The above process establishes a                  Additionally, since the current Q-value Qci(ujr) carries greater
+                                                                           significance in RL-based policy-making process, a confidence-
+foundation for conducting a reasonable and comprehensive
+
+evaluation of RL policies in subsequent analyses. Thereby                  based weighting mechanism is designed. This paper uses
+
+enhancing the reliability and effectiveness of RL policies for             the normal distribution with an error term to describe the
+
+ATSC.                                                                      likelihood of the current Q-value, denoted as the "weighted
+
+   3) Bayesian Credible Interval for RL Reward: The                        likelihood function":
+Bayesian credible interval for RL reward values r^t(+i)h is
+constructed to evaluate the reasonableness of the RL policies.             L(Qci(ujr)|Q) =          1             -  (Q     - Qci(ujr))2  ,  (18)
+Based on the RL reward values set{r^t(+1)h, r^t(+2)h, . . . , r^t(+Nht)},                                  exp              2c2ur
+the Bayesian credible interval is calculated by the percentiles
+                                                                                                  2c2ur
+of this sample set. Specifically, this paper constructs a 95%
+                                                                           where c2ur is a tuning parameter representing the uncertainty
+Bayesian credible interval; take the 2.5th and 97.5th per-                 of the current Q-value. A smaller c2ur value means higher
+                                                                           confidence in the current Q-value. This adjustment allows the
+
+centiles of the posterior sample values set:                               Tune Layer to prioritize the most recent state information,
+
+       CIBayes95% = {r^t(+i)h}2.5%, {r^t(+i)h}97.5% ,                      which is crucial for capturing the dynamic nature of traffic
+
+                                                          (15)             flow.
+
+This interval represents the range within which the future value           By combining the weighted likelihood of the current Q-value
+rt(+i)h falls with a 95% probability, given the observed data and          L(Qic(ujr)|Q) with the history Q-value prior distribution f^(Q),
+the prior information.
+                                                                           the overall likelihood function is expressed as follows:
+   Building on the above interval, the Predictive Reward r^ti+h
+is generated by the prediction network can be evaluated                                                           T
+
+through the Bayesian credible interval. If the Predictive Re-                           L(Q) = L(Qci(ujr)|Q) ื L(Qit(j)|Q),                  (19)
+
+ward falls within the range of the Bayesian credible interval,                                                    t=1
+
+the RL policies will be employed. Conversely, the policies                 This integrated likelihood function enhances the adaptabil-
+
+need to be fine-tuned.                                                     ity and responsiveness of the RL agent to real-time traffic
+
+                                                                           conditions. Ensuring comprehensive and effective subsequent
+
+                                                                           Bayesian-based phase tuning.
+                                                                                                                                                       7
+
+Intersection Ii                     Spatial Feature                              Multi-Head        Convolutional          Soft  Target Deep Q Network
+                              Upstream Lanes Feature                              Attention            Layers           Update
+
+                                  Intersection Phase                              MLP              Fullly Connected
+
+                              Attention-Based Adaptive Pressure                  Fullly Connected      ... ... ...
+                                                                                       Layers
+
+                                                                                 Online Deep Q Network
+
+Fig. 4: Architecture of attention-based adaptive pressure extraction for each intersection direction.
+
+   2) Bayesian Posterior Risk of Each Phase: As in the                   A. Attention-Based Adaptive Pressure Extraction
+Critique Layer, the Bayesian posterior distribution is initially
+updated according to Bayes' theorem:                                        In the complex urban environment, effective and efficient
+                                                                         traffic movement representation of each lane is crucial for
+p(Q|Qci(ujr), {Qit(j)})  L(Q) ื f^(Q).              (20)                 optimizing signal control. To achieve effectively capture the
+                                                                         real-time traffic features, this paper proposes an Attention-
+   Subsequently, based on the Bayesian decision theory, a loss           Based Adaptive Pressure.
+function L(Qci(ujr), Q) is introduced to measure the posterior
+risk(this paper adopts the square loss function L(Qci(ujr), Q) =            In an intersection Ii, the AP mechanism identifies the source
+(Qic(ujr) - Q)2). The expected posterior risk for each phase in          upstream lane associated with each vehicle and links it to
+                                                                         the corresponding downstream lane. The downstream lanes
+the intersection Ii is expressed as follows:                             and upstream lanes are represented as four-layer matrices of
+                                                                         dimensions 3 ื 3, where the matrices are denoted as K and
+Rpost = L(Qci(ujr), Q) p(Q|Qci(ujr), {Qti(j)}) dQ.  (21)                 Q, respectively. Each of the three columns in these matrices
+                                                                         represents: the number of waiting vehicles kwai and qwai,
+                                                                         the number of running vehicles krun and qrun, and the total
+                                                                         number of vehicles ktot and qtot. The three rows correspond to
+   Building on the Bayesian criteria, the posterior risk for each        the left-turn lane lef, straight-through lane str, and right-turn
+phase is computed, and the phase that minimizes the expected             lane rig. Besides, the four layers of the matrix represent the
+posterior risk Rpost is selected as the optimal action:                  directions: east E, west W, south S, and north N.
+
+minRpost = inf               L(Qci(ujr), Q) p(Q|Qci(ujr), {Qit(j)}) dQ.     The AP mechanism further utilizes a multi-head attention
+                                                                         mechanism to process and extract detailed information from
+                        j                                                both downstream and upstream lanes. This processed data are
+                                                                         subsequently used as inputs for the query matrix Q and key
+                                                    (22)                 matrix K. The multi-head attention mechanism is formalized
+                                                                         as follows:
+Under the square loss function L(Qci(ujr), Q) = (Qic(ujr) - Q)2,
+
+it can be theoretically proven that the above process minimizes
+
+the posterior risk (the detailed proof is presented in Appendix                  Wui = linear(Concat(W1i, W2i, . . . , Whiead)). (23)
+
+B). Thereby leading to the most effective policy refinement for
+
+RL. This methodology ensures the selected phase achieves the             where,
+
+lowest total policy-making risk, enhancing the reasonableness                    Wli = Softmax     qli(Kli)T
+                                                                                                        dik
+of the RL policies for ATSC.                                                                                         .          (24)
+
+ IV. RL WITH ATTENTION-BASED ADAPTIVE PRESSURE                           In this formulation, head represents the number of attention
+                               FOR ATSC                                  heads, and dk is the dimensionality of the key K. This multi-
+                                                                         head attention mechanism allows the AP system to construct a
+   This section presents the attention-based adaptive pres-              four-layer upstream attention weight matrix with dimensions
+sure RL for ATSC. In Subsection IV-A, an Attention-Based                 3 ื 3. This matrix represents the weight of vehicle number
+Adaptive Pressure (AP) is introduced. Subsection IV-B details
+the AP-based DQN for ATSC, which serves as the policy-                   influence of each upstream lane on three downstream lanes. A
+making backbone of the total framework. Finally, Subsection              higher attention weight signifies a stronger impact. Based on
+IV-C outlines the policy-making and training process for the             these attention weights and Eq. (2), the AP mechanism can
+proposed BCT-APLight.                                                    be obtained. Unlike traditional methods that treat the queue
+                                                                         lengths of all downstream lanes as coming equally from each
+                                                                         upstream lane. AP achieves adaptability and effective capture
+                                                                                                                                         8
+
+of the traffic features, avoiding the lackness of traditional                    Algorithm 1: BCT-APLight Policy-Making and Train-
+methods. Wherein these weaknesses may amplify the impact
+of low-traffic lanes while weakening responsiveness to high-                     ing Algorithm for Multi-Intersections
+traffic ones.
+                                                                                   Input: DQN-based agents for multi-intersections
+B. AP-based DQN for ATSC                                                                    {Ii}in=1 ATSC;
+
+   In the ATSC, this paper adapts the RL method using Deep                         Output: Optimized signal phase policies for all
+                                                                                               intersections {uipd}in=1;
+Q-Networks (DQN), tailored to optimize the traffic signal
+                                                                                 1 Initialize experience replay pool ;
+phase policy-making process at intersections. The AP-based                       2 Initialize online network , target network   , and
+
+DQN algorithm employs artificial neural networks (ANNs) to                           auxiliary prediction network;
+approximate the optimal action-value function Q(sti, ait) for
+each phase selection at each time step t. The architecture                       3 for episode = 1 to max epoch do
+
+of AP-based DQN for ATSC is shown in Fig. 4. This dual-                          4 for t = 1 to T do
+
+network framework comprises both an online network and a                         5   Initialize traffic states si0 for intersection Ii;
+target network, with parameters  and  respectively. These
+                                                                                 6   if episode > 10 then
+two networks maintain the same structure but are updated at
+                                                                                 7       Obtain Rhi is and Qih(ijs) from i;
+different rates to stabilize the learning process.
+                                                                                 8       for Ii in {Ii}ni=1 do
+   For AP-based DQN signal control in an intersection Ii,
+the state sti is indicated as the current traffic conditions,                    9           Obtain ait by Qci(ujr); Obtain r^ti+h;
+which include the AP, the intersection phase, the number of
+                                                                                 10          Critique Layer: Construct CIBayes;
+running vehicles of upstream lanes, and the spatial correlation
+                                                                                              Evaluate if r^ti+h  CIBayes;
+of each intersection. These state information forms the basis                                if r^ti+h / CIBayes then
+upon which the DQN estimates Qti sit| , enabling the                             11
+system to select the optimal traffic signal phase j  Ji for
+minimizing congestion and delay at the intersection. Besides,                    12               Tune Layer: Update uipd by
+the action space A consists of predefined signal phases, and the
+                                                                                                  obtaining the phase with min Rpost;
+objective is to maximize the cumulative reward by optimizing
+the traffic flow. The reward rti is designed to reflect traffic                  13          end
+efficiency, integrating both a phase-switching penalty and a
+                                                                                 14      end
+traffic throughput incentive. A negative reward is imposed for
+                                                                                 15  end
+unnecessary phase switching. In contrast, a positive reward is
+                                                                                 16  Observe sit+1 and rti;
+provided for improvements in transportation efficiency.
+                                                                                 17  Store (sti, ait, rti, sti+1) in ;
+   By interacting with experience replay pool , DQN
+                                                                                 18  Update  via L();
+improves learning efficiency by storing all replay experi-
+ence {{(sit, ait, rti, sit+1), ท ท ท , (ssi t, aist, rsit, sist+1)}}ni=1 of one  19 end
+epoch st, and computing the following gradient by differenti-
+                                                                                 20 if Done then
+ating the loss function with respect to the weights:
+                                                                                 21  break;
+
+                                                                                 22 end
+
+                                                                                 23 end
+                                                                                 24 return Optimal {uipd}ni=1 of intersections;
+
+                L() = t Q(st , at ; ),                                    (25)   C. BCT-APLight Policy-Making and Training Process
+
+where  denotes the learning rate, st, at belongs to the                             The policy-making and training process of the BCT-
+target network, and the temporal-difference (TD) error t =                       APLight for multi-intersections is illustrated in Algorithm
+{ti , ท ท ท , tn } is calculated as:                                             1. Firstly, a DQN-based agent for ATSC is employed for
+                                                                                 multiple intersections {Ii}in=1. With the initialization of the
+ti  =  rti  +    max    Q(sti+1  ,  ait+1  ;      )  -  Q(sit , ati ; ),  (26)   experience replay pool , the online network , target network
+                                                                                   , and auxiliary prediction network are initialized for
+                 ait+1                                                           all intersections {Ii}in=1. For each intersection, the algorithm
+                                                                                 follows an episodic method to facilitate learning, updating the
+The online network parameters are updated by stochastic gra-                     networks iteratively.
+
+dient descent and Eq. (25). And the target network parameters                       During each episode, the algorithm initializes the traffic
+ are updated via soft updates:                                                   states si0, retrieves history rewards Rhi is and history Q-values
+                                                                                 Qi(j)his from the experience replay pool . Subsequently,
+                     + (1 -  ).                                           (27)   for each time step t within each episode, the current Q-values
+                                                                                 Qi(j)cur are obtained using the -greedy policy to select the
+   In this algorithm, the AP-based DQN framework effectively                     most suitable action ati. Concurrently, the Predictive Reward
+adapts to ATSC. Equipped with the AP mechanism, the system                       r^ti+h is predicted using the auxiliary prediction network,
+achieves a more refined and context-aware signal control. This                   providing a forecast for next performance.
+adaptive algorithm minimizes average travel time at urban
+intersections, making the RL policies efficiently responsive to                     Within each time step, the Critique Layer is employed to
+fluctuating traffic conditions.                                                  evaluate the credibility of the predicted reward. The history
+                                                                                 rewards Rhi is are used to construct a Bayesian credible interval
+                                                                         9
+
+CIBayes. If the predicted reward r^ti+h falls outside this credible         2) Datasets: The experiments are conducted on seven
+interval, the algorithm activates the Tune Layer. This layer             real-world traffic flow datasets, including three datasets in
+updates the policy by calculating posterior risk Rpost using             Jinan(3ื4), two datasets in Hangzhou(4ื4), and two datasets
+the current Q-values Qcuri(j) and the history Q-values Qih(ijs),         in New York(28 ื 7). There are four directions (E,W,S,N) at
+selecting the signal phase with the lowest risk.                         each intersection. Each direction has an incoming road and
+                                                                         an outgoing road, and each road has three lanes: left-turn
+   The agent then observes the next state sit+1 and correspond-          lane, straight-through lane, right-turn lane. The visualization
+ing reward rti, which is subsequently used to update the online          of three areas is shown in Fig. 5.
+network via gradient descent. Besides, the agent stores the
+transition tuple (sti, ait, rti, sit+1) in each replay buffer, ensuring     3) Baselines: For evaluating the effectiveness of BCT-
+the necessary experience is recorded for future use. After               APLight, this paper compares it with three transportation
+processing all time steps, the target network  is updated                methods, six RL-based methods, and one LLM-based method.
+based on the online network, ensuring stability in the learning
+process.                                                                    Transportation methods:
+
+   At the end of the process, the global optimal signal phase               ท Random: A baseline method switches signal phases at
+RL policies {uipd}in=1 for all intersections are returned, cul-                random with a fixed duration.
+minating the training phase.
+                                                                            ท FixedTime [41]: Generally used in the majority of traffic
+                 V. EXPERIMENTS AND RESULTS                                    situations, a method provides a pre-defined set cycle
+                                                                               duration with phase time.
+   To empirically evaluate the BCT-APLight, extensive exper-
+iments are conducted. Subsection V-A describes the overall                  ท MaxPressure [42]: The SOTA ATSC method in the tradi-
+experiment settings. Subsection V-B provides the analysis of                   tional transportation filed, maximizing traffic throughput
+experiment results in detail. The ablation study is shown in                   by giving preference to the signal phase with the most
+the V-C.                                                                       traffic pressure.
+
+A. Experiment Setup                                                      RL-based methods:
+
+   1) Environment Settings: This paper conducts experiments                 ท MPLight [43]: A RL-based method that utilizes pres-
+on the CityFlow traffic simulator [40], which is open-sourced                  sure as both observation and reward, and extends FRAP
+and simulates the kind of data that is collected at real-world                 method as its foundational model.
+intersections for ATSC. In the environment, each road has
+three lanes, which the number 0 corresponds to the left-turn                ท AttendLight [44]: Introducing attention mechanism to
+lane, number 1 corresponds to the straight-through lane, and                   state space and action space of RL.
+number 2 corresponds to the right-turn lane. Following most
+existing methods, the minimum action duration is set at 30                  ท PressLight [45]: Optimizing the pressure of the intersec-
+seconds, and a three-second yellow signal and a two-second                     tion by utilizing the MaxPressure concept with DRL.
+all-red time follow each green signal to prepare the transition.
+Besides, this paper employs an epsilon decay strategy modeled               ท CoLight [46]: Employing the graph attention network
+as a power function, with a minimum epsilon value set at                       among intersections, to capture the neighborhood infor-
+0.2 during the training phase. Following the completion of                     mation and enhance the coordination ability of the RL
+training, epsilon decay is disabled (epsilon decay set to 0) for               agent.
+model evaluation in the testing phase.
+                                                                            ท Efficient-CoLight [47]: Building upon the CoLight
+(a) Jinan  (b) Hangzhou  (c) New York                                          model. Introducing the concept of efficient pressure,
+                                                                               which is noticing the equal length of entering lanes.
+Fig. 5: The road network systems of the datasets from Jinan,
+Hangzhou, and New York, with uniform dimensions. The blue                   ท Advanced-CoLight [38]: Building upon the CoLight
+dots mark the traffic signal lights controlled by RL-agent.                    model. Considering both the running and waiting vehicles
+                                                                               to incorporate advanced traffic states features.
+
+                                                                         LLM-based method:
+
+                                                                            ท LightGPT [48]: Introducing the Large Language Models
+                                                                               into ATSC, leveraging the reasoning and decision-making
+                                                                               process akin to human intuition for effective traffic con-
+                                                                               trol.
+
+                                                                            4) Metrics: Following previous studies [38], this paper
+                                                                         leverages average travel time (ATT), average waiting time
+                                                                         (AWT), and average queue length (AQL) of vehicles to eval-
+                                                                         uate the performance of each method.
+
+                                                                            ท Average traveling time (ATT): The average traveling time
+                                                                               measures the average duration of all the vehicles traveling
+                                                                               from their starting points to their final destinations.
+
+                                                                            ท Average queue length (AQL): The average queue length
+                                                                               is defined as the average number of queuing vehicles
+                                                                               waiting in the road network system.
+
+                                                                            ท Average waiting time (AWT): The average waiting time
+                                                                               measures the average queuing time of vehicles in line at
+                                                                               each intersection in the road system
+                                                                                                                                  10
+
+TABLE I: OVERALL PERFORMANCES OF BCT-APLIGHT AND PREVIOUS TRADITIONAL METHODS ON JINAN
+AND HANGZHOU DATASETS. THE BEST RESULTS ARE HIGHLIGHTED THROUGH BOLDFACE.
+
+                                                     Jinan                                          Hangzhou
+                                                    Dataset-2
+      Method                  Dataset-1   ATT AQL AWT                         Dataset-3  Dataset-1            Dataset-2
+                    ATT AQL AWT          565.03 434.52 103.42        ATT AQL AWT
+      Random       604.32 693.25 101.46  412.03 275.33 65.04        622.04 292.18 95.16  ATT AQL AWT ATT AQL AWT
+     FixedTime     464.35 471.23 78.05   280.21 114.09 41.39        432.23 385.31 68.03
+   MaxPressure     298.03 191.61 48.86   301.02 137.04 87.67        279.22 149.24 43.77  632.41 325.86 75.19 601.35 689.71 94.55
+      MPLight      303.19 210.45 95.23   282.84 116.92 54.28        289.65 167.92 86.58
+    AttendLight    292.35 184.33 63.21   284.52 117.69 42.09        271.03 142.87 54.68  513.04 187.92 63.64 420.65 396.73 68.97
+     PressLight    294.96 189.58 46.20   271.52 105.89 53.85        277.89 146.72 42.09
+                   280.26 167.41 57.05   269.93 102.94 39.51        264.17 130.08 48.99  319.82 67.52 61.82 328.59 173.97 68.82
+      CoLight      276.48 176.27 47.41   266.82 100.29 43.51        264.27 130.43 42.37
+Efficient-CoLight  274.27 157.36 48.40   282.24 114.93 48.78        262.38 128.32 43.04  353.28 87.21 85.23 362.67 241.60 103.51
+Advanced-CoLight   287.60 176.17 53.21   260.83 93.19 37.28         271.34 139.27 49.02
+                   267.83 147.88 43.34                              253.95 117.74 38.90  320.54 65.29 60.92 355.23 230.47 70.61
+     LightGPT
+   BCT-APLight                                                                           349.08 84.61 49.53 361.98 233.76 79.90
+
+                                                                                         315.24 67.73 60.87 332.02 189.16 86.43
+
+                                                                                         308.49 55.33 32.15 337.03 185.85 67.63
+
+                                                                                         300.90 48.46 39.27 326.61 168.53 73.55
+
+                                                                                         326.40 71.55 56.92 343.42 200.43 74.99
+
+                                                                                         292.84 42.77 30.65 312.52 143.48 59.74
+
+B. Comparison experiments                                           section illustrates the overall performance of each method
+                                                                    over 2000 episodes, capturing the broader training progress.
+   This paper evaluates the proposed methods using five real-       All methods demonstrate the ability to converge effectively
+world traffic flow datasets from Jinan and Hangzhou. Table I        during training. The lower section focuses on a smaller reward
+presents a comparative analysis of BCT-APLight and existing         range and highlights subtle differences across 1000 episodes
+methods.                                                            after convergence. This combined view provides a clear com-
+                                                                    parison of both the general trends and the finer distinctions
+   Among all existing methods, transportation methods gener-        between methods. Among all methods, BCT-APLight consis-
+ally underperform compared to RL-based methods. In trans-           tently achieves the most superior performance across training,
+portation methods, MaxPressure exhibits relatively strong per-      which highlights its robustness and effectiveness compared to
+formance. BCT-APLight average decreases 7.83% in ATT,               other methods.
+21.74% in AQL, and 20.69% in AWT, respectively. In tra-
+ditional RL-based methods, Advanced-CoLight achieves the               Fig. 7 provides two three-group box plots to visualize
+best results; BCT-APLight averages decrease 3.01% in ATT,           the average data distribution of ATT, AQL, and AWT in
+9.60% in AQL, and 15.28% in AWT, respectively.                      the Jinan and Hangzhou datasets. In detail, the box plot is
+                                                                    constructed based on the five-number summary of the data,
+   Although LightGPT is built upon the Large Language               which includes the minimum, first quartile (Q1), median, third
+Model (LLM) framework, its performance remains suboptimal           quartile (Q3), and maximum values. The interquartile range
+for traffic signal control. Specifically, BCT-APLight achieves      (IQR) is calculated as IQR = Q3-Q1 to determine the lower
+an average decrease of 8.08% in ATT, 27.94% in AQL, and             and upper limits Q1 - 1.5 ื IQR and Q3 + 1.5 ื IQR to
+25.81% in AWT compared to LightGPT, demonstrating its               identify potential outliers. Data points beyond these bounds are
+superior efficiency. Moreover, LightGPT fails to outperform         considered outliers, while the whiskers extend to the nearest
+traditional and RL-based methods such as MaxPressure, CoL-          data points within the range. Among the evaluated methods,
+ight, Efficient-CoLight, and Advanced-CoLight. And due to its       BCT-APLight demonstrated superior performance consistently
+significant computational requirements and high training costs,     across all metrics. This superiority is indicated by its smaller
+LightGPT is not currently a practical or efficient option for       median values and a narrower range in the distribution. In
+real-world traffic signal control implementations. In compar-       particular, all existing methods exhibit some outliers, whereas
+ison, RL-based methods demonstrates high performance and            BCT-APLight only presents seldom outliers, and the deviation
+achieve effectiveness in handling traffic signal control tasks. In  is much smaller. This phenomenon indicates the ability of
+particular, BCT-APLight consistently achieves state-of-the-art      BCT-APLight to make effective and reasonable policies across
+(SOTA) across all baselines. This underscores its exceptional       all intersections.
+effectiveness and efficiency in addressing the challenges of
+traffic signal control.
+
+C. Convergence and Stability Analysis                               D. Large-Scale Intersections Experiments
+
+   To comprehensively assess the Convergence and Stability             This paper conducts the large-scale intersections experi-
+of BCT-APLight, this paper evaluates the train process of           ments of traditional methods and BCT-APLight, evaluating
+BCT-APLight alongside four high-performing traditional RL           their performance on a significantly larger road network, New
+methods: Advanced-CoLight, Efficient-CoLight, CoLight, and          York. Fig. 8 provides two two-group bar charts to visualize the
+PressLight.                                                         data distribution of ATT and AWT in the New York datasets.
+                                                                    The results indicate that BCT-APLight achieves the shortest
+   As shown in Fig. 6, five twin line charts show the reward        travel and waiting times, Advanced-CoLight demonstrates the
+trends for each dataset in Jinan and Hangzhou. The upper
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              11
+
+                                   BCT-APLight                                                                       BCT-APLight                                     BCT-APLight                                                             BCT-APLight                                                                                                                                 BCT-APLight
+                                   Advanced-CoLight                                                                  Advanced-CoLight                                Advanced-CoLight                                                        Advanced-CoLight                                                                                                                            Advanced-CoLight
+                                   Efficient-CoLight                                                                 Efficient-CoLight                               Efficient-CoLight                                                       Efficient-CoLight                                                                                                                           Efficient-CoLight
+                                   CoLight                                                                           CoLight                                         CoLight                                                                 CoLight                                                                                                                                     CoLight
+                                   PressLight                                                                        PressLight                                      PressLight                                                              PressLight                                                                                                                                  PressLight
+
+                                   (a) Jinan dataset-1                                            (b) Jinan dataset-2                                                (c) Jinan dataset-3                             (d) Hangzhou dataset-1 (e) Hangzhou dataset-2
+
+Fig. 6: The twin line chart of the rewards. The upper section illustrates the overall trends of each method over 2000 episodes,
+while the lower section demonstrates the subtle differences across 1000 episodes after convergence.
+
+                              305                                 185                                                                               95               dataset-1, the ATT of BCT-APLight (755.06s) is 45.90s lower
+                                                                                                                                                                     than Advanced-CoLight and 214.13 s lower than PressLight.
+                              300                                 175                                                                                                Similarly, for dataset-2, BCT-APLight outperforms Advanced-
+                                                                                                                                                                     CoLight by 50.46s and PressLight by an even larger margin
+                                   Average Queue Length (AQL, s)                                                     Average Waiting Time (AWT, S)  85               of 215.52s. A similar trend is observed for AWT, with BCT-
+                                                                                                                                                                     APLight achieving substantial improvements in both datasets,
+Average Travel Time (ATT, s)  295                                                                                                                                    indicating its robustness and scalability for managing traffic
+                                                                                                                                                                     in large-scale networks effectively.
+                                                                  165                                                                               75
+
+                              290
+
+                              285                                 155
+
+                                                                                                                                                    65
+
+                              280                                 145
+
+                              275                                                                                                                   55
+
+                                                                  135
+
+                              270
+
+                                                                  125                                                                               45
+
+                              265
+
+                              260                                 115                                                                               35
+
+                                   BCT-APLight Advanced-CoLight                                   Efficient-CoLight  CoLight                             PressLight
+
+                                                                  (a) Jinan datasets
+
+                                                                                                                                                                                                             New York Dataset-1                                                                                                                                          New York Dataset-1
+
+                              410                                 255                                                                               350                                            1200                                                                                                                                                         300                                         278.64
+
+                                                                                            235                                                                      Average Travel Time (ATT, S)  1000                                      969.19                                                                              Average Waiting Time (AWT, S)  250                              234.91
+                              390                                                                                                                                                                   800
+                                                                                                                                                    300                                                              800.96  858.71  831.93                                                                                                                                              212.54
+
+Average Trave Time (ATT, s)        Average Queue Length (AQL, S)  215                                                Average Queue Length (AWT, S)                                                           755.06                                                                                                                                             200              184.67
+
+                                                                                                                                                    250                                                                                                                                                                                                                  167.74
+
+                              370                                 195                                                                                                                              600                                                                                                                                                          150
+
+                                                                  175                                                                               200                                            400                                                                                                                                                          100
+
+                              350                                                                                                                                                                  200
+
+                                                                  155                                                                               150                                                                                                                                                                                                         50
+
+                              330                                 135                                                                                                                                  0                                                                                                                                                          0
+                                                                                                                                                                                                   BCT-APLight Addvvaanncecde-dC-oCLoigLhitght Efffiicciieennt-tC-CoLoigLhigtht CCooLLigighht t PPreessssLLigighht t                                            BBCCTT--AAPLPiRghLt AAddvavnacnecde-Cdo-LCigohLtight Effffiicciieennt-tC-oCLoigLhigt ht CCooLLigighht t PrreessssLLigightht
+                                                                                                                                                    100
+
+                                                                  115
+
+                              310                                                                                                                   50                                                                                       (a) New York dataset-1
+                                                                                              95
+
+                              290                                 75                                                                                0
+
+                                   BCT-APLight Advanced-CoLight                                   Efficient-CoLight  CoLight                             PressLight                                          New York Dataset-2                                                                                                                                          New York Dataset-2
+
+                                   (b) Hangzhou datasets                                                                                                                                           1000.00                                   919.38                                                                                                             450.00                           405.97
+                                                                                                                                                                                                    900.00                                                                                                                                                      400.00
+                                                                                                                                                                     Average Travel Time (ATT, S)   800.00                           859.87                                                                                      Average Waiting Time (awt, s)  350.00                                      365.78
+                                                                                                                                                                                                    700.00                                                                                                                                                      300.00
+                                                                                                                                                                                                    600.00           754.32  798.83                                                                                                                             250.00           333.14  355.25
+                                                                                                                                                                                                    500.00                                                                                                                                                      200.00
+                                                                                                                                                                                                    400.00   703.86                                                                                                                                             150.00   298.69
+                                                                                                                                                                                                    300.00                                                                                                                                                      100.00
+Fig. 7: The comparative results obtained using only the CT                                                                                                                                          200.00
+framework.                                                                                                                                                                                          100.00                                                                                                                                                       50.00
+                                                                                                                                                                                                       0.00                                                                                                                                                        0.00
+
+                                                                                                                                                                                                   BBCCTT-A-APLPigRhLt AAddvvaanncecde-dC-oCLiogLhitght Effffiicciieennt-tC-oCLoigLhigt ht CCooLLigighht t PrreessssLLigighht t                                 BBCCTT--AAPPLiRghLt AAddvvaancnecde-Cdo-CLioghLtight Effffiicciieennt-tC-oCLoigLhigt ht CCooLLigighht t PrreessssLLigighht t
+
+best performance among all traditional RL-based methods.                                                                                                                                                                                     (b) New York dataset-2
+Specifically, BCT-APLight achieves a decrease of 5.73% in
+ATT, 9.17% in AWT on the New York dataset-1, and 7.09%                                                                                                               Fig. 8: The comparative results obtained using only the CT
+in ATT, 10.34% in AWT on the New York dataset-2. Un-                                                                                                                 framework.
+derscoring the exceptional applicability of BCT-APLight to
+substantially large road networks.                                                                                                                                   E. Ablation Study
+
+   From the charts, it is evident that as the road network                                                                                                              This paper evaluates the performance of each component
+complexity increases from New York dataset-1 to dataset-2, all                                                                                                       in BCT-APLight, namely the CT framework and the AP
+methods experience an increase in both ATT and AWT. How-                                                                                                             mechanism. Firstly, the effectiveness of the AP mechanism
+ever, the relative performance gap between BCT-APLight and                                                                                                           is examined by comparing the original DQN algorithm with
+other methods remains significant. For example, in New York
+                                                                                                                                      12
+
+                           TABLE II: RESULTS OF ABLATION STUDY
+
+                                                             Jinan                                               Hangzhou
+                                                            Dataset-2
+              Method                  Dataset-1   ATT AQL AWT                    Dataset-3            Dataset-1            Dataset-2
+                            ATT AQL AWT          345.71 205.93 106.42   ATT AQL AWT
+               DQN         368.43 270.35 100.06  263.75 96.87 40.16    327.11 249.68 96.06      ATT AQL AWT ATT AQL AWT
+        AP-Based DQN       268.45 151.00 47.54   266.82 100.29 43.51   255.61 119.90 41.21
+       Advanced-CoLight    274.27 157.36 48.40   264.16 97.58 40.04    262.38 128.32 43.04      427.65 143.26 93.99 440.62 307.35 143.61
+CT-Based Advanced-CoLight  270.53 152.67 45.65   260.83 93.19 37.28    257.09 121.10 42.05
+                           267.83 147.88 43.34                         253.95 117.74 38.90      295.83 44.30 36.29 317.62 148.49 60.52
+          BCT-APLight
+                                                                                                300.90 48.46 39.27 326.61 168.53 73.55
+
+                                                                                                297.00 45.34 33.26 317.06 157.13 69.41
+
+                                                                                                292.84 42.77 30.65 312.52 143.48 59.74
+
+the AP-based DQN. As shown in Fig. II, the AP-based                    ensures a robust policy refinement process, enabling more
+DQN significantly outperforms the original DQN algorithm.              effective decision-making under varying traffic conditions.
+Specifically, the AP mechanism leads to substantial reductions         Meanwhile, the AP mechanism introduces an attention-based
+of 26.62% in ATT, 52.36% in AQL, and 58.21% in AWT.                    adaptive pressure to effectively weight the vehicle queues in
+These results highlight the ability of the AP mechanism to             each lane, thereby providing a precise and dynamic representa-
+optimize the traffic movement representation, thereby substan-         tion of traffic movement. Experiments conducted across seven
+tially improving traffic signal control efficiency.                    real-world datasets with diverse intersection layouts validate
+                                                                       the superiority of BCT-APLight over existing state-of-the-art
+   Additionally, this paper explores the effectiveness of the          methods. The results demonstrate that BCT-APLight achieves
+CT framework by incorporating it into the convergence model            improved traffic flow efficiency, enhancing the reasonableness
+of Advanced-CoLight, the best-performing traditional RL-               of RL policies in real-world traffic scenarios.
+based method, for further training. The results show that
+integrating the CT framework yields improvements of 1.74%                 In the future, the predictive accuracy of the prediction net-
+in ATT, 4.83% in AQL, and 7.01% in AWT over Advanced-                  work can be further enhanced by incorporating more advanced
+CoLight. While the relative improvement is smaller compared            modeling techniques or integrating additional real-time traffic
+to the AP-based DQN experiment, this is expected because               data. Furthermore, the transferability of BCT-APLight across
+Advanced-CoLight already achieves near-optimal performance             diverse traffic scenarios and network layouts is a promising
+among traditional methods. Nevertheless, the fact that the             avenue for exploration, ensuring its adaptability and scalability
+CT framework can still deliver measurable gains on such a              to address future challenges in transportation efficiency and
+strong baseline underscores its robustness and effectiveness           smart city development.
+in refining RL-based methods. These results highlight the
+versatility and value of the CT framework, even when applied                                        APPENDIX A
+to well-optimized models.                                              THEORETICAL EXPLANATION OF THE IDENTICAL ARIMA
+
+   Moreover, even when only the AP mechanism is applied                                       MODELS IN SARIMA
+without the CT framework, the performance of surpasses
+all traditional methods, including Advanced-CoLight. This                 According to Eq. 8 and Eq. 7, applying the zero-mean
+finding underscores the independent effectiveness of the AP            transformation to the differenced series wti(d):
+mechanism. However, the removal of either the AP mechanism
+or the CT framework results in a marked degradation of the                                 yn,i(d) = wtn,i(d) - wฏti(d),              (28)
+performance of model, reaffirming the critical role of both
+components. In conclusion, this ablation study underscores             where wฏti(d) is the mean of the n - th episode differenced
+the importance of the CT framework and AP mechanism in                 series.
+advancing the capabilities of RL-based methods for ATSC.
+                                                                       Given that the mean does not affect stationarity:
+                          VI. CONCLUSION
+                                                                                 E[ytn,i(d)] = E[wtn,i(d) - wฏti(d)]
+   The Adaptive Traffic Signal Control (ATSC) system plays
+a vital role in intelligent transportation, offering the poten-                                 = E[wtn,i(d) - wฏti(d)] - wฏti(d)
+tial to effectively mitigate urban traffic congestion. While
+reinforcement learning (RL)-based methods have shown great                                      = 0,                                  (29)
+promise in enhancing ATSC, current methods struggle with
+generating rational and effective policies. In this paper, a           the variance and autocorrelation structure thus remain un-
+novel RL-based method (called BCT-APLight) is proposed
+for optimizing multi-intersection TSC. The BCT-APLight in-             changed:
+tegrates two components: the Critique-Tune (CT) framework
+and the Attention-Based Adaptive Pressure (AP). Among it,                                  Var(ytn,i(d) = Var(wtn,i(d)),              (30)
+the Critique Layer evaluate the credibility of policies, while
+the Tune Layer minimizes posterior risks to fine-tune policies         Cov(ytn,i(d), ytn+s,i(d)) = Cov(wtn,i(d), wtn+s,i(d)), (31)
+when the evaluation is negative. This hierarchical mechanism
+                                                                       Therefore, ytn,i(d) remains stationary.
+                                                                          Assume that the original differenced series wti(d) follows
+
+                                                                       the ARIMA model with parameters k and j. Substituting
+                                                                       ytn,i(d) = wtn,i(d) - wฏti(d) into the ARIMA model:
+
+                                                                                           p                               q
+
+                                                                       ytn,i(d)+wฏti(d) =       k(ytn-k,i(d)+wฏti(d))+n,i+ j n-j,i.
+
+                                                                                           k=1                             j=1
+
+                                                                                                                                      (32)
+                                                                                                                          13
+
+Expanding above equation:                                                 then  is called the Bayes solution that minimizes the
+                                                                          posterior risk.
+                    p                             q
+                                                                             From the Eq. (36), the following expression holds:
+     ytn,i(d) =        kytn-k,i(d) + n,i +           j n-j,i
+
+                  k=1                           j=1                       RH () = E[R(, )] = R(, )dH()
+
+                  p                                                                                                     
+
+            +          kwฏti(d) - wฏti(d).                       (33)
+
+                 k=1                                                      =     L(, )F (x|) dH()
+
+               p       k wฏti(d)  - wฏti(d)                                  X
+               k=1
+The term                                     simplifies  to   0  because  =     L(, )d(|x)dx dFm(x)
+
+the ARIMA coefficients k satisfy the normalization property                  X
+p
+k=1  k  =  1.  Therefore,  the    equation   reduces     to:              = R(|x)dFm(x) = EX [R(|x)], (39)
+
+               p                             q                                  X
+
+ytn,i(d) =          kytn-k,i(d) + n,i +           j n-j,i.       (34)     where Fm(x) is the marginal distribution of X, and fm(x) is
+                                                                          its density. E represents the expectation taken with respect
+               k=1                           j=1
+                                                                          to the prior distribution of . Therefore, the Bayes risk can
+   Overall, the aforementioned process shows that the zero-               be written as EX [R(|x)] indicating that the Bayes risk is
+mean-transformed series ytn,i(d) follows the identical ARIMA
+                                                                          simply the expectation of the posterior risk with respect to the
+model with the same parameters k and j.
+                                                                          marginal distribution of X.
+                             APPENDIX B                                      It can be shown that the decision rule  that minimizes the
+    PROOF OF THE BAYESIAN POSTERIOR RISK PROCESS
+                                                                          posterior riskR(|x) is the Bayes solution under the prior
+   In the Bayesian statistical decision problem, the definition           distribution H(). Besides, this Bayes solution RH () also
+of risk function is expressed as follows:                                 minimizes the Bayes risk RH (), as shown by the following:
+
+          R(, ) = E[L(, )] = L(, )f (x, )dx, (35)                                   R(|x) = L(, )H(d|x)
+
+                                                           X                                                  
+
+where  is the decision rule, and the average loss R(, ) is                                     L(H , )H(d|x) = R(H |x), (40)
+defined as the risk function of .
+                                                                                                              
+   According to Wald's statistical decision theory, the only
+criterion for evaluating the decision rules  is the associated            By taking the expectation of both sides with respect to
+risk function. If there exists a decision rule  such that for             the marginal distribution Fm(x), the following inequality is
+all    satisfy R(, )  R(, ), the  is called an                            obtained:
+admissible decision rule or a uniformly better decision rule.
+In practice, such a decision rule is often absent. As a result, the                  RH () = R(|x)dFm(x)
+criteria are always relaxed; the common method is to impose
+optimality conditions based on the Bayes criterion.                                                           X
+
+   Given a risk function R(, ) and a prior distribution H()                                    R(H |x)dFm(x) = RH (H ), (41)
+on , with the prior denoted by (), the Bayes risk is defined
+as:                                                                                                           X
+
+                                                                          Thus, H minimizes the Bayes risk and is the Bayes solution,
+                                                                          which achieves the minimal risk of the policy-making process
+                                                                          of RL in ATSC.
+
+     RH () = E[R(, )] = R(, )dH()                                                                     REFERENCES
+
+                                                                          [1] E. A. Etukudoh, A. Adefemi, V. I. Ilojianya, A. A. Umoh, K. I. Ibekwe,
+                                                                               and Z. Q. S. Nwokediegwu, "A review of sustainable transportation
+               =           L(, )f (x, )dx dH(), (36)                           solutions: Innovations, challenges, and future directions," World Journal
+                                                                               of Advanced Research and Reviews, vol. 21, no. 1, pp. 1440ญ1452, 2024.
+                       X
+                                                                          [2] M. Zhang, Z. Li, H. Si, L. Cheng, X. Zhou, and B. Wang, "Urban travel
+The decision rule that minimizes the Bayes risk is termed the                  time and residential location choice: The impacts of traffic congestion,"
+Bayes solution, denoted as RH ().                                              Sustainable Cities and Society, vol. 99, p. 104975, 2023.
+
+   After that, suppose  is fixed, and the random variable X               [3] M. Harleman, L. Harris, M. D. Willis, B. Ritz, P. Hystad, and E. L. Hill,
+follows the distribution f (x|). When new data is observed,                    "Changes in traffic congestion and air pollution due to major roadway
+the posterior distribution of  is updated to H(|x), using the                  infrastructure improvements in texas," Science of The Total Environment,
+prior H() and likelihood f (x|). The risk function is now                      vol. 898, p. 165463, 2023.
+evaluated with respect to the posterior distribution:
+                                                                          [4] A. Wided, B. Assia, and B. Fatima, "Traffic management system
+       R(|x) = E|x[L(, )] = L(, )dH(|x), (37)                                  and traffic light control in smart city to reduce traffic congestion,"
+                                                                               International Journal of Automation and Smart Technology, vol. 13,
+                                                                               no. 1, pp. 2464ญ2464, 2023.
+
+This is called the posterior risk of the decision rule . If there         [5] V. Tong, S. Souihi, H. A. Tran, and A. Mellouk, "Troubleshooting so-
+exists a decision rule  such that:                                             lution for traffic congestion control," Journal of Network and Computer
+                                                                               Applications, p. 103923, 2024.
+                    R(|x) = min R(|x),                           (38)
+                                                                          [6] W. Yue, C. Li, Y. Chen, P. Duan, and G. Mao, "What is the root cause
+                                                                               of congestion in urban traffic networks: Road infrastructure or signal
+                                                                               control?" IEEE Transactions on Intelligent Transportation Systems,
+                                                                               vol. 23, no. 7, pp. 8662ญ8679, 2022.
+                                                                                  14
+
+ [7] A. Haydari and Y. Yilmaz, "Deep reinforcement learning for intelligent       [29] F. Mao, Z. Li, Y. Lin, and L. Li, "Mastering arterial traffic signal
+      transportation systems: A survey," IEEE Transactions on Intelligent               control with multi-agent attention-based soft actor-critic model," IEEE
+      Transportation Systems, vol. 23, no. 1, pp. 11ญ32, 2022.                          Transactions on Intelligent Transportation Systems, vol. 24, no. 3, pp.
+                                                                                        3129ญ3144, 2023.
+ [8] M. Noaeen, A. Naik, L. Goodman, J. Crebo, T. Abrar, Z. S. H. Abad,
+      A. L. Bazzan, and B. Far, "Reinforcement learning in urban network          [30] B. Liu, W. Han, E. Wang, S. Xiong, L. Wu, Q. Wang, J. Wang,
+      traffic signal control: A systematic literature review," Expert Systems           and C. Qiao, "Multi-agent attention double actor-critic framework for
+      with Applications, vol. 199, p. 116830, 2022.                                     intelligent traffic light control in urban scenarios with hybrid traffic,"
+                                                                                        IEEE Transactions on Mobile Computing, vol. 23, no. 1, pp. 660ญ672,
+ [9] Y. Han, M. Wang, and L. Leclercq, "Leveraging reinforcement learning               2024.
+      for dynamic traffic control: A survey and challenges for field implemen-
+      tation," Communications in Transportation Research, vol. 3, p. 100104,      [31] X. B. Song, B. Zhou, and D. Ma, "Cooperative traffic signal control
+      2023.                                                                             through a counterfactual multi-agent deep actor critic approach," Trans-
+                                                                                        portation Research Part C: Emerging Technologies, vol. 160, p. 104528,
+[10] J. Gajcin and I. Dusparic, "Redefining counterfactual explanations                 2024.
+      for reinforcement learning: Overview, challenges and opportunities,"
+      ACM Comput. Surv., vol. 56, no. 9, apr 2024. [Online]. Available:           [32] M. Turchetta, A. Krause, and S. Trimpe, "Robust model-free reinforce-
+      https://doi.org/10.1145/3648472                                                   ment learning with multi-objective bayesian optimization," in 2020 IEEE
+                                                                                        International Conference on Robotics and Automation (ICRA), 2020, pp.
+[11] S. Munikoti, D. Agarwal, L. Das, M. Halappanavar, and B. Natarajan,                10 702ญ10 708.
+      "Challenges and opportunities in deep reinforcement learning with
+      graph neural networks: A comprehensive review of algorithms and             [33] N. Zhang, X. Yang, H. Guo, H. Dong, and W. Ma, "Approximate
+      applications," IEEE Transactions on Neural Networks and Learning                  inference of traffic flow state at signalized intersections using a bayesian
+      Systems, pp. 1ญ21, 2023.                                                          learning framework," IEEE Transactions on Intelligent Transportation
+                                                                                        Systems, vol. 24, no. 5, pp. 4765ญ4776, 2023.
+[12] Y. Lei, D. Ye, S. Shen, Y. Sui, T. Zhu, and W. Zhou, "New challenges
+      in reinforcement learning: a survey of security and privacy," Artificial    [34] H. Wei, C. Chen, G. Zheng, K. Wu, and Z. Li, "Presslight: Learning
+      Intelligence Review, vol. 56, no. 7, pp. 7195ญ7236, 2023.                         max pressure control to coordinate traffic signals in arterial network,"
+                                                                                        Proceedings of the 25th ACM SIGKDD International Conference on
+[13] R. Zhu, L. Li, S. Wu, P. Lv, Y. Li, and M. Xu, "Multi-agent broad                  Knowledge Discovery & Data Mining, p. 1290ญญ1298, 2019.
+      reinforcement learning for intelligent traffic light control," Information
+      Sciences, vol. 619, pp. 509ญ525, 2023.                                      [35] T. Xu, S. Barman, and M. W. Levin, "Smoothing-mp: A novel max-
+                                                                                        pressure signal control considering signal coordination to smooth traffic
+[14] M. Nie, D. Chen, and D. Wang, "Reinforcement learning on graphs:                   in urban networks," Transportation Research Part C: Emerging Tech-
+      A survey," IEEE Transactions on Emerging Topics in Computational                  nologies, vol. 166, p. 104760, 2024.
+      Intelligence, vol. 7, no. 4, pp. 1065ญ1082, 2023.
+                                                                                  [36] D. Tsitsokas, A. Kouvelas, and N. Geroliminis, "Two-layer adaptive sig-
+[15] Y. Lei, D. Ye, S. Shen, Y. Sui, T. Zhu, and W. Zhou, "New challenges               nal control framework for large-scale dynamically-congested networks:
+      in reinforcement learning: a survey of security and privacy," Artificial          Combining efficient max pressure with perimeter control," Transporta-
+      Intelligence Review, vol. 56, no. 7, pp. 7195ญ7236, 2023.                         tion Research Part C: Emerging Technologies, vol. 152, p. 104128, 2023.
+
+[16] M. Kejriwal, E. Kildebeck, R. Steininger, and A. Shrivastava, "Chal-         [37] Y. Liu, G. Luo, Q. Yuan, J. Li, L. Jin, B. Chen, and R. Pan, "Gp-
+      lenges, evaluation and opportunities for open-world learning," Nature             light: Grouped multi-agent reinforcement learning for large-scale traffic
+      Machine Intelligence, pp. 1ญ9, 2024.                                              signal control." in Proceedings of the Thirty-Second International Joint
+                                                                                        Conference on Artificial Intelligence (IJCAI-23), 2023, pp. 199ญ207.
+[17] Y. Song, Y. Wu, Y. Guo, R. Yan, P. N. Suganthan, Y. Zhang, W. Pedrycz,
+      S. Das, R. Mallipeddi, O. S. Ajani et al., "Reinforcement learning-         [38] L. Zhang, Q. Wu, J. Shen, L. Luจ, B. Du, and J. Wu, "Expression might
+      assisted evolutionary algorithm: A survey and research opportunities,"            be enough: representing pressure and demand for reinforcement learning
+      Swarm and Evolutionary Computation, vol. 86, p. 101517, 2024.                     based traffic signal control," in International Conference on Machine
+                                                                                        Learning. PMLR, 2022, pp. 26 645ญ26 654.
+[18] A. K. Shakya, G. Pillai, and S. Chakrabarty, "Reinforcement learning
+      algorithms: A brief survey," Expert Systems with Applications, vol. 231,    [39] C. J. Watkins and P. Dayan, "Q-learning," Machine learning, vol. 8, pp.
+      p. 120495, 2023.                                                                  279ญ292, 1992.
+
+[19] S. Lin, J. Hu, W. Ma, C. Zheng, and R. Li, "Integrated real-time signal      [40] H. Zhang, S. Feng, C. Liu, Y. Ding, Y. Zhu, Z. Zhou, W. Zhang,
+      control and routing optimization: A two-stage rolling horizon framework           Y. Yu, H. Jin, and Z. Li, "Cityflow: A multi-agent reinforcement learning
+      with decentralized solution," Transportation Research Part C: Emerging            environment for large scale city traffic scenario," in The world wide web
+      Technologies, vol. 165, p. 104734, 2024.                                          conference, 2019, pp. 3620ญ3624.
+
+[20] B. Zhou, Q. Zhou, S. Hu, D. Ma, S. Jin, and D.-H. Lee, "Cooperative          [41] P. Koonce et al., "Traffic signal timing manual," United States. Federal
+      traffic signal control using a distributed agent-based deep reinforcement         Highway Administration, Tech. Rep., 2008.
+      learning with incentive communication," IEEE Transactions on Intelli-
+      gent Transportation Systems, 2024.                                          [42] P. Varaiya, "Max pressure control of a network of signalized intersec-
+                                                                                        tions," Transportation Research Part C: Emerging Technologies, vol. 36,
+[21] L. Zhang, Q. Wu, J. Shen, L. Luจ, B. Du, and J. Wu, "Expression might              pp. 177ญ195, 2013.
+      be enough: representing pressure and demand for reinforcement learning
+      based traffic signal control," in International Conference on Machine       [43] C. Chen, H. Wei, N. Xu, G. Zheng, M. Yang, Y. Xiong, K. Xu, and
+      Learning. PMLR, 2022, pp. 26 645ญ26 654.                                          Z. Li, "Toward a thousand lights: Decentralized deep reinforcement
+                                                                                        learning for large-scale traffic signal control," in Proceedings of the
+[22] T. Wang, Z. Zhu, J. Zhang, J. Tian, and W. Zhang, "A large-scale traffic           AAAI conference on artificial intelligence, vol. 34, no. 04, 2020, pp.
+      signal control algorithm based on multi-layer graph deep reinforcement            3414ญ3421.
+      learning," Transportation Research Part C: Emerging Technologies, vol.
+      162, p. 104582, 2024.                                                       [44] A. Oroojlooy, M. Nazari, D. Hajinezhad, and J. Silva, "Attendlight:
+                                                                                        Universal attention-based reinforcement learning model for traffic signal
+[23] L. Da, M. Gao, H. Mei, and H. Wei, "Prompt to transfer: Sim-to-real                control," Advances in Neural Information Processing Systems, vol. 33,
+      transfer for traffic signal control with prompt learning," in Proceedings         pp. 4079ญ4090, 2020.
+      of the AAAI Conference on Artificial Intelligence, vol. 38, no. 1, 2024,
+      pp. 82ญ90.                                                                  [45] H. Wei, C. Chen, G. Zheng, K. Wu, V. Gayah, K. Xu, and Z. Li,
+                                                                                        "Presslight: Learning max pressure control to coordinate traffic signals
+[24] H. Zhao, C. Dong, J. Cao, and Q. Chen, "A survey on deep reinforcement             in arterial network," in Proceedings of the 25th ACM SIGKDD inter-
+      learning approaches for traffic signal control," Engineering Applications         national conference on knowledge discovery & data mining, 2019, pp.
+      of Artificial Intelligence, vol. 133, p. 108100, 2024.                            1290ญ1298.
+
+[25] X. Wang, L. Ke, Z. Qiao, and X. Chai, "Large-scale traffic signal control    [46] H. Wei, N. Xu, H. Zhang, G. Zheng, X. Zang, C. Chen, W. Zhang,
+      using a novel multiagent reinforcement learning," IEEE Transactions on            Y. Zhu, K. Xu, and Z. Li, "Colight: Learning network-level cooperation
+      Cybernetics, vol. 51, no. 1, pp. 174ญ187, 2021.                                   for traffic signal control," in Proceedings of the 28th ACM international
+                                                                                        conference on information and knowledge management, 2019, pp. 1913ญ
+[26] G. Hinton, "Distilling the knowledge in a neural network," arXiv preprint          1922.
+      arXiv:1503.02531, 2015.
+                                                                                  [47] Q. Wu, L. Zhang, J. Shen, L. Luจ, B. Du, and J. Wu, "Efficient pres-
+[27] D. Ye, T. Zhu, Z. Cheng, W. Zhou, and P. S. Yu, "Differential advising in          sure: Improving efficiency for signalized intersections," arXiv preprint
+      multiagent reinforcement learning," IEEE Transactions on Cybernetics,             arXiv:2112.02336, 2021.
+      vol. 52, no. 6, pp. 5508ญ5521, 2022.
+                                                                                  [48] S. Lai, Z. Xu, W. Zhang, H. Liu, and H. Xiong, "Large language models
+[28] C. Zhu, D. Ye, T. Zhu, and W. Zhou, "Location-based real-time updated              as traffic signal control agents: Capacity and opportunity," arXiv preprint
+      advising method for traffic signal control," IEEE Internet of Things              arXiv:2312.16044, 2023.
+      Journal, vol. 11, no. 8, pp. 14 551ญ14 562, 2024.
+                                                                                                                                                                                        15
+
+Wenchang Duan (Graduate Student Member, IEEE)
+received the B.S. degree in statistics from the Xi-
+angtan University, Xiangtan, China, where he is
+currently pursuing the M.S. degree in Applied Statis-
+tics with Shanghai Jiao Tong University, Shanghai,
+China. His research interests include deep reinforce-
+ment learning, intelligent transportation systems, au-
+tonomous driving systems, and mathematical statis-
+tics.
+
+Zhenguo Gao is an assistant professor in the School
+of Mathematical Sciences, Shanghai Jiao Tong Uni-
+versity in China. He received his PhD degree in
+statistics from Virginia Tech US in 2018. His re-
+search area includes mathematical statistics, deep
+reinforcement learning, data mining and machine
+learning, intelligent transportation systems and high-
+dimensional data analysis.
+
+Jiwan He Jiwan He received the B.S. degree in
+Information and Computational Science from Xi'an
+Jiaotong University, Xi'an, China. He is currently
+pursuing the M.S. degree in Applied Statistics with
+Shanghai Jiao Tong University, Shanghai, China. His
+research interests include deep learning, Bayesian
+statistics, and intelligent transportation systems.
+
+Jinguo Xian is an associate professor in the School
+of Mathematical Sciences, Shanghai Jiao Tong Uni-
+versity in China. He received his PhD degree in
+Mathematics from Shanghai Jiao Tong University.
+His research area includes stochastic process mon-
+itoring, change point detection, random network,
+deep reinforcement learning and intelligent trans-
+portation systems.
+

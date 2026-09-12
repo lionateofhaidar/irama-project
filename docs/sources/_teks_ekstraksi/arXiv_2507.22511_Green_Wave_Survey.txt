@@ -1,0 +1,720 @@
+arXiv:2507.22511v1 [cs.ET] 30 Jul 2025      Green Wave as an Integral Part for the
+
+                                        Optimization of Traffic Efficiency and Safety:
+
+                                                              A Survey
+
+                                                                 Kranthi Kumar Talluri§, Christopher Stang§, Galia Weidl
+                                                          Aschaffenburg University of Applied Sciences, Aschaffenburg, 63743 Germany
+                                                          ZF Friedrichshafen AG, Safety Mobility Simulation, Friedrichshafen, Germany
+
+                                                                              §These authors contributed equally to this work.
+                                                        Email: {KranthiKumar.Talluri, Galia.Weidl}@th-ab.de, christopher.stang@zf.com
+
+                                           Abstract--Green Wave provides practical and advanced           smart cities through the Internet of Things (IoT) [6].
+                                        solutions to improve traffic efficiency and safety through        Innovative and modern solutions enhance traffic flow,
+                                        network coordination. Nevertheless, the complete potential        improve road safety, and mitigate traffic congestion by
+                                        of Green Wave systems has yet to be explored. Utilizing           leveraging real-time traffic data patterns and incorporat-
+                                        emerging technologies and advanced algorithms, such as            ing automated decision-making capabilities using AI/ML
+                                        AI or V2X, would aid in achieving more robust traffic             techniques [7]. It aims to achieve a sustainable environ-
+                                        management strategies, especially when integrated with            ment, urban advancement, and immediate response dur-
+                                        Green Wave. This work comprehensively surveys existing            ing emergencies through proactive, intelligent decision-
+                                        traffic control strategies that enable Green Waves and            making and adaptive transportation systems. These sys-
+                                        analyzes their impact on future traffic management systems        tems are capable of adjusting traffic signal timings in
+                                        and urban infrastructure. Understanding previous research         real-time based on changing traffic conditions, which
+                                        on traffic management and its effect on traffic efficiency        was not possible with traditional traffic management so-
+                                        and safety helps explore the integration of Green Wave            lutions. Cutting-edge approaches [8], particularly Green
+                                        solutions with smart city initiatives for effective traffic sig-  Wave, create synchronized infrastructures that enable
+                                        nal coordination. This paper also discusses the advantages        vehicles to travel across multiple intersections. Green
+                                        of using Green Wave strategies for emission reduction and         Wave achieves uninterrupted traffic flow by maintaining
+                                        considers road safety issues for vulnerable road users, such      optimal speed without redundant stops and starts [9],
+                                        as pedestrians and cyclists. Finally, the existing challenges     [10]. Its fundamental principle is to facilitate the smooth
+                                        and research gaps in building robust and successful Green         flow of platoons of vehicles through coordinated traffic
+                                        Wave systems are discussed to articulate explicitly the           signal corridors [11]. When integrated with emerging
+                                        future requirement of sustainable urban transport.                smart city technologies, Green Wave implementations
+                                                                                                          become more robust due to the possibility of building
+                                           Index Terms--Green Wave Technology, Traffic Man-               advanced algorithms and processing real-time data to
+                                        agement Systems, Traffic Signal Control, Vehicle-to-              make intelligent, dynamic decisions about traffic flow
+                                        Everything (V2X), Connectivity, Sustainable Urban Mo-             management [12].
+                                        bility, Intelligent Transportation Networks.
+                                                                                                             Environmental considerations are becoming funda-
+                                                              I. INTRODUCTION                             mental to Green Wave implementation for the optimized
+                                                                                                          flow of traffic, as the latest research works highlight
+                                           Urban cities face a significant economic loss due to the       their ability to achieve low fuel consumption and reduced
+                                        growing challenges of traffic congestion. An estimated            vehicle emissions [13], [14]. The traditional stop-and-go
+                                        billions of dollars are spent annually by cities as a con-        ideology of urban traffic systems reduces efficient engine
+                                        sequence of fuel wastage, production loss, infrastructure         operation due to repeated acceleration after stopping.
+                                        damage, and vehicle maintenance costs [1], [2]. As the            Green Wave reduces these effects through smooth vehi-
+                                        urban population and vehicle ownership are expanding,             cle movement at optimal speed. Based on research [15],
+                                        the seriousness of this issue is growing drastically, creat-      [16], Green Wave and smart intersections also provided
+                                        ing an unusual burden on current transportation systems.          a significant enhancement in air quality with a reduction
+                                        Traditional traffic management networks fail to cope              in carbon and other pollutant emissions at coordinated
+                                        with increasing traffic pattern complexities, mainly when
+                                        critical congestion levels are reached during peak travel
+                                        hours [3]­[5].
+
+                                           The need for evolved traffic management strategies is
+                                        increasing rapidly due to the advancements in building
+This work has been accepted for publication in the IEEE Intelligent Vehicles Symposium (IV) 2025. Copyright
+may be transferred without notice, after which this version may no longer be accessible.
+
+corridors.                                                     TABLE I: Key Search parameters of literature review
+
+   Rising technologies, such as connected vehicles and         Section  Date Range     Database           Keywords
+smart infrastructure, enhance Green Wave system im-               II     2018-2024
+plementations. Precise coordination and optimal traffic                              IEEE Xplore         Green Wave
+flow can be achieved through enabling communica-                  III    2011-2024       Scopus     Traffic light control
+tion between vehicles and infrastructures using vehicle-                                            Traffic signal control
+to-infrastructure (V2I), vehicle-to-roadside (V2R), and                             Google Scholar
+vehicle-to-vehicle (V2V) technologies [17], [18]. More-                                                 Traffic signal
+over, drivers can be guided to maintain a real-time                                  IEEE Xplore         optimization
+optimal speed, ensuring smooth driving through green                                     Scopus       Intelligent traffic
+lights at every intersection. Bidirectional communication
+prospects of V2X in transmission and reception of                                   Google Scholar            light
+information about location, speed, and destination by
+vehicles help achieve sophisticated traffic management                                                   Green Wave
+through Green Wave [9]­[11]. The resulting connected                                                V2X in Green Wave
+vehicle infrastructure offers a dynamic solution that can                                           Green Wave impact
+effectively respond to modern traffic conditions.
+                                                                                                       on environment
+   Furthermore, safety is emerging as a critical aspect                                             Green Wave impact
+of the Green Wave in urban environments featuring
+diverse road users [19]. Intricate safety protocols are                                                    on safety
+incorporated into advanced systems to protect pedestri-                                             Strategies for Green
+ans and cyclists, ensuring the smooth flow of emergency
+vehicles without affecting vehicle traffic flow [20], [21].                                                  Wave
+Balancing the desire for smooth traffic flow, safe pedes-
+trian crossing times, and prioritizing emergency vehicle         II. METHODS OF TRAFFIC SIGNAL CONTROL FOR
+flow is crucial for these systems. Considering all the             MULTIPLE INTERSECTION COORDINATION AND
+aforementioned points, the contributions of this work are                   GREEN WAVE IMPLEMENTATION
+as follows:
+                                                                  The growing urbanization and resulting increase in
+   · Conducted a comprehensive review on traffic signal        traffic volume necessitate intelligent traffic signal con-
+      control and Green Wave systems and their impact          trol strategies to enhance traffic safety and efficiency.
+      on traffic efficiency, environment, and safety, as       To meet both objectives, various methods have been
+      limited surveys exist in this area.                      developed in recent years. From a methodological point
+                                                               of view, the control strategies are split into Fixed-Time,
+   · Explored the advantage of integrating the latest          Actuated, and Adaptive and Intelligent Signal Control
+      technologies like V2X, 5G, and edge computing to         [22]­[28]. Based on the keywords identified in the liter-
+      achieve enhanced Green Wave systems.                     ature review for this section, the analysis will highlight
+                                                               the evolution and emerging trends in control strategies,
+   · Identified future trends and challenges in real-time      with a focus on multiple-intersection coordination and
+      scalability, data privacy, and integration of vulner-    the feasibility of Green Waves. As the authors give a
+      able road users.                                         high-level overview of the different methods and their
+                                                               key technical developments, further explanations can be
+   The rest of the paper is organized as follows. Section      found in the corresponding references. For the sake of
+II discusses traffic signal control with a focus on Green      clarity, commonly used terminology in the field of traffic
+Wave implementation, and Section III briefly describes         control will be explained in advance.
+current trends and the impact of Green Waves on the
+environment and safety. This is followed by challenges            · Phase: represents a specific combination of traffic
+and future directions for implementing the Green Wave                signal states, ensuring conflict-free movements in
+technology in section IV. The subsequent reviews of the              any direction.
+different sections are based on a selection of scientific
+articles identified according to the features listed in Table     · Cycle: The chronological and repeating order of
+I. In the search process, keywords were combined using               all phases represents a cycle. The duration of one
+the Boolean OR operator. Further literature necessary for            complete cycle is called cycle time.
+explanations may go beyond the search terms.
+                                                                  · Green split: corresponds to the amount of green
+                                                                     time per cycle.
+
+                                                               A. Fixed-Time Signal Control
+
+                                                                  Traditional traffic signal control uses predefined
+                                                               schedules for the sequence and duration of traffic signal
+                                                               phases. Those schedules are built on historical data
+                                                               and under the assumption of a stable traffic demand at
+                                                               different times of the day [22]­[29]. As static methods
+                                                               rely on offline optimization, they are cost-effective and
+                                                               easy to implement in real-world applications. In this
+
+© 2025 IEEE. Personal use of this material is permitted. Permission from IEEE must be obtained for all other
+uses, in any current or future media, including reprinting/republishing this material for advertising or promotional
+purposes, creating new collective works, for resale or redistribution to servers or lists, or reuse of any copyrighted
+component of this work in other works. This is the accepted version of the paper. The final version is published in
+IEEE Xplore: https://ieeexplore.ieee.org
+This work has been accepted for publication in the IEEE Intelligent Vehicles Symposium (IV) 2025. Copyright
+may be transferred without notice, after which this version may no longer be accessible.
+
+respect, the method of Webster [30] was a milestone in        C. Adaptive and Intelligent Signal Control
+
+traffic control design, representing a mathematical model        To counteract the disadvantages of the aforementioned
+                                                              methods, extensive research work has been conducted
+for minimizing the delay at a single intersection. This is    in the field of adaptive and intelligent systems. Funda-
+                                                              mentally, a distinction must be made between industrial
+realized by calculating the optimal cycle time and green      and academic methods, which will be explained in the
+                                                              following.
+split in consideration of traffic flow data and intersection
+                                                                 1) Industrial Methods: The traffic control system
+saturation [30], [31]. To maximize traffic efficiency,        SCOOT (Split Cycle Offset Optimization Technique) [34]
+                                                              was developed by TRL, and is nowadays commonly used
+coordination is necessary along multiple intersections,       in urban areas. As a fully adaptive system, it utilizes data
+                                                              provided by infrastructure sensors to predict changes
+resulting in a Green Wave along a specific infrastructure     in traffic flow. As described in [34], SCOOT operates
+                                                              on a common cycle time for adjacent intersections,
+corridor. The implementation of Green Waves reduces           and optimizes the settings for cycle time, green phase
+                                                              durations, and offsets between those.
+the number of stops for the affected traffic participants by
+                                                                 In addition to this method, SCATS (Sydney Coordi-
+calculating an offset ti,j between the fixed cycle phases     nated Adaptive Traffic System) [35] represents another
+of two adjacent intersections i and j with a distance of      adaptive system. According to [35], it is mainly char-
+                                                              acterized by its hierarchical control structure, consisting
+Li,j [24], [31].                                              of a supervisor, regional, and local controllers at each
+                                                              intersection. According to this control architecture, the
+                  ti,j  =  Li,j  (1)                          parameters for cycle time, split, and offsets are adjusted
+                            v                                 in response to the current traffic demand. Like SCOOT,
+                                                              this system also uses input from infrastructure sensors
+In this sense, v represents the expected travel speed         to derive an optimal control strategy.
+of the vehicles. As described in [24], this technique
+only applies to unidirectional traffic flow optimization.        Also commonly used, UTOPIA [36] represents a hier-
+Contrarily, the method MAXBAND [32] extends the idea          archically structured and decentralized control system.
+of traffic signal coordination by applying mixed-integer      As it can be read in [36], the system operates on
+linear programming to optimize the offset of adjacent         two control levels: the intersection and area levels. At
+intersections and maximize the bandwidth of the Green         the intersection level, the local controller calculates the
+Wave in two opposite directions [24], [27], [29], [31],       settings of the traffic lights at its intersection based on
+[32]. In this regard, bandwidth characterizes the dura-       available traffic data while interacting with neighboring
+tion of the coherent green phase across all signalized        controllers. On the other hand, the intersection level
+locations along a route.                                      communicates with the upper area level controller, pre-
+                                                              defining constraints for local controllers.
+   As fixed-time strategies heavily rely on static methods,
+they are unable to adapt to dynamic traffic changes. In          Since all three methods consider an extended network
+particular, they fail to respond to extraordinary events      rather than a single intersection, Green Wave strategies
+or unexpected increase in traffic volume, leading to a        can be effectively implemented with these approaches. In
+reduced performance of such a system [24], [29].              addition, advanced methods like RHODES [37] or OPAC
+                                                              [38] have been designed, but show less field penetration
+B. Actuated Signal Control                                    rate.
+
+   As an enhancement to conventional control meth-               2) Academical Methods: Traffic control strategies
+ods, Actuated Signal Control systems can modify the           based on artificial intelligence, such as Fuzzy Logic,
+otherwise fixed green phase time, enabling a dynamic          Metaheuristics, or Machine Learning, have gained sig-
+response to real-time traffic. Such systems use available     nificant popularity in academia in recent years. Among
+road data provided by infrastructure-based sensors (e.g.,     these, Fuzzy Logic has been extensively discussed for
+induction loop detectors or cameras) to identify the          traffic control strategies due to its unique advantages, as
+current request for green phase extension or termination      summarized in [28], [39], [40]:
+for any link of an intersection. A well-known algorithm
+for actuated signal control is MOVA (Microprocessor              · Control logic is similar to human logical thinking
+Optimised Vehicle Actuation) [33], developed by the                 and thus intuitive and interpretable.
+Transport Research Laboratory (TRL). Constructed for
+single and uncoordinated intersections, it operates in two       · Controllers are flexible and robust, allowing them
+distinct modes: for non-overloaded junctions, it mini-              to handle varying and uncertain traffic conditions.
+mizes delays, while for congestion, it optimizes capacity
+[33]. Actuated signal control systems are primarily used
+for isolated intersection control, making Green Wave
+corridors infeasible due to the enormous variation in
+cycle times for each intersection, depending on the
+current traffic situation [23], [24].
+
+© 2025 IEEE. Personal use of this material is permitted. Permission from IEEE must be obtained for all other
+uses, in any current or future media, including reprinting/republishing this material for advertising or promotional
+purposes, creating new collective works, for resale or redistribution to servers or lists, or reuse of any copyrighted
+component of this work in other works. This is the accepted version of the paper. The final version is published in
+IEEE Xplore: https://ieeexplore.ieee.org
+This work has been accepted for publication in the IEEE Intelligent Vehicles Symposium (IV) 2025. Copyright
+may be transferred without notice, after which this version may no longer be accessible.
+
+   · Control logic uses simple mathematics to model              · T (st+1|st, at) as the transition function, implying
+      nonlinear system behavior.                                    the probability of moving from one state st to
+                                                                    another st+1 at time t, and
+Although much work has focused on isolated intersec-
+tions, this method was also extended to the network level.       · R(st, at, st+1) as the reward function for action at
+In this sense, Jafari et al. [41] employed the concept              at state st when shifting to state st+1
+of Fuzzy Logic to formulate a multi-agent system for
+coordinating multiple intersections.                          The parameters listed in Table II are commonly used for
+                                                              the elements State S, Action A, and Reward R. The goal
+   A further widely used method is the application            of the MDP agent is to find an optimal policy, maximiz-
+of Metaheuristics, which mimic natural and biological         ing the expected cumulative reward. In this respect, Fig.
+processes. In the field of signal optimization, these         1 shows the RL architecture with the main components
+techniques have emerged as inspiring approaches, in-          adapted to traffic signal control. If the agent uses or
+cluding evolutionary and swarm intelligence algorithms.       learns an internal representation of the environmental
+Specifically, Genetic Algorithm (GA), Particle Swarm          model with its transition probability T , this is called
+Optimization (PSO) and Ant Colony Optimization (ACO)          model-based RL. Contrarily, an agent directly tries to
+are the most commonly used methods [42]­[45]. The             find the best policy without any transition model in
+following explanations describe these three methods as        model-free RL. Basically, there are two main approaches
+outlined in [42], [46], [47]. Genetic Algorithms [48]         of model-free RL, namely (a) value-based and (b) policy-
+are characterized by an initial population of solution        based RL. With regard to value-based methods, a value
+candidates and an objective function to be minimized.         function indicates how good a particular state and ac-
+These candidates are iteratively combined and mutated         tion is. In this respect, well-known algorithms are Q-
+according to their so-called fitness until any termination    learning [58] and SARSA [59]. On the other hand,
+criteria are met. Regarding Green Waves in traffic, Chin      policy-based methods like REINFORCE [60] directly
+et al. [49] demonstrated the successful implementation        learn a policy, which iteratively is updated. In high-
+of such an algorithm for coordinating multiple intersec-      dimensional spaces, traditional RL reaches its limits.
+tions. Besides, PSO [50] is inspired by the behavior of       For this reason, Deep Reinforcement Learning (DLR)
+swarms like birds. A candidate solution of the search         is becoming popular, approximating the optimal policy
+space depicts a particle, with the entire population of       or value functions by deep neural networks. To manage
+particles representing a swarm. Each particle succes-         the coordination of multiple intersections cooperatively,
+sively changes its position and velocity according to         using single agents for individual intersections is less
+its own and the swarm's best solution. Concerning this,       expedient than the application of multi-agent RL. As
+Dabiri and Abbas [51] applied such a PSO algorithm,           an example, van der Pol and Oliehoek [61] introduced
+improving traffic signal settings of an arterial road with    the combination of Deep Q-learning with a coordination
+three intersections. Also derived from biological theory,     algorithm for multiple-intersection control. Nevertheless,
+ACO [52] follows the natural behavior of ants, searching      real-world deployment of RL remains challenging as
+the shortest path from their origin to the food location.     described in [62], [63].
+Every path is treated as a possible solution to the
+optimization problem, with better solutions according            Although there are additional approaches, such as
+to the objective to be minimized assigned with higher         Model Predictive Control [64], this work focuses primar-
+pheromone concentration. Zechman et al. [53] evaluated        ily on the methods discussed here, as they characterize
+the performance of ACO at a one-way and complex               the main findings of the selected papers.
+network, showing more reliable results than GA.
+                                                              TABLE II: Parameters of Markov Decision Process [24],
+   An aspiring approach for the design of intelligent         [25], [54]­[56]
+traffic lights is the utilization of Machine Learning.
+In particular, Reinforcement Learning (RL) has become         MDP Element        Possible Parameters
+the subject of much academic work, investigating its                State             Queue length
+potential for single and multiple intersection control.            Action             Average speed
+Building on the explanations in [24], [25], [54]­[56], the
+key aspects are highlighted in the following. Using RL,           Reward         Average waiting time
+traffic signal control is modeled as a so-called Markov                           Current traffic signal
+Decision Process (MDP), characterized by the tuple
+(S, A, T, R) with [57]:                                                              Phase selection
+                                                                                        Phase split
+   · S = (s1, s2, ..., sn) as the set of environment states,
+   · A = (a1, a2, ..., am) as the set of actions,                                    Phase duration
+                                                                                 Maximum green time
+                                                                           Intersection/Network throughput
+
+                                                                                       Waiting time
+                                                                                    Cumulative delay
+
+                                                                                      Queue length
+
+© 2025 IEEE. Personal use of this material is permitted. Permission from IEEE must be obtained for all other
+uses, in any current or future media, including reprinting/republishing this material for advertising or promotional
+purposes, creating new collective works, for resale or redistribution to servers or lists, or reuse of any copyrighted
+component of this work in other works. This is the accepted version of the paper. The final version is published in
+IEEE Xplore: https://ieeexplore.ieee.org
+This work has been accepted for publication in the IEEE Intelligent Vehicles Symposium (IV) 2025. Copyright
+may be transferred without notice, after which this version may no longer be accessible.
+
+             Reward rt                                       can facilitate higher traffic volumes and minimize travel
+              State st                                       delays.
+
+Environment             Agent                                   To overcome the earlier limitations, [3] and [66]
+                                                             have introduced an adaptive traffic signal control strat-
+                                       Action at             egy. This solution combines reinforcement learning
+                                                             and V2X communications to enable valuable real-time
+Fig. 1: RL Architecture for Traffic Signal Control, based    decision-making. Moreover, dynamic traffic management
+on [54]                                                      is achieved by integrating a multi-agent environment
+                                                             with edge computing for precise real-time signal timing
+      III. TRENDS, POTENTIAL OF GREEN WAVE                   adjustments based on traffic conditions [8]. The use of
+        TECHNOLOGY AND ITS IMPACT ON V2X,                    Deep Q-Network (DQN), a value-based reinforcement
+                                                             learning algorithm, in these applications not only im-
+               ENVIRONMENT, AND SAFETY                       proves signal coordination but also enhances vehicle flow
+                                                             [1]. Real-time data exchange through V2X improves
+   The incorporation of green wave technology into           the adaptability and learning efficiency of these models,
+traffic management systems has significantly improved        making the solutions robust for traffic management.
+traffic flow. To ensure the section's focus and relevance,
+this section briefly discusses the works that directly          Furthermore, C-V2X enables proactive platooning for
+address the topic of the green wave and its impact on        seamless, uninterrupted, and optimal traffic flow at junc-
+V2X communication, environmental sustainability, and         tions with traffic signals through networked control and
+safety.                                                      computation-centralized platooning [11]. Urban conges-
+                                                             tion is significantly reduced through platooning, where a
+A. V2X Integration and Technical Advancements                group of vehicles coordinates by maintaining suggested
+                                                             speeds for passing through the Green Waves without
+   Cellular-V2X (C-V2X) integration for effective com-       unnecessary stopping [67], [9]. Sophisticated algorithms
+munication has completely reshaped the Green Wave im-        rely on factors such as driver behavior, vehicle type,
+plementations in the real world [10]. Communication be-      capabilities, uncertain incidents, and road conditions to
+tween vehicles and traffic signal systems can be achieved    form and maintain smooth platooning. Past findings have
+wirelessly using technologies like IEEE 802.11p or           shown that traffic flow efficiency improves due to vehicle
+5G C-V2X [10]. These transformative developments             coordination for platooning, which, in turn, supports cur-
+facilitate the building of an interconnected environment     rent smart traffic management systems more efficiently.
+through consistent communication among all transporta-       V2X also facilitates the inclusion of eco-driving schemes
+tion network elements, enabling robust decision-making       [9], [17] to reduce the vehicle's fuel consumption and
+and flexible network traffic management. The effective       carbon emissions. By doing so, Platooning and eco-
+use of advanced techniques like the Multi-Intersection       driving enhance the potential of Green Wave systems.
+Coordination Algorithm with V2X (MICA-V) and C-
+V2X in multiple intersection coordination is highlighted        As a further supportive technology, Greenlight Op-
+by the authors in [2], [6], [65]. These systems utilize      timal Speed Advisory (GLOSA) is widely used for
+onboard units (OBUs), roadside units (RSUs), and a           effective traffic and speed management [68]. It uses real-
+central coordination module to ensure the synchroniza-       time data from traffic lights, vehicles, traffic intensity,
+tion of traditional traffic lights across all junctions,     weather information, and infrastructure to guide drivers
+achieving a smooth traffic flow without interruptions or     with appropriate speeds for seamless driving through
+stops. Nevertheless, the traditional solution fails to cope  green signal corridors and optimize vehicle trajectories
+with shockwaves and congestion due to the growing            [9], [10], [18]. Fuel savings of up to 15% are achieved
+complexity of dynamic traffic. Such new traffic dynamics     through advanced GLOSA techniques [21], making it
+depend significantly on the efficient sharing of real-time   suitable for improving environmental conditions.
+data between vehicles and infrastructure. V2X, being
+the backbone, ensures that the Green Wave solutions             DDPG-BAND combines the Deep Deterministic Pol-
+                                                             icy Gradient (DDPG) algorithm with a bandwidth-
+                                                             oriented reward function to optimize signal timing across
+                                                             intersections [3]. ES-BAND leverages an evolutionary
+                                                             strategy (ES) to iteratively improve signal timing plans
+                                                             by simulating traffic flow and selecting configurations
+                                                             that maximize Green Wave bandwidth [3]. Adaptive al-
+                                                             gorithms, such as DDPG-BAND and ES-BAND, support
+                                                             dynamic Green Wave through V2X. The algorithm's
+                                                             adaptability and effective scalability ensure exceptional
+
+© 2025 IEEE. Personal use of this material is permitted. Permission from IEEE must be obtained for all other
+uses, in any current or future media, including reprinting/republishing this material for advertising or promotional
+purposes, creating new collective works, for resale or redistribution to servers or lists, or reuse of any copyrighted
+component of this work in other works. This is the accepted version of the paper. The final version is published in
+IEEE Xplore: https://ieeexplore.ieee.org
+This work has been accepted for publication in the IEEE Intelligent Vehicles Symposium (IV) 2025. Copyright
+may be transferred without notice, after which this version may no longer be accessible.
+
+TABLE III: Potential of V2X-based Green Wave Implementation and Supporting Technologies
+
+[Ref] Year Primary Focus Technologies (Tech.) Used Key Implementation Features Outcomes                              Application
+
+[6] 2016 Green Wave Coor- V2X Concept: V2V, V2R - Cooperative throughput maxi- - Increased global throughput Arterial roads
+
+dination                      Communication Tech.: mization                               - Reduced waiting and travel with multiple in-
+
+                              IEEE 802.11p (WAVE / - Green Wave coordination algo- time                              tersections
+
+                              DSRC)                rithms                                 - Lower CO2 emissions
+
+                                                   - Traffic control across multiple in-
+
+                                                   tersections
+
+[1] 2024 Ecological Speed V2X Concept: V2N, I2N - Two-stage optimization strategy - 16.65% energy reduction Multi-
+
+Planning                      Communication Tech.: 4G, - DQN for queue estimation         - 26.33% travel time improve- intersections
+
+                              5G, DSRC             - Multi-intersection objective & ment                             with EVs
+
+                                                   constraints strategy
+
+[17] 2019 Eco-speed           V2X Concept: V2I     - Eco-speed optimization               - 20% fuel reduction       Signalized inter-
+                Optimization                                                                                         sections
+                              Communication Tech.: - Fuel consumption reduction           - Improved efficiency
+
+                              Not specified        - Multi-intersection speed opti- - Smoother flow
+
+                                                   mization
+
+[11] 2023 Proactive Platoon- V2X Concept: V2V, V2I - Dynamic platoons                     - Delays reduced           Urban
+                                                                                          - Improved throughput      intersections
+ing                           Communication Tech.: C- - Real-time coordination            - Platoon stability +45%
+
+                              V2X (PC5 interface)  - Adaptive control
+
+                                                   - Enhanced stability
+
+[10] 2021 GLOSA for Green V2X Concept: V2N, V2V, - GLOSA for speed optimization - Improved traffic flow              Intersections
+                                                                                                                     with
+Wave                          V2I                  - Real-time traffic light information - Reduced fuel consumption  GLOSA-
+                                                                                                                     based speed
+                              Communication Tech.: 5G - Vehicles advised on optimal - Enhanced driving comfort       optimization
+
+                                                   speeds
+
+* Abbrevations: V2N ­ Vehicle-to-Network, I2N ­ Infrastructure-to-Network, PC5 ­ Direct sidelink interface for C-V2X communication,
+WAVE ­ Wireless Access in Vehicular Environments, DSRC ­ Dedicated Short-Range Communications.
+
+management of complex traffic networks for massive          under optimal conditions, significantly decreasing the en-
+urban infrastructures. Integrating reinforcement learning,  vironmental impact of traffic [15]. In another study [14],
+eco-driving, multi-agent systems, and edge computing        Green Waves lower CO2 and other pollutant emissions,
+with V2X will ensure the future of smart cities with        as shown in Figure 2, countering stop-and-go traffic.
+scalable, sustainable, and efficient transportation sys-
+tems. The practical benefits of V2X in Green Wave              The electric vehicle (EV) infrastructure, incorporating
+are summarized in detail in Table III, which includes       the Green Wave technology, led to new possibilities
+notable improvements in travel time, energy efficiency,     for optimizing the environment [13]. These EVs can
+and overall traffic flow.                                   achieve maximum energy efficiency by proper coordi-
+                                                            nation between traffic lights, dynamic route planning
+B. Environmental Impact and Sustainability                  systems, and smart charging stations. Moreover, for
+                                                            EVs to optimize vehicle routing and charging routines,
+   Reducing vehicle emissions has gained significant        these technology integrations consider various factors,
+momentum by utilizing speed-coordinated algorithms          such as battery charging level, availability of charging
+integrated with V2X technologies [69]. However, sig-        stations, and traffic conditions. Such an integrated system
+nalized intersections often increase CO2 emissions by       reduces the environmental impact, thereby enhancing
+11.52% due to red light stops, with Carbon Monoxide         more sustainable urban mobility solutions [72].
+(CO), Hydrocarbons (HC), and Nitrogen Oxides (NOx)
+emissions rising by 16.46%, 16.89%, and 15.72%, re-         C. Safety Considerations and Risk Management
+spectively, emphasizing the need for better signal timing
+[70]. Optimized signal timing in mixed traffic, including      Advanced V2X systems optimize traffic flow and
+fuel and electric vehicles, effectively reduces emissions   reduce delay through Green Wave solutions, but con-
+during acceleration, deceleration, and idling stages [13],  sidering the safety of all road users becomes crucial
+[16]. Adaptive traffic light control systems using re-      for building efficient and successful systems. Algorithms
+inforcement learning significantly enhance traffic flow,    like DQN are used in emergency vehicle prioritization
+achieving a 41% increase in average velocity while re-      [20] and Green Wave guidance for human drivers [19]
+ducing CO2 emissions, promoting sustainability in urban     to ensure urgent traffic is prioritized and vehicles are
+mobility [71]. Studies show that the well-synchronized      smoothly passed through intersections. Although they
+routes on urban arterial roads, Green Waves, can reduce     effectively reduce congestion and delays, [73] highlights
+emissions like CO2, NOx, and PM10 by 10% to 40%             the issue of having countdown timers where red-light vi-
+                                                            olations may affect vehicle-pedestrian coordination. Sim-
+
+© 2025 IEEE. Personal use of this material is permitted. Permission from IEEE must be obtained for all other
+uses, in any current or future media, including reprinting/republishing this material for advertising or promotional
+purposes, creating new collective works, for resale or redistribution to servers or lists, or reuse of any copyrighted
+component of this work in other works. This is the accepted version of the paper. The final version is published in
+IEEE Xplore: https://ieeexplore.ieee.org
+This work has been accepted for publication in the IEEE Intelligent Vehicles Symposium (IV) 2025. Copyright
+may be transferred without notice, after which this version may no longer be accessible.
+
+ilar to Green Waves, synchronization through adaptive             Future research will focus on addressing these chal-
+signal control using image-sensing software is crucial         lenges and limitations through advanced data process-
+for improving user safety and avoiding accidents due to        ing, edge computing, 5G networks, and autonomous
+information delays and inaccurate data processing [74].        vehicles, which will further enhance the adaptation of
+                                                               the Green Wave system. Inter-modal traffic management
+   Furthermore, effective risk management is crucial for       and advanced privacy, cybersecurity, and safety proto-
+achieving seamless traffic flow and prioritizing emer-         cols for all road users are crucial for building a safer
+gency vehicles. [75] and [76] utilize big data analysis to     and more robust traffic management system integrated
+optimize signal timings; however, precise data integra-        with Green Wave technologies. Furthermore, another
+tion is crucial to avoid errors by pedestrians, cyclists, and  significant challenge of Green Wave is finding common
+drivers [12], [21]. Studies on Green Signal Countdown          strategies for different traffic participants, including both
+Timers (GSCTs) show their capability to reduce red-light       motorized and vulnerable road users, such as vehicles,
+running [69], [77], [78], while situations like aggressive     pedestrians, and cyclists, due to their varying speeds,
+driver behaviors and unpredictable driver response re-         acceleration profiles, and lane usage patterns. Achieving
+quire sophisticated risk management strategies [79].           a trade-off between fairness and efficiency in signal
+                                                               coordination requires advanced traffic modeling, where
+  IV. IMPLEMENTATION CHALLENGES AND FUTURE                     priority rules or adaptive speed recommendations are
+                                                               tailored to each vehicle type and road user group.
+                                 DIRECTIONS
+                                                                                      V. CONCLUSION
+   The latest developments in coordinated traffic control
+strategies reveal a clear shift to the RL algorithm to            This work presents a comprehensive survey on the
+handle dynamic and complex traffic situations. However,        challenges and advantages of using Green Wave technol-
+all approaches associated with RL require high computa-        ogy for optimal urban traffic management. Although sig-
+tional resources. V2X has paved the way for numerous           nificant advancements have been made in improving traf-
+advancements in Green Wave systems; however, chal-             fic flow, reducing congestion, and decreasing emissions
+lenges remain regarding real-time usage and deployment.        through the integration of Green Wave with advanced
+With the increasing complexity of traffic networks, real-      technologies like V2X and edge computing, deploying in
+time coordination is becoming more challenging, leading        real-time and coordinating across multiple intersections
+to scalability issues. Issues such as data packet loss,        remains challenging for effectively handling dynamic
+delays, network bottlenecks, and the penetration rate of       traffic conditions. The importance of safety measures
+V2X technology can affect the system's performance.            and risk mitigation for vulnerable road users is also
+Additionally, uncertain driver behavior and dynamic traf-      highlighted in this paper through a briefing about both
+fic scenarios can complicate the optimization of traffic       opportunities and risks involved in Green Wave.
+flow. Moreover, ensuring safety through the design of
+such solutions for vulnerable road users, such as pedes-          Adaptive, intelligent signal control strategies and eco-
+trians, is crucial and complicated due to broader system       driving models have been identified as promising so-
+expansions.                                                    lutions; however, a notable research gap still exists
+                                                               regarding real-time scalability and proactive decision-
+                                                               making in dense urban environments. This survey em-
+                                                               phasizes the need for future research to focus on Green
+                                                               Wave, including cybersecurity for information protec-
+                                                               tion and ensuring seamless communication through the
+                                                               latest V2X, edge computing, and 5G-based solutions,
+                                                               before integrating them into smart city infrastructures.
+                                                               These solutions would transform urban mobility, making
+                                                               transport management systems more robust, sustainable,
+                                                               and efficient for every road user. In general, the authors
+                                                               propose to evaluate the effectiveness of Green Wave
+                                                               technology using available real-world traffic datasets,
+                                                               such as the one provided for the city of Darmstadt [80].
+
+                                                               REFERENCES
+
+Fig. 2: Percentage Reduction in Emissions with Green           [1] Z. Li, X. Ji, S. Yuan, Z. Fang, Z. Liu, and J. Gao, "A green
+Wave [14].                                                          wave ecological global speed planning under the framework of
+                                                                    vehicle­road­cloud integration," Electronics, vol. 13, no. 17, p.
+                                                                    3516, 2024.
+
+© 2025 IEEE. Personal use of this material is permitted. Permission from IEEE must be obtained for all other
+uses, in any current or future media, including reprinting/republishing this material for advertising or promotional
+purposes, creating new collective works, for resale or redistribution to servers or lists, or reuse of any copyrighted
+component of this work in other works. This is the accepted version of the paper. The final version is published in
+IEEE Xplore: https://ieeexplore.ieee.org
+This work has been accepted for publication in the IEEE Intelligent Vehicles Symposium (IV) 2025. Copyright
+may be transferred without notice, after which this version may no longer be accessible.
+
+ [2] Y. Shi, J. Li, Q. Han, and L. Lv, "A coordination algorithm for             IEEE Transactions on Intelligent Transportation Systems, vol. 23,
+      signalized multi-intersection to maximize green wave band in v2x           no. 10, pp. 17 899­17 909, 2022.
+      network," IEEE Access, vol. 8, pp. 213 706­213 717, 2020.
+                                                                           [21] M. De Angelis, A. Stuiver, F. Fraboni, G. Prati, V. M. Puchades,
+ [3] Y. Zheng, R. Guo, D. Ma, Z. Zhao, and X. Li, "A novel approach              F. Fassina, D. de Waard, and L. Pietrantoni, "Green wave for
+      to coordinating green wave system with adaptation evolutionary             cyclists: Users' perception and preferences," Applied ergonomics,
+      strategy," IEEE Access, vol. 8, pp. 214 115­214 127, 2020.                 vol. 76, pp. 113­121, 2019.
+
+ [4] K. K. Talluri and G. Weidl, "Bayesian network for analysis            [22] J. Wang, S. Jiang, Y. Qiu, Y. Zhang, J. Ying, and Y. Du, "Traffic
+      and prediction of traffic congestion using the accident data." in          signal optimization under connected-vehicle environment: An
+      VEHITS, 2024, pp. 19­30.                                                   overview," Journal of Advanced Transportation, vol. 2021, no. 1,
+                                                                                 2021.
+ [5] K. Talluri and G. Weidl, "Impact of accidents on traffic con-
+      gestions: A bayesian network approach using real city data," in      [23] A. Warberg, J. Larsen, and R. M. Jørgensen, "Green wave traffic
+      Emerging Cutting-Edge Applied Research and Development in                  optimization-a survey," 2008.
+      Intelligent Traffic and Transportation Systems. IOS Press, 2024,
+      pp. 64­78.                                                           [24] M. Miletic´, E. Ivanjko, M. Greguric´, and K. Kusic´, "A review
+                                                                                 of reinforcement learning applications in adaptive traffic signal
+ [6] L.-W. Chen and C.-C. Chang, "Cooperative traffic control with               control," IET Intelligent Transport Systems, vol. 16, pp. 1269­
+      green wave coordination for multiple intersections based on the            1285, 2022.
+      internet of vehicles," IEEE Transactions on Systems, Man, and
+      Cybernetics: Systems, vol. 47, no. 7, pp. 1321­1335, 2016.           [25] W. Miao, L. Li, and Z. Wang, "A survey on deep reinforcement
+                                                                                 learning for traffic signal control," in 2021 33rd Chinese Control
+ [7] Z. Zhang, H. Liu, M. Zhou, and J. Wang, "Solving dynamic                    and Decision Conference (CCDC). IEEE, 2021, pp. 1092­1097.
+      traveling salesman problems with deep reinforcement learning,"
+      IEEE Transactions on Neural Networks and Learning Systems,           [26] M. Eom and B.-I. Kim, "The traffic signal control problem for
+      vol. 34, no. 4, pp. 2119­2132, 2021.                                       intersections: a review," European Transport Research Review,
+                                                                                 vol. 12, pp. 1­20, 2020.
+ [8] T. Wang, A. Hussain, L. Zhang, and C. Zhao, "Collaborative edge
+      computing for social internet of vehicles to alleviate traffic con-  [27] X. Wang, S. Sanner, and B. Abdulhai, "A critical review of
+      gestion," IEEE Transactions on Computational Social Systems,               traffic signal control and a novel unified view of reinforcement
+      vol. 9, no. 1, pp. 184­196, 2021.                                          learning and model predictive control approaches for adaptive
+                                                                                 traffic signal control," arXiv preprint arXiv:2211.14426, 2022.
+ [9] B. Yang, Y. Zhang, Z. Cai, S. T. Huang, and Q. Feng, "Study on
+      the green wave optimal speed guidance system based on v2x,"          [28] P. Ranpura and R. Gujar, "Review on adaptive traffic signal con-
+      in Proceedings of China SAE Congress 2018: Selected Papers.                trol based on intelligent computing," in International Conference
+      Springer, 2020, pp. 383­391.                                               Innovation in Smart and Sustainable Infrastructure. Springer,
+                                                                                 2022, pp. 605­621.
+[10] I. P. Chochliouros, A. S. Spiliopoulou, A. Kostopoulos, G. Aga-
+      piou, P. Lazaridis, Z. D. Zaharis, T. Chen, A. Dardamanis, M.-       [29] W. Yue, C. Li, G. Mao, N. Cheng, and D. Zhou, "Evolution
+      A. Kourtis, M. Agapiou et al., "C-v2x communications for the               of road traffic congestion control: A survey from perspective of
+      support of a green light optimized speed advisory (glosa) use              sensing, communication, and computation," China Communica-
+      case," Journal of Telecommunications and Information Technol-              tions, vol. 18, no. 12, pp. 151­177, 2021.
+      ogy, no. 2, pp. 93­106, 2021.
+                                                                           [30] F. Webster, "Traffic signal settings," Road Research Paper 39,
+[11] W. Gao, Y. Shi, and S. Chen, "Proactive platooning based on                 1958.
+      c-v2x to relieve congestion at a signalized intersection," China
+      Communications, vol. 20, no. 2, pp. 155­167, 2023.                   [31] H. Wei, G. Zheng, V. Gayah, and Z. Li, "A survey on traffic
+                                                                                 signal control methods," arXiv preprint arXiv:1904.08117, 2019.
+[12] S. Fickas, "Green waves, machine learning, and predictive ana-
+      lytics: Making streets better for people on bikes," 2021.            [32] J. Little, M. Kelson, and N. Gartner, "Maxband: A program for
+                                                                                 setting signals on arteries and triangular networks," Transporta-
+[13] H.-X. Zhao, R.-C. He, and N. Yin, "Modeling of vehicle co 2                 tion Research Record, vol. 795, pp. 40­46, 1981.
+      emissions and signal timing analysis at a signalized intersection
+      considering fuel vehicles and electric vehicles," European Trans-    [33] "Mova traffic control manual," 2017. [Online]. Available: https:
+      port Research Review, vol. 13, pp. 1­15, 2021.                             //trlsoftwaredownloads.s3.eu-west-2.amazonaws.com/MOVA%
+                                                                                 20-%20Traffic%20Control%20Manual%20%28AG44%29.pdf
+[14] M. Kiers and C. Visser, "The effect of a green wave on traffic
+      emissions," 2017.                                                    [34] R. Bretherton, "Scoot urban traffic control system - philosophy
+                                                                                 and evaluation," IFAC Proceedings Volumes, vol. 23, no. 2, pp.
+[15] B. De Coensel and D. Botteldooren, "Traffic signal coordination:            237­239, 1990.
+      a measure to reduce the environmental impact of urban road
+      traffic?" in 40th International Congress and Exposition on Noise     [35] A. G. Sims and K. W. Dobinson, "The sydney coordinated
+      Control Engineering (Inter-Noise-2011), vol. 5. Institute of               adaptive traffic (scat) system philosophy and benefits," IEEE
+      Noise Control Engineering Japan, 2011, pp. 4218­4223.                      Transactions On Vehicular Technology, vol. 29, no. 2, pp. 130­
+                                                                                 137, 1980.
+[16] P. Fazzini, M. Torre, V. Rizza, and F. Petracchini, "Effects of
+      smart traffic signal control on air quality," Frontiers in Sustain-  [36] V. Mauro and C. Di Taranto, "Utopia," IFAC Proceedings Vol-
+      able Cities, vol. 4, p. 756539, 2022.                                      umes, vol. 23, no. 2, pp. 245­252, 1990.
+
+[17] H.-l. Kui, H. Wang, H.-x. Li, and C.-h. Tian, "An eco-speed           [37] P. Mirchandani and L. Head, "A real-time traffic signal control
+      optimization for multiple signalized intersections based on v2i,"          system: architecture, algorithms, and analysis," Transportation
+      in Green Intelligent Transportation Systems: Proceedings of the            Research Part C: Emerging Technologies, vol. 9, no. 6, pp. 415­
+      8th International Conference on Green Intelligent Transportation           432, 2001.
+      Systems and Safety. Springer, 2019, pp. 309­319.
+                                                                           [38] N. H. Gartner, "Opac: A demand-responsive strategy for traffic
+[18] S. islam Bouderba and N. Moussa, "Impact of green wave traffic              signal control," Transportation Research Record, vol. 906, pp.
+      light system on v2v communications," in 2018 6th International             75­81, 1983.
+      Conference on Wireless Networks and Mobile Communications
+      (WINCOM). IEEE, 2018, pp. 1­6.                                       [39] A. Agrawal and R. Paulus, "Intelligent traffic light design and
+                                                                                 control in smart cities: a survey on techniques and methodolo-
+[19] S. Yuan, S. Xu, and S. Zheng, "Deep reinforcement learning                  gies," International Journal of Vehicle Information and Commu-
+      based green wave speed guidance for human-driven connected                 nication Systems, vol. 5, no. 4, pp. 436­481, 2020.
+      vehicles at signalized intersections," in 2022 14th International
+      Conference on Measuring Technology and Mechatronics Automa-          [40] A. N. A. Yusuf, A. S. Arifin, and F. Y. Zulkifli, "Recent
+      tion (ICMTMA). IEEE, 2022, pp. 331­339.                                    development of smart traffic lights," IAES International Journal
+                                                                                 of Artificial Intelligence, vol. 10, no. 1, pp. 224­233, 2021.
+[20] M. Cao, V. O. Li, and Q. Shuai, "A gain with no pain: Ex-
+      ploring intelligent traffic signal control for emergency vehicles,"  [41] S. Jafari, Z. Shahbazi, and Y.-C. Byun, "Improving the road
+                                                                                 and traffic control prediction based on fuzzy logic approach in
+                                                                                 multiple intersections," Mathematics, vol. 10, 2022.
+
+© 2025 IEEE. Personal use of this material is permitted. Permission from IEEE must be obtained for all other
+uses, in any current or future media, including reprinting/republishing this material for advertising or promotional
+purposes, creating new collective works, for resale or redistribution to servers or lists, or reuse of any copyrighted
+component of this work in other works. This is the accepted version of the paper. The final version is published in
+IEEE Xplore: https://ieeexplore.ieee.org
+This work has been accepted for publication in the IEEE Intelligent Vehicles Symposium (IV) 2025. Copyright
+may be transferred without notice, after which this version may no longer be accessible.
+
+[42] A. Jamal, H. M. Al-Ahmadi, F. M. Butt, M. Iqbal, M. Al-                      Conference on Intelligent Transportation Systems (ITSC). IEEE,
+      moshaogeh, and S. Ali, Metaheuristics for traffic control and               2023, pp. 5271­5278.
+      optimization: Current challenges and prospects. IntechOpen,
+      2021.                                                                 [63] R. Chen, F. Fang, and N. Sadeh, "The real deal: A review of chal-
+                                                                                  lenges and opportunities in moving reinforcement learning-based
+[43] Y. Wang, X. Yang, H. Liang, and Y. Liu, "A review of the                     traffic signal control systems towards reality," arXiv preprint
+      self-adaptive traffic signal control system based on future traffic         arXiv:2206.11996, 2022.
+      environment," Journal of Advanced Transportation, vol. 2018,
+      no. 1, 2018.                                                          [64] B.-L. Ye, W. Wu, K. Ruan, L. Li, T. Chen, H. Gao, and Y. Chen,
+                                                                                  "A survey of model predictive control methods for traffic signal
+[44] I. Abu-Shawish, S. Ghunaim, M. Azzeh, and A. B. Nassif,                      control," IEEE/CAA Journal of Automatica Sinica, vol. 6, no. 3,
+      "Metaheuristic techniques in optimizing traffic control lights: a           pp. 623­640, 2019.
+      systematic review," International Journal of Systems Applica-
+      tions, 2020.                                                          [65] S. Partani, D. Wang, R. Sattiraju, A. Qiu, A. Weinand, and
+                                                                                  H. Schotten, "Achievable performance gains by connected driv-
+[45] S. S. S. M. Qadri, M. A. Go¨kc¸e, and E. O¨ ner, "State-of-art review        ing," in Commercial Vehicle Technology 2020/2021: Proceedings
+      of traffic signal control methods: challenges and opportunities,"           of the 6th Commercial Vehicle Technology Symposium. Springer,
+      European Transport Research Review, vol. 12, pp. 1­23, 2020.                2021, pp. 39­50.
+
+[46] S. Jalili, S. Nallaperuma, E. Keedwell, A. Dawn, and L. Oakes-         [66] C. Ma and R. He, "Green wave traffic control system optimization
+      Ash, "Application of metaheuristics for signal optimisation in              based on adaptive genetic-artificial fish swarm algorithm," Neural
+      transportation networks: A comprehensive survey," Swarm and                 Computing and Applications, vol. 31, pp. 2073­2083, 2019.
+      Evolutionary Computation, vol. 63, 2021.
+                                                                            [67] N. Wang and Y. Chen, "Research on vehicle speed guidance
+[47] P. W. Shaikh, M. El-Abd, M. Khanafer, and K. Gao, "A review on               model based on green wave vehicle scene," in Sixth International
+      swarm intelligence and evolutionary algorithms for solving the              Conference on Traffic Engineering and Transportation System
+      traffic signal control problem," IEEE transactions on intelligent           (ICTETS 2022), vol. 12591. SPIE, 2023, pp. 550­555.
+      transportation systems, vol. 23, no. 1, pp. 48­63, 2022.
+                                                                            [68] H. Suzuki and Y. Marumo, "Green light optimum speed advisory
+[48] J. H. Holland, "Genetic algorithms and adaptation," Adaptive                 (glosa) system with signal timing variations-traffic simulator
+      control of ill-defined systems, pp. 317­333, 1984.                          study," in Human Systems Engineering and Design II: Proceed-
+                                                                                  ings of the 2nd International Conference on Human Systems
+[49] Y. K. Chin, K. Yong, N. Bolong, S. S. Yang, and K. T. K. Teo,                Engineering and Design (IHSED2019): Future Trends and Ap-
+      "Multiple intersections traffic signal timing optimization with             plications, September 16-18, 2019, Universita¨t der Bundeswehr
+      genetic algorithm," in 2011 IEEE International Conference on                Mu¨nchen, Munich, Germany. Springer, 2020, pp. 584­590.
+      Control System, Computing and Engineering. IEEE, 2011, pp.
+      454­459.                                                              [69] M. Paul and I. Ghosh, "Influence of green signal countdown timer
+                                                                                  on severe crash types at signalized intersections due to red light
+[50] R. Eberhart and J. Kennedy, "A new optimizer using particle                  violations," Transportation letters, vol. 12, no. 8, pp. 528­539,
+      swarm theory," in MHS'95. Proceedings of the sixth international            2020.
+      symposium on micro machine and human science. IEEE, 1995,
+      pp. 39­43.                                                            [70] H. Zhao, R. He, and X. Jia, "Estimation and analysis of ve-
+                                                                                  hicle exhaust emissions at signalized intersections using a car-
+[51] S. Dabiri and M. Abbas, "Arterial traffic signal optimization using          following model," Sustainability, vol. 11, no. 14, p. 3992, 2019.
+      particle swarm optimization in an integrated vissim-matlab simu-
+      lation environment," in 2016 IEEE 19th International Conference       [71] L. Koch, T. Brinkmann, M. Wegener, K. Badalian, and J. Andert,
+      on Intelligent Transportation Systems (ITSC). IEEE, 2016, pp.               "Adaptive traffic light control with deep reinforcement learning:
+      766­771.                                                                    An evaluation of traffic flow and energy consumption," IEEE
+                                                                                  transactions on intelligent transportation systems, 2023.
+[52] M. Dorigo, M. Birattari, and T. Stutzle, "Ant colony optimiza-
+      tion," IEEE Computational Intelligence Magazine, vol. 1, no. 4,       [72] P. Jochem, S. Babrowski, and W. Fichtner, "Assessing co2 emis-
+      pp. 28­39, 2006.                                                            sions of electric vehicles in germany in 2030," Transportation
+                                                                                  Research Part A: Policy and Practice, vol. 78, pp. 68­83, 2015.
+[53] E. Zechman, L. Quadrifoglio, and R. Putha, "Ant colony op-
+      timization algorithm for signal coordination of over saturated        [73] S. Biswas, I. Ghosh, and S. Chandra, "Effect of traffic signal
+      traffic networks," Texas Transportation Institute, Tech. Rep.,              countdown timers on pedestrian crossings at signalized intersec-
+      2010.                                                                       tion," Transportation in developing economies, vol. 3, pp. 1­16,
+                                                                                  2017.
+[54] A. Haydari and Y. Yilmaz, "Deep reinforcement learning for
+      intelligent transportation systems: A survey," IEEE Transactions      [74] W. Cheewapattananuwong, P. Taneerananon, and T. Nakatsuji,
+      on Intelligent Transportation Systems, vol. 23, no. 1, pp. 11­32,           "Mitigating traffic congestion and accidents in thailand with intel-
+      2022.                                                                       ligent transportation system technology," Transportation research
+                                                                                  record, vol. 2239, no. 1, pp. 41­55, 2011.
+[55] H. Zhao, C. Dong, J. Cao, and Q. Chen, "A survey on deep
+      reinforcement learning approaches for traffic signal control," En-    [75] H. Wang, Q. Miao, Y. Zhang, and X. Wen, "Green wave zone
+      gineering Applications of Artificial Intelligence, vol. 133, 2024.          evaluation method based on electronic police data," in 2021
+                                                                                  2nd International Conference on Big Data and Informatization
+[56] F. Rasheed, K.-L. A. Yau, R. M. Noor, C. Wu, and Y.-C. Low,                  Education (ICBDIE). IEEE, 2021, pp. 155­158.
+      "Deep reinforcement learning for traffic signal control: A review,"
+      IEEE Access, vol. 8, pp. 208 016­208 044, 2020.                       [76] L. Bieker-Walz and M. Behrisch, "Modelling green waves for
+                                                                                  emergency vehicles using connected traffic data," EPiC Series in
+[57] M. L. Puterman, Markov decision processes: discrete stochastic               Computing, no. 62, pp. 1­11, 2019.
+      dynamic programming. John Wiley & Sons, 1994.
+                                                                            [77] F. Pan, J. Yang, L. Zhang, C. Ma, J. Yang, and P. Zhang, "Impact
+[58] C. J. Watkins and P. Dayan, "Q-learning," Machine learning,                  of countdown signals on traffic safety and efficiency: a review
+      vol. 8, pp. 279­292, 1992.                                                  and proposal," Digital Transportation and Safety, vol. 2, no. 3,
+                                                                                  pp. 200­210, 2023.
+[59] G. A. Rummery and M. Niranjan, "On-line q-learning using
+      connectionist systems," 1994.                                         [78] C. Brand, T. Hagedorn, T. Ko¨sters, M. Meier, G. Sieg, and J. Wes-
+                                                                                  sel, "Riding the green wave­how countdown timers at bicycle
+[60] R. J. Williams, "Simple statistical gradient-following algorithms            traffic lights impact on cycling behavior," Travel behaviour and
+      for connectionist reinforcement learning," Machine learning,                society, vol. 35, p. 100731, 2024.
+      vol. 8, pp. 229­256, 1992.
+                                                                            [79] M. R. Islam, A. A. Wyman, and D. S. Hurwitz, "Safer driver
+[61] E. Van der Pol and F. A. Oliehoek, "Coordinated deep reinforce-              responses at intersections with green signal countdown timers,"
+      ment learners for traffic light control," in 30th Conference on             Transportation research part F: traffic psychology and behaviour,
+      Neural Information Processing Systems (NIPS 2016), 2016.                    vol. 51, pp. 1­13, 2017.
+
+[62] A. Mu¨ller and M. Sabatelli, "Bridging the reality gap of rein-
+      forcement learning based traffic signal control using domain ran-
+      domization and meta learning," in 2023 IEEE 26th International
+
+© 2025 IEEE. Personal use of this material is permitted. Permission from IEEE must be obtained for all other
+uses, in any current or future media, including reprinting/republishing this material for advertising or promotional
+purposes, creating new collective works, for resale or redistribution to servers or lists, or reuse of any copyrighted
+component of this work in other works. This is the accepted version of the paper. The final version is published in
+IEEE Xplore: https://ieeexplore.ieee.org
+This work has been accepted for publication in the IEEE Intelligent Vehicles Symposium (IV) 2025. Copyright
+may be transferred without notice, after which this version may no longer be accessible.
+
+[80] "Verkehrsdaten darmstadt." [Online]. Available: https:
+      //datenplattform.darmstadt.de/verkehr/apps/opendata/#/
+
+© 2025 IEEE. Personal use of this material is permitted. Permission from IEEE must be obtained for all other
+uses, in any current or future media, including reprinting/republishing this material for advertising or promotional
+purposes, creating new collective works, for resale or redistribution to servers or lists, or reuse of any copyrighted
+component of this work in other works. This is the accepted version of the paper. The final version is published in
+IEEE Xplore: https://ieeexplore.ieee.org
+
