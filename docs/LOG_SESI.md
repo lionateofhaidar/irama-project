@@ -350,3 +350,13 @@ Instruksi user: (a) ajukan setiap hal yang membutuhkan keputusan (U-01…U-08 + 
 - Folder baru `docs/sources/08_Data_Kota_Pilot_Bandung/` (50 file): 24 lokasi/46 kamera ATCS dengan koordinat (endpoint portal), 21 arsip berita, `_urls.tsv`. Temuan: 150 APILL, 66 simpang ber-CCTV terhubung ATCS (Kadishub 23-07-2026), ruang kendali Balai Kota Jl. Wastukencana 2; Wali Kota: ATCS "semi-manual, teknologi usang", uji coba AI di Pasteur; vendor tidak disebut; TMB 5 koridor + AVL BEMO (tanpa GTFS-RT publik). Kandidat koridor pilot: **K-A Pasteur–Cikapayang–Dago (6 simpang, ±1,9 km, semua ≤1 km)**, K-B Soekarno-Hatta Batununggal–Buah Batu–Kircon (kemungkinan jalan nasional), K-C Cibaduyut–M. Toha, K-D PHH Mustofa.
 - `R07_Regulasi_Tambahan_Purdue_dan_Data_Bandung.md` (39 KB) dibaca & diverifikasi (rujukan halaman lengkap); README_INDEX diperbarui fork (bagian 01, 02, 08). START_HERE §2 ditambah R07. Q-07 & Q-10 kini SELESAI (kecuali SK.326/2018 resmi & TRR 2259-04 berbayar).
 - Commit kedua + push ke `origin/main` (lihat hasil di bawah).
+- Hasil: commit `79d34d5` dipush ke `origin/main` (3 objek LFS baru 6,6 MB; PDF Perda Bandung/Jabar & JTRP 2014 sudah masuk di commit pertama karena dibuat sebelum commit). Working tree bersih, `main` sinkron dengan remote.
+
+---
+
+## 6. Status Akhir Sesi 2026-09-13 & Langkah Berikutnya
+- **Semua keputusan terjawab** (U-01…U-08, Q-01…Q-11, REPO-1…REPO-5) — tercatat di `docs/kb/10` §B–C dan entri T-20…T-24.
+- **Repo GitHub privat** `lionateofhaidar/irama-project`: 2 commit, 132 objek LFS (±421 MB), struktur monorepo; clone ringan: `GIT_LFS_SKIP_SMUDGE=1 git clone …`.
+- **Deliverable baru**: `docs/planning/11` (pengadaan per tahap), `12` (kuesioner survei controller), `13` (kebutuhan data per tahap), `docs/sources/_ringkasan/R07`, `docs/sources/08_Data_Kota_Pilot_Bandung/`.
+- **Tindakan user berikutnya**: (1) cek merek IRAMA di PDKI & domain; (2) kumpulkan data T1 sesuai daftar cek `docs/planning/13` (koridor kandidat K-A Pasteur–Cikapayang–Dago) + 3–5 klip CCTV; (3) bawa kuesioner `12` ke Dishub Kota Bandung (Seksi Lalu Lintas Jalan, Bidang Lalu Lintas & Perlengkapan Jalan) dan 1–2 vendor; (4) sesi berikutnya: planning rinci end-to-end (ConOps → SRS → ADR-01…ADR-18 → skema data → sprint T1) mengikuti `docs/planning/09`.
+- Log berikutnya dimulai dari `[T-29]`.
