@@ -1,0 +1,32 @@
+flowchart LR
+  subgraph P["Pengguna & mitra eksternal"]
+    F08a["a. AVL/APC operator bus; CAD pemadam dan ambulans (T3)"]
+  end
+  subgraph U["Penyajian (layar & aplikasi)"]
+    F08h["h. Konsol prioritas: permintaan, dilayani/ditolak, dampak jalan samping (T3)"]
+  end
+  subgraph S["Pusat (server aplikasi)"]
+    F08c["c. Layanan permintaan prioritas: kelayakan (terlambat, muatan), antrian permintaan (T3)"]
+    F08d["d. Prioritas bersyarat (OCC/Transit-MP) dan darurat bertingkat dengan penyelesaian konflik (T4)"]
+    F08e["e. Batas: pejalan kaki tidak dipotong, satu aktivasi per siklus, jeda, pemulihan koordinasi (T3)"]
+    F08i["i. Log dan KPI: waktu tempuh bus, waktu tanggap darurat (T3)"]
+  end
+  subgraph K["Komunikasi & integrasi"]
+    F08b["b. API mitra sesuai dokumen antarmuka; MoU digital detik prioritas (T3)"]
+    F08f["f. Perintah tahan, perpanjang, atau preempt ke controller (T3)"]
+  end
+  subgraph L["Lapangan (kabinet, edge, kamera)"]
+    F08g["g. Controller memberi hijau tambahan atau preempt; check-out geofence mengakhiri (T3)"]
+  end
+  F08a --> F08b
+  F08b --> F08c
+  F08c -->|T4| F08d
+  F08c --> F08e
+  F08d --> F08e
+  F08e --> F08f
+  F08f --> F08g
+  F08g --> F08i
+  F08c --> F08h
+  F08i --> F08h
+  style F08a stroke:#EF6C00,stroke-width:2px
+  style F08d stroke:#6A1B9A,stroke-width:2px

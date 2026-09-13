@@ -1,0 +1,30 @@
+flowchart LR
+  subgraph P["Pengguna & mitra eksternal"]
+    F05h["h. Pejabat, DPRD, Forum LLAJ, warga (T2)"]
+  end
+  subgraph U["Penyajian (layar & aplikasi)"]
+    F05g["g. Dashboard pimpinan dan engineer; dashboard publik dengan metode terbuka (T2)"]
+  end
+  subgraph S["Pusat (server aplikasi)"]
+    F05c["c. Ingest dan simpan: rinci 90 hari, ringkasan 15 menit selama 5 tahun (T1)"]
+    F05d["d. Mesin ATSPM: terminasi fase, split failure, arrivals on green, diagram koordinasi (T1)"]
+    F05e["e. KPI PKJI dan LOS PM 96; perbandingan sebelum-sesudah dan hidup-mati (T1)"]
+    F05f["f. Generator laporan: Forum LLAJ, Dirjen/BPTJ, Gubernur triwulanan (T2)"]
+  end
+  subgraph K["Komunikasi & integrasi"]
+    F05b["b. Dikirim berkala dalam paket lewat MQTT (T2)"]
+  end
+  subgraph L["Lapangan (kabinet, edge, kamera)"]
+    F05a["a. Catatan kejadian 0,1 detik dari controller, edge, atau simulator (T1)"]
+  end
+  F05a --> F05b
+  F05b --> F05c
+  F05a -->|T1 langsung| F05c
+  F05c --> F05d
+  F05d --> F05e
+  F05e --> F05f
+  F05e --> F05g
+  F05f --> F05h
+  F05g --> F05h
+  style F05a stroke:#2E7D32,stroke-width:2px
+  style F05b stroke:#1565C0,stroke-width:2px

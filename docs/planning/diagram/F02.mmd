@@ -1,0 +1,26 @@
+flowchart LR
+  subgraph P["Pengguna & mitra eksternal"]
+    F02a["a. Perencana memasukkan data survei, geometri, dan arus (T1)"]
+    F02f["f. Persetujuan Kepala Dinas; Dirjen/BPTJ bila simpang di jalan nasional (T2)"]
+  end
+  subgraph U["Penyajian (layar & aplikasi)"]
+    F02c["c. Editor jadwal (fase, hijau, offset); minimal delapan jadwal per simpang (T1)"]
+  end
+  subgraph S["Pusat (server aplikasi)"]
+    F02b["b. Kalkulator PKJI 2023: kapasitas, antrian, tundaan, kelas LOS (T1)"]
+    F02d["d. Validator keselamatan (kuning, merah semua, hijau minimum) dan konsistensi urutan fase (T1)"]
+    F02e["e. Uji di digital twin SUMO; laporan hasil (wajib sebelum penetapan mulai T3) (T1)"]
+    F02g["g. Transaksi unduh jadwal tervalidasi; versi dan jejak audit (T2)"]
+  end
+  subgraph L["Lapangan (kabinet, edge, kamera)"]
+    F02h["h. Controller menerima jadwal baru; jadwal lokal ikut diperbarui (T2)"]
+  end
+  F02a --> F02b
+  F02b --> F02c
+  F02c --> F02d
+  F02d --> F02e
+  F02e --> F02f
+  F02f --> F02g
+  F02g --> F02h
+  style F02a stroke:#2E7D32,stroke-width:2px
+  style F02f stroke:#1565C0,stroke-width:2px

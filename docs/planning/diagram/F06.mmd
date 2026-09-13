@@ -1,0 +1,30 @@
+flowchart LR
+  subgraph P["Pengguna & mitra eksternal"]
+    F06h["h. Operator ruang kendali; pejabat perlindungan data (T3)"]
+  end
+  subgraph U["Penyajian (layar & aplikasi)"]
+    F06g["g. Tampilan kamera langsung (WebRTC) dengan lapisan hitungan (T2)"]
+  end
+  subgraph S["Pusat (server aplikasi)"]
+    F06e["e. Detektor virtual menjadi catatan kejadian dan masukan kendali (T3)"]
+    F06f["f. Tata kelola PDP: dasar hukum, retensi pelat singkat, akses terbatas, DPIA (T3)"]
+  end
+  subgraph K["Komunikasi & integrasi"]
+    F06d["d. Kirim angka ringkasan lewat MQTT, tanpa video (T3)"]
+  end
+  subgraph L["Lapangan (kabinet, edge, kamera)"]
+    F06a["a. Kamera CCTV (RTSP) atau kamera analitik vendor (T2)"]
+    F06b["b. Edge AI: hitung kendaraan, okupansi, antrian; baca pelat (disamarkan) (T3)"]
+    F06c["c. Pemeriksaan kualitas deteksi (malam, hujan); turun otomatis bila buruk (T3)"]
+  end
+  F06a --> F06b
+  F06b --> F06c
+  F06c --> F06d
+  F06d --> F06e
+  F06e -->|pelat| F06f
+  F06a -->|stream| F06g
+  F06e -->|angka| F06g
+  F06g --> F06h
+  F06f --> F06h
+  style F06a stroke:#1565C0,stroke-width:2px
+  style F06b stroke:#EF6C00,stroke-width:2px

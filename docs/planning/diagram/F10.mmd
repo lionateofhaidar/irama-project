@@ -1,0 +1,25 @@
+flowchart LR
+  subgraph P["Pengguna & mitra eksternal"]
+    F10a["a. Warga melapor lewat aplikasi kota, CRM, atau telepon (T2)"]
+    F10g["g. Jawaban ke pelapor; status dapat dilihat publik (T2)"]
+  end
+  subgraph U["Penyajian (layar & aplikasi)"]
+    F10f["f. Operator menindaklanjuti; tiket kerja ke teknisi bila perlu (T2)"]
+  end
+  subgraph S["Pusat (server aplikasi)"]
+    F10c["c. Tiket tujuh langkah, klasifikasi, target penyelesaian tiga jam (T2)"]
+    F10d["d. Matriks diagnosis: jenis keluhan dipetakan ke data ATSPM terkait (T2)"]
+    F10e["e. Pemutaran ulang kejadian historis (status lampu dan detektor saat keluhan) (T3)"]
+  end
+  subgraph K["Komunikasi & integrasi"]
+    F10b["b. API CRM dua arah (T2)"]
+  end
+  F10a --> F10b
+  F10b --> F10c
+  F10c --> F10d
+  F10d --> F10e
+  F10d --> F10f
+  F10e --> F10f
+  F10f --> F10g
+  style F10a stroke:#1565C0,stroke-width:2px
+  style F10e stroke:#EF6C00,stroke-width:2px

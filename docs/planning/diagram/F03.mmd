@@ -1,0 +1,26 @@
+flowchart LR
+  subgraph P["Pengguna & mitra eksternal"]
+    F03a["a. Operator atau petugas Polri memilih program, kedip, atau mode manual (T2)"]
+  end
+  subgraph U["Penyajian (layar & aplikasi)"]
+    F03b["b. Konsol kendali meminta konfirmasi dan alasan (T2)"]
+  end
+  subgraph S["Pusat (server aplikasi)"]
+    F03c["c. Layanan perintah memeriksa hak akses, mengirim perintah tipe C dan detak jantung (T2)"]
+    F03g["g. Jejak audit perintah dan KPI transisi; alarm bila cadangan aktif (T2)"]
+  end
+  subgraph K["Komunikasi & integrasi"]
+    F03d["d. SNMP/MQTT lewat VPN (T2)"]
+  end
+  subgraph L["Lapangan (kabinet, edge, kamera)"]
+    F03e["e. Controller menjalankan program; edge meneruskan detak jantung (T2)"]
+    F03f["f. Jaringan putus: controller kembali ke jadwal lokal; edge menyimpan catatan (T2)"]
+  end
+  F03a --> F03b
+  F03b --> F03c
+  F03c --> F03d
+  F03d --> F03e
+  F03e -->|bila putus| F03f
+  F03e --> F03g
+  F03f -->|alarm| F03g
+  style F03a stroke:#1565C0,stroke-width:2px

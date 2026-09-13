@@ -1,0 +1,29 @@
+flowchart LR
+  subgraph P["Pengguna & mitra eksternal"]
+    F04h["h. Kepala Dinas melihat KPI kesehatan perangkat dan biaya (T2)"]
+  end
+  subgraph U["Penyajian (layar & aplikasi)"]
+    F04f["f. Aplikasi ponsel teknisi: tiket, checklist, foto, bisa offline (T2)"]
+  end
+  subgraph S["Pusat (server aplikasi)"]
+    F04b["b. Watchdog harian dari catatan kejadian (detektor diam, max-out dini hari) (T2)"]
+    F04c["c. Mesin alarm: prioritas, eskalasi, notifikasi ke Polri bila APILL mati (T2)"]
+    F04e["e. Tiket kerja otomatis dengan SLA dan pencatatan waktu perbaikan (T2)"]
+    F04g["g. Jadwal pemeliharaan enam bulanan, umur teknis lima tahun, penilaian aset (T1)"]
+  end
+  subgraph K["Komunikasi & integrasi"]
+    F04d["d. Email/WhatsApp; API CRM kota (T2)"]
+  end
+  subgraph L["Lapangan (kabinet, edge, kamera)"]
+    F04a["a. Alarm controller dan detektor; pintu kabinet; catu daya (T2)"]
+  end
+  F04a --> F04c
+  F04b --> F04c
+  F04c --> F04d
+  F04c --> F04e
+  F04e --> F04f
+  F04f -->|selesai| F04e
+  F04g -->|jatuh tempo| F04e
+  F04e -->|KPI| F04h
+  style F04g stroke:#2E7D32,stroke-width:2px
+  style F04a stroke:#1565C0,stroke-width:2px

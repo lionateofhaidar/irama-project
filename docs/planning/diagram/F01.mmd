@@ -1,0 +1,29 @@
+flowchart LR
+  subgraph P["Pengguna & mitra eksternal"]
+    F01h["h. Operator memantau; pimpinan dan publik melihat ringkasan (T2)"]
+  end
+  subgraph U["Penyajian (layar & aplikasi)"]
+    F01g["g. Peta simpang dan tampilan fase langsung di konsol (T1)"]
+  end
+  subgraph S["Pusat (server aplikasi)"]
+    F01e["e. Layanan status menerima dan menyimpan potret status (T1)"]
+    F01f["f. Mesin aturan menandai anomali (offline, kedip, konflik, jam melenceng) (T2)"]
+  end
+  subgraph K["Komunikasi & integrasi"]
+    F01d["d. Jaringan Dishub (fiber/4G) lewat VPN, pesan MQTT (T2)"]
+  end
+  subgraph L["Lapangan (kabinet, edge, kamera)"]
+    F01a["a. Simulator SUMO berperan sebagai controller (T1)"]
+    F01b["b. Controller melaporkan status lampu dan detektor tiap detik (T2)"]
+    F01c["c. Agen edge menerjemahkan protokol vendor, menyimpan data bila jaringan putus (T2)"]
+  end
+  F01a -->|T1| F01e
+  F01b --> F01c
+  F01c --> F01d
+  F01d --> F01e
+  F01e --> F01f
+  F01e --> F01g
+  F01f -->|alarm| F01g
+  F01g --> F01h
+  style F01a stroke:#2E7D32,stroke-width:2px
+  style F01b stroke:#1565C0,stroke-width:2px

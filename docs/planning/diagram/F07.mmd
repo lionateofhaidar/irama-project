@@ -1,0 +1,31 @@
+flowchart LR
+  subgraph U["Penyajian (layar & aplikasi)"]
+    F07i["i. Konsol adaptif: parameter, keputusan, dan nilai antara yang bisa dijelaskan (T4)"]
+  end
+  subgraph S["Pusat (server aplikasi)"]
+    F07b["b. Gerbang kesehatan: adaptif hanya bila detektor sehat (T3)"]
+    F07c["c. Pemilihan program otomatis dan penalaan offset koridor (Link Pivot, data GPS) (T3)"]
+    F07d["d. Cyclic max-pressure membagi hijau tiap siklus, perubahan maksimal lima detik (T4)"]
+    F07e["e. Pengendalian perimeter kawasan pusat kota saat jenuh (T4)"]
+    F07f["f. Mode bayangan dan ATSPM sebagai pengamat independen (T3)"]
+  end
+  subgraph K["Komunikasi & integrasi"]
+    F07g["g. Perintah split/program lewat antarmuka controller (T3)"]
+  end
+  subgraph L["Lapangan (kabinet, edge, kamera)"]
+    F07a["a. Detektor (virtual, loop, radar) melaporkan okupansi dan antrian (T3)"]
+    F07h["h. Controller menjalankan; jadwal lokal tetap sebagai cadangan (T3)"]
+  end
+  F07a --> F07b
+  F07b --> F07c
+  F07c -->|T4| F07d
+  F07d --> F07e
+  F07c --> F07g
+  F07d --> F07g
+  F07e --> F07g
+  F07g --> F07h
+  F07a --> F07f
+  F07f --> F07i
+  F07d --> F07i
+  style F07a stroke:#EF6C00,stroke-width:2px
+  style F07d stroke:#6A1B9A,stroke-width:2px

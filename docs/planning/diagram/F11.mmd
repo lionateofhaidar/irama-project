@@ -1,0 +1,29 @@
+flowchart LR
+  subgraph P["Pengguna & mitra eksternal"]
+    F11g["g. Universitas atau vendor mengajukan algoritma (marketplace) (T5)"]
+  end
+  subgraph U["Penyajian (layar & aplikasi)"]
+    F11i["i. Laporan divergensi dan keputusan lanjut atau berhenti (T3)"]
+  end
+  subgraph S["Pusat (server aplikasi)"]
+    F11a["a. Generator jaringan simulasi dari registri simpang dan peta OSM (T1)"]
+    F11b["b. Kalibrasi twin per koridor dengan data hitungan dan GPS (T3)"]
+    F11c["c. Skenario: jadwal baru, insiden, acara; kebijakan TDM skala kota (T5) (T3)"]
+    F11d["d. Pekerja simulasi menjalankan; hasil MoE dan catatan kejadian (T3)"]
+    F11e["e. Mode bayangan: algoritma menerima data hidup, keputusan dicatat, tidak dikirim (T3)"]
+    F11f["f. Veto statistik dan uji konflik prioritas (T4)"]
+    F11h["h. Promosi bertahap: jam sepi, jam sibuk, perbandingan hidup-mati (T3)"]
+  end
+  F11a --> F11b
+  F11b --> F11c
+  F11c --> F11d
+  F11d --> F11e
+  F11e --> F11f
+  F11f --> F11h
+  F11g -->|T5| F11d
+  F11e --> F11i
+  F11h --> F11i
+  style F11a stroke:#2E7D32,stroke-width:2px
+  style F11b stroke:#EF6C00,stroke-width:2px
+  style F11f stroke:#6A1B9A,stroke-width:2px
+  style F11g stroke:#C62828,stroke-width:2px
