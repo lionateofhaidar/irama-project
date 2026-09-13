@@ -1,5 +1,5 @@
 # 02 — Kandidat Nama & Branding
-Status: draf untuk diputuskan user. Pemeriksaan ketersediaan yang saya lakukan hanya pencarian web sepintas; **pemeriksaan merek di PDKI-DJKI, domain, dan akun media sosial wajib dilakukan sebelum dipakai** (masuk checklist pra-GitHub).
+Status: IRAMA dipilih sementara oleh user (2026-09-13); nama final menunggu cek merek & gambaran fitur end-state. Pemeriksaan ketersediaan yang saya lakukan hanya pencarian web sepintas; **pemeriksaan merek di PDKI-DJKI, domain, dan akun media sosial wajib dilakukan sebelum dipakai** (masuk checklist pra-GitHub).
 
 ## 1. Kriteria nama
 1. Bahasa Indonesia atau terasa Indonesia, mudah diucapkan pejabat & wartawan, 2–3 suku kata.
@@ -19,6 +19,23 @@ Status: draf untuk diputuskan user. Pemeriksaan ketersediaan yang saya lakukan h
 | 5 | **GELOMBANG HIJAU / GEHIJAU** | Terjemahan green wave; teknis & visual | — | "Hijau terus, lancar terus" | Terlalu spesifik ke koordinasi; kurang cocok untuk modul inventaris/KPI |
 | 6 | **PANDU LINTAS** | Pandu = memandu; ramah untuk publik | — | "Memandu lalu lintas kota" | Dua kata; "Pandu" dipakai banyak produk |
 | 7 | **SIMPANG** (mis. "Simpang Cerdas") | Literal objek yang dikelola | — | — | Terlalu literal & mudah ditiru; cadangan untuk nama modul |
+
+### 2a. IRAMA sebagai kandidat terkuat: makna dan kepanjangan (diputuskan sementara oleh user, 2026-09-13)
+
+Kekuatan utama IRAMA adalah maknanya dalam bahasa Indonesia. Lampu lalu lintas yang terkoordinasi memang bekerja seperti irama: ada ketukan (waktu siklus), ada jeda (offset), dan ada harmoni antar simpang (green wave). Kota yang lancar adalah kota yang iramanya teratur. Nama ini juga mudah diucapkan pejabat, wartawan, dan warga, dan tidak mengunci ke satu kota.
+
+Untuk dokumen resmi, proposal ke pemda, dan materi berbahasa Inggris, IRAMA dapat dibaca sebagai akronim. Beberapa pilihan kepanjangan, diurutkan dari yang paling direkomendasikan:
+
+| # | Kepanjangan (Inggris) | Pesan yang dibawa | Cocok untuk |
+|---|---|---|---|
+| 1 | **Integrated Roadway Adaptive Management Architecture** | satu arsitektur terpadu yang mengelola jaringan jalan secara adaptif; menegaskan sifat "platform terbuka" dan "bertahap" | proposal teknis, dokumen pengadaan, materi internasional |
+| 2 | **Intelligent Roadway Analytics and Mobility Assurance** | data dan analitik yang menjamin mobilitas kota; menekankan bukti terukur (KPI, LOS) | presentasi ke kepala daerah dan DPRD |
+| 3 | **Integrated Real-time Arterial Management Assistant** | pendamping operator ruang kendali yang bekerja real-time di koridor arteri | materi untuk Dishub dan operator TMC |
+| 4 | **Intelligent Routing, Adaptive signals, and Mobility Analytics** | tiga kemampuan inti dalam satu nama | materi pemasaran singkat |
+
+Kepanjangan Indonesia yang sepadan: **Integrasi Rekayasa Adaptif dan Manajemen APILL** (menyebut APILL, istilah resmi regulasi, sehingga terasa formal di dokumen pemda). Kedua versi dapat dipakai bersamaan, misalnya "IRAMA (Integrated Roadway Adaptive Management Architecture) untuk Kota Bandung".
+
+Tagline yang selaras: "Mengatur irama, melancarkan kota" (Indonesia) dan "The rhythm of a moving city" (Inggris).
 
 **Rekomendasi:** pilih **IRAMA** sebagai nama platform (dengan sub-merek modul: *IRAMA Pantau* = monitoring/TMC, *IRAMA Atur* = plan & kendali, *IRAMA Ukur* = KPI/ATSPM, *IRAMA Prioritas* = TSP/EVP, *IRAMA Twin* = simulasi), dan **NADI** sebagai cadangan. Alasan: IRAMA menyatu dengan konsep inti signal timing (cycle/offset/green wave = ritme), netral secara geografis, mudah dipasang nama kota ("IRAMA Bandung"), dan akronimnya menyebut APILL (istilah resmi regulasi) sehingga terdengar "resmi" di dokumen pemda.
 

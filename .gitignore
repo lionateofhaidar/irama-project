@@ -23,3 +23,8 @@ Thumbs.db
 .idea/
 # unduhan mentah yang tidak dipublikasikan
 docs/sources/**/raw_*.html
+
+# versi .docx/.pdf dokumen planning: HANYA lokal, jangan dipush (permintaan user 2026-09-13)
+docs/planning/docx/
+docs/planning/*.docx
+docs/planning/*.pdf
