@@ -11,7 +11,7 @@ Terakhir diperbarui: 2026-09-14 (perubahan kritikal: T2 = Vision Tracker + Optim
 ## 2. Urutan baca untuk resume (murah → mahal)
 | Langkah | File | Waktu | Isi |
 |---|---|---|---|
-| 1 | `docs/LOG_SESI.md` §2 & §3 akhir | 3 mnt | status terakhir, tindak lanjut |
+| 1 | `docs/LOG_SESI.md` bagian status terakhir (saat ini §9) | 3 mnt | status terakhir, tindak lanjut |
 | 2 | `docs/kb/10_Keputusan_dan_Pertanyaan_Terbuka.md` | 5 mnt | 20 keputusan tersirat (D-), keputusan user U-01…U-29 (§B dan §B2), pertanyaan riset Q-01…Q-15 — **kanonis** (file `docs/planning/08` punya penomoran D-/Q- sendiri untuk konteks pasar; bila bertentangan, ikuti file ini) |
 | 3 | `docs/sources/_ringkasan/R00_Catatan_Studi_Utama.md` §K | 10 mnt | sintesis 7 pilar |
 | 4 | `docs/planning/01` (termasuk Definisi Istilah §8) → `04` → `15` → `16` → `14` → `05` → `06` → `11`–`13` | 60 mnt | visi, istilah, tahapan, spesifikasi T2, data latih, arsitektur per tahap, backlog fitur, arsitektur dan lisensi, pengadaan, kuesioner survei, kebutuhan data |

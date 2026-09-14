@@ -753,3 +753,44 @@ Instruksi user (ringkas, model berganti ke Opus 5):
   - Daftar bernomor mulai dari 1 di setiap bagian, blok kode rapi, dan tabel tidak lagi memotong kata.
 - Verifikasi PDF terkunci: ke-16 berkas terenkripsi AES-256 (V5, R6, AESV3), sandi salah ditolak, sandi baru membuka berkas, dan tanda air "RAHASIA IRAMA | untuk rekan tim | berlaku s.d. 17-09-2026" ada. Izin cetak, ubah, dan salin dimatikan.
 - Berkas docx, PDF, dan sumber sederhana tetap lokal, di `.gitignore`, dan tidak dipush.
+
+### [T-62] 11:55 WIB: Commit dan push dokumen kanonis; pembaruan memori
+- Sebelum commit dilakukan dua pemeriksaan:
+  - Semua berkas yang akan dipush dipindai. Tidak ada nama atau NIM penulis naskah, judul naskah, email user, maupun sandi PDF lama atau baru.
+  - Status abaikan dicek. Naskah, teks ekstraksi TA, R08, folder docx, dan berkas sandi semuanya di-.gitignore.
+- Commit `90f3e5c` (76 berkas, 4.470 baris ditambah, 1.921 dihapus) dipush ke `origin/main`, termasuk 14 objek LFS. Setelah push, daftar berkas terlacak (407 berkas) diperiksa ulang dan tidak memuat berkas terlarang.
+- Memori sesi diperbarui:
+  - `itcs-project-context` berisi tahapan baru, keputusan 2026-09-14, dokumen 14 sampai 16, aturan tidak dipush, dan workaround heredoc serta jam log.
+  - `user-writing-and-sharing-preferences` berisi cara bertanya keputusan lewat pilihan ganda 4 ditambah jawaban terbuka, larangan judul "dari X ke Y" termasuk diagram, dan larangan push naskah TA.
+- START_HERE langkah 1 kini merujuk bagian status terbaru log (bagian 9).
+
+## 9. Status Akhir Sesi 2026-09-14 dan Langkah Berikutnya
+
+**Selesai pada mandat 2026-09-14:**
+- Seluruh keputusan batch A sampai I (T-34 sampai T-42) sudah diterapkan ke dokumen.
+- Dokumen baru `15` (spesifikasi Vision Tracker dan Optimasi Simpang) dan `16` (panduan data latih).
+- Ditulis ulang: `04`, `11`, `13`, dan `14`. Dokumen `14` kini dibuka dengan A01, diagram arsitektur alur data per komponen, teknologi, dan penanda tahap T1 sampai T5.
+- `06` dirakit ulang, `05` di-re-tag dengan dependensi yang sudah divalidasi, dan `01` ditambah Definisi Istilah.
+- Revisi kecil diterapkan pada `03`, `07`, `08`, `09`, `10`, `12`, KB-00, KB-02, KB-10, README, dan README kerangka.
+- Diagram F00 sampai F12 dan A01 digambar ulang dengan perutean siku dan diperiksa satu per satu.
+- Versi docx dan PDF terkunci untuk ke-16 dokumen dibangun ulang dan diperiksa. Berkasnya lokal dengan sandi baru di `docs/planning/docx/PASSWORD_LOKAL.txt`, berlaku sesuai kesepakatan sampai 17-09-2026.
+
+**Yang perlu disiapkan user berikutnya (rincian di `13`):**
+- Register sumber rekaman.
+- Rekaman semua pendekat satu simpang, minimal 1 jam puncak dan 1 jam non-puncak siang.
+- Klip data latih: dua puncak, satu non-puncak, satu malam, dan satu hujan.
+- Satu klip uji per kondisi beserta hitungan manual per 15 menit.
+- Geometri tiap pendekat.
+- Fase dan waktu lampu eksisting.
+- Cek merek IRAMA di PDKI dan ketersediaan domain (Rp 0).
+
+**Langkah teknis berikutnya:**
+- Planning rinci T1: ConOps dan SRS T1 sampai T2, backlog sprint.
+- ADR prioritas: ADR-01, 02, 03, 15, 19, 20, 21, 22, dan 25.
+- Penyiapan data latih mengikuti `16`.
+- Menjawab pertanyaan riset Q-12 sampai Q-15 di KB-10: lisensi bobot RF-DETR, citra satelit tanpa biaya, rekaman satu simpang lengkap, dan digitalisasi grafik PKJI.
+
+**Catatan untuk sesi berikutnya:**
+- Jam log diambil dari jam sistem.
+- Skrip panjang ditulis lewat Write tool karena heredoc mengubah garis miring terbalik.
+- Setelah mengubah data diagram, jalankan `make_diagrams.py`, lalu perbarui 06 dengan mengganti bagian 9 memakai isi `diagram/_bagian_diagram.md`, dan 14 dengan mengganti bagian 1 memakai isi `diagram/_bagian_pipeline.md`. Skrip bantu perakitan sesi ini ada di scratchpad dan tidak tersimpan permanen.
