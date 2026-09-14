@@ -794,3 +794,31 @@ Instruksi user (ringkas, model berganti ke Opus 5):
 - Jam log diambil dari jam sistem.
 - Skrip panjang ditulis lewat Write tool karena heredoc mengubah garis miring terbalik.
 - Setelah mengubah data diagram, jalankan `make_diagrams.py`, lalu perbarui 06 dengan mengganti bagian 9 memakai isi `diagram/_bagian_diagram.md`, dan 14 dengan mengganti bagian 1 memakai isi `diagram/_bagian_pipeline.md`. Skrip bantu perakitan sesi ini ada di scratchpad dan tidak tersimpan permanen.
+
+## 10. Sesi 2026-09-15: Data geometri pendekat dan cek merek IRAMA
+
+### [T-63] 00:57 WIB: Daftar geometri minimal tiap pendekat, penilaian cek merek PDKI, penyelarasan 13 dan 15
+- Pesan user:
+  - Informasi: user sedang mencari sumber rekaman untuk data latih dan data uji, kabar menyusul.
+  - Permintaan: daftar informasi minimal yang perlu didapat terkait ukuran geometri tiap pendekat, ditulis langsung di chat.
+  - Pertanyaan: hasil cek PDKI menunjukkan tidak ada merek IRAMA untuk produk serupa, tetapi cukup banyak merek IRAMA di bidang lain; apakah informasi ini cukup.
+- Rujukan yang dibaca ulang dari PKJI 2023 bab Simpang APILL:
+  - Definisi 1.7.51 sampai 1.7.90: lebar pendekat, lebar jalur masuk (diukur di garis henti), lebar jalur keluar, kelandaian (plus bila menanjak ke arah simpang), median.
+  - Persamaan 5-2 sampai 5-6: lebar efektif (ambang lajur belok kiri jalan terus 2 m), faktor koreksi parkir FP dari jarak garis henti ke kendaraan parkir pertama, arus jenuh dasar J0 = 600 x LE untuk pendekat terlindung.
+  - Persamaan 5-9: merah semua dihitung dari jarak garis henti ke titik konflik untuk kendaraan berangkat, kendaraan datang, dan pejalan kaki.
+  - Langkah A.1 Formulir SA-I: sketsa simpang (pendekat, pulau jalan, garis henti, marka, zebra cross, halte, akses, panjang lajur terbatas, arah utara), kode pendekat per arah mata angin (U1 dan U2 bila satu lengan punya dua pendekat), tipe lingkungan KOM, KIM, AT per pendekat, dan hambatan samping per pendekat.
+- Temuan: D1.7 di `13` dan langkah wizard "Lengan dan pendekat" di `15` belum memuat beberapa masukan yang dipakai kalkulator:
+  - jarak garis henti ke titik konflik, padahal `15` menghitung merah semua dengan PKJI 5-9;
+  - kelas hambatan samping hasil pengamatan untuk T1, karena hambatan samping otomatis baru ada di T2;
+  - panjang lajur khusus belok yang terbatas, jenis median, kode pendekat, dan sketsa simpang.
+- Perubahan kanonis (dipush):
+  - `13` baris D1.7 ditulis ulang mengikuti Formulir SA-I, termasuk cara ukur dan alasan lebar masuk diprioritaskan (selisih 0,5 m pada lebar efektif mengubah J0 sebesar 300 SMP/jam).
+  - `15` baris wizard "Lengan dan pendekat" ditambah kode pendekat, jumlah dan lebar lajur, panjang lajur khusus, jenis median, kelas hambatan samping pengamatan (T1), dan jarak titik konflik.
+  - KB-10 U-01 diberi status cek merek 2026-09-15 dan sisa cek sebelum mendaftar. Rujukan lama `11` E1–E2 diperbaiki menjadi B1–B2 (E1 dan E2 di `11` sekarang berisi pendamping dan anotator).
+- Perubahan lokal (tidak dipush): sumber sederhana 13 dan 15 disesuaikan, lalu docx dan PDF 13 dan 15 dibangun ulang dengan `--only` dan `--days 2` sehingga sandi dan tanggal berlaku tetap sama (17-09-2026).
+  - Percobaan pertama gagal karena Word COM berhenti ("The remote procedure call failed"). Tidak ada proses Word yang tertinggal, dan percobaan kedua berhasil.
+  - Verifikasi: kedua PDF terkunci terenkripsi AES-256 (V5, R6), sandi salah ditolak, sandi aktif membuka berkas, tanda air 17-09-2026 ada, dan teks baru ditemukan. Halaman 2 dokumen 13 dan halaman 8 dokumen 15 dirender lalu diperiksa; tabel rapi.
+- Jawaban ke user (chat):
+  - Daftar geometri wajib per pendekat, catatan lingkungan saat kunjungan, data per simpang, tambahan untuk T2 (panjang ruas yang terlihat kamera), dan cara ukur.
+  - Penilaian merek: cukup sebagai tanda awal dan cukup untuk terus memakai nama secara internal, tetapi belum cukup untuk memastikan pendaftaran lolos. Alasannya, UU 20/2016 Pasal 21 ayat (1) menilai persamaan pada pokoknya untuk barang atau jasa sejenis berdasarkan kelas dan uraian barang atau jasa. Merek IRAMA dari bidang musik bisa saja terdaftar di kelas 9.
+  - Cek tambahan: kelas dan uraian merek IRAMA yang ada, permohonan yang masih diproses, variasi ejaan, merek terkenal, domain, dan nama PT. Rekomendasi: daftar merek kata IRAMA di kelas 9 dan 42 (B2) sebelum demo ke pihak luar, karena Indonesia menganut sistem pendaftar pertama.

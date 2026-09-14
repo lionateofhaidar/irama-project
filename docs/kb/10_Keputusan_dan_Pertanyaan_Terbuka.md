@@ -28,7 +28,7 @@ Cara pakai: bagian A = keputusan desain yang sudah "dipaksa" oleh regulasi/bukti
 ## B. Keputusan user — DIPUTUSKAN 2026-09-13 (log: `docs/LOG_SESI.md` T-20…T-24)
 | ID | Keputusan | Hasil | Catatan/konsekuensi |
 |---|---|---|---|
-| U-01 | Nama produk | **IRAMA** (sementara; final setelah gambaran fitur end-state) | cek merek PDKI + domain wajib sebelum publikasi (lihat `docs/planning/11` E1–E2) |
+| U-01 | Nama produk | **IRAMA** (sementara; final setelah gambaran fitur end-state) | cek merek PDKI + domain wajib sebelum publikasi (lihat `docs/planning/11` B1–B2). **Status 2026-09-15:** penelusuran awal PDKI oleh user tidak menemukan merek IRAMA untuk produk sejenis; banyak merek IRAMA terdaftar di bidang lain. Sisa cek sebelum mendaftar: kelas dan uraian barang/jasa merek IRAMA yang ada (terutama kelas 9 dan 42), permohonan yang masih diproses, variasi ejaan dan gabungan kata, merek terkenal, domain, dan nama PT di AHU |
 | U-02 | Kota/koridor pilot | **Bandung** (basis personel) — Surabaya target ke-2 | dokumen pasar & kuesioner netral kota; data pilot Bandung di `docs/sources/08` & `docs/planning/13` |
 | U-03 | Controller sendiri vs integrasi | **Integrasi.** ~~Edge-light di T2, edge penuh T3~~ → **direvisi 2026-09-14 (U-22): tanpa edge sampai T3; controller dibaca tanpa diubah di T3; edge dan adaptor kendali mulai T4** | selaras keputusan nol pengadaan sampai T3 |
 | U-04 | Lisensi & hosting | **Open-core** (inti Apache-2.0, modul komersial terpisah); **on-prem default**, cloud opsional | ADR-01, ADR-15 |

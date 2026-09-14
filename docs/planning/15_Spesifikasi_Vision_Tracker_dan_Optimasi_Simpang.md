@@ -233,7 +233,7 @@ Konfigurasi dilakukan lewat wizard berurutan. Setiap langkah memberi nilai defau
 | Langkah wizard | Isi | Kemudahan |
 |---|---|---|
 | Identitas dan lokasi | nama simpang, koordinat di peta, kota (ukuran kota terisi otomatis dari data penduduk), status jalan (nasional, provinsi, kota) | pencarian di peta; status jalan jalan nasional memunculkan catatan persetujuan Dirjen/BPTJ |
-| Lengan dan pendekat | jumlah lengan, nama jalan, lebar pendekat, lebar masuk, lebar keluar, lajur belok kiri langsung, median, kelandaian, tipe lingkungan, jarak parkir | lebar diukur dengan menggambar di citra satelit; templat simpang tiga lengan dan empat lengan |
+| Lengan dan pendekat | jumlah lengan, kode pendekat, nama jalan, lebar pendekat, lebar masuk, lebar keluar, lajur belok kiri langsung, jumlah dan lebar lajur, panjang lajur khusus belok, median dan jenisnya, kelandaian, tipe lingkungan, kelas hambatan samping pengamatan (T1), jarak parkir, jarak garis henti ke titik konflik | lebar dan jarak titik konflik diukur dengan menggambar di citra satelit; templat simpang tiga lengan dan empat lengan |
 | Gerakan dan lajur | gerakan yang diizinkan, lajur khusus, belok kiri langsung | diagram gerakan interaktif |
 | Fase dan waktu eksisting | urutan fase, gerakan per fase, hijau, kuning, merah semua | nilai terisi otomatis dari pembacaan nyala lampu bila tersedia |
 | Kamera dan rekaman | tautan rekaman atau stream ke pendekat; garis hitung, zona keluar per arah, zona hambatan samping dan panjangnya, area kepala lampu | menggambar langsung di cuplikan kamera; pratinjau hitungan beberapa detik |
