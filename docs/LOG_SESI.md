@@ -386,3 +386,370 @@ Instruksi user: (a) tambahkan kepanjangan bahasa Inggris IRAMA yang engaging di 
 - Dokumen 06 kanonis (`docs/planning/06`) ditambah §8 "Diagram alur fitur utama" (cara membaca, F00–F12, tabel langkah → lapisan → komponen repo → tahap, mermaid). Versi docx/PDF 06 ditambah bagian yang sama dalam halaman landscape, satu diagram per halaman (31 halaman).
 - Builder docx diperluas: gambar, penanda `<<<LANDSCAPE>>>` dan `<<<PAGEBREAK>>>`, lebar kolom proporsional terhadap lebar halaman aktif; build parsial (`--only`) memakai password yang sudah ada. Semua 14 dokumen dibangun ulang dengan satu password baru (tersimpan di `docx/PASSWORD_LOKAL.txt`).
 - Dipush: 06 kanonis + folder `docs/planning/diagram/` (PNG via LFS, mmd, skrip). Tidak dipush: docx/pdf.
+
+---
+
+## 8. Mandat Lanjutan (2026-09-14) — Perubahan kritikal fokus T2: Vision Tracker + Optimasi Adaptif Waktu Simpang
+Instruksi user (ringkas, model berganti ke Opus 5):
+- (a) Baca ulang konteks sesi (log & dokumen penting) secara teliti.
+- (b) **Output T2 = modul Vision Tracker yang berjalan baik + modul Optimasi Adaptif Waktu Simpang.** Pengembangan lanjutan kedua modul dan fitur sampingan lain bertahap di T3–T5.
+  - Vision Tracker T2: menghitung arus menurut klasifikasi kendaraan (motor, LV, HV) dan menghitung hambatan samping menurut klasifikasinya. T3: membaca anomali (ambulans, damkar, dan lain-lain yang direkomendasikan).
+  - Optimasi Adaptif T2: mengonsumsi tabel terstruktur keluaran Vision Tracker, mengonversi ke volume arus, merekomendasikan waktu siklus & waktu hijau optimal untuk LOS terbaik per periode waktu; fitur konfigurasi data simpang & data statis lewat frontend yang intuitif. Acuan: otomatisasi perhitungan dalam naskah tugas akhir yang diletakkan user di `docs/sources/` (dokumen lokal, tidak dipush), disesuaikan ke standar & best practice terbaru.
+  - Dashboard: kapasitas tiap simpang & rincian per arah, volume arus per simpang & per arah, waktu hijau & siklus rekomendasi, LOS optimal keseluruhan & per simpang, dan metrik penting lain.
+- (c) **Tidak ada pengadaan sampai T3 selesai**; end-state dengan risiko vendor lock-in minimal.
+- (d) Bagian **Definisi Istilah** di akhir `01_Visi_Produk_dan_Positioning` dengan bahasa mudah (contoh: user tidak tahu SUMO).
+- (e) Di `14_Arsitektur_per_Tahap`: satu diagram arsitektur high-level alur CCTV → Vision Tracker → … → keputusan/dashboard, lengkap dengan teknologi tiap alur dan penanda tahap T1–T5.
+- (f) Ajukan pertanyaan pilihan ganda semi-terbuka (4 pilihan + jawaban terbuka) dengan rekomendasi untuk setiap hal yang ambigu.
+- (g) Log sesi tetap diperbarui di file yang sama setiap task.
+
+### [T-32] 09:00 WIB — Mulai mandat baru: baca ulang konteks, ekstraksi naskah tugas akhir
+- Status repo saat mulai: `main` sinkron dengan `origin` (commit terakhir `6a8b136`); satu file baru tidak terlacak: naskah tugas akhir user (8,8 MB). Belum di-commit sampai ada keputusan user (akhirnya: tidak dipush, T-40).
+- Langkah: ekstraksi teks naskah TA (pdftotext), baca penuh; baca ulang dokumen planning 01, 04, 05, 06, 11, 13, 14 dan KB-10; periksa spesifikasi laptop (CPU/GPU/RAM) untuk menilai kelayakan vision tracker tanpa pengadaan; cek sumber CCTV publik Bandung yang sudah terarsip.
+
+### [T-33] 10:30 WIB — Naskah TA dibaca penuh; pemeriksaan standar PKJI 2023, laptop, dan sumber CCTV
+- Naskah tugas akhir yang diletakkan user di `docs/sources/` dibaca penuh (bab metode, analisis kinerja simpang dan ruas, valuasi manfaat, lampiran formulir). **Naskah, teks ekstraksinya, dan ringkasan rinciannya hanya disimpan lokal dan tidak dipush (keputusan user T-40).** Catatan rinci ada di `docs/sources/_ringkasan/R08_Catatan_Lokal_Naskah_TA.md` (lokal, di-.gitignore).
+- Garis besar yang relevan untuk produk: rantai perhitungan kinerja simpang bersinyal berbasis MKJI 1997 (hitungan lalu lintas per kelas per 15 menit, geometri & kondisi lingkungan per pendekat, arus jenuh, kapasitas, derajat kejenuhan, antrian, kendaraan terhenti, tundaan, perbandingan kondisi, penentuan waktu siklus Webster) serta valuasi manfaat (nilai waktu, biaya operasional kendaraan, emisi). Modul optimasi IRAMA akan mengotomasi rantai ini dengan standar terbaru.
+- **Penyesuaian ke standar terbaru**: PKJI 2023 menggantikan MKJI 1997 (EMP simpang APILL MP 1,00; KS 1,30; SM 0,15 terlindung / 0,40 terlawan; KTB tidak dikonversi, masuk RKTB untuk FHS); LOS simpang resmi berbasis tundaan PM 96/2015 (A <5 … F >60 s/kend), DS tetap ditampilkan (target ≤0,85); hambatan samping dari frekuensi berbobot PKJI 2023 Tabel 4-8 (pejalan kaki 0,5; kendaraan berhenti 1,0; keluar/masuk 0,7; kendaraan lambat/KTB 0,4) per 200 m per jam → KHS SR/R/S/T/ST (Tabel 4-9); tundaan simpang rata-rata tertimbang arus; Nq1 memakai C (Q-11).
+- Laptop tim (mesin ini): AMD Ryzen 7 7730U 8 inti/16 thread, RAM 31,4 GB, GPU terintegrasi Radeon (tanpa NVIDIA), disk kosong 249 GB → vision tracker dapat berjalan di CPU/iGPU (ONNX Runtime) untuk pemrosesan batch rekaman dan beberapa stream; cukup untuk T1–T2 tanpa pengadaan.
+- Portal ATCS Bandung memutar CCTV publik dalam format HLS lewat endpoint POST `/ajax/cctv-info`; satu percobaan mengembalikan 404 (kemungkinan butuh sesi/header), tidak diteruskan. 46 kamera, sebagian bernama "VID … (Dari Arah …)" = kamera per pendekat. (Keputusan T-39: tidak dipakai sebelum ada MoU.)
+- Temuan lisensi penting: Ultralytics YOLO (v8/11) berlisensi AGPL-3.0, bertentangan dengan open-core komersial kecuali membeli lisensi enterprise. Alternatif permisif: RF-DETR, YOLOX, RTMDet (Apache-2.0), ByteTrack/OC-SORT (MIT), supervision (MIT), ONNX Runtime (MIT).
+
+### [T-34] 10:45 WIB — Jawaban user batch A (lingkup T1, mode vision, skala T2, akurasi)
+- T1: **purwarupa ujung ke ujung di 1 simpang** (Vision Tracker menghitung MC/LV/HV dari rekaman di semua pendekat, input data simpang manual sederhana, kalkulator PKJI 2023, rekomendasi siklus & hijau, dashboard dasar).
+- Mode Vision Tracker T2: **rekaman dan stream langsung**; rekaman menjadi kanal piloting & pengujian di awal, stream langsung untuk operasi.
+- Skala T2: **cukup 1 simpang lengkap**; **analisis optimasi tingkat koridor dipindah ke T5** (perlu klarifikasi dampaknya ke koordinasi/green wave T4).
+- Akurasi lulus T2: **≥95% siang, ≥90% malam/hujan** per kelas per 15 menit dibanding hitungan manual.
+
+### [T-35] 11:00 WIB — Jawaban user batch B (koridor, standar, LOS, metode optimasi)
+- Koridor: **offset dasar/green wave sederhana di T4** (agar tetap setara ITCS); **optimasi koridor & jaringan penuh di T5**. T3–T4 mengoptimasi tiap simpang secara mandiri.
+- Standar: **PKJI 2023 utama + mode MKJI 1997** (pembanding studi lama dan uji regresi terhadap angka TA).
+- LOS: **tundaan PM 96/2015 sebagai kelas resmi + DS pendukung** (batas desain ≤0,85).
+- Metode optimasi: **beberapa mode yang bisa dipilih (toggle)** di T2, minimal: (1) cari tundaan terendah dengan batasan, (2) Webster/PKJI baku, (3) minimalkan DS tertinggi; boleh ditambah pendekatan lain yang effort-nya setara/lebih rendah; (4) **multi-kriteria berbobot dipindah ke T3**. Usulan tambahan saya (effort ≤ opsi 1–3): (5) siklus praktis minimum yang memenuhi DS target; (6) pertahankan siklus eksisting, atur ulang pembagian hijau saja.
+
+### [T-36] 11:15 WIB — Jawaban user batch C (periode, kelas, hambatan samping, per arah)
+- Periode: **profil 15 menit dikelompokkan otomatis menjadi maksimal 8 jadwal** (weekday/weekend), dengan **fleksibilitas pengguna menentukan periode lewat konfigurasi simpang**.
+- Kelas kendaraan: **simpan kelas rinci, petakan otomatis ke PKJI** (SM/MP/KS/KTB). Catatan implementasi: pemetaan ke MKJI (MC/LV/HV/UM) tetap dibuat untuk mode pembanding MKJI 1997 (keputusan batch B).
+- Hambatan samping: **hitung 4 jenis kejadian berbobot PKJI 2023** (pejalan kaki 0,5; kendaraan berhenti/parkir 1,0; keluar-masuk 0,7; kendaraan lambat/KTB 0,4) per 200 m per jam → KHS SR/R/S/T/ST → dipetakan ke tinggi/sedang/rendah untuk FHS simpang; engineer dapat mengoreksi.
+- Volume per arah: **dari lintasan masuk-keluar; cadangan proporsi belok manual**, sumber ditandai di dashboard.
+
+### [T-37] 11:30 WIB — Jawaban user batch D (manfaat rupiah, laporan, validasi, dashboard)
+- Manfaat ekonomi: **T2 versi sederhana** (nilai waktu pendekatan UMK, BBM/BOK, emisi; parameter terbaru & dapat diubah).
+- Laporan kajian otomatis per simpang (Word/PDF, format formulir PKJI SA-I s.d. SA-V + narasi): **T2**.
+- Validasi rekomendasi: **hitung PKJI + simulasi SUMO di T2**; uji lapangan sebelum-sesudah di T3.
+- Dashboard T2: semua tambahan disetujui (eksisting vs rekomendasi + manfaat; profil volume & komposisi; antrian & detail per pendekat; kualitas data). **Catatan user: jangan dipaksakan dalam satu halaman; rekomendasikan 2–3 halaman dashboard yang terpisah jelas dan rapi.**
+
+### [T-38] 11:45 WIB — Jawaban user batch E (anomali T3, vision tambahan, ANPR, controller)
+- Anomali T3: **kendaraan prioritas & pengawalan; kejadian lalu lintas; pelanggaran & hambatan (bukti saja)**; **kesehatan kamera & lingkungan bertahap: yang paling mudah dikenali di T3 (tertutup, gelap, buram, bergeser), lanjutan di T4 (hujan lebat, genangan/banjir, dll.)**.
+- Vision tambahan: **semua dipilih** — membaca nyala lampu dari kamera (T2), panjang antrian & okupansi per lajur (dasar T2, lengkap T3), volume & waktu tunggu pejalan kaki (hitungan pejalan kaki sudah ada di T2 sebagai hambatan samping; waktu tunggu T3), kecepatan & waktu tempuh antar kamera tanpa pelat (T3).
+- ANPR: **dipindah ke T4** (bersama pengadaan kamera khusus & integrasi ETLE/Bapenda). Keputusan U-08 lama (pelat T3) direvisi.
+- Controller: **T3 baca-saja + ekspor lembar jadwal; T4 kendali**. T2 = sistem pendukung keputusan (rekomendasi diterapkan petugas secara manual).
+
+### [T-39] 12:00 WIB — Jawaban user batch F (pengadaan, komputasi, sumber video, data latih)
+- Pengadaan: **produk nol biaya sampai T3 selesai** (tanpa perangkat keras, lisensi, data/standar berbayar, sewa server/cloud); **biaya administrasi bisnis boleh** (merek, PT Perorangan, domain/email).
+- Komputasi Vision Tracker: **laptop tim sampai T3** (T3 terbatas pada sedikit kamera, tidak 24 jam). Keputusan U-03 edge-light T2 otomatis gugur: edge/mini-PC pindah ke T4.
+- Sumber video: **rekaman saja sampai ada MoU**, setidaknya sampai T2 selesai, paling lambat setelah T3 selesai. Implikasi desain: mode stream langsung T2 diuji dengan **rekaman yang diputar ulang sebagai stream** (server RTSP/HLS lokal dari file, mis. MediaMTX), tanpa stream Dishub.
+- Data latih: **pra-label otomatis + koreksi manusia**; user meminta **panduan langkah demi langkah yang rinci dan paling hemat waktu**; **boleh mengorbankan ±5% akurasi di T1–T2** (target T1–T2 menjadi ±90% siang / ±85% malam-hujan), penalaan bertahap mulai T3 hingga target 95%/90%. → deliverable baru: panduan data latih Vision Tracker.
+
+### [T-40] 12:15 WIB — Jawaban user batch G (lisensi AI, fitur lama, model T2, naskah TA)
+- Lisensi model deteksi: **model berlisensi bebas (Apache-2.0/MIT)**, mis. RF-DETR/YOLOX/RTMDet + ONNX Runtime + ByteTrack; Ultralytics (AGPL) tidak dipakai.
+- Fitur T2 lama: **pantauan & laporan ke T3** (CCTV live view, kesehatan kamera, tiket keluhan, laporan wajib berbasis data vision); **kendali ke T4** (kendali terpusat, alarm controller, edge di kabinet).
+- Model T2: **perangkat lunak untuk engineer Dishub; awalnya diserahkan sebagai jasa kajian** yang dijalankan tim di laptop (Dishub memberi rekaman, tim menyerahkan dashboard & laporan).
+- Naskah TA: **tidak ada yang dipush** (PDF, teks, maupun ringkasannya tetap lokal; dokumen planning merujuk tanpa kutipan rinci). Tindakan: `.gitignore` ditambah, entri log T-33 disunting agar tidak memuat identitas & rincian naskah (rincian dipindah ke catatan lokal R08 yang tidak dipush).
+
+### [T-41] 12:30 WIB — Jawaban user batch H (rekaman T2, jadwal, nama tahap)
+- Rekaman: idealnya seharian semua pendekat, tetapi **simulasi awal dimulai dari sampel terbatas satu simpang pada waktu puncak dan non-puncak, dengan kondisi pagi, malam, dan hujan**; data diusahakan lengkap untuk setiap lengan, **namun puncak/non-puncak dan pagi/malam/hujan bisa berasal dari simpang berbeda**, tergantung ketersediaan data di YouTube atau sumber lain yang dapat diakses. Implikasi: dukung "rekaman komposit" (klip per kondisi boleh dari simpang berbeda untuk uji akurasi); optimasi per simpang tetap memerlukan hitungan semua lengan pada periode yang sama; pengelompokan otomatis 8 jadwal baru aktif bila ada rekaman panjang, sebelum itu periode ditetapkan pengguna. Perlu kebijakan sumber YouTube (hak cipta/ToS).
+- Jadwal: **tanpa tanggal, berbasis capaian** (kriteria kelulusan tiap tahap).
+- Nama tahap disetujui: **T1 Purwarupa Hitung dan Rekomendasi; T2 Vision Tracker dan Optimasi Simpang; T3 Deteksi Kejadian dan Pemantauan Operasional; T4 Kendali Adaptif Terpadu; T5 Platform Mobilitas Kota.**
+
+### [T-42] 12:45 WIB — Jawaban user batch I (YouTube, tempat pelatihan, urutan kelas) & rencana eksekusi revisi
+- YouTube: **bebas dipakai untuk uji dan pelatihan** (keputusan user; risiko hak cipta/ToS dicatat di register risiko dengan mitigasi: register sumber dan pelatihan ulang dengan data berizin sebelum penjualan komersial skala besar).
+- Tempat pelatihan: user bertanya apakah cloud gratis memungkinkan → **ya**: rekomendasi Kaggle Notebooks (GPU gratis, kuota mingguan) sebagai utama dan Google Colab (gratis) sebagai cadangan; tanpa biaya sehingga tidak termasuk pengadaan; data Dishub (setelah MoU) tetap dilatih di laptop. Rincian di panduan data latih.
+- Kelas T1–T2: **6 kelas dulu** (motor, mobil termasuk angkot/pikap, bus, truk, kendaraan tak bermotor, pejalan kaki); **angkot & pikap menyusul di T3** bersama penalaan akurasi.
+- Rencana eksekusi revisi (setelah semua keputusan terkumpul):
+  1. Dokumen baru: `15_Spesifikasi_Vision_Tracker_dan_Optimasi_Simpang.md` (spesifikasi kedua modul T2, konfigurasi, 3 halaman dashboard, skema tabel, rantai PKJI 2023, mode optimasi, manfaat rupiah, laporan, validasi, peta jalan T1–T5) dan `16_Panduan_Data_Latih_Vision_Tracker.md` (langkah demi langkah hemat waktu, cloud gratis).
+  2. Tulis ulang: `04` (tahapan), `14` (arsitektur per tahap + diagram pipeline high-level berpenanda tahap), `11` (pengadaan nol sampai T3), `13` (kebutuhan data).
+  3. Revisi besar: `05` (re-tag tahap 141 fitur + epik baru E20–E23), `06` (stack vision, lisensi, strategi anti lock-in, diagram F00–F12 diperbarui), `01` (ringkasan tahap + Definisi Istilah).
+  4. Revisi kecil: `03`, `08`, `09`, `10`, `12`, KB-10, START_HERE, README.
+  5. Versi docx/PDF semua dokumen yang berubah (lokal), commit & push dokumen kanonis saja (naskah TA & docx tidak dipush).
+  6. Paralel: fork menyusun draf Definisi Istilah dan panduan data latih.
+
+> **Koreksi stempel waktu (dicatat 09:58 WIB).** Jam pada judul T-32 sampai T-42 adalah perkiraan dan tidak akurat. Menurut waktu modifikasi berkas di laptop (zona UTC+7), log ini terakhir disimpan pukul 03:15 WIB tanggal 2026-09-14 setelah T-42 ditulis, dan dokumen hasil T-43 sampai T-47 tersimpan antara 03:17 dan 03:30 WIB. Entri mulai T-43 memakai jam dari waktu modifikasi berkas atau jam sistem.
+
+### [T-43] 03:17 WIB: Catatan lokal naskah tugas akhir (R08)
+- Dibuat `docs/sources/_ringkasan/R08_Catatan_Lokal_Naskah_TA.md` (LOKAL, masuk .gitignore, tidak dipush sesuai keputusan T-40). Isinya rantai perhitungan simpang bersinyal di naskah (MKJI 1997), angka hasil yang dipakai sebagai uji regresi mode MKJI, dan pemetaan setiap langkah ke PKJI 2023.
+- Dokumen planning hanya merujuk naskah secara umum ("naskah tugas akhir di docs/sources") tanpa judul, nama, NIM, atau kutipan angka.
+
+### [T-44] 03:21 WIB: Dokumen baru 15 Spesifikasi Vision Tracker dan Optimasi Simpang
+- Berkas: `docs/planning/15_Spesifikasi_Vision_Tracker_dan_Optimasi_Simpang.md`.
+- Isi bagian Vision Tracker: posisi kedua modul per tahap; alur kerja pengguna; masukan; enam kelas rinci dan pemetaan otomatis ke PKJI/MKJI; proses; tabel keluaran hitung_15m, hambatan_samping_15m, status_lampu, antrian_1m, peristiwa (T3), mutu_rekaman; rumus hambatan samping berbobot per 200 m per jam; target akurasi T1-T2 sekitar 90% siang dan 85% malam atau hujan, T3 ke atas 95% dan 90%; kinerja di laptop; privasi; peta jalan.
+- Isi bagian Optimasi: masukan; periode otomatis maksimal delapan jadwal atau manual; konversi SMP; rantai PKJI 2023 sepuluh langkah; enam mode (Webster/PKJI baku T1; tundaan terendah dengan batasan, minimalkan DJ tertinggi, siklus praktis minimum, pertahankan siklus eksisting T2; multi-kriteria berbobot T3); batas keselamatan; keluaran; validasi SUMO; manfaat rupiah (nilai waktu UMK, BBM saat diam, emisi); laporan otomatis; peta jalan.
+- Wizard konfigurasi delapan langkah; dashboard tiga halaman (Ringkasan Simpang dan Rekomendasi; Arus Lalu Lintas dan Kapasitas; Kinerja Pendekat dan Kualitas Data); kriteria kelulusan T1 dan T2.
+
+### [T-45] 03:24 sampai 03:27 WIB: Tulis ulang 04 dan re-tag 05
+- `04_Konsep_Tahapan_1-5.md` ditulis ulang (revisi 2026-09-14). Prinsip P1 sampai P8: nol pengadaan sampai T3, lock-in minimal, transparan, standar Indonesia, manusia tetap memutuskan, satu simpang lalu banyak simpang mandiri lalu koridor di T5, minimisasi data, kreatif tetapi berpijak kebutuhan. Setiap tahap memuat tujuan, kriteria kelulusan, nilai, lingkup, infrastruktur, data, integrasi, kepatuhan, validasi, upaya, risiko, dan hal yang tidak dikerjakan. Ditambah tabel ITCS DKI vs T4 vs T5 dan pengadaan/komputasi per tahap.
+- `05_Inventaris_Fitur_per_Tahap.md` di-re-tag dengan skrip scratchpad `retag_05.py`. ID fitur lama tetap; kolom Tahap menjadi acuan dan fitur yang pindah ditandai "**T#** (dulu T#)". Epik baru E20 Vision Tracker, E21 Optimasi Waktu Simpang, E22 Konfigurasi Simpang dan Data Statis, E23 Dashboard.
+
+| Tahap | Fitur | Must | Should | Could |
+|---|---|---|---|---|
+| T1 | 13 | 13 | 0 | 0 |
+| T2 | 33 | 26 | 6 | 1 |
+| T3 | 42 | 20 | 20 | 2 |
+| T4 | 62 | 34 | 20 | 8 |
+| T5 | 29 | 7 | 11 | 11 |
+| Total | 179 | 100 | 57 | 22 |
+
+### [T-46] 03:20 sampai 03:24 WIB: Hasil dua fork (draf Definisi Istilah dan dokumen 16)
+- Draf `docs/planning/_draft_definisi_istilah.md`: 143 istilah dalam tujuh kelompok (lalu lintas dan simpang; kinerja dan perhitungan; regulasi dan kelembagaan; kendali dan prioritas; vision dan AI; perangkat lunak dan infrastruktur; bisnis dan pengadaan). Sudah diperiksa. Istilah yang masih perlu ditambah saat digabung ke 01: GLOSA, SPaT, ICD, CRM, PWA, MapLibre, FastAPI, React, Keycloak, ONVIF, WebRTC, OER. Draf dihapus setelah digabung.
+- `docs/planning/16_Panduan_Data_Latih_Vision_Tracker.md` berisi langkah A sampai I:
+  - register sumber;
+  - pengambilan bingkai tiap 2 sampai 3 detik dengan penyaringan duplikat;
+  - pra-label di Kaggle dengan RF-DETR, ditambah OWLv2 untuk becak dan gerobak;
+  - koreksi di Label Studio;
+  - dua putaran active learning;
+  - pelatihan RF-DETR Small atau YOLOX-tiny, lalu ekspor ONNX;
+  - uji kecepatan di laptop;
+  - rumus akurasi hitungan;
+  - versi dataset.
+- Dokumen 16 juga memuat jadwal tiga minggu (55 sampai 75 jam-orang), risiko termasuk YouTube, dan daftar periksa. Sudah diperiksa dan sesuai keputusan T-39 dan T-42.
+
+### [T-47] 03:30 WIB: Draf bagian awal dokumen 06 (belum disisipkan)
+- Disusun di scratchpad sebagai `06_head.md`. Isinya lapisan arsitektur, komponen per tahap, tabel teknologi beserta lisensinya, model data dan API, dan komputasi per tahap.
+- Tabel lisensi dan strategi lock-in minimal:
+  - Ultralytics (AGPL) tidak dipakai.
+  - Redis versi baru diganti Valkey.
+  - EMQX diganti Mosquitto atau NanoMQ.
+  - Grafana dan Loki hanya dipakai sebagai alat terpisah tanpa modifikasi.
+  - Fitur TimescaleDB berlisensi TSL bersifat opsional.
+  - docxtpl diganti python-docx.
+- Retensi video: rekaman 1080p sekitar 1,5 sampai 2 GB per jam per kamera. Karena itu rekaman diolah per batch, disimpan di disk eksternal, atau direkam 720p.
+- Daftar ADR-01 sampai ADR-25. ADR baru:
+  - ADR-19 model deteksi dan ONNX;
+  - ADR-20 pipeline vision dan skema;
+  - ADR-21 mesin PKJI dan mode;
+  - ADR-22 kebijakan data rekaman;
+  - ADR-23 tempat pelatihan;
+  - ADR-24 pembuatan laporan;
+  - ADR-25 pemeriksaan lisensi.
+
+### [T-48] Sebelum jeda: Data diagram alur ditulis ulang untuk tahapan baru
+- `docs/planning/diagram/make_diagrams.py` diperbarui:
+  - nama tahap baru pada legenda;
+  - lajur Pusat menjadi "laptop T1-T3, server T4+";
+  - gambaran F00 diperbarui;
+  - diagram baru A01 (arsitektur alur data dari CCTV sampai keputusan) untuk dokumen 14.
+- Alur F01 sampai F12 disusun ulang:
+  - F06 menjadi Vision Tracker dari rekaman sampai tabel hitungan;
+  - F03 seluruhnya T4;
+  - F08 deteksi di T3, layanan di T4, prioritas bersyarat di T5;
+  - F09 bukti tanpa pelat di T3, ANPR dan API di T4;
+  - F11 memakai SUMO sejak T2.
+- Hasil render pertama diperiksa. Masalah yang ditemukan:
+  - label legenda saling menimpa dan terpotong;
+  - panah yang melompati kolom menembus kotak;
+  - label "konfigurasi" menimpa blok Mode optimasi;
+  - garis umpan balik "ukur ulang" melengkung melintasi seluruh A01;
+  - label T2, T3, dan T4 di F06 jauh dari panahnya.
+- Sesi terjeda dan konteks percakapan diringkas otomatis. Setelah jeda user menulis: "tolong lanjutkan secara hati-hati dan teliti".
+
+### [T-49] 09:40 sampai 09:57 WIB: Mesin gambar diagram ditulis ulang dan semua gambar diperiksa
+- **Perutean panah siku.** Garis hanya lewat celah antarkolom dan jalur tipis di tepi lajur. Setiap calon rute diberi skor menurut jumlah belokan, panjang, persilangan, dan garis yang menempel atau menumpuk dengan panah lain. Rute yang menembus kotak ditolak. Panah yang berbagi asal atau tujuan boleh bergabung. Rute juga harus menyediakan ruang label.
+- **Tata letak kolom berlapis.** Satu kotak per sel, dan langkah awal ditarik ke dekat penerusnya. Diagram jadi lebih sempit dibanding satu kolom per langkah.
+- **Legenda dan teks.** Jarak label legenda dihitung dari lebar teks terukur. Teks kotak dibungkus menurut lebar terukur. Label berkode tahap pada panah diberi warna tahap.
+- **Koreksi tahap agar sesuai dokumen 05:**
+  - F01: membaca nyala lampu adalah T2.
+  - F05: status lampu dan antrian adalah T2.
+  - F06: penyamaran video mulai T2. Tampilan dasar ada di T1 dan halaman kualitas data di T2. Panah edge T4 kini menuju tabel hitungan.
+  - F08 dan F09: pengenalan kendaraan prioritas dan deteksi pelanggaran dipindah ke lajur Pusat karena dijalankan Vision Tracker.
+- **A01 dirancang ulang.**
+  - Konfigurasi simpang, dari formulir di T1 dan wizard di T2, masuk kolom Data sehingga panah balik "konfigurasi" hilang.
+  - Kolom Data mendapat blok Peristiwa kejadian (T3). Jalur kejadian (T3) berjalan di bawah kolom langsung ke Konsol pemantauan tanpa melalui optimasi.
+  - Umpan balik uji sebelum-sesudah (T3, garis putus-putus) keluar dari sisi kanan dan kembali ke Sumber video lewat bawah.
+  - Keputusan Kepala Dinas ditetapkan T2. Mode MKJI 1997 ditandai T2.
+  - Koordinasi koridor (T5) ada di kolom Tindak lanjut.
+- **Markdown hasil skrip.** Bagian diagram di 06 kini berjudul "## 9." karena nomor 8 dipakai daftar ADR. Versi sederhana memakai penanda halaman baru sebelum F01 sampai F12.
+- **Verifikasi.** Ke-14 gambar (F00 sampai F12 dan A01) dibuka satu per satu. Tidak ada garis yang menembus kotak, tidak ada label yang menimpa, dan legenda terbaca penuh. Cadangan skrip lama ada di scratchpad sebagai `make_diagrams_backup_preroute.py`.
+
+### [T-50] 10:05 WIB: Dokumen 06 dirakit ulang; satu koreksi di 05
+- `06_Arsitektur_Konseptual_dan_Opsi_Teknologi.md` sekarang terdiri dari bagian 1 sampai 8 hasil revisi (draf T-47) dan bagian 9 diagram alur hasil skrip. Cadangan versi lama ada di scratchpad (`06_backup_sebelum_splice.md`). Skrip perakit: `splice_06.py` di scratchpad.
+- Koreksi pada draf sebelum dirakit, setelah dicek silang ke `05`:
+  - Pemeliharaan berkala adalah T3 (F-T1-03), bukan T4.
+  - Aduan kota (CRM) masuk integrasi T3 (F-T2-52).
+  - Kalibrasi twin per simpang masuk T3, dan mode bayangan masuk T4.
+  - Tabel teknologi diberi catatan bahwa lisensi bobot tiap varian RF-DETR tetap diperiksa lewat ADR-19, sama dengan catatan di `16`.
+- Daftar ADR diberi kolom "isi pokok" agar rincian daftar lama tidak hilang. Rincian itu mencakup perintah terbatas dan transaksi, urutan validasi, kontrol keamanan, dan contoh target SLO. Beberapa isi diperbarui:
+  - ADR-09 kini berisi actuated, pemilihan program, dan offset dasar di T4, sedangkan max-pressure jaringan pindah ke T5.
+  - ADR-10 berlaku sejak T2 karena validasi SUMO dimulai di T2.
+  - ADR-13 mencatat bahwa kolom tenant disiapkan sejak skema T1.
+- Semua tautan gambar di 06 dan bagian A01 diperiksa dan mengarah ke berkas yang ada.
+- `05`: F-T3-107 diubah dari "Kalibrasi twin per koridor" menjadi "Kalibrasi twin per simpang (koridor menyusul)". Ini selaras dengan F11 dan keputusan koridor di T5, dengan offset dasar di T4.
+
+### [T-51] 10:10 WIB: Dokumen 14 ditulis ulang untuk tahapan baru
+- `14_Arsitektur_per_Tahap.md` ditulis ulang total, dan cadangan versi lama ada di scratchpad. Bagian 1 adalah diagram A01, arsitektur alur data dari CCTV lewat Vision Tracker, data terstruktur, optimasi, dan penyajian sampai tindak lanjut. Setiap blok mencantumkan teknologinya dan penanda tahap T1 sampai T5. Bagian ini juga menjelaskan cara membaca penanda tahap, jalur kejadian T3, umpan balik uji sebelum-sesudah, tabel komponen dan teknologi, serta versi mermaid. Isinya diambil otomatis dari `diagram/_bagian_pipeline.md`.
+- Bagian 2 berisi lima lapisan dan aturan yang berlaku sejak T1: tanpa pengadaan sampai T3, keputusan di tangan manusia, lampu tetap bekerja bila pusat mati mulai T4, angka dapat ditelusuri, data hemat, dan standar terbuka.
+- Bagian 3 sampai 7 berisi satu bagian per tahap. Tiap bagian memuat gambaran singkat, susunan lapisan, alur data, alasan susunan, serta ukuran dan komputasi, dengan isi sesuai `04`.
+- Bagian 8 berisi tabel ringkasan lapisan, peran sistem, dan pengadaan per tahap. Bagian 9 berisi hal yang tidak berubah sepanjang tahap. Bagian 10 berisi register risiko arsitektur yang diperbarui, termasuk akurasi vision, rekaman terbatas, keterbatasan laptop, ukuran video, hak cipta video publik, lisensi pustaka, dan MoU.
+- Isi versi lama yang tidak berlaku lagi dibuang: edge ringan di T2, pelat dan adaptif koridor di T3, serta max-pressure di T4.
+
+### [T-52] 10:20 WIB: Dokumen 11 Kebutuhan Pengadaan ditulis ulang
+- `11_Kebutuhan_Pengadaan_per_Tahap.md` ditulis ulang mengikuti keputusan T-39: produk nol biaya sampai T3 selesai, biaya administrasi bisnis boleh. Cadangan versi lama ada di scratchpad (`11_backup.md`).
+- Isi:
+  1. Ringkasan per tahap.
+  2. Barang tanpa biaya sampai T3: laptop, perangkat lunak berlisensi bebas, GPU gratis, GitHub, standar gratis, NTCIP bila gratis, peta dan citra tanpa biaya, ponsel, TLS dan WireGuard, dokumentasi terbuka.
+  3. Biaya administrasi yang diperbolehkan: merek, PT Perorangan, domain dan email, templat NDA, DPIA, lisensi open-core, TKDN, klausul tanggung jawab.
+  4. Rencana lama yang ditunda ke T4 beserta cara menutup celahnya: edge ringan, controller uji, kamera IP uji, Jetson, UPS, server pilot, VM demo, GPU berbayar, NEMA, HCM, data probe.
+  5. Pengadaan mulai T4.
+  6. SDM tanpa biaya.
+  7. Urutan berbasis capaian.
+  8. Risiko keputusan nol pengadaan, termasuk laptop sebagai titik tunggal kegagalan, kuota GPU, kinerja, dan ruang disk.
+- Perkiraan kas sampai T3 dihitung ulang dari rincian: merek dua kelas Rp 1 sampai 3,6 juta, domain Rp 0,15 sampai 0,4 juta, email Rp 0 sampai sekitar 1,7 juta per tahun untuk dua pengguna, dan PT Perorangan Rp 0,05 sampai 0,3 juta. Totalnya sekitar Rp 1 sampai 6 juta pada tahun pertama.
+
+### [T-53] 10:23 WIB: Dokumen 13 Kebutuhan Data ditulis ulang
+- `13_Kebutuhan_Data_per_Tahap.md` ditulis ulang. Cadangan versi lama ada di scratchpad (`13_backup.md`).
+- Aturan pengumpulan:
+  - hanya rekaman sampai ada MoU;
+  - video publik boleh untuk uji dan pelatihan dengan register sumber;
+  - mulai dari sampel terbatas;
+  - uji akurasi boleh memakai simpang berbeda, tetapi optimasi memerlukan semua lengan pada periode yang sama;
+  - aturan privasi;
+  - hemat ruang disk.
+- T1 dirinci presisi dalam sembilan butir data:
+  - register sumber;
+  - rekaman simpang target;
+  - klip data latih sesuai `16`;
+  - klip uji per kondisi;
+  - hitungan manual referensi;
+  - data simpang;
+  - geometri;
+  - waktu lampu eksisting;
+  - contoh perhitungan resmi.
+- T2 dirinci presisi dalam sepuluh butir data:
+  - rekaman satu simpang lengkap pada periode yang sama;
+  - klip malam dan hujan;
+  - hitungan manual per kondisi dengan arah gerakan;
+  - zona hambatan samping;
+  - area kepala lampu;
+  - jaringan simulasi;
+  - parameter ekonomi;
+  - parameter kebijakan;
+  - studi lama untuk uji regresi MKJI, yaitu naskah lokal yang tidak dipush;
+  - jawaban kuesioner.
+- T3 sampai T5 berupa perkiraan. AVL bus pindah ke T4 karena prioritas bus ada di T4. MFD dan perimeter pindah ke T5. Floating car dan survei koridor dari versi lama dibuang dari T1.
+- Data ini dihapus dari versi lama karena tidak lagi sesuai T1: daftar koridor 3 sampai 5 simpang, floating car, dan inventaris aset (sekarang T3).
+- Pemeriksaan otomatis jumlah kolom tabel di semua dokumen planning dan log tidak menemukan masalah. Satu rumus yang memuat karakter pemisah tabel di 13 sudah ditulis ulang dalam kata-kata sebelum pemeriksaan.
+
+### [T-54] 10:36 WIB: Dokumen 01 diperbarui dan bagian 8 Definisi Istilah ditambahkan
+- Bagian 1 sampai 7 di `01_Visi_Produk_dan_Positioning.md` diselaraskan dengan tahapan baru. Cadangan versi lama ada di scratchpad (`01_backup.md`), dan skrip perakitnya adalah `build_01.py`.
+  - Pernyataan visi kini dimulai dari CCTV yang sudah ada menjadi hitungan dan rekomendasi waktu sinyal PKJI 2023.
+  - Nilai inti: controller dibaca mulai T3 dan dikendalikan mulai T4; T1 sampai T3 tanpa pengadaan; T2 dijual sebagai jasa kajian. Ditambah nilai kedelapan, lisensi bebas dan lock-in minimal.
+  - Positioning disesuaikan per tahap. Tabel perbedaan dengan ITCS DKI mendapat baris baru tentang perangkat dan lisensi.
+  - Tabel ringkasan tahapan memakai nama dan isi baru dari `04`.
+  - Ukuran sukses ditambah target akurasi Vision Tracker dan kajian tanpa survei hitung manual penuh. Uji tundaan kini pada simpang pilot di T3, bukan koridor.
+- Bagian 8 Definisi Istilah dibuat dari draf fork T-46 dengan 215 istilah dalam tujuh kelompok, diurutkan abjad di setiap kelompok.
+- Koreksi pada draf:
+  - Entri lisensi diganti karena menyatakan IRAMA hanya memakai Apache atau MIT, padahal ada komponen BSD, EPL, dan MPL. Entri baru menjelaskan lisensi permisif, copyleft lemah, GPL/AGPL, dan SSPL/BSL/RSAL.
+  - Akurasi kini memuat target malam dan hujan.
+  - BOK di T2 kini dijelaskan sebatas BBM saat diam.
+  - Klaim max-pressure dilunakkan.
+  - RF-DETR tidak lagi disebut "terbaru", dan pemeriksaan lisensi bobot disebutkan.
+  - MVP disesuaikan: T1 purwarupa, T2 versi pertama yang dijual.
+- 73 istilah ditambahkan, termasuk 12 yang sebelumnya dicatat kurang (GLOSA, SPaT, ICD, CRM, PWA, MapLibre, FastAPI, React, Keycloak, ONVIF, WebRTC, OER). Sisanya ditemukan lewat pemindaian otomatis singkatan di dokumen 01, 03, 04, 05, 06, 08, 11, 13, 14, 15, dan 16, misalnya UMK, DLH, Bapenda, NDA, detektor virtual, Kaggle, Colab, OWLv2, penyamaran, register sumber, dan jasa kajian.
+- Makna singkatan yang jarang dicek pada konteksnya lebih dulu. Contohnya, PDN di `03` berarti produk dalam negeri, dan OER di `05` berarti Octet Encoding Rules pada NTCIP. TDBU tidak dimasukkan karena maknanya tidak dapat dipastikan dari dokumen.
+- Draf `_draft_definisi_istilah.md` dipindahkan dari repositori ke scratchpad setelah digabung.
+
+### [T-55] 10:50 WIB: Revisi kecil dokumen 03, 05, 07, 08, 09, 10, 12, KB-10, dan START_HERE
+- Cara kerja: kata kunci tahapan lama (misalnya "Lihat & Kelola", edge-light, "siap jual", max-pressure di T4, pelat di T3) dipindai di semua dokumen. Isi yang tertinggal diubah lewat skrip `minor_updates.py` di scratchpad. Setiap penggantian dicek tepat satu kali, dan berkas baru ditulis bila semua cek lolos. Cadangan versi sebelumnya ada di scratchpad (`backup_minor/`).
+- `03`:
+  - Proposisi nilai disesuaikan: CCTV dan controller eksisting, tanpa pengadaan sampai T3, serta validasi bertahap.
+  - Model bisnis baru "jasa kajian waktu sinyal per simpang" (T2, sesuai keputusan T-40). Tahap model lain disesuaikan: paket koridor ke T4 sampai T5, ATSPM ke T3 sampai T4, B2B2G ke T3 sampai T4.
+  - Go-to-market kini dimulai dari satu simpang Bandung dan jasa kajian, lalu MoU sebelum T3.
+- `05`: F-T3-116 (tata kelola PDP) sebelumnya bergantung pada F-T3-99 yang sudah pindah ke T4. Isinya kini retensi video dan klip untuk data Dishub di T3, dependensinya F-T2-151, dan aturan pelat menyusul di T4.
+- `07`: nama tahap baru dipakai. Kolom "Dilayani sejak" untuk dua belas persona dan kolom tahap pada linimasa hari operator diperbarui, misalnya operator mulai T3, teknisi T3, bus T4, dan DPRD T2.
+- `08`:
+  - Asumsi A-02, A-04, A-05, A-17, dan A-18 direvisi. Asumsi baru A-20 sampai A-23: video publik, GPU gratis, sampel dari simpang berbeda, dan penerimaan engineer.
+  - Mitigasi risiko R-01, R-04, R-06, R-07, dan R-14 direvisi. Risiko baru R-15 sampai R-22: akurasi vision, hak cipta video publik, laptop, lisensi, sampel tidak mewakili, kuota GPU, perbedaan PKJI dan SUMO, dan MoU tertunda.
+  - Catatan status Q-01 sampai Q-13 ditambahkan.
+  - D-04, D-05, dan D-10 direvisi: adaptif per simpang di T4, max-pressure di T5, prioritas bus bersyarat di T5, dan deployment dimulai dari satu simpang.
+- `09`: tabel masukan ditambah dokumen 11 sampai 16 dan Definisi Istilah. Status keputusan, keluaran planning 10 dan 11 (spesifikasi T2 serta data dan pelatihan), rencana V&V, dan urutan kerja disesuaikan.
+- `10`:
+  - Checklist A (sumber data dan stack) diperbarui.
+  - Struktur repositori B ditulis ulang: services/vision, optimizer, reports, metrics, cai, priority, adaptive, edge di T4, dan sim satu simpang.
+  - C: CI kini mencakup pemeriksaan lisensi, uji regresi PKJI, vision-smoke, dan sim-smoke. Skema data T1 dan T2. Daftar ADR sebelum sprint 1.
+  - D (data sebelum sprint 1) dan E (MoU menjelang T3) diperbarui.
+- `12`:
+  - Tujuan internal diperbarui.
+  - Empat pertanyaan rekaman kamera ditambahkan di akhir bagian D (nomor 21 sampai 24): lokasi dan lama simpan rekaman, cara menyalin, kejelasan pandangan tiap pendekat, dan akses dari luar.
+  - Bagian E sampai G dinomori ulang menjadi 25 sampai 32. G kini memuat uji di satu atau beberapa simpang dan kesediaan mencoba jadwal hasil kajian.
+  - Pertanyaan vendor H8 tentang ekspor MP4 dan RTSP ditambahkan.
+  - Tabel asumsi disesuaikan dengan T4 dan U-08 yang direvisi, ditambah asumsi retensi NVR.
+- KB-10:
+  - D-08, D-09, D-10, D-16, dan D-20 diberi tanda revisi.
+  - U-03, U-05, U-06, dan U-08 dicoret atau dilengkapi.
+  - Bagian baru B2 berisi keputusan user 2026-09-14 U-09 sampai U-29, ditambah baris DOC tentang versi docx/PDF lokal.
+  - Q-03 dan Q-08 diberi catatan. Pertanyaan riset baru Q-12 sampai Q-15: lisensi bobot RF-DETR, citra satelit tanpa biaya, rekaman satu simpang lengkap, dan digitalisasi grafik PKJI.
+- START_HERE:
+  - Tanggal dan ringkasan proyek diperbarui, begitu pula inti produk T1 dan T2, pola recording-first, urutan baca yang kini mencakup 15, 16, 14, dan istilah, peta folder (planning 01 sampai 16, diagram, docx lokal, R08 lokal), serta konvensi ADR-01 sampai ADR-25 dengan nama tahap baru.
+  - Lembar fakta ditambah EMP, hambatan samping, akurasi, laptop, ukuran video, dan lisensi dilarang.
+  - Tiga workaround ditambahkan: diagram, docx, dan jam log dari jam sistem. Tindak lanjut terbaru juga dicatat.
+- `docs/kb/02_Lembar_Rumus.md`: tiga baris rumus (C2, D2, D9) memuat tanda nilai mutlak "|" yang memecah tabel. Tanda itu di-escape tanpa mengubah isi rumus. Masalah ini sudah ada sejak commit awal dan ditemukan lewat pemeriksaan tabel otomatis.
+- Pemeriksaan tabel otomatis di semua dokumen planning dan KB tidak menemukan masalah lagi. Penomoran kuesioner juga dicek: 1 sampai 32 berurutan, dan vendor 1 sampai 8.
+
+### [T-56] 10:54 WIB: Kerangka kode dan README utama diselaraskan
+- `git mv services/kpi-pkji services/optimizer` dan `git mv services/atspm services/metrics` dijalankan agar nama folder sama dengan dokumen 06 dan diagram. Folder baru `services/vision` dan `services/reports` dibuat.
+- README kerangka diperbarui: .github, apps/api, apps/tmc-web, edge (kini T4 dengan catatan tanpa edge sebelum T4), infra, packages, services/adaptive (tanpa max-pressure), cai (baca-saja T3, kendali T4), metrics, optimizer, priority, reports, vision, sim (satu simpang), dan tests (uji akurasi vision).
+- `README.md` utama ditulis ulang. Isinya ringkasan produk, status 2026-09-14, tabel tahapan baru, titik mulai baca (termasuk 15, 14, 13, dan Definisi Istilah), struktur (planning 01 sampai 16, ADR-01 sampai ADR-25), catatan lisensi dengan pemeriksaan lisensi di CI, serta catatan bahwa berkas kerja docx/PDF dan catatan pribadi hanya lokal.
+
+### [T-57] 11:00 WIB: Judul diagram berpola "dari X sampai Y" diganti; putaran rute ulang
+- Aturan gaya user melarang judul berpola "dari X ke Y". Dua judul melanggarnya dan kini diganti dengan judul teknis yang deskriptif:
+  - F06 menjadi "Pipeline Vision Tracker dan keluaran tabel hitungan".
+  - A01 menjadi "Arsitektur alur data IRAMA per komponen, teknologi, dan tahap".
+  - Judul bagian 1 dokumen 14 menjadi "Arsitektur alur data, komponen, dan teknologi (A01)".
+  - Nama berkas gambar menjadi `A01_Arsitektur_Alur_Data.png` dan `F06_Pipeline_Vision_Tracker_dan_keluaran.png`. Potongan nama berkas kini berhenti di batas kata.
+- Pemeriksaan gambar dekat menemukan persimpangan ambigu di A01. Panah "Hambatan samping" ke tabel data dan panah "Kejadian" ke tabel peristiwa bertemu di satu titik belok. Penyebabnya perutean serakah, sehingga ditambahkan putaran rute ulang: setiap panah dilepas lalu dirutekan lagi terhadap panah lain, dan rute baru dipakai hanya bila skornya lebih baik. Hasilnya, ketiga panah Vision Tracker ke Data kini bersarang rapi.
+- Ke-14 gambar dibuka ulang satu per satu dan semuanya bersih. Dokumen 06 dan 14 dirakit ulang, dan semua tautan gambar dicek masih mengarah ke berkas yang ada.
+- Versi sederhana bagian A01 kini diberi penanda halaman mendatar sebelum gambar dan kembali tegak setelah tabel.
+
+### [T-58] 11:05 WIB: Perbaikan pembuat docx (`build_docx.py`, lokal)
+- Substitusi tautan markdown ternyata berisi karakter kontrol 0x01 akibat kesalahan escape di sesi sebelumnya. Akibatnya teks tautan bisa hilang atau XML Word rusak. Substitusi kini memakai `\1`.
+- Penanda baru `<<<PORTRAIT>>>` ditambahkan untuk kembali ke halaman tegak setelah `<<<LANDSCAPE>>>`.
+- Daftar bernomor kini memakai nomor dari sumber dengan indentasi gantung. Gaya "List Number" bawaan melanjutkan nomor dari daftar sebelumnya.
+- Tinggi gambar dibatasi agar muat di halaman, penting untuk diagram di halaman mendatar.
+- Lebar kolom tabel kini dihitung dari panjang teks rata-rata tiap kolom, tidak lagi dari preset per jumlah kolom.
+- Cadangan versi sebelumnya ada di scratchpad (`build_docx_backup.py`).
+
+### [T-59] 11:20 WIB: Sumber docx sederhana 05, 15, dan 16 lewat fork; perbaikan kanonis dari temuan fork
+- Tiga fork menulis sumber docx sederhana untuk 05 (inventaris fitur, hitung ulang cocok: 179 fitur, 100 Must, 57 Should, 22 Could), 15 (spesifikasi T2), dan 16 (panduan data latih, semua langkah dan perintah dipertahankan). Ketiganya dicek otomatis: tanpa em-dash, tanpa en-dash, tanpa pola "bukan", dan tabel konsisten.
+- Temuan fork diperbaiki di dokumen kanonis:
+  - `15`: FFmpeg diberi label LGPL sebagai program terpisah (sebelumnya tertulis Apache-2.0). Rujukan "Diagram alur dari CCTV sampai dashboard" diganti "Diagram arsitektur alur data (A01)".
+  - `16`: penundaan penyamaran ke T3 dijelaskan hanya berlaku untuk frame data latih; cuplikan produk tetap disamarkan sejak T2 (F-T2-151). Disk eksternal hanya dipakai bila sudah dimiliki, dan cadangan tanpa pembelian memakai register sumber serta tautan unduh ulang. Total jam kerja disamakan dengan anggaran rinci, yaitu sekitar 55 sampai 76 jam orang.
+  - `05`: dependensi dirapikan.
+    - Rujukan ke ID yang tidak ada (F-T2-56, F-T2-25, F-T3-56, F-T3-102) diganti ID yang benar.
+    - Fitur yang bergantung pada fitur di tahap lebih lambat kini merujuk sumber data yang tersedia di tahapnya, misalnya nyala lampu kamera F-T2-148, antrian dasar F-T2-149, tabel hitungan F-T1-144, rekomendasi F-T1-160, kesehatan kamera F-T3-154, dan kecepatan antarkamera F-T3-157.
+    - Deskripsi F-T1-10, F-T1-64, F-T2-51, F-T2-59, F-T2-62, F-T2-66, F-T3-53, F-T3-60, F-T3-131, dan F-T2-49 disesuaikan. Sel tahap F-T4-125 dirapikan.
+- Pemeriksaan dependensi otomatis atas 179 fitur kini tidak menemukan masalah. Pemeriksa ini juga menemukan lima masalah yang tidak dilaporkan fork. Jumlah fitur per tahap dan MoSCoW tidak berubah.
+- Sumber sederhana 05 dan 16 diselaraskan dengan perbaikan tersebut.
+
+### [T-60] 11:40 WIB: Sumber docx sederhana untuk semua dokumen yang berubah (lokal, tidak dipush)
+- Sumber sederhana di `docs/planning/docx/src/` (untuk pembaca strategi IT, mengikuti aturan gaya user) diperbarui sebagai berikut:
+  - **Ditulis ulang:** 01 (bagian naratif, lalu Definisi Istilah 215 istilah diambil dari kanonis dengan rentang angka ditulis "sampai"), 04, 06, 08, 09, 10, 11, dan 13.
+  - **Dirakit dari bagian kanonis dan hasil skrip:**
+    - 06: bagian awal ditambah diagram versi sederhana di halaman mendatar.
+    - 14: bagian A01 versi sederhana ditaruh di halaman mendatar lalu kembali tegak. Bagian 2 sampai 10 diambil dari kanonis dengan nomor bagian dibuang dan label diubah menjadi awalan tebal. "Mengapa disusun begini" menjadi "Alasan susunan", rujukan nomor dokumen diganti nama dokumen, dan tabel ringkasan enam kolom ditaruh di halaman mendatar.
+  - **Ditambal:** 03 (proposisi nilai, model bisnis jasa kajian, tahap model lain, urutan masuk pasar, pilot satu simpang), 07 (kolom tahap persona dan linimasa), dan 12 (pertanyaan rekaman 21 sampai 24, penomoran 1 sampai 32, pertanyaan uji jadwal, pertanyaan vendor 8, dugaan awal).
+  - **Lewat fork (T-59):** 05, 15, dan 16. Dokumen 02 tidak berubah.
+- Temuan saat menulis versi sederhana diperbaiki juga di kanonis:
+  - A-10 di `08` dan jalur swakelola di `03` tidak lagi menyebut pilot 3 sampai 5 simpang.
+  - Risiko baru R-23 (tim tanpa teknisi lapangan, T4) ditambahkan di `08`, sehingga nomor risiko kanonis dan versi sederhana sama.
+  - Entri "Uji di meja" di Definisi Istilah tidak lagi memakai pola "X, bukan Y".
+- Pemeriksaan otomatis atas 16 sumber sederhana tidak menemukan em-dash, en-dash, pola "bukan", judul berpola "dari X ke Y", judul berbentuk pertanyaan, maupun tabel rusak.
+
+### [T-61] 11:49 WIB: Pembuat docx diperkuat, lalu docx dan PDF dibangun ulang dan diperiksa
+- Perbaikan tambahan di `build_docx.py`:
+  - Blok kode dengan baris kosong dan kutipan tidak lagi membuat pembuat berhenti.
+  - Lebar kolom tabel kini punya batas bawah dari kata terpanjang dan lebar minimum absolut sekitar 0,18 cm per huruf ditambah bantalan sel, sehingga kata tidak terpotong di tengah.
+- Build penuh dijalankan tiga kali; yang terakhir berlaku. Hasilnya 16 docx, 16 PDF arsip, dan 16 PDF terkunci. Sandi baru disimpan di `PASSWORD_LOKAL.txt` (lokal). Sandi tidak ditulis di log karena log dipush.
+- Verifikasi tampilan: halaman contoh dari 01, 04, 05, 06, 11, 12, 13, 14, dan 16 dirender ke gambar lalu diperiksa.
+  - Di 14, A01 tampil di halaman mendatar 2 sampai 3, lalu kembali tegak, dan tabel ringkasan tampil mendatar di halaman 8.
+  - Di 06, diagram F00 sampai F12 tampil mendatar.
+  - Daftar bernomor mulai dari 1 di setiap bagian, blok kode rapi, dan tabel tidak lagi memotong kata.
+- Verifikasi PDF terkunci: ke-16 berkas terenkripsi AES-256 (V5, R6, AESV3), sandi salah ditolak, sandi baru membuka berkas, dan tanda air "RAHASIA IRAMA | untuk rekan tim | berlaku s.d. 17-09-2026" ada. Izin cetak, ubah, dan salin dimatikan.
+- Berkas docx, PDF, dan sumber sederhana tetap lokal, di `.gitignore`, dan tidak dipush.

@@ -1,153 +1,268 @@
 # 14 — Arsitektur Sistem per Tahap (T1 sampai T5)
 
-Status: 2026-09-13. Dokumen ini menjelaskan susunan sistem IRAMA pada tiap tahap dalam bahasa yang ditujukan untuk pembaca berlatar strategi IT. Rincian teknis (nama teknologi, ukuran server, daftar ADR) ada di `06_Arsitektur_Konseptual_dan_Opsi_Teknologi.md`; daftar fitur per tahap ada di `05`; alasan pembagian tahap ada di `04`.
+Status: revisi 2026-09-14, menggantikan versi 2026-09-13. Dokumen ini menjelaskan susunan sistem IRAMA pada tiap tahap untuk pembaca berlatar strategi IT, mengikuti tahapan baru di `04`. Rincian teknologi, lisensi, dan ADR ada di `06`; spesifikasi Vision Tracker dan modul optimasi ada di `15`; daftar fitur per tahap ada di `05`; pengadaan ada di `11`.
 
-## 1. Cara membaca arsitektur ini
+## 1. Arsitektur alur data, komponen, dan teknologi (A01)
 
-Sistem selalu terdiri dari lima lapisan yang sama, dari jalan sampai layar pengguna.
+Diagram A01 merangkum alur kerja IRAMA dari kamera sampai keputusan. Video dari CCTV diolah Vision Tracker menjadi tabel hitungan per kelas kendaraan, per arah, dan per 15 menit. Tabel itu disimpan bersama konfigurasi simpang, lalu diolah modul Optimasi Waktu Simpang menjadi rekomendasi waktu siklus dan waktu hijau. Hasilnya tampil di dashboard dan laporan kajian sebagai bahan keputusan engineer dan Kepala Dinas. Setiap kotak mencantumkan teknologi yang dipakai dalam huruf miring.
+
+Cara membaca diagram:
+
+- Label warna di pojok kanan atas kotak menunjukkan tahap saat komponen itu pertama tersedia. T1 hijau, T2 biru, T3 jingga, T4 ungu, T5 merah.
+- Untuk melihat kondisi sistem pada tahap tertentu, abaikan kotak dengan tahap lebih tinggi. Pada T2, misalnya, alur berjalan dari rekaman atau stream uji, melalui Vision Tracker dan optimasi, sampai dashboard, laporan, keputusan, dan penerapan manual oleh petugas.
+- Panah tegak di dalam kolom menunjukkan urutan proses. Panah antarkolom menunjukkan data yang berpindah ke bagian berikutnya.
+- Garis jingga di bawah kolom adalah jalur kejadian mulai T3. Peristiwa seperti ambulans lewat atau kamera tertutup langsung dikirim ke konsol pemantauan tanpa melalui optimasi.
+- Garis putus-putus adalah umpan balik mulai T3. Setelah jadwal baru diterapkan, rekaman sesudahnya diukur ulang untuk membuktikan perubahan kinerja simpang.
+
+![A01](diagram/A01_Arsitektur_Alur_Data.png)
+
+Rincian komponen, teknologi, dan tahap:
+
+| Kolom | Komponen | Teknologi | Tahap |
+|---|---|---|---|
+| Sumber video | Rekaman CCTV dan video publik | MP4/MKV, register sumber rekaman | T1 |
+| Sumber video | Stream CCTV | RTSP/HLS/ONVIF; uji lewat MediaMTX (T2), stream Dishub setelah MoU (T3) | T2 |
+| Vision Tracker | Ambil bingkai | FFmpeg, OpenCV | T1 |
+| Vision Tracker | Deteksi enam kelas kendaraan | RF-DETR/YOLOX lewat ONNX Runtime (CPU/iGPU) | T1 |
+| Vision Tracker | Pelacakan dan hitung per pendekat | ByteTrack, supervision; arah dari lintasan (T2) | T1 |
+| Vision Tracker | Hambatan samping, nyala lampu, antrian | logika IRAMA, OpenCV; penyamaran wajah dan pelat | T2 |
+| Vision Tracker | Kejadian dan kesehatan kamera | model tambahan, aturan peringatan | T3 |
+| Data terstruktur | Tabel hitungan 15 menit dan mutu data | PostgreSQL | T1 |
+| Data terstruktur | Hambatan samping, status lampu, antrian | PostgreSQL (TimescaleDB opsional) | T2 |
+| Data terstruktur | Konfigurasi simpang dan parameter | formulir (T1), wizard React + MapLibre (T2); PostgreSQL + PostGIS | T1 |
+| Data terstruktur | Peristiwa kejadian dan kesehatan kamera | PostgreSQL, klip bukti tersamarkan | T3 |
+| Optimasi waktu simpang | Konversi SMP dan periode | Python, EMP PKJI 2023; periode otomatis (T2) | T1 |
+| Optimasi waktu simpang | Kalkulator PKJI 2023 | NumPy, modul PKJI IRAMA; mode MKJI 1997 (T2) | T1 |
+| Optimasi waktu simpang | Mode optimasi | SciPy; Webster (T1), empat mode (T2), multi-kriteria (T3) | T1 |
+| Optimasi waktu simpang | Validasi simulasi | SUMO, TraCI | T2 |
+| Optimasi waktu simpang | Manfaat rupiah | parameter UMK, BBM, emisi | T2 |
+| Penyajian dan keputusan | Dashboard simpang | React, ECharts; versi dasar (T1), tiga halaman (T2) | T1 |
+| Penyajian dan keputusan | Laporan kajian Word/PDF | python-docx, LibreOffice | T2 |
+| Penyajian dan keputusan | Keputusan engineer dan Kepala Dinas | persetujuan dan jejak audit | T2 |
+| Penyajian dan keputusan | Konsol pemantauan kejadian | React; notifikasi email/WhatsApp | T3 |
+| Tindak lanjut | Penerapan manual oleh petugas | lembar jadwal dari dashboard atau laporan | T2 |
+| Tindak lanjut | Ekspor jadwal dan uji sebelum-sesudah | format tabel, NTCIP baca-saja | T3 |
+| Tindak lanjut | Kendali controller dan adaptif | adaptor NTCIP/vendor, edge, MQTT | T4 |
+| Tindak lanjut | Koordinasi koridor dan jaringan | offset, bandwidth, Link Pivot; twin kota | T5 |
+| Tindak lanjut | Tiket kerja dan tindak lanjut kejadian | tiket, email/WhatsApp, laporan wajib | T3 |
+
+Versi teks (mermaid):
+
+```mermaid
+flowchart LR
+  subgraph C0["Sumber video"]
+    V1["Rekaman CCTV dan video publik (T1)<br/><i>MP4/MKV, register sumber rekaman</i>"]
+    V2["Stream CCTV (T2)<br/><i>RTSP/HLS/ONVIF; uji lewat MediaMTX (T2), stream Dishub setelah MoU (T3)</i>"]
+  end
+  subgraph C1["Vision Tracker"]
+    A1["Ambil bingkai (T1)<br/><i>FFmpeg, OpenCV</i>"]
+    A2["Deteksi enam kelas kendaraan (T1)<br/><i>RF-DETR/YOLOX lewat ONNX Runtime (CPU/iGPU)</i>"]
+    A3["Pelacakan dan hitung per pendekat (T1)<br/><i>ByteTrack, supervision; arah dari lintasan (T2)</i>"]
+    A4["Hambatan samping, nyala lampu, antrian (T2)<br/><i>logika IRAMA, OpenCV; penyamaran wajah dan pelat</i>"]
+    A5["Kejadian dan kesehatan kamera (T3)<br/><i>model tambahan, aturan peringatan</i>"]
+  end
+  subgraph C2["Data terstruktur"]
+    D1["Tabel hitungan 15 menit dan mutu data (T1)<br/><i>PostgreSQL</i>"]
+    D2["Hambatan samping, status lampu, antrian (T2)<br/><i>PostgreSQL (TimescaleDB opsional)</i>"]
+    D3["Konfigurasi simpang dan parameter (T1)<br/><i>formulir (T1), wizard React + MapLibre (T2); PostgreSQL + PostGIS</i>"]
+    D4["Peristiwa kejadian dan kesehatan kamera (T3)<br/><i>PostgreSQL, klip bukti tersamarkan</i>"]
+  end
+  subgraph C3["Optimasi waktu simpang"]
+    O1["Konversi SMP dan periode (T1)<br/><i>Python, EMP PKJI 2023; periode otomatis (T2)</i>"]
+    O2["Kalkulator PKJI 2023 (T1)<br/><i>NumPy, modul PKJI IRAMA; mode MKJI 1997 (T2)</i>"]
+    O3["Mode optimasi (T1)<br/><i>SciPy; Webster (T1), empat mode (T2), multi-kriteria (T3)</i>"]
+    O4["Validasi simulasi (T2)<br/><i>SUMO, TraCI</i>"]
+    O5["Manfaat rupiah (T2)<br/><i>parameter UMK, BBM, emisi</i>"]
+  end
+  subgraph C4["Penyajian dan keputusan"]
+    P1["Dashboard simpang (T1)<br/><i>React, ECharts; versi dasar (T1), tiga halaman (T2)</i>"]
+    P2["Laporan kajian Word/PDF (T2)<br/><i>python-docx, LibreOffice</i>"]
+    P3["Keputusan engineer dan Kepala Dinas (T2)<br/><i>persetujuan dan jejak audit</i>"]
+    P4["Konsol pemantauan kejadian (T3)<br/><i>React; notifikasi email/WhatsApp</i>"]
+  end
+  subgraph C5["Tindak lanjut"]
+    R1["Penerapan manual oleh petugas (T2)<br/><i>lembar jadwal dari dashboard atau laporan</i>"]
+    R2["Ekspor jadwal dan uji sebelum-sesudah (T3)<br/><i>format tabel, NTCIP baca-saja</i>"]
+    R3["Kendali controller dan adaptif (T4)<br/><i>adaptor NTCIP/vendor, edge, MQTT</i>"]
+    R4["Koordinasi koridor dan jaringan (T5)<br/><i>offset, bandwidth, Link Pivot; twin kota</i>"]
+    R5["Tiket kerja dan tindak lanjut kejadian (T3)<br/><i>tiket, email/WhatsApp, laporan wajib</i>"]
+  end
+  V1 --> A1
+  V2 --> A1
+  A1 --> A2
+  A2 --> A3
+  A3 --> A4
+  A4 --> A5
+  A3 --> D1
+  A4 --> D2
+  A5 --> D4
+  D1 --> O1
+  D2 --> O2
+  D3 --> O2
+  O1 --> O2
+  O2 --> O3
+  O3 --> O4
+  O4 --> O5
+  O3 --> P1
+  O4 --> P1
+  O5 --> P1
+  P1 --> P2
+  P2 --> P3
+  P3 --> R1
+  P3 --> R2
+  P3 --> R3
+  R3 --> R4
+  P4 --> R5
+  D4 -->|T3: peristiwa kejadian langsung ke konsol pemantauan, tanpa melalui optimasi| P4
+  R2 -.->|T3: uji sebelum-sesudah; rekaman sesudah penerapan diukur ulang oleh Vision Tracker| V2
+```
+
+## 2. Cara membaca arsitektur per tahap
+
+Sistem selalu terdiri dari lima lapisan yang sama, dari jalan sampai layar pengguna. Tiap tahap menambah kemampuan pada lapisan tertentu tanpa membongkar tahap sebelumnya.
 
 | Lapisan | Isi | Analogi |
 |---|---|---|
-| Lapangan | lampu lalu lintas, alat pengatur di kabinet (controller), detektor, kamera, dan mulai T2 sebuah komputer kecil di kabinet (edge) | cabang/gerai |
-| Komunikasi | kabel fiber atau modem seluler dari kabinet ke kantor | jaringan antar cabang |
-| Pusat | server aplikasi dan basis data di kantor Dishub (atau cloud pemda) | kantor pusat dan gudang data |
-| Integrasi | sambungan ke sistem instansi lain (Polri, operator bus, pemadam, pajak, portal kota) | kemitraan |
-| Penyajian | layar operator ruang kendali, aplikasi teknisi, dashboard pimpinan dan publik | etalase dan laporan manajemen |
+| Lapangan | kamera CCTV yang sudah dimiliki Dishub dan rekamannya; mulai T3 controller dibaca tanpa diubah; mulai T4 komputer kecil di kabinet (edge), kamera ANPR khusus, dan controller yang dikendalikan dari pusat | cabang atau gerai |
+| Komunikasi | T1 dan T2 berupa berkas rekaman yang disalin; T3 stream Dishub lewat VPN setelah MoU; T4 jaringan fiber atau seluler dengan enkripsi dua arah | jaringan antarcabang |
+| Pusat | Vision Tracker, modul optimasi, basis data, dan simulasi. Berjalan di laptop tim sampai T3, di server pemda atau cluster kecil di T4, dan di cloud atau pusat data pemerintah di T5 | kantor pusat dan gudang data |
+| Integrasi | sambungan ke sistem lain: aduan kota mulai T3; Polri, operator bus, pemadam dan ambulans, Bapenda, DLH, dan pengelola tol mulai T4; API publik mulai T5 | kemitraan |
+| Penyajian | wizard konfigurasi, dashboard, dan laporan; konsol pemantauan mulai T3; ruang kendali dan video wall mulai T4; portal data mulai T5 | etalase dan laporan manajemen |
 
-Tiap tahap menambah kemampuan pada lapisan tertentu tanpa membongkar tahap sebelumnya. Empat aturan berlaku sejak T1 dan tidak pernah berubah.
+Aturan berikut berlaku sejak T1 dan tidak berubah di tahap mana pun.
 
-1. Lampu tetap bekerja sendiri bila pusat mati. Controller di kabinet menyimpan minimal delapan jadwal lokal (kewajiban PM 49/2014). Pusat hanya mengirim instruksi terbatas dan "detak jantung" berkala; bila detak berhenti, controller kembali ke jadwal lokal.
-2. Pusat mengubah jadwal hanya lewat transaksi yang diperiksa dulu keabsahannya sebelum dikirim ke alat.
-3. Setiap keputusan sistem dan setiap perintah operator disimpan bersama alasannya, sehingga bisa diaudit dan dijelaskan ke Polri, DPRD, atau warga.
-4. Data disimpan hemat. Perhitungan dilakukan sedekat mungkin dengan sumbernya, data rinci disimpan singkat, data ringkasan disimpan lama, video tidak disimpan di pusat sampai T3.
+1. Tanpa pengadaan sampai T3 selesai. Semua komponen T1 sampai T3 berjalan di laptop tim dengan perangkat lunak berlisensi bebas, dan pelatihan model memakai layanan GPU gratis.
+2. Keputusan tetap di tangan manusia. Sampai T3 sistem hanya memberi rekomendasi dan bukti; petugas yang menerapkan jadwal di controller. Kendali lampu dari pusat baru dimulai di T4.
+3. Lampu tetap bekerja sendiri bila pusat mati. Sejak kendali tersambung di T4, controller menyimpan minimal delapan jadwal lokal (PM 49/2014), pusat hanya mengirim perintah terbatas dan detak jantung berkala, dan perubahan jadwal dikirim sebagai transaksi yang diperiksa dulu.
+4. Setiap angka dapat ditelusuri. Hitungan terhubung ke rekaman dan versi model, rekomendasi ke konfigurasi dan rumus PKJI 2023, dan keputusan ke persetujuan pejabat yang berwenang.
+5. Data disimpan hemat. Video mentah dihapus setelah diolah kecuali sampel validasi yang disamarkan; yang disimpan lama hanya angka dan peristiwa.
+6. Standar terbuka di setiap sambungan: RTSP, ONVIF, dan HLS untuk kamera; ONNX untuk model; NTCIP untuk controller; format ekspor terbuka untuk data.
 
-## 2. Tahap 1, MVP "Lihat & Kelola"
+## 3. Tahap 1, Purwarupa Hitung dan Rekomendasi
 
-Gambaran singkat: meja kerja perencana lalu lintas yang dilengkapi simulator. Belum ada sambungan ke lampu sungguhan.
-
-Susunan sistem
+Gambaran singkat: meja kerja engineer lalu lintas yang mengubah rekaman CCTV satu simpang menjadi rekomendasi waktu sinyal. Belum ada sambungan ke kamera atau lampu sungguhan.
 
 | Lapisan | Yang ada di T1 |
 |---|---|
-| Lapangan | tidak ada perangkat; lampu digantikan simulator SUMO yang berperilaku seperti controller sungguhan. Bila Dishub mengizinkan, satu controller ber-IP boleh dibaca statusnya (hanya baca) |
-| Komunikasi | tidak ada |
-| Pusat | satu laptop atau satu VM kecil menjalankan aplikasi web, basis data (PostgreSQL dengan ekstensi peta dan deret waktu), dan simulator |
-| Integrasi | sengaja tidak ada |
-| Penyajian | aplikasi web untuk perencana: peta simpang, tampilan fase, editor jadwal, kalkulator, dashboard LOS, laporan sebelum-sesudah |
+| Lapangan | tidak ada perangkat baru; rekaman dari CCTV yang sudah ada atau video publik (lihat `13`) |
+| Komunikasi | berkas rekaman disalin ke laptop |
+| Pusat | laptop tim menjalankan Vision Tracker (FFmpeg dan OpenCV untuk membaca video, model deteksi lewat ONNX Runtime, pelacakan ByteTrack), basis data PostgreSQL, kalkulator PKJI 2023, dan mode optimasi Webster/PKJI baku |
+| Integrasi | tidak ada |
+| Penyajian | formulir konfigurasi simpang dan dashboard dasar (volume, kapasitas, derajat kejenuhan, tundaan, LOS, rekomendasi) |
 
-Alur data: data survei dan rekaman (lihat `13`) dimasukkan ke registri simpang. Kalkulator PKJI menghitung kapasitas, antrian, tundaan, dan kelas LOS. Perencana menyusun jadwal lampu, sistem memvalidasi keselamatannya (kuning, merah semua, hijau minimum), lalu jadwal dijalankan di simulator. Simulator menghasilkan catatan kejadian sepersepuluh detik dengan format yang sama seperti controller sungguhan. Dari catatan itu dihitung ukuran kinerja sinyal (ATSPM), dan hasilnya tampil di dashboard.
+Alur data: rekaman per pendekat didaftarkan beserta sumbernya. Vision Tracker mengambil sekitar sepuluh bingkai per detik, mendeteksi dan melacak enam kelas (motor, mobil, bus, truk, kendaraan tak bermotor, pejalan kaki), lalu menghitung kendaraan yang melewati garis hitung per pendekat per 15 menit. Tabel hitungan dikonversi ke arus SMP dengan EMP PKJI 2023. Kalkulator menghitung arus jenuh, kapasitas, derajat kejenuhan, antrian, dan tundaan. Mode Webster/PKJI baku menghasilkan waktu siklus dan pembagian hijau yang lolos validator keselamatan (kuning, merah semua, hijau minimum), dan hasilnya tampil di dashboard dasar.
 
-Mengapa disusun begini: dua orang dapat membangun dan mendemokan seluruh alur tanpa izin lapangan, tanpa biaya perangkat, dan tanpa risiko mengganggu lalu lintas. Format catatan kejadian yang sama dengan lapangan membuat semua yang dibangun di T1 langsung terpakai saat perangkat sungguhan tersambung di T2.
+Mengapa disusun begini: seluruh alur bisa dibangun dan didemokan tim dua orang tanpa izin lapangan dan tanpa biaya. Model, skema tabel, dan kalkulator yang dipakai sama dengan T2, sehingga pekerjaan T1 langsung terpakai di tahap berikutnya.
 
-Ukuran: 3 sampai 5 simpang koridor pilot. Laptop 16 GB cukup.
+Ukuran dan komputasi: satu simpang dengan rekaman terbatas. Laptop tim (Ryzen 7 7730U, RAM 32 GB, GPU terintegrasi) cukup untuk mengolah rekaman per batch. Pelatihan model memakai GPU gratis Kaggle atau Colab sesuai `16`.
 
-## 3. Tahap 2, Siap Jual "Kendali Terkoordinasi"
+## 4. Tahap 2, Vision Tracker dan Optimasi Simpang
 
-Gambaran singkat: ruang kendali kecil yang dapat dijual ke Dishub yang sudah punya lampu, CCTV, dan jaringan, tanpa mengganti alat mereka.
-
-Susunan sistem
+Gambaran singkat: perangkat lunak kajian waktu sinyal untuk engineer Dishub. Awalnya dijual sebagai jasa kajian yang dijalankan tim di laptop: Dishub menyerahkan rekaman, tim menyerahkan dashboard dan laporan.
 
 | Lapisan | Tambahan di T2 |
 |---|---|
-| Lapangan | komputer kecil (edge) dipasang di kabinet yang controllernya hanya punya port serial. Tugasnya menerjemahkan protokol vendor, menyimpan data sementara bila jaringan putus, dan mengirim detak jantung. Controller yang sudah ber-IP dihubungi langsung dari pusat tanpa edge |
-| Komunikasi | jaringan yang sudah dimiliki Dishub (fiber atau 4G). Semua lalu lintas data dienkripsi dan lewat VPN |
-| Pusat | satu server 8 inti/32 GB di kantor Dishub untuk sampai 40 simpang dan 60 tampilan kamera. Ditambah modul kesehatan perangkat dan alarm, tiket keluhan, pembuat laporan wajib, gerbang video (menyalurkan CCTV ke layar tanpa merekam), dan pengelolaan pengguna dan peran |
-| Integrasi | email dan WhatsApp untuk alarm; sambungan opsional ke aplikasi pengaduan kota |
-| Penyajian | konsol operator (pilih program, mode manual untuk petugas, sinkron jam), dashboard kesehatan perangkat, dashboard publik sederhana, aplikasi ponsel teknisi (tiket, checklist pemeliharaan, foto, bisa offline) |
+| Lapangan | tidak ada perangkat baru; rekaman semua lengan satu simpang pada periode yang sama |
+| Komunikasi | berkas rekaman; mode stream diuji dengan rekaman yang diputar ulang lewat server stream lokal MediaMTX (RTSP atau HLS), tanpa stream Dishub |
+| Pusat | Vision Tracker lengkap: arah gerakan dari lintasan, hambatan samping berbobot PKJI, pembacaan nyala lampu, antrian dasar, penyamaran wajah dan pelat. Modul optimasi lengkap: periode otomatis, empat mode tambahan, pembanding MKJI 1997, manfaat rupiah. Ditambah simulasi SUMO dan pembuat laporan Word/PDF |
+| Integrasi | tidak ada integrasi sistem; pertukaran dengan Dishub lewat berkas rekaman dan laporan |
+| Penyajian | wizard konfigurasi dengan peta; dashboard tiga halaman (Ringkasan Simpang dan Rekomendasi; Arus Lalu Lintas dan Kapasitas; Kinerja Pendekat dan Kualitas Data); laporan kajian |
 
-Alur perintah: operator memilih program atau mode dari konsol. Pusat mengirim instruksi terbatas (pilih program, sinkron jam, tahan atau lepas fase) beserta detak jantung. Perubahan jadwal dikirim sebagai paket transaksi yang diperiksa dulu, lalu diunduh ke controller. Bila jaringan putus, controller berjalan dengan jadwal lokal dan edge menyimpan catatan kejadian sampai jaringan pulih.
+Alur data: engineer mengisi konfigurasi simpang lewat wizard, termasuk garis hitung dan zona pada gambar kamera. Vision Tracker menghasilkan tabel hitungan per kelas, per arah, dan per 15 menit, ditambah tabel hambatan samping, status lampu, dan antrian. Modul optimasi mengelompokkan profil 15 menit menjadi paling banyak delapan periode, menghitung kinerja kondisi eksisting dan rekomendasi untuk setiap mode, memvalidasinya di SUMO, dan menghitung manfaat rupiah. Engineer memilih rekomendasi, laporan dibuat otomatis, Kepala Dinas memutuskan, lalu petugas menerapkan jadwal secara manual di controller.
 
-Alur data: controller atau edge mengirim catatan kejadian secara berkala dalam paket, sehingga bandwidth hemat. Pusat menyimpan data rinci 90 hari dan ringkasan 15 menit selama 5 tahun. Watchdog harian memeriksa gejala detektor rusak atau lampu bermasalah dan membuat tiket otomatis.
+Mengapa disusun begini: nilai jual T2 adalah kajian yang cepat dan dapat dipertanggungjawabkan, tanpa mengganti alat di lapangan dan tanpa biaya pengadaan. Semua nilai antara, akurasi hitungan, dan perbedaan PKJI dengan simulasi ditampilkan agar engineer dapat memeriksa sendiri.
 
-Mengapa disusun begini: nilai jual T2 adalah keandalan, akuntabilitas, dan laporan, dengan biaya server yang terjangkau pemda kecil. Edge hanya dipasang di kabinet yang benar-benar memerlukannya agar biaya dan pekerjaan lapangan minimal (keputusan "edge-light"). Pemasangan edge dirancang agar bisa dilakukan teknisi Dishub atau vendor dengan checklist, karena tim inti tidak memiliki teknisi lapangan.
+Ukuran dan komputasi: satu simpang lengkap. Laptop tim menjalankan dua sampai empat stream uji bersamaan. Rekaman 1080p berukuran sekitar 1,5 sampai 2 GB per jam per kamera, sehingga diolah per batch dan disimpan sementara di disk eksternal atau diperkecil ke 720p.
 
-Ukuran: sampai 40 simpang per server. Stabil 30 hari tanpa campur tangan menjadi syarat kelulusan.
+## 5. Tahap 3, Deteksi Kejadian dan Pemantauan Operasional
 
-## 4. Tahap 3, Transisi "Responsif"
-
-Gambaran singkat: koridor yang mulai menyesuaikan diri dengan kondisi lalu lintas, dengan manfaat yang diukur sebelum melangkah ke adaptif penuh.
-
-Susunan sistem
+Gambaran singkat: ruang pantau kecil yang memberi peringatan kejadian dan menyusun laporan wajib, sekaligus membuktikan manfaat rekomendasi di lapangan. Masih tanpa pengadaan dan belum mengendalikan lampu.
 
 | Lapisan | Tambahan di T3 |
 |---|---|
-| Lapangan | kotak edge AI (komputer kecil ber-GPU) di simpang terpilih. Kamera yang ada diolah menjadi "detektor virtual": jumlah kendaraan, okupansi, panjang antrian per lajur, dan pembacaan pelat untuk bukti dan prioritas. Pengolahan pelat tunduk pada penilaian dampak perlindungan data dan retensi singkat |
-| Komunikasi | sama dengan T2; edge AI hanya mengirim angka ringkasan, tanpa video |
-| Pusat | dua server (aplikasi dan data) ditambah satu pekerja simulasi. Modul baru: pemilihan program otomatis menurut lalu lintas terukur, penalaan offset koridor dari data GPS dan kedatangan kendaraan, layanan permintaan prioritas bus (green extension dan early green), digital twin per koridor, mode bayangan (algoritma baru diuji dengan data hidup tanpa mengendalikan lampu), paket bukti pelanggaran untuk Polri |
-| Integrasi | AVL operator bus (posisi dan keterlambatan bus), sumber data GPS, pengiriman bukti ke Polri |
-| Penyajian | tampilan koridor (diagram waktu-ruang, arrivals on green), konsol prioritas, tampilan hasil simulasi sebelum jadwal ditetapkan (kewajiban PM 96/2015) |
+| Lapangan | kamera Dishub yang ditunjuk dalam MoU; controller dibaca tanpa diubah bila Dishub mengizinkan |
+| Komunikasi | stream Dishub lewat VPN setelah MoU, dibatasi pada sedikit kamera dan tidak berjalan 24 jam |
+| Pusat | tetap di laptop tim. Vision Tracker menambah deteksi kendaraan prioritas, kejadian lalu lintas, pelanggaran sebagai bukti tanpa membaca pelat, kesehatan kamera dasar, kelas angkot dan pikap, penyeberang, dan kecepatan antarkamera. Optimasi menambah mode multi-kriteria dan skema fase alternatif. Ditambah tiket kerja, laporan wajib, dan kalibrasi twin per simpang |
+| Integrasi | aduan kota (CRM) dua arah; baca status controller; ekspor lembar jadwal untuk petugas atau vendor |
+| Penyajian | konsol pemantauan kejadian dengan notifikasi email atau WhatsApp; CCTV live view; dashboard publik sederhana |
 
-Alur adaptif tahap ini: detektor virtual mengirim angka ke pusat setiap beberapa detik. Pusat memilih program yang paling cocok dari pustaka jadwal dan menyesuaikan offset antar simpang. Perubahan hanya dilakukan bila kondisi bertahan cukup lama, sehingga lampu tidak "gelisah". Bus yang terlambat mendapat tambahan hijau maksimal sepuluh detik, satu kali per siklus, tanpa memotong waktu penyeberangan pejalan kaki.
+Alur kejadian: Vision Tracker mendeteksi peristiwa, misalnya ambulans lewat, kendaraan mogok, atau kamera tertutup. Peristiwa disimpan bersama klip yang disamarkan, lalu langsung dikirim ke konsol pemantauan tanpa melalui modul optimasi. Operator menindaklanjuti, dan bila perlu sistem membuat tiket kerja.
 
-Mengapa disusun begini: pemda perlu bukti manfaat terukur (waktu tempuh, arrivals on green, split failure) sebelum membiayai adaptif penuh. Semua algoritma baru lewat urutan uji simulator, mode bayangan, lalu jalan sepi, lalu jam sibuk.
+Alur uji lapangan: Dishub menerapkan jadwal rekomendasi pada minimal satu simpang. Rekaman sesudah penerapan diolah Vision Tracker, lalu tundaan dan antrian dibandingkan dengan kondisi sebelum. Hasilnya menjadi bukti manfaat untuk anggaran T4.
 
-Ukuran: sampai 100 simpang, 5 sampai 10 koridor adaptif, edge AI di 10 sampai 30 simpang.
+Mengapa disusun begini: pemda mendapat nilai operasional sebelum membiayai perangkat. Deteksi kejadian memakai pipeline Vision Tracker yang sama, sehingga tidak perlu sistem kedua.
 
-## 5. Tahap 4, Setara ITCS "Adaptif Terpadu"
+Ukuran dan komputasi: beberapa simpang yang dihitung mandiri; pilot live terbatas; tetap di laptop tim.
 
-Gambaran singkat: kemampuan setara ITCS DKI dengan standar terbuka: adaptif real-time terkoordinasi, prioritas bersyarat dan darurat, integrasi lintas instansi, ruang kendali skala kota.
+## 6. Tahap 4, Kendali Adaptif Terpadu
 
-Susunan sistem
+Gambaran singkat: kemampuan setara ITCS DKI dengan standar terbuka, yaitu kendali terpusat dan adaptif per simpang, koordinasi dasar, prioritas bus dan darurat, integrasi lintas instansi, dan ruang kendali skala kota. Pengadaan dimulai di tahap ini.
 
 | Lapisan | Tambahan di T4 |
 |---|---|
-| Lapangan | edge AI di semua simpang kritis; dukungan controller berstandar NTCIP versi terbaru termasuk objek prioritas; keamanan kabinet mengikuti NEMA TS 8 |
-| Komunikasi | sertifikat dua arah (mTLS) untuk setiap edge; segmentasi jaringan |
-| Pusat | cluster kecil tiga node atau cloud pemda. Mesin adaptif: alokasi hijau per siklus berdasarkan tekanan antrian (cyclic max-pressure) di simpang kritis, dengan siklus dan offset tetap agar green wave terjaga; pengendalian perimeter untuk kawasan pusat kota saat jenuh; prioritas bus bersyarat berdasarkan muatan dan keterlambatan; prioritas kendaraan darurat bertingkat yang hanya aktif bila target waktu tanggap terancam; layanan prediksi volume 15 sampai 60 menit; semua nilai antara model AI disimpan agar dapat dijelaskan |
-| Integrasi | pusat kendali Polri, Back Office ETLE (bukti diverifikasi Polri, aplikasi tidak menerbitkan tilang), CAD pemadam dan ambulans, Bapenda dan DLH melalui perjanjian, pengelola tol, cuaca dan kualitas udara, portal kota |
-| Penyajian | ruang kendali skala kota dengan video wall, banyak operator per shift, SLA keluhan, laporan efektivitas ke Dirjen/BPTJ/Gubernur, dashboard publik dengan metode yang dipublikasikan |
+| Lapangan | edge (Jetson atau PC industri) di simpang kritis menjalankan Vision Tracker 24 jam sebagai detektor virtual; kamera ANPR khusus; controller NTCIP 1202/1211 atau adaptor untuk protokol vendor; keamanan kabinet mengikuti NEMA TS 8 |
+| Komunikasi | MQTT dengan sertifikat dua arah (mTLS) untuk setiap edge; segmentasi jaringan; edge menyimpan data sementara bila jaringan putus |
+| Pusat | server pemda atau cluster kecil tiga node. Layanan perintah dengan detak jantung dan transaksi; adaptif per simpang (actuated, pembagian hijau dengan batas perubahan per siklus, pemilihan program menurut kondisi); offset dasar dan green wave sederhana untuk simpang berdekatan; prioritas bus berbasis aturan dan prioritas kendaraan darurat bertingkat; prediksi volume 15 sampai 60 menit; mode bayangan; alarm controller dan detektor |
+| Integrasi | pusat kendali Polri, Back Office ETLE (bukti diverifikasi Polri, aplikasi tidak menerbitkan tilang), CAD pemadam dan ambulans, AVL operator bus, Bapenda dan DLH melalui perjanjian, pengelola tol, cuaca |
+| Penyajian | ruang kendali skala kota dengan video wall; konsol kendali dan konsol prioritas; aplikasi ponsel teknisi; laporan efektivitas ke Dirjen, BPTJ, dan Gubernur |
 
-Alur adaptif tahap ini: setiap siklus, pusat menghitung tekanan antrian di semua kaki simpang kritis dan membagi ulang waktu hijau, dengan batas perubahan lima detik per siklus dan hijau minimum yang menghormati pejalan kaki. Bila kawasan pusat kota mendekati jenuh, gerbang masuk kawasan ditahan sedikit agar bagian dalam tidak macet total. Prioritas bus dan darurat diselesaikan oleh satu layanan yang mengatur urutan dan konflik.
+Alur kendali: operator atau petugas Polri memilih program, kedip, atau mode manual dari konsol. Layanan perintah memeriksa hak akses, lalu mengirim perintah terbatas beserta detak jantung. Bila jaringan putus, controller kembali ke jadwal lokal dan edge menyimpan catatan sampai jaringan pulih.
 
-Mengapa disusun begini: inti adaptif memakai metode yang terbukti stabil dan dapat dijelaskan; pembelajaran mesin hanya berperan sebagai penasihat. Ukuran kinerja sinyal berjalan sebagai pengamat independen untuk setiap algoritma, termasuk milik vendor lain.
+Alur adaptif: edge mengirim hitungan dan antrian setiap beberapa detik. Pusat memeriksa kesehatan detektor lebih dulu; bila detektor bermasalah, simpang kembali ke jadwal. Pembagian hijau disesuaikan dalam batas perubahan per siklus dengan hijau minimum yang menghormati pejalan kaki, dan offset simpang berdekatan dijaga agar green wave tidak putus.
 
-Ukuran: 100 sampai 350 simpang satu kota; penyimpanan sekitar 10 TB.
+Mengapa disusun begini: inti adaptif memakai metode yang stabil dan dapat dijelaskan. Semua algoritma baru melewati simulasi, uji dengan perangkat di meja, mode bayangan, jam sepi, lalu jam sibuk. Ukuran kinerja dari Vision Tracker menjadi pengamat independen untuk algoritma apa pun, termasuk milik vendor lain.
 
-## 6. Tahap 5, End-state "Platform Mobilitas Kota"
+Ukuran dan komputasi: 50 sampai 300 simpang dalam satu kota. Server pemda atau cluster tiga node (16 inti dan 64 GB per node) ditambah edge di simpang kritis. Kapasitas penyimpanan ditetapkan lewat ADR-04.
 
-Gambaran singkat: satu platform melayani banyak kota, terbuka untuk algoritma pihak ketiga yang tervalidasi, dan menjadi dasar kebijakan pengelolaan permintaan perjalanan.
+## 7. Tahap 5, Platform Mobilitas Kota
 
-Susunan sistem
+Gambaran singkat: satu platform melayani banyak kota, mengoptimasi koridor dan jaringan, terbuka untuk algoritma pihak ketiga yang tervalidasi, dan menjadi dasar kebijakan pengelolaan permintaan perjalanan.
 
 | Lapisan | Tambahan di T5 |
 |---|---|
 | Lapangan | fusi kamera dan radar untuk keselamatan pejalan kaki; siaran status lampu ke aplikasi navigasi (GLOSA) |
-| Komunikasi | sama; tambahan kanal ke penyedia navigasi |
-| Pusat | multi-tenant per kota dengan isolasi data; digital twin skala kota untuk uji kebijakan (ganjil-genap, penutupan jalan, acara); marketplace algoritma yang wajib lewat simulator dan mode bayangan dengan lapisan veto statistik; kalkulator ambang legal pembatasan kendaraan (V/C dan kecepatan) dan evaluasi tahunan otomatis; penasihat berbasis pembelajaran mesin yang hanya mengusulkan parameter kepada operator; gudang data dan mesin analitik besar |
-| Integrasi | API publik dan data terbuka (kewajiban UU 22/2009 Pasal 250), sistem ERP/ganjil-genap pemprov, sistem informasi provinsi |
-| Penyajian | benchmark antar kota untuk Kemenhub/BPTJ, portal data terbuka, e-learning operator bersertifikat |
+| Komunikasi | sama dengan T4, ditambah kanal ke penyedia navigasi |
+| Pusat | optimasi koridor dan jaringan (bandwidth green wave, Link Pivot, max-pressure jaringan, pengendalian perimeter kawasan jenuh); prioritas bus bersyarat berbasis muatan dan keterlambatan; multi-tenant per kota dengan isolasi data; digital twin kota untuk uji kebijakan; pasar algoritma yang wajib lolos simulasi dan mode bayangan dengan veto statistik; kalkulator ambang pembatasan kendaraan; penasihat pembelajaran mesin yang hanya mengusulkan parameter |
+| Integrasi | API publik dan data terbuka (UU 22/2009 Pasal 250), sistem ERP dan ganjil-genap pemprov, sistem informasi provinsi |
+| Penyajian | benchmark antarkota untuk Kemenhub dan BPTJ, portal data terbuka, pelatihan operator bersertifikat |
 
-Mengapa disusun begini: pemda kecil dapat berbagi ruang kendali, kementerian dapat mengawasi efektivitas banyak kota, dan riset kampus lokal dapat masuk ke lapangan dengan aman.
+Mengapa disusun begini: optimasi koridor baru bernilai setelah banyak simpang terhubung dan terbukti andal di T4. Pemda kecil dapat berbagi platform, kementerian dapat mengawasi efektivitas banyak kota, dan riset kampus dapat masuk ke lapangan dengan aman.
 
-Infrastruktur: cloud multi-wilayah atau pusat data pemerintah, dengan skala otomatis.
+Infrastruktur: cloud atau pusat data pemerintah dengan skala otomatis.
 
-## 7. Ringkasan lapisan per tahap
+## 8. Ringkasan lapisan per tahap
 
 | Lapisan | T1 | T2 | T3 | T4 | T5 |
 |---|---|---|---|---|---|
-| Lapangan | simulator; 1 controller baca-saja (opsional) | edge ringan di kabinet serial; controller IP langsung | edge AI di simpang terpilih; detektor virtual; pelat | edge AI di semua simpang kritis; NTCIP terbaru | fusi radar; GLOSA |
-| Komunikasi | tidak ada | jaringan Dishub + VPN | sama | mTLS, segmentasi | sama + kanal navigasi |
-| Pusat | 1 laptop/VM | 1 server (≤40 simpang) | 2 server + pekerja simulasi (≤100 simpang) | cluster 3 node (100 sampai 350 simpang) | cloud/DC pemerintah, multi-kota |
-| Integrasi | tidak ada | alarm email/WA; aduan kota | AVL bus, GPS, bukti ke Polri | Polri, ETLE, CAD, Bapenda, DLH, tol, cuaca | API publik, ERP, provinsi |
-| Penyajian | web perencana | konsol operator, dashboard, aplikasi teknisi, publik | tampilan koridor, konsol prioritas, hasil simulasi | ruang kendali kota, video wall, laporan efektivitas | benchmark antar kota, portal data |
-| Cara kendali | simulasi | pilih program terpusat, mode manual | responsif (pilih program otomatis, offset, prioritas dasar) | adaptif per siklus + perimeter + prioritas bersyarat/darurat | + algoritma pihak ketiga, penasihat ML |
+| Lapangan | rekaman CCTV yang ada | rekaman semua lengan satu simpang | kamera Dishub (MoU), controller baca-saja | edge, kamera ANPR, controller dikendalikan | fusi radar, GLOSA |
+| Komunikasi | salin berkas | stream uji lokal dari rekaman | stream Dishub lewat VPN | MQTT, mTLS, segmentasi | kanal navigasi |
+| Pusat | laptop: Vision Tracker dasar, PKJI, Webster | laptop: Vision Tracker dan optimasi lengkap, SUMO, laporan | laptop: kejadian, kesehatan kamera, tiket, laporan wajib, multi-kriteria | server atau cluster: kendali, adaptif per simpang, offset dasar, prioritas | cloud: banyak kota, optimasi jaringan, twin kota, pasar algoritma |
+| Integrasi | tidak ada | tidak ada (berkas) | aduan kota, baca controller, ekspor jadwal | Polri/ETLE, CAD, AVL, Bapenda, DLH, tol, cuaca | API publik, ERP/TDM, provinsi |
+| Penyajian | formulir, dashboard dasar | wizard, dashboard tiga halaman, laporan | konsol pemantauan, live view, dashboard publik | ruang kendali kota, video wall, konsol kendali | benchmark antarkota, portal data |
+| Peran sistem | rekomendasi untuk demo | rekomendasi yang diterapkan petugas | rekomendasi, peringatan, uji lapangan | kendali adaptif per simpang dan koordinasi dasar | optimasi koridor dan jaringan, algoritma pihak ketiga |
+| Pengadaan | tidak ada | tidak ada | tidak ada | edge, kamera ANPR, adaptor controller | sesuai kontrak |
 
-## 8. Bagian yang tidak berubah sepanjang tahap
+## 9. Bagian yang tidak berubah sepanjang tahap
 
-- Satu model data untuk semua jenis controller (standar NTCIP maupun vendor lokal), sehingga adaptor baru tidak mengubah aplikasi.
-- Satu format catatan kejadian untuk lapangan dan simulator, sehingga ukuran kinerja dapat dibandingkan langsung.
-- Urutan validasi untuk setiap perubahan cara kendali: simulator, uji dengan perangkat di meja, mode bayangan, jam sepi, jam sibuk, lalu perbandingan hidup-mati.
-- Hierarki cadangan: adaptif turun ke jadwal terpusat, lalu jadwal lokal di controller, lalu mode aktuasi bebas, lalu kedip, dan terakhir pengaturan manual petugas. Setiap penurunan tercatat dan menjadi alarm.
-- Kepemilikan data di tangan pemda; akses pihak lain lewat perjanjian; data pribadi (pelat, wajah) diproses hanya dengan dasar hukum dan retensi singkat.
+- Satu skema tabel hitungan dan satu mesin PKJI dipakai dari T1 sampai T5. Data dari rekaman, stream, dan edge masuk ke tabel yang sama.
+- Model deteksi dan dataset milik tim dan pemda, disimpan dalam format ONNX, dan dapat dilatih ulang tanpa bergantung pada vendor.
+- Satu model data untuk semua jenis controller, baik standar NTCIP maupun vendor lokal, dipakai mulai T3 sehingga adaptor baru tidak mengubah aplikasi.
+- Urutan validasi untuk setiap perubahan cara kendali: hitung PKJI, simulasi SUMO, uji lapangan (T3), mode bayangan (T4), jam sepi, jam sibuk, lalu perbandingan hidup-mati.
+- Hierarki cadangan mulai T4: adaptif turun ke jadwal terpusat, lalu jadwal lokal di controller, lalu aktuasi bebas, lalu kedip, dan terakhir pengaturan manual petugas. Setiap penurunan tercatat dan menjadi alarm.
+- Kepemilikan data di tangan pemda. Akses pihak lain lewat perjanjian, dan data pribadi (wajah, pelat) diproses hanya dengan dasar hukum dan retensi singkat.
 
-## 9. Risiko arsitektur dan cara menguranginya
+## 10. Risiko arsitektur dan cara menguranginya
 
 | Risiko | Dampak | Pengurangan |
 |---|---|---|
-| Protokol controller vendor tertutup | adaptor T2 tidak bisa dibangun | kuesioner `12`; perjanjian kerahasiaan dengan vendor; cadangan berupa pencatat masukan/keluaran kabinet |
-| Jaringan Dishub sering putus | data hilang, kendali terputus | penyimpanan sementara di edge 24 sampai 72 jam; ringkasan per menit bila jaringan lemah; controller selalu punya jadwal lokal |
-| Kamera buruk saat hujan atau malam | detektor virtual tidak akurat | pemeriksaan kesehatan detektor sebelum mode adaptif; turun otomatis ke jadwal bila kualitas rendah |
-| Server pemda terbatas | sistem lambat | agregasi di edge, retensi bertingkat, video tidak disimpan di pusat sampai T3 |
-| Ketergantungan pada satu vendor perangkat | harga dan dukungan dikunci | adaptor untuk lebih dari satu vendor sejak T2; NTCIP untuk pengadaan baru |
-| Kewenangan Polri dan Dirjen | perubahan jadwal tertahan | alur persetujuan dalam aplikasi; catatan koordinasi; integrasi pusat kendali Polri di T4 |
-| Tim kecil tanpa teknisi lapangan | pemasangan edge tertunda | edge dirancang untuk dipasang teknisi Dishub atau vendor dengan checklist dan dukungan jarak jauh |
+| Akurasi Vision Tracker turun pada malam, hujan, atau motor yang berhimpitan | hitungan dan rekomendasi keliru | target bertahap (sekitar 90% dan 85% di T1-T2, 95% dan 90% mulai T3); halaman kualitas data; koreksi oleh engineer; pelatihan ulang dengan contoh yang salah |
+| Rekaman terbatas dan berasal dari simpang berbeda | uji akurasi dan optimasi kurang mewakili | rekaman gabungan hanya untuk uji akurasi; optimasi memakai hitungan semua lengan pada periode yang sama; kebutuhan rekaman di `13` |
+| Laptop kurang kuat untuk rekaman panjang atau banyak stream | proses lambat | model ringan (YOLOX-tiny) untuk operasi; olah per batch; resolusi 720p; pelatihan di GPU gratis |
+| Ukuran video besar | disk laptop penuh | video mentah dihapus setelah diolah; disk eksternal; resolusi 720p |
+| Hak cipta video publik | sengketa bila produk dijual luas | register sumber; pelatihan ulang dengan data berizin sebelum penjualan skala besar |
+| Lisensi pustaka pihak ketiga berubah | kode harus diganti | pemeriksaan lisensi otomatis di CI; daftar larangan; alternatif berlisensi permisif |
+| MoU dan akses stream tertunda | T3 tertahan | deteksi kejadian tetap dikembangkan dengan rekaman; kuesioner `12` |
+| Protokol controller vendor tertutup (T4) | adaptor tidak bisa dibangun | kuesioner `12`; perjanjian kerahasiaan dengan vendor; pencatat di edge sebagai cadangan; NTCIP untuk pengadaan baru |
+| Jaringan Dishub sering putus (T4) | data hilang, kendali terputus | penyimpanan sementara di edge 24 sampai 72 jam; controller selalu punya jadwal lokal |
+| Kewenangan Polri dan Dirjen/BPTJ | penerapan jadwal tertahan | alur persetujuan dalam aplikasi; laporan kajian berformat standar; integrasi pusat kendali Polri di T4 |
+| Tim kecil tanpa teknisi lapangan (T4) | pemasangan edge tertunda | pemasangan dengan checklist oleh teknisi Dishub atau vendor dan dukungan jarak jauh |

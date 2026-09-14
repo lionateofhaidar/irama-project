@@ -28,3 +28,8 @@ docs/sources/**/raw_*.html
 docs/planning/docx/
 docs/planning/*.docx
 docs/planning/*.pdf
+
+# naskah tugas akhir user dan turunannya: HANYA lokal (keputusan user 2026-09-14)
+docs/sources/NASKAH*.pdf
+docs/sources/_teks_ekstraksi/TA_*.txt
+docs/sources/_ringkasan/R08_*

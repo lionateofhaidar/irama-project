@@ -1,201 +1,199 @@
 # 04 — Konsep Tahapan Pengembangan (Tahap 1–5)
 
-Status: draf pra-perencanaan, 2026-09-12. Semua angka server/durasi/tim adalah **ASUMSI** untuk diputuskan di planning rinci. Tag sumber: [R00]…[R06] = catatan studi di `docs/sources/_ringkasan/`; [KB] = basis pengetahuan; [Majalah] = analisis majalah RPP.
+Status: revisi besar 2026-09-14 (menggantikan versi 2026-09-12 dan catatan revisi 2026-09-13). Dasar revisi: keputusan user T-34 s.d. T-42 di `docs/LOG_SESI.md`. Tahap diselesaikan berbasis capaian (tanpa tanggal target); perkiraan effort hanya untuk perencanaan sprint. Tag sumber: [R00]…[R07] catatan studi di `docs/sources/_ringkasan/`; [KB] basis pengetahuan `docs/kb/`; C-xx kebutuhan kepatuhan (KB-03 §B).
 
-## 0. Prinsip desain lintas tahap (berlaku sejak T1)
+## 0. Prinsip lintas tahap
 
-| # | Prinsip | Alasan lapangan / sumber |
+| # | Prinsip | Alasan dan sumber |
 |---|---|---|
-| P1 | **Edge-first & fail-safe**: controller lokal selalu memegang ≥8 rencana siklus TOD dan mode actuated sendiri; pusat hanya mengirim "perintah tipe C" + heartbeat; putus komunikasi → kembali ke TOD lokal tanpa gangguan | PM 49/2014 Ps.14 (≥8 rencana siklus); NTCIP `unitBackupTime` [R03 A.6]; kendala komunikasi/detektor = penyebab utama ATCS gagal [R02 F.5, R06 E.4] |
-| P2 | **Standar terbuka**: model data & antarmuka meniru NTCIP 1202 (v03 ke depan) / 1211; controller non-standar dijembatani adaptor RS-232 di edge; tidak ada lock-in vendor | PM 76/2021 Ps.4 "sistem terbuka, sesuai standar"; TSPH hlm. 189 [R02 G.7]; [R03 D.2] |
-| P3 | **Anti black-box**: setiap keputusan kendali menyimpan input & nilai perhitungan antara; ATSPM/PKJI berjalan sebagai *observer* independen | HOP-11-027 Req 18.0-1/2, 6.0-11 [R02 D.16]; HOP-20-002 p.29 [R03 C.5]; klaim ITCS DKI tanpa MOE [R06 D.1] |
-| P4 | **Hemat server**: agregasi & kompresi di edge, hi-res log dikirim batch, retensi bertingkat, video tidak disimpan di pusat (T1–T3) | ±23 MB/simpang/hari hi-res [R03 C.1]; resource pemda terbatas (mandat user) |
-| P5 | **Bertahap per koridor**: unit deployment = koridor ≥3 simpang berjarak ≤1 km, dengan before–after on/off | PM 96/2015 Lampiran II.F.e [R00 E]; STM2 §9.4.5 & T414 (65% agensi hanya 5–15 sinyal adaptif) [R01 D.6, R02 F.5] |
-| P6 | **KPI regulasi built-in**: LOS PM 96/2015, rumus PKJI 2023, laporan Forum LLAJ/Dirjen/Gubernur otomatis | [R05 E, G.2]; [R00 E, G] |
-| P7 | **Human-in-the-loop**: override operator & petugas Polri didahulukan; mode manual tercatat; tidak ada penindakan otomatis oleh aplikasi | UU 22/2009 Ps.104, 247, 272 [R05 A.1, G.3] |
-| P8 | **Kreatif tapi berpijak**: fitur baru harus menjawab kendala terdokumentasi (detektor rusak, SDM, pemeliharaan, detik prioritas "menyusut", data tidak tunggal) | [R06 E.4]; TSP Handbook h.23 [R06 A.4]; MTI "single data" [R06 D.6] |
+| P1 | **Nol pengadaan produk sampai T3 selesai.** Semua pekerjaan T1–T3 berjalan di laptop tim dengan perangkat lunak berlisensi bebas; pelatihan model memakai layanan GPU gratis; biaya administrasi bisnis (merek, badan usaha, domain) diperbolehkan | keputusan user T-39; dana terbatas, model "kembangkan dulu, jual kemudian" |
+| P2 | **Risiko vendor lock-in minimal.** Kamera lewat standar RTSP/ONVIF, controller lewat NTCIP dan adaptor terpisah, data dalam format terbuka yang dapat diekspor, komponen berlisensi permisif, perangkat keras dan cloud bebas dipilih | PM 76/2021 Ps.4 "sistem terbuka, sesuai standar"; Perda Kota Bandung 12/2024 Ps.103 [R07]; keputusan user 2026-09-14 |
+| P3 | **Transparan dan terukur.** Semua nilai antara perhitungan dan akurasi Vision Tracker ditampilkan; manfaat diukur dengan perbandingan eksisting dan rekomendasi, lalu uji lapangan sebelum-sesudah | HOP-11-027 Req 18.0 [R02]; klaim ITCS DKI tanpa metode [R06] |
+| P4 | **Patuh standar Indonesia.** PKJI 2023 untuk kapasitas dan tundaan, LOS simpang PM 96/2015, minimal delapan jadwal PM 49/2014, UU PDP untuk data kamera | [R05], [KB-03] |
+| P5 | **Keputusan tetap di tangan manusia.** T1–T3 menghasilkan rekomendasi dan bukti; kendali lampu baru dimulai di T4 dengan cadangan jadwal lokal di controller dan prioritas perintah petugas | UU 22/2009 Ps.104, 247 [R05]; D-01, D-05 [KB-10] |
+| P6 | **Bertahap: satu simpang, banyak simpang mandiri, lalu koridor.** Koordinasi dasar di T4, optimasi koridor dan jaringan penuh di T5 | keputusan user T-34, T-35 |
+| P7 | **Hemat data dan privasi.** Hanya angka dan peristiwa yang disimpan; video mentah dihapus setelah diolah kecuali sampel validasi yang disamarkan | UU PDP; hemat penyimpanan |
+| P8 | **Kreatif tetapi berpijak.** Fitur baru harus menjawab kebutuhan lapangan yang terdokumentasi, dapat diukur, dan punya jalan kembali bila gagal | `01` §6 |
 
 ## 1. Ringkasan lima tahap
 
-| Tahap | Nama kerja | Satu kalimat | Unit deployment | Status akhir |
+| Tahap | Nama kerja | Inti | Unit bukti | Komputasi dan pengadaan |
 |---|---|---|---|---|
-| **T1** | MVP "Lihat & Kelola" | Inventaris APILL + status real-time + plan TOD terkelola + KPI PKJI/PM 96 dari data yang sudah ada — tanpa mengubah kendali lapangan | 1 koridor (3–5 simpang) pilot, simulasi SUMO sebagai controller | Checkpoint internal; bukti konsep dapat didemokan |
-| **T2** | Siap jual "Kendali Terkoordinasi" | Central TOD/koordinasi (pattern, offset, transisi), health monitoring & alarm, tiket keluhan, ATSPM dasar dari log controller, laporan wajib — berjalan di 1 VM/on-prem mini | 1 kota kecil–sedang (10–40 simpang) | Produk komersial v1 untuk pemda dengan ATCS dasar/CCTV |
-| **T3** | Transisi "Responsif" | Traffic-responsive plan selection, actuated dari kamera/loop, green wave dengan penalaan offset berbasis probe, TSP sederhana, digital twin per koridor, ETLE-ready (bukti) | 1–3 koridor adaptif di kota besar | Versi antara; membuktikan manfaat terukur sebelum adaptif penuh |
-| **T4** | Setara ITCS "Adaptif Terpadu" | Cyclic max-pressure terkoordinasi + perimeter control, TSP kondisional & EVP bertingkat, integrasi ETLE/pajak/emisi/AVL/CAD, TMC multi-koridor, AI recognition/predictive sebagai layanan | Kota besar 50–300+ simpang | Setara fungsi ITCS DKI (bukan tiruan) |
-| **T5** | End-state "Platform Mobilitas Kota" | Multi-tenant lintas kota, digital twin kota, marketplace algoritma via shadow mode, TDM berbasis data (ganjil-genap/ERP), data terbuka publik, analitik probe, RL advisor | Regional/nasional | Rekomendasi end-state (melampaui ITCS) |
+| **T1** | Purwarupa Hitung dan Rekomendasi | alur ujung ke ujung dari rekaman sampai rekomendasi waktu sinyal untuk satu simpang | 1 simpang, rekaman terbatas | laptop tim; nol pengadaan |
+| **T2** | Vision Tracker dan Optimasi Simpang | kedua modul berjalan baik: hitungan per kelas, per arah, hambatan samping, nyala lampu; optimasi PKJI dengan beberapa mode; konfigurasi, tiga halaman dashboard, laporan, validasi SUMO, manfaat rupiah | 1 simpang lengkap semua lengan | laptop tim; GPU gratis untuk pelatihan; nol pengadaan |
+| **T3** | Deteksi Kejadian dan Pemantauan Operasional | anomali (kendaraan prioritas, kejadian, pelanggaran sebagai bukti, kesehatan kamera dasar), pemantauan dan laporan wajib, controller baca-saja, ekspor jadwal, uji lapangan, optimasi multi-kriteria, akurasi 95% | beberapa simpang yang dihitung mandiri; pilot live setelah MoU | laptop tim; nol pengadaan |
+| **T4** | Kendali Adaptif Terpadu | pengadaan dimulai: edge, ANPR, adaptor controller; kendali terpusat dan adaptif per simpang; offset dasar dan green wave sederhana; prioritas bus dan darurat; integrasi instansi; ruang kendali skala kota | kota, 50 sampai 300 simpang | server pemda atau cluster kecil; perangkat edge dan kamera khusus |
+| **T5** | Platform Mobilitas Kota | optimasi koridor dan jaringan penuh, banyak kota, digital twin kota, pasar algoritma, TDM, data terbuka | regional atau nasional | cloud atau pusat data pemerintah |
 
-Mengapa "setara ITCS" tercapai di **T4**: seluruh subsistem ATMS yang diwajibkan PM 76/2021 Ps.7(2) (ATCS, pemantauan real time, VMS, insiden, ETLE, waktu tempuh, prioritas bus) dan layanan Ps.7(4) (prioritas kendaraan khusus, pemantauan visual, informasi, penindakan, deteksi kerusakan, rekaman operasional & historis, kecepatan) sudah lengkap, ditambah fitur yang diklaim ITCS DKI (actuated, self-adaptive, green wave, bus priority, recognition, predictive, digital twin) [Majalah §4; R06 D.2]. Yang melampaui di **T5**: multi-kota, keterbukaan data (UU Ps.250), TDM berbasis data (PP 32 Ps.65–79 ambang V/C & kecepatan), marketplace algoritma yang tervalidasi shadow-mode, dan analitik probe tanpa detektor.
+T4 disebut setara ITCS DKI (tidak identik) karena seluruh kemampuan yang diklaim ITCS DKI sudah ada: actuated, adaptif mandiri, green wave terkoordinasi dasar, green wave VIP, prioritas bus, pengenalan kendaraan, prediksi, dan digital twin [Majalah §4; R06 D.2]. T5 melampaui ITCS DKI melalui optimasi jaringan, banyak kota, keterbukaan data, dan pasar algoritma yang teruji.
 
-## 2. Tahap 1 — MVP "Lihat & Kelola"
+## 2. Tahap 1 — Purwarupa Hitung dan Rekomendasi
 
-**Tujuan.** Membuktikan bahwa platform dapat memodelkan simpang/APILL/plan sesuai standar Indonesia, menampilkan status & KPI, dan mengelola rencana waktu — dengan controller *simulasi* (SUMO NEMA) dan/atau 1 controller nyata read-only.
-
-**Definisi selesai (exit criteria).**
-1. Inventaris ≥5 simpang lengkap (geometri pendekat, fase/tahap, detektor, aset PM 49) dan peta status real-time dari SUMO/TraCI.
-2. Kalkulator PKJI 2023 lulus uji terhadap contoh perhitungan Dirjen 273/1996 (Yogyakarta: c=70 s, g=28/30 s, C=824, DS=0,44) dan MKJI [R00 G].
-3. Plan manager menyimpan ≥8 plan TOD per simpang, memvalidasi kuning/all-red (ITE) dan konsistensi ring/barrier (Annex B) sebelum "download" ke simulator.
-4. Pipeline hi-res event (0,1 s) dari `whetherOutputState` SUMO → 4 metrik ATSPM (phase termination, split monitor, PCD/AoG, split failure).
-5. Dashboard LOS PM 96/2015 per simpang & laporan before–after (on/off di simulasi).
-6. Demo end-to-end 20 menit tanpa intervensi engineer.
-
-**Nilai bagi pembeli (calon).** Bukti bahwa produk memahami regulasi Indonesia (PKJI, PM 49, PM 96) dan bisa dipakai tanpa mengganti controller.
-
-**Lingkup inti.** Inventaris & aset; peta & status; plan manager + kalkulator; adaptor simulasi (TraCI) + 1 adaptor read-only (NTCIP GET atau parser log vendor); ATSPM dasar; KPI/LOS; RBAC dasar; audit log. Detail di file 05 (F-T1-xx).
-
-**Asumsi infrastruktur.** 1 laptop/VM 4 vCPU/16 GB; Docker Compose; PostgreSQL+Timescale; SUMO lokal. Tidak ada video.
-
-**Sumber data realistis.** SUMO; contoh data survei manual (LHR, geometri) dari dokumen Dishub; log controller vendor (bila tersedia) sebagai file.
-
-**Integrasi.** Tidak ada integrasi eksternal (sengaja).
-
-**Kepatuhan yang dicapai.** C-06/07 (jadwal pemeliharaan 6 bulan, umur 5 tahun), C-09 (≥8 plan), C-30 (LOS PM 96), C-19 sebagian (simulasi sebelum penetapan) [R05 G.1].
-
-**Validasi.** SIL (SUMO) saja; uji regresi kalkulator terhadap contoh resmi.
-
-**Durasi & tim (ASUMSI).** 8–12 minggu; 3–4 orang (1 backend, 1 frontend, 1 traffic engineer paruh waktu, 1 PM/QA).
-
-**Risiko.** Under-estimasi kompleksitas ring/stage (Indonesia stage-based vs NEMA ring) [R00 I]; grafik PKJI tipe O/F_G/NQ perlu digitalisasi [R00 G].
-
-**Sengaja TIDAK dilakukan.** Kendali controller nyata; video; adaptif; integrasi instansi; AI kamera.
-
-## 3. Tahap 2 — Siap Jual "Kendali Terkoordinasi"
-
-**Tujuan.** Produk yang bisa dijual ke pemda yang sudah punya APILL/ATCS dasar + CCTV: kendali terpusat TOD & koordinasi, kesehatan perangkat, keluhan, laporan — hemat server.
+**Tujuan.** Membuktikan seluruh alur bekerja untuk satu simpang, dari rekaman CCTV sampai rekomendasi waktu siklus dan hijau yang sah menurut PKJI 2023.
 
 **Definisi selesai.**
-1. Dua adaptor lapangan berjalan di edge: NTCIP 1202 (SNMP) dan minimal 1 protokol vendor RS-232 lokal (mis. controller di e-katalog) dengan pemetaan ke model data yang sama; heartbeat < `unitBackupTime`; fallback TOD lokal teruji dengan mencabut jaringan [R03 A.15].
-2. Pattern/offset/split dapat diubah dari TMC melalui transaksi tervalidasi; transisi terpantau (frekuensi transisi = KPI) [R01 C.6].
-3. Health monitoring: detektor gagal (no activity/max presence/erratic), komunikasi (poll sukses), clock drift, flash/conflict, pintu kabinet; watchdog harian ambang HOP-20-002; alarm → tiket [R01 G.2, R03 C.3].
-4. Tiket keluhan publik dengan SLA (SOP DKI: 3 jam) & matriks diagnosis Exhibit 8-17 [R01 G.2, R06 D.3].
-5. ATSPM dari log controller nyata (bila controller punya logger) atau dari edge logger; PCD/AoG untuk ≥1 koridor.
-6. Laporan otomatis: LOS before–after per kebijakan (PM 96 Bab VI), laporan MRLL ke Forum LLAJ (UU Ps.98), kajian kecepatan & V/C (PM 96 Lampiran III), laporan triwulan (Pergub 68) [R05 G.1].
-7. Integrasi CCTV eksisting sebagai *live view* (RTSP→WebRTC) tanpa perekaman di pusat.
-8. Berjalan stabil 30 hari di 1 VM 8 vCPU/32 GB (ASUMSI) untuk ≤40 simpang, ≤60 kamera view.
-9. Dokumen pemasaran: bukti manfaat dari pilot (on/off) dalam bahasa PKJI/PM 96.
+1. Vision Tracker mengolah rekaman semua pendekat satu simpang dan menghasilkan tabel hitungan enam kelas per pendekat per 15 menit.
+2. Akurasi hitungan sekitar 90% pada siang hari untuk kelas utama, diuji pada klip yang tidak dipakai melatih.
+3. Konfigurasi simpang sederhana (formulir) untuk geometri, fase, dan waktu lampu eksisting.
+4. Kalkulator PKJI 2023 lolos uji terhadap contoh resmi Kep. Dirjen 273/1996 (c = 70 s, g = 28/30 s, C = 824, DS = 0,44) [R00 G].
+5. Rekomendasi mode Webster/PKJI baku dengan validator keselamatan waktu.
+6. Dashboard dasar (volume, kapasitas, DJ, tundaan, LOS, rekomendasi) dan demo ujung ke ujung tanpa campur tangan engineer.
 
-**Nilai bagi pembeli.** Mengubah ATCS "CCTV + remote plan" menjadi sistem yang bisa dipertanggungjawabkan (KPI, laporan, SLA), tanpa ganti controller & tanpa server besar; siap e-katalog.
+**Nilai bagi calon pembeli.** Bukti awal bahwa hitungan manual oleh surveyor dan perhitungan kinerja simpang dapat diotomasi dari CCTV yang sudah dimiliki pemda.
 
-**Lingkup inti.** Semua T1 + adaptor nyata, TMC console, override manual & log Polri, alarm/health/watchdog, tiket, laporan wajib, CCTV live, TOD scheduler & special plans manual, user/tenant tunggal, mobile teknisi (field diary).
+**Lingkup inti.** Epik E20 (sebagian), E21 (sebagian), E22 (formulir), E23 (dashboard dasar); kalkulator E03; registri simpang. Rincian di `05` dan `15`.
 
-**Asumsi infrastruktur.** 1 VM 8 vCPU/32 GB/1 TB atau mini-server on-prem di kantor Dishub; edge gateway per simpang atau per kabinet (Raspberry Pi/industrial PC); komunikasi eksisting (fiber/4G).
+**Infrastruktur.** Laptop tim; Python, PostgreSQL; model deteksi berlisensi Apache-2.0 dijalankan dengan ONNX Runtime; pelatihan awal di GPU gratis.
 
-**Sumber data.** Log controller/edge logger; detektor eksisting (loop/video) via controller; survei manual untuk kalibrasi PKJI; CCTV.
+**Sumber data.** Rekaman terbatas dari user (puncak dan non-puncak; pagi, malam, hujan; boleh dari simpang berbeda untuk uji akurasi), termasuk video publik; geometri dari citra satelit dan kunjungan singkat. Rincian di `13`.
 
-**Integrasi.** CRM/aduan kota (opsional), email/WhatsApp alarm, SSO pemda (opsional).
+**Integrasi.** Tidak ada.
 
-**Kepatuhan.** C-01…C-09, C-15, C-18, C-20, C-21, C-26, C-27, C-33, C-35 [R05 G.1]; PM 76 Ps.7(3) (semua perangkat online & dapat diubah dari ruang kendali) untuk simpang ter-cakup.
+**Kepatuhan.** C-30 (LOS PM 96), dasar C-09 (jadwal), keselamatan waktu (kuning, merah semua, hijau minimum).
 
-**Validasi.** HIL dengan 1 controller di bench → shadow (perintah dicatat, tidak dikirim) 2 minggu → live off-peak → on/off before–after 4 minggu.
+**Validasi.** Uji regresi kalkulator terhadap contoh resmi; uji akurasi hitungan terhadap hitungan manual.
 
-**Durasi & tim (ASUMSI).** 4–6 bulan setelah T1; 5–7 orang (+1 embedded/edge, +1 field engineer).
+**Effort (perkiraan).** Sekitar 10 sampai 14 minggu kerja untuk tim dua orang, termasuk penyiapan data latih sesuai `16`.
 
-**Risiko.** Protokol vendor tertutup (mitigasi: edge logger I/O kabinet seperti NCDOT, adaptor generik); kualitas komunikasi pemda; kepemilikan data log oleh vendor lama [R03 C.5]; SDM operator [R02 F.5].
+**Risiko.** Motor yang berhimpitan menurunkan akurasi; sudut kamera rekaman publik tidak ideal; grafik PKJI tipe O dan faktor kelandaian perlu didigitalisasi [R00 G].
 
-**Sengaja TIDAK dilakukan.** Adaptif real-time; AI kamera; integrasi Polda/Bapenda/DLH; penyimpanan video; multi-tenant.
+**Sengaja tidak dilakukan.** Stream langsung, pembacaan nyala lampu, hambatan samping otomatis, mode optimasi selain Webster, integrasi apa pun.
 
-## 4. Tahap 3 — Transisi "Responsif"
+## 3. Tahap 2 — Vision Tracker dan Optimasi Simpang
 
-**Tujuan.** Menambahkan kecerdasan bertahap yang manfaatnya terukur sebelum adaptif penuh: traffic-responsive plan selection, actuated berbasis detektor kamera, green wave tertala data, TSP sederhana, digital twin per koridor.
+**Tujuan.** Kedua modul berjalan baik untuk satu simpang lengkap sehingga produk dapat dijual sebagai jasa kajian dan perangkat lunak pendukung keputusan bagi Dishub.
 
 **Definisi selesai.**
-1. TRPS (V+K·O, hysteresis, dwell ≥30 menit) beroperasi pada ≥1 koridor dengan pustaka ≥6 pattern [R01 D.3].
-2. Detektor virtual dari kamera AI di edge (count/occupancy per lajur) dengan health check; actuated/semi-actuated diaktifkan pada simpang yang lulus health check ≥7 hari [C-12].
-3. Penalaan offset berbasis probe GPS (cyclic TSD/PPD, Link Pivot) menaikkan AoG koridor pilot ≥10 poin (target; ASUMSI) [R04 A.19, R03 C.3].
-4. Digital twin SUMO per koridor terkalibrasi (galat volume ≤15%, ASUMSI) dan dipakai untuk uji plan sebelum penetapan (PM 96 "harus disimulasikan").
-5. TSP sederhana (green extension/early green ≤10 s, 1 aktivasi/siklus, lockout) untuk koridor bus dengan AVL; dampak side-street terukur [R06 F.2].
-6. Modul bukti ETLE-ready: event pelanggaran (mis. red-light running dari YRA) dengan bukti & metadata siap diserahkan ke Polri — bukan penindakan [C-24].
-7. Special-condition plans (insiden/banjir/event) dengan trigger & kriteria deaktivasi [R01 F].
+1. Satu simpang lengkap, semua lengan, dengan akurasi hitungan 90% siang dan 85% malam atau hujan per kelas per 15 menit.
+2. Arah gerakan dari lintasan (dengan cadangan proporsi manual), hambatan samping empat jenis berbobot PKJI, pembacaan nyala lampu dari kamera, antrian dasar.
+3. Mode stream langsung berfungsi dan diuji dengan rekaman yang diputar ulang sebagai stream lokal.
+4. Lima mode optimasi (tundaan terendah, Webster/PKJI baku, DJ tertinggi minimal, siklus praktis minimum, pertahankan siklus eksisting) dan mode pembanding MKJI 1997.
+5. Periode otomatis (maksimal delapan jadwal per jenis hari) dan periode yang ditentukan pengguna.
+6. Wizard konfigurasi simpang dan data statis yang intuitif; tiga halaman dashboard; laporan kajian Word/PDF; validasi SUMO eksisting dan rekomendasi; perkiraan manfaat rupiah.
+7. Seluruhnya berjalan di laptop tim tanpa pengadaan, dengan panduan pemakaian untuk engineer Dishub.
 
-**Nilai bagi pembeli.** Manfaat kelancaran terukur (travel time, AoG, split failure) dengan investasi detektor minimal; jalur menuju ITCS tanpa "big bang".
+**Nilai bagi pembeli.** Kajian waktu sinyal yang biasanya membutuhkan survei manual dan konsultan berminggu-minggu dapat dihasilkan dari rekaman CCTV, lengkap dengan bukti simulasi dan nilai manfaat dalam rupiah, tanpa mengganti alat di lapangan.
 
-**Asumsi infrastruktur.** Edge AI box per simpang terpilih (GPU ringan) atau kamera dengan analitik bawaan; pusat 2 VM (aplikasi + data) atau 1 server 16 vCPU/64 GB (ASUMSI); simulasi di worker terpisah.
+**Lingkup inti.** Epik E20–E23 lengkap sesuai `15`; fitur pendukung E03 (editor jadwal, versi rekomendasi), E08 (agregasi dan retensi), E09 (evaluasi eksisting vs rekomendasi, manfaat), E14 (jaringan SUMO dari konfigurasi), E15 (RBAC dan audit dasar).
 
-**Sumber data.** Kamera AI (count/occupancy), probe GPS (bus/ojol/aplikasi navigasi via kerja sama), AVL TransJakarta/BRT kota, log hi-res.
+**Infrastruktur.** Laptop tim (CPU dan iGPU); layanan GPU gratis untuk pelatihan; server stream lokal (MediaMTX) untuk uji mode live.
 
-**Integrasi.** AVL operator bus; penyedia probe; sistem informasi pemda (JSC-like).
+**Sumber data.** Rekaman user dan video publik; rekaman seharian bila tersedia untuk pengelompokan jadwal otomatis; hitungan manual referensi untuk uji akurasi. Rekaman Dishub hanya setelah MoU.
 
-**Kepatuhan.** + C-11 (ATCS ≥3 simpang), C-12, C-13, C-14 (prioritas angkutan umum), C-19 penuh (simulasi), C-24 (ETLE hanya bukti), UU PDP untuk data pelat.
+**Integrasi.** Tidak ada integrasi sistem; pertukaran dengan Dishub lewat berkas rekaman dan laporan.
 
-**Validasi.** SIL (twin) → shadow → live off-peak → on/off; ATSPM sebagai observer; evaluasi bertahap pra-optimasi/pasca-optimasi/pasca-TSP [R06 A.9].
+**Kepatuhan.** C-30 (LOS PM 96), C-09 (jadwal), C-19 sebagian (simulasi sebelum penetapan), C-40 dasar (keamanan data di laptop), prinsip PDP (penyamaran, retensi singkat).
 
-**Durasi & tim (ASUMSI).** 6–9 bulan; 8–10 orang (+ML/vision engineer, +data engineer).
+**Validasi.** Uji akurasi hitungan per kondisi; perbandingan PKJI dan SUMO; uji regresi mode MKJI terhadap studi lama.
 
-**Risiko.** Kualitas deteksi kamera saat hujan/malam [R04 A.2]; penetrasi probe rendah (agregasi multi-hari) [R04 A.19]; MoU AVL.
+**Effort (perkiraan).** Sekitar 5 sampai 8 bulan kerja setelah T1 untuk tim dua orang.
 
-**Sengaja TIDAK dilakukan.** Max-pressure penuh; perimeter control; EVP jaringan; integrasi pajak/emisi.
+**Risiko.** Sampel rekaman terbatas dan tersebar di simpang berbeda; performa laptop untuk rekaman panjang; hak cipta video publik; perbedaan hasil PKJI dan simulasi yang harus dijelaskan.
 
-## 5. Tahap 4 — Setara ITCS "Adaptif Terpadu"
+**Sengaja tidak dilakukan.** Kendali controller, deteksi anomali, pembacaan pelat, kesehatan kamera otomatis, koordinasi antar simpang, stream Dishub sebelum MoU, pengadaan apa pun.
 
-**Tujuan.** Setara fungsi ITCS DKI: adaptif real-time terkoordinasi, prioritas kondisional & darurat, integrasi lintas instansi, TMC skala kota, AI recognition/predictive.
+## 4. Tahap 3 — Deteksi Kejadian dan Pemantauan Operasional
+
+**Tujuan.** Menambah kemampuan operasional yang bernilai bagi ruang kendali tanpa pengadaan: mendeteksi kejadian penting, memantau kamera dan simpang, menyusun laporan wajib, dan membuktikan manfaat rekomendasi di lapangan.
 
 **Definisi selesai.**
-1. **Cyclic max-pressure terkoordinasi** (cycle & offset tetap per koridor; MP mengatur split; min green ≥7–10 s; perubahan ≤5 s/siklus; integer) aktif di simpang kritis terpilih (skor okupansi/varians/durasi ≥80%) ≥20% simpang kota; **perimeter control** CBD dengan hysteresis [R04 A.5, F].
-2. **TSP kondisional** berbasis occupancy/headway (OCC/Transit-MP; bus di halte tidak dihitung; fallback historis) dan **EVP bertingkat** (hanya bila target respons terancam; conflict graph; recovery ke koordinasi) dengan AVL/CAD pemadam & ambulans [R04 A.6–A.7, A.18].
-3. Integrasi API: ETLE Polda (bukti), Bapenda (status pajak per pelat, query), DLH (uji emisi agregat per ruas), pengelola tol, JSC/portal kota — semua via perjanjian & kontrol PDP [R06 F.4].
-4. AI recognition (jenis kendaraan, pelat, pelanggaran) & predictive (prakiraan volume 15–60 menit; hijau maksimum optimal) sebagai layanan dengan nilai antara transparan.
-5. TMC skala kota: video wall, ≥25 operator/shift, SLA keluhan 3 jam, laporan efektivitas ke Dirjen/BPTJ/Gubernur [R06 D.3].
-6. Bukti manfaat on/off pada ≥3 koridor: tundaan/LOS PM 96, travel time, AoG, split failure, side-street delay.
-7. Keamanan: NEMA TS 8, mTLS edge, RBAC per yurisdiksi, audit penuh.
+1. Deteksi kendaraan prioritas dan iring-iringan, kejadian lalu lintas (kendaraan berhenti atau mogok, dugaan kecelakaan, lawan arah, antrian menutup simpang), dan pelanggaran sebagai bukti (parkir di zona larangan, terobos merah, penyeberang di luar zebra); penindakan tetap oleh Polri.
+2. Kesehatan kamera dasar: kamera tertutup, gelap, buram, atau bergeser memicu peringatan.
+3. Kelas angkot dan pikap; akurasi 95% siang dan 90% malam atau hujan.
+4. Waktu tunggu dan volume penyeberang; kecepatan dan waktu tempuh antar kamera tanpa pelat; antrian dan okupansi lengkap.
+5. Mode optimasi multi-kriteria berbobot dan evaluasi skema fase alternatif.
+6. Controller dibaca tanpa diubah (bila Dishub mengizinkan) dan lembar jadwal siap pakai diekspor untuk petugas.
+7. Uji lapangan sebelum-sesudah pada minimal satu simpang: Dishub menerapkan jadwal rekomendasi, Vision Tracker mengukur perubahan tundaan dan antrian.
+8. Pemantauan operasional: CCTV live view (setelah MoU), tiket keluhan, laporan wajib berbasis data vision (Forum LLAJ, kajian kecepatan dan V/C, laporan triwulan), dashboard publik sederhana.
 
-**Nilai bagi pembeli.** Kota besar mendapat kemampuan ITCS dengan standar terbuka, biaya server terkendali, dan bukti manfaat yang bisa dipertanggungjawabkan ke DPRD.
+**Nilai bagi pembeli.** Bukti manfaat nyata di lapangan, peringatan kejadian yang selama ini hanya dipantau mata operator, dan laporan wajib yang tersusun otomatis.
 
-**Asumsi infrastruktur.** Cluster kecil (3 node) atau cloud pemda; TimescaleDB terpartisi; message bus; edge AI di simpang kritis; k8s opsional.
+**Lingkup inti.** E20 (lanjutan T3), E21 (multi-kriteria, uji lapangan, ekspor jadwal), E06–E07 (kesehatan kamera, tiket), E09 (laporan wajib), E13 (CCTV live view), E16 (kejadian dan pelanggaran), E04 (NTCIP baca-saja). Rincian di `05`.
 
-**Sumber data.** Kamera AI, ANPR, loop/radar, AVL, CAD, probe, cuaca, event kota.
+**Infrastruktur.** Laptop tim (keputusan user T-39); pilot live terbatas pada sedikit kamera dan tidak berjalan 24 jam.
 
-**Kepatuhan.** Seluruh C-01…C-35; PM 76 Ps.7 lengkap; UU PDP; NTCIP 1211 untuk prioritas.
+**Sumber data.** Rekaman dan stream resmi Dishub setelah MoU; data AVL bus bila tersedia; hitungan manual untuk uji lapangan.
 
-**Validasi.** Seperti T3 + uji konflik TSP/EVP/VVIP di twin; audit keamanan; evaluasi keselamatan (crash review).
+**Integrasi.** Baca status controller (NTCIP atau data vendor) bila diizinkan; ekspor jadwal dalam format yang dapat dibaca petugas atau vendor.
 
-**Durasi & tim (ASUMSI).** 9–15 bulan; 12–18 orang.
+**Kepatuhan.** C-18 (notifikasi APILL tidak berfungsi), C-19 penuh (simulasi sebelum penetapan), C-20 dan C-21 (laporan), C-23 (portal publik), C-24 (bukti saja), C-26 dan C-37 (tata kelola data dan DPIA bila memproses data Dishub).
 
-**Risiko.** Kewenangan Polri/BPTJ (mitigasi: workflow persetujuan & integrasi pusat kendali) [R05 A.1]; MoU antar-instansi (risiko RPP DKI) [Majalah §3.1]; side-street delay naik [R02 F.2]; SDM (30% agensi tidak paham prinsip ASCT) [R02 F.5].
+**Validasi.** Uji lapangan sebelum-sesudah; uji deteksi kejadian terhadap rekaman berlabel; mode bayangan untuk logika peringatan.
 
-**Sengaja TIDAK dilakukan.** RL sebagai pengendali langsung; ERP; multi-kota.
+**Effort (perkiraan).** Sekitar 6 sampai 9 bulan kerja; tim bertambah 1 sampai 2 orang.
 
-## 6. Tahap 5 — End-state "Platform Mobilitas Kota" (rekomendasi)
+**Risiko.** MoU dan akses stream; keterbatasan laptop untuk pilot live; akurasi kejadian langka (kecelakaan) karena data latih sedikit.
 
-**Tujuan.** Melampaui ITCS satu kota menjadi platform mobilitas multi-kota yang terbuka, dapat diaudit, dan berkembang lewat algoritma tervalidasi.
+**Sengaja tidak dilakukan.** Kendali lampu, pembacaan pelat, perangkat edge, integrasi ETLE/Bapenda/DLH, koordinasi antar simpang, pengadaan apa pun.
 
-**Komponen rekomendasi (kreatif, berpijak pada kebutuhan).**
-1. **Multi-tenant lintas kota** dengan benchmark antar kota (AoG, LOS, uptime) — menjawab kebutuhan Kemenhub/BPTJ mengawasi efektivitas (PM 76 Ps.22–24) dan pemda kecil berbagi TMC (T414: agensi kecil 5–15 sinyal).
-2. **Digital twin kota** (SUMO mesoscopic + mikro per koridor) untuk what-if kebijakan (ganjil-genap, penutupan jalan, event) — PM 96 mewajibkan simulasi sebelum penetapan.
-3. **Marketplace algoritma dengan shadow mode**: algoritma pihak ketiga/universitas diuji di twin → shadow → live bertahap, dengan lapisan veto statistik [R04 A.3, A.15]; mengubah riset lokal menjadi manfaat terukur.
-4. **TDM berbasis data**: ambang legal V/C ≥0,7 & <30 km/jam (perseorangan), ≥0,9 & ≤10 km/jam (ERP) dihitung otomatis per ruas → rekomendasi kebijakan & evaluasi tahunan wajib (PP 32 Ps.63) [R05 A.2]; integrasi ganjil-genap/ERP.
-5. **Data terbuka publik & API** (UU Ps.250; Perda Ps.233): status simpang, LOS, waktu tempuh, log prioritas (anonim) — membangun kepercayaan & mengundang inovasi (MTI "single data").
-6. **Analitik probe tanpa detektor** untuk kota yang belum punya detektor: evaluasi progression dari GPS penetrasi 3–6% [R04 A.19].
-7. **RL/AI sebagai advisor** (penala parameter MP/setpoint PC), bukan pengendali; pelatihan multi-OD; shadow mode [R04 A.16].
-8. **Keselamatan & VRU**: fusi kamera+radar untuk konflik pejalan kaki, YRA, LPI otomatis [R04 A.3].
-9. **Layanan ekosistem**: GLOSA/SPaT ke aplikasi navigasi (PM 76 Ps.8 ATIS), informasi headway TransJakarta/BRT, emisi per koridor.
-10. **Tata kelola SDM**: e-learning bersertifikat (matriks Mampu/Mau RPP), core competencies (TSPH), audit perubahan detik prioritas (MoU digital).
+## 5. Tahap 4 — Kendali Adaptif Terpadu
 
-**Asumsi infrastruktur.** Cloud multi-region atau data center pemerintah; k8s; data lake; tenant isolation.
+**Tujuan.** Setara fungsi ITCS DKI dengan standar terbuka: kendali terpusat dan adaptif, koordinasi dasar, prioritas bus dan darurat, integrasi lintas instansi, dan ruang kendali skala kota. Pengadaan dimulai di tahap ini.
 
-**Definisi selesai (indikatif).** ≥3 kota tenant; ≥1 algoritma eksternal lulus shadow→live; API publik dengan SLA; evaluasi TDM tahunan otomatis untuk ≥1 kota.
+**Definisi selesai.**
+1. Adaptor controller NTCIP 1202/1211 dan minimal satu protokol vendor lokal lewat perangkat edge di kabinet; detak jantung dan cadangan jadwal lokal teruji dengan memutus jaringan.
+2. Kendali terpusat (pilih program, mode manual petugas, sinkron jam) dengan jejak audit; alarm controller dan detektor.
+3. Adaptif per simpang dari detektor virtual kamera: actuated dan penyesuaian pembagian hijau dengan batas perubahan per siklus; pemilihan program menurut kondisi (TRPS); prediksi volume 15 sampai 60 menit.
+4. Offset dasar dan green wave sederhana untuk simpang berdekatan, termasuk green wave terjadwal untuk rute VIP.
+5. Prioritas bus berbasis aturan (perpanjangan hijau dan hijau lebih awal) dan prioritas kendaraan darurat bertingkat.
+6. Pembacaan pelat (ANPR) dengan kamera khusus; bukti ke Back Office ETLE Polri; integrasi Bapenda, DLH, CAD pemadam dan ambulans, AVL bus, pengelola tol, cuaca.
+7. Kesehatan kamera lanjutan (hujan lebat, genangan, silau); ruang kendali skala kota dengan video wall; keamanan NEMA TS 8 dan mTLS; RBAC per yurisdiksi.
 
-## 7. Tabel perbandingan: ITCS DKI vs T4 vs T5
+**Nilai bagi pembeli.** Kemampuan setara ITCS dengan biaya dan ketergantungan vendor yang terkendali, disertai bukti manfaat yang dapat dipertanggungjawabkan ke DPRD.
 
-| Fitur | ITCS DKI (klaim majalah/berita) | T4 | T5 |
+**Infrastruktur.** Server pemda atau cluster kecil tiga node; perangkat edge di simpang kritis; kamera ANPR khusus. Daftar di `11`.
+
+**Kepatuhan.** Seluruh C-01…C-43, PM 76/2021 Ps.7 lengkap, Perpol 8/2023 dan 2/2025 untuk ETLE, UU PDP untuk ANPR.
+
+**Validasi.** Simulasi di twin, uji di meja dengan controller, mode bayangan, penerapan di jam sepi lalu jam sibuk, perbandingan hidup-mati.
+
+**Effort (perkiraan).** Sekitar 9 sampai 15 bulan; tim membesar sesuai kontrak.
+
+**Risiko.** Protokol vendor tertutup; kewenangan Polri dan Dirjen/BPTJ; kebutuhan dana pengadaan; SDM operator.
+
+**Sengaja tidak dilakukan.** Optimasi koridor dan jaringan penuh, pengendalian perimeter, pembelajaran mesin sebagai pengendali langsung, banyak kota.
+
+## 6. Tahap 5 — Platform Mobilitas Kota (rekomendasi end-state)
+
+**Tujuan.** Satu platform untuk banyak kota yang terbuka, dapat diaudit, dan berkembang lewat algoritma teruji.
+
+**Komponen.**
+1. Optimasi koridor dan jaringan: bandwidth green wave, penalaan offset dari data kedatangan dan GPS (Link Pivot, diagram waktu-ruang siklik), max-pressure jaringan dengan pemilihan simpang kritis, pengendalian perimeter kawasan jenuh, prioritas bus bersyarat berbasis muatan dan keterlambatan, toolkit kondisi jenuh.
+2. Banyak kota (multi-tenant) dengan perbandingan kinerja antar kota untuk Kemenhub/BPTJ.
+3. Digital twin kota untuk uji kebijakan (ganjil-genap, penutupan jalan, acara).
+4. Pasar algoritma yang wajib lolos simulasi dan mode bayangan dengan veto statistik.
+5. TDM berbasis data (ambang V/C dan kecepatan PP 32/2011), data terbuka dan API publik, analitik tanpa detektor dari data GPS, penasihat berbasis pembelajaran mesin, siaran status lampu ke aplikasi navigasi, keselamatan pejalan kaki dengan fusi kamera dan radar.
+
+**Definisi selesai (indikatif).** Minimal tiga kota tenant; minimal satu koridor dengan optimasi jaringan aktif; minimal satu algoritma pihak ketiga lolos jalur uji; API publik dengan SLA.
+
+## 7. Perbandingan ITCS DKI, T4, dan T5
+
+| Aspek | ITCS DKI (klaim) | IRAMA T4 | IRAMA T5 |
 |---|---|---|---|
-| Deteksi lapangan | 4 kamera analitik + fisheye + 4 ANPR per simpang, edge AI, RS232 ke controller [Majalah §3.4] | Kamera AI/ANPR/loop/radar; adaptor NTCIP & RS-232; virtual detector | + fusi radar untuk VRU; probe tanpa detektor |
-| Kendali | Actuated, self-adaptive, coordinated green wave, VIP green wave, bus priority [R06 D.2] | Cyclic MP terkoordinasi + PC, TRPS, actuated, TSP kondisional, EVP bertingkat | + marketplace algoritma, RL advisor |
-| AI | Recognition, predictive, digital twin 3D | Recognition, predictive (nilai antara transparan), twin per koridor | Twin kota, what-if kebijakan |
-| Integrasi | ETLE, Bapenda, DLH, tol; KRE & PL2SE (rencana) | ETLE (bukti), Bapenda, DLH, tol, AVL, CAD, JSC | + ERP/ganjil-genap berbasis data, API publik |
-| TMC | Video wall, 25 operator/shift, CRM SLA 3 jam | Sama + ATSPM observer, laporan wajib otomatis | Multi-kota, benchmark |
-| Evaluasi | Klaim 20–30% tanpa MOE | On/off before–after, LOS PM 96, AoG, split failure | + evaluasi TDM tahunan, audit publik |
-| Standar | Tidak dipublikasikan (vendor) | NTCIP 1202/1211, NEMA TS 8, PKJI, PM 96 | + data terbuka, ISO 23247 twin |
-| Skala | 321 simpang satu kota | 50–300+ simpang satu kota | Regional/nasional |
+| Deteksi | kamera analitik, fisheye, ANPR per simpang, edge AI | Vision Tracker di edge, ANPR khusus, detektor virtual | ditambah fusi radar dan analitik GPS |
+| Kendali | actuated, adaptif, green wave terkoordinasi, green wave VIP, prioritas bus | adaptif per simpang, TRPS, offset dasar dan green wave sederhana, VIP, prioritas bus dan darurat | optimasi koridor dan jaringan, perimeter, pasar algoritma |
+| Evaluasi | klaim 20–30% tanpa metode terbuka | eksisting vs rekomendasi, uji lapangan, LOS PM 96, akurasi terbuka | ditambah perbandingan antar kota dan audit publik |
+| Standar | tidak dipublikasikan | RTSP/ONVIF, NTCIP 1202/1211, PKJI 2023, PM 96 | ditambah data terbuka |
+| Skala | 321 simpang satu kota | 50–300 simpang satu kota | regional dan nasional |
 
-## 7b. Revisi setelah keputusan user 2026-09-13 (berlaku di atas teks di atas)
-- **Tim 2 orang, tanpa field engineer, dana terbatas (U-06):** T1 = simulation-first (SUMO + data rekaman/survei sendiri, tanpa edge, tanpa akses sistem Dishub); T2 "siap jual" = **demo stabil + paket kesiapan pilot** (edge agent yang dipasang teknisi Dishub/vendor dengan checklist, remote support), bukan deployment oleh tim sendiri. Durasi realistis: T1 3–4 bulan, T2 6–9 bulan [asumsi]. Hanya fitur Must yang dikerjakan sebelum ada pembeli.
-- **Edge-light di T2 (U-03):** agen edge minimal (adaptor + buffer + heartbeat) di mini-PC/Pi hanya untuk controller serial-only; controller IP dipoll dari pusat; edge penuh (AI box, provisioning armada, OTA) pindah ke T3.
-- **Pelat kendaraan diproses sendiri sejak T3 (U-08):** F-T4-125 (ANPR) maju ke T3 sebagai output; konsekuensi: DPIA, kebijakan privasi, pejabat PDP (C-37…C-39) dan F-T3-116 wajib selesai sebelum fitur aktif.
-- **Pilot Bandung (U-02):** unit pilot = 1 koridor 3–5 simpang di Bandung; design partner Dishub Kota Bandung dicari sejak akhir T1; Surabaya target ke-2.
-- **Pengadaan & data:** lihat `11_Kebutuhan_Pengadaan_per_Tahap.md` dan `13_Kebutuhan_Data_per_Tahap.md`; survei controller: `12_Kuesioner_Survei_Kontroler.md`.
+## 8. Pengadaan dan komputasi per tahap
 
-## 8. Prasyarat lintas tahap sebelum planning rinci
-- Keputusan nama & positioning (file 01–02), kota pilot & mitra vendor controller lokal (file 03).
-- Keputusan arsitektur awal (file 06) & ADR.
-- Kesediaan 1 controller bench + akses protokol (NTCIP atau dokumentasi RS-232) untuk T2.
-- Akses data pilot: LHR/geometri simpang, log controller, CCTV RTSP.
+| Tahap | Komputasi | Pengadaan |
+|---|---|---|
+| T1–T3 | laptop tim; GPU gratis untuk pelatihan | tidak ada (biaya administrasi bisnis diperbolehkan) |
+| T4 | server pemda atau cluster kecil; edge di simpang | edge, kamera ANPR, adaptor controller, standar NTCIP versi terbaru bila berbayar |
+| T5 | cloud atau pusat data pemerintah | dibiayai kontrak |
+
+Rincian dan konsekuensi di `11_Kebutuhan_Pengadaan_per_Tahap.md`.
+
+## 9. Prasyarat lintas tahap
+
+- T1: rekaman sesuai `13`, panduan data latih `16`, keputusan model deteksi (ADR).
+- T2: rekaman satu simpang lengkap; hitungan manual referensi; parameter ekonomi terbaru.
+- T3: MoU dengan Dishub (akses stream, izin baca controller, uji lapangan).
+- T4: kontrak dengan pemda dan anggaran pengadaan.
+
+## 10. Catatan perubahan
+
+- 2026-09-14: T2 difokuskan pada Vision Tracker dan Optimasi Simpang; T1 menjadi purwarupa ujung ke ujung; nol pengadaan sampai T3; kendali controller pindah ke T4; ANPR ke T4; optimasi koridor ke T5 dengan offset dasar di T4; fitur pemantauan dan laporan ke T3.
+- 2026-09-13 (tidak berlaku lagi): edge-light di T2, pelat di T3.

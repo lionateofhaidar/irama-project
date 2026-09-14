@@ -1,20 +1,20 @@
 flowchart LR
   subgraph P["Pengguna & mitra eksternal"]
-    F03a["a. Operator atau petugas Polri memilih program, kedip, atau mode manual (T2)"]
+    F03a["a. Operator atau petugas Polri memilih program, kedip, atau mode manual (T4)"]
   end
   subgraph U["Penyajian (layar & aplikasi)"]
-    F03b["b. Konsol kendali meminta konfirmasi dan alasan (T2)"]
+    F03b["b. Konsol kendali meminta konfirmasi dan alasan (T4)"]
   end
-  subgraph S["Pusat (server aplikasi)"]
-    F03c["c. Layanan perintah memeriksa hak akses, mengirim perintah tipe C dan detak jantung (T2)"]
-    F03g["g. Jejak audit perintah dan KPI transisi; alarm bila cadangan aktif (T2)"]
+  subgraph S["Pusat (laptop T1-T3, server T4+)"]
+    F03c["c. Layanan perintah memeriksa hak akses, mengirim perintah dan detak jantung (T4)"]
+    F03g["g. Jejak audit perintah; alarm bila cadangan aktif (T4)"]
   end
   subgraph K["Komunikasi & integrasi"]
-    F03d["d. SNMP/MQTT lewat VPN (T2)"]
+    F03d["d. SNMP/MQTT lewat VPN (T4)"]
   end
-  subgraph L["Lapangan (kabinet, edge, kamera)"]
-    F03e["e. Controller menjalankan program; edge meneruskan detak jantung (T2)"]
-    F03f["f. Jaringan putus: controller kembali ke jadwal lokal; edge menyimpan catatan (T2)"]
+  subgraph L["Lapangan (kamera, kabinet, controller)"]
+    F03e["e. Controller menjalankan program; edge meneruskan detak jantung (T4)"]
+    F03f["f. Jaringan putus: controller kembali ke jadwal lokal; edge menyimpan catatan (T4)"]
   end
   F03a --> F03b
   F03b --> F03c
@@ -23,4 +23,5 @@ flowchart LR
   F03e -->|bila putus| F03f
   F03e --> F03g
   F03f -->|alarm| F03g
-  style F03a stroke:#1565C0,stroke-width:2px
+  classDef t4 stroke:#6A1B9A,stroke-width:2px
+  class F03a,F03b,F03c,F03d,F03e,F03f,F03g t4

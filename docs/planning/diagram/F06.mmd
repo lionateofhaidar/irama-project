@@ -1,30 +1,37 @@
 flowchart LR
   subgraph P["Pengguna & mitra eksternal"]
-    F06h["h. Operator ruang kendali; pejabat perlindungan data (T3)"]
+    F06j["j. Engineer memeriksa dan mengoreksi (T1)"]
   end
   subgraph U["Penyajian (layar & aplikasi)"]
-    F06g["g. Tampilan kamera langsung (WebRTC) dengan lapisan hitungan (T2)"]
+    F06i["i. Tabel dan dashboard dasar (T1); halaman kualitas data (T2) (T1)"]
   end
-  subgraph S["Pusat (server aplikasi)"]
-    F06e["e. Detektor virtual menjadi catatan kejadian dan masukan kendali (T3)"]
-    F06f["f. Tata kelola PDP: dasar hukum, retensi pelat singkat, akses terbatas, DPIA (T3)"]
+  subgraph S["Pusat (laptop T1-T3, server T4+)"]
+    F06b["b. Ambil bingkai sekitar 10 per detik (T1)"]
+    F06c["c. Deteksi enam kelas dan pelacakan (T1)"]
+    F06d["d. Hitung per pendekat (T1) dan per arah dari lintasan (T2) (T1)"]
+    F06e["e. Hambatan samping berbobot PKJI, nyala lampu, antrian dasar (T2)"]
+    F06f["f. Tabel hitungan 15 menit dan mutu data; penyamaran video mulai T2 (T1)"]
+    F06g["g. Kendaraan prioritas, kejadian, pelanggaran, kesehatan kamera (T3)"]
   end
-  subgraph K["Komunikasi & integrasi"]
-    F06d["d. Kirim angka ringkasan lewat MQTT, tanpa video (T3)"]
-  end
-  subgraph L["Lapangan (kabinet, edge, kamera)"]
-    F06a["a. Kamera CCTV (RTSP) atau kamera analitik vendor (T2)"]
-    F06b["b. Edge AI: hitung kendaraan, okupansi, antrian; baca pelat (disamarkan) (T3)"]
-    F06c["c. Pemeriksaan kualitas deteksi (malam, hujan); turun otomatis bila buruk (T3)"]
+  subgraph L["Lapangan (kamera, kabinet, controller)"]
+    F06a["a. Rekaman CCTV atau video publik (T1); stream RTSP/HLS (uji T2, Dishub T3) (T1)"]
+    F06h["h. Vision Tracker di edge 24 jam; ANPR kamera khusus (T4)"]
   end
   F06a --> F06b
   F06b --> F06c
   F06c --> F06d
-  F06d --> F06e
-  F06e -->|pelat| F06f
-  F06a -->|stream| F06g
-  F06e -->|angka| F06g
-  F06g --> F06h
-  F06f --> F06h
-  style F06a stroke:#1565C0,stroke-width:2px
-  style F06b stroke:#EF6C00,stroke-width:2px
+  F06d -->|T2| F06e
+  F06d --> F06f
+  F06e --> F06f
+  F06c -->|T3| F06g
+  F06h -->|T4| F06f
+  F06f --> F06i
+  F06i --> F06j
+  classDef t1 stroke:#2E7D32,stroke-width:2px
+  class F06a,F06b,F06c,F06d,F06f,F06i,F06j t1
+  classDef t2 stroke:#1565C0,stroke-width:2px
+  class F06e t2
+  classDef t3 stroke:#EF6C00,stroke-width:2px
+  class F06g t3
+  classDef t4 stroke:#6A1B9A,stroke-width:2px
+  class F06h t4

@@ -1,19 +1,20 @@
 flowchart LR
   subgraph P["Pengguna & mitra eksternal"]
-    F02a["a. Perencana memasukkan data survei, geometri, dan arus (T1)"]
-    F02f["f. Persetujuan Kepala Dinas; Dirjen/BPTJ bila simpang di jalan nasional (T2)"]
+    F02a["a. Engineer mengisi konfigurasi simpang (formulir T1, wizard T2) (T1)"]
+    F02g["g. Persetujuan Kepala Dinas; Dirjen/BPTJ bila jalan nasional (T2)"]
   end
   subgraph U["Penyajian (layar & aplikasi)"]
-    F02c["c. Editor jadwal (fase, hijau, offset); minimal delapan jadwal per simpang (T1)"]
+    F02f["f. Dashboard rekomendasi, manfaat rupiah, laporan Word/PDF (T2)"]
   end
-  subgraph S["Pusat (server aplikasi)"]
-    F02b["b. Kalkulator PKJI 2023: kapasitas, antrian, tundaan, kelas LOS (T1)"]
-    F02d["d. Validator keselamatan (kuning, merah semua, hijau minimum) dan konsistensi urutan fase (T1)"]
-    F02e["e. Uji di digital twin SUMO; laporan hasil (wajib sebelum penetapan mulai T3) (T1)"]
-    F02g["g. Transaksi unduh jadwal tervalidasi; versi dan jejak audit (T2)"]
+  subgraph S["Pusat (laptop T1-T3, server T4+)"]
+    F02b["b. Konversi hitungan ke arus SMP per periode (EMP PKJI 2023) (T1)"]
+    F02c["c. Kalkulator PKJI 2023: kapasitas, DJ, antrian, tundaan, LOS (T1)"]
+    F02d["d. Mode optimasi: Webster (T1); empat mode lain (T2); multi-kriteria (T3) (T1)"]
+    F02e["e. Validator keselamatan dan validasi SUMO eksisting vs rekomendasi (T2)"]
+    F02i["i. Uji lapangan sebelum-sesudah diukur Vision Tracker (T3)"]
   end
-  subgraph L["Lapangan (kabinet, edge, kamera)"]
-    F02h["h. Controller menerima jadwal baru; jadwal lokal ikut diperbarui (T2)"]
+  subgraph L["Lapangan (kamera, kabinet, controller)"]
+    F02h["h. Petugas menerapkan waktu baru di controller (T2)"]
   end
   F02a --> F02b
   F02b --> F02c
@@ -22,5 +23,10 @@ flowchart LR
   F02e --> F02f
   F02f --> F02g
   F02g --> F02h
-  style F02a stroke:#2E7D32,stroke-width:2px
-  style F02f stroke:#1565C0,stroke-width:2px
+  F02h -->|T3| F02i
+  classDef t1 stroke:#2E7D32,stroke-width:2px
+  class F02a,F02b,F02c,F02d t1
+  classDef t2 stroke:#1565C0,stroke-width:2px
+  class F02e,F02f,F02g,F02h t2
+  classDef t3 stroke:#EF6C00,stroke-width:2px
+  class F02i t3

@@ -73,7 +73,7 @@
 | # | Nama | Rumus | Catatan | Sumber |
 |---|---|---|---|---|
 | C1 | Volume ekuivalen | VE_i = V_i + K·O_i | K skala okupansi→volume; K=17 → 100% okupansi ≈ 1700 vplph (sisi keluar); K 5–7 dekat stop bar | [NCHRP 812 §9.3] |
-| C2 | Target-based (UTCS) | err_j = Σ_i w_i·|(V_i + K·O_i) − T_ij|; pilih pattern err terendah bila lebih rendah X% dari pattern berjalan [rekonstruksi] | signature target per pattern | [NCHRP 812 Eq.9-1] |
+| C2 | Target-based (UTCS) | err_j = Σ_i w_i·\|(V_i + K·O_i) − T_ij\|; pilih pattern err terendah bila lebih rendah X% dari pattern berjalan [rekonstruksi] | signature target per pattern | [NCHRP 812 Eq.9-1] |
 | C3 | Threshold-based | CC = Σ_i w_i·(V_i + K·O_i) vs ambang masuk/keluar (hysteresis; contoh offset 2→3 masuk 52, keluar 49) | cycle ∝ VE arteri; split ∝ rasio arteri/minor; offset ∝ rasio inbound/outbound; smoothing 50%; min dwell 30 menit | [NCHRP 812 Eq.9-2, Exhibit 9-2, 9-6] |
 
 ## D. Max-pressure & kendali adaptif
@@ -81,14 +81,14 @@
 | # | Nama | Rumus | Variabel / constraint | Sumber |
 |---|---|---|---|---|
 | D1 | Max-pressure asli | w_(l,m) = η_(l,m) − Σ_{n∈D(m)} r_(m,n)·η_(m,n); P_φ = Σ_{(l,m)∈φ} c_(l,m)·w_(l,m); φ* = argmax P_φ | η antrian (kendaraan) atau delay (D-MP); r turning ratio; c saturation flow; time step 5–10 s; min green g_min | [arXiv 2202.03290 §2; 1909.00395 Alg.2] |
-| D2 | Cyclic MP (deployable) | p_z = (x_z/c_z − Σ_w β_{z,w}·x_w/c_w)·S_z; P_j = max{0, Σ_{z∈v_j} p_z}; g̃_j = (P_j/ΣP_i)·G_n; proyeksi QP: min Σ_j (g̃_j − G_j)² s.t. Σ_j G_j + L_n = C_n; G_j ≥ g_min; |G_j − G_j^prev| ≤ Δg^R; integer | x antrian, c kapasitas link, β turn ratio, S sat flow; **g_min 7 s; Δg^R 5 s/siklus**; cycle & offset tetap | [arXiv 2210.10453 §3.1.1] |
+| D2 | Cyclic MP (deployable) | p_z = (x_z/c_z − Σ_w β_{z,w}·x_w/c_w)·S_z; P_j = max{0, Σ_{z∈v_j} p_z}; g̃_j = (P_j/ΣP_i)·G_n; proyeksi QP: min Σ_j (g̃_j − G_j)² s.t. Σ_j G_j + L_n = C_n; G_j ≥ g_min; \|G_j − G_j^prev\| ≤ Δg^R; integer | x antrian, c kapasitas link, β turn ratio, S sat flow; **g_min 7 s; Δg^R 5 s/siklus**; cycle & offset tetap | [arXiv 2210.10453 §3.1.1] |
 | D3 | Node selection MP parsial | R_n = α·m¹_n + β·m²_n + γ·N^c_n (mean occupancy, varians occupancy, fraksi waktu ≥80% kapasitas); grid-search α,β,γ | 10–25% node kritis ≥ manfaat 100% | [arXiv 2210.10453 §5] |
 | D4 | Perimeter control PI | u(k) = u(k−1) − K_P[n(k) − n(k−1)] − K_I[n(k) − n̂] | n akumulasi region (MFD), n̂ setpoint; hysteresis start/stop; min 15% sat flow gerbang | [arXiv 2210.10453 §3.2] |
 | D5 | OCC-MP weight | w(l,m) = o(l,m)·[x(l,m) − Σ_{n∈D(m)} x(m,n)·r(m,n)]⁺; P_φ = Σ w·C·S | o = occupancy penumpang rata-rata hulu (bus dari APC; mobil 1,5); update 10 s | [arXiv 2406.19269 §3] |
 | D6 | Transit-MP state | hulu: Σ_v δ_v·p_v·τ_v; hilir: Σ_v δ_v·τ_v; τ_v = LTT_v/ETT; δ_v = 0 bila transit belum lewat halte terdekat; fallback historis E[Q(t)] = max{0, E[Q(t−T0)] + λ̂T0 − s·μ^dep·T0}, delay ≈ E[Q]²/(2λ̂) | T0 10 s; segmen link ≈420 m | [arXiv 2511.00309 §3–4] |
 | D7 | EVP bersyarat (mixed-criticality) | preempt bila Δ = t^cur − t^target > 0; t^target = d/v_limit·a_level; t^cur = d/v_now | level faktor 1 / 1,5 / 2; target 8/12/20 menit; conflict graph multi-EV | [arXiv 2109.03210 §3] |
 | D8 | Webster adaptif (sumolights) | interval W kumpulkan arus per fase; Y = Σ max(F_l/s); C = (1,5R+5)/(1−Y) dibatasi [c_min, c_max]; G = C − R ∝ y | — | [arXiv 1909.00395 Alg.1] |
-| D9 | Reward RL tipikal | r = −Σ_v d_v/d_max (d_max 300 s) atau −|queue|²; aksi ring-barrier 8 fase dengan masking; min green 10 s; max green 60 s; keputusan 5–15 s | hanya untuk simulasi/advisor | [arXiv 2603.15283; 2007.03433] |
+| D9 | Reward RL tipikal | r = −Σ_v d_v/d_max (d_max 300 s) atau −\|queue\|²; aksi ring-barrier 8 fase dengan masking; min green 10 s; max green 60 s; keputusan 5–15 s | hanya untuk simulasi/advisor | [arXiv 2603.15283; 2007.03433] |
 | D10 | Delay probe | d_i = t_i − t_f (t_f = jarak/speed limit); travel rate r = t/D; TTI = t/t_f; SOFT dari Fourier profil kecepatan | penetrasi 3–6% → agregasi multi-hari; cycle harus tepat | [arXiv 2212.02315 §3] |
 
 ## E. ATSPM (dari hi-res log 0,1 s)

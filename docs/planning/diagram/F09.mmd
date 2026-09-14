@@ -1,27 +1,31 @@
 flowchart LR
   subgraph P["Pengguna & mitra eksternal"]
-    F09e["e. Petugas Polri memverifikasi dan menindak; aplikasi tidak menerbitkan tilang (T4)"]
+    F09f["f. Petugas Polri memverifikasi dan menindak (T4)"]
   end
   subgraph U["Penyajian (layar & aplikasi)"]
-    F09g["g. Dashboard keselamatan: pelanggaran per simpang, tren (T3)"]
+    F09h["h. Dashboard keselamatan per simpang (T3)"]
   end
-  subgraph S["Pusat (server aplikasi)"]
-    F09b["b. Paket bukti: foto/klip 30 detik, pelat terenkripsi, waktu, lokasi (T3)"]
-    F09c["c. Kontrol PDP dan DPIA; retensi bukti sesuai alur Perpol 2/2025 (T3)"]
-    F09f["f. Status tindak lanjut hanya-baca; laporan integrasi tahunan (T4)"]
+  subgraph S["Pusat (laptop T1-T3, server T4+)"]
+    F09a["a. Vision Tracker mendeteksi terobos merah dan pelanggaran lain, tanpa pelat (T3)"]
+    F09b["b. Paket bukti: klip tersamarkan, waktu, lokasi (T3)"]
+    F09c["c. Kontrol perlindungan data dan DPIA (T3)"]
+    F09g["g. Status tindak lanjut hanya-baca; laporan integrasi tahunan (T4)"]
   end
   subgraph K["Komunikasi & integrasi"]
-    F09d["d. API ke Back Office ETLE Polda sesuai Perpol 8/2023 (T4)"]
+    F09e["e. API ke Back Office ETLE sesuai Perpol 8/2023 (T4)"]
   end
-  subgraph L["Lapangan (kabinet, edge, kamera)"]
-    F09a["a. Edge AI mendeteksi terobos merah (aktuasi saat kuning/merah) dan pelat (T3)"]
+  subgraph L["Lapangan (kamera, kabinet, controller)"]
+    F09d["d. Pembacaan pelat dengan kamera ANPR khusus (T4)"]
   end
   F09a --> F09b
   F09b --> F09c
-  F09c --> F09d
-  F09d --> F09e
-  F09e -->|status| F09f
-  F09b --> F09g
-  F09f --> F09g
-  style F09a stroke:#EF6C00,stroke-width:2px
-  style F09d stroke:#6A1B9A,stroke-width:2px
+  F09d -->|T4| F09b
+  F09c -->|T4| F09e
+  F09e --> F09f
+  F09f -->|status| F09g
+  F09b --> F09h
+  F09g --> F09h
+  classDef t3 stroke:#EF6C00,stroke-width:2px
+  class F09a,F09b,F09c,F09h t3
+  classDef t4 stroke:#6A1B9A,stroke-width:2px
+  class F09d,F09e,F09f,F09g t4

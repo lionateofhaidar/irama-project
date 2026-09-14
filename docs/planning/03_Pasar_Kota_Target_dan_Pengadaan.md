@@ -1,6 +1,6 @@
 # 03 — Pasar, Kota Target, dan Jalur Pengadaan
 
-Status: draf pra-perencanaan (2026-09-12). Tag sumber: [KB] = docs/sources/_ringkasan (R00–R06); [W] = hasil pencarian web sesi ini (URL di catatan kaki tiap bagian); [A] = **asumsi** yang harus divalidasi. Angka tanpa sumber diberi tag [A].
+Status: draf pra-perencanaan (2026-09-12), direvisi 2026-09-14 untuk tahapan baru (proposisi nilai, model bisnis, dan go-to-market; T2 dijual awal sebagai jasa kajian). Tag sumber: [KB] = docs/sources/_ringkasan (R00–R06); [W] = hasil pencarian web sesi ini (URL di catatan kaki tiap bagian); [A] = **asumsi** yang harus divalidasi. Angka tanpa sumber diberi tag [A].
 
 ## 1. Segmentasi pasar
 
@@ -50,7 +50,7 @@ Catatan: data jumlah simpang ber-ATCS per kota untuk 2024–2025 tidak tersedia 
 |---|---|---|---|
 | **E-katalog LKPP / INAPROC (katalog elektronik nasional/lokal/sektoral)** | Lisensi software + jasa implementasi per simpang; paket ATCS (contoh: produk "Area Traffic Control System (ATCS) Pemerintah Daerah Kota Surakarta", "Traffic Controller ATCS/ITS 8 SG", "Kit Mainboard APILL ATCS") [W-4] | Penyedia harus tayang (etalase produk/jasa TI), harga dan spesifikasi terbuka; pemda memilih via e-purchasing tanpa tender → **jalur utama**; prioritas produk TKDN+BMP ≥40% (wajib beli PDN bila TKDN ≥25%) [W-2 Perpres 46/2025, PP 29/2018] | Tayang di etalase "Perangkat Lunak/Aplikasi" dan "Perlengkapan Jalan/ATCS" |
 | **Tender/seleksi (jasa konsultansi & pengadaan sistem)** | Proyek besar (>Rp200 jt jasa; paket integrasi kota) | Kompetitif; risiko low-bid (peringatan FHWA HOP-11-027 [KB R02]) | Dorong RFP best-value + spesifikasi NTCIP terbuka |
-| **Swakelola / kerja sama (Perda 5/2014 Ps.239; Pergub 68 Ps.7)** | Pilot/riset dengan perguruan tinggi/BUMD; PoC gratis | Butuh payung hukum (PKS), bukan pendapatan langsung | Pintu masuk pilot 3–5 simpang |
+| **Swakelola / kerja sama (Perda 5/2014 Ps.239; Pergub 68 Ps.7)** | Pilot/riset dengan perguruan tinggi/BUMD; PoC gratis | Butuh payung hukum (PKS), bukan pendapatan langsung | Pintu masuk pilot: satu simpang untuk uji lapangan T3, lalu beberapa simpang |
 | **Hibah/bantuan Kemenhub (DAK, bantuan ATCS)** | Kota sedang (Bukittinggi Rp9,4 M 2019–2020) [W-3] | Spesifikasi ditentukan Kemenhub; vendor dipilih pusat | Ikut standar Ditjen Hubdat (SK.7234/2013, PM 49 Ps.25 sertifikasi) |
 | **KPBU / kerja sama pemanfaatan** | Skala provinsi/kota besar dengan ERP | Kompleks, lama | Tahap 4–5 saja |
 | **Penjualan ke vendor/integrator (B2B2G)** | Menjadi lapisan software di atas paket vendor controller lokal (Javis, Qumicon, TKDN, Marktel, dsb.) | Bergantung mitra; margin kecil | Alternatif bila belum tayang e-katalog |
@@ -70,33 +70,34 @@ Catatan: data jumlah simpang ber-ATCS per kota untuk 2024–2025 tidak tersedia 
 
 ## 6. Proposisi nilai pembeda (dari bukti bahan acuan)
 
-1. **Berdiri di atas controller eksisting** (NTCIP 1202 + adaptor RS-232 vendor) — tidak memaksa ganti APILL; biaya per simpang jauh di bawah paket turnkey Rp350 jt–1,8 M [W-4] [A: target biaya software < 20% biaya paket].
+1. **Berdiri di atas CCTV dan controller eksisting**: data diambil dari CCTV yang sudah ada lewat Vision Tracker sejak T1; controller dibaca mulai T3 dan dikendalikan lewat NTCIP 1202 atau adaptor RS-232 vendor mulai T4. Tidak memaksa ganti APILL; biaya per simpang jauh di bawah paket turnkey Rp350 jt–1,8 M [W-4] [A: target biaya software < 20% biaya paket].
 2. **Fallback wajib & aman**: ≥8 rencana TOD, degradasi otomatis (PM 49 Ps.14; FHWA HOP-11-027 Req 2.1.1) — menjawab kendala #1 ATCS Indonesia (detektor/komunikasi rusak) [KB R02, R06].
 3. **KPI resmi Indonesia bawaan**: DJ, tundaan, LOS PM 96/2015, PKJI 2023, before–after — laporan yang dapat dipakai Bappeda/DPRD/Forum LLAJ [KB R05].
-4. **Transparan, anti black-box**: nilai perhitungan antara terlihat (Req 18.0-2) [KB R02]; algoritma yang dapat dijelaskan (cyclic max-pressure) sebelum AI [KB R04].
-5. **Ringan di server**: mulai dari analitik & koordinasi (tanpa video di server), edge untuk kamera; skala bertahap 5 → 25 → 100 simpang.
-6. **Bertahap & terukur** (T1–T5) dengan pilot koridor dan validasi on/off — sesuai praktik SE FHWA dan monev PM 96.
+4. **Transparan, anti black-box**: nilai perhitungan antara terlihat (Req 18.0-2) [KB R02]; algoritma yang dapat dijelaskan (PKJI 2023 dan Webster untuk rekomendasi, actuated di T4, max-pressure jaringan di T5) sebelum AI [KB R04].
+5. **Tanpa pengadaan sampai T3**: T1 sampai T3 berjalan di laptop tim dengan perangkat lunak berlisensi bebas; video mentah dihapus setelah diolah; skala bertahap dari satu simpang, beberapa simpang (T3), sampai skala kota (T4).
+6. **Bertahap & terukur** (T1–T5): kajian satu simpang dengan validasi SUMO (T2), uji lapangan sebelum-sesudah (T3), lalu evaluasi on/off saat kendali aktif (T4), sesuai praktik SE FHWA dan monev PM 96.
 7. **Lokal & berstandar**: bahasa, regulasi, e-katalog, TKDN; dukungan integrasi Polri/ETLE (sebagai penyedia bukti), TransJakarta/BRT AVL, Damkar.
 
 ## 7. Model bisnis kandidat (semua harga = [A] asumsi awal untuk diuji)
 
 | Model | Deskripsi | Asumsi harga awal | Cocok tahap |
 |---|---|---|---|
-| Lisensi perpetual per simpang + AMS tahunan | Software on-prem di Dishub/Diskominfo; AMS 15–20%/tahun | Rp25–60 jt/simpang [A]; AMS 20% [A] | T2–T4 |
+| Jasa kajian waktu sinyal per simpang (model awal, keputusan user T-40) | Tim menjalankan IRAMA di laptop dengan rekaman dari Dishub; menyerahkan dashboard, laporan kajian PKJI 2023, validasi SUMO, dan manfaat rupiah | Rp15–30 jt/simpang per kajian [A], mengacu tarif retiming di bawah | T2 |
+| Lisensi perpetual per simpang + AMS tahunan | Software on-prem di Dishub/Diskominfo; AMS 15–20%/tahun | Rp25–60 jt/simpang [A]; AMS 20% [A] | T2 (pendukung keputusan untuk engineer) sampai T4 (kendali) |
 | Langganan (SaaS/on-prem terkelola) per simpang/bulan | Termasuk update & dukungan | Rp1–3 jt/simpang/bulan [A] | T2–T5 (Bodetabek/kota kecil) |
-| Paket koridor | 5–10 simpang + kalibrasi + pelatihan | Rp300–800 jt/koridor [A] | T2 |
-| Jasa integrasi & retiming | Survei, plan TOD PKJI, integrasi controller, kalibrasi adaptif | Rp15–30 jt/simpang [A]; retiming ≤3 tahun (NTOC) [KB R01] | T1–T5 |
-| Modul analitik/ATSPM saja | Untuk kota yang sudah punya ATCS (Surabaya) | Rp10–20 jt/simpang/tahun [A] | T2–T3 |
-| B2B2G lisensi ke vendor controller | Vendor menjual paket, kita lisensi software | Royalti 10–20% [A] | T2–T3 |
+| Paket koridor | 5–10 simpang + kalibrasi + pelatihan | Rp300–800 jt/koridor [A] | T4 (koordinasi dasar) sampai T5 |
+| Jasa integrasi & retiming | Retiming PKJI lewat jasa kajian (T2 dan T3); integrasi controller dan kalibrasi adaptif (T4) | Rp15–30 jt/simpang [A]; retiming ≤3 tahun (NTOC) [KB R01] | T2–T5 |
+| Modul analitik/ATSPM saja | Untuk kota yang sudah punya ATCS (Surabaya) | Rp10–20 jt/simpang/tahun [A] | T3–T4 |
+| B2B2G lisensi ke vendor controller | Vendor menjual paket, kita lisensi software | Royalti 10–20% [A] | T3–T4 |
 Pembanding pasar: paket ATCS turnkey Rp350–400 jt/simpang (Yogyakarta), hingga Rp1,3–1,8 M/simpang (Kudus); DKI Rp120 M/25 simpang ≈ Rp4,8 M/simpang (termasuk kamera AI, ANPR, fiber) [W-4; KB].
 
 ## 8. Go-to-market bertahap
 
-1. **Pilot pembuktian (T1→T2, 3–6 bulan):** 1 kota Bodetabek + 1 kota metropolitan; koridor 3–5 simpang (≥3 simpang ≤1 km sesuai PM 96 [KB R00 E]); skema kerja sama/swakelola berbiaya rendah; ukur before–after (on/off) dengan MOE PM 96/PKJI + probe GPS; publikasi bersama Dishub.
+1. **Pembuktian (T1→T2, berbasis capaian):** satu simpang di Bandung diolah dari rekaman sampai rekomendasi dan laporan kajian sebagai contoh; jasa kajian pertama untuk satu Dishub tanpa memasang perangkat; MoU menjelang T3 untuk akses stream dan uji lapangan sebelum-sesudah dengan MOE PM 96/PKJI; publikasi bersama Dishub.
 2. **Tayang e-katalog & sertifikasi** (paralel): TKDN software, etalase produk/jasa; dokumen KAK template untuk Dishub.
-3. **Skala kota (T2–T3):** 25–50 simpang di 2–3 kota; kemitraan vendor controller lokal untuk hardware; pelatihan operator (matriks Mampu/Mau ala RPP DKI [KB majalah]).
-4. **Referensi & standar (T3–T4):** ikut program RITJ/BPTJ, Forum LLAJ, kolaborasi ITS Indonesia; modul prioritas BRT (Trans Semanggi, Trans Metro Bandung, TransJakarta lintas batas).
-5. **Regional/provinsi & end-state (T4–T5):** koordinasi lintas kota, digital twin, integrasi ERP/KRE.
+3. **Beberapa simpang dan pemantauan (T3), skala kota (T4):** kajian banyak simpang yang dihitung mandiri dan pilot pemantauan di sedikit kamera (T3); 50–300 simpang per kota dengan kemitraan vendor controller lokal untuk hardware (T4); pelatihan engineer dan operator (matriks Mampu/Mau ala RPP DKI [KB majalah]).
+4. **Referensi & standar (T3–T4, prioritas BRT di T4):** ikut program RITJ/BPTJ, Forum LLAJ, kolaborasi ITS Indonesia; modul prioritas BRT (Trans Semanggi, Trans Metro Bandung, TransJakarta lintas batas).
+5. **Regional/provinsi & end-state (T5):** optimasi koridor dan jaringan, koordinasi lintas kota, digital twin kota, integrasi ERP/KRE.
 
 ### Sumber web sesi ini
 - [W-1] Tempo/Expat Life: TomTom Traffic Index 2024 — Bandung #12, Medan #15; urutan Indonesia Bandung, Medan, Surabaya, Palembang, Jakarta (https://en.tempo.co/read/2027683/12-most-congested-cities-in-the-world; https://x.com/expatlifeindo/status/1884136639859224757; https://jakartaglobe.id/news/pramono-on-why-jakarta-is-no-longer-indonesias-most-congested-city)

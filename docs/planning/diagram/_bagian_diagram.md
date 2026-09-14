@@ -1,13 +1,13 @@
-## 8. Diagram alur fitur utama dan pemetaannya ke arsitektur dan tahap
+## 9. Diagram alur fitur utama dan pemetaannya ke arsitektur dan tahap
 
 Diagram berikut menggambarkan cara IRAMA bekerja pada kondisi end-state, satu diagram per fitur utama. Cara membacanya sama untuk semua diagram.
 
 - Baris (lajur mendatar) adalah lapisan arsitektur: pengguna dan mitra eksternal, penyajian, pusat, komunikasi dan integrasi, lapangan. Posisi kotak menunjukkan komponen mana yang menjalankan langkah itu.
 - Kotak adalah langkah, diberi huruf urut dan warna bingkai. Label kecil di pojok kanan atas (T1 sampai T5) menandai tahap saat langkah itu pertama tersedia. Warna: T1 hijau, T2 biru, T3 jingga, T4 ungu, T5 merah.
-- Panah adalah aliran data atau perintah. Label pada panah menjelaskan kondisi, misalnya "bila putus".
+- Panah adalah aliran data atau perintah. Label abu-abu pada panah menjelaskan kondisi, misalnya "bila putus". Label berwarna, misalnya T3, berarti hubungan itu baru ada mulai tahap tersebut.
 - Untuk membaca diagram pada tahap tertentu, abaikan kotak yang labelnya lebih tinggi dari tahap itu. Contoh: pada T2, kotak berlabel T3 sampai T5 belum ada, dan alur berhenti pada kotak terakhir yang tersedia.
 
-Tabel di bawah tiap diagram memetakan langkah ke komponen dalam struktur repositori (apps, services, edge, sim, infra) dan tahapnya.
+Tabel di bawah tiap diagram memetakan langkah ke komponen dalam struktur repositori (apps, services, edge, sim, infra) dan tahapnya. Diagram direvisi 2026-09-14 mengikuti tahapan baru: T1 purwarupa, T2 Vision Tracker dan optimasi, T3 deteksi kejadian dan pemantauan, T4 kendali adaptif, T5 platform kota. Diagram arsitektur alur data per komponen dan teknologi (A01) ada di dokumen 14.
 
 ### F00 Gambaran keseluruhan komponen per lapisan dan tahap
 
@@ -15,97 +15,105 @@ Tabel di bawah tiap diagram memetakan langkah ke komponen dalam struktur reposit
 
 Diagram ini memperlihatkan semua komponen yang ada pada end-state, dikelompokkan per lapisan, dengan label tahap pemunculannya. Diagram F01 sampai F12 memperlihatkan bagaimana komponen tersebut bekerja sama untuk tiap fitur.
 
-### F01 Pemantauan status simpang secara langsung
+### F01 Pemantauan kondisi simpang
 
-Operator ruang kendali melihat kondisi setiap simpang (mode kendali, lampu yang menyala, detektor, alarm) dengan jeda paling lama lima detik. Pada T1 lampu sungguhan digantikan simulator; mulai T2 data datang dari controller di kabinet.
+Kondisi setiap simpang (arus, LOS, nyala lampu, peringatan) terlihat di dashboard. T1 dan T2 memakai data dari rekaman melalui Vision Tracker; T3 menambah stream Dishub dan status controller baca-saja; T4 menambah edge dan kendali.
 
-![F01](diagram/F01_Pemantauan_status_simpang_secara_langsun.png)
+![F01](diagram/F01_Pemantauan_kondisi_simpang.png)
 
-Tahap yang terlibat: T1, T2. Langkah dan komponennya:
+Tahap yang terlibat: T1, T2, T3, T4. Langkah dan komponennya:
 
 | Langkah | Lapisan | Komponen | Tahap |
 |---|---|---|---|
-| a. Simulator SUMO berperan sebagai controller | Lapangan | sim/, services/cai (adaptor TraCI) | T1 |
-| b. Controller melaporkan status lampu dan detektor tiap detik | Lapangan | controller vendor/NTCIP | T2 |
-| c. Agen edge menerjemahkan protokol vendor, menyimpan data bila jaringan putus | Lapangan | edge/ (edge-light) | T2 |
-| d. Jaringan Dishub (fiber/4G) lewat VPN, pesan MQTT | Komunikasi | infra/ (MQTT, WireGuard) | T2 |
-| e. Layanan status menerima dan menyimpan potret status | Pusat | apps/api, TimescaleDB | T1 |
-| f. Mesin aturan menandai anomali (offline, kedip, konflik, jam melenceng) | Pusat | services/health | T2 |
-| g. Peta simpang dan tampilan fase langsung di konsol | Penyajian | apps/tmc-web (MapLibre) | T1 |
-| h. Operator memantau; pimpinan dan publik melihat ringkasan | Pengguna | dashboard publik | T2 |
+| a. Rekaman atau stream CCTV simpang | Lapangan | kamera eksisting, berkas rekaman | T1 |
+| b. Controller dibaca tanpa diubah, bila Dishub mengizinkan | Lapangan | controller vendor/NTCIP | T3 |
+| c. Agen edge di kabinet menerjemahkan protokol vendor | Lapangan | edge/ | T4 |
+| d. Stream Dishub lewat VPN setelah MoU; MQTT dan mTLS di T4 | Komunikasi | infra/ (MediaMTX, VPN) | T3 |
+| e. Vision Tracker menghitung arus (T1) dan membaca nyala lampu (T2) | Pusat | services/vision | T1 |
+| f. Aturan peringatan (lampu mati atau kedip, kamera bermasalah) | Pusat | services/health | T3 |
+| g. Peta simpang, LOS, dan kondisi terkini di dashboard | Penyajian | apps/tmc-web (MapLibre) | T2 |
+| h. Engineer, operator, dan pimpinan memantau | Pengguna | (pihak luar) | T2 |
 
 Versi teks (mermaid):
 
 ```mermaid
 flowchart LR
   subgraph P["Pengguna & mitra eksternal"]
-    F01h["h. Operator memantau; pimpinan dan publik melihat ringkasan (T2)"]
+    F01h["h. Engineer, operator, dan pimpinan memantau (T2)"]
   end
   subgraph U["Penyajian (layar & aplikasi)"]
-    F01g["g. Peta simpang dan tampilan fase langsung di konsol (T1)"]
+    F01g["g. Peta simpang, LOS, dan kondisi terkini di dashboard (T2)"]
   end
-  subgraph S["Pusat (server aplikasi)"]
-    F01e["e. Layanan status menerima dan menyimpan potret status (T1)"]
-    F01f["f. Mesin aturan menandai anomali (offline, kedip, konflik, jam melenceng) (T2)"]
+  subgraph S["Pusat (laptop T1-T3, server T4+)"]
+    F01e["e. Vision Tracker menghitung arus (T1) dan membaca nyala lampu (T2) (T1)"]
+    F01f["f. Aturan peringatan (lampu mati atau kedip, kamera bermasalah) (T3)"]
   end
   subgraph K["Komunikasi & integrasi"]
-    F01d["d. Jaringan Dishub (fiber/4G) lewat VPN, pesan MQTT (T2)"]
+    F01d["d. Stream Dishub lewat VPN setelah MoU; MQTT dan mTLS di T4 (T3)"]
   end
-  subgraph L["Lapangan (kabinet, edge, kamera)"]
-    F01a["a. Simulator SUMO berperan sebagai controller (T1)"]
-    F01b["b. Controller melaporkan status lampu dan detektor tiap detik (T2)"]
-    F01c["c. Agen edge menerjemahkan protokol vendor, menyimpan data bila jaringan putus (T2)"]
+  subgraph L["Lapangan (kamera, kabinet, controller)"]
+    F01a["a. Rekaman atau stream CCTV simpang (T1)"]
+    F01b["b. Controller dibaca tanpa diubah, bila Dishub mengizinkan (T3)"]
+    F01c["c. Agen edge di kabinet menerjemahkan protokol vendor (T4)"]
   end
-  F01a -->|T1| F01e
-  F01b --> F01c
-  F01c --> F01d
+  F01a --> F01e
+  F01b --> F01d
+  F01c -->|T4| F01d
   F01d --> F01e
   F01e --> F01f
   F01e --> F01g
-  F01f -->|alarm| F01g
+  F01f -->|peringatan| F01g
   F01g --> F01h
-  style F01a stroke:#2E7D32,stroke-width:2px
-  style F01b stroke:#1565C0,stroke-width:2px
+  classDef t1 stroke:#2E7D32,stroke-width:2px
+  class F01a,F01e t1
+  classDef t2 stroke:#1565C0,stroke-width:2px
+  class F01g,F01h t2
+  classDef t3 stroke:#EF6C00,stroke-width:2px
+  class F01b,F01d,F01f t3
+  classDef t4 stroke:#6A1B9A,stroke-width:2px
+  class F01c t4
 ```
 
-### F02 Perencanaan dan penetapan jadwal lampu
+### F02 Rekomendasi dan penetapan waktu sinyal
 
-Perencana menyusun jadwal lampu (fase, lama hijau, offset) berdasarkan data survei, memeriksanya dengan kalkulator dan validator, mengujinya di simulator, lalu mengirimkannya ke controller setelah disetujui pejabat yang berwenang.
+Engineer mengonfigurasi simpang, sistem mengubah hitungan Vision Tracker menjadi arus SMP, menghitung kinerja dengan PKJI 2023, menjalankan mode optimasi, memvalidasinya di SUMO, lalu menyusun laporan. Rekomendasi diterapkan manual di T2, lewat lembar jadwal di T3, dan dikirim ke controller di T4.
 
-![F02](diagram/F02_Perencanaan_dan_penetapan_jadwal_lampu.png)
+![F02](diagram/F02_Rekomendasi_dan_penetapan_waktu_sinyal.png)
 
-Tahap yang terlibat: T1, T2. Langkah dan komponennya:
+Tahap yang terlibat: T1, T2, T3. Langkah dan komponennya:
 
 | Langkah | Lapisan | Komponen | Tahap |
 |---|---|---|---|
-| a. Perencana memasukkan data survei, geometri, dan arus | Pengguna | apps/tmc-web | T1 |
-| b. Kalkulator PKJI 2023: kapasitas, antrian, tundaan, kelas LOS | Pusat | services/kpi-pkji | T1 |
-| c. Editor jadwal (fase, hijau, offset); minimal delapan jadwal per simpang | Penyajian | apps/tmc-web | T1 |
-| d. Validator keselamatan (kuning, merah semua, hijau minimum) dan konsistensi urutan fase | Pusat | services/kpi-pkji | T1 |
-| e. Uji di digital twin SUMO; laporan hasil (wajib sebelum penetapan mulai T3) | Pusat | sim/, services/twin | T1 |
-| f. Persetujuan Kepala Dinas; Dirjen/BPTJ bila simpang di jalan nasional | Pengguna | alur persetujuan | T2 |
-| g. Transaksi unduh jadwal tervalidasi; versi dan jejak audit | Pusat | services/cai | T2 |
-| h. Controller menerima jadwal baru; jadwal lokal ikut diperbarui | Lapangan | controller, edge/ | T2 |
+| a. Engineer mengisi konfigurasi simpang (formulir T1, wizard T2) | Pengguna | apps/tmc-web | T1 |
+| b. Konversi hitungan ke arus SMP per periode (EMP PKJI 2023) | Pusat | services/optimizer | T1 |
+| c. Kalkulator PKJI 2023: kapasitas, DJ, antrian, tundaan, LOS | Pusat | services/optimizer (NumPy) | T1 |
+| d. Mode optimasi: Webster (T1); empat mode lain (T2); multi-kriteria (T3) | Pusat | services/optimizer (SciPy) | T1 |
+| e. Validator keselamatan dan validasi SUMO eksisting vs rekomendasi | Pusat | sim/ (SUMO) | T2 |
+| f. Dashboard rekomendasi, manfaat rupiah, laporan Word/PDF | Penyajian | apps/tmc-web, services/reports | T2 |
+| g. Persetujuan Kepala Dinas; Dirjen/BPTJ bila jalan nasional | Pengguna | alur persetujuan | T2 |
+| h. Petugas menerapkan waktu baru di controller | Lapangan | manual (T2), lembar jadwal (T3), NTCIP/adaptor (T4) | T2 |
+| i. Uji lapangan sebelum-sesudah diukur Vision Tracker | Pusat | services/vision | T3 |
 
 Versi teks (mermaid):
 
 ```mermaid
 flowchart LR
   subgraph P["Pengguna & mitra eksternal"]
-    F02a["a. Perencana memasukkan data survei, geometri, dan arus (T1)"]
-    F02f["f. Persetujuan Kepala Dinas; Dirjen/BPTJ bila simpang di jalan nasional (T2)"]
+    F02a["a. Engineer mengisi konfigurasi simpang (formulir T1, wizard T2) (T1)"]
+    F02g["g. Persetujuan Kepala Dinas; Dirjen/BPTJ bila jalan nasional (T2)"]
   end
   subgraph U["Penyajian (layar & aplikasi)"]
-    F02c["c. Editor jadwal (fase, hijau, offset); minimal delapan jadwal per simpang (T1)"]
+    F02f["f. Dashboard rekomendasi, manfaat rupiah, laporan Word/PDF (T2)"]
   end
-  subgraph S["Pusat (server aplikasi)"]
-    F02b["b. Kalkulator PKJI 2023: kapasitas, antrian, tundaan, kelas LOS (T1)"]
-    F02d["d. Validator keselamatan (kuning, merah semua, hijau minimum) dan konsistensi urutan fase (T1)"]
-    F02e["e. Uji di digital twin SUMO; laporan hasil (wajib sebelum penetapan mulai T3) (T1)"]
-    F02g["g. Transaksi unduh jadwal tervalidasi; versi dan jejak audit (T2)"]
+  subgraph S["Pusat (laptop T1-T3, server T4+)"]
+    F02b["b. Konversi hitungan ke arus SMP per periode (EMP PKJI 2023) (T1)"]
+    F02c["c. Kalkulator PKJI 2023: kapasitas, DJ, antrian, tundaan, LOS (T1)"]
+    F02d["d. Mode optimasi: Webster (T1); empat mode lain (T2); multi-kriteria (T3) (T1)"]
+    F02e["e. Validator keselamatan dan validasi SUMO eksisting vs rekomendasi (T2)"]
+    F02i["i. Uji lapangan sebelum-sesudah diukur Vision Tracker (T3)"]
   end
-  subgraph L["Lapangan (kabinet, edge, kamera)"]
-    F02h["h. Controller menerima jadwal baru; jadwal lokal ikut diperbarui (T2)"]
+  subgraph L["Lapangan (kamera, kabinet, controller)"]
+    F02h["h. Petugas menerapkan waktu baru di controller (T2)"]
   end
   F02a --> F02b
   F02b --> F02c
@@ -114,48 +122,53 @@ flowchart LR
   F02e --> F02f
   F02f --> F02g
   F02g --> F02h
-  style F02a stroke:#2E7D32,stroke-width:2px
-  style F02f stroke:#1565C0,stroke-width:2px
+  F02h -->|T3| F02i
+  classDef t1 stroke:#2E7D32,stroke-width:2px
+  class F02a,F02b,F02c,F02d t1
+  classDef t2 stroke:#1565C0,stroke-width:2px
+  class F02e,F02f,F02g,F02h t2
+  classDef t3 stroke:#EF6C00,stroke-width:2px
+  class F02i t3
 ```
 
 ### F03 Kendali terpusat, mode manual petugas, dan cadangan saat putus
 
-Operator atau petugas Polri memilih program atau mode manual dari ruang kendali. Pusat mengirim perintah terbatas beserta detak jantung. Bila jaringan putus, controller kembali ke jadwal lokal dan semua kejadian tetap tercatat.
+Mulai T4 operator atau petugas Polri memilih program atau mode manual dari ruang kendali. Pusat mengirim perintah terbatas beserta detak jantung. Bila jaringan putus, controller kembali ke jadwal lokal dan semua kejadian tetap tercatat.
 
 ![F03](diagram/F03_Kendali_terpusat.png)
 
-Tahap yang terlibat: T2. Langkah dan komponennya:
+Tahap yang terlibat: T4. Langkah dan komponennya:
 
 | Langkah | Lapisan | Komponen | Tahap |
 |---|---|---|---|
-| a. Operator atau petugas Polri memilih program, kedip, atau mode manual | Pengguna | konsol operator | T2 |
-| b. Konsol kendali meminta konfirmasi dan alasan | Penyajian | apps/tmc-web | T2 |
-| c. Layanan perintah memeriksa hak akses, mengirim perintah tipe C dan detak jantung | Pusat | services/cai | T2 |
-| d. SNMP/MQTT lewat VPN | Komunikasi | infra/ | T2 |
-| e. Controller menjalankan program; edge meneruskan detak jantung | Lapangan | controller, edge/ | T2 |
-| f. Jaringan putus: controller kembali ke jadwal lokal; edge menyimpan catatan | Lapangan | controller (backup timer), edge/ | T2 |
-| g. Jejak audit perintah dan KPI transisi; alarm bila cadangan aktif | Pusat | audit log, services/health | T2 |
+| a. Operator atau petugas Polri memilih program, kedip, atau mode manual | Pengguna | konsol kendali | T4 |
+| b. Konsol kendali meminta konfirmasi dan alasan | Penyajian | apps/tmc-web | T4 |
+| c. Layanan perintah memeriksa hak akses, mengirim perintah dan detak jantung | Pusat | services/cai | T4 |
+| d. SNMP/MQTT lewat VPN | Komunikasi | infra/ | T4 |
+| e. Controller menjalankan program; edge meneruskan detak jantung | Lapangan | controller, edge/ | T4 |
+| f. Jaringan putus: controller kembali ke jadwal lokal; edge menyimpan catatan | Lapangan | controller, edge/ | T4 |
+| g. Jejak audit perintah; alarm bila cadangan aktif | Pusat | audit log, services/health | T4 |
 
 Versi teks (mermaid):
 
 ```mermaid
 flowchart LR
   subgraph P["Pengguna & mitra eksternal"]
-    F03a["a. Operator atau petugas Polri memilih program, kedip, atau mode manual (T2)"]
+    F03a["a. Operator atau petugas Polri memilih program, kedip, atau mode manual (T4)"]
   end
   subgraph U["Penyajian (layar & aplikasi)"]
-    F03b["b. Konsol kendali meminta konfirmasi dan alasan (T2)"]
+    F03b["b. Konsol kendali meminta konfirmasi dan alasan (T4)"]
   end
-  subgraph S["Pusat (server aplikasi)"]
-    F03c["c. Layanan perintah memeriksa hak akses, mengirim perintah tipe C dan detak jantung (T2)"]
-    F03g["g. Jejak audit perintah dan KPI transisi; alarm bila cadangan aktif (T2)"]
+  subgraph S["Pusat (laptop T1-T3, server T4+)"]
+    F03c["c. Layanan perintah memeriksa hak akses, mengirim perintah dan detak jantung (T4)"]
+    F03g["g. Jejak audit perintah; alarm bila cadangan aktif (T4)"]
   end
   subgraph K["Komunikasi & integrasi"]
-    F03d["d. SNMP/MQTT lewat VPN (T2)"]
+    F03d["d. SNMP/MQTT lewat VPN (T4)"]
   end
-  subgraph L["Lapangan (kabinet, edge, kamera)"]
-    F03e["e. Controller menjalankan program; edge meneruskan detak jantung (T2)"]
-    F03f["f. Jaringan putus: controller kembali ke jadwal lokal; edge menyimpan catatan (T2)"]
+  subgraph L["Lapangan (kamera, kabinet, controller)"]
+    F03e["e. Controller menjalankan program; edge meneruskan detak jantung (T4)"]
+    F03f["f. Jaringan putus: controller kembali ke jadwal lokal; edge menyimpan catatan (T4)"]
   end
   F03a --> F03b
   F03b --> F03c
@@ -164,79 +177,82 @@ flowchart LR
   F03e -->|bila putus| F03f
   F03e --> F03g
   F03f -->|alarm| F03g
-  style F03a stroke:#1565C0,stroke-width:2px
+  classDef t4 stroke:#6A1B9A,stroke-width:2px
+  class F03a,F03b,F03c,F03d,F03e,F03f,F03g t4
 ```
 
-### F04 Kesehatan perangkat, alarm, tiket kerja, dan pemeliharaan
+### F04 Kesehatan kamera dan perangkat, alarm, tiket kerja, dan pemeliharaan
 
-Kerusakan detektor, kamera, controller, atau jaringan terdeteksi otomatis, diprioritaskan, lalu menjadi tiket kerja untuk teknisi. Jadwal pemeliharaan berkala dan umur teknis aset dijaga sesuai PM 49/2014.
+Kamera bermasalah terdeteksi dari gambar mulai T3; alarm controller dan detektor mulai T4. Peringatan menjadi tiket kerja untuk teknisi. Jadwal pemeliharaan berkala dan umur teknis aset dijaga sesuai PM 49/2014.
 
-![F04](diagram/F04_Kesehatan_perangkat.png)
+![F04](diagram/F04_Kesehatan_kamera_dan_perangkat.png)
 
-Tahap yang terlibat: T1, T2. Langkah dan komponennya:
+Tahap yang terlibat: T3, T4. Langkah dan komponennya:
 
 | Langkah | Lapisan | Komponen | Tahap |
 |---|---|---|---|
-| a. Alarm controller dan detektor; pintu kabinet; catu daya | Lapangan | controller, edge/ | T2 |
-| b. Watchdog harian dari catatan kejadian (detektor diam, max-out dini hari) | Pusat | services/atspm | T2 |
-| c. Mesin alarm: prioritas, eskalasi, notifikasi ke Polri bila APILL mati | Pusat | services/health | T2 |
-| d. Email/WhatsApp; API CRM kota | Komunikasi | infra/, integrasi CRM | T2 |
-| e. Tiket kerja otomatis dengan SLA dan pencatatan waktu perbaikan | Pusat | services/ticket | T2 |
-| f. Aplikasi ponsel teknisi: tiket, checklist, foto, bisa offline | Penyajian | apps/tmc-web (PWA) | T2 |
-| g. Jadwal pemeliharaan enam bulanan, umur teknis lima tahun, penilaian aset | Pusat | apps/api (inventory) | T1 |
-| h. Kepala Dinas melihat KPI kesehatan perangkat dan biaya | Pengguna | dashboard pimpinan | T2 |
+| a. Kamera tertutup, gelap, buram, atau bergeser | Lapangan | kamera; dideteksi services/vision | T3 |
+| b. Alarm controller, detektor, pintu kabinet, catu daya | Lapangan | controller, edge/ | T4 |
+| c. Mesin peringatan: prioritas, eskalasi, notifikasi APILL mati | Pusat | services/health | T3 |
+| d. Email/WhatsApp; API aduan kota | Komunikasi | integrasi | T3 |
+| e. Tiket kerja otomatis dengan target waktu penyelesaian | Pusat | services/ticket | T3 |
+| f. Aplikasi ponsel teknisi: tiket, checklist, foto | Penyajian | apps/tmc-web (PWA) | T4 |
+| g. Jadwal pemeliharaan enam bulanan dan umur teknis lima tahun | Pusat | apps/api (aset) | T3 |
+| h. Kepala Dinas melihat KPI kesehatan kamera dan perangkat | Pengguna | dashboard pimpinan | T3 |
 
 Versi teks (mermaid):
 
 ```mermaid
 flowchart LR
   subgraph P["Pengguna & mitra eksternal"]
-    F04h["h. Kepala Dinas melihat KPI kesehatan perangkat dan biaya (T2)"]
+    F04h["h. Kepala Dinas melihat KPI kesehatan kamera dan perangkat (T3)"]
   end
   subgraph U["Penyajian (layar & aplikasi)"]
-    F04f["f. Aplikasi ponsel teknisi: tiket, checklist, foto, bisa offline (T2)"]
+    F04f["f. Aplikasi ponsel teknisi: tiket, checklist, foto (T4)"]
   end
-  subgraph S["Pusat (server aplikasi)"]
-    F04b["b. Watchdog harian dari catatan kejadian (detektor diam, max-out dini hari) (T2)"]
-    F04c["c. Mesin alarm: prioritas, eskalasi, notifikasi ke Polri bila APILL mati (T2)"]
-    F04e["e. Tiket kerja otomatis dengan SLA dan pencatatan waktu perbaikan (T2)"]
-    F04g["g. Jadwal pemeliharaan enam bulanan, umur teknis lima tahun, penilaian aset (T1)"]
+  subgraph S["Pusat (laptop T1-T3, server T4+)"]
+    F04c["c. Mesin peringatan: prioritas, eskalasi, notifikasi APILL mati (T3)"]
+    F04e["e. Tiket kerja otomatis dengan target waktu penyelesaian (T3)"]
+    F04g["g. Jadwal pemeliharaan enam bulanan dan umur teknis lima tahun (T3)"]
   end
   subgraph K["Komunikasi & integrasi"]
-    F04d["d. Email/WhatsApp; API CRM kota (T2)"]
+    F04d["d. Email/WhatsApp; API aduan kota (T3)"]
   end
-  subgraph L["Lapangan (kabinet, edge, kamera)"]
-    F04a["a. Alarm controller dan detektor; pintu kabinet; catu daya (T2)"]
+  subgraph L["Lapangan (kamera, kabinet, controller)"]
+    F04a["a. Kamera tertutup, gelap, buram, atau bergeser (T3)"]
+    F04b["b. Alarm controller, detektor, pintu kabinet, catu daya (T4)"]
   end
   F04a --> F04c
-  F04b --> F04c
+  F04b -->|T4| F04c
   F04c --> F04d
   F04c --> F04e
   F04e --> F04f
   F04f -->|selesai| F04e
   F04g -->|jatuh tempo| F04e
   F04e -->|KPI| F04h
-  style F04g stroke:#2E7D32,stroke-width:2px
-  style F04a stroke:#1565C0,stroke-width:2px
+  classDef t3 stroke:#EF6C00,stroke-width:2px
+  class F04a,F04c,F04d,F04e,F04g,F04h t3
+  classDef t4 stroke:#6A1B9A,stroke-width:2px
+  class F04b,F04f t4
 ```
 
-### F05 Pengukuran kinerja dan laporan wajib
+### F05 Pengukuran kinerja dan laporan
 
-Catatan kejadian resolusi tinggi dari controller, edge, atau simulator diolah menjadi ukuran kinerja sinyal, KPI resmi (PKJI, LOS PM 96/2015), dan laporan yang wajib disampaikan ke Forum LLAJ, Dirjen/BPTJ, dan Gubernur.
+Hitungan dan status lampu dari Vision Tracker (kemudian juga log controller) diolah menjadi KPI resmi PKJI dan LOS PM 96/2015, perbandingan eksisting dan rekomendasi, laporan kajian (T2), dan laporan wajib ke Forum LLAJ, Dirjen/BPTJ, dan Gubernur (T3).
 
-![F05](diagram/F05_Pengukuran_kinerja_dan_laporan_wajib.png)
+![F05](diagram/F05_Pengukuran_kinerja_dan_laporan.png)
 
-Tahap yang terlibat: T1, T2. Langkah dan komponennya:
+Tahap yang terlibat: T1, T2, T3, T4. Langkah dan komponennya:
 
 | Langkah | Lapisan | Komponen | Tahap |
 |---|---|---|---|
-| a. Catatan kejadian 0,1 detik dari controller, edge, atau simulator | Lapangan | controller/edge/sim | T1 |
-| b. Dikirim berkala dalam paket lewat MQTT | Komunikasi | infra/ | T2 |
-| c. Ingest dan simpan: rinci 90 hari, ringkasan 15 menit selama 5 tahun | Pusat | services/atspm, TimescaleDB | T1 |
-| d. Mesin ATSPM: terminasi fase, split failure, arrivals on green, diagram koordinasi | Pusat | services/atspm | T1 |
-| e. KPI PKJI dan LOS PM 96; perbandingan sebelum-sesudah dan hidup-mati | Pusat | services/kpi-pkji | T1 |
-| f. Generator laporan: Forum LLAJ, Dirjen/BPTJ, Gubernur triwulanan | Pusat | services/reports | T2 |
-| g. Dashboard pimpinan dan engineer; dashboard publik dengan metode terbuka | Penyajian | apps/tmc-web | T2 |
+| a. Hitungan (T1), status lampu dan antrian (T2) dari Vision Tracker | Lapangan | services/vision | T1 |
+| b. Log kejadian controller lewat MQTT | Komunikasi | infra/ | T4 |
+| c. Simpan tabel 15 menit (T1), status lampu dan antrian (T2); retensi bertingkat | Pusat | PostgreSQL | T1 |
+| d. Metrik kinerja sinyal (split failure, arrivals on green) | Pusat | services/metrics | T3 |
+| e. KPI PKJI dan LOS PM 96; eksisting vs rekomendasi | Pusat | services/optimizer | T1 |
+| f. Laporan kajian simpang (T2); laporan wajib (T3) | Pusat | services/reports | T2 |
+| g. Dashboard pimpinan dan engineer; dashboard publik (T3) | Penyajian | apps/tmc-web | T2 |
 | h. Pejabat, DPRD, Forum LLAJ, warga | Pengguna | (pihak luar) | T2 |
 
 Versi teks (mermaid):
@@ -247,189 +263,208 @@ flowchart LR
     F05h["h. Pejabat, DPRD, Forum LLAJ, warga (T2)"]
   end
   subgraph U["Penyajian (layar & aplikasi)"]
-    F05g["g. Dashboard pimpinan dan engineer; dashboard publik dengan metode terbuka (T2)"]
+    F05g["g. Dashboard pimpinan dan engineer; dashboard publik (T3) (T2)"]
   end
-  subgraph S["Pusat (server aplikasi)"]
-    F05c["c. Ingest dan simpan: rinci 90 hari, ringkasan 15 menit selama 5 tahun (T1)"]
-    F05d["d. Mesin ATSPM: terminasi fase, split failure, arrivals on green, diagram koordinasi (T1)"]
-    F05e["e. KPI PKJI dan LOS PM 96; perbandingan sebelum-sesudah dan hidup-mati (T1)"]
-    F05f["f. Generator laporan: Forum LLAJ, Dirjen/BPTJ, Gubernur triwulanan (T2)"]
+  subgraph S["Pusat (laptop T1-T3, server T4+)"]
+    F05c["c. Simpan tabel 15 menit (T1), status lampu dan antrian (T2); retensi bertingkat (T1)"]
+    F05d["d. Metrik kinerja sinyal (split failure, arrivals on green) (T3)"]
+    F05e["e. KPI PKJI dan LOS PM 96; eksisting vs rekomendasi (T1)"]
+    F05f["f. Laporan kajian simpang (T2); laporan wajib (T3) (T2)"]
   end
   subgraph K["Komunikasi & integrasi"]
-    F05b["b. Dikirim berkala dalam paket lewat MQTT (T2)"]
+    F05b["b. Log kejadian controller lewat MQTT (T4)"]
   end
-  subgraph L["Lapangan (kabinet, edge, kamera)"]
-    F05a["a. Catatan kejadian 0,1 detik dari controller, edge, atau simulator (T1)"]
+  subgraph L["Lapangan (kamera, kabinet, controller)"]
+    F05a["a. Hitungan (T1), status lampu dan antrian (T2) dari Vision Tracker (T1)"]
   end
-  F05a --> F05b
-  F05b --> F05c
-  F05a -->|T1 langsung| F05c
+  F05a --> F05c
+  F05b -->|T4| F05c
   F05c --> F05d
-  F05d --> F05e
+  F05c --> F05e
   F05e --> F05f
   F05e --> F05g
   F05f --> F05h
   F05g --> F05h
-  style F05a stroke:#2E7D32,stroke-width:2px
-  style F05b stroke:#1565C0,stroke-width:2px
+  classDef t1 stroke:#2E7D32,stroke-width:2px
+  class F05a,F05c,F05e t1
+  classDef t2 stroke:#1565C0,stroke-width:2px
+  class F05f,F05g,F05h t2
+  classDef t3 stroke:#EF6C00,stroke-width:2px
+  class F05d t3
+  classDef t4 stroke:#6A1B9A,stroke-width:2px
+  class F05b t4
 ```
 
-### F06 Deteksi berbasis kamera dan detektor virtual
+### F06 Pipeline Vision Tracker dan keluaran tabel hitungan
 
-Kamera yang sudah ada diolah di kotak edge AI menjadi angka jumlah kendaraan, okupansi, dan panjang antrian, serta pembacaan pelat untuk bukti dan prioritas. Hanya angka ringkasan yang dikirim ke pusat; data pelat tunduk pada tata kelola perlindungan data pribadi.
+Vision Tracker mengubah rekaman atau stream CCTV menjadi tabel hitungan per kelas, per arah, dan per 15 menit, ditambah hambatan samping, nyala lampu, dan antrian. Penyamaran wajah dan pelat berlaku mulai T2. Mulai T3 ditambah deteksi kejadian dan kesehatan kamera. Di T4 Vision Tracker berjalan di perangkat edge dan pembacaan pelat memakai kamera ANPR khusus.
 
-![F06](diagram/F06_Deteksi_berbasis_kamera_dan_detektor_vir.png)
+![F06](diagram/F06_Pipeline_Vision_Tracker_dan_keluaran.png)
 
-Tahap yang terlibat: T2, T3. Langkah dan komponennya:
+Tahap yang terlibat: T1, T2, T3, T4. Langkah dan komponennya:
 
 | Langkah | Lapisan | Komponen | Tahap |
 |---|---|---|---|
-| a. Kamera CCTV (RTSP) atau kamera analitik vendor | Lapangan | kamera eksisting | T2 |
-| b. Edge AI: hitung kendaraan, okupansi, antrian; baca pelat (disamarkan) | Lapangan | edge/ (Jetson, YOLO, OCR) | T3 |
-| c. Pemeriksaan kualitas deteksi (malam, hujan); turun otomatis bila buruk | Lapangan | edge/ health | T3 |
-| d. Kirim angka ringkasan lewat MQTT, tanpa video | Komunikasi | infra/ | T3 |
-| e. Detektor virtual menjadi catatan kejadian dan masukan kendali | Pusat | services/cai, services/atspm | T3 |
-| f. Tata kelola PDP: dasar hukum, retensi pelat singkat, akses terbatas, DPIA | Pusat | keamanan & kepatuhan | T3 |
-| g. Tampilan kamera langsung (WebRTC) dengan lapisan hitungan | Penyajian | apps/tmc-web, gerbang video | T2 |
-| h. Operator ruang kendali; pejabat perlindungan data | Pengguna | (pihak luar) | T3 |
+| a. Rekaman CCTV atau video publik (T1); stream RTSP/HLS (uji T2, Dishub T3) | Lapangan | berkas, MediaMTX | T1 |
+| b. Ambil bingkai sekitar 10 per detik | Pusat | FFmpeg, OpenCV | T1 |
+| c. Deteksi enam kelas dan pelacakan | Pusat | RF-DETR/YOLOX, ONNX Runtime, ByteTrack | T1 |
+| d. Hitung per pendekat (T1) dan per arah dari lintasan (T2) | Pusat | supervision, services/vision | T1 |
+| e. Hambatan samping berbobot PKJI, nyala lampu, antrian dasar | Pusat | services/vision | T2 |
+| f. Tabel hitungan 15 menit dan mutu data; penyamaran video mulai T2 | Pusat | PostgreSQL, services/vision | T1 |
+| g. Kendaraan prioritas, kejadian, pelanggaran, kesehatan kamera | Pusat | services/vision | T3 |
+| h. Vision Tracker di edge 24 jam; ANPR kamera khusus | Lapangan | edge/ (Jetson/IPC) | T4 |
+| i. Tabel dan dashboard dasar (T1); halaman kualitas data (T2) | Penyajian | apps/tmc-web | T1 |
+| j. Engineer memeriksa dan mengoreksi | Pengguna | (pihak luar) | T1 |
 
 Versi teks (mermaid):
 
 ```mermaid
 flowchart LR
   subgraph P["Pengguna & mitra eksternal"]
-    F06h["h. Operator ruang kendali; pejabat perlindungan data (T3)"]
+    F06j["j. Engineer memeriksa dan mengoreksi (T1)"]
   end
   subgraph U["Penyajian (layar & aplikasi)"]
-    F06g["g. Tampilan kamera langsung (WebRTC) dengan lapisan hitungan (T2)"]
+    F06i["i. Tabel dan dashboard dasar (T1); halaman kualitas data (T2) (T1)"]
   end
-  subgraph S["Pusat (server aplikasi)"]
-    F06e["e. Detektor virtual menjadi catatan kejadian dan masukan kendali (T3)"]
-    F06f["f. Tata kelola PDP: dasar hukum, retensi pelat singkat, akses terbatas, DPIA (T3)"]
+  subgraph S["Pusat (laptop T1-T3, server T4+)"]
+    F06b["b. Ambil bingkai sekitar 10 per detik (T1)"]
+    F06c["c. Deteksi enam kelas dan pelacakan (T1)"]
+    F06d["d. Hitung per pendekat (T1) dan per arah dari lintasan (T2) (T1)"]
+    F06e["e. Hambatan samping berbobot PKJI, nyala lampu, antrian dasar (T2)"]
+    F06f["f. Tabel hitungan 15 menit dan mutu data; penyamaran video mulai T2 (T1)"]
+    F06g["g. Kendaraan prioritas, kejadian, pelanggaran, kesehatan kamera (T3)"]
   end
-  subgraph K["Komunikasi & integrasi"]
-    F06d["d. Kirim angka ringkasan lewat MQTT, tanpa video (T3)"]
-  end
-  subgraph L["Lapangan (kabinet, edge, kamera)"]
-    F06a["a. Kamera CCTV (RTSP) atau kamera analitik vendor (T2)"]
-    F06b["b. Edge AI: hitung kendaraan, okupansi, antrian; baca pelat (disamarkan) (T3)"]
-    F06c["c. Pemeriksaan kualitas deteksi (malam, hujan); turun otomatis bila buruk (T3)"]
+  subgraph L["Lapangan (kamera, kabinet, controller)"]
+    F06a["a. Rekaman CCTV atau video publik (T1); stream RTSP/HLS (uji T2, Dishub T3) (T1)"]
+    F06h["h. Vision Tracker di edge 24 jam; ANPR kamera khusus (T4)"]
   end
   F06a --> F06b
   F06b --> F06c
   F06c --> F06d
-  F06d --> F06e
-  F06e -->|pelat| F06f
-  F06a -->|stream| F06g
-  F06e -->|angka| F06g
-  F06g --> F06h
-  F06f --> F06h
-  style F06a stroke:#1565C0,stroke-width:2px
-  style F06b stroke:#EF6C00,stroke-width:2px
+  F06d -->|T2| F06e
+  F06d --> F06f
+  F06e --> F06f
+  F06c -->|T3| F06g
+  F06h -->|T4| F06f
+  F06f --> F06i
+  F06i --> F06j
+  classDef t1 stroke:#2E7D32,stroke-width:2px
+  class F06a,F06b,F06c,F06d,F06f,F06i,F06j t1
+  classDef t2 stroke:#1565C0,stroke-width:2px
+  class F06e t2
+  classDef t3 stroke:#EF6C00,stroke-width:2px
+  class F06g t3
+  classDef t4 stroke:#6A1B9A,stroke-width:2px
+  class F06h t4
 ```
 
 ### F07 Kendali responsif dan adaptif
 
-Data detektor dipakai untuk memilih program dan menala offset secara otomatis (T3), lalu membagi ulang waktu hijau setiap siklus dan mengendalikan perimeter kawasan jenuh (T4). Mode bayangan dan ukuran kinerja independen memastikan setiap algoritma terbukti sebelum mengendalikan lampu.
+Mulai T4 detektor virtual dari kamera dipakai untuk actuated, pemilihan program menurut kondisi, dan offset dasar antar simpang berdekatan. Di T5 ditambah max-pressure jaringan dan pengendalian perimeter. Mode bayangan memastikan algoritma terbukti sebelum mengendalikan lampu.
 
 ![F07](diagram/F07_Kendali_responsif_dan_adaptif.png)
 
-Tahap yang terlibat: T3, T4. Langkah dan komponennya:
+Tahap yang terlibat: T4, T5. Langkah dan komponennya:
 
 | Langkah | Lapisan | Komponen | Tahap |
 |---|---|---|---|
-| a. Detektor (virtual, loop, radar) melaporkan okupansi dan antrian | Lapangan | edge/, controller | T3 |
-| b. Gerbang kesehatan: adaptif hanya bila detektor sehat | Pusat | services/adaptive | T3 |
-| c. Pemilihan program otomatis dan penalaan offset koridor (Link Pivot, data GPS) | Pusat | services/adaptive (TRPS), services/atspm | T3 |
-| d. Cyclic max-pressure membagi hijau tiap siklus, perubahan maksimal lima detik | Pusat | services/adaptive | T4 |
-| e. Pengendalian perimeter kawasan pusat kota saat jenuh | Pusat | services/adaptive | T4 |
-| f. Mode bayangan dan ATSPM sebagai pengamat independen | Pusat | shadow harness, services/atspm | T3 |
-| g. Perintah split/program lewat antarmuka controller | Komunikasi | services/cai, MQTT | T3 |
-| h. Controller menjalankan; jadwal lokal tetap sebagai cadangan | Lapangan | controller | T3 |
-| i. Konsol adaptif: parameter, keputusan, dan nilai antara yang bisa dijelaskan | Penyajian | apps/tmc-web | T4 |
+| a. Detektor virtual kamera, loop, atau radar | Lapangan | edge/, controller | T4 |
+| b. Gerbang kesehatan: adaptif hanya bila detektor sehat | Pusat | services/adaptive | T4 |
+| c. Actuated dan pemilihan program per simpang (TRPS) | Pusat | services/adaptive | T4 |
+| d. Offset dasar dan green wave sederhana simpang berdekatan | Pusat | services/adaptive | T4 |
+| e. Max-pressure jaringan dan pengendalian perimeter | Pusat | services/network | T5 |
+| f. Mode bayangan dan metrik kinerja sebagai pengamat | Pusat | shadow harness | T4 |
+| g. Perintah lewat antarmuka controller | Komunikasi | services/cai | T4 |
+| h. Controller menjalankan; jadwal lokal tetap cadangan | Lapangan | controller | T4 |
+| i. Konsol adaptif: parameter, keputusan, nilai antara | Penyajian | apps/tmc-web | T4 |
 
 Versi teks (mermaid):
 
 ```mermaid
 flowchart LR
   subgraph U["Penyajian (layar & aplikasi)"]
-    F07i["i. Konsol adaptif: parameter, keputusan, dan nilai antara yang bisa dijelaskan (T4)"]
+    F07i["i. Konsol adaptif: parameter, keputusan, nilai antara (T4)"]
   end
-  subgraph S["Pusat (server aplikasi)"]
-    F07b["b. Gerbang kesehatan: adaptif hanya bila detektor sehat (T3)"]
-    F07c["c. Pemilihan program otomatis dan penalaan offset koridor (Link Pivot, data GPS) (T3)"]
-    F07d["d. Cyclic max-pressure membagi hijau tiap siklus, perubahan maksimal lima detik (T4)"]
-    F07e["e. Pengendalian perimeter kawasan pusat kota saat jenuh (T4)"]
-    F07f["f. Mode bayangan dan ATSPM sebagai pengamat independen (T3)"]
+  subgraph S["Pusat (laptop T1-T3, server T4+)"]
+    F07b["b. Gerbang kesehatan: adaptif hanya bila detektor sehat (T4)"]
+    F07c["c. Actuated dan pemilihan program per simpang (TRPS) (T4)"]
+    F07d["d. Offset dasar dan green wave sederhana simpang berdekatan (T4)"]
+    F07e["e. Max-pressure jaringan dan pengendalian perimeter (T5)"]
+    F07f["f. Mode bayangan dan metrik kinerja sebagai pengamat (T4)"]
   end
   subgraph K["Komunikasi & integrasi"]
-    F07g["g. Perintah split/program lewat antarmuka controller (T3)"]
+    F07g["g. Perintah lewat antarmuka controller (T4)"]
   end
-  subgraph L["Lapangan (kabinet, edge, kamera)"]
-    F07a["a. Detektor (virtual, loop, radar) melaporkan okupansi dan antrian (T3)"]
-    F07h["h. Controller menjalankan; jadwal lokal tetap sebagai cadangan (T3)"]
+  subgraph L["Lapangan (kamera, kabinet, controller)"]
+    F07a["a. Detektor virtual kamera, loop, atau radar (T4)"]
+    F07h["h. Controller menjalankan; jadwal lokal tetap cadangan (T4)"]
   end
   F07a --> F07b
   F07b --> F07c
-  F07c -->|T4| F07d
-  F07d --> F07e
+  F07c --> F07d
+  F07d -->|T5| F07e
   F07c --> F07g
   F07d --> F07g
   F07e --> F07g
   F07g --> F07h
   F07a --> F07f
   F07f --> F07i
-  F07d --> F07i
-  style F07a stroke:#EF6C00,stroke-width:2px
-  style F07d stroke:#6A1B9A,stroke-width:2px
+  F07c --> F07i
+  classDef t4 stroke:#6A1B9A,stroke-width:2px
+  class F07a,F07b,F07c,F07d,F07f,F07g,F07h,F07i t4
+  classDef t5 stroke:#C62828,stroke-width:2px
+  class F07e t5
 ```
 
 ### F08 Prioritas bus dan kendaraan darurat
 
-Permintaan prioritas datang dari sistem pelacakan bus dan pusat komando pemadam atau ambulans. Layanan prioritas menilai kelayakan, menjaga batas keselamatan, lalu memberi hijau tambahan atau preemption melalui controller, dan mencatat dampaknya.
+Vision Tracker mengenali kendaraan prioritas sejak T3. Mulai T4 permintaan prioritas dari pelacakan bus dan pusat komando pemadam atau ambulans dinilai, dijaga batas keselamatannya, lalu dilayani lewat controller. Prioritas bus bersyarat berbasis muatan di T5.
 
 ![F08](diagram/F08_Prioritas_bus_dan_kendaraan_darurat.png)
 
-Tahap yang terlibat: T3, T4. Langkah dan komponennya:
+Tahap yang terlibat: T3, T4, T5. Langkah dan komponennya:
 
 | Langkah | Lapisan | Komponen | Tahap |
 |---|---|---|---|
-| a. AVL/APC operator bus; CAD pemadam dan ambulans | Pengguna | operator bus, 112/119 | T3 |
-| b. API mitra sesuai dokumen antarmuka; MoU digital detik prioritas | Komunikasi | integrasi (ICD) | T3 |
-| c. Layanan permintaan prioritas: kelayakan (terlambat, muatan), antrian permintaan | Pusat | services/priority | T3 |
-| d. Prioritas bersyarat (OCC/Transit-MP) dan darurat bertingkat dengan penyelesaian konflik | Pusat | services/priority | T4 |
-| e. Batas: pejalan kaki tidak dipotong, satu aktivasi per siklus, jeda, pemulihan koordinasi | Pusat | services/priority | T3 |
-| f. Perintah tahan, perpanjang, atau preempt ke controller | Komunikasi | services/cai | T3 |
-| g. Controller memberi hijau tambahan atau preempt; check-out geofence mengakhiri | Lapangan | controller, edge/ | T3 |
-| h. Konsol prioritas: permintaan, dilayani/ditolak, dampak jalan samping | Penyajian | apps/tmc-web | T3 |
-| i. Log dan KPI: waktu tempuh bus, waktu tanggap darurat | Pusat | services/atspm | T3 |
+| a. AVL/APC operator bus; CAD pemadam dan ambulans | Pengguna | operator bus, 112/119 | T4 |
+| j. Vision Tracker mengenali ambulans, damkar, dan pengawalan dari kamera | Pusat | services/vision | T3 |
+| b. API mitra sesuai dokumen antarmuka | Komunikasi | integrasi (ICD) | T4 |
+| c. Layanan permintaan prioritas: kelayakan dan antrean | Pusat | services/priority | T4 |
+| d. Prioritas bersyarat berbasis muatan dan keterlambatan | Pusat | services/priority | T5 |
+| e. Batas: pejalan kaki tidak dipotong, satu aktivasi per siklus, pemulihan | Pusat | services/priority | T4 |
+| f. Perintah perpanjangan hijau atau preemption | Komunikasi | services/cai | T4 |
+| g. Controller memberi hijau tambahan atau preempt | Lapangan | controller, edge/ | T4 |
+| h. Konsol prioritas: permintaan, dilayani, dampak jalan samping | Penyajian | apps/tmc-web | T4 |
+| i. Log dan KPI waktu tempuh bus dan waktu tanggap darurat | Pusat | services/metrics | T4 |
 
 Versi teks (mermaid):
 
 ```mermaid
 flowchart LR
   subgraph P["Pengguna & mitra eksternal"]
-    F08a["a. AVL/APC operator bus; CAD pemadam dan ambulans (T3)"]
+    F08a["a. AVL/APC operator bus; CAD pemadam dan ambulans (T4)"]
   end
   subgraph U["Penyajian (layar & aplikasi)"]
-    F08h["h. Konsol prioritas: permintaan, dilayani/ditolak, dampak jalan samping (T3)"]
+    F08h["h. Konsol prioritas: permintaan, dilayani, dampak jalan samping (T4)"]
   end
-  subgraph S["Pusat (server aplikasi)"]
-    F08c["c. Layanan permintaan prioritas: kelayakan (terlambat, muatan), antrian permintaan (T3)"]
-    F08d["d. Prioritas bersyarat (OCC/Transit-MP) dan darurat bertingkat dengan penyelesaian konflik (T4)"]
-    F08e["e. Batas: pejalan kaki tidak dipotong, satu aktivasi per siklus, jeda, pemulihan koordinasi (T3)"]
-    F08i["i. Log dan KPI: waktu tempuh bus, waktu tanggap darurat (T3)"]
+  subgraph S["Pusat (laptop T1-T3, server T4+)"]
+    F08j["j. Vision Tracker mengenali ambulans, damkar, dan pengawalan dari kamera (T3)"]
+    F08c["c. Layanan permintaan prioritas: kelayakan dan antrean (T4)"]
+    F08d["d. Prioritas bersyarat berbasis muatan dan keterlambatan (T5)"]
+    F08e["e. Batas: pejalan kaki tidak dipotong, satu aktivasi per siklus, pemulihan (T4)"]
+    F08i["i. Log dan KPI waktu tempuh bus dan waktu tanggap darurat (T4)"]
   end
   subgraph K["Komunikasi & integrasi"]
-    F08b["b. API mitra sesuai dokumen antarmuka; MoU digital detik prioritas (T3)"]
-    F08f["f. Perintah tahan, perpanjang, atau preempt ke controller (T3)"]
+    F08b["b. API mitra sesuai dokumen antarmuka (T4)"]
+    F08f["f. Perintah perpanjangan hijau atau preemption (T4)"]
   end
-  subgraph L["Lapangan (kabinet, edge, kamera)"]
-    F08g["g. Controller memberi hijau tambahan atau preempt; check-out geofence mengakhiri (T3)"]
+  subgraph L["Lapangan (kamera, kabinet, controller)"]
+    F08g["g. Controller memberi hijau tambahan atau preempt (T4)"]
   end
   F08a --> F08b
+  F08j -->|T4| F08c
   F08b --> F08c
-  F08c -->|T4| F08d
+  F08c -->|T5| F08d
   F08c --> F08e
   F08d --> F08e
   F08e --> F08f
@@ -437,13 +472,17 @@ flowchart LR
   F08g --> F08i
   F08c --> F08h
   F08i --> F08h
-  style F08a stroke:#EF6C00,stroke-width:2px
-  style F08d stroke:#6A1B9A,stroke-width:2px
+  classDef t3 stroke:#EF6C00,stroke-width:2px
+  class F08j t3
+  classDef t4 stroke:#6A1B9A,stroke-width:2px
+  class F08a,F08b,F08c,F08e,F08f,F08g,F08h,F08i t4
+  classDef t5 stroke:#C62828,stroke-width:2px
+  class F08d t5
 ```
 
 ### F09 Bukti pelanggaran untuk ETLE Polri
 
-Sistem hanya menyediakan bukti. Edge AI mendeteksi pelanggaran seperti menerobos merah, pusat menyusun paket bukti dengan kontrol perlindungan data, lalu mengirimkannya ke Back Office ETLE Polri untuk diverifikasi dan ditindak oleh petugas.
+Sistem hanya menyediakan bukti. Di T3 Vision Tracker mendeteksi pelanggaran tanpa membaca pelat. Di T4 kamera ANPR khusus dan API ke Back Office ETLE Polri ditambahkan; verifikasi dan penindakan tetap oleh petugas Polri.
 
 ![F09](diagram/F09_Bukti_pelanggaran_untuk_ETLE_Polri.png)
 
@@ -451,82 +490,87 @@ Tahap yang terlibat: T3, T4. Langkah dan komponennya:
 
 | Langkah | Lapisan | Komponen | Tahap |
 |---|---|---|---|
-| a. Edge AI mendeteksi terobos merah (aktuasi saat kuning/merah) dan pelat | Lapangan | edge/, services/atspm (YRA) | T3 |
-| b. Paket bukti: foto/klip 30 detik, pelat terenkripsi, waktu, lokasi | Pusat | services/evidence, object store | T3 |
-| c. Kontrol PDP dan DPIA; retensi bukti sesuai alur Perpol 2/2025 | Pusat | keamanan & kepatuhan | T3 |
-| d. API ke Back Office ETLE Polda sesuai Perpol 8/2023 | Komunikasi | integrasi (ICD Polri) | T4 |
-| e. Petugas Polri memverifikasi dan menindak; aplikasi tidak menerbitkan tilang | Pengguna | Polri | T4 |
-| f. Status tindak lanjut hanya-baca; laporan integrasi tahunan | Pusat | services/evidence | T4 |
-| g. Dashboard keselamatan: pelanggaran per simpang, tren | Penyajian | apps/tmc-web | T3 |
+| a. Vision Tracker mendeteksi terobos merah dan pelanggaran lain, tanpa pelat | Pusat | services/vision | T3 |
+| b. Paket bukti: klip tersamarkan, waktu, lokasi | Pusat | services/evidence | T3 |
+| c. Kontrol perlindungan data dan DPIA | Pusat | keamanan & kepatuhan | T3 |
+| d. Pembacaan pelat dengan kamera ANPR khusus | Lapangan | kamera ANPR, edge/ | T4 |
+| e. API ke Back Office ETLE sesuai Perpol 8/2023 | Komunikasi | integrasi (ICD Polri) | T4 |
+| f. Petugas Polri memverifikasi dan menindak | Pengguna | Polri | T4 |
+| g. Status tindak lanjut hanya-baca; laporan integrasi tahunan | Pusat | services/evidence | T4 |
+| h. Dashboard keselamatan per simpang | Penyajian | apps/tmc-web | T3 |
 
 Versi teks (mermaid):
 
 ```mermaid
 flowchart LR
   subgraph P["Pengguna & mitra eksternal"]
-    F09e["e. Petugas Polri memverifikasi dan menindak; aplikasi tidak menerbitkan tilang (T4)"]
+    F09f["f. Petugas Polri memverifikasi dan menindak (T4)"]
   end
   subgraph U["Penyajian (layar & aplikasi)"]
-    F09g["g. Dashboard keselamatan: pelanggaran per simpang, tren (T3)"]
+    F09h["h. Dashboard keselamatan per simpang (T3)"]
   end
-  subgraph S["Pusat (server aplikasi)"]
-    F09b["b. Paket bukti: foto/klip 30 detik, pelat terenkripsi, waktu, lokasi (T3)"]
-    F09c["c. Kontrol PDP dan DPIA; retensi bukti sesuai alur Perpol 2/2025 (T3)"]
-    F09f["f. Status tindak lanjut hanya-baca; laporan integrasi tahunan (T4)"]
+  subgraph S["Pusat (laptop T1-T3, server T4+)"]
+    F09a["a. Vision Tracker mendeteksi terobos merah dan pelanggaran lain, tanpa pelat (T3)"]
+    F09b["b. Paket bukti: klip tersamarkan, waktu, lokasi (T3)"]
+    F09c["c. Kontrol perlindungan data dan DPIA (T3)"]
+    F09g["g. Status tindak lanjut hanya-baca; laporan integrasi tahunan (T4)"]
   end
   subgraph K["Komunikasi & integrasi"]
-    F09d["d. API ke Back Office ETLE Polda sesuai Perpol 8/2023 (T4)"]
+    F09e["e. API ke Back Office ETLE sesuai Perpol 8/2023 (T4)"]
   end
-  subgraph L["Lapangan (kabinet, edge, kamera)"]
-    F09a["a. Edge AI mendeteksi terobos merah (aktuasi saat kuning/merah) dan pelat (T3)"]
+  subgraph L["Lapangan (kamera, kabinet, controller)"]
+    F09d["d. Pembacaan pelat dengan kamera ANPR khusus (T4)"]
   end
   F09a --> F09b
   F09b --> F09c
-  F09c --> F09d
-  F09d --> F09e
-  F09e -->|status| F09f
-  F09b --> F09g
-  F09f --> F09g
-  style F09a stroke:#EF6C00,stroke-width:2px
-  style F09d stroke:#6A1B9A,stroke-width:2px
+  F09d -->|T4| F09b
+  F09c -->|T4| F09e
+  F09e --> F09f
+  F09f -->|status| F09g
+  F09b --> F09h
+  F09g --> F09h
+  classDef t3 stroke:#EF6C00,stroke-width:2px
+  class F09a,F09b,F09c,F09h t3
+  classDef t4 stroke:#6A1B9A,stroke-width:2px
+  class F09d,F09e,F09f,F09g t4
 ```
 
 ### F10 Keluhan publik dan jaminan layanan
 
-Laporan warga masuk lewat aplikasi kota atau CRM, menjadi tiket dengan target waktu penyelesaian, dan didiagnosis dengan data kinerja sinyal termasuk pemutaran ulang kejadian. Jawaban dan status dikembalikan ke pelapor.
+Mulai T3 laporan warga masuk lewat aplikasi kota atau CRM, menjadi tiket dengan target waktu penyelesaian, dan didiagnosis dengan data Vision Tracker termasuk pemutaran ulang kondisi saat keluhan.
 
 ![F10](diagram/F10_Keluhan_publik_dan_jaminan_layanan.png)
 
-Tahap yang terlibat: T2, T3. Langkah dan komponennya:
+Tahap yang terlibat: T3. Langkah dan komponennya:
 
 | Langkah | Lapisan | Komponen | Tahap |
 |---|---|---|---|
-| a. Warga melapor lewat aplikasi kota, CRM, atau telepon | Pengguna | CRM kota | T2 |
-| b. API CRM dua arah | Komunikasi | integrasi CRM | T2 |
-| c. Tiket tujuh langkah, klasifikasi, target penyelesaian tiga jam | Pusat | services/ticket | T2 |
-| d. Matriks diagnosis: jenis keluhan dipetakan ke data ATSPM terkait | Pusat | services/atspm | T2 |
-| e. Pemutaran ulang kejadian historis (status lampu dan detektor saat keluhan) | Pusat | services/atspm, TimescaleDB | T3 |
-| f. Operator menindaklanjuti; tiket kerja ke teknisi bila perlu | Penyajian | apps/tmc-web | T2 |
-| g. Jawaban ke pelapor; status dapat dilihat publik | Pengguna | CRM kota, dashboard publik | T2 |
+| a. Warga melapor lewat aplikasi kota, CRM, atau telepon | Pengguna | CRM kota | T3 |
+| b. API CRM dua arah | Komunikasi | integrasi CRM | T3 |
+| c. Tiket, klasifikasi, target penyelesaian | Pusat | services/ticket | T3 |
+| d. Diagnosis: jenis keluhan dipetakan ke data hitungan dan nyala lampu | Pusat | services/metrics | T3 |
+| e. Pemutaran ulang kondisi saat keluhan | Pusat | PostgreSQL | T3 |
+| f. Operator menindaklanjuti; tiket kerja bila perlu | Penyajian | apps/tmc-web | T3 |
+| g. Jawaban ke pelapor; status dapat dilihat publik | Pengguna | CRM kota, dashboard publik | T3 |
 
 Versi teks (mermaid):
 
 ```mermaid
 flowchart LR
   subgraph P["Pengguna & mitra eksternal"]
-    F10a["a. Warga melapor lewat aplikasi kota, CRM, atau telepon (T2)"]
-    F10g["g. Jawaban ke pelapor; status dapat dilihat publik (T2)"]
+    F10a["a. Warga melapor lewat aplikasi kota, CRM, atau telepon (T3)"]
+    F10g["g. Jawaban ke pelapor; status dapat dilihat publik (T3)"]
   end
   subgraph U["Penyajian (layar & aplikasi)"]
-    F10f["f. Operator menindaklanjuti; tiket kerja ke teknisi bila perlu (T2)"]
+    F10f["f. Operator menindaklanjuti; tiket kerja bila perlu (T3)"]
   end
-  subgraph S["Pusat (server aplikasi)"]
-    F10c["c. Tiket tujuh langkah, klasifikasi, target penyelesaian tiga jam (T2)"]
-    F10d["d. Matriks diagnosis: jenis keluhan dipetakan ke data ATSPM terkait (T2)"]
-    F10e["e. Pemutaran ulang kejadian historis (status lampu dan detektor saat keluhan) (T3)"]
+  subgraph S["Pusat (laptop T1-T3, server T4+)"]
+    F10c["c. Tiket, klasifikasi, target penyelesaian (T3)"]
+    F10d["d. Diagnosis: jenis keluhan dipetakan ke data hitungan dan nyala lampu (T3)"]
+    F10e["e. Pemutaran ulang kondisi saat keluhan (T3)"]
   end
   subgraph K["Komunikasi & integrasi"]
-    F10b["b. API CRM dua arah (T2)"]
+    F10b["b. API CRM dua arah (T3)"]
   end
   F10a --> F10b
   F10b --> F10c
@@ -535,67 +579,72 @@ flowchart LR
   F10d --> F10f
   F10e --> F10f
   F10f --> F10g
-  style F10a stroke:#1565C0,stroke-width:2px
-  style F10e stroke:#EF6C00,stroke-width:2px
+  classDef t3 stroke:#EF6C00,stroke-width:2px
+  class F10a,F10b,F10c,F10d,F10e,F10f,F10g t3
 ```
 
-### F11 Digital twin, mode bayangan, dan marketplace algoritma
+### F11 Simulasi SUMO, digital twin, dan mode bayangan
 
-Setiap jadwal atau algoritma baru diuji dulu di simulator yang dikalibrasi dengan data kota, lalu dijalankan dalam mode bayangan dengan data hidup tanpa mengendalikan lampu, dan baru dipromosikan bertahap ke jam sepi dan jam sibuk. Pada T5 pihak ketiga dapat mengajukan algoritma lewat jalur yang sama.
+Sejak T2 setiap rekomendasi diuji di SUMO dengan jaringan yang dibangun dari konfigurasi simpang. T3 mengkalibrasi twin per simpang dengan hitungan Vision Tracker. T4 menambah mode bayangan untuk algoritma adaptif. T5 membuka pasar algoritma.
 
-![F11](diagram/F11_Digital_twin.png)
+![F11](diagram/F11_Simulasi_SUMO.png)
 
-Tahap yang terlibat: T1, T3, T4, T5. Langkah dan komponennya:
+Tahap yang terlibat: T2, T3, T4, T5. Langkah dan komponennya:
 
 | Langkah | Lapisan | Komponen | Tahap |
 |---|---|---|---|
-| a. Generator jaringan simulasi dari registri simpang dan peta OSM | Pusat | sim/ | T1 |
-| b. Kalibrasi twin per koridor dengan data hitungan dan GPS | Pusat | sim/, services/twin | T3 |
-| c. Skenario: jadwal baru, insiden, acara; kebijakan TDM skala kota (T5) | Pusat | services/twin | T3 |
-| d. Pekerja simulasi menjalankan; hasil MoE dan catatan kejadian | Pusat | sim/ worker | T3 |
-| e. Mode bayangan: algoritma menerima data hidup, keputusan dicatat, tidak dikirim | Pusat | shadow harness | T3 |
+| a. Jaringan simulasi dibangun dari konfigurasi simpang atau OSM | Pusat | sim/ | T2 |
+| b. Kalibrasi twin per simpang dengan hitungan Vision Tracker | Pusat | sim/ | T3 |
+| c. Skenario: jadwal baru (T2), insiden dan acara (T4), kebijakan TDM (T5) | Pusat | sim/ | T2 |
+| d. Pekerja simulasi menjalankan beberapa bilangan acak | Pusat | sim/ worker | T2 |
+| e. Mode bayangan: algoritma menerima data hidup tanpa mengendalikan lampu | Pusat | shadow harness | T4 |
 | f. Veto statistik dan uji konflik prioritas | Pusat | services/adaptive | T4 |
-| g. Universitas atau vendor mengajukan algoritma (marketplace) | Pengguna | portal mitra | T5 |
-| h. Promosi bertahap: jam sepi, jam sibuk, perbandingan hidup-mati | Pusat | services/adaptive | T3 |
-| i. Laporan divergensi dan keputusan lanjut atau berhenti | Penyajian | apps/tmc-web | T3 |
+| g. Universitas atau vendor mengajukan algoritma | Pengguna | portal mitra | T5 |
+| h. Promosi bertahap: jam sepi, jam sibuk, hidup-mati | Pusat | services/adaptive | T4 |
+| i. Hasil validasi di dashboard dan laporan | Penyajian | apps/tmc-web | T2 |
 
 Versi teks (mermaid):
 
 ```mermaid
 flowchart LR
   subgraph P["Pengguna & mitra eksternal"]
-    F11g["g. Universitas atau vendor mengajukan algoritma (marketplace) (T5)"]
+    F11g["g. Universitas atau vendor mengajukan algoritma (T5)"]
   end
   subgraph U["Penyajian (layar & aplikasi)"]
-    F11i["i. Laporan divergensi dan keputusan lanjut atau berhenti (T3)"]
+    F11i["i. Hasil validasi di dashboard dan laporan (T2)"]
   end
-  subgraph S["Pusat (server aplikasi)"]
-    F11a["a. Generator jaringan simulasi dari registri simpang dan peta OSM (T1)"]
-    F11b["b. Kalibrasi twin per koridor dengan data hitungan dan GPS (T3)"]
-    F11c["c. Skenario: jadwal baru, insiden, acara; kebijakan TDM skala kota (T5) (T3)"]
-    F11d["d. Pekerja simulasi menjalankan; hasil MoE dan catatan kejadian (T3)"]
-    F11e["e. Mode bayangan: algoritma menerima data hidup, keputusan dicatat, tidak dikirim (T3)"]
+  subgraph S["Pusat (laptop T1-T3, server T4+)"]
+    F11a["a. Jaringan simulasi dibangun dari konfigurasi simpang atau OSM (T2)"]
+    F11b["b. Kalibrasi twin per simpang dengan hitungan Vision Tracker (T3)"]
+    F11c["c. Skenario: jadwal baru (T2), insiden dan acara (T4), kebijakan TDM (T5) (T2)"]
+    F11d["d. Pekerja simulasi menjalankan beberapa bilangan acak (T2)"]
+    F11e["e. Mode bayangan: algoritma menerima data hidup tanpa mengendalikan lampu (T4)"]
     F11f["f. Veto statistik dan uji konflik prioritas (T4)"]
-    F11h["h. Promosi bertahap: jam sepi, jam sibuk, perbandingan hidup-mati (T3)"]
+    F11h["h. Promosi bertahap: jam sepi, jam sibuk, hidup-mati (T4)"]
   end
-  F11a --> F11b
+  F11a -->|T3| F11b
+  F11a --> F11c
   F11b --> F11c
   F11c --> F11d
-  F11d --> F11e
+  F11d --> F11i
+  F11d -->|T4| F11e
   F11e --> F11f
   F11f --> F11h
   F11g -->|T5| F11d
-  F11e --> F11i
   F11h --> F11i
-  style F11a stroke:#2E7D32,stroke-width:2px
-  style F11b stroke:#EF6C00,stroke-width:2px
-  style F11f stroke:#6A1B9A,stroke-width:2px
-  style F11g stroke:#C62828,stroke-width:2px
+  classDef t2 stroke:#1565C0,stroke-width:2px
+  class F11a,F11c,F11d,F11i t2
+  classDef t3 stroke:#EF6C00,stroke-width:2px
+  class F11b t3
+  classDef t4 stroke:#6A1B9A,stroke-width:2px
+  class F11e,F11f,F11h t4
+  classDef t5 stroke:#C62828,stroke-width:2px
+  class F11g t5
 ```
 
 ### F12 Platform banyak kota, data terbuka, dan pengelolaan permintaan perjalanan
 
-Satu platform melayani banyak kota dengan data terpisah per yurisdiksi, membandingkan kinerja antar kota, menghitung ambang legal kebijakan pembatasan kendaraan, dan membuka data lewat API publik untuk aplikasi navigasi, peneliti, dan warga.
+Di T5 satu platform melayani banyak kota dengan data terpisah, membandingkan kinerja antar kota, mengoptimasi koridor dan jaringan, menghitung ambang legal kebijakan pembatasan, dan membuka data lewat API publik.
 
 ![F12](diagram/F12_Platform_banyak_kota.png)
 
@@ -603,34 +652,34 @@ Tahap yang terlibat: T4, T5. Langkah dan komponennya:
 
 | Langkah | Lapisan | Komponen | Tahap |
 |---|---|---|---|
-| a. Kota A, Kota B, dan seterusnya sebagai tenant; Kemenhub/BPTJ; provinsi | Pengguna | tenant | T5 |
-| b. Isolasi data per tenant dan yurisdiksi; peran akses | Pusat | apps/api (multi-tenant) | T4 |
-| c. Benchmark antar kota: arrivals on green, LOS, ketersediaan perangkat | Pusat | services/kpi-pkji | T5 |
-| d. Kalkulator ambang kebijakan pembatasan (V/C dan kecepatan) dan evaluasi tahunan | Pusat | services/tdm | T5 |
+| a. Kota-kota sebagai tenant; Kemenhub/BPTJ; provinsi | Pengguna | tenant | T5 |
+| b. Isolasi data per tenant dan yurisdiksi | Pusat | apps/api | T4 |
+| c. Optimasi koridor dan jaringan (bandwidth, Link Pivot, perimeter) | Pusat | services/network | T5 |
+| d. Benchmark antar kota; kalkulator ambang kebijakan pembatasan | Pusat | services/tdm | T5 |
 | e. Penasihat pembelajaran mesin yang hanya mengusulkan parameter | Pusat | services/advisor | T5 |
-| f. API publik dan data terbuka; integrasi ERP dan ganjil-genap pemprov | Komunikasi | API gateway | T5 |
-| g. Portal data terbuka; dashboard benchmark | Penyajian | apps/tmc-web | T5 |
-| h. Aplikasi navigasi (GLOSA/SPaT), peneliti, warga | Pengguna | (pihak luar) | T5 |
+| f. API publik dan data terbuka; integrasi ERP dan ganjil-genap | Komunikasi | API gateway | T5 |
+| g. Portal data terbuka dan dashboard benchmark | Penyajian | apps/tmc-web | T5 |
+| h. Aplikasi navigasi, peneliti, warga | Pengguna | (pihak luar) | T5 |
 
 Versi teks (mermaid):
 
 ```mermaid
 flowchart LR
   subgraph P["Pengguna & mitra eksternal"]
-    F12a["a. Kota A, Kota B, dan seterusnya sebagai tenant; Kemenhub/BPTJ; provinsi (T5)"]
-    F12h["h. Aplikasi navigasi (GLOSA/SPaT), peneliti, warga (T5)"]
+    F12a["a. Kota-kota sebagai tenant; Kemenhub/BPTJ; provinsi (T5)"]
+    F12h["h. Aplikasi navigasi, peneliti, warga (T5)"]
   end
   subgraph U["Penyajian (layar & aplikasi)"]
-    F12g["g. Portal data terbuka; dashboard benchmark (T5)"]
+    F12g["g. Portal data terbuka dan dashboard benchmark (T5)"]
   end
-  subgraph S["Pusat (server aplikasi)"]
-    F12b["b. Isolasi data per tenant dan yurisdiksi; peran akses (T4)"]
-    F12c["c. Benchmark antar kota: arrivals on green, LOS, ketersediaan perangkat (T5)"]
-    F12d["d. Kalkulator ambang kebijakan pembatasan (V/C dan kecepatan) dan evaluasi tahunan (T5)"]
+  subgraph S["Pusat (laptop T1-T3, server T4+)"]
+    F12b["b. Isolasi data per tenant dan yurisdiksi (T4)"]
+    F12c["c. Optimasi koridor dan jaringan (bandwidth, Link Pivot, perimeter) (T5)"]
+    F12d["d. Benchmark antar kota; kalkulator ambang kebijakan pembatasan (T5)"]
     F12e["e. Penasihat pembelajaran mesin yang hanya mengusulkan parameter (T5)"]
   end
   subgraph K["Komunikasi & integrasi"]
-    F12f["f. API publik dan data terbuka; integrasi ERP dan ganjil-genap pemprov (T5)"]
+    F12f["f. API publik dan data terbuka; integrasi ERP dan ganjil-genap (T5)"]
   end
   F12a --> F12b
   F12b --> F12c
@@ -638,9 +687,11 @@ flowchart LR
   F12b --> F12e
   F12c --> F12f
   F12d --> F12f
-  F12c --> F12g
+  F12d --> F12g
   F12f --> F12h
   F12g --> F12h
-  style F12b stroke:#6A1B9A,stroke-width:2px
-  style F12a stroke:#C62828,stroke-width:2px
+  classDef t4 stroke:#6A1B9A,stroke-width:2px
+  class F12b t4
+  classDef t5 stroke:#C62828,stroke-width:2px
+  class F12a,F12c,F12d,F12e,F12f,F12g,F12h t5
 ```

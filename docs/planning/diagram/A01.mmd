@@ -1,0 +1,66 @@
+flowchart LR
+  subgraph C0["Sumber video"]
+    V1["Rekaman CCTV dan video publik (T1)<br/><i>MP4/MKV, register sumber rekaman</i>"]
+    V2["Stream CCTV (T2)<br/><i>RTSP/HLS/ONVIF; uji lewat MediaMTX (T2), stream Dishub setelah MoU (T3)</i>"]
+  end
+  subgraph C1["Vision Tracker"]
+    A1["Ambil bingkai (T1)<br/><i>FFmpeg, OpenCV</i>"]
+    A2["Deteksi enam kelas kendaraan (T1)<br/><i>RF-DETR/YOLOX lewat ONNX Runtime (CPU/iGPU)</i>"]
+    A3["Pelacakan dan hitung per pendekat (T1)<br/><i>ByteTrack, supervision; arah dari lintasan (T2)</i>"]
+    A4["Hambatan samping, nyala lampu, antrian (T2)<br/><i>logika IRAMA, OpenCV; penyamaran wajah dan pelat</i>"]
+    A5["Kejadian dan kesehatan kamera (T3)<br/><i>model tambahan, aturan peringatan</i>"]
+  end
+  subgraph C2["Data terstruktur"]
+    D1["Tabel hitungan 15 menit dan mutu data (T1)<br/><i>PostgreSQL</i>"]
+    D2["Hambatan samping, status lampu, antrian (T2)<br/><i>PostgreSQL (TimescaleDB opsional)</i>"]
+    D3["Konfigurasi simpang dan parameter (T1)<br/><i>formulir (T1), wizard React + MapLibre (T2); PostgreSQL + PostGIS</i>"]
+    D4["Peristiwa kejadian dan kesehatan kamera (T3)<br/><i>PostgreSQL, klip bukti tersamarkan</i>"]
+  end
+  subgraph C3["Optimasi waktu simpang"]
+    O1["Konversi SMP dan periode (T1)<br/><i>Python, EMP PKJI 2023; periode otomatis (T2)</i>"]
+    O2["Kalkulator PKJI 2023 (T1)<br/><i>NumPy, modul PKJI IRAMA; mode MKJI 1997 (T2)</i>"]
+    O3["Mode optimasi (T1)<br/><i>SciPy; Webster (T1), empat mode (T2), multi-kriteria (T3)</i>"]
+    O4["Validasi simulasi (T2)<br/><i>SUMO, TraCI</i>"]
+    O5["Manfaat rupiah (T2)<br/><i>parameter UMK, BBM, emisi</i>"]
+  end
+  subgraph C4["Penyajian dan keputusan"]
+    P1["Dashboard simpang (T1)<br/><i>React, ECharts; versi dasar (T1), tiga halaman (T2)</i>"]
+    P2["Laporan kajian Word/PDF (T2)<br/><i>python-docx, LibreOffice</i>"]
+    P3["Keputusan engineer dan Kepala Dinas (T2)<br/><i>persetujuan dan jejak audit</i>"]
+    P4["Konsol pemantauan kejadian (T3)<br/><i>React; notifikasi email/WhatsApp</i>"]
+  end
+  subgraph C5["Tindak lanjut"]
+    R1["Penerapan manual oleh petugas (T2)<br/><i>lembar jadwal dari dashboard atau laporan</i>"]
+    R2["Ekspor jadwal dan uji sebelum-sesudah (T3)<br/><i>format tabel, NTCIP baca-saja</i>"]
+    R3["Kendali controller dan adaptif (T4)<br/><i>adaptor NTCIP/vendor, edge, MQTT</i>"]
+    R4["Koordinasi koridor dan jaringan (T5)<br/><i>offset, bandwidth, Link Pivot; twin kota</i>"]
+    R5["Tiket kerja dan tindak lanjut kejadian (T3)<br/><i>tiket, email/WhatsApp, laporan wajib</i>"]
+  end
+  V1 --> A1
+  V2 --> A1
+  A1 --> A2
+  A2 --> A3
+  A3 --> A4
+  A4 --> A5
+  A3 --> D1
+  A4 --> D2
+  A5 --> D4
+  D1 --> O1
+  D2 --> O2
+  D3 --> O2
+  O1 --> O2
+  O2 --> O3
+  O3 --> O4
+  O4 --> O5
+  O3 --> P1
+  O4 --> P1
+  O5 --> P1
+  P1 --> P2
+  P2 --> P3
+  P3 --> R1
+  P3 --> R2
+  P3 --> R3
+  R3 --> R4
+  P4 --> R5
+  D4 -->|T3: peristiwa kejadian langsung ke konsol pemantauan, tanpa melalui optimasi| P4
+  R2 -.->|T3: uji sebelum-sesudah; rekaman sesudah penerapan diukur ulang oleh Vision Tracker| V2

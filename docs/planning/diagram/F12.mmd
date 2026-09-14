@@ -1,19 +1,19 @@
 flowchart LR
   subgraph P["Pengguna & mitra eksternal"]
-    F12a["a. Kota A, Kota B, dan seterusnya sebagai tenant; Kemenhub/BPTJ; provinsi (T5)"]
-    F12h["h. Aplikasi navigasi (GLOSA/SPaT), peneliti, warga (T5)"]
+    F12a["a. Kota-kota sebagai tenant; Kemenhub/BPTJ; provinsi (T5)"]
+    F12h["h. Aplikasi navigasi, peneliti, warga (T5)"]
   end
   subgraph U["Penyajian (layar & aplikasi)"]
-    F12g["g. Portal data terbuka; dashboard benchmark (T5)"]
+    F12g["g. Portal data terbuka dan dashboard benchmark (T5)"]
   end
-  subgraph S["Pusat (server aplikasi)"]
-    F12b["b. Isolasi data per tenant dan yurisdiksi; peran akses (T4)"]
-    F12c["c. Benchmark antar kota: arrivals on green, LOS, ketersediaan perangkat (T5)"]
-    F12d["d. Kalkulator ambang kebijakan pembatasan (V/C dan kecepatan) dan evaluasi tahunan (T5)"]
+  subgraph S["Pusat (laptop T1-T3, server T4+)"]
+    F12b["b. Isolasi data per tenant dan yurisdiksi (T4)"]
+    F12c["c. Optimasi koridor dan jaringan (bandwidth, Link Pivot, perimeter) (T5)"]
+    F12d["d. Benchmark antar kota; kalkulator ambang kebijakan pembatasan (T5)"]
     F12e["e. Penasihat pembelajaran mesin yang hanya mengusulkan parameter (T5)"]
   end
   subgraph K["Komunikasi & integrasi"]
-    F12f["f. API publik dan data terbuka; integrasi ERP dan ganjil-genap pemprov (T5)"]
+    F12f["f. API publik dan data terbuka; integrasi ERP dan ganjil-genap (T5)"]
   end
   F12a --> F12b
   F12b --> F12c
@@ -21,8 +21,10 @@ flowchart LR
   F12b --> F12e
   F12c --> F12f
   F12d --> F12f
-  F12c --> F12g
+  F12d --> F12g
   F12f --> F12h
   F12g --> F12h
-  style F12b stroke:#6A1B9A,stroke-width:2px
-  style F12a stroke:#C62828,stroke-width:2px
+  classDef t4 stroke:#6A1B9A,stroke-width:2px
+  class F12b t4
+  classDef t5 stroke:#C62828,stroke-width:2px
+  class F12a,F12c,F12d,F12e,F12f,F12g,F12h t5
