@@ -37,7 +37,7 @@
 
 **Pola lintas kota (untuk positioning):**
 1. Semua kota sudah punya **CCTV + ruang kendali**; hampir semua **belum adaptif** (Surabaya 8/136 eksplisit). → Produk harus **memanfaatkan kamera eksisting** dan menambah kendali adaptif secara bertahap.
-2. Alur kerja nyata = pantau CCTV → tegur via pengeras suara → kirim personel. → MVP harus mendukung alur ini (insiden, dispatch, TPA) sebelum "AI".
+2. Alur kerja nyata = pantau CCTV → tegur via pengeras suara → kirim personel. → Produk harus mendukung alur ini (insiden, dispatch, TPA) sebelum menjual "AI"; di IRAMA alur ini masuk T3 (konsol pemantauan kejadian), sedangkan T1–T2 memakai CCTV yang sama untuk hitungan dan kajian waktu sinyal (tahapan kanonis `docs/planning/04`).
 3. Anggaran tipikal: Rp1–4 M per simpang (hibah/APBD), pemeliharaan sangat kecil (Medan Rp3 M/th). → Model harga per simpang rendah + langganan pemeliharaan.
 4. Kepala daerah menagih hasil (Surabaya, Palembang, Medan DPRD). → Laporan kinerja yang bisa dipublikasikan adalah fitur inti.
 5. Wilayah Jabodetabek sudah ada forum sinkronisasi ATCS (2022) → peluang produk lintas-yurisdiksi/koordinasi batas dengan DKI.

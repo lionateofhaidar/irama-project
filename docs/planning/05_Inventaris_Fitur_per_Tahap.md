@@ -30,7 +30,7 @@ Ringkas perubahan 2026-09-14: kalkulator, registri simpang, dan dashboard dasar 
 ## E03 — Plan Manager & Kalkulator
 | ID | Fitur | Deskripsi | Bukti | Tahap | MoSCoW | Dep | Data | Patuh | Sukses |
 |---|---|---|---|---|---|---|---|---|---|
-| F-T1-16 | Kalkulator PKJI 2023 / MKJI | Input geometri & arus → J, C, DJ, siklus Webster, hijau, Nq, PA, RKH, tundaan, LOS PM 96 | PKJI Bab 5 [R05 D]; Dirjen 273 [R00 G] | T1 | Must | F-T1-01 | survei | C-30 | lulus uji contoh resmi |
+| F-T1-16 | Kalkulator PKJI 2023 / MKJI | Input geometri & arus (per kelas kendaraan atau langsung dalam SMP) → J, C, DJ, siklus Webster, hijau, Nq, PA, RKH, tundaan, LOS PM 96 | PKJI Bab 5 [R05 D]; Dirjen 273 [R00 G] | T1 | Must | F-T1-01 | survei | C-30 | lulus uji contoh resmi PKJI 2023 dan Dirjen 273 (`15` §4.4) |
 | F-T1-17 | Digitalisasi grafik PKJI (tipe O, F_G, Nq_MAX) | Tabel/fungsi interpolasi dari grafik | [R00 G] | T1 | Must | F-T1-16 | — | — | galat ≤2% |
 | F-T1-18 | Editor plan TOD (≥8 plan) stage-based & ring-barrier | Fase/tahap, split, offset, sequence; dukung stage (Indonesia) & NEMA | PM 49 Ps.14; STM2 §5; [R00 I] | **T2** (dulu T1) | Must | F-T1-01 | — | C-09 | ≥8 plan/simpang |
 | F-T1-19 | Validator keselamatan waktu | ITE yellow, red clearance, min green, walk/FDW, ≤130 s, hijau ≥10 s | STM2 §6.1; PKJI 5.3 | T1 | Must | F-T1-160 | — | keselamatan | tolak nilai di bawah rumus |
@@ -92,7 +92,7 @@ Ringkas perubahan 2026-09-14: kalkulator, registri simpang, dan dashboard dasar 
 | F-T1-55 | Phase termination & split monitor | Gap/max/force-off/skip; durasi vs split | NCDOT A.1–A.2 | **T4** (dulu T1) | Must | F-T1-54 | event | — | — |
 | F-T1-56 | PCD / AoG / platoon ratio | Advance detector vs siklus | NCDOT A.5 | **T4** (dulu T1) | Must | F-T1-54 | advance | — | — |
 | F-T1-57 | Purdue split failure (GOR/ROR5 ≥80%) | Per fase per siklus | NCDOT A.8 | **T3** (dulu T1) | Must | F-T1-54 | stop-bar | — | — |
-| F-T2-58 | Ped delay, preemption details, AoR, approach delay | Metrik tambahan | NCDOT A.3/4/10/11 | **T3** (dulu T2) | Should | F-T1-54 | — | — | — |
+| F-T2-58 | Ped delay, preemption details, AoR, approach delay | Metrik tambahan; ped delay, AoR, dan approach delay dari data kamera di T3; preemption details menyusul di T4 saat preemption aktif | NCDOT A.3/4/10/11 | **T3** (dulu T2) | Should | F-T1-54 | — | — | — |
 | F-T2-59 | TMC/approach volume, PHF/K/D | Volume per pendekat dan per arah dari hitungan Vision Tracker; PHF, K, D | NCDOT A.7/9 | T2 | Should | F-T1-144 | count | — | — |
 | F-T3-60 | YRA (yellow/red actuations) & bukti RLR | Deteksi kendaraan masuk simpang saat kuning/merah dari nyala lampu kamera dan lintasan Vision Tracker | NCDOT A.13 | T3 | Should | F-T2-148 | past-stop-bar | C-24 | — |
 | F-T3-61 | Link Pivot (rekomendasi offset koridor) | Optimasi offset dari AoG | NCDOT A.6 | **T5** (dulu T3) | Must | F-T1-56 | advance | — | AoG naik |
@@ -247,9 +247,9 @@ Ringkas perubahan 2026-09-14: kalkulator, registri simpang, dan dashboard dasar 
 | ID | Fitur | Deskripsi | Bukti/kebutuhan | Tahap | MoSCoW | Dep | Data | Patuh | Sukses |
 |---|---|---|---|---|---|---|---|---|---|
 | F-T1-159 | Konversi hitungan ke arus SMP | EMP PKJI 2023 terlindung dan terlawan; arus satu jam tertinggi per periode; faktor jam puncak; rasio belok; rasio KTB | PKJI 2023 Tabel 5-2 | T1 | Must | F-T1-144 | hitungan | C-30 | — |
-| F-T1-160 | Rekomendasi mode Webster/PKJI baku | Siklus Webster dan hijau sebanding rasio arus kritis, dengan validator keselamatan | PKJI 5-11, 5-12 | T1 | Must | F-T1-16 | — | C-30 | lolos contoh Dirjen 273/1996 |
+| F-T1-160 | Rekomendasi mode Webster/PKJI baku | Siklus Webster dan hijau sebanding rasio arus kritis, dengan validator keselamatan | PKJI 5-11, 5-12 | T1 | Must | F-T1-16 | — | C-30 | lolos contoh resmi PKJI 2023 dan Dirjen 273/1996 (`15` §4.4) |
 | F-T2-161 | Mode optimasi pilihan | Tundaan terendah dengan batasan; minimalkan DJ tertinggi; siklus praktis minimum; pertahankan siklus eksisting; semua mode dihitung bersamaan | T-35 | T2 | Must | F-T1-160 | — | keselamatan | — |
-| F-T2-162 | Mode pembanding MKJI 1997 | Rantai MKJI untuk studi lama dan uji regresi | T-35 | T2 | Should | F-T1-16 | — | — | cocok per baris formulir studi lama |
+| F-T2-162 | Mode pembanding MKJI 1997 | Rantai MKJI (EMP dan faktor MKJI/Dirjen 273) untuk studi lama dan uji regresi, termasuk contoh Dirjen 273/1996 dihitung dari LHR sampai kinerja | T-35 | T2 | Should | F-T1-16 | — | — | cocok per baris formulir studi lama |
 | F-T2-163 | Penentuan periode otomatis dan manual | Profil 15 menit menjadi paling banyak delapan jadwal per jenis hari; periode manual di konfigurasi | PM 49/2014; T-36 | T2 | Must | F-T1-144 | hitungan | C-09 | — |
 | F-T2-164 | Manfaat rupiah sederhana | Nilai waktu (UMK), BBM saat diam, emisi; nilai tahunan; parameter dapat diubah | T-37 | T2 | Must | F-T1-64 | parameter ekonomi | — | — |
 | F-T2-165 | Laporan kajian otomatis | Word dan PDF; formulir PKJI SA-I sampai SA-V; narasi; validasi SUMO; manfaat rupiah | T-37 | T2 | Must | F-T2-161 | — | C-19, C-20 dasar | laporan dalam satu klik |

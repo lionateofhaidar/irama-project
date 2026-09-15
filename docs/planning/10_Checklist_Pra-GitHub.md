@@ -44,15 +44,15 @@ Catatan 2026-09-14: folder `services/kpi-pkji` diganti nama menjadi `services/op
 - [ ] Issue templates: fitur (wajib mengisi "kebutuhan lapangan & bukti", "KPI", "fallback"), bug, riset.
 - [ ] Project board dengan kolom per tahap T1–T5; impor backlog dari `05_Inventaris_Fitur_per_Tahap.md` (ID F-T#-##).
 - [ ] SECURITY.md (pelaporan kerentanan), kebijakan rahasia (no secrets in repo; .env.example), dependabot.
-- [ ] `docs/kb/` = salinan `_knowledge_base` (sumber kebenaran tetap di sini, sinkron manual).
+- [x] `docs/kb/` adalah sumber kebenaran basis pengetahuan (folder lama `Bahan Acuan/_knowledge_base` dipindahkan ke sini saat restrukturisasi 2026-09-13; tidak ada salinan lain yang perlu disinkronkan).
 - [ ] Skema data awal (OpenAPI + JSON Schema) untuk entitas T1–T2 (Simpang, Pendekat, Fase, Kamera, Rekaman, Hitung15m, HambatanSamping15m, StatusLampu, Periode, Rekomendasi) sesuai `06` §5 dan `15`; entitas NTCIP (Controller, Pattern, Detector, HiResEvent) dari `docs/kb/06` menyusul untuk T3–T4.
-- [ ] Enumerasi: kelas kendaraan IRAMA dan pemetaannya ke PKJI/MKJI, mode kendali PM 49 (tetap/semi-adaptif/adaptif/terkoordinasi), LOS PM 96, kode event hi-res (tandai "verifikasi terhadap Purdue").
+- [ ] Enumerasi: kelas kendaraan IRAMA dan pemetaannya ke PKJI/MKJI, mode kendali PM 49 (tetap/semi-adaptif/adaptif/terkoordinasi), LOS PM 96, kode event hi-res (tabel resmi Purdue 2012 di `docs/kb/06` bagian C, sudah terverifikasi sejak T-11).
 
 ## D. Data & aset yang perlu disiapkan sebelum sprint 1
 - [ ] Rekaman satu simpang, klip latih, dan klip uji sesuai `13` dan `16`, dicatat di register sumber (video tidak masuk repo).
 - [ ] Waktu lampu eksisting dan geometri simpang target (`13` D1.7, D1.8); contoh perhitungan resmi untuk uji regresi (`13` D1.9).
 - [ ] Hitungan manual referensi untuk klip uji (`13` D1.5); jaringan SUMO satu simpang menyusul di T2.
-- [ ] Salinan regulasi kunci (PM 49, PM 96, PM 76, PKJI Bab 5) ke `docs/kb/regulasi/` (hormati hak cipta: tautan resmi + ringkasan, bukan redistribusi bila ragu).
+- [x] Regulasi dan pedoman kunci (PM 49, PM 96, PM 76, PKJI 2023) sudah ada di `docs/sources/01_Regulasi_Indonesia/` beserta teksnya di `docs/sources/_teks_ekstraksi/`, di repositori privat dan hanya untuk studi internal; folder terpisah `docs/kb/regulasi/` tidak diperlukan.
 
 ## E. Hal yang harus disepakati dengan mitra pilot (non-teknis, paralel)
 - [ ] Surat minat dan MoU Dishub menjelang T3: akses rekaman dan stream kamera, izin baca controller, uji lapangan sebelum-sesudah; DPIA (PDP).

@@ -35,7 +35,7 @@ T4 disebut setara ITCS DKI (tidak identik) karena seluruh kemampuan yang diklaim
 1. Vision Tracker mengolah rekaman semua pendekat satu simpang dan menghasilkan tabel hitungan enam kelas per pendekat per 15 menit.
 2. Akurasi hitungan sekitar 90% pada siang hari untuk kelas utama, diuji pada klip yang tidak dipakai melatih.
 3. Konfigurasi simpang sederhana (formulir) untuk geometri, fase, dan waktu lampu eksisting.
-4. Kalkulator PKJI 2023 lolos uji terhadap contoh resmi Kep. Dirjen 273/1996 (c = 70 s, g = 28/30 s, C = 824, DS = 0,44) [R00 G].
+4. Kalkulator PKJI 2023 lolos uji terhadap contoh resmi PKJI 2023 Lampiran 12.5 dan Kep. Dirjen 273/1996 (c = 70 s, g = 28/30 s, C = 824, DS = 0,44), dengan cara uji di `15` bagian 4.4 [R00 G].
 5. Rekomendasi mode Webster/PKJI baku dengan validator keselamatan waktu.
 6. Dashboard dasar (volume, kapasitas, DJ, tundaan, LOS, rekomendasi) dan demo ujung ke ujung tanpa campur tangan engineer.
 

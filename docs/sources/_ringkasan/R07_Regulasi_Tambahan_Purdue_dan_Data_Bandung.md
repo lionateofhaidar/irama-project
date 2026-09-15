@@ -2,6 +2,8 @@
 
 Disusun: 2026-09-12 (riset lanjutan untuk platform IRAMA; kota pilot: Bandung). Semua kutipan pasal diambil dari `docs/sources/_teks_ekstraksi/*.txt` (pdftotext -layout); nomor halaman = nomor tercetak di dokumen (bila tidak tercetak, ditulis "PDF hal."). Data Bandung diambil dari `docs/sources/08_Data_Kota_Pilot_Bandung/` (arsip teks + `_urls.tsv`). Tahap T1–T5 mengikuti konvensi `Pra-Perencanaan/04`. Bila suatu ketentuan **tidak ditemukan** dalam teks, dinyatakan eksplisit.
 
+> **ERRATUM (2026-09-15, koordinator):** kolom Tahap dan rekomendasi pilot di dokumen ini mengikuti skema tahapan 2026-09-12 (`Pra-Perencanaan/04`, kini `docs/planning/04`), yang sudah direvisi pada 2026-09-14. Yang berlaku sekarang: T1 dan T2 mengolah satu simpang dari rekaman; T3 menambah deteksi kejadian, pemantauan, laporan wajib, controller baca-saja, dan uji lapangan; T4 memulai kendali, adaptif per simpang, offset dasar, prioritas bus dan darurat (TSP/AVL BEMO), serta integrasi instansi; T5 mencakup optimasi koridor dan jaringan, termasuk Link Pivot (§B.4) dan penalaan offset dari probe. Koridor K-A sampai K-D (§C.3) tetap berguna sebagai kandidat lokasi: simpang T1–T2 dapat dipilih dari K-A, sedangkan koordinasi koridor baru dikerjakan di T4 dan T5. Rujukan tahap per fitur: `docs/planning/05`; keputusan user: `docs/kb/10` §B2.
+
 Catatan kualitas sumber:
 - `Perda_Bandung_12_2024_...txt` (98 hal.) teks utuh tetapi OCR asli mengandung salah eja ("Manajernen", "darr/atau"); kutipan dinormalkan tanpa mengubah makna.
 - `Perwal_Bandung_20_2023_Penyelenggaraan_SPBE.pdf` (60 hal.) **hasil scan tanpa lapisan teks** (60 byte teks; JDIH dan BPK memuat berkas yang sama); isi hanya dari abstrak BPK.

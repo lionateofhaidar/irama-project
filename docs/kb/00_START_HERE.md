@@ -1,5 +1,5 @@
 # 00 — START HERE (panduan melanjutkan pekerjaan di sesi lain)
-Terakhir diperbarui: 2026-09-14 (perubahan kritikal: T2 = Vision Tracker + Optimasi Simpang; nol pengadaan sampai T3; keputusan user U-09…U-29; dokumen planning 14 ditulis ulang, 15 dan 16 baru, Definisi Istilah di 01 bagian 8; repo GitHub `lionateofhaidar/irama-project`).
+Terakhir diperbarui: 2026-09-15 (kolom tahap di KB-03 sampai KB-08 dan R07 diselaraskan dengan tahapan 2026-09-14; daftar ADR di `docs/adr/README.md` diperbarui; cara uji kalkulator terhadap contoh resmi PKJI 2023 dan Dirjen 273 ditetapkan di `docs/planning/15` bagian 4.4). Pembaruan sebelumnya 2026-09-14 (perubahan kritikal: T2 = Vision Tracker + Optimasi Simpang; nol pengadaan sampai T3; keputusan user U-09…U-29; dokumen planning 14 ditulis ulang, 15 dan 16 baru, Definisi Istilah di 01 bagian 8; repo GitHub `lionateofhaidar/irama-project`).
 
 ## 1. Dalam 5 menit: apa proyek ini
 - Membangun **platform manajemen & kendali lalu lintas kota** (ATMS/ITCS) untuk pemda Indonesia, terinspirasi ITCS Dishub DKI (Majalah RPP "LANCAR-Jakarta", Syafrin Liputo, PKN II 2025) tetapi **tidak identik**: berbasis standar terbuka, bertahap (T1 Purwarupa sampai T5 Platform Mobilitas Kota), terukur, patuh regulasi, tanpa pengadaan sampai T3.
@@ -11,11 +11,11 @@ Terakhir diperbarui: 2026-09-14 (perubahan kritikal: T2 = Vision Tracker + Optim
 ## 2. Urutan baca untuk resume (murah → mahal)
 | Langkah | File | Waktu | Isi |
 |---|---|---|---|
-| 1 | `docs/LOG_SESI.md` bagian status terakhir (saat ini §9) | 3 mnt | status terakhir, tindak lanjut |
+| 1 | `docs/LOG_SESI.md` bagian status terakhir (saat ini §9, ditambah catatan sesi 2026-09-15 di §10) | 3 mnt | status terakhir, tindak lanjut |
 | 2 | `docs/kb/10_Keputusan_dan_Pertanyaan_Terbuka.md` | 5 mnt | 20 keputusan tersirat (D-), keputusan user U-01…U-29 (§B dan §B2), pertanyaan riset Q-01…Q-15 — **kanonis** (file `docs/planning/08` punya penomoran D-/Q- sendiri untuk konteks pasar; bila bertentangan, ikuti file ini) |
 | 3 | `docs/sources/_ringkasan/R00_Catatan_Studi_Utama.md` §K | 10 mnt | sintesis 7 pilar |
 | 4 | `docs/planning/01` (termasuk Definisi Istilah §8) → `04` → `15` → `16` → `14` → `05` → `06` → `11`–`13` | 60 mnt | visi, istilah, tahapan, spesifikasi T2, data latih, arsitektur per tahap, backlog fitur, arsitektur dan lisensi, pengadaan, kuesioner survei, kebutuhan data |
-| 5 | `docs/kb/01–09, 11` sesuai kebutuhan | per topik | glosarium, rumus, regulasi, kebutuhan, algoritma, data, KPI, risiko, kota, sumber |
+| 5 | `docs/kb/01–09, 11` sesuai kebutuhan | per topik | glosarium, rumus, regulasi, kebutuhan, algoritma, data, KPI, risiko, kota, sumber; kolom tahap sudah mengikuti `docs/planning/04` (nilai lama ditandai "(dulu …)") |
 | 6 | `docs/sources/_ringkasan/R01–R07` | hanya bila perlu detail | catatan studi ±62.000 kata dengan rujukan halaman; **R07** = regulasi Bandung/Jabar/ERP DKI, rumus Purdue (POG, platoon ratio, Link Pivot), data & kandidat koridor pilot Bandung |
 | 7 | `docs/sources/_teks_ekstraksi/*.txt` | grep saja | teks asli semua PDF |
 
@@ -44,7 +44,7 @@ Terakhir diperbarui: 2026-09-14 (perubahan kritikal: T2 = Vision Tracker + Optim
 - Bahasa Indonesia; istilah teknis Inggris dipertahankan.
 - Tag sumber ringkas: `[R05 D.2]`, `[PM 49 Ps.14]`, `[PKJI 5-11]`, `[KB-03]`; asumsi ditandai `[A]`/[asumsi].
 - ID: kepatuhan `C-##` (kanonis = R05 §G.1 = KB-03 §B; C-36…C-43 tambahan di KB-03); kebutuhan `KB-REQ-###` & constraint `KB-CON-##` (KB-04); kartu algoritma `K-##` (KB-05); fitur `F-T#-##` dalam epik `E##` (docs/planning/05); ADR `ADR-01…ADR-25` (docs/planning/06 §8, kanonis); keputusan `D-##`, `U-##`, `Q-##` (KB-10); risiko `R-##` (docs/planning/08) & register operasional (KB-08).
-- Tahap (nama kerja kanonis = `docs/planning/04`, revisi 2026-09-14): T1 Purwarupa Hitung dan Rekomendasi; T2 Vision Tracker dan Optimasi Simpang; T3 Deteksi Kejadian dan Pemantauan Operasional; T4 Kendali Adaptif Terpadu; T5 Platform Mobilitas Kota. Nama lama ("Lihat & Kelola", "Kendali Terkoordinasi", "Responsif") tidak berlaku lagi.
+- Tahap (nama kerja kanonis = `docs/planning/04`, revisi 2026-09-14): T1 Purwarupa Hitung dan Rekomendasi; T2 Vision Tracker dan Optimasi Simpang; T3 Deteksi Kejadian dan Pemantauan Operasional; T4 Kendali Adaptif Terpadu; T5 Platform Mobilitas Kota. Nama lama ("Lihat & Kelola", "Kendali Terkoordinasi", "Responsif") tidak berlaku lagi. Di KB-03 sampai KB-08 dan R07, nilai tahap lama ditandai "(dulu …)"; bila ada perbedaan, tahap per fitur di `docs/planning/05` yang berlaku.
 - Istilah sulit dijelaskan dengan bahasa sehari-hari di `docs/planning/01` §8.
 - LOS memakai PM 96/2015; rumus PKJI 2023; antarmuka NTCIP 1202/1211; fallback ≥8 plan TOD.
 - Setiap task baru → tambah entri `[T-xx]` di `LOG_SESI.md`.
@@ -57,6 +57,7 @@ Terakhir diperbarui: 2026-09-14 (perubahan kritikal: T2 = Vision Tracker + Optim
 - PM 49/2014: ≥8 rencana siklus; pemeliharaan ≥6 bulan; umur teknis ≤5 tahun; perangkat TI bersertifikat.
 - SK.7234/2013 controller: ≥8+8 signal group (hingga 32), ≥4–16 program, 10 plan/hari, conflict → flashing, manual override, detektor ≥4 zona gap/occupancy, DIS RS-485.
 - Webster/PKJI: s = (1,5·wHH + 5)/(1 − RAS); siklus 40–130 s; kuning 3 s; DJ ≤ 0,85.
+- Contoh resmi untuk uji kalkulator (`docs/planning/15` bagian 4.4): PKJI 2023 Lampiran 12.5 contoh 1 empat fase (RAS 0,777; siklus 117 s; DJ 0,88; tundaan rata-rata 51,2 s/SMP) dan contoh 2; Dirjen 273/1996 Bab X (c 70 s; g 28/30 s; C 824; DS 0,44) dijalankan dengan arus dan arus jenuh dari contoh karena EMP dan perlakuan KTB 1996 berbeda.
 - Cyclic max-pressure (T5): cycle/offset tetap, split adaptif, min green 7 s, perubahan ≤5 s/siklus; MP di 20–25% simpang kritis ≥ MP di semua; +perimeter control saat jenuh.
 - TSP: green extension/early green 7–10 s (≤20), 1 aktivasi/siklus, lockout, recovery 1–2 siklus; kondisional berbasis headway/keterlambatan ≥2 mnt.
 - EVP: preempt rata-rata 25 s; efek pulih 1 siklus; bertingkat hanya bila target respons terancam.
@@ -75,10 +76,11 @@ Terakhir diperbarui: 2026-09-14 (perubahan kritikal: T2 = Vision Tracker + Optim
 - Perintah Bash sangat panjang (>~5 KB) gagal "unexpected EOF" → pakai Write tool / file daftar URL.
 - Diagram alur: ubah data di `docs/planning/diagram/make_diagrams.py` lalu jalankan ulang; panah dirutekan siku otomatis dan skrip juga menghasilkan potongan markdown untuk 06 dan 14.
 - Versi docx/PDF: `docs/planning/docx/build_docx.py` (lokal, tidak dipush); sumber sederhana di `docs/planning/docx/src/`.
-- Jam di log sesi harus diambil dari jam sistem (`date`), bukan diperkirakan (koreksi di LOG T-43).
+- Jam di log sesi harus diambil dari jam sistem (`date`), bukan diperkirakan (koreksi di LOG T-43). Di Git Bash, `TZ=Asia/Jakarta date` menampilkan jam UTC; pakai `date` biasa atau `Get-Date` di PowerShell.
+- Jalur scratchpad sesi sangat panjang; salin atau cadangkan berkas ke sana bisa gagal karena batas 260 karakter Windows (LOG T-65). Cadangan cukup dari git (HEAD).
 - `pdftotext -layout` untuk ekstraksi; grafik/tabel gambar tidak terekstraksi (catat sebagai "perlu digitalisasi").
 
 ## 7. Yang belum selesai / tindak lanjut (lihat KB-10 §C & LOG §2)
-- Terbaru (2026-09-14): user menyiapkan rekaman sesuai `docs/planning/13` (register sumber, rekaman satu simpang, klip latih dan uji, hitungan manual, geometri, waktu lampu eksisting); planning rinci T1; ADR-19…ADR-25; Q-12…Q-15 di KB-10.
+- Terbaru (2026-09-15): user sedang mencari sumber rekaman sesuai `docs/planning/13` (register sumber, rekaman satu simpang, klip latih dan uji, hitungan manual, geometri, waktu lampu eksisting); planning rinci T1; ADR prioritas sebelum sprint 1 (ADR-01, 02, 03, 15, 19, 20, 21, 22, 25); Q-12…Q-15 di KB-10; nilai Formulir SA-IV dan SA-V contoh PKJI 2023 Lampiran 12.5 perlu dibaca dari PDF untuk uji regresi.
 - Data lokasi ATCS Jakarta (portal timeout); NTCIP 1202 v03 & 1211; PM 67/2021; Pergub DKI turunan MRLL/ERP; Perdirjen tata cara waktu siklus; NCHRP Synthesis 403 (NAP login); metode klaim kinerja ITCS DKI; digitalisasi grafik PKJI (tipe O, FG, NqMAX) & Q-11 notasi Nq1.
-- Erratum yang sudah dicatat di R0x (jangan bingung saat membaca): R05 §C "PM 76 tidak dapat dikaji" → usang, lihat R00 §C; R03 §C.2 kode hi-res kini terverifikasi tabel resmi Purdue (lihat KB-06 §C).
+- Erratum yang sudah dicatat di R0x (jangan bingung saat membaca): R05 §C "PM 76 tidak dapat dikaji" → usang, lihat R00 §C; R03 §C.2 kode hi-res kini terverifikasi tabel resmi Purdue (lihat KB-06 §C); R07 memakai tahap dan rekomendasi pilot skema 2026-09-12 (erratum di kepala R07, 2026-09-15). R01 sampai R06 tidak memakai tag tahap.

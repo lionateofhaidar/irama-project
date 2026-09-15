@@ -158,6 +158,11 @@ Arus SMP per jam = jumlah kendaraan per kelas × EMP. EMP PKJI 2023 untuk simpan
 
 Mode MKJI 1997 menjalankan rantai yang sama dengan faktor dan EMP MKJI untuk dibandingkan dengan studi lama. Uji regresi memakai angka studi lama sebagai pembanding per baris formulir.
 
+Uji regresi kalkulator memakai dua contoh resmi dengan cara berikut.
+
+- **Contoh PKJI 2023 Lampiran 12.5** (contoh 1 Jl. Iskandarsyah dan Jl. Wijaya, Jakarta, dengan pengaturan empat fase dan tiga fase; contoh 2 perencanaan simpang APILL baru). Contoh ini memakai EMP dan faktor PKJI 2023, sehingga dijalankan dari data Formulir SA-I sampai SA-III lalu dibandingkan dengan Formulir SA-IV, SA-V, dan Tabel 12-9. Untuk contoh 1 empat fase, nilai acuannya RAS 0,777, siklus 117 detik, DJ 0,88, dan tundaan rata-rata 51,2 detik/SMP. Nilai Formulir SA-IV dan SA-V dibaca dari berkas PDF karena teks ekstraksinya bertumpuk. Contoh ini juga dipakai untuk memeriksa Q-11 (Nq1 dengan kapasitas C) dan hasil digitalisasi grafik (F-T1-17).
+- **Contoh Kep. Dirjen 273/1996 Bab X** (Yogyakarta, dua fase, semua pendekat terlawan). Contoh ini memakai EMP tahun 1996, yaitu kendaraan tak bermotor dikonversi 0,5 atau 1,0 dan ikut dihitung dalam arus, serta arus jenuh dasar tipe O dari grafik. PKJI 2023 tidak mengonversi KTB ke SMP. Karena itu uji T1 memasukkan arus (SKR/jam) dan arus jenuh terkoreksi per pendekat dari Formulir APILL-IV contoh itu, lalu memeriksa bagian rumus yang sama di kedua pedoman: rasio arus simpang sekitar 0,67, siklus 70 detik, hijau 28 dan 30 detik, kapasitas pendekat utara 824 SKR/jam, dan DJ 0,44. Uji dari LHR sampai kinerja memerlukan set parameter Dirjen 273/MKJI dan grafik tipe O, sehingga dijalankan bersama mode MKJI di T2 (F-T2-162).
+
 Kapasitas per arah ditampilkan sebagai berikut. Bila gerakan memiliki lajur khusus, kapasitas dihitung untuk lajur itu. Bila lajur dipakai bersama, kapasitas pendekat dibagi menurut porsi arus gerakan dan ditandai sebagai kapasitas bersama.
 
 ### 4.5 Mode optimasi yang dapat dipilih
@@ -255,7 +260,7 @@ Setiap halaman memiliki filter yang sama: simpang, tanggal atau set rekaman, jen
 
 | Tahap | Kriteria |
 |---|---|
-| T1 | satu simpang dari rekaman: tabel hitungan enam kelas per pendekat per 15 menit; akurasi sekitar 90% siang pada klip uji; kalkulator PKJI lolos uji terhadap contoh resmi Dirjen 273/1996; rekomendasi mode Webster/PKJI dengan validator; dashboard dasar; demo ujung ke ujung berjalan di laptop |
+| T1 | satu simpang dari rekaman: tabel hitungan enam kelas per pendekat per 15 menit; akurasi sekitar 90% siang pada klip uji; kalkulator PKJI lolos uji terhadap contoh resmi PKJI 2023 (Lampiran 12.5) dan Dirjen 273/1996 dengan cara di bagian 4.4; rekomendasi mode Webster/PKJI dengan validator; dashboard dasar; demo ujung ke ujung berjalan di laptop |
 | T2 | satu simpang lengkap semua lengan; akurasi 90% siang dan 85% malam/hujan; arah gerakan, hambatan samping empat jenis, pembacaan nyala lampu, antrian dasar; mode stream teruji dengan rekaman yang diputar ulang; lima mode optimasi; periode otomatis dan manual; wizard konfigurasi; tiga halaman dashboard; laporan Word/PDF; validasi SUMO; manfaat rupiah; seluruhnya berjalan di laptop tanpa pengadaan |
 
 ## 8. Keterkaitan dengan dokumen lain

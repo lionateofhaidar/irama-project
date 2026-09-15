@@ -29,7 +29,7 @@ Tujuan file ini: menjadi "kontrak" antara fase pra-perencanaan (selesai) dan fas
 2. Kota/koridor pilot pertama dan mitra Dishub (rekomendasi: kota Bodetabek yang sudah punya ATCS dasar & dekat, atau Bandung karena urgensi TomTom #12).
 3. Bangun controller sendiri atau integrasi saja (rekomendasi: integrasi; pusat + edge; controller dari vendor NTCIP).
 4. Model lisensi: open-core vs proprietary; hosting on-prem vs cloud (rekomendasi: inti open-source lisensi permisif untuk adaptor/standar, modul bernilai jual proprietary; on-prem default untuk pemda).
-5. Stack teknologi (rekomendasi awal di `06`; putuskan lewat ADR-001…).
+5. Stack teknologi (rekomendasi awal di `06`; putuskan lewat ADR-02 sampai ADR-05 dan ADR-19 sampai ADR-25 menurut `06` bagian 8).
 6. Tim & peran minimum (rekomendasi: 1 traffic engineer, 2 backend, 1 frontend, 1 edge/IoT, 1 data/ML paruh waktu, 1 PM/QA) [asumsi].
 7. Entitas hukum, TKDN, pendanaan (di luar lingkup teknis; lihat `03`).
 
@@ -50,7 +50,7 @@ Status 2026-09-14: semua butir di atas sudah diputuskan (`docs/kb/10` bagian B d
 
 ## 4. Urutan kerja yang disarankan untuk sesi planning
 1. Baca `docs/kb/00_START_HERE.md` → `R00 §K` → `04_Konsep_Tahapan` → `08` (jawab pertanyaan terbuka).
-2. Tetapkan nama, pilot, model lisensi, stack (ADR-001–005).
+2. Tetapkan nama, pilot, model lisensi, stack (ADR-01 sampai ADR-05; sudah diputuskan user, tinggal ditulis sebagai ADR).
 3. Tulis ConOps T1–T2 dulu (T3–T5 sebagai outline), lalu SRS T1–T2 lengkap.
 4. Rancang skema tabel Vision Tracker dan mesin PKJI (ADR-20, ADR-21) untuk T1–T2; model data NTCIP, CAI, dan adaptor menyusul untuk T3–T4.
 5. Susun backlog T1 dalam sprint; demo T1 adalah satu simpang dari rekaman sampai hitungan, rekomendasi, dan dashboard dasar (`04` bagian 2, `13`).

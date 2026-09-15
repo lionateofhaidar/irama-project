@@ -1,6 +1,6 @@
 # 05 — Kartu Algoritma & Mode Kendali
 
-**Cara pakai.** Satu kartu per algoritma/mode kendali sinyal. Bidang: Tujuan · Input/detektor · Parameter & default · Pseudocode · Constraint/guard-rail · Bukti kinerja · Kesiapan deploy · Tahap saran · Cara uji. Angka hanya dari sumber (tag dalam kurung). Nilai default adalah **titik awal** dari praktik luar negeri/pedoman Indonesia; belum ada angka kalibrasi Jakarta dalam korpus. Lihat pohon keputusan dan hierarki fallback di akhir.
+**Cara pakai.** Satu kartu per algoritma/mode kendali sinyal. Bidang: Tujuan · Input/detektor · Parameter & default · Pseudocode · Constraint/guard-rail · Bukti kinerja · Kesiapan deploy · Tahap saran · Cara uji. Angka hanya dari sumber (tag dalam kurung). Nilai default adalah **titik awal** dari praktik luar negeri/pedoman Indonesia; belum ada angka kalibrasi Jakarta dalam korpus. Lihat pohon keputusan dan hierarki fallback di akhir. Bidang "Tahap" mengikuti tahapan kanonis `docs/planning/04` dan diselaraskan pada 2026-09-15 dengan `docs/planning/05`; nilai yang berubah ditandai "(dulu …)" menurut skema lama 2026-09-12. Sampai T3 IRAMA hanya merekomendasikan jadwal (K-01); kartu kendali K-02 sampai K-14 baru aktif saat kendali tersambung di T4 atau T5.
 
 Tag: STM2 = NCHRP 812 (R01); TSTM = FHWA 2008 (R01); MSE = FHWA HOP-11-027 (R02); T414 = NCHRP 20-07/414 (R02); Dirjen273 = Kep. Dirjen 273/1996 (R00 G); PKJI = PKJI 2023 (R05 D); PM49/PM96 = Permenhub (R00); NTCIP = R03 A; SUMO = R03 B; ATSPM = R03 C; paper = R04 A.x.
 
@@ -13,8 +13,8 @@ Tag: STM2 = NCHRP 812 (R01); TSTM = FHWA 2008 (R01); MSE = FHWA HOP-11-027 (R02)
 - **Pseudocode:** hitung S/J per pendekat → FR=q/J → FR_crit per fase → IFR=ΣFR_crit → LT=Σ(kuning+all-red) → c=(1,5·LT+5)/(1−IFR) → g_i=(c−LT)·PR_i → C=S·g/c → DJ; jika DJ>0,85 ubah fase/lebar/larangan belok → ulangi. Simpan sebagai pattern (cycle, split, offset, sequence) per TOD.
 - **Guard-rail:** tinjau ulang timing ≥1×/3 bulan (Dirjen273 I.H); retiming ≤3 tahun (NTOC); jangan siklus panjang untuk "menambah kapasitas" (120→180 s hanya +2 % kapasitas, TSTM Gb.6-16; hijau >30 s menurunkan arus jenuh, STM2 12-7).
 - **Bukti:** retiming saja −10 % delay (TSTM); B/C 40:1 (NCDOT); fixed-time bisa lebih baik dari adaptif pada volume rendah (TSTM §9.4).
-- **Kesiapan:** sangat tinggi. **Tahap:** T1 (kalkulator & plan mgmt), T2 (TOD via central).
-- **Uji:** hitung ulang contoh Yogyakarta Dirjen273 Bab X (c=70 s, g1=28, g2=30, DS=0,44) sebagai test case; SUMO static tlLogic + ATSPM split monitor.
+- **Kesiapan:** sangat tinggi. **Tahap:** T1 (kalkulator dan rekomendasi Webster), T2 (≥8 jadwal rekomendasi dan editor jadwal), **T4** (TOD lewat pusat) (dulu T1 kalkulator & plan mgmt, T2 TOD via central).
+- **Uji:** contoh resmi PKJI 2023 Lampiran 12.5 (contoh 1 dan 2) dengan parameter PKJI; contoh Yogyakarta Dirjen273 Bab X (c=70 s, g1=28, g2=30, C=824, DS=0,44) dijalankan dengan arus (SKR/jam) dan arus jenuh dari contoh itu karena EMP dan perlakuan KTB tahun 1996 berbeda (`docs/planning/15` bagian 4.4); SUMO static tlLogic + ATSPM split monitor.
 
 ## K-02 Actuated ring-barrier (fully/semi-actuated) + volume-density
 - **Tujuan:** merespons kehadiran kendaraan; near-optimal delay untuk kedatangan acak di simpang terisolasi (STM2 §3.1.2; taxonomy §II.2).
@@ -23,7 +23,7 @@ Tag: STM2 = NCHRP 812 (R01); TSTM = FHWA 2008 (R01); MSE = FHWA HOP-11-027 (R02)
 - **Pseudocode (per fase aktif):** `if minGreen expired AND conflictingCall AND passageTimer expired → gap-out; elif greenTime ≥ max (dengan conflicting call) → max-out; passageTimer reset tiap aktuasi; setelah TBR/CBR, allowableGap turun linier ke minGap`. Dual entry & simultaneous gap sesuai flag NTCIP phaseOptions.
 - **Guard-rail:** detektor gagal → continuous call → max recall (STM2 6-8); ped clearance tidak dipotong max green (6-17); LPI ≥3 s.
 - **Bukti:** state of practice; ASCT unggul vs semi-actuated −34,9 % delay, vs fully-actuated −24,1 % (T414 hlm.69–70) — artinya actuated yang ditala baik sudah dekat.
-- **Kesiapan:** sangat tinggi (fungsi controller). **Tahap:** T3 di digital twin & controller NTCIP; T4 lapangan luas.
+- **Kesiapan:** sangat tinggi (fungsi controller). **Tahap:** **T4** (dulu T3 di digital twin & controller NTCIP; T4 lapangan luas).
 - **Uji:** SUMO `type="actuated"`/`NEMA` (minDur/maxDur/vehext) + ATSPM phase termination (gap/max ratio).
 
 ## K-03 Actuated-coordinated (COS + force-off/permissive) & transisi
@@ -33,7 +33,7 @@ Tag: STM2 = NCHRP 812 (R01); TSTM = FHWA 2008 (R01); MSE = FHWA HOP-11-027 (R02)
 - **Pseudocode:** `localZero = masterClock − offset; tiap fase non-koord: terminasi maks di forceOff_i; fase koord dijamin hijau minimum = split − yield; saat pattern berubah: pilih dwell/add/subtract/shortway → geser ≤20 %/siklus hingga |Δoffset|<ε`.
 - **Guard-rail:** jangan koordinasi terlalu malam (keluhan minor street); early return to green → geser offset/fixed force-off; ped tak cukup split → transisi lebih baik daripada layani ped tiap siklus (§7.5.1).
 - **Bukti:** NCDOT target −40 % travel time koridor baru, −20 % retimed; transisi = periode paling tidak efisien (NCDOT Tab.3).
-- **Kesiapan:** sangat tinggi. **Tahap:** T3 (koridor pilot), T4.
+- **Kesiapan:** sangat tinggi. **Tahap:** **T4** (offset dasar dan green wave sederhana), **T5** (koordinasi koridor penuh) (dulu T3 koridor pilot, T4).
 - **Uji:** SUMO NEMA `coordinate-mode` + `setNemaOffset`; ATSPM PCD/AoG, Link Pivot; KPI jumlah & durasi transisi.
 
 ## K-04 Traffic Responsive Plan Selection (TRPS) — 1-GC
@@ -43,7 +43,7 @@ Tag: STM2 = NCHRP 812 (R01); TSTM = FHWA 2008 (R01); MSE = FHWA HOP-11-027 (R02)
 - **Pseudocode:** target-based: `err_j = Σ_i w_i·|(V_i+K·O_i) − T_ij|; pilih j dengan err terkecil jika < x % dari plan berjalan`; threshold-based: `CC = Σ w_i(V_i+K·O_i); indeks cycle ∝ volume arteri, split ∝ rasio arteri/minor, offset ∝ inbound/outbound; ganti bila CC melewati ambang masuk & tetap di atas ambang keluar`.
 - **Guard-rail:** terlalu banyak detektor gagal → TRPS nonaktif; lambat merespons insiden mendadak.
 - **Bukti:** kualitatif (manual); efektif untuk perubahan besar & persisten.
-- **Kesiapan:** tinggi (fitur central/master). **Tahap:** T3.
+- **Kesiapan:** tinggi (fitur central/master). **Tahap:** **T4** (dulu T3).
 - **Uji:** SUMO WAUT/`setProgram` dipicu skrip; validasi frekuensi pergantian.
 
 ## K-05 Adaptif generasi-2 ala SCOOT/SCATS (split/offset/cycle optimizer, hierarkis)
@@ -53,7 +53,7 @@ Tag: STM2 = NCHRP 812 (R01); TSTM = FHWA 2008 (R01); MSE = FHWA HOP-11-027 (R02)
 - **Pseudocode (generik "download parameter"):** `tiap siklus: ukur DS/queue per pendekat → split_baru = argmin ΣDS dalam ±5 s → offset_baru = argmin stops dari CFP → cycle_region = f(DS maks, 90 %) → download pattern; controller tetap gap-out/force-off`. Alternatif "override": kirim hold/force-off tiap detik (rolling horizon 60 s/5 s).
 - **Guard-rail:** parameter terkunci (sequence/skip), min/max, kembali ke TOD bila detektor/komunikasi gagal (MSE Req 2.1.1.0-x).
 - **Bukti:** manfaat rata-rata ≥10 %, hingga ≥50 % pada timing usang/jenuh (EDC-1); SCOOT Toronto delay −17 %, stops −22 %; SCATS Oakland County travel time −6,7 %, stops −26,5 %; T414: stops −7,8 % … split failure −85 %, side-street delay +3,4 %, crashes −35 %. Lebih baik pada AADT 35–55 ribu daripada >55 ribu.
-- **Kesiapan:** produk komersial (proprietary). **Tahap:** T4 (bila membeli/menyamai), atau diganti K-06 sebagai versi terbuka.
+- **Kesiapan:** produk komersial (proprietary). **Tahap:** tidak dibangun; kemampuan setara di T4 memakai K-02 sampai K-04 dan pembagian hijau dengan batas perubahan per siklus, produk komersial hanya pembanding, dan K-06 di T5 (dulu T4 bila membeli/menyamai, atau diganti K-06 sebagai versi terbuka).
 - **Uji:** SIL di SUMO + ATSPM sebagai observer independen (HOP-20-002 p.29); on/off bergantian hari.
 
 ## K-06 Cyclic Max-Pressure terkoordinasi (Tsitsokas 2022) + node selection + perimeter control
@@ -64,7 +64,7 @@ Tag: STM2 = NCHRP 812 (R01); TSTM = FHWA 2008 (R01); MSE = FHWA HOP-11-027 (R02)
 - **Guard-rail:** urutan fase tetap; cycle/offset tidak diubah oleh MP; rate-limit; fallback ke split TOD bila data hilang; hindari MP 100 % node pada high demand (gain ≈0).
 - **Bukti (Barcelona 565 simpang, mesoscopic):** medium demand VHT −14,5 % (10 % node), −18,8 % (25 %), −10,6 % (100 %); high demand MP 100 % −0,2 %, PC −7,6 %, PC+MP25 % −15,6 %. sumolights: MP travel time 59 s vs DQN 78, DDPG 72, Webster 71, SOTL 158 (R03 B.10). CityLight: MP mengalahkan semua baseline RL lain (A.13).
 - **Kesiapan:** tinggi (heuristik sederhana; uji lapangan TT-MP dilaporkan A.4/A.7; Barcelona = simulasi).
-- **Tahap:** T3 (1–2 koridor pilot, shadow → live off-peak), T4 (jaringan + PC).
+- **Tahap:** **T5** (dulu T3 1–2 koridor pilot, shadow → live off-peak; T4 jaringan + PC).
 - **Uji:** SUMO NEMA + `setNemaSplits` per siklus; ATSPM split failure/AoG; bandingkan vs K-03 on/off.
 
 ## K-07 D-MP / probe-based Max-Pressure (Liu & Gayah 2022)
@@ -82,7 +82,7 @@ Tag: STM2 = NCHRP 812 (R01); TSTM = FHWA 2008 (R01); MSE = FHWA HOP-11-027 (R02)
 - **Pseudocode:** `w(l,m) = occ_upstream · [x(l,m) − Σ r·x(m,n)]⁺; P_φ = Σ w·C·S; pilih φ*=argmax P (acyclic) atau alokasikan split (cyclic)`. Transit-MP: `state_up = Σ δ_v·p_v·τ_v; state_down = Σ δ_v·τ_v`; tanpa CV → estimasi historis.
 - **Guard-rail:** jangan konstanta prioritas absolut (RB-MP: mobil +3,5–25,8 %); bus di halte tidak memicu; batasi frekuensi per siklus; ped minimum.
 - **Bukti:** OCC-MP: bus −14,5 %/−7,5 %, mobil +0,36–2,64 %, PTT −0,1…−3,6 %; Transit-MP: passenger delay −31,6 % (efek halte) lalu −17,9 %; spillover −94 %; bekerja hingga penetrasi 0,1 (mTransit-MP).
-- **Kesiapan:** sedang–tinggi (butuh AVL/APC — TransJakarta punya). **Tahap:** T3 rule-based (green ext/early green + AVL headway), T4 OCC/Transit-MP di atas K-06.
+- **Kesiapan:** sedang–tinggi (butuh AVL/APC — TransJakarta punya). **Tahap:** **T4** berbasis aturan (K-09), **T5** OCC/Transit-MP di atas K-06 (dulu T3 rule-based, T4 OCC/Transit-MP).
 - **Uji:** SUMO custom condition bus (`d:`/`z:` detektor busType) → lalu TraCI; KPI bus delay, passenger delay, side-street delay.
 
 ## K-09 TSP rule-based (green extension / early green) — TSP Handbook
@@ -92,7 +92,7 @@ Tag: STM2 = NCHRP 812 (R01); TSTM = FHWA 2008 (R01); MSE = FHWA HOP-11-027 (R02)
 - **Pseudocode:** `on check-in(bus): if !eligible(bus) return; if phase_bus == GREEN and remaining < ext_max → extend ≤ ext_max until check-out; elif RED → truncate non-priority phases to min (respect ped) → early green; set lockout(next cycle); log request`.
 - **Guard-rail:** Y/R & ped tak dipotong; detik prioritas tertulis di MoU; EV preempt meng-override.
 - **Bukti:** bus travel time −10…−25 %, variabilitas −19…−50 %, signal delay −40 % (dengan retiming); dampak mobil "1 s/kendaraan/siklus".
-- **Kesiapan:** sangat tinggi. **Tahap:** T3.
+- **Kesiapan:** sangat tinggi. **Tahap:** **T4** (dulu T3).
 - **Uji:** SUMO condition `earlyTarget="NSbus"`; ATSPM preemption/priority details; before–after bus travel time dari AVL.
 
 ## K-10 EVP bertingkat (Humagain & Sinha 2020) + urutan NTCIP preempt
@@ -102,7 +102,7 @@ Tag: STM2 = NCHRP 812 (R01); TSTM = FHWA 2008 (R01); MSE = FHWA HOP-11-027 (R02)
 - **Pseudocode:** `on EV_update: Δ = d/v_now − t_target; if Δ>0: reserve green at next intersections along route; if conflict with other EV at node → conflict graph → serve higher level/earlier; if current phase green → extend, else → transition (respect Y/R) → dwell until check-out → exit → recovery`.
 - **Guard-rail:** durasi preempt tipikal ~25 s; pemulihan koordinasi bisa 30 s–7 menit (peringatan); preempt confirmatory light; cakupan: pemadam wajib, ambulans per kebijakan, VVIP terkonfigurasi (PM 76 Ps.7(4)a).
 - **Bukti:** EV 96 % tepat target; antrian −36 % vs absolute preemption; non-EV wait ≈ tanpa preemption (A.18); EVP menurunkan response time −14…−23 %, kecelakaan EV −71 % (FHWA HOP-24-019).
-- **Kesiapan:** tinggi (system-based EVP lebih murah). **Tahap:** T3 (preempt dasar via NTCIP/central), T4 (bertingkat + CAD).
+- **Kesiapan:** tinggi (system-based EVP lebih murah). **Tahap:** T3 (deteksi kendaraan prioritas dari kamera), **T4** (preempt dasar dan bertingkat dengan CAD) (dulu T3 preempt dasar via NTCIP/central, T4 bertingkat + CAD).
 - **Uji:** SUMO + skenario EV; KPI response time dari CAD, side-street recovery ≤1 siklus.
 
 ## K-11 RL sebagai advisor (PPO ring-barrier, veto statistik, shadow mode)
@@ -121,7 +121,7 @@ Tag: STM2 = NCHRP 812 (R01); TSTM = FHWA 2008 (R01); MSE = FHWA HOP-11-027 (R02)
 - **Pseudocode (deteksi gejala):** `if occupancy_stopbar ≥ x selama y siklus ∧ ROR5 tinggi → overflow; if downstream link occupancy ≥ z → spillback (de facto red) → aktifkan offset anti-spillback/gating; recovery: flush plan hingga antrian < ambang`.
 - **Guard-rail:** minimalkan delay tidak realistis saat jenuh; throughput input vs output; ped tetap dilayani.
 - **Bukti:** kualitatif (manual); Makassar: ATCS menurunkan tundaan tapi LOS tetap F pada DS ≈1,1 (R06 E.1).
-- **Kesiapan:** tinggi (rule-based + operator). **Tahap:** T4.
+- **Kesiapan:** tinggi (rule-based + operator). **Tahap:** **T5** (dulu T4).
 - **Uji:** SUMO skenario high demand; KPI throughput, spillback count, queue ratio.
 
 ## K-13 Special-condition plans (cuaca, insiden, event, evakuasi)
@@ -129,7 +129,7 @@ Tag: STM2 = NCHRP 812 (R01); TSTM = FHWA 2008 (R01); MSE = FHWA HOP-11-027 (R02)
 - **Parameter:** cuaca: +1–2 s red clearance, +min green tanjakan, recall bila deteksi rusak, weather plan (UDOT −30 % FFS; event >20 menit); insiden: alternate route, flush/contingency plan, aktivasi berdasarkan durasi/lajur tertutup/kecepatan rata-rata/konfirmasi; deaktivasi bila bersih/rute alternatif memburuk; event: +larangan parkir, contraflow, debrief.
 - **Pseudocode:** `if trigger(speed<thr ∧ confirmed_incident) → activate plan_k (koridor) → monitor → if deactivation criteria → return to TOD/adaptive (transition)`.
 - **Guard-rail:** MoU lintas yurisdiksi; validasi plan off-peak; ≥1 teknisi sinyal di tim event.
-- **Kesiapan:** tinggi. **Tahap:** T3.
+- **Kesiapan:** tinggi. **Tahap:** T3 (deteksi kejadian pemicu), **T4** (aktivasi plan khusus) (dulu T3).
 - **Uji:** simulasi insiden di SUMO; drill.
 
 ## K-14 Green wave / koordinasi arteri (MAXBAND konsep, Link Pivot, probe-based tuning)
@@ -138,12 +138,14 @@ Tag: STM2 = NCHRP 812 (R01); TSTM = FHWA 2008 (R01); MSE = FHWA HOP-11-027 (R02)
 - **Metode:** offset satu arah t_ij = L_ij/v; dua arah MAXBAND (MILP) [konsep]; alternate/quarter-cycle offset (Portland 60 s/13 mph); **Link Pivot ATSPM**: Link Delta per pasangan simpang → akumulasi → new offset (butuh advance detection & rute terurut); **probe-based** (Mahmud & Day): cyclic TSD (τ=t mod C), PPD, SOFT, heat map dari data 3–6 % penetrasi diagregasi 4 minggu — cycle length harus persis.
 - **Guard-rail:** actuated murni merusak green wave → pakai actuated-coordinated/cyclic MP; koridor panjang dipecah dengan programmed stop; bandwidth idealisasi (abaikan dispersi/antrean hilir).
 - **Bukti:** PCD offset AoG 53,2 % → 86,6 % (STM2 Exh.8-14/15); US-17 AoG 59 % → 66 % (NCDOT); teori: greenwave serentak dengan offset unik optimal pada arteri fluid (A.11); GLOSA hemat BBM hingga 15–20 % (A.8, sekunder).
-- **Kesiapan:** tinggi. **Tahap:** T2 (evaluasi probe & PCD), T3 (Link Pivot & offset update).
+- **Kesiapan:** tinggi. **Tahap:** **T4** (offset dasar dan green wave sederhana, termasuk rute VIP), **T5** (Link Pivot, penalaan offset dari probe, bandwidth) (dulu T2 evaluasi probe & PCD, T3 Link Pivot & offset update).
 - **Uji:** SUMO NEMA `setNemaOffset`; ATSPM PCD/AoG sebelum–sesudah.
 
 ---
 
 ## Pohon keputusan pemilihan mode per simpang (usulan)
+Pohon ini berlaku sejak kendali tersambung di T4. Langkah 4 dan 5 (K-06, perimeter, K-12) serta K-08 di langkah 6 baru tersedia di T5. Sampai T3 keluaran IRAMA hanya rekomendasi jadwal K-01 yang diterapkan petugas.
+
 1. **Ada detektor sehat?** Tidak → K-01 TOD (≥8 plan) + K-13; jadwalkan retrofit deteksi. Ya → lanjut.
 2. **Simpang terisolasi (jarak ke tetangga >1 km / bukan bagian grup ≥3 simpang)?** Ya → K-02 fully-actuated (+K-09 bila ada bus). Tidak → lanjut (kandidat ATCS per PM 96 Lamp. II.F.e).
 3. **Koridor terkoordinasi:** default K-03 actuated-coordinated dengan pattern TOD; tambahkan K-04 TRPS bila variasi besar & persisten; K-14 untuk penalaan offset (probe/PCD).
@@ -153,7 +155,7 @@ Tag: STM2 = NCHRP 812 (R01); TSTM = FHWA 2008 (R01); MSE = FHWA HOP-11-027 (R02)
 7. **Rute darurat (Damkar/ambulans):** K-10; hierarki preempt > priority > adaptif.
 8. **Semua mode:** K-11 RL hanya shadow/advisor; K-13 plans khusus; guard-rail K-01…K-03 tetap aktif di controller.
 
-## Hierarki fallback (wajib diimplementasikan di semua tahap)
+## Hierarki fallback (wajib sejak kendali tersambung di T4; sampai T3 controller berjalan dengan jadwalnya sendiri)
 `Adaptif (K-05/K-06) → Central TOD/TRPS (K-01/K-04) → Signal System Master / lokal TOD (≥8 plan, PM49) → Free actuated (K-02) → Flash (conflict/fault, SK 7234) → Manual petugas (UU Ps.104)`. Pemicu turun: detektor gagal > ambang, komunikasi putus (backup timer), adaptive processor gagal, occupancy ekstrem, perintah operator/jadwal/eksternal (MSE Req 2.1.1.0-1..6). Setiap transisi otomatis, ter-log, ter-alarm, dan dilaporkan sebagai KPI.
 
 ---

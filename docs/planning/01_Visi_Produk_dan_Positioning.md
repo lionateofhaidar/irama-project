@@ -135,7 +135,7 @@ Daftar ini menjelaskan istilah yang sering muncul di dokumen perencanaan IRAMA d
 | SMP (satuan mobil penumpang) | Satuan hitung arus setelah semua jenis kendaraan disetarakan dengan mobil memakai EMP. Contohnya, satu motor di arah terlindung dihitung 0,15 SMP. |
 | Split failure | Kejadian ketika waktu hijau habis sebelum antrian terlayani, sehingga sebagian kendaraan harus menunggu satu siklus lagi. Makin sering terjadi, makin besar tanda waktu hijau perlu ditambah. |
 | Tundaan | Tambahan waktu perjalanan yang dialami kendaraan karena melewati simpang, dihitung dalam detik per kendaraan. Tundaan rata-rata simpang menjadi dasar kelas LOS resmi dan tujuan utama optimasi IRAMA. |
-| Uji regresi | Pengujian ulang secara otomatis bahwa hasil hitungan tetap sama dengan contoh yang sudah diketahui jawabannya, setiap kali program diubah. Di IRAMA kalkulator PKJI diuji terhadap contoh resmi Kep. Dirjen 273/1996, dan mode MKJI diuji terhadap studi lama. |
+| Uji regresi | Pengujian ulang secara otomatis bahwa hasil hitungan tetap sama dengan contoh yang sudah diketahui jawabannya, setiap kali program diubah. Di IRAMA kalkulator PKJI diuji terhadap contoh resmi PKJI 2023 dan Kep. Dirjen 273/1996, dan mode MKJI diuji terhadap studi lama. |
 | UMK | Upah minimum kabupaten atau kota yang ditetapkan gubernur setiap tahun. IRAMA memakai UMK sebagai dasar sederhana untuk menghitung nilai waktu perjalanan dalam rupiah. |
 | Webster | Rumus klasik untuk menghitung waktu siklus yang menghasilkan tundaan kecil, kemudian dibagi menjadi waktu hijau sesuai beban setiap fase. Rumus ini dipakai di PKJI 2023 dan menjadi salah satu mode optimasi di IRAMA. |
 
